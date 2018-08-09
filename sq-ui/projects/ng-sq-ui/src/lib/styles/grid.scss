@@ -1,0 +1,34 @@
+.grid {
+  //if the browser supports either css grid or flexbox
+  @supports (display: grid) or (display: flex) {
+    &.css-grid {
+      @include css-grid(12, 10px, 20px);
+
+      &.auto-col-width {
+        @include css-grid('auto', 10px, 20px);
+      }
+    }
+
+    &.css-flexbox {
+      //by default, the flexbox grid consist of 12 columns
+      @include flexbox-grid(12, 10px, 20px);
+
+      //if the user adds an "auto-col-width" class
+      //then the columns will have dynamic width
+      //determined by the browser
+      &.auto-col-width {
+        @include flexbox-grid('auto', 10px, 20px);
+      }
+    }
+  }
+
+  //if the user is unfortunate and still lives in the 90's
+  @supports not((display: grid) and (display: flex)) {
+    @include float-grid(12, 10px, 20px);
+  }
+
+}
+
+
+
+

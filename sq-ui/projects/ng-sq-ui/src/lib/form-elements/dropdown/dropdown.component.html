@@ -1,0 +1,20 @@
+<div class="input-field dropdown"
+     [ngClass]="{'disabled': disabled}"
+     sqOutsideClickListener
+     [listenForOutsideClick]="listenForOutsideClick"
+     (clickOutside)="onClickOutsideComponent()"
+     (click)="toggleOptionsDropdown();">
+
+  <div class="label">{{controlLabel}}</div>
+  <div class="chosen-item" *ngIf="value">{{value.label}}</div>
+  <div class="input-placeholder" *ngIf="!value">{{controlPlaceholder}}</div>
+
+  <i class="fa fa-chevron-down dropdown-icon" aria-hidden="true"></i>
+  <div class="options" *ngIf="showOptions">
+    <div class="option"
+         *ngFor="let option of options"
+         (click)="selectOption(option)">
+      {{option.label}}
+    </div>
+  </div>
+</div>

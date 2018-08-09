@@ -1,0 +1,13 @@
+<div class="checkable"
+     [ngClass]="{'checked': isSelected, 'disabled': disabled}"
+     (click)="toggleCheckboxSelection()">
+  <div class="checkbox">
+    <input type="checkbox"
+           name="{{name}}"
+           id="{{controlId}}"
+           [disabled]="disabled"
+           [ngModel]="isSelected">
+    <div class="inner"></div>
+  </div>
+  <div class="label">{{controlLabel}}</div>
+</div>

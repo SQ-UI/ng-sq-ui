@@ -1,0 +1,23 @@
+@import "../../styles/colors";
+
+.sq .input-field.dropdown  {
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  .options {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .options .option {
+    padding: 5px 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: $box-shadow-color;
+    }
+  }
+  .dropdown-icon {
+    position: absolute;
+    right: 11px;
+    top: 11px;
+  }
+}

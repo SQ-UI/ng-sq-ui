@@ -1,0 +1,113 @@
+
+::-webkit-input-placeholder, .input-placeholder {
+  color: $input-placeholder-color;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.input-field {
+  display: flex;
+  align-items: center;
+  border: 1px solid $base-form-element-color;
+  border-top: none;
+  border-right: none;
+  padding: 9px 10px;
+  margin-bottom: 20px;
+  transition: 300ms all ease-in;
+  input[type="text"] {
+    border: none;
+    background-color: transparent;
+  }
+  &.disabled {
+    background: $disabled-color;
+    border-color: $disabled-color;
+  }
+  & > .label {
+    font-weight: 500;
+    text-transform: uppercase;
+    padding-right: 10px;
+    color: $label-color;
+  }
+  &:not(.dropdown) .label {
+    flex: 1 0 auto;
+    justify-content: center;
+  }
+  &:hover, &:active, &:focus {
+    border-color: $base-form-element-color;
+    box-shadow: 3px 2px 7px $box-shadow-color;
+    .label, input {
+      color: $base-font-color;
+    }
+  }
+}
+
+.entered-item {
+  background-color: rgba(18, 125, 104, 0.3);
+  padding: 5px 9px;
+  margin-right: 10px;
+  margin-bottom: 6px;
+}
+
+.error {
+  .input-field {
+    position: relative;
+    border-color: $error-field-element-color;
+  }
+  .error-message {
+    transition: 300ms all ease-in;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    span {
+      color: $error-message-color;
+    }
+  }
+}
+
+.select-group {
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  .options {
+    width: 100%;
+    margin-top: 15px;
+    &.row {
+      display: flex;
+    }
+  }
+}
+
+.checkable {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  user-select: none;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  input[type="checkbox"], input[type="radio"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .inner {
+    opacity: 0;
+    position: relative;
+    transition: 200ms all cubic-bezier(0.22, 0.61, 0.36, 1);
+    height: 100%;
+    width: 100%;
+  }
+  &.checked .inner {
+    opacity: 1;
+    background-color: $base-form-element-color;
+  }
+  &.disabled .inner {
+    background-color: darken($disabled-color, 30%);
+  }
+}
