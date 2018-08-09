@@ -1,0 +1,30 @@
+@import "../../styles/colors";
+
+.sq {
+  .action-button {
+    position: relative;
+    padding: 5px 5px;
+    border: 1px solid $base-form-element-color;
+    font-weight: 500;
+    text-transform: uppercase;
+    background-color: #fff;
+    .inner {
+      display: inline-block;
+      padding: 10px 10px;
+      transition: 200ms all ease-in-out;
+    }
+    &:not(:disabled) .inner {
+      &:active, &:hover {
+        color: #fff;
+        transition: 200ms all ease-in-out;
+        background-color: $base-form-element-color;
+      }
+    }
+  }
+  .action-button:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    border-color: $disabled-color;
+    background-color: $disabled-color;
+  }
+}

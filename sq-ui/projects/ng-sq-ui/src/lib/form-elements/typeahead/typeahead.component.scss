@@ -1,0 +1,56 @@
+@import "../../styles/colors";
+
+.sq .typeahead-wrapper {
+  position: relative;
+  .loader {
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    background: linear-gradient(-45deg, rgba(76, 76, 76, 0.62), rgba(27, 163, 156, 0.5), rgba(18, 125, 104, 0.21), #fff) 0 0% / 200% 200%;
+    animation: typeahead-loader 1.8s ease infinite;
+  }
+}
+
+.sq .input-field.typeahead {
+  display: block;
+  position: relative;
+  input, .chosen-item, .content, .remove {
+    display: inline-block;
+    width: auto;
+  }
+  .remove {
+    cursor: pointer;
+    padding-left: 6px;
+  }
+  .options {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .options .option {
+    padding: 5px 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(18, 125, 104, 0.21);
+    }
+  }
+  .dropdown-icon {
+    position: absolute;
+    right: 11px;
+    top: 11px;
+  }
+  &.disabled .entered-item {
+    background-color: $disabled-color;
+  }
+}
+
+@keyframes typeahead-loader {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

@@ -1,0 +1,13 @@
+<div class="checkable"
+     [ngClass]="{'checked': isSelected, 'disabled': disabled}"
+     (click)="selectRadio()">
+  <div class="radio">
+    <input type="radio"
+           name="{{name}}"
+           id="{{controlId}}"
+           [disabled]="disabled"
+           [ngModel]="radioValue">
+    <div class="inner"></div>
+  </div>
+  <div class="label">{{controlLabel ? controlLabel : radioValue}}</div>
+</div>

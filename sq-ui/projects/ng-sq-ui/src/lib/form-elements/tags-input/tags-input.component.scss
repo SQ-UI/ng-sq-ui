@@ -1,0 +1,14 @@
+@import "../../styles/colors";
+
+.sq .tags-input-wrapper {
+  .input-field {
+    display: block;
+    input, .entered-items {
+      width: auto;
+      display: inline-block;
+    }
+    &.disabled .entered-item {
+      background-color: $disabled-color;
+    }
+  }
+}

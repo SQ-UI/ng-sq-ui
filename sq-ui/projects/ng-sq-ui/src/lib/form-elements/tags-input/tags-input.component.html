@@ -1,0 +1,29 @@
+<div class="tags-input-wrapper">
+  <div class="input-field" [ngClass]="{'disabled': disabled}">
+    <label class="label"
+           for="{{controlId}}"
+           *ngIf="controlLabel">
+      {{controlLabel}}
+    </label>
+
+    <div class="entered-items">
+      <div class="inner display-flex wrap">
+        <div class="entered-item"
+             *ngFor="let enteredValue of enteredItems; index as tagIndex">
+          {{enteredValue}}
+          <span class="button" (click)="removeTag(tagIndex)" *ngIf="!disabled">
+            <i aria-hidden="true" class="fa fa-times"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <input type="text"
+           id="{{controlId}}"
+           name="{{name}}"
+           [disabled]="disabled"
+           placeholder="{{controlPlaceholder}}"
+           [(ngModel)]="newTagName"
+           (keyup)="onUserInput($event)">
+  </div>
+</div>

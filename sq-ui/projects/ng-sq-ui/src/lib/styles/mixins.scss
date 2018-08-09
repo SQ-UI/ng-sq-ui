@@ -1,0 +1,82 @@
+@function calculate-grid-column-size($columnCount) {
+  @return 100% / $columnCount;
+}
+
+@mixin css-grid($columns: 12, $columnGap: 0, $rowGap: 0) {
+  display: grid;
+  grid-column-gap: $columnGap;
+  grid-row-gap: $rowGap;
+
+  @if $columns != 'auto' {
+    grid-template-columns: repeat($columns, 1fr);
+
+    .col {
+      @for $i from 1 through $columns {
+        &.span-#{$i} {
+          grid-column: span #{$i};
+        }
+      }
+    }
+  } @else {
+    $columns: 12;
+    grid-template-columns: repeat(auto-fit, minmax(100/$columns * 1em, 1fr) );
+  }
+}
+
+@mixin flexbox-grid($columns: 12, $columnGap: 0, $rowGap: 0) {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .col {
+    &:not(:last-child) {
+      padding-right: $columnGap;
+    }
+
+    margin-bottom: $rowGap;
+  }
+
+  @if $columns != 'auto' {
+    $one-column-width: calculate-grid-column-size($columns);
+
+    .col {
+      flex: 1 0 $one-column-width;
+
+      @for $i from 1 through $columns {
+        &.span-#{$i} {
+          flex: 1 0 $i * $one-column-width;
+        }
+      }
+    }
+  } @else {
+    .col {
+      flex: 1;
+    }
+  }
+}
+
+@mixin float-grid($columns: 12, $columnGap: 0, $rowGap: 0) {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .col {
+    $one-column-width: calculate-grid-column-size($columns);
+    float: left;
+    width: $one-column-width;
+
+    @for $i from 1 through $columns {
+      &.span-#{$i} {
+        width: $i * $one-column-width;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-right: $columnGap;
+    }
+
+    margin-bottom: $rowGap;
+  }
+}

@@ -1,0 +1,39 @@
+<div class="typeahead-wrapper"
+     sqOutsideClickListener
+     [listenForOutsideClick]="listenForOutsideClick"
+     (clickOutside)="onClickOutsideComponent()">
+  <div class="loader" *ngIf="isLoading"></div>
+
+  <div class="input-field typeahead" [ngClass]="{'disabled': disabled}">
+    <i class="fa fa-search" aria-hidden="true"></i>
+
+    <label class="label"
+           for="{{controlId}}"
+           *ngIf="controlLabel">
+      {{controlLabel}}
+    </label>
+    <input [formControl]="queryInputControl"
+           *ngIf="selectedItems.size === 0"
+           type="text"
+           id="{{controlId}}"
+           name="{{name}}"
+           (focus)="turnClickOutsideListenerOn()"
+           placeholder="{{controlPlaceholder}}">
+
+    <div class="entered-item chosen-item"
+         *ngFor="let selectedItem of selectedItems, index as itemIndex;">
+      <div class="content">{{selectedItem.displayName}}</div>
+      <div class="remove" (click)="removeSearchResult(itemIndex)" *ngIf="!disabled">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="options" [ngClass]="{'display-none': hideResults}">
+      <div class="option"
+           *ngFor="let result of searchResults"
+           (click)="selectSearchResult(result)">
+        {{result.displayName}}
+      </div>
+    </div>
+  </div>
+</div>
