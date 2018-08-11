@@ -2,9 +2,7 @@
 
 # NG-SQ-UI <small>1.0</small>
 
-> Simple quality UI kit for angular 6+ that includes:
-
-input, select box, radio and check boxes, tags input, type ahead and Modal window
+> Simple Quality UI kit for Angular
 
 [GitHub](https://github.com/SQ-UI/ng-sq-ui)
 [Get Started](#Introduction)
