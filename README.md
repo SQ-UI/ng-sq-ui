@@ -4,6 +4,7 @@ You will find a description of the public API for each component. The components
 Any types of public interfaces and services are also included here.
 
 # \> FormElementsModule
+The properties / methods listed under every component are specific to the UI-kit. All components support both <a href="https://angular.io/guide/reactive-forms">Model-Driven</a> and <a href="https://angular.io/guide/forms#template-driven-forms">Template-Driven</a> form approaches. The properties / methods exposed by either of the approaches are not documented as component-specific and are assumed to be familiar to the developer.
 
 ## sq-input
 sq-input represents a thin wrapper over the native HTML `input` element.
@@ -22,6 +23,7 @@ sq-input represents a thin wrapper over the native HTML `input` element.
 - **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which the input value is validated. Defaults to empty string.
 
 - **`@Input()` disabled:** `boolean` - Enables/disables the component.
+
 
 For template-driven and reactive-driven code examples, please refer to the examples page.
 
