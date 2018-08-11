@@ -1,8 +1,12 @@
-@import '../projects/ng-sq-ui/src/lib/styles';
+@import '../projects/ng-sq-ui/src/lib/sq-ui-theme';
 
 body {
   font-family: 'Quicksand', sans-serif;
   padding: 15px 30px;
+}
+
+ul {
+  font-size: 18px;
 }
 
 .module {
@@ -20,4 +24,5 @@ form > section {
 
 p {
   font-size: 18px;
+  padding-bottom: 10px;
 }
