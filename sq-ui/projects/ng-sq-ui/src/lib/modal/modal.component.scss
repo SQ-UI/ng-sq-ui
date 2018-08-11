@@ -1,3 +1,5 @@
+@import "../styles/colors";
+
 .sq .modal-cover {
   position: fixed;
   display: flex;
@@ -7,21 +9,21 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.38823529411764707);
+  background-color: $overlay-color;
 }
 
 .sq .modal-window {
   position: relative;
   width: 50vw;
   min-height: 500px;
-  background-color: #fff;
+  background-color: $modal-background-color;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  box-shadow: 7px 8px 0px 0px rgba(18, 125, 104, 0.3);
+  box-shadow: 7px 8px 0 0 $modal-box-shadow-color;
   .modal-header-wrapper {
-    background-color: rgba(27, 163, 156, 0.1);
-    border-bottom: 1px solid rgba(27, 163, 156, 0.5);
+    background-color: $secondary-theme-color;
+    border-bottom: 1px solid $primary-theme-color;
   }
   .modal-title {
     font-size: 22px;
@@ -41,8 +43,8 @@
     padding-top: 10px;
     padding-left: 15px;
     padding-bottom: 10px;
-    border-top: 1px solid rgba(27, 163, 156, 0.5);
-    background-color: rgba(27, 163, 156, 0.1);
+    border-top: 1px solid $primary-theme-color;
+    background-color: $secondary-theme-color;
   }
   button {
     margin-right: 10px;
