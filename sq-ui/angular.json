@@ -19,13 +19,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "./node_modules/font-awesome/css/font-awesome.css",
-              "projects/ng-sq-ui/src/lib/styles.scss"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -165,5 +163,14 @@
       }
     }
   },
-  "defaultProject": "sq-ui"
+  "defaultProject": "sq-ui",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "sq",
+      "styleext": "scss"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "sq"
+    }
+  }
 }

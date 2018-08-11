@@ -10,15 +10,15 @@ describe('TypeaheadComponent', () => {
 
   const testSearchResults = [{
       displayName: 'option1',
-      value: {hey: 'woop'}
+      value: {key: 1}
     },
     {
       displayName: 'option2',
-      value: {hey: 'woop2'}
+      value: {key: 2}
     },
     {
       displayName: 'option3',
-      value: {id: '1234', hey: 'woop3'}
+      value: {id: '1234', key: 3}
     }];
 
   beforeEach(async(() => {

@@ -3,6 +3,9 @@
 .sq .tags-input-wrapper {
   .input-field {
     display: block;
+    input {
+      min-width: 250px;
+    }
     input, .entered-items {
       width: auto;
       display: inline-block;

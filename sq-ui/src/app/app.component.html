@@ -1,38 +1,135 @@
 <div class="sq">
-  <form [formGroup]="testForm">
-    <sq-input name="test123"
-              controlId="test"
-              formControlName="name"
-              controlLabel="Test Label"
-              controlPlaceholder="Test placeholder">
-    </sq-input>
-  </form>
+  <h1>
+    <img src="assets/logo.png" alt="SQ-UI logo">
+  </h1>
 
-  <sq-button (click)="showModal=!showModal">Toggle modal</sq-button>
+  <section id="formElementsModule" class="module">
+    <header>
+      <h2>FormElementsModule components</h2>
+    </header>
 
-  <sq-modal [(show)]="showModal">
-    <div sq-modal-title>
-      <strong>This the title yo</strong>
-    </div>
+    <p>
+      The preview is built using the Reactive approach. The Submit button becomes enabled
+      when all the required fields are filled in. The final input values are console logged on click
+      on the Submit button.
+    </p>
 
-    <div sq-modal-body>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi harum natus quidem recusandae voluptatibus. Animi architecto dolor est et in laborum neque, nisi non nulla, sunt totam velit vero voluptatibus.
-    </div>
+    <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+      <section id="sqInput">
+        <header>
+          <h3>sq-inut</h3>
+        </header>
 
-    <div sq-modal-footer>
-      <button type="button">
-        <span class="inner">Yes</span>
-      </button>
+        <sq-input formControlName="name"
+                  controlLabel="Test Label"
+                  controlPlaceholder="Test placeholder">
+        </sq-input>
+      </section>
 
-      <button type="button">
-        <span class="inner">No</span>
-      </button>
+      <section id="sqDropdown">
+        <header>
+          <h3>sq-dropdown</h3>
+        </header>
 
-      <button type="button">
-        <span class="inner">I don't know</span>
-      </button>
-    </div>
-  </sq-modal>
+        <sq-dropdown formControlName="dropdown"
+                     [options]="dropdownOptions"
+                     controlLabel="Dropdown Example"
+                     controlPlaceholder="Select an option">
+        </sq-dropdown>
+      </section>
 
+      <section id="sqTagsInput">
+        <header>
+          <h3>sq-tags-input</h3>
+        </header>
+
+        <sq-tags-input formControlName="tags"
+                       controlLabel="Tags"
+                       controlPlaceholder="Type something and press Space">
+        </sq-tags-input>
+      </section>
+
+      <section id="sqTypeahead">
+        <header>
+          <h3>sq-typeahead</h3>
+        </header>
+
+        <sq-typeahead name="typeahead"
+                      formControlName="typeahead"
+                      [searchResults]="searchResults"
+                      (onUserInputEnd)="searchMethod($event)"
+                      controlLabel="Typeahead"
+                      controlPlaceholder="Type something in">
+        </sq-typeahead>
+      </section>
+
+      <section id="sqCheckbox">
+        <header>
+          <h3>sq-checkbox</h3>
+        </header>
+
+        <sq-checkbox controlLabel="Test checkbox"
+                     formControlName="checkboxValue">
+        </sq-checkbox>
+      </section>
+
+      <section id="sqRadioAndFormGroup">
+        <header>
+          <h3>sq-radiobutton + sq-form-group</h3>
+        </header>
+
+        <sq-form-group groupLabel="Radiobuttons Form Group example">
+          <div class="options row">
+            <sq-radiobutton name="group1"
+                            radioValue="value1"
+                            [isSelected]="true"
+                            formControlName="radioValue">
+            </sq-radiobutton>
+
+            <sq-radiobutton name="group1"
+                            radioValue="value2"
+                            formControlName="radioValue">
+            </sq-radiobutton>
+
+            <sq-radiobutton name="group1"
+                            radioValue="value3"
+                            formControlName="radioValue">
+            </sq-radiobutton>
+          </div>
+        </sq-form-group>
+      </section>
+
+
+      <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
+    </form>
+  </section>
+
+  <section id="sqModal" class="module">
+    <header>
+      <h2>ModalModule</h2>
+    </header>
+
+    <sq-button (click)="showModal=!showModal">Toggle modal</sq-button>
+
+    <sq-modal [(show)]="showModal">
+      <div sq-modal-title>
+        <strong>Modal title</strong>
+      </div>
+
+      <div sq-modal-body>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi harum natus quidem recusandae voluptatibus. Animi architecto dolor est et in laborum neque, nisi non nulla, sunt totam velit vero voluptatibus.
+      </div>
+
+      <div sq-modal-footer>
+        <button type="button">
+          <span class="inner">Yes</span>
+        </button>
+
+        <button type="button">
+          <span class="inner">No</span>
+        </button>
+      </div>
+    </sq-modal>
+  </section>
 </div>
 
