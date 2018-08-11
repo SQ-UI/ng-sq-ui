@@ -11,7 +11,6 @@ export class AppComponent {
   testForm: FormGroup;
   showModal = false;
   searchResults: SearchResult[];
-  formValuesPreview = '';
 
   dropdownOptions: LabelValuePair[] = [
     {

@@ -3,9 +3,31 @@
     <img src="assets/logo.png" alt="SQ-UI logo">
   </h1>
 
+  <section id="intro" class="module">
+    <header>
+      <h2>Introduction</h2>
+    </header>
+
+    <p>
+      This app is a preview of the default SQ-UI theme.
+      The UI-kit comes with it but including it into your own app is optional.
+      In case you would like to use this theme, you can do one of the following things:
+    </p>
+
+    <ul>
+      <li>put the sq-ui-theme.scss file in the "styles" array in your angular.json file</li>
+      <li>reference the sq-ui-theme.scss file in your main stylesheet (if you're using sass)</li>
+    </ul>
+
+    <p>
+      The font used in this preview is "Quicksand" and is applied using the Google Fonts API.
+      The SQ-UI theme does not come with it and does not have a default font set.
+    </p>
+  </section>
+
   <section id="formElementsModule" class="module">
     <header>
-      <h2>FormElementsModule components</h2>
+      <h2>FormElementsModule</h2>
     </header>
 
     <p>
@@ -21,7 +43,7 @@
         </header>
 
         <sq-input formControlName="name"
-                  controlLabel="Test Label"
+                  controlLabel="Test Label*"
                   controlPlaceholder="Test placeholder">
         </sq-input>
       </section>
@@ -33,7 +55,7 @@
 
         <sq-dropdown formControlName="dropdown"
                      [options]="dropdownOptions"
-                     controlLabel="Dropdown Example"
+                     controlLabel="Dropdown Example*"
                      controlPlaceholder="Select an option">
         </sq-dropdown>
       </section>
@@ -44,7 +66,7 @@
         </header>
 
         <sq-tags-input formControlName="tags"
-                       controlLabel="Tags"
+                       controlLabel="Tags*"
                        controlPlaceholder="Type something and press Space">
         </sq-tags-input>
       </section>
@@ -58,7 +80,7 @@
                       formControlName="typeahead"
                       [searchResults]="searchResults"
                       (onUserInputEnd)="searchMethod($event)"
-                      controlLabel="Typeahead"
+                      controlLabel="Typeahead*"
                       controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
