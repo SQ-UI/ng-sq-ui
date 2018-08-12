@@ -15,7 +15,7 @@ Any types of public interfaces and services are also included here.
 - [Docs Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
 - [Docs Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
 - [Docs Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
-- [Live examples](https://sq-ui.github.io/ng-sq-ui)
+- [Live examples](ng-sq-ui-examples.surge.sh)
 
 ## Installation
 
@@ -73,7 +73,7 @@ ng test ng-sq-ui
 
 ## Contribution
 
-Want to file a bug, contribute some code, or improve documentation? Read up on our Contributing Guide before making a pull request.
+Want to file a bug, contribute some code, or improve documentation? Read up on our [Contributing Guide](CONTRIBUTING.md) before making a pull request.
 
 Thank you to all <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors">contributers</a>!
 
@@ -83,4 +83,5 @@ Thank you to all <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors"
 
 ## LICENSE
 
-MIT
+- [MIT](http://opensource.org/licenses/MIT)
+- Feel free to use and contribute to the development.
