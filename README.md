@@ -5,6 +5,8 @@
 > build by developers for developers!
 
 ![angular](https://badge.fury.io/js/angular.svg)
+![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
 
 ## Docs
 
