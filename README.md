@@ -20,7 +20,7 @@ Any types of public interfaces and services are also included here.
 - [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
 - [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
 - [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
-- [Live examples](ng-sq-ui-examples.surge.sh)
+- [Live examples](https://ng-sq-ui-examples.surge.sh)
 
 ## Installation
 
@@ -40,7 +40,7 @@ yarn add ng-sq-ui
 
 ### Before use
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](ng-sq-ui-examples.surge.sh).
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
 
 Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
