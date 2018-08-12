@@ -2,6 +2,8 @@
 
 ## sq-modal
 
+![SQ-Modal](_media/sq-modal.gif)
+
 sq-modal is a generic modal window with content projection.
 
 ### Component properties:

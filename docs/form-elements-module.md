@@ -4,6 +4,8 @@ The properties / methods listed under every component are specific to the UI-kit
 
 ## sq-input
 
+![SQ-Input](_media/sq-input.gif)
+
 sq-input represents a thin wrapper over the native HTML `input` element.
 
 ### Component properties:
@@ -25,6 +27,8 @@ sq-input represents a thin wrapper over the native HTML `input` element.
 For template-driven and reactive-driven code examples, please refer to the examples page.
 
 ## sq-button
+
+![SQ-Button](_media/sq-button.gif)
 
 sq-button is thin wrapper over the native HTML `button` element.
 
@@ -48,6 +52,8 @@ For template-driven and reactive-driven code examples, please refer to the examp
 
 ## sq-checkbox
 
+![SQ-Checkbox](_media/sq-checkbox.gif)
+
 sq-checkbox is a custom implementation using a wrapper over the native HTML `input[type="checkbox"]` element.
 
 ### Component properties:
@@ -69,6 +75,8 @@ sq-checkbox is a custom implementation using a wrapper over the native HTML `inp
 For template-driven and reactive-driven code examples, please refer to the examples page.
 
 ## sq-dropdown
+
+![SQ-Dropdown](_media/sq-drop-down.gif)
 
 sq-dropdown is a custom implementation of a dropdown which emulates the behavior of the regular HTML `select` tag. Its model returns a **copy** of the selected object.
 
@@ -113,6 +121,8 @@ For code snippets, please refer to the examples page.
 
 ## sq-radiobutton
 
+![SQ-Radio-Button](_media/sq-radio-buttons.gif)
+
 sq-radiobutton is a custom implementation using a wrapper over the native HTML `input[type="radio"]` element.
 
 ### Component properties:
@@ -134,6 +144,8 @@ sq-radiobutton is a custom implementation using a wrapper over the native HTML `
 For template-driven and reactive-driven code examples, please refer to the examples page.
 
 ## sq-tags-input
+
+![SQ-TagsInput](_media/sq-tags-input.gif)
 
 sq-tags-input represents a collection of strings populated by the user through an input. Its model returns a **copy** of the string array.
 
@@ -164,6 +176,8 @@ For template-driven and reactive-driven code examples, please refer to the examp
 - **removeTag(tagIndex: `number`):** `void` - Removes a tag by given index.
 
 ## sq-typeahead
+
+![SQ-Typeahead](_media/sq-type-ahead.gif)
 
 sq-typeahead represents a collection of items shown to the user after they have input query. Its model returns an array of `SearchResult` items the user has selected from the result list. The returned array consists of **copies** of the chosen items.
 
