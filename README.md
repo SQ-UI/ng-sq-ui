@@ -46,7 +46,7 @@ Need a grid? [We've got you covered](https://github.com/SQ-UI/sq-grid)!
 
 ## Dependencies
 
-> ng-sq-ui depends on font-awesome and immutable.js
+ng-sq-ui depends on font-awesome and immutable.js
 
 ## Try it out locally
 
