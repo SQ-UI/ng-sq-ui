@@ -7,6 +7,7 @@
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
+[![codecov](https://codecov.io/gh/SQ-UI/ng-sq-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/SQ-UI/ng-sq-ui)
 
 ## Docs
 
