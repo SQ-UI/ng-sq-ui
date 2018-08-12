@@ -6,7 +6,7 @@
 
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
+[![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
 [![codecov](https://codecov.io/gh/SQ-UI/ng-sq-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/SQ-UI/ng-sq-ui)
 
 ## Docs
@@ -42,7 +42,7 @@ yarn add ng-sq-ui
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](ng-sq-ui-examples.surge.sh).
 
-Need a grid? [We've got you covered](https://github.com/SQ-UI/sq-grid)!
+Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
 ## Dependencies
 
