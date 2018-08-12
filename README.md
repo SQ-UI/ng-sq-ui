@@ -4,6 +4,8 @@
 
 > build by developers for developers!
 
+![angular](https://badge.fury.io/js/angular.svg)
+
 ## Docs
 
 You will find a description of the public API for each component.
