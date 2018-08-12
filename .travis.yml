@@ -12,7 +12,11 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
+  - npm install codecov -g
 
 script:
   - ng build ng-sq-ui --prod
   - ng test ng-sq-ui
+
+after_success:
+  - codecov
