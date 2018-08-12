@@ -16,10 +16,10 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included here.
 
-- [Docs Home Page](https://sq-ui.github.io/ng-sq-ui)
-- [Docs Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
-- [Docs Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [Docs Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
+- [Home Page](https://sq-ui.github.io/ng-sq-ui)
+- [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
+- [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
+- [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
 - [Live examples](ng-sq-ui-examples.surge.sh)
 
 ## Installation
@@ -40,13 +40,15 @@ yarn add ng-sq-ui
 
 ### Before use
 
-TO DO: describe fonts and resorces
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](ng-sq-ui-examples.surge.sh).
 
-TO DO: add code example
+Need a grid? [We've got you covered](https://github.com/SQ-UI/sq-grid)!
 
-## Development
+## Dependencies
 
-> Clone the repo. Install all dependencies. Build the library.
+> ng-sq-ui depends on font-awesome and immutable.js
+
+## Try it out locally
 
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
@@ -60,14 +62,6 @@ ng build ng-sq-ui
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 yarn install
 ng build ng-sq-ui
-```
-
-## Testing
-
-> You can run test for all components by:
-
-```
-ng test ng-sq-ui
 ```
 
 ## Support
