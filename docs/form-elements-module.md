@@ -8,6 +8,10 @@ The properties / methods listed under every component are specific to the UI-kit
 
 sq-input represents a thin wrapper over the native HTML `input` element.
 
+```html
+<sq-input formControlName="name" controlLabel="Test Label*" controlPlaceholder="Test placeholder"></sq-input>
+```
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -31,6 +35,10 @@ For template-driven and reactive-driven code examples, please refer to the examp
 ![SQ-Button](_media/sq-button.gif)
 
 sq-button is thin wrapper over the native HTML `button` element.
+
+```html
+<sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
+```
 
 ### Component properties:
 
@@ -56,6 +64,10 @@ For template-driven and reactive-driven code examples, please refer to the examp
 
 sq-checkbox is a custom implementation using a wrapper over the native HTML `input[type="checkbox"]` element.
 
+```html
+<sq-checkbox controlLabel="Test checkbox" formControlName="checkboxValue"></sq-checkbox>
+```
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the checkbox. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -79,6 +91,38 @@ For template-driven and reactive-driven code examples, please refer to the examp
 ![SQ-Dropdown](_media/sq-drop-down.gif)
 
 sq-dropdown is a custom implementation of a dropdown which emulates the behavior of the regular HTML `select` tag. Its model returns a **copy** of the selected object.
+
+```html
+<sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example*" controlPlaceholder="Select an option">
+</sq-dropdown>
+```
+
+In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts) import:
+
+```typescript
+import { LabelValuePair } from 'ng-sq-ui';
+```
+
+and then declare options in [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L15)
+:
+
+```typescript
+  //...
+  dropdownOptions: LabelValuePair[] = [
+    {
+      label: 'option1',
+      value: 'someVal1'
+    },
+    {
+      label: 'option2',
+      value: 'someVal2'
+    },
+    {
+      label: 'option3',
+      value: 'someVal3'
+    }
+  ];
+```
 
 ### Component properties:
 
@@ -113,6 +157,14 @@ For template-driven and reactive-driven code examples, please refer to the examp
 
 sq-form-group is a visual representation of a group of related form elements. Uses content projection via `ng-content`.
 
+In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L89)
+
+```html
+<sq-form-group groupLabel="Radiobuttons Form Group example">
+  ...
+</sq-form-group>
+```
+
 ### Component properties:
 
 - **`@Input()` groupLabel:** `string` - Title of the group. Defaults to an empty string.
@@ -124,6 +176,23 @@ For code snippets, please refer to the examples page.
 ![SQ-Radio-Button](_media/sq-radio-buttons.gif)
 
 sq-radiobutton is a custom implementation using a wrapper over the native HTML `input[type="radio"]` element.
+
+In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L91)
+
+```html
+<sq-radiobutton name="group1" radioValue="value1" [isSelected]="true" formControlName="radioValue">
+</sq-radiobutton>
+```
+
+In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L36)
+
+```typescript
+constructor(private fb: FormBuilder) {
+   this.testForm = this.fb.group({
+        radioValue: ['value1'],
+    });
+}
+```
 
 ### Component properties:
 
@@ -148,6 +217,23 @@ For template-driven and reactive-driven code examples, please refer to the examp
 ![SQ-TagsInput](_media/sq-tags-input.gif)
 
 sq-tags-input represents a collection of strings populated by the user through an input. Its model returns a **copy** of the string array.
+
+In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L61)
+
+```html
+<sq-tags-input formControlName="tags" controlLabel="Tags*" controlPlaceholder="Type something and press Space">
+</sq-tags-input>
+```
+
+In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L34)
+
+```typescript
+constructor(private fb: FormBuilder) {
+   this.testForm = this.fb.group({
+      tags: [['tag1'], Validators.required],
+    });
+}
+```
 
 ### Component properties:
 
@@ -180,6 +266,42 @@ For template-driven and reactive-driven code examples, please refer to the examp
 ![SQ-Typeahead](_media/sq-type-ahead.gif)
 
 sq-typeahead represents a collection of items shown to the user after they have input query. Its model returns an array of `SearchResult` items the user has selected from the result list. The returned array consists of **copies** of the chosen items.
+
+In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L70)
+
+```html
+<sq-typeahead name="typeahead"
+  formControlName="typeahead"
+  [searchResults]="searchResults"
+  (onUserInputEnd)="searchMethod($event)"
+  controlLabel="Typeahead*"
+  controlPlaceholder="Type something in">
+</sq-typeahead>
+```
+
+In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L41)
+
+```typescript
+import { SearchResult } from 'ng-sq-ui';
+//...
+export class AppComponent {
+  searchResults: SearchResult[];
+  //...
+  constructor(private fb: FormBuilder) {
+    this.testForm = this.fb.group({
+        typeahead: [[], Validators.required],
+    });
+  }
+  //...
+  searchMethod(query) {
+    this.searchResults = [
+      {
+        displayName: 'Search result 1',
+        value: 1
+      },
+  }
+}
+```
 
 ### Component properties:
 
