@@ -14,7 +14,7 @@
 You will find a description of the public API for each component.
 The components are grouped by modules. Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
 
-Any types of public interfaces and services are also included here.
+Any types of public interfaces and services are also included.
 
 - [Home Page](https://sq-ui.github.io/ng-sq-ui)
 - [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
@@ -38,7 +38,21 @@ yarn add ng-sq-ui
 
 ## Usage
 
-### Before use
+Import the NgSqUiModule in your module:
+```
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+```
+and then include it in the `imports` array of your @NgModule() decorator: 
+
+```
+@NgModule({
+  declarations: [ //... ],
+  imports: [
+    NgSqUiModule,
+    //...
+  ],
+  //...
+```
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
 
