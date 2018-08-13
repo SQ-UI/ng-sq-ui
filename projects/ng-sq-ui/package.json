@@ -1,10 +1,45 @@
 {
   "name": "@sq-ui/ng-sq-ui",
   "version": "1.0.0",
+  "license": "MIT",
+  "private": false,
+  "description": "Simple Quality UI kit for Angular",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SQ-UI/ng-sq-ui.git"
+  },
+  "contributors": [
+    {
+      "name": "Samuil Gospodinov",
+      "email": "samuil4@gmail.com",
+      "url": "https://github.com/samuil4/"
+    },
+    {
+      "name": "Plamena Radneva",
+      "email": "rhythmxholic@gmail.com",
+      "url": "https://github.com/ardentia/"
+    }
+  ],
+  "keywords": [
+    "angular",
+    "angular 6",
+    "angular 7",
+    "typescript",
+    "ui",
+    "ui-kit",
+    "ui kit",
+    "components",
+    "form",
+    "form elements",
+    "form components",
+    "typeahead",
+    "modal"
+  ],
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "immutable": "^3.8.2",
     "font-awesome": "4.7.0"
-  }
+  },
+  "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }
