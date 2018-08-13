@@ -27,13 +27,13 @@ Any types of public interfaces and services are also included.
 > You can clone / download this repo or install it as a node dependency.
 
 ```
-npm i ng-sq-ui --save
+npm i @sq-ui/ng-sq-ui --save
 ```
 
 -- or --
 
 ```
-yarn add ng-sq-ui
+yarn add @sq-ui/ng-sq-ui
 ```
 
 ## Usage
