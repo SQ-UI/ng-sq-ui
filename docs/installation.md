@@ -11,8 +11,8 @@
 ## Add the appropriate module - either FormsModule or ReactiveFormsModule
 
 ```typescript
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 
 @NgModule({
   declarations: [],
@@ -24,8 +24,8 @@ export class AppModule {}
 -- or --
 
 ```typescript
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 import { FormsModule } from '@angular/forms';
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 
 @NgModule({
   declarations: [],
