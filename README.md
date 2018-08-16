@@ -17,6 +17,7 @@ The components are grouped by modules. Any properties you can see through code i
 Any types of public interfaces and services are also included here.
 
 - [Home Page](https://sq-ui.github.io/ng-sq-ui)
+- [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
 - [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
 - [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
 - [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
@@ -27,13 +28,13 @@ Any types of public interfaces and services are also included here.
 > You can clone / download this repo or install it as a node dependency.
 
 ```
-npm i ng-sq-ui --save
+npm i @sq-ui/ng-sq-ui@latest --save
 ```
 
 -- or --
 
 ```
-yarn add ng-sq-ui
+yarn add @sq-ui/ng-sq-ui@latest
 ```
 
 ## Usage
@@ -46,7 +47,9 @@ Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
 ## Dependencies
 
-ng-sq-ui depends on font-awesome and immutable.js
+ng-sq-ui depends on:
+
+font-awesome and immutable.js (both will be installed with ng-sq-ui)
 
 ## Try it out locally
 
