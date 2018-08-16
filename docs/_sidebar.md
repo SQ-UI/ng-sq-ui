@@ -1,3 +1,4 @@
+- [Installation](installation.md)
 - [FormElementsModule](form-elements-module.md)
 - [ModalModule](modal-module.md)
 - [Interfaces](interfaces.md)
