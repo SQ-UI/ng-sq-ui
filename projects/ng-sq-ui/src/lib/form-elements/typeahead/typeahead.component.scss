@@ -43,6 +43,20 @@
   }
 }
 
+@media (max-width: 450px) {
+  .sq .typeahead-wrapper {
+    .input-field input, .entered-items {
+      margin-top: 10px;
+    }
+
+    .entered-items {
+      display: block;
+      width: 100%;
+    }
+  }
+
+}
+
 @keyframes typeahead-loader {
   0% {
     background-position: 0 50%;
