@@ -111,3 +111,14 @@
     background-color: darken($disabled-color, 30%);
   }
 }
+
+@media (max-width: 500px) {
+  .input-field {
+    display: block;
+    font-size: 1.1rem;
+    input[type="text"], .input-placeholder {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+}

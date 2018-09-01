@@ -21,3 +21,11 @@
     top: 11px;
   }
 }
+
+@media (max-width: 450px) {
+  .sq .input-field.dropdown {
+    .chosen-item {
+      margin-top: 10px;
+    }
+  }
+}
