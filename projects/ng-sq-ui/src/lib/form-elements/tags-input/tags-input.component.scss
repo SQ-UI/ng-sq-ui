@@ -15,3 +15,17 @@
     }
   }
 }
+
+@media (max-width: 450px) {
+  .sq .tags-input-wrapper {
+    .input-field input, .entered-items {
+      margin-top: 10px;
+    }
+
+    .input-field .entered-items {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+

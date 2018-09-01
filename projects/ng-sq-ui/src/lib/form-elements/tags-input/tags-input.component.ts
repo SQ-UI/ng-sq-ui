@@ -1,10 +1,14 @@
 import {
   Component, OnInit, Input, Output, forwardRef,
-  ViewEncapsulation, EventEmitter, OnDestroy, OnChanges
+  ViewEncapsulation, EventEmitter, OnDestroy, OnChanges,
+  AfterViewInit, ViewChild
 } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { DeviceOS } from '../../shared/enums/device-os.enum';
+import { OSDetectorService } from '../../shared/services/os-detector.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { List } from 'immutable';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
@@ -20,11 +24,12 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class TagsInputComponent extends InputCoreComponent implements OnInit, OnDestroy {
-
+export class TagsInputComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('tagsInput') tagsInput;
   private isModelEmpty: boolean = false;
   private enteredItemsSubscription: Subscription;
   private valueChangedSubscription: Subscription;
+  private inputEventSubscription: Subscription;
   private innerEnteredItemsListCopy: List<string>;
 
   enteredItems: List<string> = List<string>();
@@ -52,8 +57,25 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, On
     });
   }
 
+  ngAfterViewInit() {
+    if (OSDetectorService.getDeviceOS() === DeviceOS.Android) {
+      const inputEvent = fromEvent(this.tagsInput.nativeElement, 'input');
+      inputEvent.pipe(map(event => event));
+
+      this.inputEventSubscription = inputEvent.subscribe(($event: any) => {
+        if ($event.data === ' ') {
+          this.onUserInput({ keyCode: 32 });
+        }
+      });
+    }
+  }
+
   ngOnDestroy() {
     this.enteredItemsSubscription.unsubscribe();
+
+    if (this.inputEventSubscription) {
+      this.inputEventSubscription.unsubscribe();
+    }
 
     if (!this.valueChangedSubscription.closed) {
       this.valueChangedSubscription.unsubscribe();
