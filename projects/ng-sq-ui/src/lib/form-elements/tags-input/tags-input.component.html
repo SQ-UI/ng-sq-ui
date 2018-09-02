@@ -6,7 +6,7 @@
       {{controlLabel}}
     </label>
 
-    <div class="entered-items">
+    <div class="entered-items" *ngIf="enteredItems.size > 0">
       <div class="inner display-flex wrap">
         <div class="entered-item"
              *ngFor="let enteredValue of enteredItems; index as tagIndex">
@@ -18,12 +18,13 @@
       </div>
     </div>
 
-    <input type="text"
+    <input #tagsInput
+           type="text"
            id="{{controlId}}"
            name="{{name}}"
            [disabled]="disabled"
+           (keyup)="onUserInput($event)"
            placeholder="{{controlPlaceholder}}"
-           [(ngModel)]="newTagName"
-           (keyup)="onUserInput($event)">
+           [(ngModel)]="newTagName">
   </div>
 </div>
