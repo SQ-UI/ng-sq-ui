@@ -45,3 +45,25 @@ export class AppModule {}
   "./node_modules/font-awesome/scss/font-awesome.scss"
 ],
 ```
+
+## Apply styling to the components
+
+To use our styling just add the `class="sq"` on a parent element.
+
+> If you don't want our styles globally just add the `sq` class on a parent wrapper
+
+```html
+<div class="sq">
+  <sq-input></sq-input>
+</div>
+```
+
+> If you don't want to add the `sq` class each time you can add it the body of the document
+
+```html
+<body class="sq">
+  <div class="row">
+    <sq-input></sq-input>
+  </div>
+</body>
+```
