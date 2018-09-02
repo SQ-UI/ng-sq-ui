@@ -16,7 +16,7 @@
   padding: 9px 10px;
   margin-bottom: 20px;
   transition: 300ms all ease-in;
-  input[type="text"] {
+  input {
     border: none;
     background-color: transparent;
   }
@@ -109,5 +109,16 @@
   }
   &.disabled .inner {
     background-color: darken($disabled-color, 30%);
+  }
+}
+
+@media (max-width: 500px) {
+  .input-field {
+    display: block;
+    font-size: 1.1rem;
+    input[type="text"], .input-placeholder {
+      width: 100%;
+      margin-top: 10px;
+    }
   }
 }

@@ -25,12 +25,14 @@
   .options {
     width: 100%;
     margin-top: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
   }
   .options .option {
     padding: 5px 10px;
     &:hover {
       cursor: pointer;
-      background-color: rgba(18, 125, 104, 0.21);
+      background-color: $box-shadow-color;
     }
   }
   .dropdown-icon {
@@ -41,6 +43,23 @@
   &.disabled .entered-item {
     background-color: $disabled-color;
   }
+  .entered-items {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 450px) {
+  .sq .typeahead-wrapper {
+    .input-field input, .entered-items {
+      margin-top: 10px;
+    }
+
+    .entered-items {
+      display: block;
+      width: 100%;
+    }
+  }
+
 }
 
 @keyframes typeahead-loader {
