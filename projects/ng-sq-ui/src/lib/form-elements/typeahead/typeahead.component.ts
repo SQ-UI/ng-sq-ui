@@ -1,5 +1,13 @@
 import {
-  Component, OnInit, Input, OnDestroy, forwardRef, ViewEncapsulation, OnChanges, Output, EventEmitter
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  forwardRef,
+  ViewEncapsulation,
+  OnChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
@@ -11,11 +19,10 @@ import { debounceTime, tap } from 'rxjs/operators';
 
 import { List, is } from 'immutable';
 
-
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => TypeaheadComponent),
-  multi: true
+  multi: true,
 };
 
 @Component({
@@ -23,13 +30,20 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
-export class TypeaheadComponent extends InputCoreComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() searchResults: SearchResult[] = [];
-  @Input() multiple = false;
-  @Input() delay = 500;
-  @Output() onUserInputEnd = new EventEmitter<string>();
+export class TypeaheadComponent extends InputCoreComponent
+  implements OnInit, OnDestroy, OnChanges {
+  @Input()
+  searchResults: SearchResult[] = [];
+  @Input()
+  multiple = false;
+  @Input()
+  delay = 500;
+  @Input()
+  displayProp = '';
+  @Output()
+  onUserInputEnd = new EventEmitter<string>();
 
   private onInputValueChangeSubscription: Subscription;
   private onQueryInputControlSubscription: Subscription;
@@ -49,38 +63,43 @@ export class TypeaheadComponent extends InputCoreComponent implements OnInit, On
   onInputValueChange = new Subject();
 
   ngOnInit() {
-   this.value = [];
+    this.value = [];
 
-   this.onInputValueChangeSubscription = this.onInputValueChange
-     .pipe(
-       tap(() => {
-         this.isLoading = true;
-         this.hideResults = true;
-       }),
-       debounceTime(this.delay)
-     )
-     .subscribe((query: string) => {
-       this.onUserInputEnd.emit(query);
-     });
+    this.onInputValueChangeSubscription = this.onInputValueChange
+      .pipe(
+        tap(() => {
+          this.isLoading = true;
+          this.hideResults = true;
+        }),
+        debounceTime(this.delay),
+      )
+      .subscribe((query: string) => {
+        this.onUserInputEnd.emit(query);
+      });
 
-    this.onQueryInputControlSubscription = this.queryInputControl.valueChanges
-      .subscribe(
-        (newValue) => {
-            if (newValue !== null) {
-              this.onInputValueChange.next(newValue);
-            }
+    this.onQueryInputControlSubscription = this.queryInputControl.valueChanges.subscribe(
+      (newValue) => {
+        if (newValue !== null) {
+          this.onInputValueChange.next(newValue);
         }
-      );
+      },
+    );
 
-    this.valueChangedSubscription = this._valueChange.subscribe((predefinedEnteredItems) => {
-        if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
+    this.valueChangedSubscription = this._valueChange.subscribe(
+      (predefinedEnteredItems) => {
+        if (
+          this.selectedItems.size === 0 &&
+          predefinedEnteredItems &&
+          predefinedEnteredItems.length > 0
+        ) {
           predefinedEnteredItems.forEach((item) => {
             this.selectItem(item, false);
           });
 
           this.valueChangedSubscription.unsubscribe();
         }
-    });
+      },
+    );
   }
 
   ngOnChanges(changesObj) {
@@ -160,12 +179,12 @@ export class TypeaheadComponent extends InputCoreComponent implements OnInit, On
 
   private copyObjectsToNewIterable(objList: List<SearchResult>) {
     const newList = objList.map((obj) => {
-      let copiedSearchResult = { displayName: obj.displayName, value: '' };
+      let copiedSearchResult = {};
 
-      if (typeof obj.value === 'object') {
-        copiedSearchResult.value = Object.assign({}, obj.value);
+      if (typeof obj === 'object') {
+        copiedSearchResult = Object.assign({}, obj);
       } else {
-        copiedSearchResult.value = obj.value;
+        copiedSearchResult[this.displayProp] = obj;
       }
 
       return copiedSearchResult;
@@ -173,5 +192,4 @@ export class TypeaheadComponent extends InputCoreComponent implements OnInit, On
 
     return newList.toArray();
   }
-
 }
