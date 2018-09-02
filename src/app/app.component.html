@@ -64,12 +64,22 @@
         </sq-tags-input>
       </section>
 
-      <section id="sqTypeahead">
+      <section id="sqTypeahead1">
         <header>
-          <h3>sq-typeahead</h3>
+          <h3>sq-typeahead with array of object</h3>
         </header>
 
-        <sq-typeahead name="typeahead" formControlName="typeahead" [searchResults]="searchResults" (onUserInputEnd)="searchMethod($event)"
+        <sq-typeahead name="typeahead1" displayProp="label" multiple="true" formControlName="typeahead1" [searchResults]="searchResults"
+          (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead*" controlPlaceholder="Type something in">
+        </sq-typeahead>
+      </section>
+
+      <section id="sqTypeahead2">
+        <header>
+          <h3>sq-typeahead with array of strings</h3>
+        </header>
+
+        <sq-typeahead name="typeahead2" multiple="true" formControlName="typeahead2" [searchResults]="searchResultsStrings" (onUserInputEnd)="searchMethodString($event)"
           controlLabel="Typeahead*" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
