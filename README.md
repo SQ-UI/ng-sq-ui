@@ -14,39 +14,80 @@
 You will find a description of the public API for each component.
 The components are grouped by modules. Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
 
-Any types of public interfaces and services are also included here.
+Any types of public interfaces and services are also included.
 
 - [Home Page](https://sq-ui.github.io/ng-sq-ui)
+- [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
 - [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
 - [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
 - [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
-- [Live examples](ng-sq-ui-examples.surge.sh)
+- [Live examples](https://ng-sq-ui-examples.surge.sh)
 
 ## Installation
 
 > You can clone / download this repo or install it as a node dependency.
 
 ```
-npm i ng-sq-ui --save
+npm i @sq-ui/ng-sq-ui@latest --save
 ```
 
 -- or --
 
 ```
-yarn add ng-sq-ui
+yarn add @sq-ui/ng-sq-ui@latest
 ```
 
 ## Usage
 
-### Before use
+Import the NgSqUiModule in your module:
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](ng-sq-ui-examples.surge.sh).
+```
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+```
+
+and then include it in the `imports` array of your @NgModule() decorator:
+
+```
+@NgModule({
+  declarations: [ //... ],
+  imports: [
+    NgSqUiModule,
+    //...
+  ],
+  //...
+```
+
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
 
 Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
+### Add styles to angular.json
+
+```json
+"styles": [
+  "src/styles.css",
+  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
+  "./node_modules/font-awesome/scss/font-awesome.scss"
+],
+```
+
+### Apply styling to the components
+
+To use our styling just add the `class="sq"` on a parent element.
+
+```html
+<body class="sq">
+  <div class="row">
+    <sq-input ...></sq-input>
+  </div>
+</body>
+```
+
 ## Dependencies
 
-ng-sq-ui depends on font-awesome and immutable.js
+ng-sq-ui depends on:
+
+font-awesome and immutable.js (both will be installed with ng-sq-ui)
 
 ## Try it out locally
 
@@ -69,6 +110,7 @@ ng build ng-sq-ui
 - Use NG-SQ-UI in your daily work.
 - **Star** it if you like.
 - [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
+- Follow us on [twitter](https://twitter.com/squi97817882) to get latest updates.
 
 ## Contribution
 
