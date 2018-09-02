@@ -4,6 +4,9 @@
   position: relative;
   flex-wrap: wrap;
   justify-content: flex-start;
+  &:hover {
+    cursor: pointer;
+  }
   .options {
     width: 100%;
     margin-top: 5px;
