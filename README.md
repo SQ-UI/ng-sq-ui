@@ -61,6 +61,28 @@ ng-sq-ui does not come with a specific font. Including the default theme is also
 
 Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
+### Add styles to angular.json
+
+```json
+"styles": [
+  "src/styles.css",
+  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
+  "./node_modules/font-awesome/scss/font-awesome.scss"
+],
+```
+
+### Apply styling to the components
+
+To use our styling just add the `class="sq"` on a parent element.
+
+```html
+<body class="sq">
+  <div class="row">
+    <sq-input ...></sq-input>
+  </div>
+</body>
+```
+
 ## Dependencies
 
 ng-sq-ui depends on:

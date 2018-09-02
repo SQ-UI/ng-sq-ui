@@ -50,20 +50,29 @@ export class AppModule {}
 
 To use our styling just add the `class="sq"` on a parent element.
 
-> If you don't want our styles globally just add the `sq` class on a parent wrapper
-
-```html
-<div class="sq">
-  <sq-input></sq-input>
-</div>
-```
-
-> If you don't want to add the `sq` class each time you can add it the body of the document
+> If you want to use our sq theme, add the `sq` class on the body of the document or the app wrapper
 
 ```html
 <body class="sq">
   <div class="row">
-    <sq-input></sq-input>
+    <sq-input ...></sq-input>
   </div>
 </body>
+```
+
+```html
+<body>
+  <app class="sq">
+    <sq-input ...></sq-input>
+  </app>
+</body>
+```
+
+> If you would like to use our theme on a specific component (or a set of components) just add the `sq` class on a parent wrapper
+
+```html
+<div class="sq">
+  <sq-input ...></sq-input>
+  <sq-droprdown ...></sq-droprdown>
+</div>
 ```
