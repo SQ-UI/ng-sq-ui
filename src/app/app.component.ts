@@ -43,7 +43,7 @@ export class AppComponent {
   searchMethod(query) {
     this.searchResults = [
       {
-        label: 'option1',
+        myCustomProp: 'option1',
         value: 'someVal1',
         prop: 1,
         uid: 12,
@@ -54,7 +54,7 @@ export class AppComponent {
         },
       },
       {
-        label: 'option2',
+        myCustomProp: 'option2',
         value: 'someVal2',
         prop: 2,
         uid: 22,
@@ -65,7 +65,7 @@ export class AppComponent {
         },
       },
       {
-        label: 'option3',
+        myCustomProp: 'option3',
         value: 'someVal3',
         prop: 3,
         uid: 32,

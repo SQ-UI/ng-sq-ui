@@ -73,7 +73,7 @@
           <h3>sq-typeahead with array of objects - multiple choice</h3>
         </header>
 
-        <sq-typeahead name="typeahead1" displayProp="label" multiple="true" formControlName="typeahead1" [searchResults]="searchResults"
+        <sq-typeahead name="typeahead1" displayProp="myCustomProp" multiple="true" formControlName="typeahead1" [searchResults]="searchResults"
           (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead*" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
