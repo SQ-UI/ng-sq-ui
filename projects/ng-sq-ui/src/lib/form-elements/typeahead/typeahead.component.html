@@ -11,8 +11,9 @@
       (focus)="turnClickOutsideListenerOn()" placeholder="{{controlPlaceholder}}">
 
     <div class="entered-items" *ngIf="selectedItems.size > 0">
-      <div class="entered-item chosen-item" *ngFor="let selectedItem of selectedItems, index as itemIndex;">
-        <div class="content">{{displayProp ? selectedItem[displayProp] : selectedItem}}</div>
+      <div class="entered-item chosen-item"
+           *ngFor="let selectedItem of selectedItems, index as itemIndex;">
+        <div class="content">{{ selectedItem.label }}</div>
         <div class="remove" (click)="removeSearchResult(itemIndex)" *ngIf="!disabled">
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
@@ -20,8 +21,8 @@
     </div>
 
     <div class="options" [ngClass]="{'display-none': hideResults}">
-      <div class="option" *ngFor="let result of searchResults" (click)="selectSearchResult(result)">
-        {{displayProp ? result[displayProp] : result}}
+      <div class="option" *ngFor="let result of options" (click)="selectSearchResult(result)">
+        {{ result.label }}
       </div>
     </div>
   </div>

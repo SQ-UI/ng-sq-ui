@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LabelValuePair, SearchResult } from 'ng-sq-ui';
+import { LabelValuePair } from 'ng-sq-ui';
 
 @Component({
   selector: 'app-root',

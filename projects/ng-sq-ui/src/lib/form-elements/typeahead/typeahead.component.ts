@@ -1,17 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnDestroy,
-  forwardRef,
-  ViewEncapsulation,
-  OnChanges,
-  Output,
-  EventEmitter,
+import { Component, OnInit, Input, OnDestroy,
+  forwardRef, ViewEncapsulation, OnChanges, Output,
+  EventEmitter
 } from '@angular/core';
 
 import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
-import { SearchResult } from '../../shared/interfaces/search-result';
+import { LabelValuePair } from '../../shared/shared.module';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 
 import { Subject, Subscription } from 'rxjs';
@@ -34,23 +27,18 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 })
 export class TypeaheadComponent extends InputCoreComponent
   implements OnInit, OnDestroy, OnChanges {
-  @Input()
-  searchResults: SearchResult[] = [];
-  @Input()
-  multiple = false;
-  @Input()
-  delay = 500;
-  @Input()
-  displayProp = '';
-  @Output()
-  onUserInputEnd = new EventEmitter<string>();
+  @Input() searchResults: any[] = [];
+  @Input() multiple = false;
+  @Input() delay = 500;
+  @Input() displayProp = '';
+  @Output() onUserInputEnd = new EventEmitter<string>();
 
   private onInputValueChangeSubscription: Subscription;
   private onQueryInputControlSubscription: Subscription;
   private valueChangedSubscription: Subscription;
-  private innerSelectedItemsListCopy: List<SearchResult>;
 
-  selectedItems: List<SearchResult> = List<SearchResult>();
+  selectedItems: List<LabelValuePair> = List<LabelValuePair>();
+  options: List<LabelValuePair> = List<LabelValuePair>();
 
   constructor() {
     super();
@@ -104,6 +92,9 @@ export class TypeaheadComponent extends InputCoreComponent
 
   ngOnChanges(changesObj) {
     if (changesObj.searchResults && changesObj.searchResults.currentValue) {
+      const parsedResults= this.transformToLabelValuePairList(this.searchResults);
+      this.options = List(parsedResults);
+
       this.isLoading = false;
       this.hideResults = false;
     }
@@ -123,7 +114,7 @@ export class TypeaheadComponent extends InputCoreComponent
     }
   }
 
-  selectSearchResult(result: SearchResult) {
+  selectSearchResult(result: LabelValuePair) {
     this.selectItem(result);
   }
 
@@ -152,7 +143,7 @@ export class TypeaheadComponent extends InputCoreComponent
     this.value = [];
   }
 
-  private selectItem(result: SearchResult, copyResults: boolean = true) {
+  private selectItem(result: LabelValuePair, copyResults: boolean = true) {
     this.queryInputControl.setValue(null);
 
     if (!this.multiple && this.selectedItems.size === 1) {
@@ -173,23 +164,35 @@ export class TypeaheadComponent extends InputCoreComponent
   }
 
   private copyResults() {
-    this.innerSelectedItemsListCopy = this.selectedItems;
-    this.value = this.copyObjectsToNewIterable(this.innerSelectedItemsListCopy);
+      this.value = this.selectedItems.toArray();
   }
 
-  private copyObjectsToNewIterable(objList: List<SearchResult>) {
-    const newList = objList.map((obj) => {
-      let copiedSearchResult = {};
+  private transformToLabelValuePairList(resultsList: any): Array<LabelValuePair> {
+    const newList = resultsList.map(item => {
+      let searchResult: LabelValuePair | any;
 
-      if (typeof obj === 'object') {
-        copiedSearchResult = Object.assign({}, obj);
+      if (typeof item === 'object') {
+        // if displayProp is an empty string,
+        // it assumes that the author passes LabelValuePair items
+        if (this.displayProp === '') {
+          searchResult = Object.assign({}, item);
+        } else {
+          // in case the author wants a specific display property
+          searchResult = {
+            label: item[this.displayProp],
+            value: Object.assign({}, item),
+          };
+        }
       } else {
-        copiedSearchResult[this.displayProp] = obj;
+        searchResult = {
+          label: item,
+          value: item,
+        };
       }
 
-      return copiedSearchResult;
+      return searchResult;
     });
 
-    return newList.toArray();
+    return newList;
   }
 }
