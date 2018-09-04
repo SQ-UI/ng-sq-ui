@@ -4,9 +4,8 @@ import { OutsideClickListenerDirective } from './directives/outside-click-listen
 import { CustomEventBroadcasterService } from './services/custom-event-broadcaster.service';
 import { OSDetectorService } from './services/os-detector.service';
 import { LabelValuePair } from './interfaces/label-value-pair';
-import { SearchResult } from './interfaces/search-result';
 
-export { LabelValuePair, SearchResult };
+export { LabelValuePair };
 export { OutsideClickListenerDirective };
 export { OSDetectorService };
 

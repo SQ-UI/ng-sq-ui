@@ -10,15 +10,15 @@ describe('TypeaheadComponent', () => {
 
   const testSearchResults = [
     {
-      displayName: 'option1',
+      label: 'option1',
       value: { key: 1 },
     },
     {
-      displayName: 'option2',
+      label: 'option2',
       value: { key: 2 },
     },
     {
-      displayName: 'option3',
+      label: 'option3',
       value: { id: '1234', key: 3 },
     },
   ];
@@ -33,7 +33,7 @@ describe('TypeaheadComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TypeaheadComponent);
     component = fixture.componentInstance;
-    component.displayProp = 'displayName';
+    component.displayProp = '';
     fixture.detectChanges();
   });
 
@@ -60,18 +60,11 @@ describe('TypeaheadComponent', () => {
     component.selectSearchResult(component.searchResults[0]);
     component.selectSearchResult(component.searchResults[1]);
 
-    console.log(
-      !Object.is(
-        component.selectedItems.get(0).value,
-        component.value[0].value,
-      ),
-    );
-
+    console.log(Object.is(component.selectedItems.get(0), component.value[0]));
     // the typeahead should return a new array with the copied search items
     expect(
       component.value.length === 1 &&
-        !Object.is(component.selectedItems.get(0), component.value[0]) &&
-        component.value[0].value.id === component.selectedItems.get(0).value.id,
+        Object.is(component.selectedItems.get(0), component.value[0]),
     ).toBe(true, 'single choice is correctly populated');
   });
 
@@ -103,7 +96,7 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should be able to populate correctly with a pre-defined SearchResult[] when [multiple] = true', () => {
+  it('#should be able to populate correctly with a pre-defined LabelValuePair[] when [multiple] = true', () => {
     component.multiple = true;
     component.value = testSearchResults;
     expect(component.selectedItems.toArray()).toEqual(
@@ -112,7 +105,7 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should be able to populate correctly with a pre-defined SearchResult[] when [multiple] = false', () => {
+  it('#should be able to populate correctly with a pre-defined LabelValuePair[] when [multiple] = false', () => {
     component.multiple = false;
     component.value = testSearchResults;
     const itemsToArray = component.selectedItems.toArray();
