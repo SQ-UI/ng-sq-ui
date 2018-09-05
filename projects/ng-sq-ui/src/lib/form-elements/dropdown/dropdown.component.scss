@@ -4,9 +4,14 @@
   position: relative;
   flex-wrap: wrap;
   justify-content: flex-start;
+  &:hover {
+    cursor: pointer;
+  }
   .options {
     width: 100%;
     margin-top: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
   }
   .options .option {
     padding: 5px 10px;
@@ -19,5 +24,13 @@
     position: absolute;
     right: 11px;
     top: 11px;
+  }
+}
+
+@media (max-width: 450px) {
+  .sq .input-field.dropdown {
+    .chosen-item {
+      margin-top: 10px;
+    }
   }
 }

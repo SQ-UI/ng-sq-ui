@@ -6,10 +6,3 @@ interface LabelValuePair {
   value: any;
 }
 ```
-
-```typescript
-interface SearchResult {
-  displayName: string;
-  value: any;
-}
-```
