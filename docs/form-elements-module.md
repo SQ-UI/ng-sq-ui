@@ -271,6 +271,7 @@ In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/ap
 
 ```html
 <sq-typeahead name="typeahead"
+  displayProp="displayName"
   formControlName="typeahead"
   [searchResults]="searchResults"
   (onUserInputEnd)="searchMethod($event)"
@@ -303,6 +304,8 @@ export class AppComponent {
 }
 ```
 
+> If you wish to pass just an array of string, you must omit the property `displayProp` in the html.
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the typeahead. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -326,6 +329,8 @@ export class AppComponent {
 - **`@Input()` searchResults:** `SearchResult[]` - The list of results shown to the user after the last value which **onUserInputEnd** has emitted.
 
 - **`@Input()` multiple:** `boolean` - Allow the user to choose multiple items from the search results list. Defaults to `false`.
+
+- **`@Input()` displayProp:** `string` - Specify which property of the object to use as display property. If you are just passing an array of strings you must not assign a value to this property.
 
 ### Class properties:
 

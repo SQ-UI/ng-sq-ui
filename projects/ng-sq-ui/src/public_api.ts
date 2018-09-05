@@ -3,4 +3,4 @@
  */
 
 export * from './lib/ng-sq-ui.module';
-export { LabelValuePair, SearchResult } from './lib/shared/shared.module';
+export { LabelValuePair, OSDetectorService } from './lib/shared/shared.module';

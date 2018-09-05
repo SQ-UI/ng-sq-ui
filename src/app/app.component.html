@@ -24,6 +24,10 @@
       The font used in this preview is "Quicksand" and is applied using the Google Fonts API. The SQ-UI theme does not come with
       it and does not have a default font set.
     </p>
+
+    <p>
+      <b>Note:</b> Clicking the Submit button will produce a console.log() with all the form data.
+    </p>
   </section>
 
   <section id="formElementsModule" class="module">
@@ -42,7 +46,7 @@
           <h3>sq-inut</h3>
         </header>
 
-        <sq-input formControlName="name" controlLabel="Test Label*" controlPlaceholder="Test placeholder">
+        <sq-input formControlName="name" controlLabel="Test Label*" controlPlaceholder="Test placeholder" type="text">
         </sq-input>
       </section>
 
@@ -64,12 +68,22 @@
         </sq-tags-input>
       </section>
 
-      <section id="sqTypeahead">
+      <section id="sqTypeahead1">
         <header>
-          <h3>sq-typeahead</h3>
+          <h3>sq-typeahead with array of objects - multiple choice</h3>
         </header>
 
-        <sq-typeahead name="typeahead" formControlName="typeahead" [searchResults]="searchResults" (onUserInputEnd)="searchMethod($event)"
+        <sq-typeahead name="typeahead1" displayProp="myCustomProp" multiple="true" formControlName="typeahead1" [searchResults]="searchResults"
+          (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead*" controlPlaceholder="Type something in">
+        </sq-typeahead>
+      </section>
+
+      <section id="sqTypeahead2">
+        <header>
+          <h3>sq-typeahead with array of strings - single choice</h3>
+        </header>
+
+        <sq-typeahead name="typeahead2" formControlName="typeahead2" [searchResults]="searchResultsStrings" (onUserInputEnd)="searchMethodString($event)"
           controlLabel="Typeahead*" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
