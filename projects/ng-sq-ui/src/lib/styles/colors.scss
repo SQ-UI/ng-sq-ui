@@ -1,5 +1,5 @@
 //General
-$base-font-color: #4C4C4C;
+$base-font-color: #4c4c4c;
 $error-message-color: rgba(163, 52, 27, 1);
 $overlay-color: rgba(0, 0, 0, 0.38823529411764707);
 $primary-theme-color: rgba(46, 159, 134, 0.69);
@@ -16,3 +16,7 @@ $disabled-color: rgba(76, 76, 76, 0.12);
 //modal colors
 $modal-box-shadow-color: rgba(18, 125, 104, 0.3);
 $modal-background-color: #ffffff;
+
+//progress bar
+$progress-backogrund-color: $secondary-theme-color;
+$progress-line-color: $primary-theme-color;
