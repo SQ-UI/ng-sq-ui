@@ -1,0 +1,13 @@
+<div class="progress linear" [ngClass]="{
+    small: size === 'small',
+    medium: size === 'medium',
+    large: size === 'large',
+    infinite: infinite
+  }">
+  <div class="background"></div>
+  <div class="progress-bar">
+    <div class="loading-line" *ngIf="!infinite" [ngStyle]="{width: loaded + '%'}"></div>
+    <div class="loading-line infinite-line-1" *ngIf="infinite"></div>
+    <div class="loading-line infinite-line-2" *ngIf="infinite"></div>
+  </div>
+</div>

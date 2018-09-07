@@ -149,4 +149,30 @@
       </div>
     </sq-modal>
   </section>
+
+  <section id="sqProgressBar" class="module">
+    <header>
+      <h2>ProgressBarModule</h2>
+    </header>
+
+    <header>
+      <h3>Small</h3>
+    </header>
+    <sq-progress-bar size="small" [loaded]="progressBarLoadedSmall"></sq-progress-bar>
+
+    <header>
+      <h3>Medium</h3>
+    </header>
+    <sq-progress-bar [loaded]="progressBarLoadedMedium"></sq-progress-bar>
+
+    <header>
+      <h3>Large</h3>
+    </header>
+    <sq-progress-bar size="large" [loaded]="progressBarLoadedLarge"></sq-progress-bar>
+
+    <header>
+      <h3>Infinite</h3>
+    </header>
+    <sq-progress-bar size="large" [infinite]="true"></sq-progress-bar>
+  </section>
 </div>

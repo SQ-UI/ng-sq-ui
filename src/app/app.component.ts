@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LabelValuePair } from 'ng-sq-ui';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   testForm: FormGroup;
   showModal = false;
   searchResults: any[];
   searchResultsStrings: string[];
+  progressBarLoadedSmall = 20;
+  progressBarLoadedMedium = 40;
+  progressBarLoadedLarge = 60;
 
   dropdownOptions: LabelValuePair[] = [
     {
@@ -37,6 +41,27 @@ export class AppComponent {
       typeahead2: [[], Validators.required],
       radioValue: ['value1'],
       checkboxValue: [false],
+    });
+  }
+
+  ngOnInit() {
+    const source = interval(1000);
+    const subscribe = source.subscribe((val) => {
+      this.progressBarLoadedSmall += 20;
+      this.progressBarLoadedMedium += 20;
+      this.progressBarLoadedLarge += 20;
+
+      if (this.progressBarLoadedSmall > 100) {
+        this.progressBarLoadedSmall = 0;
+      }
+
+      if (this.progressBarLoadedMedium > 100) {
+        this.progressBarLoadedMedium = 0;
+      }
+
+      if (this.progressBarLoadedLarge > 100) {
+        this.progressBarLoadedLarge = 0;
+      }
     });
   }
 
