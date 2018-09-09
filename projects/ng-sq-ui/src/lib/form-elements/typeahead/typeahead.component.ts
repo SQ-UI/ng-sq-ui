@@ -92,7 +92,7 @@ export class TypeaheadComponent extends InputCoreComponent
 
   ngOnChanges(changesObj) {
     if (changesObj.searchResults && changesObj.searchResults.currentValue) {
-      const parsedResults= this.transformToLabelValuePairList(this.searchResults);
+      const parsedResults = this.transformToLabelValuePairList(this.searchResults);
       this.options = List(parsedResults);
 
       this.isLoading = false;

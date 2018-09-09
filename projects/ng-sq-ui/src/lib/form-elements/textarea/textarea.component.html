@@ -1,0 +1,19 @@
+<div class="input-field textarea" [ngClass]="{'disabled': disabled}">
+  <label class="label"
+         for="{{controlId}}"
+         *ngIf="controlLabel !== ''">
+    {{controlLabel}}
+  </label>
+
+  <textarea #textarea
+            name="{{name}}"
+            id="{{controlId}}"
+            placeholder="{{controlPlaceholder}}"
+            [required]="required"
+            [pattern]="pattern"
+            [disabled]="disabled"
+            [(ngModel)]="value"
+            (ngModelChange)="increaseHeight()"
+            [ngStyle]="{'height.px': height}">
+  </textarea>
+</div>
