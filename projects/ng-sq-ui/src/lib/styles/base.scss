@@ -28,9 +28,9 @@ input[type="hidden"] {
 
 textarea {
     resize: none;
-    min-height: 100px;
-    max-height: 200px;
+    border: none;
     overflow-y: auto;
+    background: transparent;
 }
 
 button, .button {
