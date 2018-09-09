@@ -28,8 +28,8 @@ input[type="hidden"] {
 
 textarea {
     resize: none;
+    border: none;
     min-height: 100px;
-    max-height: 200px;
     overflow-y: auto;
 }
 
