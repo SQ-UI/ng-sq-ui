@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let day of weekdays">
+        {{day}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template *ngFor="let dateRow of table">
+      <tr *ngFor="let date of dateRow">
+        <td>{{date}}</td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>

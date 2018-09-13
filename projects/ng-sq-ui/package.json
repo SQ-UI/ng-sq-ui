@@ -41,7 +41,8 @@
   },
   "dependencies": {
     "immutable": "^3.8.2",
-    "font-awesome": "4.7.0"
+    "font-awesome": "4.7.0",
+    "moment": "^2.22.2"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }
