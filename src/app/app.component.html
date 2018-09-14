@@ -124,6 +124,15 @@
         </sq-form-group>
       </section>
 
+      <section id="sqModal" class="module">
+        <header>
+          <h2>Datepicker</h2>
+        </header>
+
+        <sq-datetime-picker locale="bg" formControlName="datepicker">
+        </sq-datetime-picker>
+      </section>
+
 
       <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
     </form>
@@ -156,15 +165,5 @@
         </button>
       </div>
     </sq-modal>
-  </section>
-
-  <section id="sqModal" class="module">
-    <header>
-      <h2>Datepicker</h2>
-    </header>
-
-  <sq-datetime-picker locale="bg"></sq-datetime-picker>
-
-
   </section>
 </div>
