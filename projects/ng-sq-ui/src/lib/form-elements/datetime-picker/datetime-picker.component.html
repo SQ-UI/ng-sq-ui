@@ -1,16 +1,40 @@
-<table>
-  <thead>
-    <tr>
-      <th *ngFor="let day of weekdays">
-        {{day}}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-template *ngFor="let dateRow of table">
-      <tr *ngFor="let date of dateRow">
-        <td>{{date}}</td>
+<div class="datetime-picker-wrapper">
+  <div class="period-section">
+    <button type="button" (click)="previous()">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+
+    <div>
+      <button type="button">
+        <strong class="period-name">{{ currentMonth.format('MMMM') }}</strong>
+      </button>
+
+      <button type="button">
+        <strong class="period-name">{{ currentMonth.format('YYYY') }}</strong>
+      </button>
+    </div>
+
+    <button type="button" (click)="next()">
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <table class="datetime-picker">
+    <thead>
+      <tr>
+        <th *ngFor="let day of weekdays" class="heading">
+          {{day}}
+        </th>
       </tr>
-    </ng-template>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dateRow of table" class="row">
+        <td *ngFor="let date of dateRow"
+            class="cell"
+            [ngClass]="{'beyond-current-period': date.isBeyondCurrentMonth}">
+          {{ date.displayDate }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

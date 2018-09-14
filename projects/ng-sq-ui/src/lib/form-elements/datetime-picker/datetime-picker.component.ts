@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
@@ -11,6 +11,17 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   multi: true
 };
 
+export interface CalendarDay {
+  displayDate: string;
+  isBeyondCurrentMonth: boolean;
+  selected: boolean;
+}
+
+export enum PeriodType {
+  Month = 0,
+  Year
+}
+
 @Component({
   selector: 'sq-datetime-picker',
   templateUrl: './datetime-picker.component.html',
@@ -19,9 +30,11 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class DatetimePickerComponent extends InputCoreComponent implements OnInit {
+  @Input() locale: string = 'en';
   weekdays: string[];
   currentDate = moment();
-  currentYear = moment().year();
+  currentMonth = moment();
+  period: PeriodType = PeriodType.Month;
   table = [];
 
   constructor() {
@@ -29,57 +42,74 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   }
 
   ngOnInit() {
-    moment.locale('bg');
+    moment.locale(this.locale);
     this.weekdays = this.getWeekdays();
-    this.table = this.getDatesByWeekdaysMapForMonth(this.currentDate.month());
+    this.table = this.getMonthCalendar(moment().locale(this.locale));
   }
 
-  getNextCalendarPeriod(current: momentNs.Moment, amount: number, unit: momentNs.unitOfTime.Base) {
-    return current.add(amount, unit);
+  next() {
+    if (this.period === PeriodType.Month) {
+      const nextMonth = this.currentMonth.add(1, 'month');
+      this.table = this.getMonthCalendar(nextMonth);
+    }
   }
 
-  getPreviousCalendarPeriod(current: momentNs.Moment, amount: number, unit: momentNs.unitOfTime.Base) {
-    return current.subtract(amount, unit);
+  previous() {
+    if (this.period === PeriodType.Month) {
+      const previousMonth = this.currentMonth.subtract(1, 'month');
+      this.table  = this.getMonthCalendar(previousMonth);
+    }
   }
 
   getWeekdays(short: boolean = true) {
     return short ? moment.weekdaysShort(true) : moment.weekdays(true);
   }
 
-  getDatesByWeekdaysMapForMonth(month: number) {
-    const dateIterator = moment().year(this.currentYear).month(month).startOf('month');
-    const tableEnd = this.getNextCalendarPeriod(dateIterator, 1, 'month');
-    const isStartOfChosenMonthStartOfDisplayedTable = (dateIterator.weekday() === 0);
-    const isEndOfNextMonthEndOfDisplayedTable = (tableEnd.weekday() === 6);
-    const map = [];
+  getMonthCalendar(period) {
+    const monthStart = moment(period).startOf('month').locale(this.locale);
+    const tableEnd = moment(monthStart).add(1, 'month').locale(this.locale);
+    const isStartOfChosenMonthTheFirstDayOfTable = (monthStart.weekday() === 0);
 
-    if (!isStartOfChosenMonthStartOfDisplayedTable) {
-      let daysToGoBack = dateIterator.weekday() - 1;
-      daysToGoBack = daysToGoBack === 0 ? 1 : daysToGoBack;
+    const dateIterator = monthStart.clone();
+    const calendar: Array<CalendarDay[]> = [];
+    let tableRow: CalendarDay[] = [];
+
+    if (!isStartOfChosenMonthTheFirstDayOfTable) {
+      let daysToGoBack = dateIterator.weekday();
+      daysToGoBack = (daysToGoBack === 0) ? 1 : daysToGoBack;
       dateIterator.subtract(daysToGoBack, 'days');
     }
 
-    if (!isEndOfNextMonthEndOfDisplayedTable) {
-      let daysToGoForward = 6 - tableEnd.weekday();
-      daysToGoForward = daysToGoForward === 6 ? 5 : daysToGoForward;
-      tableEnd.add(daysToGoForward, 'days');
-    }
+    while (dateIterator.isSameOrBefore(tableEnd) || calendar.length < 6) {
+      if (tableRow.length <= 6) {
+        tableRow.push({
+          displayDate: dateIterator.format('D'),
+          isBeyondCurrentMonth: this.isDateBeyondCurrentMonth(dateIterator),
+          selected: false
+        });
 
-    while (dateIterator.isSameOrBefore(tableEnd)) {
-      let tableRow = [];
-      let item = dateIterator.clone();
-
-      if (tableRow.length <= 7) {
-        tableRow.push(item.format('DD'));
       } else {
-        map.push(tableRow);
-        tableRow = [item.format('DD')];
+        calendar.push(tableRow);
+
+        tableRow = [{
+          displayDate: dateIterator.format('D'),
+          isBeyondCurrentMonth: this.isDateBeyondCurrentMonth(dateIterator),
+          selected: false
+        }];
       }
 
       dateIterator.add(1, 'day');
     }
 
-    return map;
+    return calendar;
+  }
+
+  private isDateBeyondCurrentMonth(date): boolean {
+    const startOfCurrentMonth = moment(this.currentMonth).startOf('month');
+    const endOfCurrentMonth = moment(this.currentMonth).endOf('month');
+
+    return (moment(date).isBefore(startOfCurrentMonth) ||
+            moment(date).isAfter(endOfCurrentMonth));
   }
 
 }
