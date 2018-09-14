@@ -1,0 +1,49 @@
+.sq {
+  .datetime-picker-wrapper {
+    max-width: 410px;
+    font-size: 14px;
+  }
+
+  .period-section {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .period-name {
+    font-size: 18px;
+  }
+
+  .datetime-picker {
+    text-align: left;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: none;
+    .heading {
+      background-color: rgba(18, 125, 104, 0.3);
+      text-transform: uppercase;
+      padding: 10px 20px;
+      &:last-child {
+        border-right: none;
+      }
+    }
+    .cell {
+      padding: 6px 20px;
+    }
+    .cell.beyond-current-period {
+      color: #2e9f86;
+    }
+    .row {
+      &:nth-child(2n) td  {
+        background-color: rgba(18, 125, 104, 0.12);
+      }
+      .cell:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+
