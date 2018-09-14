@@ -51,6 +51,7 @@
     .cell {
       cursor: default;
       padding: 6px 20px;
+      transition: 200ms background-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
       &.beyond-current-period {
         color: #2e9f86;
       }
