@@ -1,3 +1,5 @@
+@import "../../styles/colors";
+
 .sq {
   .datetime-picker-wrapper {
     max-width: 410px;
@@ -7,40 +9,62 @@
   .period-section {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-bottom: 20px;
     text-transform: uppercase;
   }
 
   .period-name {
     font-size: 18px;
+    text-transform: uppercase;
+  }
+
+  .month-name {
+    margin-right: 10px
+  }
+
+  .change-period {
+    font-size: 18px;
+    &.next {
+      padding-left: 20px;
+    }
+    &.prev {
+      padding-right: 20px;
+    }
   }
 
   .datetime-picker {
-    text-align: left;
     width: 100%;
+    text-align: center;
     table-layout: fixed;
     border-collapse: collapse;
     border: none;
     .heading {
-      background-color: rgba(18, 125, 104, 0.3);
-      text-transform: uppercase;
+      width: 14%;
       padding: 10px 20px;
+      background-color: $datetime-heading;
+      text-transform: uppercase;
       &:last-child {
         border-right: none;
       }
     }
     .cell {
+      cursor: default;
       padding: 6px 20px;
-    }
-    .cell.beyond-current-period {
-      color: #2e9f86;
+      &.beyond-current-period {
+        color: #2e9f86;
+      }
+      &.selected {
+        font-weight: bold;
+        background-color: $datetime-selected;
+      }
     }
     .row {
-      &:nth-child(2n) td  {
+      &:nth-child(2n) .cell  {
         background-color: rgba(18, 125, 104, 0.12);
       }
-      .cell:last-child {
-        border-right: none;
+      &:nth-child(2n) .cell.selected {
+        background-color: $datetime-selected;
       }
     }
   }

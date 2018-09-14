@@ -1,11 +1,11 @@
 <div class="datetime-picker-wrapper">
   <div class="period-section">
-    <button type="button" (click)="previous()">
+    <button type="button" (click)="previous()" class="change-period prev">
       <i class="fa fa-chevron-left"></i>
     </button>
 
     <div>
-      <button type="button">
+      <button type="button" class="month-name">
         <strong class="period-name">{{ currentMonth.format('MMMM') }}</strong>
       </button>
 
@@ -14,7 +14,7 @@
       </button>
     </div>
 
-    <button type="button" (click)="next()">
+    <button type="button" (click)="next()" class="change-period next">
       <i class="fa fa-chevron-right"></i>
     </button>
   </div>
@@ -31,7 +31,9 @@
       <tr *ngFor="let dateRow of table" class="row">
         <td *ngFor="let date of dateRow"
             class="cell"
-            [ngClass]="{'beyond-current-period': date.isBeyondCurrentMonth}">
+            (click)="select(date)"
+            [ngClass]="{'beyond-current-period': date.isBeyondCurrentMonth,
+                        'selected': date.isSelected}">
           {{ date.displayDate }}
         </td>
       </tr>

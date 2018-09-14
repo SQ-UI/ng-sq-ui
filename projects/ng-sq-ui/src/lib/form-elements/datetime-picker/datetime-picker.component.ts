@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewEncapsulation, Input, Output, OnChanges } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
@@ -14,7 +14,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 export interface CalendarDay {
   displayDate: string;
   isBeyondCurrentMonth: boolean;
-  selected: boolean;
+  isSelected: boolean;
 }
 
 export enum PeriodType {
@@ -31,11 +31,13 @@ export enum PeriodType {
 })
 export class DatetimePickerComponent extends InputCoreComponent implements OnInit {
   @Input() locale: string = 'en';
+
   weekdays: string[];
-  currentDate = moment();
   currentMonth = moment();
   period: PeriodType = PeriodType.Month;
   table = [];
+
+  private previouslySelected: CalendarDay;
 
   constructor() {
     super();
@@ -45,6 +47,22 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     moment.locale(this.locale);
     this.weekdays = this.getWeekdays();
     this.table = this.getMonthCalendar(moment().locale(this.locale));
+  }
+
+  select(date: CalendarDay) {
+    this.value = moment()
+      .year(this.currentMonth.year())
+      .month(this.currentMonth.month())
+      .date(parseInt(date.displayDate, 10))
+      .locale(this.locale);
+
+    date.isSelected = true;
+
+    if (this.previouslySelected) {
+      this.previouslySelected.isSelected = false;
+    }
+
+    this.previouslySelected = date;
   }
 
   next() {
@@ -85,7 +103,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
         tableRow.push({
           displayDate: dateIterator.format('D'),
           isBeyondCurrentMonth: this.isDateBeyondCurrentMonth(dateIterator),
-          selected: false
+          isSelected: false
         });
 
       } else {
@@ -94,7 +112,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
         tableRow = [{
           displayDate: dateIterator.format('D'),
           isBeyondCurrentMonth: this.isDateBeyondCurrentMonth(dateIterator),
-          selected: false
+          isSelected: false
         }];
       }
 

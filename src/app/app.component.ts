@@ -37,7 +37,8 @@ export class AppComponent {
       typeahead2: [[], Validators.required],
       radioValue: ['value1'],
       checkboxValue: [false],
-      textareaValue: ['', Validators.required]
+      textareaValue: ['', Validators.required],
+      datepicker: [null, Validators.required]
     });
   }
 
