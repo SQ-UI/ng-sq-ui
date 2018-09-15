@@ -23,7 +23,7 @@
     <thead>
       <tr>
         <th *ngFor="let day of weekdays" class="heading">
-          {{day}}
+          <span class="text">{{day}}</span>
         </th>
       </tr>
     </thead>
@@ -31,9 +31,10 @@
       <tr *ngFor="let dateRow of table" class="row">
         <td *ngFor="let date of dateRow"
             class="cell"
-            (click)="select(date)"
-            [ngClass]="{'beyond-current-period': date.isBeyondCurrentMonth,
-                        'selected': date.isSelected}">
+            (click)="onDateClick(date)"
+            [ngClass]="{'beyond-current-period': date.relativityToCurrentMonth !== calendarPeriodRelativity.Current,
+                        'selected': date.isSelected,
+                        'disabled': date.isDisabled}">
           {{ date.displayDate }}
         </td>
       </tr>
