@@ -15,7 +15,7 @@
   }
 
   .period-name {
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
   }
 
@@ -41,7 +41,7 @@
     border: none;
     .heading {
       width: 14%;
-      padding: 10px 20px;
+      padding: 10px 17px;
       background-color: $datetime-heading;
       text-transform: uppercase;
       &:last-child {
@@ -51,13 +51,17 @@
     .cell {
       cursor: default;
       padding: 6px 20px;
-      transition: 200ms background-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
+      transition: 100ms background-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
       &.beyond-current-period {
         color: #2e9f86;
       }
       &.selected {
         font-weight: bold;
         background-color: $datetime-selected;
+      }
+      &.disabled {
+        pointer-events: none;
+        color: #aba9a9;
       }
     }
     .row {
@@ -66,6 +70,24 @@
       }
       &:nth-child(2n) .cell.selected {
         background-color: $datetime-selected;
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    .datetime-picker {
+      .heading {
+        padding: 10px 15px;
+        .text {
+          display: inline-block;
+          visibility: hidden;
+          &::first-letter {
+            visibility: visible;
+          }
+        }
+      }
+      .cell {
+        padding: 6px 12px;
       }
     }
   }
