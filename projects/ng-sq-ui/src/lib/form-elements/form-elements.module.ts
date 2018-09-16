@@ -15,7 +15,6 @@ import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { ButtonComponent } from './button/button.component';
 import { TextareaComponent } from './textarea/textarea.component';
-import { DatetimePickerComponent } from './datetime-picker/datetime-picker.component';
 
 @NgModule({
   imports: [
@@ -33,8 +32,7 @@ import { DatetimePickerComponent } from './datetime-picker/datetime-picker.compo
     TypeaheadComponent,
     CheckboxComponent,
     ButtonComponent,
-    TextareaComponent,
-    DatetimePickerComponent
+    TextareaComponent
   ],
   exports: [
     InputComponent,
@@ -45,8 +43,7 @@ import { DatetimePickerComponent } from './datetime-picker/datetime-picker.compo
     TypeaheadComponent,
     CheckboxComponent,
     ButtonComponent,
-    TextareaComponent,
-    DatetimePickerComponent
+    TextareaComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
