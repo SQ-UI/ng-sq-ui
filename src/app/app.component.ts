@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LabelValuePair } from 'ng-sq-ui';
+import * as momentNs from 'moment';
+const moment = momentNs;
 
 @Component({
   selector: 'app-root',

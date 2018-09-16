@@ -1,8 +1,11 @@
-import { CalendarPeriodRelativity } from '../enums/calendar-period-relativity';
+import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
+import * as momentNs from 'moment';
+const moment = momentNs;
 
 export interface CalendarDay {
   displayDate: string;
-  relativityToCurrentMonth: CalendarPeriodRelativity;
+  momentObj: momentNs.Moment;
+  relativityToCurrentMonth: CalendarPeriodRelativityEnum;
   isSelected: boolean;
   isDisabled: boolean;
 }
