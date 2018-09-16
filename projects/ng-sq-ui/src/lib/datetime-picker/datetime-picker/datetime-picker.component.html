@@ -28,7 +28,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dateRow of table" class="row">
+      <tr *ngFor="let dateRow of calendar.table" class="row">
         <td *ngFor="let date of dateRow"
             class="cell"
             (click)="onDateClick(date)"
