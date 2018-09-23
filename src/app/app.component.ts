@@ -15,6 +15,8 @@ export class AppComponent {
   searchResults: any[];
   searchResultsStrings: string[];
   isDatepickerRanged = true;
+  minDate = moment();
+  maxDate = moment().add(5, 'years');
 
   dropdownOptions: LabelValuePair[] = [
     {
@@ -41,7 +43,7 @@ export class AppComponent {
       radioValue: ['value1'],
       checkboxValue: [false],
       textareaValue: [''],
-      datepicker: [null, Validators.required]
+      datepicker: [moment().add(1, 'day'), Validators.required]
     });
   }
 
