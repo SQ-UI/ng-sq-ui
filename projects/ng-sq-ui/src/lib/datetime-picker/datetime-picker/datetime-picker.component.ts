@@ -107,7 +107,12 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
 
     if (this.period === CalendarPeriodTypeEnum.Year) {
-      this.yearsList = this.calendarManager.generateYearPickerCollection(null);
+      const dateRange = {
+        minDate: moment(this.minDate),
+        maxDate: moment(this.maxDate)
+      };
+
+      this.yearsList = this.calendarManager.generateYearPickerCollection(null, 19, dateRange);
     }
   }
 
@@ -118,7 +123,12 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
 
     if (this.period === CalendarPeriodTypeEnum.Year) {
-      this.yearsList = this.calendarManager.generateYearPickerCollection(null, -19);
+      const dateRange = {
+        minDate: moment(this.minDate),
+        maxDate: moment(this.maxDate)
+      };
+
+      this.yearsList = this.calendarManager.generateYearPickerCollection(null, -19, dateRange);
     }
   }
 
@@ -139,18 +149,26 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     this.isYearsPickerEnabled = false;
     this.isMonthsPickerEnabled = true;
     this.currentMonth.year(year);
+    const dateRange = {
+      minDate: this.minDate,
+      maxDate: this.maxDate
+    };
 
     this.period = CalendarPeriodTypeEnum.Month;
-    this.months = this.calendarManager.generateMonthPickerCollection(year);
+    this.months = this.calendarManager.generateMonthPickerCollection(year, dateRange);
   }
 
   showYearsPicker() {
     this.deselectAll();
     this.isMonthsPickerEnabled = false;
     this.isYearsPickerEnabled = true;
+    const dateRange = {
+      minDate: this.minDate,
+      maxDate: this.maxDate
+    };
 
     this.period = CalendarPeriodTypeEnum.Year;
-    this.yearsList = this.calendarManager.generateYearPickerCollection(this.currentMonth);
+    this.yearsList = this.calendarManager.generateYearPickerCollection(this.currentMonth, 19, dateRange);
   }
 
   selectMonth(month) {

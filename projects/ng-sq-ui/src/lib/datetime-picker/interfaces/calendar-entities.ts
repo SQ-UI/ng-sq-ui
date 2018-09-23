@@ -13,4 +13,5 @@ export interface CalendarDay {
 export interface InCalendarPicker {
   displayName: string;
   momentObj: momentNs.Moment;
+  isDisabled: boolean;
 }

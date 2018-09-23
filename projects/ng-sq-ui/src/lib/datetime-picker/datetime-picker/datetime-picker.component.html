@@ -30,15 +30,23 @@
 
   <div class="display-flex space-between wrap">
     <ng-template [ngIf]="isMonthsPickerEnabled">
-      <div *ngFor="let month of months" (click)="selectMonth(month)" class="picker-item">
+      <button type="button"
+              class="picker-item"
+              *ngFor="let month of months"
+              (click)="selectMonth(month)"
+              [ngClass]="{'disabled': month.isDisabled}">
         {{ month.displayName }}
-      </div>
+      </button>
     </ng-template>
 
     <ng-template [ngIf]="isYearsPickerEnabled">
-      <div *ngFor="let year of yearsList" (click)="selectYear(year)" class="picker-item">
+      <button type="button"
+              class="picker-item"
+              *ngFor="let year of yearsList"
+              (click)="selectYear(year)"
+              [ngClass]="{'disabled': year.isDisabled}">
         {{ year.displayName }}
-      </div>
+      </button>
     </ng-template>
   </div>
 
