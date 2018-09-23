@@ -63,24 +63,30 @@ export class CalendarManagerService {
     return calendar;
   }
 
-  generateMonthPickerCollection(currentYear: number): InCalendarPicker[] {
+  generateMonthPickerCollection(currentYear: number, dateRange: DateRange): InCalendarPicker[] {
     const months = this.getMonths();
 
     return months.map((monthName, index) => {
+      const date = moment().year(currentYear).month(index);
+
       return {
         displayName: monthName,
-        momentObj: moment().year(currentYear).month(index)
+        momentObj: date,
+        isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate)
       };
     });
   }
 
-  generateYearPickerCollection(start: momentNs.Moment, margin: number = 19): InCalendarPicker[] {
+  generateYearPickerCollection(start: momentNs.Moment, margin: number = 19, dateRange: DateRange): InCalendarPicker[] {
     const yearsList = this.getYearList(start, margin);
 
     return yearsList.map((year) => {
+      const date = moment().year(year);
+
       return {
         displayName: year.toString(),
-        momentObj: moment().year(year).month(0).day(0).hours(0).minutes(0)
+        momentObj: date,
+        isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate)
       };
     });
   }
@@ -140,8 +146,8 @@ export class CalendarManagerService {
   determineIfDateIsDisabled(currentDate: momentNs.Moment | Date,
                             minDate: momentNs.Moment | Date,
                             maxDate: momentNs.Moment | Date): boolean {
-    const isAfterMaxDate = maxDate && moment(currentDate).isAfter(maxDate);
-    const isBeforeMinDate = minDate && moment(currentDate).isBefore(minDate);
+    const isAfterMaxDate = maxDate && moment(currentDate).isAfter(maxDate, 'day');
+    const isBeforeMinDate = minDate && moment(currentDate).isBefore(minDate, 'day');
 
     return <boolean>(isAfterMaxDate || isBeforeMinDate);
   }
