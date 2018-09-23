@@ -9,3 +9,8 @@ export interface CalendarDay {
   isSelected: boolean;
   isDisabled: boolean;
 }
+
+export interface InCalendarPicker {
+  displayName: string;
+  momentObj: momentNs.Moment;
+}

@@ -4,6 +4,18 @@
   .datetime-picker-wrapper {
     max-width: 410px;
     font-size: 14px;
+    .picker-item {
+      font-size: 19px;
+      background-color: rgba(18, 125, 104, 0.12);
+      padding: 5px 12px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      min-width: 80px;
+      text-align: center;
+    }
   }
 
   .period-section {

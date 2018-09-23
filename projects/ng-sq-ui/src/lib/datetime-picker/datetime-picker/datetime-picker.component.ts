@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CalendarDay } from '../interfaces/calendar-day';
+import { CalendarDay, InCalendarPicker } from '../interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
 import { DateRange } from '../interfaces/date-range';
 import { MonthCalendar } from '../interfaces/month-calendar';
@@ -39,10 +39,14 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   @Output() dateSelectionChange: EventEmitter<momentNs.Moment | Date> = new EventEmitter<momentNs.Moment | Date>();
 
   weekdays: string[];
-  calendar: MonthCalendar;
+  months: InCalendarPicker[];
+  yearsList: InCalendarPicker[];
+  calendar: Array<CalendarDay[]>;
   currentMonth: momentNs.Moment;
   period: CalendarPeriodTypeEnum = CalendarPeriodTypeEnum.Month;
   calendarPeriodRelativity = CalendarPeriodRelativityEnum;
+  isMonthsPickerEnabled = false;
+  isYearsPickerEnabled = false;
 
   private selectedDates: List<momentNs.Moment> = List<momentNs.Moment>();
 
@@ -55,10 +59,9 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     this.calendarManager.setLocale(this.locale);
     const now = moment().hours(0).minutes(0).locale(this.locale);
     this.selectedDates = List([now.clone()]);
-    this.initializeAuthorValuesIfAny();
-    this.currentMonth = now.clone();
     this.weekdays = this.calendarManager.getWeekdays();
     this.calendar = this.getMonthCalendar(now.clone());
+    this.initializeAuthorValuesIfAny();
   }
 
   ngAfterViewInit() {
@@ -102,6 +105,10 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
       const nextMonth = this.currentMonth.add(1, 'month');
       this.calendar = this.getMonthCalendar(nextMonth);
     }
+
+    if (this.period === CalendarPeriodTypeEnum.Year) {
+      this.yearsList = this.calendarManager.generateYearPickerCollection(null);
+    }
   }
 
   previous() {
@@ -109,16 +116,49 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
       const previousMonth = this.currentMonth.subtract(1, 'month');
       this.calendar = this.getMonthCalendar(previousMonth);
     }
+
+    if (this.period === CalendarPeriodTypeEnum.Year) {
+      this.yearsList = this.calendarManager.generateYearPickerCollection(null, -20);
+    }
   }
 
-  getMonthCalendar(startPeriod: momentNs.Moment): MonthCalendar {
+  getMonthCalendar(startPeriod: momentNs.Moment): Array<CalendarDay[]> {
     const selectedDates = this.selectedDates.toArray();
     const dateRange: DateRange = {
       minDate: this.minDate,
       maxDate: this.maxDate
     };
 
+    this.currentMonth = startPeriod.clone();
+
     return this.calendarManager.generateCalendarForMonth(startPeriod, this.currentMonth, selectedDates, dateRange);
+  }
+
+  showMonthsPicker(year: number = this.currentMonth.year()) {
+    this.deselectAll();
+    this.period = CalendarPeriodTypeEnum.Month;
+    this.isYearsPickerEnabled = false;
+    this.isMonthsPickerEnabled = true;
+    this.currentMonth.year(year);
+
+    this.months = this.calendarManager.generateMonthPickerCollection(year);
+  }
+
+  showYearsPicker() {
+    this.deselectAll();
+    this.period = CalendarPeriodTypeEnum.Year;
+    this.isMonthsPickerEnabled = false;
+    this.isYearsPickerEnabled = true;
+    this.yearsList = this.calendarManager.generateYearPickerCollection(this.currentMonth);
+  }
+
+  selectMonth(month) {
+    this.calendar = this.getMonthCalendar(month.momentObj);
+    this.isMonthsPickerEnabled = false;
+  }
+
+  selectYear(year) {
+    this.showMonthsPicker(year.momentObj.year());
   }
 
   private initializeAuthorValuesIfAny() {
@@ -155,7 +195,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
       }
 
     } else {
-      const previousDate = this.calendarManager.findADateFromCalendar(this.selectedDates.get(0), this.calendar.table);
+      const previousDate = this.calendarManager.findADateFromCalendar(this.selectedDates.get(0), this.calendar);
       previousDate.isSelected = false;
 
       this.selectedDates = this.selectedDates.clear();
@@ -176,6 +216,16 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
       isDisabled: this.calendarManager.determineIfDateIsDisabled(dateCopy, this.minDate, this.maxDate),
       isSelected: this.calendarManager.getSelectedItemIndex(dateCopy, this.selectedDates.toArray()) > -1
     };
+  }
+
+  private deselectAll() {
+    this.selectedDates.toArray().forEach((selectedDate) => {
+      const calendarDay = this.calendarManager.findADateFromCalendar(selectedDate, this.calendar);
+      calendarDay.isSelected = false;
+    });
+
+    this.selectedDates = List([]);
+    this.setValueResult();
   }
 
   private setValueResult() {

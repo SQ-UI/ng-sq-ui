@@ -5,13 +5,22 @@
     </button>
 
     <div>
-      <button type="button" class="month-name">
+      <button type="button"
+              class="month-name"
+              (click)="showMonthsPicker()"
+              *ngIf="!isMonthsPickerEnabled && !isYearsPickerEnabled">
         <strong class="period-name">{{ currentMonth.format('MMMM') }}</strong>
       </button>
 
-      <button type="button">
+      <button type="button"
+              (click)="showYearsPicker()"
+              *ngIf="!isYearsPickerEnabled">
         <strong class="period-name">{{ currentMonth.format('YYYY') }}</strong>
       </button>
+
+      <strong class="period-name" *ngIf="isYearsPickerEnabled">
+        {{ yearsList[0].displayName + ' - ' + yearsList[yearsList.length - 1].displayName }}
+      </strong>
     </div>
 
     <button type="button" (click)="next()" class="change-period next">
@@ -19,7 +28,21 @@
     </button>
   </div>
 
-  <table class="datetime-picker">
+  <div class="display-flex space-between wrap">
+    <ng-template [ngIf]="isMonthsPickerEnabled">
+      <div *ngFor="let month of months" (click)="selectMonth(month)" class="picker-item">
+        {{ month.displayName }}
+      </div>
+    </ng-template>
+
+    <ng-template [ngIf]="isYearsPickerEnabled">
+      <div *ngFor="let year of yearsList" (click)="selectYear(year)" class="picker-item">
+        {{ year.displayName }}
+      </div>
+    </ng-template>
+  </div>
+
+  <table class="datetime-picker" *ngIf="!isMonthsPickerEnabled && !isYearsPickerEnabled">
     <thead>
       <tr>
         <th *ngFor="let day of weekdays" class="heading">
@@ -28,7 +51,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dateRow of calendar.table" class="row">
+      <tr *ngFor="let dateRow of calendar" class="row">
         <td *ngFor="let date of dateRow"
             class="cell"
             (click)="onDateClick(date)"
