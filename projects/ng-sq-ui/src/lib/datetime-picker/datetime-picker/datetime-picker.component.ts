@@ -7,7 +7,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarDay, InCalendarPicker } from '../interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
 import { DateRange } from '../interfaces/date-range';
-import { MonthCalendar } from '../interfaces/month-calendar';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { CalendarManagerService } from '../calendar-manager.service';
 import { DateObjectType } from '../enums/date-object-type.enum';

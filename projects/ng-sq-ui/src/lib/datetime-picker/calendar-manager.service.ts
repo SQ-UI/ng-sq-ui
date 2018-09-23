@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CalendarDay, InCalendarPicker } from './interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
-import { MonthCalendar } from './interfaces/month-calendar';
 import { DateRange } from './interfaces/date-range';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import * as momentNs from 'moment';
