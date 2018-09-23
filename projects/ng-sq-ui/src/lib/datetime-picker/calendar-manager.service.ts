@@ -75,7 +75,7 @@ export class CalendarManagerService {
     });
   }
 
-  generateYearPickerCollection(start: momentNs.Moment, margin: number = 20): InCalendarPicker[] {
+  generateYearPickerCollection(start: momentNs.Moment, margin: number = 19): InCalendarPicker[] {
     const yearsList = this.getYearList(start, margin);
 
     return yearsList.map((year) => {
@@ -94,7 +94,7 @@ export class CalendarManagerService {
     return short ? moment.monthsShort() : moment.months();
   }
 
-  getYearList(start: momentNs.Moment, margin: number = 20): number[] {
+  getYearList(start: momentNs.Moment, margin: number = 19): number[] {
     let yearIterator;
     let endYear;
 

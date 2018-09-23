@@ -119,7 +119,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
 
     if (this.period === CalendarPeriodTypeEnum.Year) {
-      this.yearsList = this.calendarManager.generateYearPickerCollection(null, -20);
+      this.yearsList = this.calendarManager.generateYearPickerCollection(null, -19);
     }
   }
 
