@@ -230,7 +230,13 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   private deselectAll() {
     this.selectedDates.toArray().forEach((selectedDate) => {
       const calendarDay = this.calendarManager.findADateFromCalendar(selectedDate, this.calendar);
-      calendarDay.isSelected = false;
+
+      // this handles the case when we have a selected date
+      // from the previous month but we haven't selected anything
+      // from the current
+      if (calendarDay) {
+        calendarDay.isSelected = false;
+      }
     });
 
     this.selectedDates = List([]);
@@ -240,20 +246,23 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   private setValueResult() {
     let result: any = this.selectedDates.toArray();
 
-    if (this.dateObjectType === DateObjectType.Date && !this.format) {
-      result = result.map((momentObj) => {
-        return momentObj.toDate();
-      });
-    }
+    if (result.length > 0) {
+      if (this.dateObjectType === DateObjectType.Date && !this.format) {
+        result = result.map((momentObj) => {
+          return momentObj.toDate();
+        });
+      }
 
-    if (this.range) {
-      result = this.calendarManager.sortDatesAsc(result);
-    }
+      if (this.range) {
+        result = this.calendarManager.sortDatesAsc(result);
+      }
 
-    if (this.format) {
-      result = result.map((date) => {
-        return moment(date).format(this.format);
-      });
+      if (this.format) {
+        result = result.map((date) => {
+          return moment(date).format(this.format);
+        });
+      }
+
     }
 
     if (this.range) {
