@@ -136,19 +136,20 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
 
   showMonthsPicker(year: number = this.currentMonth.year()) {
     this.deselectAll();
-    this.period = CalendarPeriodTypeEnum.Month;
     this.isYearsPickerEnabled = false;
     this.isMonthsPickerEnabled = true;
     this.currentMonth.year(year);
 
+    this.period = CalendarPeriodTypeEnum.Month;
     this.months = this.calendarManager.generateMonthPickerCollection(year);
   }
 
   showYearsPicker() {
     this.deselectAll();
-    this.period = CalendarPeriodTypeEnum.Year;
     this.isMonthsPickerEnabled = false;
     this.isYearsPickerEnabled = true;
+
+    this.period = CalendarPeriodTypeEnum.Year;
     this.yearsList = this.calendarManager.generateYearPickerCollection(this.currentMonth);
   }
 
@@ -167,11 +168,11 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
         if (newValue) {
           if (Array.isArray(newValue)) {
             newValue.forEach((date) => {
-              const convertedDate = this.convertToCalendarDay(date);
+              const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
               this.markDateAsSelected(convertedDate);
             });
           } else {
-            const calendarDay = this.convertToCalendarDay(newValue);
+            const calendarDay = this.calendarManager.findADateFromCalendar(moment(newValue), this.calendar);
             this.markDateAsSelected(calendarDay);
           }
         }
@@ -204,18 +205,6 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
 
     this.setValueResult();
-  }
-
-  private convertToCalendarDay(date: momentNs.Moment | Date): CalendarDay {
-    const dateCopy = moment(date);
-
-    return {
-      displayDate: dateCopy.format('D'),
-      momentObj: dateCopy,
-      relativityToCurrentMonth: this.calendarManager.determineDateRelativityToCurrentMonth(dateCopy, this.currentMonth),
-      isDisabled: this.calendarManager.determineIfDateIsDisabled(dateCopy, this.minDate, this.maxDate),
-      isSelected: this.calendarManager.getSelectedItemIndex(dateCopy, this.selectedDates.toArray()) > -1
-    };
   }
 
   private deselectAll() {

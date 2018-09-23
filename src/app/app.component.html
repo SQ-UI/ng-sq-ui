@@ -130,6 +130,8 @@
         </header>
 
         <sq-datetime-picker locale="en"
+                            [maxDate]="maxDate"
+                            [minDate]="minDate"
                             formControlName="datepicker"
                             [range]="isDatepickerRanged"
                             dateObjectType="moment">
