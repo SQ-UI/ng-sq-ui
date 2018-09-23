@@ -1,4 +1,4 @@
-import { CalendarDay } from './calendar-day';
+import { CalendarDay } from './calendar-entities';
 
 export interface MonthCalendar {
   table: Array<CalendarDay[]>;

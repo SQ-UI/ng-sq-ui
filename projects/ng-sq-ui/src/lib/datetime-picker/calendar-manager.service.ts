@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarDay } from './interfaces/calendar-day';
+import { CalendarDay, InCalendarPicker } from './interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
 import { MonthCalendar } from './interfaces/month-calendar';
 import { DateRange } from './interfaces/date-range';
@@ -15,6 +15,7 @@ export class CalendarManagerService {
   constructor() { }
 
   private locale = 'en';
+  private previouslySelectedYear = moment();
 
   setLocale(locale: string) {
     moment.locale(locale);
@@ -24,12 +25,12 @@ export class CalendarManagerService {
   generateCalendarForMonth(startDate: momentNs.Moment | Date,
                            currentMonth: momentNs.Moment,
                            selectedDates: momentNs.Moment[],
-                           dateRange: DateRange): MonthCalendar {
+                           dateRange: DateRange): Array<CalendarDay[]> {
     const monthStart = moment(startDate).startOf('month').locale(this.locale);
     const isStartOfChosenMonthTheFirstDayOfTable = (monthStart.weekday() === 0);
 
     const dateIterator = monthStart.clone();
-    const calendar: MonthCalendar = { table: [], previouslySelected: [] };
+    const calendar = [];
     let tableRow: CalendarDay[] = [];
     let newDate: CalendarDay;
 
@@ -40,7 +41,7 @@ export class CalendarManagerService {
     }
 
     // add dates until the calendar has 6 week rows
-    while (calendar.table.length < 6) {
+    while (calendar.length < 6) {
       newDate = {
         displayDate: dateIterator.format('D'),
         momentObj: dateIterator.clone(),
@@ -53,7 +54,7 @@ export class CalendarManagerService {
         tableRow.push(newDate);
 
       } else {
-        calendar.table.push(tableRow);
+        calendar.push(tableRow);
         tableRow = [newDate];
       }
 
@@ -63,8 +64,62 @@ export class CalendarManagerService {
     return calendar;
   }
 
+  generateMonthPickerCollection(currentYear: number): InCalendarPicker[] {
+    const months = this.getMonths();
+
+    return months.map((monthName, index) => {
+      return {
+        displayName: monthName,
+        momentObj: moment().year(currentYear).month(index)
+      };
+    });
+  }
+
+  generateYearPickerCollection(start: momentNs.Moment, margin: number = 20): InCalendarPicker[] {
+    const yearsList = this.getYearList(start, margin);
+
+    return yearsList.map((year) => {
+      return {
+        displayName: year.toString(),
+        momentObj: moment().year(year).month(0).day(0).hours(0).minutes(0)
+      };
+    });
+  }
+
   getWeekdays(short: boolean = true) {
     return short ? moment.weekdaysShort(true) : moment.weekdays(true);
+  }
+
+  getMonths(short: boolean = true) {
+    return short ? moment.monthsShort() : moment.months();
+  }
+
+  getYearList(start: momentNs.Moment, margin: number = 20): number[] {
+    let yearIterator;
+    let endYear;
+
+    if (start) {
+      this.previouslySelectedYear = start.clone();
+    }
+
+    if (margin < 0) {
+      endYear = moment(this.previouslySelectedYear).add(margin, 'years');
+      yearIterator = moment(endYear).add(margin, 'years');
+    } else {
+      yearIterator = moment(this.previouslySelectedYear);
+      endYear = moment(yearIterator).add(margin, 'years');
+    }
+
+    const yearList = [];
+
+    while (yearIterator.isSameOrBefore(endYear)) {
+      yearList.push(yearIterator.clone().year());
+      yearIterator.add(1, 'year');
+    }
+
+    this.previouslySelectedYear = yearIterator.subtract(1, 'year').clone();
+
+    return yearList;
   }
 
   findADateFromCalendar(date: momentNs.Moment | Date, calendarTable: Array<CalendarDay[]>): CalendarDay {
