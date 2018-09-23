@@ -46,12 +46,8 @@ export class CalendarManagerService {
         momentObj: dateIterator.clone(),
         relativityToCurrentMonth: this.determineDateRelativityToCurrentMonth(dateIterator, currentMonth),
         isDisabled: this.determineIfDateIsDisabled(dateIterator, dateRange.minDate, dateRange.maxDate),
-        isSelected: this.determineIfDateIsSelected(dateIterator, selectedDates)
+        isSelected: this.getSelectedItemIndex(dateIterator, selectedDates) > -1
       };
-
-      if (newDate.isSelected) {
-        calendar.previouslySelected.push(newDate);
-      }
 
       if (tableRow.length <= 6) {
         tableRow.push(newDate);
@@ -71,10 +67,6 @@ export class CalendarManagerService {
     return short ? moment.weekdaysShort(true) : moment.weekdays(true);
   }
 
-  getDateIndex(date: CalendarDay, collection: CalendarDay[]): number {
-    return collection.indexOf(date);
-  }
-
   findADateFromCalendar(date: momentNs.Moment | Date, calendarTable: Array<CalendarDay[]>): CalendarDay {
     const dateToFind = moment(date);
 
@@ -85,31 +77,19 @@ export class CalendarManagerService {
     });
   }
 
-  determineIfDateIsSelected(date: momentNs.Moment, selectedDates: momentNs.Moment[]): boolean;
-
-  determineIfDateIsSelected(date: CalendarDay, selectedDates: CalendarDay[]): boolean;
-
-  determineIfDateIsSelected(date, selectedDates): boolean {
-    let isSelected = false;
-
-    if (moment.isMoment(date)) {
-      isSelected = selectedDates.some((selectedDate) => {
-        return selectedDate.isSame(date, 'day');
-      });
-    } else {
-      isSelected =  selectedDates.some((selectedDate) => {
-        return Object.is(date, selectedDate);
-      });
-    }
-
-    return isSelected;
+  getSelectedItemIndex(date: momentNs.Moment, selectedDates: momentNs.Moment[]): number {
+    return selectedDates.findIndex((selectedDate) => {
+      return moment(selectedDate).isSame(date, 'day');
+    });
   }
 
-  determineIfDateIsDisabled(currentDate: momentNs.Moment, minDate: momentNs.Moment | Date, maxDate: momentNs.Moment | Date): boolean {
-    const isAfterMaxDate = maxDate && currentDate.isAfter(maxDate);
-    const isBeforeMinDate = minDate && currentDate.isBefore(minDate);
+  determineIfDateIsDisabled(currentDate: momentNs.Moment | Date,
+                            minDate: momentNs.Moment | Date,
+                            maxDate: momentNs.Moment | Date): boolean {
+    const isAfterMaxDate = maxDate && moment(currentDate).isAfter(maxDate);
+    const isBeforeMinDate = minDate && moment(currentDate).isBefore(minDate);
 
-    return (isAfterMaxDate || isBeforeMinDate) || false;
+    return <boolean>(isAfterMaxDate || isBeforeMinDate);
   }
 
   determineDateRelativityToCurrentMonth(date: momentNs.Moment, currentMonth: momentNs.Moment): CalendarPeriodRelativityEnum {
@@ -125,5 +105,15 @@ export class CalendarManagerService {
     }
 
     return CalendarPeriodRelativityEnum.Current;
+  }
+
+  sortDatesAsc(dates) {
+    return dates.sort((date1, date2) => {
+      if (moment(date1).isAfter(date2)) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
   }
 }

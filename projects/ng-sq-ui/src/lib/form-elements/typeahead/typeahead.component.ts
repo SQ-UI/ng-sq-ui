@@ -73,13 +73,9 @@ export class TypeaheadComponent extends InputCoreComponent
       },
     );
 
-    this.valueChangedSubscription = this._valueChange.subscribe(
+    this.valueChangedSubscription = this._modelToViewChange.subscribe(
       (predefinedEnteredItems) => {
-        if (
-          this.selectedItems.size === 0 &&
-          predefinedEnteredItems &&
-          predefinedEnteredItems.length > 0
-        ) {
+        if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
           predefinedEnteredItems.forEach((item) => {
             this.selectItem(item, false);
           });

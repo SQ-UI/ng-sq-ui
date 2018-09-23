@@ -1,6 +1,6 @@
 import {
   Component, forwardRef, OnInit, ViewEncapsulation,
-  Input, Output, EventEmitter
+  Input, Output, EventEmitter, AfterViewInit
 } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -10,11 +10,10 @@ import { DateRange } from '../interfaces/date-range';
 import { MonthCalendar } from '../interfaces/month-calendar';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { CalendarManagerService } from '../calendar-manager.service';
-import { List, is } from 'immutable';
+import { DateObjectType } from '../enums/date-object-type.enum';
+import { List } from 'immutable';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import * as momentNs from 'moment';
-import { DateObjectType } from '../enums/date-object-type.enum';
-import {Subscription} from 'rxjs';
 const moment = momentNs;
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
@@ -30,7 +29,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class DatetimePickerComponent extends InputCoreComponent implements OnInit {
+export class DatetimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit {
   @Input() locale = 'en';
   @Input() maxDate: momentNs.Moment | Date;
   @Input() minDate: momentNs.Moment | Date;
@@ -46,7 +45,6 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   calendarPeriodRelativity = CalendarPeriodRelativityEnum;
 
   private selectedDates: List<momentNs.Moment> = List<momentNs.Moment>();
-  private valueChangedSubscription: Subscription;
 
   constructor(private calendarManager: CalendarManagerService) {
     super();
@@ -55,13 +53,18 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   ngOnInit() {
     moment.locale(this.locale);
     this.calendarManager.setLocale(this.locale);
-    const now = moment().locale(this.locale);
+    const now = moment().hours(0).minutes(0).locale(this.locale);
     this.selectedDates = List([now.clone()]);
+    this.initializeAuthorValuesIfAny();
     this.currentMonth = now.clone();
     this.weekdays = this.calendarManager.getWeekdays();
     this.calendar = this.getMonthCalendar(now.clone());
+  }
 
-    this.initializeAuthorValuesIfAny();
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.setValueResult();
+    });
   }
 
   onDateClick(date: CalendarDay) {
@@ -119,62 +122,60 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   }
 
   private initializeAuthorValuesIfAny() {
-    this.valueChangedSubscription = this._valueChange.subscribe((predefinedDateValue) => {
-      if (predefinedDateValue) {
-        this.calendar.previouslySelected.forEach((date) => {
-          date.isSelected = false;
-        });
-
-        if (Array.isArray(predefinedDateValue)) {
-          this.calendar.previouslySelected = predefinedDateValue.map((date) => {
-            const correspondingCalendarDay = this.calendarManager.findADateFromCalendar(date, this.calendar.table);
-            correspondingCalendarDay.isSelected = true;
-            this.selectedDates = this.selectedDates.push(correspondingCalendarDay.momentObj);
-
-            return correspondingCalendarDay;
-          });
-
-        } else {
-          const correspondingCalendarDay = this.calendarManager.findADateFromCalendar(predefinedDateValue, this.calendar.table);
-          correspondingCalendarDay.isSelected = true;
-          this.calendar.previouslySelected = [correspondingCalendarDay];
-          this.selectedDates = List([correspondingCalendarDay.momentObj]);
+    const subscription = this._modelToViewChange.subscribe((newValue) => {
+      if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
+        if (newValue) {
+          if (Array.isArray(newValue)) {
+            newValue.forEach((date) => {
+              const convertedDate = this.convertToCalendarDay(date);
+              this.markDateAsSelected(convertedDate);
+            });
+          } else {
+            const calendarDay = this.convertToCalendarDay(newValue);
+            this.markDateAsSelected(calendarDay);
+          }
         }
       }
 
-      this.valueChangedSubscription.unsubscribe();
+      subscription.unsubscribe();
     });
   }
 
   private markDateAsSelected(date: CalendarDay) {
     const selectedMomentObj = moment(date.momentObj);
-
-    date.isSelected = true;
-    const isAlreadySelected = this.calendarManager.determineIfDateIsSelected(date, this.calendar.previouslySelected);
+    const selectedIndex = this.calendarManager.getSelectedItemIndex(selectedMomentObj, this.selectedDates.toArray());
 
     if (this.range) {
-      const dateIndex = this.calendarManager.getDateIndex(date, this.calendar.previouslySelected);
-      if (isAlreadySelected) {
-        this.calendar.previouslySelected[dateIndex].isSelected = false;
-        this.calendar.previouslySelected.splice(dateIndex, 1);
-        this.selectedDates = this.selectedDates.remove(dateIndex);
+      if (selectedIndex > -1) {
+        date.isSelected = false;
+        this.selectedDates = this.selectedDates.remove(selectedIndex);
       } else {
         this.selectedDates = this.selectedDates.push(selectedMomentObj);
-        this.calendar.previouslySelected.push(date);
+        date.isSelected = true;
       }
 
     } else {
+      const previousDate = this.calendarManager.findADateFromCalendar(this.selectedDates.get(0), this.calendar.table);
+      previousDate.isSelected = false;
+
       this.selectedDates = this.selectedDates.clear();
       this.selectedDates = this.selectedDates.push(selectedMomentObj);
-
-      if (this.calendar.previouslySelected.length > 0 && !Object.is(date, this.calendar.previouslySelected[0])) {
-        this.calendar.previouslySelected[0].isSelected = false;
-        this.calendar.previouslySelected.pop();
-      }
+      date.isSelected = true;
     }
 
-    this.calendar.previouslySelected.push(date);
     this.setValueResult();
+  }
+
+  private convertToCalendarDay(date: momentNs.Moment | Date): CalendarDay {
+    const dateCopy = moment(date);
+
+    return {
+      displayDate: dateCopy.format('D'),
+      momentObj: dateCopy,
+      relativityToCurrentMonth: this.calendarManager.determineDateRelativityToCurrentMonth(dateCopy, this.currentMonth),
+      isDisabled: this.calendarManager.determineIfDateIsDisabled(dateCopy, this.minDate, this.maxDate),
+      isSelected: this.calendarManager.getSelectedItemIndex(dateCopy, this.selectedDates.toArray()) > -1
+    };
   }
 
   private setValueResult() {
@@ -187,7 +188,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
 
     if (this.range) {
-      this.value = result;
+      this.value = this.calendarManager.sortDatesAsc(result);
     } else {
       this.value = result[0];
     }

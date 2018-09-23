@@ -14,6 +14,7 @@ export class AppComponent {
   showModal = false;
   searchResults: any[];
   searchResultsStrings: string[];
+  isDatepickerRanged = true;
 
   dropdownOptions: LabelValuePair[] = [
     {
@@ -32,14 +33,14 @@ export class AppComponent {
 
   constructor(private fb: FormBuilder) {
     this.testForm = this.fb.group({
-      name: ['', Validators.required],
-      dropdown: [null, Validators.required],
-      tags: [['tag1'], Validators.required],
-      typeahead1: [[], Validators.required],
-      typeahead2: [[], Validators.required],
+      name: [''],
+      dropdown: [null],
+      tags: [['tag1']],
+      typeahead1: [[]],
+      typeahead2: [[]],
       radioValue: ['value1'],
       checkboxValue: [false],
-      textareaValue: ['', Validators.required],
+      textareaValue: [''],
       datepicker: [null, Validators.required]
     });
   }
