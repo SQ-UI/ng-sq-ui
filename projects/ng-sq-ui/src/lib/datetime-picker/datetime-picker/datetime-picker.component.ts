@@ -43,10 +43,10 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   yearsList: InCalendarPicker[];
   calendar: Array<CalendarDay[]>;
   currentMonth: momentNs.Moment;
-  period: CalendarPeriodTypeEnum = CalendarPeriodTypeEnum.Month;
-  calendarPeriodRelativity = CalendarPeriodRelativityEnum;
   isMonthsPickerEnabled = false;
   isYearsPickerEnabled = false;
+  calendarPeriodRelativity = CalendarPeriodRelativityEnum;
+  period: CalendarPeriodTypeEnum = CalendarPeriodTypeEnum.Month;
 
   private selectedDates: List<momentNs.Moment> = List<momentNs.Moment>();
 
@@ -98,6 +98,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
 
     this.markDateAsSelected(date);
+    this.dateSelectionChange.emit(this.value);
   }
 
   next() {
@@ -166,6 +167,8 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     const subscription = this._modelToViewChange.subscribe((newValue) => {
       if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
         if (newValue) {
+          this.deselectAll();
+
           if (Array.isArray(newValue)) {
             newValue.forEach((date) => {
               const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
@@ -220,14 +223,24 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   private setValueResult() {
     let result: any = this.selectedDates.toArray();
 
-    if (this.dateObjectType === DateObjectType.Date) {
+    if (this.dateObjectType === DateObjectType.Date && !this.format) {
       result = result.map((momentObj) => {
         return momentObj.toDate();
       });
     }
 
     if (this.range) {
-      this.value = this.calendarManager.sortDatesAsc(result);
+      result = this.calendarManager.sortDatesAsc(result);
+    }
+
+    if (this.format) {
+      result = result.map((date) => {
+        return moment(date).format(this.format);
+      });
+    }
+
+    if (this.range) {
+      this.value = result;
     } else {
       this.value = result[0];
     }
