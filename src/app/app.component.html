@@ -124,12 +124,15 @@
         </sq-form-group>
       </section>
 
-      <section id="sqModal" class="module">
+      <section id="sqDatepicker" class="module">
         <header>
           <h2>Datepicker</h2>
         </header>
 
-        <sq-datetime-picker locale="bg" formControlName="datepicker" [range]="true" dateObjectType="date">
+        <sq-datetime-picker locale="bg"
+                            formControlName="datepicker"
+                            [range]="isDatepickerRanged"
+                            dateObjectType="moment">
         </sq-datetime-picker>
       </section>
 
