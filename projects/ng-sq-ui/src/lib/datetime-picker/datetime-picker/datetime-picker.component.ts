@@ -216,8 +216,10 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
       }
 
     } else {
-      const previousDate = this.calendarManager.findADateFromCalendar(this.selectedDates.get(0), this.calendar);
-      previousDate.isSelected = false;
+      const previousDate = this.calendarManager.findADateFromCalendar(this.selectedDates.get(0), this.calendar)
+      if (previousDate) {
+        previousDate.isSelected = false;
+      }
 
       this.selectedDates = this.selectedDates.clear();
       this.selectedDates = this.selectedDates.push(selectedMomentObj);
