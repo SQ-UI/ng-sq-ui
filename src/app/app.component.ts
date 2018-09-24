@@ -12,7 +12,41 @@ const moment = momentNs;
 export class AppComponent {
   testForm: FormGroup;
   showModal = false;
-  searchResults: any[];
+  searchResults: any[] = [
+    {
+      myCustomProp: 'option1',
+      value: 'someVal1',
+      prop: 1,
+      uid: 12,
+      nested: {
+        level2: {
+          prop: '1',
+        },
+      },
+    },
+    {
+      myCustomProp: 'option2',
+      value: 'someVal2',
+      prop: 2,
+      uid: 22,
+      nested: {
+        level2: {
+          prop: '2',
+        },
+      },
+    },
+    {
+      myCustomProp: 'option3',
+      value: 'someVal3',
+      prop: 3,
+      uid: 32,
+      nested: {
+        level2: {
+          prop: '1',
+        },
+      },
+    },
+  ];
   searchResultsStrings: string[];
   isDatepickerRanged = true;
   minDate = moment();
@@ -38,7 +72,7 @@ export class AppComponent {
       name: [''],
       dropdown: [null],
       tags: [['tag1']],
-      typeahead1: [[]],
+      typeahead1: [[this.searchResults[0], this.searchResults[2]]],
       typeahead2: [[]],
       radioValue: ['value1'],
       checkboxValue: [false],
