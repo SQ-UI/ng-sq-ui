@@ -82,26 +82,21 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('#should jump to previous month when a date before current month is selected', (done: DoneFn) => {
+  it('#should jump to previous month when a date before current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
     const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
     component.range = false;
     component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
-
-    component.dateSelectionChange.subscribe((selectedValue) => {
-      const isDateSelected = selectedValue.isSelected;
-      const isCurrentMonthChanged = component.currentMonth.month() === (monthWhichDoesNotStartWithTable.month() + 1);
-      const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
-
-      expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
-        .toBe(true, 'the selected date is from previous month');
-
-      done();
-    });
-
     const date = component.calendar[0][1];
     component.onDateClick(date);
     fixture.detectChanges();
+
+    const isDateSelected = date.isSelected;
+    const isCurrentMonthChanged = component.currentMonth.month() === date.momentObj.month();
+    const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
+
+    expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
+      .toBe(true, 'the selected date is from previous month');
   });
 
   it('#should jump to next month when a date after current month is selected', () => {
@@ -110,15 +105,15 @@ describe('DatetimePickerComponent', () => {
     component.range = false;
     component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
 
-    const date = Object.assign({}, component.calendar[5][1]);
+    const date = component.calendar[5][1];
     component.onDateClick(date);
     fixture.detectChanges();
 
-    const isDateSelected = component.value.isSelected;
-    const isCurrentMonthChanged = component.currentMonth.month() === (monthWhichDoesNotStartWithTable.month() + 1);
+    const isDateSelected = date.isSelected;
+    const isCurrentMonthChanged = component.currentMonth.month() === date.momentObj.month();
     const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
 
     expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
-      .toBe(true, 'the selected date is from previous month');
+      .toBe(true, 'the selected date is from next month');
   });
 });
