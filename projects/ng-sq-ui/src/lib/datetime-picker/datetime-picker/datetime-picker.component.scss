@@ -6,7 +6,7 @@
     font-size: 14px;
     .picker-item {
       font-size: 19px;
-      background-color: #6fbdab;
+      background-color: $datetime-active-picker-items;
       padding: 5px 12px;
       text-transform: uppercase;
       cursor: pointer;
@@ -69,7 +69,7 @@
       padding: 6px 20px;
       transition: 100ms background-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
       &.beyond-current-period {
-        color: #2e9f86;
+        color: $datetime-beyond-current-month-dates;
       }
       &.selected {
         font-weight: bold;
@@ -77,12 +77,12 @@
       }
       &.disabled {
         pointer-events: none;
-        color: #aba9a9;
+        color: $datetime-disabled-date;
       }
     }
     .row {
       &:nth-child(2n) .cell  {
-        background-color: rgba(18, 125, 104, 0.12);
+        background-color: $datetime-even-row;
       }
       &:nth-child(2n) .cell.selected {
         background-color: $datetime-selected;
