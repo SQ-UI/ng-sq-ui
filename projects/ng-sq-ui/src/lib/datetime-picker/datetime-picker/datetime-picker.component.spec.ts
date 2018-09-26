@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DatetimePickerComponent } from './datetime-picker.component';
 import { FormsModule } from '@angular/forms';
 
+import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
+
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import * as momentNs from 'moment';
 import { CalendarManagerService } from '../calendar-manager.service';
@@ -116,4 +118,50 @@ describe('DatetimePickerComponent', () => {
     expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
       .toBe(true, 'the selected date is from next month');
   });
+
+  it('#should show only monthpicker when the user clicks on month name', () => {
+    component.showMonthsPicker();
+    const isOnlyMonthPickerShown = !component.isYearsPickerEnabled && component.isMonthsPickerEnabled;
+    fixture.detectChanges();
+
+    expect(isOnlyMonthPickerShown && component.period === CalendarPeriodTypeEnum.Month)
+      .toBe(true, 'the selected date is from next month');
+    expect(component.months).toBeTruthy();
+  });
+
+  it('#should generate a calendar corresponding to selected month', () => {
+    component.showMonthsPicker();
+    fixture.detectChanges();
+
+    component.selectMonth(component.months[2]);
+    fixture.detectChanges();
+
+    const isCalendarCorrect = component.months[2].momentObj.isSame(component.currentMonth, 'month');
+
+    expect(isCalendarCorrect && !component.isMonthsPickerEnabled)
+      .toBe(true, 'the generated calendar is correct');
+    expect(component.calendar).toBeTruthy();
+  });
+
+  it('#should show only yearpicker when the user clicks on year', () => {
+    component.showYearsPicker();
+    const isOnlyYearPickerShown = component.isYearsPickerEnabled && !component.isMonthsPickerEnabled;
+    fixture.detectChanges();
+
+    expect(isOnlyYearPickerShown && component.period === CalendarPeriodTypeEnum.Year)
+      .toBe(true, 'the selected date is from next year');
+    expect(component.yearsList).toBeTruthy();
+  });
+
+  it('#should show monthpicker when the user clicks on year from list', () => {
+    component.showYearsPicker();
+    component.selectYear(component.yearsList[0]);
+    fixture.detectChanges();
+
+    expect(!component.isYearsPickerEnabled && component.isMonthsPickerEnabled)
+      .toBe(true, 'the selected date is from next year');
+    expect(component.months).toBeTruthy();
+  });
+
 });
+
