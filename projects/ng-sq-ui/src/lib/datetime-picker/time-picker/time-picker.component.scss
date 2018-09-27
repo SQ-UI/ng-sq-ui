@@ -1,0 +1,39 @@
+.sq {
+  .time-picker {
+    border-top: 1px solid rgba(46, 159, 134, 0.69);
+    border-bottom: 1px solid rgba(46, 159, 134, 0.69);
+    font-size: 23px;
+    input {
+      background-color: rgba(18,125,104,.12);
+      border: none;
+      width: 38px;
+      height: 38px;
+      text-align: center;
+    }
+    .time {
+      padding: 4px 0;
+    }
+    .time-unit {
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+      .spinner {
+        opacity: 0;
+        height: 30px;
+        pointer-events: none;
+        transition: 300ms all ease-in;
+      }
+      &:hover .spinner {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .fa {
+        font-size: 20px;
+      }
+    }
+    .divider {
+      font-size: 44px;
+      margin-bottom: 7px;
+    }
+  }
+}

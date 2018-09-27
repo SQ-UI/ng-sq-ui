@@ -16,4 +16,11 @@
   &.align-items-center {
     align-items: center;
   }
+  &.column {
+    flex-direction: column;
+  }
+}
+
+.mg-r10 {
+  margin-right: 10px;
 }

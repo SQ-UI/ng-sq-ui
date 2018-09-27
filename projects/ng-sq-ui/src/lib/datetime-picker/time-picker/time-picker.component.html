@@ -1,12 +1,40 @@
-<div class="display-flex justify-center align-items-center">
-  <div>
-    <i class="fa fa-chevron-up" aria-hidden="true"></i>
-    10
-    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+<div class="time-picker display-flex justify-center align-items-center">
+  <div class="time-unit display-flex column align-items-center">
+    <button type="button" class="spinner display-flex justify-center align-items-center">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <div class="time display-flex column align-items-center">
+      <input type="text" value="10">
+    </div>
+
+    <button type="button" class="spinner display-flex justify-center align-items-center">
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </button>
   </div>
-  <div>
-    <i class="fa fa-chevron-up" aria-hidden="true"></i>
-    20
-    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+
+  <div class="time-unit divider">:</div>
+
+  <div class="time-unit display-flex column align-items-center">
+    <button type="button" class="spinner display-flex justify-center align-items-center">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <div class="time">
+      <input type="text" value="20">
+    </div>
+
+    <button type="button" class="spinner display-flex justify-center align-items-center">
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="time-unit display-flex justify-center align-items-center">
+    <div class="mg-r10">
+      AM
+    </div>
+    <button type="button" class="spinner">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+    </button>
   </div>
 </div>
