@@ -11,25 +11,32 @@
       text-align: center;
     }
     .time {
-      padding: 4px 0;
+      padding: 5px 0 3px 0;
     }
     .time-unit {
+      padding: 7px 0 10px 0;
       &:not(:last-child) {
         margin-right: 15px;
       }
-      .spinner {
+      .spinner, .meridiem-icon {
         opacity: 0;
-        height: 30px;
         pointer-events: none;
         transition: 300ms all ease-in;
       }
-      &:hover .spinner {
+      .spinner {
+        height: 25px;
+      }
+      &:hover .spinner,
+      &:hover .meridiem-icon {
         opacity: 1;
         pointer-events: auto;
       }
       .fa {
         font-size: 20px;
       }
+    }
+    .meridiem {
+      padding-right: 5px;
     }
     .divider {
       font-size: 44px;
