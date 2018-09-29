@@ -2,6 +2,7 @@ import { Component, forwardRef, OnInit, ViewEncapsulation,
          Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { TimeUnit } from '../enums/time-unit.enum';
+import { TimeObject } from '../enums/time-object-type.enum';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import * as momentNs from 'moment';
@@ -27,6 +28,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   @Input() isEditable = true;
   @Input('hours') inputHours;
   @Input('minutes') inputMinutes;
+  @Input() timeObjectType: TimeObject = TimeObject.String;
 
   @Output() inputHoursChange = new EventEmitter<number>();
   @Output() inputMinutesChange = new EventEmitter<number>();
@@ -57,6 +59,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   ngOnInit() {
     this.hours = this.hours || this.start.format(this.hourFormat);
     this.minutes = this.minutes || this.start.format('mm');
+    this.setValueResult();
   }
 
   ngOnChanges(changesObj) {
@@ -156,9 +159,15 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   }
 
   private setValueResult() {
-    let time = `${this.hours}:${this.minutes}`;
-    time = this.isMeridiem ? `${time} ${this.noonRelativity.toUpperCase()}` : time;
-    this.value = time;
-    console.log(this.value);
+    let timeMoment: momentNs.Moment;
+    let timeString = `${this.hours}:${this.minutes}`;
+    timeString = this.isMeridiem ? `${timeString} ${this.noonRelativity.toUpperCase()}` : timeString;
+
+    if (this.timeObjectType === TimeObject.Moment) {
+      const momentFormat = this.isMeridiem ? 'hh:mm A' : 'HH:mm';
+      timeMoment = moment(timeString, momentFormat);
+    }
+
+    this.value = timeMoment ? timeMoment : timeString;
   }
 }
