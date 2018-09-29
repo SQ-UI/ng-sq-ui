@@ -22,7 +22,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 })
 export class TimePickerComponent extends InputCoreComponent implements OnInit, OnChanges {
   @Input() hourStep = 1;
-  @Input() minuteStep = 15;
+  @Input() minuteStep = 1;
   @Input() isMeridiem = false;
   @Input() isEditable = true;
   @Input('hours') inputHours;
@@ -157,7 +157,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
 
   private setValueResult() {
     let time = `${this.hours}:${this.minutes}`;
-    time = this.isMeridiem ? `${time}${this.noonRelativity}` : time;
+    time = this.isMeridiem ? `${time} ${this.noonRelativity.toUpperCase()}` : time;
     this.value = time;
     console.log(this.value);
   }
