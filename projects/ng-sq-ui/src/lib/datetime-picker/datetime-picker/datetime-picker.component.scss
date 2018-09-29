@@ -26,8 +26,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
     text-transform: uppercase;
+    border-bottom: 1px solid rgba(46,159,134,.69);
   }
 
   .period-name {
@@ -47,6 +48,10 @@
     &.prev {
       padding-right: 20px;
     }
+  }
+
+  .alt-picker {
+    padding-top: 10px;
   }
 
   .datetime-picker {

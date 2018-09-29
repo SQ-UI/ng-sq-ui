@@ -1,16 +1,144 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, forwardRef, OnInit, ViewEncapsulation, Input, OnChanges} from '@angular/core';
+import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { TimeUnit } from '../enums/time-unit.enum';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
+import * as momentNs from 'moment';
+const moment = momentNs;
+
+const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => TimePickerComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'sq-time-picker',
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class TimePickerComponent implements OnInit {
+export class TimePickerComponent extends InputCoreComponent implements OnInit, OnChanges {
+  @Input() hourStep = 1;
+  @Input() minuteStep = 15;
+  @Input() isMeridiem = false;
+  @Input() isEditable = true;
 
-  constructor() { }
+  hours = moment().hours().toString();
+  minutes = moment().minutes().toString();
+  noonRelativity = 'am';
+  timeUnit = TimeUnit;
 
-  ngOnInit() {
+  private start = moment();
+  private hourFormat = 'HH'; // 24-hour format by default
+
+  limits = {
+    hours: {
+      min: 0,
+      max: 24
+    },
+    minutes: {
+      min: 0,
+      max: 59
+    }
+  };
+
+  constructor() {
+    super();
   }
 
+  ngOnInit() {
+    this.hours = this.start.format(this.hourFormat);
+    this.minutes = this.start.format('mm');
+  }
+
+  ngOnChanges(changesObj) {
+    if (changesObj.isMeridiem) {
+      if (changesObj.isMeridiem.currentValue) {
+        this.hourFormat = 'hh';
+        this.noonRelativity = this.start.format('a');
+        this.limits.hours.min = 1;
+        this.limits.hours.max = 12;
+      } else {
+        this.hourFormat = 'HH';
+        this.limits.hours.min = 0;
+        this.limits.hours.max = 24;
+      }
+
+      this.hours = this.start.format(this.hourFormat);
+    }
+  }
+
+  increment(unit: TimeUnit) {
+    switch (unit) {
+      case TimeUnit.Hours:
+        this.hours = this.start.add(this.hourStep, 'hours').format(this.hourFormat);
+        break;
+      case TimeUnit.Minutes:
+        this.minutes = this.start.add(this.minuteStep, 'minutes').format('mm').toString();
+        break;
+    }
+
+    this.setValueResult();
+  }
+
+  decrement(unit: TimeUnit) {
+    switch (unit) {
+      case TimeUnit.Hours:
+        this.hours = this.start.subtract(this.hourStep, 'hours').format(this.hourFormat);
+        break;
+      case TimeUnit.Minutes:
+        this.minutes = this.start.subtract(this.minuteStep, 'minutes').format('mm').toString();
+        break;
+    }
+
+    this.setValueResult();
+  }
+
+  changeNoonRelativity() {
+    this.noonRelativity = this.noonRelativity === 'am' ? 'pm' : 'am';
+    this.setValueResult();
+  }
+
+  validateInput(unit: TimeUnit) {
+    switch (unit) {
+      case TimeUnit.Hours:
+        this.hours = this.normalizeTimeInput(this.hours, TimeUnit.Hours);
+        break;
+      case TimeUnit.Minutes:
+        this.minutes = this.normalizeTimeInput(this.minutes, TimeUnit.Minutes);
+        break;
+    }
+
+    this.setValueResult();
+  }
+
+
+  private normalizeTimeInput(value: string, unit: TimeUnit) {
+    if (!value) {
+      value = '00';
+    }
+
+    if (parseInt(value, 10) >= this.limits[unit].max) {
+      value = this.limits[unit].max.toString();
+
+      if (unit === TimeUnit.Hours && !this.isMeridiem) {
+        value = '00';
+      }
+    }
+
+    if (parseInt(this.hours, 10) < this.limits[unit].min) {
+      value = this.limits[unit].min.toString();
+    }
+
+    return value;
+  }
+
+  private setValueResult() {
+    let time = `${this.hours}:${this.minutes}`;
+    time = this.isMeridiem ? `${time}${this.noonRelativity}` : time;
+    this.value = time;
+    console.log(this.value);
+  }
 }

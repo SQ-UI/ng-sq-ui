@@ -28,7 +28,8 @@
     </button>
   </div>
 
-  <div class="display-flex space-between wrap">
+  <div class="alt-picker display-flex space-between wrap"
+       *ngIf="isMonthsPickerEnabled || isYearsPickerEnabled">
     <ng-template [ngIf]="isMonthsPickerEnabled">
       <button type="button"
               class="picker-item"
@@ -72,6 +73,6 @@
     </tbody>
   </table>
 
-  <sq-time-picker>
+  <sq-time-picker [isMeridiem]="true">
   </sq-time-picker>
 </div>

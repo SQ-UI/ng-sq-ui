@@ -2,10 +2,12 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { DatetimePickerComponent } from './datetime-picker/datetime-picker.component';
 import { TimePickerComponent } from './time-picker/time-picker.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   declarations: [
     DatetimePickerComponent,
