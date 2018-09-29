@@ -1,4 +1,5 @@
-import {Component, forwardRef, OnInit, ViewEncapsulation, Input, OnChanges} from '@angular/core';
+import { Component, forwardRef, OnInit, ViewEncapsulation,
+         Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -24,9 +25,14 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   @Input() minuteStep = 15;
   @Input() isMeridiem = false;
   @Input() isEditable = true;
+  @Input('hours') inputHours;
+  @Input('minutes') inputMinutes;
 
-  hours = moment().hours().toString();
-  minutes = moment().minutes().toString();
+  @Output() inputHoursChange = new EventEmitter<number>();
+  @Output() inputMinutesChange = new EventEmitter<number>();
+
+  hours;
+  minutes;
   noonRelativity = 'am';
   timeUnit = TimeUnit;
 
@@ -49,8 +55,8 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   }
 
   ngOnInit() {
-    this.hours = this.start.format(this.hourFormat);
-    this.minutes = this.start.format('mm');
+    this.hours = this.hours || this.start.format(this.hourFormat);
+    this.minutes = this.minutes || this.start.format('mm');
   }
 
   ngOnChanges(changesObj) {
@@ -68,15 +74,27 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
 
       this.hours = this.start.format(this.hourFormat);
     }
+
+    if (changesObj.inputHours) {
+      this.hours = this.normalizeTimeInput(changesObj.inputHours.currentValue, TimeUnit.Hours);
+    }
+
+    if (changesObj.inputMinutes) {
+      this.minutes = this.normalizeTimeInput(changesObj.inputMinutes.currentValue, TimeUnit.Minutes);
+    }
+
+    this.setValueResult();
   }
 
   increment(unit: TimeUnit) {
     switch (unit) {
       case TimeUnit.Hours:
         this.hours = this.start.add(this.hourStep, 'hours').format(this.hourFormat);
+        this.inputHoursChange.emit(parseInt(this.hours, 10));
         break;
       case TimeUnit.Minutes:
         this.minutes = this.start.add(this.minuteStep, 'minutes').format('mm').toString();
+        this.inputMinutesChange.emit(parseInt(this.minutes, 10));
         break;
     }
 
@@ -87,9 +105,11 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
     switch (unit) {
       case TimeUnit.Hours:
         this.hours = this.start.subtract(this.hourStep, 'hours').format(this.hourFormat);
+        this.inputHoursChange.emit(parseInt(this.hours, 10));
         break;
       case TimeUnit.Minutes:
         this.minutes = this.start.subtract(this.minuteStep, 'minutes').format('mm').toString();
+        this.inputMinutesChange.emit(parseInt(this.minutes, 10));
         break;
     }
 
