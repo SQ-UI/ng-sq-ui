@@ -54,10 +54,10 @@ export class AppComponent {
   timepickerConfig = {
     hourStep: 2,
     minuteStep: 15,
-    hours: 0,
+    hours: 20,
     minutes: 0,
     isMeridiem: true,
-    isEditable: false
+    isEditable: true
   };
 
   dropdownOptions: LabelValuePair[] = [

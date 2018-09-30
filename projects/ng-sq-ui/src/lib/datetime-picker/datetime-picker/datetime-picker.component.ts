@@ -289,7 +289,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
           break;
         case DateObjectType.Unix:
           this.parsedSelectedDates = this.parsedSelectedDates.map((momentObj) => {
-            return momentObj.format('x');
+            return momentObj.toDate().getTime();
           });
           break;
       }
