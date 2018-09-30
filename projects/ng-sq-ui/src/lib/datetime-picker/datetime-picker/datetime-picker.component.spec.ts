@@ -1,37 +1,70 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
+  Output,
+  ViewEncapsulation
+} from '@angular/core';
 import { DatetimePickerComponent } from './datetime-picker.component';
-import { FormsModule } from '@angular/forms';
-
+import {FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
+import {TimePickerComponent} from '../time-picker/time-picker.component';
 
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
-import * as momentNs from 'moment';
 import { CalendarManagerService } from '../calendar-manager.service';
+import * as momentNs from 'moment';
 const moment = momentNs;
+
+const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => TimePickerStubComponent),
+  multi: true,
+};
+
+@Component({
+  selector: 'sq-time-picker',
+  template: '',
+  encapsulation: ViewEncapsulation.None,
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+})
+class TimePickerStubComponent extends TimePickerComponent {
+  constructor() {
+    super();
+  }
+}
 
 describe('DatetimePickerComponent', () => {
   let component: DatetimePickerComponent;
   let fixture: ComponentFixture<DatetimePickerComponent>;
   let calendarManager: CalendarManagerService;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatetimePickerComponent ],
+      declarations: [
+        TimePickerStubComponent,
+        DatetimePickerComponent
+      ],
       imports: [
         FormsModule
       ],
       providers: [
         CalendarManagerService
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatetimePickerComponent);
     component = fixture.componentInstance;
     calendarManager = TestBed.get(CalendarManagerService);
+    // make sure to ignore the timepicker
+    component.isTimepickerEnabled = false;
     fixture.detectChanges();
   });
 

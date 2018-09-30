@@ -86,8 +86,8 @@ describe('CalendarManagerService', () => {
 
   it('#should disable calendar dates that are outside the [min, max] range', () => {
     const service: CalendarManagerService = TestBed.get(CalendarManagerService);
-    const minDate = moment();
-    const maxDate = moment().add(7, 'days');
+    const minDate = moment().startOf('month');
+    const maxDate = moment(minDate).add(7, 'days');
 
     const calendar = service.generateCalendarForMonth(moment(), moment(), [], {minDate: minDate, maxDate: maxDate});
     const dayBeforeMin = service.findADateFromCalendar(moment(minDate).subtract(1, 'day'), calendar);

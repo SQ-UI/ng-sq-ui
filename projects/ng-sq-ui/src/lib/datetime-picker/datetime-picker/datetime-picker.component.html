@@ -76,6 +76,7 @@
   <sq-time-picker *ngIf="isTimepickerEnabled"
                   [(ngModel)]="time"
                   (ngModelChange)="onTimeChange()"
+                  [ngModelOptions]="{standalone: true}"
                   timeObjectType="moment"
                   [hours]="timepickerConfig.hours"
                   [minutes]="timepickerConfig.minutes"

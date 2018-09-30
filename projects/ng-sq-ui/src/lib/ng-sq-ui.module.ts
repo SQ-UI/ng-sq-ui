@@ -10,7 +10,6 @@ import { DatetimePickerModule } from './datetime-picker/datetime-picker.module';
     FormElementsModule,
     DatetimePickerModule
   ],
-  declarations: [],
   exports: [
     FormElementsModule,
     ModalModule,
