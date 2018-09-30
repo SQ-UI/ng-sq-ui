@@ -1,18 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  NO_ERRORS_SCHEMA,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Output,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, forwardRef, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
 import { DatetimePickerComponent } from './datetime-picker.component';
-import {FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
-import {TimePickerComponent} from '../time-picker/time-picker.component';
+import { TimePickerComponent } from '../time-picker/time-picker.component';
 
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import { CalendarManagerService } from '../calendar-manager.service';
@@ -27,8 +18,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-time-picker',
-  template: '',
-  encapsulation: ViewEncapsulation.None,
+  templateUrl: '../time-picker/time-picker.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 class TimePickerStubComponent extends TimePickerComponent {
@@ -63,7 +53,6 @@ describe('DatetimePickerComponent', () => {
     fixture = TestBed.createComponent(DatetimePickerComponent);
     component = fixture.componentInstance;
     calendarManager = TestBed.get(CalendarManagerService);
-    // make sure to ignore the timepicker
     component.isTimepickerEnabled = false;
     fixture.detectChanges();
   });
@@ -194,6 +183,37 @@ describe('DatetimePickerComponent', () => {
     expect(!component.isYearsPickerEnabled && component.isMonthsPickerEnabled)
       .toBe(true, 'the selected date is from next year');
     expect(component.months).toBeTruthy();
+  });
+
+  it('#should add time to component result value when [isTimepickerEnabled]=true', () => {
+    spyOnProperty(component, 'value');
+    component.time = moment().hours(10).minutes(20);
+    component.format = 'DD/MM/YYYY hh:mm A';
+
+    component.ngOnChanges({
+      time: new SimpleChange(null, component.time, true),
+      format: new SimpleChange(null, component.format, true)
+    });
+
+    fixture.detectChanges();
+
+    const expectedResult = component.time.clone().format(component.format);
+
+    fixture.whenStable().then(() => {
+      expect(component.value === expectedResult)
+        .toBe(true, 'exports date and time correctly when timepicker is enabled');
+    });
+
+    component.ngOnChanges({
+      isTimepickerEnabled: new SimpleChange(null, true, true)
+    });
+
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(component.value !== expectedResult)
+        .toBe(true, 'exports date and time correctly when timepicker is disabled');
+    });
   });
 
 });

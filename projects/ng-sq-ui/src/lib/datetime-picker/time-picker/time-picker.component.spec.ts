@@ -149,4 +149,77 @@ describe('TimePickerComponent', () => {
     expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
   });
 
+  it('#should change noon relativity when [isMeridiem]=true', (done: DoneFn) => {
+    component.timeObjectType = 'string';
+    component.isMeridiem = true;
+
+    component.ngOnChanges({
+      isMeridiem: new SimpleChange(null, component.isMeridiem, true),
+      timeObjectType: new SimpleChange(null, component.timeObjectType, true)
+    });
+    fixture.detectChanges();
+
+    const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
+    noonRelativityToggle.click();
+
+    fixture.whenStable().then(() => {
+      expect(noonRelativityToggle.textContent)
+        .toContain('PM', 'correctly toggles AM->PM');
+
+      const expectedTimeFormat = `${component.hours}:${component.minutes} ${component.noonRelativity.toUpperCase()}`;
+      expect(component.value === expectedTimeFormat)
+        .toBe(true, 'component value is in correct format');
+      done();
+    });
+  });
+
+  it('#should export the time in accordance with a TimeObjectType value', () => {
+    component.timeObjectType = 'string';
+    component.ngOnChanges({
+      timeObjectType: new SimpleChange(null, component.timeObjectType, true)
+    });
+    fixture.detectChanges();
+    const expectedTimeFormat = `${component.hours}:${component.minutes}`;
+    expect(component.value === expectedTimeFormat)
+      .toBe(true, 'component value is string when [timeObjectType]="string"');
+
+    component.timeObjectType = 'moment';
+    component.ngOnChanges({
+      timeObjectType: new SimpleChange(null, component.timeObjectType, true)
+    });
+    fixture.detectChanges();
+    expect(moment.isMoment(component.value))
+      .toBe(true, 'component value is a moment object when [timeObjectType]="moment"');
+  });
+
+  it('#should normalize user input according time limits', () => {
+    component.isMeridiem = true;
+    component.ngOnChanges({
+      isMeridiem: new SimpleChange(null, component.isMeridiem, true)
+    });
+
+    component.hours = 22;
+    component.validateInput(TimeUnit.Hours);
+    fixture.detectChanges();
+
+    component.minutes = 60;
+    component.validateInput(TimeUnit.Minutes);
+    fixture.detectChanges();
+
+    expect(component.hours === component.limits.hours.max.toString() &&
+            component.minutes === component.limits.minutes.max.toString())
+      .toBe(true, 'when inputting over-the-max values, they get reset to equal max limits');
+
+    component.hours = -10;
+    component.validateInput(TimeUnit.Hours);
+    fixture.detectChanges();
+
+    component.minutes = -5;
+    component.validateInput(TimeUnit.Minutes);
+    fixture.detectChanges();
+
+    expect(component.hours === component.limits.hours.min.toString() &&
+            component.minutes === component.limits.minutes.min.toString())
+      .toBe(true, 'when inputting under-the-min values, they get reset to the min limits');
+  });
 });

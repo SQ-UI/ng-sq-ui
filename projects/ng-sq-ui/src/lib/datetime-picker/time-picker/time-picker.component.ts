@@ -80,13 +80,15 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
 
     if (changesObj.inputHours &&
         changesObj.inputHours.currentValue !== null &&
-        typeof changesObj.inputHours.currentValue !== 'undefined') {
+        typeof changesObj.inputHours.currentValue !== 'undefined' &&
+        changesObj.inputHours.currentValue > -1) {
       this.hours = this.start.hours(changesObj.inputHours.currentValue).format(this.hourFormat);
     }
 
     if (changesObj.inputMinutes &&
         changesObj.inputMinutes.currentValue !== null &&
-        typeof changesObj.inputMinutes.currentValue !== 'undefined') {
+        typeof changesObj.inputMinutes.currentValue !== 'undefined' &&
+        changesObj.inputMinutes.currentValue > -1) {
       this.minutes = this.start.minutes(changesObj.inputMinutes.currentValue).format('mm');
     }
 
@@ -141,7 +143,6 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
     this.setValueResult();
   }
 
-
   private normalizeTimeInput(value: string, unit: TimeUnit) {
     if (!value) {
       value = '00';
@@ -155,7 +156,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
       }
     }
 
-    if (parseInt(this.hours, 10) < this.limits[unit].min) {
+    if (parseInt(value, 10) < this.limits[unit].min) {
       value = this.limits[unit].min.toString();
     }
 
