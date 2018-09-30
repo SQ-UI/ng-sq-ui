@@ -73,6 +73,15 @@
     </tbody>
   </table>
 
-  <sq-time-picker [isMeridiem]="true" timeObjectType="moment">
+  <sq-time-picker *ngIf="isTimepickerEnabled"
+                  [(ngModel)]="time"
+                  (ngModelChange)="onTimeChange()"
+                  timeObjectType="moment"
+                  [hours]="timepickerConfig.hours"
+                  [minutes]="timepickerConfig.minutes"
+                  [hourStep]="timepickerConfig.hourStep"
+                  [minuteStep]="timepickerConfig.minuteStep"
+                  [isEditable]="timepickerConfig.isEditable"
+                  [isMeridiem]="timepickerConfig.isMeridiem">
   </sq-time-picker>
 </div>

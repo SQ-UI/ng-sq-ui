@@ -48,9 +48,17 @@ export class AppComponent {
     },
   ];
   searchResultsStrings: string[];
-  isDatepickerRanged = true;
+  isDatepickerRanged = false;
   minDate = moment();
   maxDate = moment().add(5, 'years');
+  timepickerConfig = {
+    hourStep: 2,
+    minuteStep: 15,
+    hours: 22,
+    minutes: 30,
+    isMeridiem: true,
+    isEditable: false
+  };
 
   dropdownOptions: LabelValuePair[] = [
     {

@@ -1,6 +1,7 @@
 import {
   Component, forwardRef, OnInit, ViewEncapsulation,
-  Input, Output, EventEmitter, AfterViewInit
+  Input, Output, EventEmitter, AfterViewInit,
+  OnChanges
 } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -10,6 +11,7 @@ import { DateRange } from '../interfaces/date-range';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { CalendarManagerService } from '../calendar-manager.service';
 import { DateObjectType } from '../enums/date-object-type.enum';
+import { TimepickerConfig } from '../interfaces/timepicker-config';
 import { List } from 'immutable';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import * as momentNs from 'moment';
@@ -28,13 +30,16 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class DatetimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit {
+export class DatetimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() locale = 'en';
   @Input() maxDate: momentNs.Moment | Date;
   @Input() minDate: momentNs.Moment | Date;
-  @Input() range = false;
+  @Input() isMultipleSelect = false;
   @Input() format: string;
+  @Input() isTimepickerEnabled = true;
   @Input() dateObjectType: string = DateObjectType.Moment;
+  @Input() timepickerConfig: TimepickerConfig;
+
   @Output() dateSelectionChange: EventEmitter<momentNs.Moment | Date> = new EventEmitter<momentNs.Moment | Date>();
 
   weekdays: string[];
@@ -44,10 +49,12 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   currentMonth: momentNs.Moment;
   isMonthsPickerEnabled = false;
   isYearsPickerEnabled = false;
+  time: momentNs.Moment;
   calendarPeriodRelativity = CalendarPeriodRelativityEnum;
   period: CalendarPeriodTypeEnum = CalendarPeriodTypeEnum.Month;
 
   private selectedDates: List<momentNs.Moment> = List<momentNs.Moment>();
+  private parsedSelectedDates: any;
 
   constructor(private calendarManager: CalendarManagerService) {
     super();
@@ -67,6 +74,12 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     setTimeout(() => {
       this.setValueResult();
     });
+  }
+
+  ngOnChanges(changesObj) {
+    if (changesObj.timepickerConfig && changesObj.timepickerConfig.currentValue) {
+      this.setValueResult();
+    }
   }
 
   onDateClick(date: CalendarDay) {
@@ -180,6 +193,10 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     this.showMonthsPicker(year.momentObj.year());
   }
 
+  onTimeChange() {
+    this.setValueResult();
+  }
+
   private initializeAuthorValuesIfAny() {
     const subscription = this._modelToViewChange.subscribe((newValue) => {
       if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
@@ -206,7 +223,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     const selectedMomentObj = moment(date.momentObj);
     const selectedIndex = this.calendarManager.getSelectedItemIndex(selectedMomentObj, this.selectedDates.toArray());
 
-    if (this.range) {
+    if (this.isMultipleSelect) {
       if (selectedIndex > -1) {
         date.isSelected = false;
         this.selectedDates = this.selectedDates.remove(selectedIndex);
@@ -246,31 +263,63 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   }
 
   private setValueResult() {
-    let result: any = this.selectedDates.toArray();
+    this.parsedSelectedDates = this.selectedDates.toArray();
 
-    if (result.length > 0) {
-      if (this.dateObjectType === DateObjectType.Date && !this.format) {
-        result = result.map((momentObj) => {
-          return momentObj.toDate();
-        });
-      }
-
-      if (this.range) {
-        result = this.calendarManager.sortDatesAsc(result);
-      }
-
-      if (this.format) {
-        result = result.map((date) => {
-          return moment(date).format(this.format);
-        });
-      }
-
+    if (this.parsedSelectedDates.length > 0) {
+      this.setValueTimeIfNeeded();
+      this.sortValueIfNeeded();
+      this.toValueDateObjectTypeIfNeeded();
+      this.toValueFormatIfNeeded();
     }
 
-    if (this.range) {
-      this.value = result;
+    if (this.isMultipleSelect) {
+      this.value = this.parsedSelectedDates;
     } else {
-      this.value = result[0];
+      this.value = this.parsedSelectedDates[0];
+    }
+  }
+
+  private toValueDateObjectTypeIfNeeded()  {
+    if (!this.format) {
+      switch (this.dateObjectType) {
+        case DateObjectType.Date:
+          this.parsedSelectedDates = this.parsedSelectedDates.map((momentObj) => {
+            return momentObj.toDate();
+          });
+          break;
+        case DateObjectType.Unix:
+          this.parsedSelectedDates = this.parsedSelectedDates.map((momentObj) => {
+            return momentObj.format('x');
+          });
+          break;
+      }
+    }
+  }
+
+  private toValueFormatIfNeeded() {
+    if (this.format) {
+      const formattedDates = this.parsedSelectedDates.map((date) => {
+        return moment(date).format(this.format);
+      });
+
+      this.parsedSelectedDates = formattedDates;
+    }
+  }
+
+  private setValueTimeIfNeeded() {
+    if (this.isTimepickerEnabled && this.time) {
+      const datesWithTime = this.parsedSelectedDates.map((momentObj) => {
+        return momentObj.hours(this.time.hours()).minutes(this.time.minutes());
+      });
+
+      this.parsedSelectedDates = datesWithTime;
+    }
+  }
+
+  private sortValueIfNeeded() {
+    if (this.isMultipleSelect) {
+      const sortedDates = this.calendarManager.sortDatesAsc(this.parsedSelectedDates);
+      this.parsedSelectedDates = sortedDates;
     }
   }
 }

@@ -132,8 +132,10 @@
         <sq-datetime-picker locale="en"
                             [maxDate]="maxDate"
                             [minDate]="minDate"
+                            format="DD/MM/YYYY hh:mm A"
                             formControlName="datepicker"
-                            [range]="isDatepickerRanged">
+                            [timepickerConfig]="timepickerConfig"
+                            [isMultipleSelect]="isDatepickerRanged">
         </sq-datetime-picker>
       </section>
 
