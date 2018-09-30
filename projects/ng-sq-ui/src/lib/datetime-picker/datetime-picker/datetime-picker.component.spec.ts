@@ -39,10 +39,10 @@ describe('DatetimePickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should select a date correctly when [range]=false', (done) => {
+  it('#should select a date correctly when [isMultipleSelect]=false', (done) => {
     component.calendar = component.getMonthCalendar(moment());
     const selectItem = component.calendar[2][5];
-    component.range = false;
+    component.isMultipleSelect = false;
 
     component.dateSelectionChange.subscribe((selectedValue) => {
       const isValueSame = selectedValue.isSame(selectItem.momentObj, 'day');
@@ -59,10 +59,10 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('#should select dates correctly when [range]=true', (done: DoneFn) => {
+  it('#should select dates correctly when [isMultipleSelect]=true', (done: DoneFn) => {
     component.calendar = component.getMonthCalendar(moment());
     const expectedItems = [component.calendar[2][3], component.calendar[1][5]];
-    component.range = true;
+    component.isMultipleSelect = true;
 
     component.dateSelectionChange.subscribe((selectedValue) => {
       const isArray = Array.isArray(selectedValue);
@@ -87,7 +87,7 @@ describe('DatetimePickerComponent', () => {
   it('#should jump to previous month when a date before current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
     const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
-    component.range = false;
+    component.isMultipleSelect = false;
     component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
     const date = component.calendar[0][1];
     component.onDateClick(date);
@@ -104,7 +104,7 @@ describe('DatetimePickerComponent', () => {
   it('#should jump to next month when a date after current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
     const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
-    component.range = false;
+    component.isMultipleSelect = false;
     component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
 
     const date = component.calendar[5][1];

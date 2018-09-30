@@ -57,8 +57,8 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   }
 
   ngOnInit() {
-    this.hours = this.hours || this.start.format(this.hourFormat);
-    this.minutes = this.minutes || this.start.format('mm');
+    this.hours = this.start.hours(this.hours).format(this.hourFormat) || this.start.format(this.hourFormat);
+    this.minutes = this.start.minutes(this.minutes).format('mm') || this.start.format('mm');
     this.setValueResult();
   }
 
@@ -78,12 +78,12 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
       this.hours = this.start.format(this.hourFormat);
     }
 
-    if (changesObj.inputHours) {
-      this.hours = this.normalizeTimeInput(changesObj.inputHours.currentValue, TimeUnit.Hours);
+    if (changesObj.inputHours && changesObj.inputHours.currentValue) {
+      this.hours = this.start.hours(changesObj.inputHours.currentValue).format(this.hourFormat);
     }
 
-    if (changesObj.inputMinutes) {
-      this.minutes = this.normalizeTimeInput(changesObj.inputMinutes.currentValue, TimeUnit.Minutes);
+    if (changesObj.inputMinutes && changesObj.inputMinutes.currentValue) {
+      this.minutes = this.start.minutes(changesObj.inputMinutes.currentValue).format('mm');
     }
 
     this.setValueResult();
@@ -96,7 +96,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
         this.inputHoursChange.emit(parseInt(this.hours, 10));
         break;
       case TimeUnit.Minutes:
-        this.minutes = this.start.add(this.minuteStep, 'minutes').format('mm').toString();
+        this.minutes = this.start.add(this.minuteStep, 'minutes').format('mm');
         this.inputMinutesChange.emit(parseInt(this.minutes, 10));
         break;
     }
@@ -111,7 +111,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
         this.inputHoursChange.emit(parseInt(this.hours, 10));
         break;
       case TimeUnit.Minutes:
-        this.minutes = this.start.subtract(this.minuteStep, 'minutes').format('mm').toString();
+        this.minutes = this.start.subtract(this.minuteStep, 'minutes').format('mm');
         this.inputMinutesChange.emit(parseInt(this.minutes, 10));
         break;
     }
