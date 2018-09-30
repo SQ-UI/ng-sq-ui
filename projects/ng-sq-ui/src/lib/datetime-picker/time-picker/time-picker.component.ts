@@ -28,7 +28,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   @Input() isEditable = true;
   @Input('hours') inputHours;
   @Input('minutes') inputMinutes;
-  @Input() timeObjectType: TimeObject = TimeObject.String;
+  @Input() timeObjectType: string = TimeObject.String;
 
   @Output() inputHoursChange = new EventEmitter<number>();
   @Output() inputMinutesChange = new EventEmitter<number>();
@@ -169,5 +169,6 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
     }
 
     this.value = timeMoment ? timeMoment : timeString;
+    console.log(this.value);
   }
 }
