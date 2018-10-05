@@ -83,6 +83,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
         typeof changesObj.inputHours.currentValue !== 'undefined' &&
         changesObj.inputHours.currentValue > -1) {
       this.hours = this.start.hours(changesObj.inputHours.currentValue).format(this.hourFormat);
+      this.noonRelativity = this.start.format('a');
     }
 
     if (changesObj.inputMinutes &&
