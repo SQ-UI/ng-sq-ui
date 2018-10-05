@@ -161,6 +161,41 @@
           }
         }
       }
+    },
+    "ng-datetime-picker": {
+      "root": "projects/ng-datetime-picker",
+      "sourceRoot": "projects/ng-datetime-picker/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.json",
+            "project": "projects/ng-datetime-picker/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-datetime-picker/src/test.ts",
+            "tsConfig": "projects/ng-datetime-picker/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-datetime-picker/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-datetime-picker/tsconfig.lib.json",
+              "projects/ng-datetime-picker/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "sq-ui",

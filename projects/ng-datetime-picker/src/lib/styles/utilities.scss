@@ -1,0 +1,26 @@
+.display-none {
+  display: none !important;
+}
+
+.display-flex {
+ display: flex;
+  &.wrap {
+    flex-wrap: wrap;
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.justify-center {
+    justify-content: center;
+  }
+  &.align-items-center {
+    align-items: center;
+  }
+  &.column {
+    flex-direction: column;
+  }
+}
+
+.mg-r10 {
+  margin-right: 10px;
+}

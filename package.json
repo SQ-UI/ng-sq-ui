@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docs": "docsify serve docs"
+    "docs": "docsify serve docs",
+    "prepare-datepicker": "gulp prepare-datetime && ng build ng-datetime-picker && npm install dist/ng-datetime-picker",
+    "build-libs": "npm run prepare-datepicker && ng build ng-sq-ui && gulp transfer-styles-to-dest"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,7 @@
     "@angular/platform-browser": "^6.1.7",
     "@angular/platform-browser-dynamic": "^6.1.7",
     "@angular/router": "^6.1.7",
+    "@sq-ui/ng-datetime-picker": "file:dist/ng-datetime-picker",
     "core-js": "^2.5.4",
     "nyc": "^12.0.2",
     "rxjs": "^6.2.2",
@@ -38,6 +41,7 @@
     "adm-zip": "^0.4.11",
     "codelyzer": "~4.2.1",
     "font-awesome": "^4.7.0",
+    "gulp": "^4.0.0",
     "immutable": "^3.8.2",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",

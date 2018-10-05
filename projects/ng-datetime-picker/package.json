@@ -1,9 +1,9 @@
 {
-  "name": "@sq-ui/ng-sq-ui",
-  "version": "1.0.3",
+  "name": "@sq-ui/ng-datetime-picker",
+  "version": "1.0.0",
   "license": "MIT",
   "private": false,
-  "description": "Simple Quality UI kit for Angular",
+  "description": "Simple Quality UI Datetime-Picker for Angular",
   "repository": {
     "type": "git",
     "url": "https://github.com/SQ-UI/ng-sq-ui.git"
@@ -52,7 +52,7 @@
   "dependencies": {
     "immutable": "^3.8.2",
     "font-awesome": "4.7.0",
-    "@sq-ui/ng-datetime-picker": "^1.0.0"
+    "moment": "^2.22.2"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

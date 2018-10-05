@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { FormElementsModule } from './form-elements/form-elements.module';
 import { ModalModule } from './modal/modal.module';
 import { SharedModule } from './shared/shared.module';
-import { DatetimePickerModule } from './datetime-picker/datetime-picker.module';
+import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
 
 @NgModule({
   imports: [
     SharedModule,
     FormElementsModule,
-    DatetimePickerModule
+    NgDatetimePickerModule
   ],
   exports: [
     FormElementsModule,
     ModalModule,
-    DatetimePickerModule
+    NgDatetimePickerModule
   ]
 })
 export class NgSqUiModule { }
