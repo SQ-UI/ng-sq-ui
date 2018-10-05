@@ -1,5 +1,7 @@
-import { Component, forwardRef, OnInit, ViewEncapsulation,
-         Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import {
+  Component, forwardRef, OnInit, ViewEncapsulation,
+  Input, OnChanges, Output, EventEmitter, AfterViewInit
+} from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimeObject } from '../enums/time-object-type.enum';
@@ -21,7 +23,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class TimePickerComponent extends InputCoreComponent implements OnInit, OnChanges {
+export class TimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() hourStep = 1;
   @Input() minuteStep = 1;
   @Input() isMeridiem = false;
@@ -30,8 +32,8 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
   @Input('minutes') inputMinutes;
   @Input() timeObjectType: string = TimeObject.String;
 
-  @Output() inputHoursChange = new EventEmitter<number>();
-  @Output() inputMinutesChange = new EventEmitter<number>();
+  @Output('hoursChange') inputHoursChange = new EventEmitter<number>();
+  @Output('minutesChange') inputMinutesChange = new EventEmitter<number>();
 
   hours;
   minutes;
@@ -94,6 +96,12 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
     }
 
     this.setValueResult();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.setValueResult();
+    });
   }
 
   increment(unit: TimeUnit) {
@@ -175,6 +183,5 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, O
     }
 
     this.value = timeMoment ? timeMoment : timeString;
-    console.log(this.value);
   }
 }

@@ -102,13 +102,13 @@ describe('TimePickerComponent', () => {
     const momentIncrementMinutes = start.add(component.minuteStep, 'minutes').format('mm');
 
     component.inputMinutesChange.subscribe((minutes) => {
-      expect(minutes === parseInt(momentIncrementHours, 10))
-        .toBe(true, 'minutes get decreased as integers');
+      expect(minutes === parseInt(momentIncrementMinutes, 10))
+        .toBe(true, 'minutes get increased as integers');
     });
 
     component.inputHoursChange.subscribe((hours) => {
-      expect(hours === parseInt(momentIncrementMinutes, 10))
-        .toBe(true, 'hours get decreased as integers');
+      expect(hours === parseInt(momentIncrementHours, 10))
+        .toBe(true, 'hours get increased as integers');
     });
 
     component.increment(TimeUnit.Hours);
@@ -169,7 +169,7 @@ describe('TimePickerComponent', () => {
     expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
   });
 
-  it('#should change noon relativity when [isMeridiem]=true', (done: DoneFn) => {
+  it('#should change noon relativity when [isMeridiem]=true', () => {
     component.timeObjectType = 'string';
     component.isMeridiem = true;
 
@@ -179,19 +179,16 @@ describe('TimePickerComponent', () => {
     });
     fixture.detectChanges();
 
-    const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
-    noonRelativityToggle.click();
+    component.changeNoonRelativity();
+    component.changeNoonRelativity();
     fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(noonRelativityToggle.textContent)
-        .toContain('PM', 'correctly toggles AM->PM');
+    expect(component.noonRelativity).toEqual('pm', 'correctly toggles AM->PM');
 
-      const expectedTimeFormat = `${component.hours}:${component.minutes} ${component.noonRelativity.toUpperCase()}`;
-      expect(component.value === expectedTimeFormat)
-        .toBe(true, 'component value is in correct format');
-      done();
-    });
+    const expectedTimeFormat = `${component.hours}:${component.minutes} ${component.noonRelativity.toUpperCase()}`;
+
+    expect(component.value === expectedTimeFormat)
+      .toBe(true, 'component value is in correct format');
   });
 
   it('#should export the time in accordance with a TimeObjectType value', () => {

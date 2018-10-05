@@ -48,10 +48,10 @@ export class AppComponent {
     },
   ];
   searchResultsStrings: string[];
-  isDatepickerRanged = false;
+  isDatepickerMultipleSelect = true;
   minDate = moment();
   maxDate = moment().add(5, 'years');
-  timepickerConfig = {
+  inlineTimepickerConfig = {
     hourStep: 2,
     minuteStep: 15,
     hours: 22,
@@ -59,6 +59,15 @@ export class AppComponent {
     isMeridiem: true,
     isEditable: true
   };
+  standAloneTimepicker = {
+    hourStep: 1,
+    minuteStep: 1,
+    hours: 13,
+    minutes: 20,
+    isMeridiem: false,
+    isEditable: false
+  };
+  isTimepickerEndabled = true;
 
   dropdownOptions: LabelValuePair[] = [
     {
@@ -85,8 +94,18 @@ export class AppComponent {
       radioValue: ['value1'],
       checkboxValue: [false],
       textareaValue: [''],
-      datepicker: [moment().add(1, 'day'), Validators.required]
+      standAloneDatepicker: [moment()],
+      datetimePicker: [moment().add(1, 'day')],
+      standAloneTimepicker: []
     });
+  }
+
+  hoursChange($event) {
+    console.log(`The current chosen hours are: ${$event}`);
+  }
+
+  minutesChange($event) {
+    console.log(`The current chosen minutes are: ${$event}`);
   }
 
   searchMethod(query) {

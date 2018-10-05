@@ -102,7 +102,7 @@
           <h3>sq-textarea</h3>
         </header>
 
-        <sq-textarea controlLabel="Textarea Label *" formControlName="textareaValue" controlPlaceholder="Type something in..."></sq-textarea>
+        <sq-textarea controlLabel="Textarea Label" formControlName="textareaValue" controlPlaceholder="Type something in..."></sq-textarea>
       </section>
 
       <section id="sqRadioAndFormGroup">
@@ -124,21 +124,58 @@
         </sq-form-group>
       </section>
 
-      <section id="sqDatepicker" class="module">
+      <section id="sqDateTimePicker" class="module">
         <header>
-          <h2>Datepicker</h2>
+          <h2>DatetimePickerModule</h2>
         </header>
 
-        <sq-datetime-picker locale="en"
-                            [maxDate]="maxDate"
-                            [minDate]="minDate"
-                            format="DD/MM/YYYY hh:mm A"
-                            formControlName="datepicker"
-                            [timepickerConfig]="timepickerConfig"
-                            [isMultipleSelect]="isDatepickerRanged">
-        </sq-datetime-picker>
-      </section>
+        <section id="sqStandaloneDatepicker" class="mg-b50">
+          <header class="mg-b20">
+            <h3>Standalone Datepicker (multiple select enabled)</h3>
+          </header>
 
+          <sq-datetime-picker locale="en"
+                              [maxDate]="maxDate"
+                              [minDate]="minDate"
+                              format="MM/DD/YYYY"
+                              formControlName="standAloneDatepicker"
+                              [isMultipleSelect]="isDatepickerMultipleSelect">
+          </sq-datetime-picker>
+        </section>
+
+        <section id="sqDateAndTimePciker" class="mg-b50">
+          <header class="mg-b20">
+            <h3>Datepicker (multiple select disabled) + Timepicker (meridiem enabled)</h3>
+          </header>
+
+          <sq-datetime-picker locale="fr"
+                              format="DD-MM-YYYY hh:mm"
+                              formControlName="datetimePicker"
+                              [isTimepickerEnabled]="isTimepickerEndabled"
+                              [timepickerConfig]="inlineTimepickerConfig">
+          </sq-datetime-picker>
+        </section>
+
+        <section id="sqTimepicker" class="module">
+          <header class="mg-b20">
+            <h3>Standalone Timepicker (meridiem disabled)</h3>
+          </header>
+
+          <div style="max-width: 410px;">
+            <sq-time-picker formControlName="standAloneTimepicker"
+                            (hoursChange)="hoursChange($event)"
+                            (minutesChange)="minutesChange($event)"
+                            timeObjectType="string"
+                            [hours]="standAloneTimepicker.hours"
+                            [minutes]="standAloneTimepicker.minutes"
+                            [hourStep]="standAloneTimepicker.hourStep"
+                            [minuteStep]="standAloneTimepicker.minuteStep"
+                            [isEditable]="standAloneTimepicker.isEditable"
+                            [isMeridiem]="standAloneTimepicker.isMeridiem">
+            </sq-time-picker>
+          </div>
+        </section>
+      </section>
 
       <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
     </form>
