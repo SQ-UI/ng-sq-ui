@@ -1,4 +1,4 @@
-# NG-SQ-UI
+# @sq-ui/ng-datetime-picker
 
 > Simple Quality UI kit for Angular
 
@@ -21,13 +21,13 @@ Any types of public interfaces and services are also included.
 ## Installation
 
 ```
-npm i @sq-ui/ng-sq-ui --save
+npm i @sq-ui/ng-datetime-picker --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-sq-ui
+yarn add @sq-ui/ng-datetime-picker
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ yarn add @sq-ui/ng-sq-ui
 Import the NgSqUiModule in your module:
 
 ```
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
 ```
 
 and then include it in the `imports` array of your @NgModule() decorator:
@@ -44,22 +44,10 @@ and then include it in the `imports` array of your @NgModule() decorator:
 @NgModule({
   declarations: [ //... ],
   imports: [
-    NgSqUiModule,
+    NgDatetimePickerModule,
     //...
   ],
   //...
-```
-
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
-
-### Add styles to angular.json
-
-```json
-"styles": [
-  "src/styles.css",
-  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
-  "./node_modules/font-awesome/scss/font-awesome.scss"
-],
 ```
 
 ### Apply styling to the components
@@ -68,9 +56,10 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ```html
 <body class="sq">
-  <div class="row">
-    <sq-input ...></sq-input>
-  </div>
+  ...
+    <sq-datetime-picker ...></sq-datetime-picker>
+    <sq-time-picker ...></sq-time-picker>
+  ...
 </body>
 ```
 
@@ -78,11 +67,11 @@ To use our styling just add the `class="sq"` on a parent element.
 
 - font-awesome
 - immutable.js
-- @sq-ui/ng-datetime-picker
+- moment.js
 
 ## Support
 
-- Use NG-SQ-UI in your daily work.
+- Use @sq-ui/ng-datetime-picker in your daily work.
 - **Star** it if you like.
 - [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
 - Follow us on [twitter](https://twitter.com/squi97817882) to get latest updates.

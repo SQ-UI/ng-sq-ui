@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "docsify serve docs",
-    "prepare-datepicker": "gulp prepare-datetime && ng build ng-datetime-picker && npm install dist/ng-datetime-picker",
-    "build-libs": "npm run prepare-datepicker && ng build ng-sq-ui && gulp transfer-styles-to-dest"
+    "prepare-datepicker": "gulp prepare-datetime && ng build ng-datetime-picker && npm install dist/ng-datetime-picker --no-save",
+    "build-libs": "npm run prepare-datepicker && ng build ng-sq-ui && gulp copy-files-for-packages"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +23,6 @@
     "@angular/platform-browser": "^6.1.7",
     "@angular/platform-browser-dynamic": "^6.1.7",
     "@angular/router": "^6.1.7",
-    "@sq-ui/ng-datetime-picker": "file:dist/ng-datetime-picker",
     "core-js": "^2.5.4",
     "nyc": "^12.0.2",
     "rxjs": "^6.2.2",
