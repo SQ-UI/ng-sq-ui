@@ -23,6 +23,12 @@
       ],
       "ng-sq-ui/*": [
         "dist/ng-sq-ui/*"
+      ],
+      "ng-datetimePicker": [
+        "dist/ng-datetime-picker"
+      ],
+      "ng-datetimePicker/*": [
+        "dist/ng-datetime-picker/*"
       ]
     }
   }
