@@ -46,7 +46,7 @@
           <h3>sq-inut</h3>
         </header>
 
-        <sq-input formControlName="name" controlLabel="Test Label*" controlPlaceholder="Test placeholder" type="text">
+        <sq-input formControlName="name" controlLabel="Test Label" controlPlaceholder="Test placeholder" type="text">
         </sq-input>
       </section>
 
@@ -55,7 +55,7 @@
           <h3>sq-dropdown</h3>
         </header>
 
-        <sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example*" controlPlaceholder="Select an option">
+        <sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example" controlPlaceholder="Select an option">
         </sq-dropdown>
       </section>
 
@@ -64,7 +64,7 @@
           <h3>sq-tags-input</h3>
         </header>
 
-        <sq-tags-input formControlName="tags" controlLabel="Tags*" controlPlaceholder="Type something and press Space">
+        <sq-tags-input formControlName="tags" controlLabel="Tags" controlPlaceholder="Type something and press Space">
         </sq-tags-input>
       </section>
 
@@ -74,7 +74,7 @@
         </header>
 
         <sq-typeahead name="typeahead1" displayProp="myCustomProp" multiple="true" formControlName="typeahead1" [searchResults]="searchResults"
-          (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead*" controlPlaceholder="Type something in">
+          (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
 
@@ -84,7 +84,7 @@
         </header>
 
         <sq-typeahead name="typeahead2" formControlName="typeahead2" [searchResults]="searchResultsStrings" (onUserInputEnd)="searchMethodString($event)"
-          controlLabel="Typeahead*" controlPlaceholder="Type something in">
+          controlLabel="Typeahead" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
 
