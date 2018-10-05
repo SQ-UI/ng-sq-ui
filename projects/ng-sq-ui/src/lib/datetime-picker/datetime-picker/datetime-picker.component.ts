@@ -36,7 +36,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   @Input() minDate: momentNs.Moment | Date;
   @Input() isMultipleSelect = false;
   @Input() format: string;
-  @Input() isTimepickerEnabled = true;
+  @Input() isTimepickerEnabled = false;
   @Input() dateObjectType: string = DateObjectType.Moment;
   @Input() timepickerConfig: TimepickerConfig;
 
