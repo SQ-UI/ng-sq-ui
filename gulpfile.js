@@ -17,11 +17,6 @@ var paths = {
   }
 };
 
-function copyBaseStylesForDatetimeModule() {
-  return gulp.src(paths.baseScss)
-    .pipe(gulp.dest(paths.projects.sqDatetime.styles));
-}
-
 function copyInputCoreLogicForDatetimeModule() {
   return gulp.src(paths.inputCoreLogic)
     .pipe(gulp.dest(paths.projects.sqDatetime.sharedLogic));
@@ -42,7 +37,7 @@ function copyStylesForNgSqUiPackage() {
     .pipe(gulp.dest(paths.projects.sqUi.destRoot + 'styles'));
 }
 
-gulp.task('prepare-datetime', gulp.series(copyInputCoreLogicForDatetimeModule, copyBaseStylesForDatetimeModule));
+gulp.task('prepare-datetime', gulp.series(copyInputCoreLogicForDatetimeModule));
 gulp.task('transfer-styles-to-dest', gulp.parallel(copyMainStylesheetForForNgSqUiPackage, copyStylesForNgSqUiPackage, copyStylesForDatetimePackage));
 
 
