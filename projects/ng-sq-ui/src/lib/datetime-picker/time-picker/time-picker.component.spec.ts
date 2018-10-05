@@ -42,10 +42,10 @@ describe('TimePickerComponent', () => {
     fixture.detectChanges();
 
     const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
+    const timeFormat = 'hh:mm A';
     const expectedMoment = moment().hours(component.inputHours).minutes(component.inputMinutes);
 
-    const isValueCorrect = component.value.isSame(expectedMoment, 'hour') &&
-      component.value.isSame(expectedMoment, 'minutes');
+    const isValueCorrect = component.value.format(timeFormat) === expectedMoment.format(timeFormat);
 
     expect(noonRelativityToggle.textContent)
       .toContain('PM', 'correctly displays meridiem');
@@ -67,10 +67,10 @@ describe('TimePickerComponent', () => {
     fixture.detectChanges();
 
     const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
+    const timeFormat = 'HH:mm';
     const expectedMoment = moment().hours(component.inputHours).minutes(component.inputMinutes);
 
-    const isValueCorrect = component.value.isSame(expectedMoment, 'hour') &&
-      component.value.isSame(expectedMoment, 'minutes');
+    const isValueCorrect = component.value.format(timeFormat) === expectedMoment.format(timeFormat);
 
     expect(noonRelativityToggle).not.toBeTruthy();
     expect(component.hours === component.inputHours.toString() &&
@@ -100,6 +100,16 @@ describe('TimePickerComponent', () => {
     const start = moment(timeString, 'HH:mm');
     const momentIncrementHours = start.add(component.hourStep, 'hours').format('HH');
     const momentIncrementMinutes = start.add(component.minuteStep, 'minutes').format('mm');
+
+    component.inputMinutesChange.subscribe((minutes) => {
+      expect(minutes === parseInt(momentIncrementHours, 10))
+        .toBe(true, 'minutes get decreased as integers');
+    });
+
+    component.inputHoursChange.subscribe((hours) => {
+      expect(hours === parseInt(momentIncrementMinutes, 10))
+        .toBe(true, 'hours get decreased as integers');
+    });
 
     component.increment(TimeUnit.Hours);
     component.increment(TimeUnit.Minutes);
@@ -136,6 +146,16 @@ describe('TimePickerComponent', () => {
     const momentDecrementHours = start.subtract(component.hourStep, 'hours').format('HH');
     const momentDecrementMinutes = start.subtract(component.minuteStep, 'minutes').format('mm');
 
+    component.inputMinutesChange.subscribe((minutes) => {
+      expect(minutes === parseInt(momentDecrementMinutes, 10))
+        .toBe(true, 'minutes get decreased as integers');
+    });
+
+    component.inputHoursChange.subscribe((hours) => {
+      expect(hours === parseInt(momentDecrementHours, 10))
+        .toBe(true, 'hours get decreased as integers');
+    });
+
     component.decrement(TimeUnit.Hours);
     component.decrement(TimeUnit.Minutes);
     fixture.detectChanges();
@@ -161,6 +181,7 @@ describe('TimePickerComponent', () => {
 
     const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
     noonRelativityToggle.click();
+    fixture.detectChanges();
 
     fixture.whenStable().then(() => {
       expect(noonRelativityToggle.textContent)

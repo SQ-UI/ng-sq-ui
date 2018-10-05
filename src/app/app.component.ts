@@ -54,8 +54,8 @@ export class AppComponent {
   timepickerConfig = {
     hourStep: 2,
     minuteStep: 15,
-    hours: 20,
-    minutes: 0,
+    hours: 22,
+    minutes: 30,
     isMeridiem: true,
     isEditable: true
   };
