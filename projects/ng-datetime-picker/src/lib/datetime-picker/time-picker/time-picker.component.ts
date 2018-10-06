@@ -28,8 +28,8 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, A
   @Input() minuteStep = 1;
   @Input() isMeridiem = false;
   @Input() isEditable = true;
-  @Input('hours') inputHours;
-  @Input('minutes') inputMinutes;
+  @Input('hours') inputHours: number;
+  @Input('minutes') inputMinutes: number;
   @Input() timeObjectType: string = TimeObject.String;
 
   @Output('hoursChange') inputHoursChange = new EventEmitter<number>();

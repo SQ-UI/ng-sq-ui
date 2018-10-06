@@ -1,6 +1,11 @@
 <div class="datetime-picker-wrapper">
-  <div class="period-section">
-    <button type="button" (click)="previous()" class="change-period prev">
+  <div class="period-section display-flex"
+       [ngClass]="{'justify-center': isMonthsPickerEnabled,
+                   'space-between': !isMonthsPickerEnabled}">
+    <button type="button"
+            (click)="previous()"
+            class="change-period prev"
+            *ngIf="!isMonthsPickerEnabled">
       <i class="fa fa-chevron-left"></i>
     </button>
 
@@ -23,7 +28,10 @@
       </strong>
     </div>
 
-    <button type="button" (click)="next()" class="change-period next">
+    <button type="button"
+            (click)="next()"
+            class="change-period next"
+            *ngIf="!isMonthsPickerEnabled">
       <i class="fa fa-chevron-right"></i>
     </button>
   </div>

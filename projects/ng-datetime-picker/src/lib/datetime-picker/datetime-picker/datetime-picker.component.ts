@@ -9,10 +9,10 @@ import { CalendarDay, InCalendarPicker } from '../interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
 import { DateRange } from '../interfaces/date-range';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
-import { CalendarManagerService } from '../calendar-manager.service';
 import { DateObjectType } from '../enums/date-object-type.enum';
 import { TimepickerConfig } from '../interfaces/timepicker-config';
 import { List } from 'immutable';
+import { CalendarManagerService } from '../calendar-manager.service';
 // temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import * as momentNs from 'moment';
 const moment = momentNs;
@@ -39,6 +39,8 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   @Input() isTimepickerEnabled = false;
   @Input() dateObjectType: string = DateObjectType.Moment;
   @Input() timepickerConfig: TimepickerConfig;
+
+  @Output() dateSelectionChange: EventEmitter<momentNs.Moment | Date> = new EventEmitter<momentNs.Moment | Date>();
 
   weekdays: string[];
   months: InCalendarPicker[];
