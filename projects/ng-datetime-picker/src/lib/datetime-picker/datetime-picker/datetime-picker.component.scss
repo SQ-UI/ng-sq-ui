@@ -1,4 +1,4 @@
-@import "../../styles/colors";
+@import '../../styles/colors';
 
 .sq {
   .datetime-picker-wrapper {
@@ -26,7 +26,7 @@
     align-items: center;
     padding-bottom: 12px;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba(46,159,134,.69);
+    border-bottom: 1px solid $datetime-heading-border;
   }
 
   .period-name {
@@ -35,7 +35,7 @@
   }
 
   .month-name {
-    margin-right: 10px
+    margin-right: 10px;
   }
 
   .change-period {
@@ -63,6 +63,8 @@
       padding: 10px 17px;
       background-color: $datetime-heading;
       text-transform: uppercase;
+      border-bottom: 1px solid $datetime-heading-border;
+
       &:last-child {
         border-right: none;
       }
@@ -84,7 +86,7 @@
       }
     }
     .row {
-      &:nth-child(2n) .cell  {
+      &:nth-child(2n) .cell {
         background-color: $datetime-even-row;
       }
       &:nth-child(2n) .cell.selected {
@@ -111,5 +113,3 @@
     }
   }
 }
-
-
