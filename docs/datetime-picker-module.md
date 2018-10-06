@@ -4,6 +4,8 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 
 ## sq-datetime-picker
 
+![SQ-datetime-picker](_media/sq-standalone-calendar.gif)
+
 ![SQ-datetime-picker](_media/sq-datetime-picker.gif)
 
 ```html
