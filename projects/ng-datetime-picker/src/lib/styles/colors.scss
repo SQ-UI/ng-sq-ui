@@ -1,5 +1,5 @@
 //General
-$base-font-color: #4C4C4C;
+$base-font-color: #4c4c4c;
 $error-message-color: rgba(163, 52, 27, 1);
 $overlay-color: rgba(0, 0, 0, 0.38823529411764707);
 $primary-theme-color: rgba(46, 159, 134, 0.69);
@@ -17,9 +17,10 @@ $disabled-color: rgba(76, 76, 76, 0.12);
 $modal-box-shadow-color: rgba(18, 125, 104, 0.3);
 $modal-background-color: #ffffff;
 
-$datetime-selected: rgba(18, 125, 104, 0.3);
+$datetime-selected: #b7d8d1;
 $datetime-heading: rgba(18, 125, 104, 0.3);
-$datetime-active-picker-items: rgba(111, 189, 171, 0.61);
+$datetime-heading-border: rgba(46, 159, 134, 0.69);
+$datetime-active-picker-items: rgb(226, 239, 237);
 $datetime-beyond-current-month-dates: #2e9f86;
 $datetime-disabled-date: #aba9a9;
 $datetime-even-row: rgba(18, 125, 104, 0.12);
