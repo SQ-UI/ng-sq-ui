@@ -15,6 +15,7 @@ Any types of public interfaces and services are also included.
 - [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
 - [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
 - [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
+- [Datetime-picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker)
 - [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
 - [Live examples](https://ng-sq-ui-examples.surge.sh)
 
@@ -32,7 +33,7 @@ yarn add @sq-ui/ng-datetime-picker
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import the NgDatetimePickerModule in your module:
 
 ```
 import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
@@ -74,4 +75,4 @@ To use our styling just add the `class="sq"` on a parent element.
 - Use @sq-ui/ng-datetime-picker in your daily work.
 - **Star** it if you like.
 - [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
-- Follow us on [twitter](https://twitter.com/squi97817882) to get latest updates.
+- Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
