@@ -37,7 +37,11 @@ function getYearList(start: momentNs.Moment, margin: number = 19): number[] {
 }
 
 describe('CalendarManagerService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({
+    providers: [
+      CalendarManagerService
+    ]
+  }));
 
   it('should be created', () => {
     const service: CalendarManagerService = TestBed.get(CalendarManagerService);

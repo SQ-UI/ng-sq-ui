@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { CustomEventDetails } from '../interfaces/custom-event-details';
 import { Subject, Subscription } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CustomEventBroadcasterService {
   private broadcasterSubject = new Subject();
   private broadcasterSubjectAsObservable = this.broadcasterSubject.asObservable();

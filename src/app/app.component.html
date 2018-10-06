@@ -134,8 +134,7 @@
             <h3>Standalone Datepicker (multiple select enabled)</h3>
           </header>
 
-          <sq-datetime-picker locale="en"
-                              [maxDate]="maxDate"
+          <sq-datetime-picker [maxDate]="maxDate"
                               [minDate]="minDate"
                               format="MM/DD/YYYY"
                               formControlName="standAloneDatepicker"
@@ -148,8 +147,7 @@
             <h3>Datepicker (multiple select disabled) + Timepicker (meridiem enabled)</h3>
           </header>
 
-          <sq-datetime-picker locale="fr"
-                              format="DD-MM-YYYY hh:mm"
+          <sq-datetime-picker format="DD-MM-YYYY hh:mm"
                               formControlName="datetimePicker"
                               [isTimepickerEnabled]="isTimepickerEndabled"
                               [timepickerConfig]="inlineTimepickerConfig">

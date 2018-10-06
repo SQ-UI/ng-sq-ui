@@ -6,9 +6,7 @@ import { DateRange } from './interfaces/date-range';
 import * as momentNs from 'moment';
 const moment = momentNs;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CalendarManagerService {
 
   constructor() { }
