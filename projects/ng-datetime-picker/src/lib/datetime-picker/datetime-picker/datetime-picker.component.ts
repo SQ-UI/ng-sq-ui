@@ -40,8 +40,6 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   @Input() dateObjectType: string = DateObjectType.Moment;
   @Input() timepickerConfig: TimepickerConfig;
 
-  @Output() dateSelectionChange: EventEmitter<momentNs.Moment | Date> = new EventEmitter<momentNs.Moment | Date>();
-
   weekdays: string[];
   months: InCalendarPicker[];
   yearsList: InCalendarPicker[];
