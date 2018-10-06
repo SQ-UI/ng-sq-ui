@@ -13,9 +13,12 @@ branches:
 before_script:
   - npm install -g @angular/cli
   - npm install codecov -g
+  - npm install gulp -g
+  - npm install gulp-cli -g
 
 script:
-  - ng build ng-sq-ui --prod
+  - npm run build-libs
+  - ng test ng-datetime-picker
   - ng test ng-sq-ui
 
 after_success:
