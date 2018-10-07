@@ -1,19 +1,19 @@
 <div class="input-field textarea" [ngClass]="{'disabled': disabled}">
-  <label class="label"
-         for="{{controlId}}"
-         *ngIf="controlLabel !== ''">
+  <div class="label"
+       (click)="focusOnArea()"
+       *ngIf="controlLabel !== ''">
     {{controlLabel}}
-  </label>
+  </div>
 
-  <textarea #textarea
-            name="{{name}}"
-            id="{{controlId}}"
-            placeholder="{{controlPlaceholder}}"
-            [required]="required"
-            [pattern]="pattern"
-            [disabled]="disabled"
-            [(ngModel)]="value"
-            (ngModelChange)="increaseHeight()"
-            [ngStyle]="{'height.px': height}">
-  </textarea>
+  <div contenteditable="true"
+       #textarea
+       tabindex="0"
+       (click)="focusOnArea()"
+       (input)="inputChange($event)"
+       [ngStyle]="{'min-height.px': minHeight}"
+       [attr.data-label]="controlLabel"
+       [ngClass]="{'hide-placeholder': !isPlaceholderVisible}"
+       role="textarea">
+  </div>
+
 </div>
