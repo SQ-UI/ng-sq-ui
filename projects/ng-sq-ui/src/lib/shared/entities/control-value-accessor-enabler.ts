@@ -1,56 +1,46 @@
-import { Input, EventEmitter } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 /**
  * This class should be extended by all SQ UI custom
  * form controls so that they get recognized by Angular forms.
  * Its only purpose is to implement the ControlValueAccessor interface.
- * https://coryrylan.com/blog/angular-custom-form-controls-with-reactive-forms-and-ngmodel
  **/
 export class ControlValueAccessorEnabler implements ControlValueAccessor {
+  protected _modelToViewChange: EventEmitter<any> = new EventEmitter();
+  protected _value: any;
+  protected _onChange: any = () => {};
+  protected _onTouched: any = () => {};
+
   constructor() {}
-  @Input('value') _value: any;
-  protected _valueChange: EventEmitter<any> = new EventEmitter();
 
-  //Placeholders for the callbacks which are later provided
-  //by the Control Value Accessor
-  onTouchedCallback: any = () => {};
-  onChangeCallback: any = () => {};
-
-  //get accessor
   get value(): any {
     return this._value;
   }
 
-  //set accessor including call the onchange callback
-  set value(v: any) {
-    if (v !== this._value) {
-      this._value = v;
-      this.onChangeCallback(v);
-      this._valueChange.emit(this._value);
+  set value(newValue: any) {
+    if (newValue !== this._value) {
+      this._value = newValue;
+      this._onChange(newValue);
     }
   }
 
-  //Set touched on blur
   onBlur() {
-    this.onTouchedCallback();
+    this._onTouched();
   }
 
-  //From ControlValueAccessor interface
-  writeValue(value: any) {
-    if (value !== this._value) {
-      this._value = value;
-      this._valueChange.emit(this._value);
+  writeValue(newValue: any): void {
+    if (newValue !== this._value) {
+      this._value = newValue;
+      this._modelToViewChange.emit(newValue);
     }
   }
 
-  //From ControlValueAccessor interface
-  registerOnChange(fn) {
-    this.onChangeCallback = fn;
+  registerOnChange(fn: (_: any) => void): void {
+    this._onChange = fn;
   }
 
-  //From ControlValueAccessor interface
-  registerOnTouched(fn) {
-    this.onTouchedCallback = fn;
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
   }
 }
