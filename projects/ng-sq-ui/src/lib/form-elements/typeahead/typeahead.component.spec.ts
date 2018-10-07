@@ -64,7 +64,7 @@ describe('TypeaheadComponent', () => {
     // the typeahead should return a new array with the copied search items
     expect(
       component.value.length === 1 &&
-        Object.is(component.selectedItems.get(0), component.value[0]),
+      Object.is(component.selectedItems.get(0), component.value[0]),
     ).toBe(true, 'single choice is correctly populated');
   });
 
@@ -78,7 +78,7 @@ describe('TypeaheadComponent', () => {
 
     expect(
       component.value.length === testSearchResults.length &&
-        !Object.is(component.selectedItems, component.value),
+      !Object.is(component.selectedItems, component.value),
     ).toBe(true, 'multiple choice is correctly populated');
   });
 
@@ -96,18 +96,24 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should be able to populate correctly with a pre-defined LabelValuePair[] when [multiple] = true', () => {
+  it('#should be able to populate correctly with a pre-defined result item when [multiple] = true', () => {
     component.multiple = true;
-    component.value = testSearchResults;
+    component.searchResults = testSearchResults;
+    component.selectSearchResult(component.searchResults[0]);
+    component.selectSearchResult(component.searchResults[component.searchResults.length - 1]);
+
     expect(component.selectedItems.toArray()).toEqual(
       component.value,
       'component value and immutable list have the same items and length',
     );
   });
 
-  it('#should be able to populate correctly with a pre-defined LabelValuePair[] when [multiple] = false', () => {
+  it('#should be able to populate correctly with a pre-defined result item when [multiple] = false', () => {
     component.multiple = false;
-    component.value = testSearchResults;
+    component.searchResults = testSearchResults;
+    component.selectSearchResult(component.searchResults[0]);
+    component.selectSearchResult(component.searchResults[component.searchResults.length - 1]);
+
     const itemsToArray = component.selectedItems.toArray();
     expect(itemsToArray.length === 1).toBe(
       true,
