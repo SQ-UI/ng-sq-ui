@@ -1,9 +1,27 @@
+@import "../../styles/colors";
+
 .sq {
   .input-field.textarea {
-    display:  block;
+    display: block;
     label {
       padding-bottom: 10px;
       display: block;
+    }
+    [contenteditable] {
+      position: relative;
+      outline: none;
+      padding: 10px 0 5px 0;
+      &::before {
+        position: absolute;
+        color: $input-placeholder-color;
+        content: attr(data-label);
+      }
+      &.hide-placeholder::before {
+        display: none;
+      }
+    }
+    .placeholder {
+      color: $input-placeholder-color;
     }
   }
 }

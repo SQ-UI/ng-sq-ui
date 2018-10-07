@@ -1,9 +1,7 @@
-import {Component, forwardRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { Component, forwardRef, Input, OnInit,
+         ViewChild, ViewEncapsulation, Renderer2 } from '@angular/core';
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
-
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {fromEvent} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,24 +17,39 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TextareaComponent extends InputCoreComponent implements OnInit {
-  @Input() autoExpand: boolean = true;
-  @Input() height: number = 100;
+  @Input() minHeight = 100;
   @ViewChild('textarea') textarea;
 
-  constructor() {
+  isPlaceholderVisible = true;
+
+  constructor(private renderer: Renderer2) {
     super();
   }
 
   ngOnInit() {
+    this.isPlaceholderVisible = !this.value;
   }
 
-  increaseHeight() {
-    if (<boolean>this.autoExpand) {
-      // checks if the textarea is overflowing
-      if (this.textarea.nativeElement.offsetHeight < this.textarea.nativeElement.scrollHeight) {
-        this.height += 20;
-      }
+  writeValue(value: any): void {
+    if (value) {
+      this.renderer.setProperty(this.textarea.nativeElement, 'textContent', value);
     }
+  }
+
+  inputChange($event) {
+    this.value = $event.target.textContent;
+    this._onChange($event.target.textContent);
+    this.isPlaceholderVisible = !$event.target.textContent;
+  }
+
+  setDisabledState( isDisabled: boolean): void {
+    const div = this.textarea.nativeElement;
+    const action = isDisabled ? 'addClass' : 'removeClass';
+    this.renderer[action](div, 'disabled');
+  }
+
+  focusOnArea() {
+    this.textarea.nativeElement.focus();
   }
 
 }
