@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { ISize, TSize } from '../shared/interfaces/sizes';
+import { ProgressBarSize, Size } from '../shared/interfaces/sizes';
 
 @Component({
   selector: 'sq-progress-bar',
@@ -7,9 +7,9 @@ import { ISize, TSize } from '../shared/interfaces/sizes';
   styleUrls: ['./progress-bar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProgressBarComponent implements OnInit, ISize {
+export class ProgressBarComponent implements OnInit, ProgressBarSize {
   @Input()
-  size: TSize;
+  size: Size;
   @Input()
   loaded: number;
   @Input()
