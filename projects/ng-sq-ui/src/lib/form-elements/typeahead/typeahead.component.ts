@@ -73,26 +73,22 @@ export class TypeaheadComponent extends InputCoreComponent
       },
     );
 
-    this.valueChangedSubscription = this._valueChange.subscribe(
+    this.valueChangedSubscription = this._modelToViewChange.subscribe(
       (predefinedEnteredItems) => {
-        if (
-          this.selectedItems.size === 0 &&
-          predefinedEnteredItems &&
-          predefinedEnteredItems.length > 0
-        ) {
-          predefinedEnteredItems.forEach((item) => {
-            this.selectItem(item, false);
+        if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
+          this.transformToLabelValuePairList(predefinedEnteredItems).forEach((item) => {
+            this.selectItem(item, false, true);
           });
-
-          this.valueChangedSubscription.unsubscribe();
         }
+
+        this.valueChangedSubscription.unsubscribe();
       },
     );
   }
 
   ngOnChanges(changesObj) {
     if (changesObj.searchResults && changesObj.searchResults.currentValue) {
-      const parsedResults= this.transformToLabelValuePairList(this.searchResults);
+      const parsedResults = this.transformToLabelValuePairList(this.searchResults);
       this.options = List(parsedResults);
 
       this.isLoading = false;
@@ -143,7 +139,7 @@ export class TypeaheadComponent extends InputCoreComponent
     this.value = [];
   }
 
-  private selectItem(result: LabelValuePair, copyResults: boolean = true) {
+  private selectItem(result: LabelValuePair, copyResults: boolean = true, isInitialSelection: boolean = false) {
     this.queryInputControl.setValue(null);
 
     if (!this.multiple && this.selectedItems.size === 1) {
@@ -158,7 +154,7 @@ export class TypeaheadComponent extends InputCoreComponent
       this.copyResults();
     }
 
-    if (!this.multiple) {
+    if (!this.multiple || isInitialSelection) {
       this.hideResults = true;
     }
   }

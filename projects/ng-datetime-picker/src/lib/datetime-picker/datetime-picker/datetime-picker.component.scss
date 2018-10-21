@@ -1,0 +1,115 @@
+@import '../../styles/colors';
+
+.sq {
+  .datetime-picker-wrapper {
+    max-width: 410px;
+    font-size: 14px;
+    .picker-item {
+      font-size: 19px;
+      background-color: $datetime-active-picker-items;
+      padding: 5px 12px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      min-width: 80px;
+      text-align: center;
+      &.disabled {
+        background-color: $disabled-color;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .period-section {
+    align-items: center;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid $datetime-heading-border;
+  }
+
+  .period-name {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .month-name {
+    margin-right: 10px;
+  }
+
+  .change-period {
+    font-size: 18px;
+    &.next {
+      padding-left: 20px;
+    }
+    &.prev {
+      padding-right: 20px;
+    }
+  }
+
+  .alt-picker {
+    padding-top: 10px;
+  }
+
+  .datetime-picker {
+    width: 100%;
+    text-align: center;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: none;
+    .heading {
+      width: 14%;
+      padding: 10px 17px;
+      background-color: $datetime-heading;
+      text-transform: uppercase;
+      border-bottom: 1px solid $datetime-heading-border;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+    .cell {
+      cursor: default;
+      padding: 6px 20px;
+      transition: 100ms background-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
+      &.beyond-current-period {
+        color: $datetime-beyond-current-month-dates;
+      }
+      &.selected {
+        font-weight: bold;
+        background-color: $datetime-selected;
+      }
+      &.disabled {
+        pointer-events: none;
+        color: $datetime-disabled-date;
+      }
+    }
+    .row {
+      &:nth-child(2n) .cell {
+        background-color: $datetime-even-row;
+      }
+      &:nth-child(2n) .cell.selected {
+        background-color: $datetime-selected;
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    .datetime-picker {
+      .heading {
+        padding: 10px 15px;
+        .text {
+          display: inline-block;
+          visibility: hidden;
+          &::first-letter {
+            visibility: visible;
+          }
+        }
+      }
+      .cell {
+        padding: 6px 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<div class="time-picker display-flex justify-center align-items-center">
+  <div class="time-unit display-flex column align-items-center">
+    <button type="button"
+            class="spinner display-flex justify-center align-items-center"
+            (click)="increment(timeUnit.Hours)">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <div class="time display-flex column align-items-center">
+      <input type="text"
+             name="time"
+             [(ngModel)]="hours"
+             maxlength="2"
+             minlength="1"
+             [disabled]="!isEditable"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="validateInput(timeUnit.Hours)">
+    </div>
+
+    <button type="button"
+            class="spinner display-flex justify-center align-items-center"
+            (click)="decrement(timeUnit.Hours)">
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="time-unit divider">:</div>
+
+  <div class="time-unit display-flex column align-items-center">
+    <button type="button"
+            class="spinner display-flex justify-center align-items-center"
+            (click)="increment(timeUnit.Minutes)">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <div class="time">
+      <input type="text"
+             name="minutes"
+             [(ngModel)]="minutes"
+             maxlength="2"
+             minlength="1"
+             [disabled]="!isEditable"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="validateInput(timeUnit.Minutes)">
+    </div>
+
+    <button type="button"
+            class="spinner display-flex justify-center align-items-center"
+            (click)="decrement(timeUnit.Minutes)">
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div *ngIf="isMeridiem"
+        class="time-unit">
+    <button type="button"
+            class="display-flex justify-center align-items-center"
+            (click)="changeNoonRelativity()">
+      <span class="meridiem">
+        {{noonRelativity.toUpperCase()}}
+      </span>
+      <i class="fa fa-clock-o meridiem-icon" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
