@@ -1,4 +1,4 @@
-@import "../styles/colors";
+@import '../styles/colors';
 
 .sq .modal-cover {
   position: fixed;
@@ -10,6 +10,7 @@
   bottom: 0;
   width: 100%;
   background-color: $overlay-color;
+  z-index: 1000;
 }
 
 .sq .modal-window {
