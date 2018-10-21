@@ -103,7 +103,7 @@ ng serve [--open]
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 yarn install
-npm run build-libs
+yarn build-libs
 ng serve [--open]
 ```
 
