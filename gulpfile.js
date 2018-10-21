@@ -2,7 +2,7 @@ var gulp = require('gulp');
 
 var paths = {
   baseScss: './projects/ng-sq-ui/src/lib/styles/*.scss',
-  inputCoreLogic: './projects/ng-sq-ui/src/lib/shared/entities/*.ts',
+  inputCoreLogic: './projects/ng-sq-ui/src/lib/shared/entities/',
   projects: {
     sqUi: {
       mainStylesheet: './projects/ng-sq-ui/src/lib/sq-ui-theme.scss',
