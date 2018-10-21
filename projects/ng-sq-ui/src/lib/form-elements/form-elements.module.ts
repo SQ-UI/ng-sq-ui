@@ -14,6 +14,7 @@ import { FormGroupComponent } from './form-group/form-group.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { ButtonComponent } from './button/button.component';
+import { TextareaComponent } from './textarea/textarea.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { ButtonComponent } from './button/button.component';
     FormGroupComponent,
     TypeaheadComponent,
     CheckboxComponent,
-    ButtonComponent
+    ButtonComponent,
+    TextareaComponent
   ],
   exports: [
     InputComponent,
@@ -40,7 +42,8 @@ import { ButtonComponent } from './button/button.component';
     FormGroupComponent,
     TypeaheadComponent,
     CheckboxComponent,
-    ButtonComponent
+    ButtonComponent,
+    TextareaComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

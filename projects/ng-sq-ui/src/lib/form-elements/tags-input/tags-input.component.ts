@@ -43,13 +43,13 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
 
   ngOnInit() {
     this.enteredItemsSubscription = this.enteredItemsChange.subscribe((newTags) => {
-        this.innerEnteredItemsListCopy = List(this.enteredItems);
+      this.innerEnteredItemsListCopy = List(this.enteredItems);
 
-        const itemsCopy = this.innerEnteredItemsListCopy;
-        this.value = itemsCopy.toArray();
+      const itemsCopy = this.innerEnteredItemsListCopy;
+      this.value = itemsCopy.toArray();
     });
 
-    this.valueChangedSubscription = this._valueChange.subscribe((predefinedEnteredItems) => {
+    this.valueChangedSubscription = this._modelToViewChange.subscribe((predefinedEnteredItems) => {
       if (this.enteredItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
         this.enteredItems = List<string>(predefinedEnteredItems);
         this.valueChangedSubscription.unsubscribe();

@@ -46,7 +46,7 @@
           <h3>sq-inut</h3>
         </header>
 
-        <sq-input formControlName="name" controlLabel="Test Label*" controlPlaceholder="Test placeholder" type="text">
+        <sq-input formControlName="name" controlLabel="Test Label" controlPlaceholder="Test placeholder" type="text">
         </sq-input>
       </section>
 
@@ -55,7 +55,7 @@
           <h3>sq-dropdown</h3>
         </header>
 
-        <sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example*" controlPlaceholder="Select an option">
+        <sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example" controlPlaceholder="Select an option">
         </sq-dropdown>
       </section>
 
@@ -64,7 +64,7 @@
           <h3>sq-tags-input</h3>
         </header>
 
-        <sq-tags-input formControlName="tags" controlLabel="Tags*" controlPlaceholder="Type something and press Space">
+        <sq-tags-input formControlName="tags" controlLabel="Tags" controlPlaceholder="Type something and press Space">
         </sq-tags-input>
       </section>
 
@@ -74,7 +74,7 @@
         </header>
 
         <sq-typeahead name="typeahead1" displayProp="myCustomProp" multiple="true" formControlName="typeahead1" [searchResults]="searchResults"
-          (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead*" controlPlaceholder="Type something in">
+          (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
 
@@ -84,7 +84,7 @@
         </header>
 
         <sq-typeahead name="typeahead2" formControlName="typeahead2" [searchResults]="searchResultsStrings" (onUserInputEnd)="searchMethodString($event)"
-          controlLabel="Typeahead*" controlPlaceholder="Type something in">
+          controlLabel="Typeahead" controlPlaceholder="Type something in">
         </sq-typeahead>
       </section>
 
@@ -95,6 +95,14 @@
 
         <sq-checkbox controlLabel="Test checkbox" formControlName="checkboxValue">
         </sq-checkbox>
+      </section>
+
+      <section id="sqTextarea">
+        <header>
+          <h3>sq-textarea</h3>
+        </header>
+
+        <sq-textarea controlLabel="Textarea Label" formControlName="textareaValue" controlPlaceholder="Type something in..."></sq-textarea>
       </section>
 
       <section id="sqRadioAndFormGroup">
@@ -116,6 +124,56 @@
         </sq-form-group>
       </section>
 
+      <section id="sqDateTimePicker" class="module">
+        <header>
+          <h2>DatetimePickerModule</h2>
+        </header>
+
+        <section id="sqStandaloneDatepicker" class="mg-b50">
+          <header class="mg-b20">
+            <h3>Standalone Datepicker (multiple select enabled)</h3>
+          </header>
+
+          <sq-datetime-picker [maxDate]="maxDate"
+                              [minDate]="minDate"
+                              format="MM/DD/YYYY"
+                              formControlName="standAloneDatepicker"
+                              [isMultipleSelect]="isDatepickerMultipleSelect">
+          </sq-datetime-picker>
+        </section>
+
+        <section id="sqDateAndTimePciker" class="mg-b50">
+          <header class="mg-b20">
+            <h3>Datepicker (multiple select disabled) + Timepicker (meridiem enabled)</h3>
+          </header>
+
+          <sq-datetime-picker format="DD-MM-YYYY hh:mm"
+                              formControlName="datetimePicker"
+                              [isTimepickerEnabled]="isTimepickerEndabled"
+                              [timepickerConfig]="inlineTimepickerConfig">
+          </sq-datetime-picker>
+        </section>
+
+        <section id="sqTimepicker" class="module">
+          <header class="mg-b20">
+            <h3>Standalone Timepicker (meridiem disabled)</h3>
+          </header>
+
+          <div style="max-width: 410px;">
+            <sq-time-picker formControlName="standAloneTimepicker"
+                            (hoursChange)="hoursChange($event)"
+                            (minutesChange)="minutesChange($event)"
+                            timeObjectType="string"
+                            [hours]="standAloneTimepicker.hours"
+                            [minutes]="standAloneTimepicker.minutes"
+                            [hourStep]="standAloneTimepicker.hourStep"
+                            [minuteStep]="standAloneTimepicker.minuteStep"
+                            [isEditable]="standAloneTimepicker.isEditable"
+                            [isMeridiem]="standAloneTimepicker.isMeridiem">
+            </sq-time-picker>
+          </div>
+        </section>
+      </section>
 
       <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
     </form>

@@ -5,6 +5,7 @@ import { CustomEventBroadcasterService } from '../../shared/services/custom-even
 
 import { InputCoreComponent } from '../../shared/entities/input-core-component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,19 +21,19 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadiobuttonComponent extends InputCoreComponent implements OnInit, OnDestroy {
-  private listenerId: string;
+  private eventBroadcasterSubscription: Subscription;
   @Input() radioValue: any;
   @Input() controlLabel: string;
 
   @Input() isSelected: boolean;
   @Output() isSelectedChange = new EventEmitter<boolean>();
 
-  constructor() {
+  constructor(private eventBroadcaster: CustomEventBroadcasterService) {
     super();
   }
 
   ngOnInit() {
-    this.listenerId = CustomEventBroadcasterService.addEventListener(
+    this.eventBroadcasterSubscription = this.eventBroadcaster.subscribeFor(
       'sqRadio:selected',
       (eventDetails: CustomEventDetails) => {
         if (eventDetails.details.group === this.name &&
@@ -45,11 +46,11 @@ export class RadiobuttonComponent extends InputCoreComponent implements OnInit, 
   }
 
   ngOnDestroy() {
-    CustomEventBroadcasterService.removeEventListener('sqRadio:selected', this.listenerId);
+    this.eventBroadcasterSubscription.unsubscribe();
   }
 
   selectRadio() {
-    CustomEventBroadcasterService.broadcastEvent(
+    this.eventBroadcaster.broadcastEvent(
       'sqRadio:selected',
       {
         details: {
