@@ -1,48 +1,25 @@
 import { Injectable } from '@angular/core';
 import { CustomEventDetails } from '../interfaces/custom-event-details';
+import { Subject, Subscription } from 'rxjs';
 
 @Injectable()
 export class CustomEventBroadcasterService {
-  static eventCallbackCollection = {};
+  private broadcasterSubject = new Subject();
+  private broadcasterSubjectAsObservable = this.broadcasterSubject.asObservable();
 
   constructor() { }
 
-  static addEventListener(eventName: string, callback: (eventDetails?: CustomEventDetails) => void): string {
-    const callbackId: string = 'sq-event_' + new Date().getTime();
-    const registeredCallback = {
-      callbackId: callbackId,
-      callback: callback
-    };
-
-    if (CustomEventBroadcasterService.eventCallbackCollection.hasOwnProperty(eventName)) {
-      CustomEventBroadcasterService.eventCallbackCollection[eventName].push(registeredCallback);
-    } else {
-      CustomEventBroadcasterService.eventCallbackCollection[eventName] = [registeredCallback];
-    }
-
-    return callbackId;
+  subscribeFor(eventName: string,
+               callback: (eventDetails?: CustomEventDetails) => void): Subscription {
+    return this.broadcasterSubjectAsObservable
+      .subscribe((customEvent: {broadcastEvent: string, eventDetails?: CustomEventDetails}) => {
+        if (customEvent.broadcastEvent === eventName) {
+          callback(customEvent.eventDetails);
+        }
+      });
   }
 
-  static broadcastEvent(eventName: string, eventDetails?: CustomEventDetails) {
-    CustomEventBroadcasterService.eventCallbackCollection[eventName].forEach((registeredCallback) => {
-      registeredCallback.callback(eventDetails);
-    });
+  broadcastEvent(eventName: string, eventDetails?: CustomEventDetails) {
+    this.broadcasterSubject.next({broadcastEvent: eventName, eventDetails: eventDetails});
   }
-
-  static removeEventListener(eventName: string, callbackId: string) {
-    if (CustomEventBroadcasterService.eventCallbackCollection.hasOwnProperty(eventName)) {
-      let registeredCallbackIndex: number;
-
-      let callback = CustomEventBroadcasterService.eventCallbackCollection[eventName]
-        .filter((registeredCallback, index) => {
-          registeredCallbackIndex = index;
-          return registeredCallback.callbackId === callbackId;
-        })[0];
-
-      if (callback) {
-        CustomEventBroadcasterService.eventCallbackCollection[eventName].splice(registeredCallbackIndex, 1);
-      }
-    }
-  }
-
 }
