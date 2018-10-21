@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { LabelValuePair } from 'ng-sq-ui';
+import { interval } from 'rxjs';
 import * as momentNs from 'moment';
 const moment = momentNs;
 
@@ -9,7 +10,7 @@ const moment = momentNs;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   testForm: FormGroup;
   showModal = false;
   searchResults: any[] = [
@@ -48,6 +49,11 @@ export class AppComponent {
     },
   ];
   searchResultsStrings: string[];
+
+  progressBarLoadedSmall = 20;
+  progressBarLoadedMedium = 40;
+  progressBarLoadedLarge = 60;
+
   isDatepickerMultipleSelect = true;
   minDate = moment();
   maxDate = moment().add(5, 'years');
@@ -57,7 +63,7 @@ export class AppComponent {
     hours: 22,
     minutes: 30,
     isMeridiem: true,
-    isEditable: true
+    isEditable: true,
   };
   standAloneTimepicker = {
     hourStep: 1,
@@ -65,7 +71,7 @@ export class AppComponent {
     hours: 13,
     minutes: 20,
     isMeridiem: false,
-    isEditable: false
+    isEditable: false,
   };
   isTimepickerEndabled = true;
 
@@ -96,7 +102,28 @@ export class AppComponent {
       textareaValue: [''],
       standAloneDatepicker: [moment()],
       datetimePicker: [moment().add(1, 'day')],
-      standAloneTimepicker: []
+      standAloneTimepicker: [],
+    });
+  }
+
+  ngOnInit() {
+    const source = interval(1000);
+    source.subscribe((val) => {
+      this.progressBarLoadedSmall += 20;
+      this.progressBarLoadedMedium += 20;
+      this.progressBarLoadedLarge += 20;
+
+      if (this.progressBarLoadedSmall > 100) {
+        this.progressBarLoadedSmall = 0;
+      }
+
+      if (this.progressBarLoadedMedium > 100) {
+        this.progressBarLoadedMedium = 0;
+      }
+
+      if (this.progressBarLoadedLarge > 100) {
+        this.progressBarLoadedLarge = 0;
+      }
     });
   }
 

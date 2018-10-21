@@ -1,6 +1,7 @@
 - [Installation](installation.md)
 - [FormElementsModule](form-elements-module.md)
 - [ModalModule](modal-module.md)
-- [Datetime-picker](datetime-picker-module.md)
+- [ProgressBarModule](progressbar-module.md)
+- [DatetimePickerModule](datetime-picker-module.md)
 - [Interfaces](interfaces.md)
 - [About us](about-us.md)
