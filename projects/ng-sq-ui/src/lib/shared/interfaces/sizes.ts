@@ -1,5 +1,5 @@
-export type TSize = 'small' | 'medium' | 'large';
+export type Size = 'small' | 'medium' | 'large';
 
-export interface ISize {
-  size: TSize;
+export interface ProgressBarSize {
+  size: Size;
 }
