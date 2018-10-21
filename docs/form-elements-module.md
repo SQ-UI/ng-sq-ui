@@ -9,7 +9,11 @@ The properties / methods listed under every component are specific to the UI-kit
 sq-input represents a thin wrapper over the native HTML `input` element.
 
 ```html
-<sq-input formControlName="name" controlLabel="Test Label*" controlPlaceholder="Test placeholder"></sq-input>
+<sq-input
+    formControlName="name"
+    controlLabel="Test Label*"
+    controlPlaceholder="Test placeholder">
+</sq-input>
 ```
 
 ### Component properties:
@@ -37,7 +41,11 @@ For template-driven and reactive-driven code examples, please refer to the examp
 sq-button is thin wrapper over the native HTML `button` element.
 
 ```html
-<sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
+<sq-button
+    [disabled]="testForm.invalid"
+    type="submit">
+    Submit
+</sq-button>
 ```
 
 ### Component properties:
@@ -93,7 +101,11 @@ For template-driven and reactive-driven code examples, please refer to the examp
 sq-dropdown is a custom implementation of a dropdown which emulates the behavior of the regular HTML `select` tag. Its model returns a **copy** of the selected object.
 
 ```html
-<sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example*" controlPlaceholder="Select an option">
+<sq-dropdown
+    formControlName="dropdown"
+    [options]="dropdownOptions"
+    controlLabel="Dropdown Example*"
+    controlPlaceholder="Select an option">
 </sq-dropdown>
 ```
 
@@ -180,7 +192,11 @@ sq-radiobutton is a custom implementation using a wrapper over the native HTML `
 In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L91)
 
 ```html
-<sq-radiobutton name="group1" radioValue="value1" [isSelected]="true" formControlName="radioValue">
+<sq-radiobutton
+    name="group1"
+    radioValue="value1"
+    [isSelected]="true"
+    formControlName="radioValue">
 </sq-radiobutton>
 ```
 
@@ -221,7 +237,10 @@ sq-tags-input represents a collection of strings populated by the user through a
 In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L61)
 
 ```html
-<sq-tags-input formControlName="tags" controlLabel="Tags*" controlPlaceholder="Type something and press Space">
+<sq-tags-input
+    formControlName="tags"
+    controlLabel="Tags*"
+    controlPlaceholder="Type something and press Space">
 </sq-tags-input>
 ```
 
@@ -342,5 +361,56 @@ export class AppComponent {
 
 - **selectSearchResult(result: `SearchResult`):** `void` - Selects a result.
 - **removeSearchResult(itemIndex: `number`):** `void` - Remove a search item by given index.
+
+For template-driven and reactive-driven code examples, please refer to the examples page.
+
+## sq-textarea
+
+![SQ-Textarea](_media/sq-textarea.gif)
+
+sq-textarea is an auto-expandable textarea.
+
+In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L110)
+
+```html
+<sq-textarea
+    controlLabel="Textarea Label"
+    formControlName="textareaValue"
+    controlPlaceholder="Type something in...">
+</sq-textarea>
+```
+
+In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L102)
+
+```typescript
+//...
+export class AppComponent {
+  //...
+  constructor(private fb: FormBuilder) {
+    this.testForm = this.fb.group({
+      textareaValue: [''],
+    });
+  }
+  //...
+}
+```
+
+### Component properties:
+
+- **`@Input()` name:** `string` - Name of the textarea. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+
+- **`@Input()` controlId:** `string` - Id of the textarea. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+
+- **`@Input()` controlLabel:** `string` - Label of the textarea. Defaults to empty `string`.
+
+- **`@Input()` controlPlaceholder:** `string` - Placeholder of the textarea. Defaults to empty `string`.
+
+- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the textarea is required. Defaults to `false`.
+
+- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which textarea value is validated. Defaults to empty `string`.
+
+- **`@Input()` disabled:** `boolean` - Enables/disables the component.
+
+- **`@Output()` minHeight:** `number` - The default height of the textarea when it is empty.
 
 For template-driven and reactive-driven code examples, please refer to the examples page.
