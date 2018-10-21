@@ -64,7 +64,7 @@ describe('TypeaheadComponent', () => {
     // the typeahead should return a new array with the copied search items
     expect(
       component.value.length === 1 &&
-        Object.is(component.selectedItems.get(0), component.value[0]),
+      Object.is(component.selectedItems.get(0), component.value[0]),
     ).toBe(true, 'single choice is correctly populated');
   });
 
@@ -78,7 +78,7 @@ describe('TypeaheadComponent', () => {
 
     expect(
       component.value.length === testSearchResults.length &&
-        !Object.is(component.selectedItems, component.value),
+      !Object.is(component.selectedItems, component.value),
     ).toBe(true, 'multiple choice is correctly populated');
   });
 
