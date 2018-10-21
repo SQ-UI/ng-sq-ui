@@ -1,0 +1,46 @@
+.sq {
+  .time-picker {
+    border-top: 1px solid rgba(46, 159, 134, 0.69);
+    border-bottom: 1px solid rgba(46, 159, 134, 0.69);
+    font-size: 23px;
+    input {
+      background-color: rgba(18,125,104,.12);
+      border: none;
+      width: 38px;
+      height: 38px;
+      text-align: center;
+    }
+    .time {
+      padding: 5px 0 3px 0;
+    }
+    .time-unit {
+      padding: 7px 0 10px 0;
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+      .spinner, .meridiem-icon {
+        opacity: 0;
+        pointer-events: none;
+        transition: 300ms all ease-in;
+      }
+      .spinner {
+        height: 25px;
+      }
+      &:hover .spinner,
+      &:hover .meridiem-icon {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .fa {
+        font-size: 20px;
+      }
+    }
+    .meridiem {
+      padding-right: 5px;
+    }
+    .divider {
+      font-size: 44px;
+      margin-bottom: 7px;
+    }
+  }
+}
