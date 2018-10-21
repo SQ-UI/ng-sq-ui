@@ -185,36 +185,5 @@ describe('DatetimePickerComponent', () => {
     expect(component.months).toBeTruthy();
   });
 
-  it('#should add time to component result value when [isTimepickerEnabled]=true', () => {
-    spyOnProperty(component, 'value');
-    component.time = moment().hours(10).minutes(20);
-    component.format = 'DD/MM/YYYY hh:mm A';
-
-    component.ngOnChanges({
-      time: new SimpleChange(null, component.time, true),
-      format: new SimpleChange(null, component.format, true)
-    });
-
-    fixture.detectChanges();
-
-    const expectedResult = component.time.clone().format(component.format);
-
-    fixture.whenStable().then(() => {
-      expect(component.value === expectedResult)
-        .toBe(true, 'exports date and time correctly when timepicker is enabled');
-    });
-
-    component.ngOnChanges({
-      isTimepickerEnabled: new SimpleChange(null, true, true)
-    });
-
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      expect(component.value !== expectedResult)
-        .toBe(true, 'exports date and time correctly when timepicker is disabled');
-    });
-  });
-
 });
 
