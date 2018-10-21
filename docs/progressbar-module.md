@@ -9,7 +9,10 @@ sq-progress-bar is a highly customizable loader module.
 In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L211)
 
 ```html
-  <sq-progress-bar size="small" [loaded]="progressBarLoaded"></sq-progress-bar>
+<sq-progress-bar
+    size="small"
+    [loaded]="progressBarLoaded">
+</sq-progress-bar>
 ```
 
 In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L109)

@@ -15,7 +15,7 @@ Any types of public interfaces and services are also included.
 - [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
 - [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
 - [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [Datetime-picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker)
+- [Datetime Picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
 - [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
 - [Live examples](https://ng-sq-ui-examples.surge.sh)
 
