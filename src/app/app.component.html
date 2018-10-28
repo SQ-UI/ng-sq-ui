@@ -236,4 +236,29 @@
       <sq-progress-bar size="large" [infinite]="true"></sq-progress-bar>
     </section>
   </section>
+
+  <section id="sqDatatable" class="module">
+    <header>
+      <h2>DatatableModule</h2>
+    </header>
+
+    <sq-datatable>
+      <ng-template sq-datatable-header>
+        <tr>
+          <th *ngFor="let name of keys">{{name}}</th>
+        </tr>
+      </ng-template>
+      <ng-template sq-datatable-body>
+        <tr *ngFor="let datatableItem of datatableItems">
+          <td *ngFor="let name of keys">
+            {{datatableItem[name] + ' custom template'}}
+          </td>
+        </tr>
+      </ng-template>
+    </sq-datatable>
+
+    <sq-datatable [items]="datatableItems">
+    </sq-datatable>
+
+  </section>
 </div>

@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr *ngIf="items.length > 0">
+      <th *ngFor="let columnName of columnNames">
+        {{columnName}}
+      </th>
+    </tr>
+    <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="items.length > 0">
+      <tr *ngFor="let rowItem of items">
+        <td *ngFor="let columnName of columnNames">
+          {{rowItem[columnName]}}
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container *ngTemplateOutlet="datatableBodyTemplate"></ng-container>
+  </tbody>
+</table>

@@ -4,6 +4,7 @@ import { ModalModule } from './modal/modal.module';
 import { ProgressBarModule } from './progress-bar/progress-bar.module';
 import { SharedModule } from './shared/shared.module';
 import { NgDatetimePickerModule } from 'ng-datetime-picker';
+import { DatatableModule } from 'ng-datatable';
 
 @NgModule({
   declarations: [],
@@ -12,12 +13,14 @@ import { NgDatetimePickerModule } from 'ng-datetime-picker';
     FormElementsModule,
     NgDatetimePickerModule,
     ProgressBarModule,
+    DatatableModule
   ],
   exports: [
     FormElementsModule,
     ModalModule,
     NgDatetimePickerModule,
     ProgressBarModule,
+    DatatableModule
   ],
 })
 export class NgSqUiModule {}

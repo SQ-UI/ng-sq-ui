@@ -53,6 +53,16 @@ export class AppComponent implements OnInit {
   progressBarLoadedSmall = 20;
   progressBarLoadedMedium = 40;
   progressBarLoadedLarge = 60;
+  datatableItems = [{
+    columnName: 'columnValue1',
+    columnName2: 'columnValue2',
+    columnName3: 'columnValue3',
+  },
+    {
+      columnName: 'columnValue4',
+      columnName2: 'columnValue5',
+      columnName3: 'columnValue6',
+    }];
 
   isDatepickerMultipleSelect = true;
   minDate = moment();
@@ -106,6 +116,8 @@ export class AppComponent implements OnInit {
     });
   }
 
+  keys = [];
+
   ngOnInit() {
     const source = interval(1000);
     source.subscribe((val) => {
@@ -125,6 +137,7 @@ export class AppComponent implements OnInit {
         this.progressBarLoadedLarge = 0;
       }
     });
+    this.keys = Object.keys(this.datatableItems[0]);
   }
 
   hoursChange($event) {
