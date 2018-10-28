@@ -3,5 +3,8 @@
   "dest": "../../dist/ng-datatable",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "."
+  ]
 }

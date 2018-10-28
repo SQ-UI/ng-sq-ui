@@ -24,23 +24,29 @@
       "ng-sq-ui/*": [
         "dist/ng-sq-ui/*"
       ],
-      "ng-datetime-picker": [
-        "dist/ng-datetime-picker"
+      "@sq-ui/ng-datetime-picker": [
+        "dist/ng-datetime-picker",
+        "node_modules/@sq-ui/ng-datetime-picker"
       ],
-      "ng-datetime-picker/*": [
-        "dist/ng-datetime-picker/*"
+      "@sq-ui/ng-datetime-picker/*": [
+        "dist/ng-datetime-picker/*",
+        "node_modules/@sq-ui/ng-datetime-picker/*"
       ],
-      "ng-datatable": [
-        "dist/ng-datatable"
+      "@sq-ui/ng-datatable": [
+        "dist/ng-datatable",
+        "node_modules/@sq-ui/ng-datatable"
       ],
-      "ng-datatable/*": [
-        "dist/ng-datatable/*"
+      "@sq-ui/ng-datatable/*": [
+        "dist/ng-datatable/*",
+        "node_modules/@sq-ui/ng-datatable/*"
       ],
-      "ng-sq-common": [
-        "dist/ng-sq-common"
+      "@sq-ui/ng-sq-common": [
+        "dist/ng-sq-common",
+        "node_modules/@sq-ui/ng-sq-common"
       ],
-      "ng-sq-common/*": [
-        "dist/ng-sq-common/*"
+      "@sq-ui/ng-sq-common/*": [
+        "dist/ng-sq-common/*",
+        "node_modules/@sq-ui/ng-sq-common/*"
       ]
     }
   }

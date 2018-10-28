@@ -14,8 +14,6 @@ import { OSDetectorService } from './services/os-detector.service';
   ],
   declarations: [OutsideClickListenerDirective],
   exports: [
-    OSDetectorService,
-    CustomEventBroadcasterService,
     OutsideClickListenerDirective
   ]
 })

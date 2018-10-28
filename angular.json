@@ -213,6 +213,11 @@
           "options": {
             "tsConfig": "projects/ng-datatable/tsconfig.lib.json",
             "project": "projects/ng-datatable/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ng-datatable/ng-package.prod.json"
+            }
           }
         },
         "test": {
@@ -248,6 +253,11 @@
           "options": {
             "tsConfig": "projects/ng-sq-common/tsconfig.lib.json",
             "project": "projects/ng-sq-common/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ng-sq-common/ng-package.prod.json"
+            }
           }
         },
         "test": {

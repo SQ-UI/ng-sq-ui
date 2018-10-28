@@ -3,8 +3,8 @@ import { FormElementsModule } from './form-elements/form-elements.module';
 import { ModalModule } from './modal/modal.module';
 import { ProgressBarModule } from './progress-bar/progress-bar.module';
 import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
-import { NgDatetimePickerModule } from 'ng-datetime-picker';
-import { DatatableModule } from 'ng-datatable';
+import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
+import { DatatableModule } from '@sq-ui/ng-datatable';
 
 @NgModule({
   declarations: [],
@@ -21,6 +21,6 @@ import { DatatableModule } from 'ng-datatable';
     NgDatetimePickerModule,
     ProgressBarModule,
     DatatableModule
-  ],
+  ]
 })
 export class NgSqUiModule {}

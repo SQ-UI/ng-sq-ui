@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //modules
-import { SharedModule } from '../shared/shared.module';
+import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
 
 //components
 import { InputComponent } from './input/input.component';
@@ -19,7 +19,7 @@ import { TextareaComponent } from './textarea/textarea.component';
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    NgSqCommonModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RadiobuttonComponent } from './radiobutton.component';
 import { FormsModule } from '@angular/forms';
-import { CustomEventBroadcasterService } from '../../../../../ng-sq-common/src/lib/services/custom-event-broadcaster.service';
+import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
 
 describe('RadiobuttonComponent', () => {
   let component: RadiobuttonComponent;

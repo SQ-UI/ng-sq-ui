@@ -19,11 +19,6 @@ var paths = {
   }
 };
 
-function copyInputCoreLogicForDatetimeModule() {
-  return gulp.src(paths.inputCoreLogic)
-    .pipe(gulp.dest(paths.projects.sqDatetime.sharedLogic));
-}
-
 function copyMainStylesheetForForNgSqUiPackage() {
   return gulp.src(paths.projects.sqUi.mainStylesheet)
     .pipe(gulp.dest(paths.projects.sqUi.destRoot));
@@ -49,7 +44,6 @@ function copyStylesForNgSqUiPackage() {
     .pipe(gulp.dest(paths.projects.sqUi.destRoot + 'styles'));
 }
 
-gulp.task('prepare-datetime', gulp.series(copyInputCoreLogicForDatetimeModule));
 gulp.task('transfer-styles-to-dest', gulp.parallel(copyMainStylesheetForForNgSqUiPackage, copyStylesForNgSqUiPackage, copyStylesForDatetimePackage));
 gulp.task('copy-readme-files', gulp.parallel(copyReadmeForNgSqUiPackage, copyReadmeForDatetimePackage));
 gulp.task('copy-files-for-packages', gulp.parallel('copy-readme-files', 'transfer-styles-to-dest'));
