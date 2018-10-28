@@ -2,7 +2,7 @@ import {
   Component, forwardRef, OnInit, ViewEncapsulation,
   Input, OnChanges, Output, EventEmitter, AfterViewInit
 } from '@angular/core';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimeObject } from '../enums/time-object-type.enum';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';

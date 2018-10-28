@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, OnDestroy,
          Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CustomEventDetails } from '../../shared/interfaces/custom-event-details';
-import { CustomEventBroadcasterService } from '../../shared/services/custom-event-broadcaster.service';
+import { CustomEventDetails } from '@sq-ui/ng-sq-common';
+import { CustomEventBroadcasterService } from '../../../../../ng-sq-common/src/lib/services/custom-event-broadcaster.service';
 
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 

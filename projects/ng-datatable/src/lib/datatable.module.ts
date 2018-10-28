@@ -4,6 +4,7 @@ import { DatatableComponent } from './datatable/datatable.component';
 import { DatatableColumnComponent } from './datatable-column/datatable-column.component';
 import { DatatableHeaderDirective } from './directives/datatable-header.directive';
 import { DatatableBodyDirective } from './directives/datatable-body.directive';
+import { DatatableRowComponent } from './datatable-row/datatable-row.component';
 
 @NgModule({
   imports: [
@@ -11,15 +12,17 @@ import { DatatableBodyDirective } from './directives/datatable-body.directive';
   ],
   declarations: [
     DatatableComponent,
-    DatatableColumnComponent,
     DatatableHeaderDirective,
-    DatatableBodyDirective
+    DatatableBodyDirective,
+    DatatableColumnComponent,
+    DatatableRowComponent
   ],
   exports: [
     DatatableComponent,
-    DatatableColumnComponent,
     DatatableHeaderDirective,
-    DatatableBodyDirective
+    DatatableBodyDirective,
+    DatatableColumnComponent,
+    DatatableRowComponent
   ]
 })
 export class DatatableModule { }

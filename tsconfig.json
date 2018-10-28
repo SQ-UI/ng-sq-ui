@@ -35,6 +35,12 @@
       ],
       "ng-datatable/*": [
         "dist/ng-datatable/*"
+      ],
+      "ng-sq-common": [
+        "dist/ng-sq-common"
+      ],
+      "ng-sq-common/*": [
+        "dist/ng-sq-common/*"
       ]
     }
   }

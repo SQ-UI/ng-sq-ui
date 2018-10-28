@@ -1,20 +1,16 @@
-<table>
-  <thead>
-    <tr *ngIf="items.length > 0">
-      <th *ngFor="let columnName of columnNames">
-        {{columnName}}
-      </th>
-    </tr>
+<div class="datatable" role="grid">
+  <div class="display-flex space-between" role="row">
+    <sq-datatable-column *ngFor="let columnName of columnNames"
+                         [name]="columnName"
+                         [isSortable]="isSortByColumnEnabled"
+                         (onSortClicked)="sortByField($event)">
+    </sq-datatable-column>
     <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
-  </thead>
-  <tbody>
-    <ng-container *ngIf="items.length > 0">
-      <tr *ngFor="let rowItem of items">
-        <td *ngFor="let columnName of columnNames">
-          {{rowItem[columnName]}}
-        </td>
-      </tr>
-    </ng-container>
+  </div>
+  <div role="row">
+    <sq-datatable-row *ngFor="let rowItem of items"
+                      [rowItem]="rowItem">
+    </sq-datatable-row>
     <ng-container *ngTemplateOutlet="datatableBodyTemplate"></ng-container>
-  </tbody>
-</table>
+  </div>
+</div>

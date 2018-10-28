@@ -54,6 +54,7 @@
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
   },
   "dependencies": {
+    "@sq-ui/ng-sq-common": "^1.0.0",
     "immutable": "^3.8.2",
     "font-awesome": "4.7.0",
     "moment": "^2.22.2"

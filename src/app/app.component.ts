@@ -54,14 +54,19 @@ export class AppComponent implements OnInit {
   progressBarLoadedMedium = 40;
   progressBarLoadedLarge = 60;
   datatableItems = [{
-    columnName: 'columnValue1',
-    columnName2: 'columnValue2',
-    columnName3: 'columnValue3',
+    columnName: 'Puchi',
+    columnName2: 'Chochi',
+    columnName3: 'Melanie',
   },
     {
-      columnName: 'columnValue4',
-      columnName2: 'columnValue5',
-      columnName3: 'columnValue6',
+      columnName: 'Jojo',
+      columnName2: 'Pikachu',
+      columnName3: 'Steve',
+    },
+    {
+      columnName: 'Janet',
+      columnName2: 'Baba Ginka',
+      columnName3: 'Natsu',
     }];
 
   isDatepickerMultipleSelect = true;

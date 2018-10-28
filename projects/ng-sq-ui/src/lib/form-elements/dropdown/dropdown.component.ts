@@ -2,8 +2,8 @@ import {
   Component, OnInit, Input, Output, forwardRef,
   ViewEncapsulation, ViewChild, EventEmitter
 } from '@angular/core';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
-import { LabelValuePair } from '../../shared/interfaces/label-value-pair';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
+import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
