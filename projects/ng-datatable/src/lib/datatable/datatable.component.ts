@@ -13,13 +13,16 @@ import { SortItem } from '../shared/interfaces/sort-item';
 })
 export class DatatableComponent implements OnInit, OnChanges {
   @Input() items = [];
+  @Input() rowsPerPage: number = 10;
   @Input() isSortByColumnEnabled: boolean = false;
+  @Input() itemsPerPage: number = 10;
   @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter<SortItem>();
 
   @ContentChild(DatatableHeaderDirective, {read: TemplateRef}) datatableHeaderTemplate;
   @ContentChild(DatatableBodyDirective, {read: TemplateRef}) datatableBodyTemplate;
 
   columnNames: string[] = [];
+  columnWidth: string;
 
   constructor() { }
 
@@ -29,7 +32,9 @@ export class DatatableComponent implements OnInit, OnChanges {
   ngOnChanges(changesObj: SimpleChanges) {
     if (changesObj.items && changesObj.items.currentValue.length > 0) {
       this.columnNames = Object.keys(changesObj.items.currentValue[0]);
+      this.columnWidth = 100 / this.columnNames.length + '%';
     }
+
   }
 
   sortByField(column: SortItem) {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CustomEventBroadcasterService } from './services/custom-event-broadcaster.service';
 import { OutsideClickListenerDirective } from './directives/outside-click-listener.directive';
 import { OSDetectorService } from './services/os-detector.service';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { OSDetectorService } from './services/os-detector.service';
     OSDetectorService,
     CustomEventBroadcasterService
   ],
-  declarations: [OutsideClickListenerDirective],
+  declarations: [OutsideClickListenerDirective, PaginatorComponent],
   exports: [
     OutsideClickListenerDirective
   ]

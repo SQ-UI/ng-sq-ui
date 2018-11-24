@@ -1,9 +1,7 @@
-.sq .datatable {
-  display: table;
-  .column {
-    display: table-column;
-  }
-  .row {
-    display: table-row;
+.sq table.datatable {
+  table-layout: fixed;
+  width: 100%;
+  th, td {
+    text-align: left;
   }
 }

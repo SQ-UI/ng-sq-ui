@@ -1,6 +1,7 @@
-<div class="row display-flex space-between">
-  <div role="gridcell" *ngFor="let item of rowItem | keyvalue">
-    {{item.value}}
-  </div>
-</div>
 
+  <td role="gridcell"
+       *ngFor="let column of columns"
+       class="cell"
+       [ngStyle]="{'width': width}">
+    {{rowItem[column]}}
+  </td>

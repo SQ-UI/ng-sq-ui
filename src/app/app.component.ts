@@ -53,21 +53,65 @@ export class AppComponent implements OnInit {
   progressBarLoadedSmall = 20;
   progressBarLoadedMedium = 40;
   progressBarLoadedLarge = 60;
-  datatableItems = [{
-    columnName: 'Puchi',
-    columnName2: 'Chochi',
-    columnName3: 'Melanie',
-  },
+  datatableItems =[
     {
-      columnName: 'Jojo',
-      columnName2: 'Pikachu',
-      columnName3: 'Steve',
+      "index": 0,
+      "isActive": false,
+      "balance": "$3,288.88",
+      "age": 37,
+      "company": "INSOURCE",
+      "latitude": 87.664628,
+      "longitude": 156.427784
     },
     {
-      columnName: 'Janet',
-      columnName2: 'Baba Ginka',
-      columnName3: 'Natsu',
-    }];
+      "index": 1,
+      "isActive": false,
+      "balance": "$2,669.48",
+      "age": 33,
+      "latitude": 26.700524,
+      "longitude": -178.472786
+    },
+    {
+      "index": 2,
+      "isActive": false,
+      "balance": "$3,558.33",
+      "age": 40,
+      "latitude": -65.662322,
+      "longitude": -31.090771
+    },
+    {
+      "index": 3,
+      "isActive": true,
+      "balance": "$1,399.18",
+      "age": 25,
+      "latitude": -48.918194,
+      "longitude": 20.190939
+    },
+    {
+      "index": 4,
+      "isActive": true,
+      "balance": "$1,503.99",
+      "age": 36,
+      "latitude": 61.780912,
+      "longitude": 150.737673
+    },
+    {
+      "index": 5,
+      "isActive": false,
+      "balance": "$1,725.67",
+      "age": 23,
+      "latitude": 72.643983,
+      "longitude": -160.475331
+    },
+    {
+      "index": 6,
+      "isActive": false,
+      "balance": "$2,316.69",
+      "age": 31,
+      "latitude": 17.839987,
+      "longitude": 23.605398
+    }
+  ];
 
   isDatepickerMultipleSelect = true;
   minDate = moment();
