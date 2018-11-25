@@ -21,7 +21,6 @@ export class DatatableRowComponent implements OnInit, OnChanges {
     if (changesObj.rowItem && changesObj.rowItem.currentValue) {
       if (!this.width) {
         this.columns = Object.keys(changesObj.rowItem.currentValue);
-        this.width = 100 / this.columns.length + '%';
       }
     }
   }

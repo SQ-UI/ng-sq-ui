@@ -1,0 +1,15 @@
+.paginator {
+  list-style: none;
+  margin-left: 0;
+  li {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 8px;
+    min-width: 35px;
+    text-align: center;
+    margin-right: 10px;
+    &.current {
+      background-color: #b7d8d1;
+    }
+  }
+}

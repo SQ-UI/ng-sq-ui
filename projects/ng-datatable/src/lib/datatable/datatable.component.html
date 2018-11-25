@@ -4,7 +4,6 @@
       <th sq-datatable-column
           *ngFor="let columnName of columnNames"
           [name]="columnName"
-          [ngStyle]="{'width': columnWidth}"
           [isSortable]="isSortByColumnEnabled"
           (onSortClicked)="sortByField($event)">
       </th>
@@ -13,11 +12,16 @@
   </thead>
   <tbody>
     <tr sq-datatable-row
-        *ngFor="let rowItem of items"
+        *ngFor="let rowItem of paginatedCollection"
         [rowItem]="rowItem"
         class="row">
     </tr>
     <ng-container *ngTemplateOutlet="datatableBodyTemplate"></ng-container>
   </tbody>
-  <tfoot></tfoot>
 </table>
+<sq-paginator [items]="items"
+              [itemsPerPage]="itemsPerPage"
+              [lastPage]="lastPage"
+              (pageChange)="onPageChange($event)"
+              (paginatedCollectionChange)="getPaginatedItems($event)">
+</sq-paginator>

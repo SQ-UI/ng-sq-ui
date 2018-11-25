@@ -13,9 +13,13 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     OSDetectorService,
     CustomEventBroadcasterService
   ],
-  declarations: [OutsideClickListenerDirective, PaginatorComponent],
+  declarations: [
+    OutsideClickListenerDirective,
+    PaginatorComponent
+  ],
   exports: [
-    OutsideClickListenerDirective
+    OutsideClickListenerDirective,
+    PaginatorComponent
   ]
 })
 export class NgSqCommonModule { }

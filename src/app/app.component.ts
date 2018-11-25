@@ -53,66 +53,16 @@ export class AppComponent implements OnInit {
   progressBarLoadedSmall = 20;
   progressBarLoadedMedium = 40;
   progressBarLoadedLarge = 60;
-  datatableItems =[
+  datatableItems = [
     {
-      "index": 0,
-      "isActive": false,
-      "balance": "$3,288.88",
-      "age": 37,
-      "company": "INSOURCE",
-      "latitude": 87.664628,
-      "longitude": 156.427784
-    },
-    {
-      "index": 1,
-      "isActive": false,
-      "balance": "$2,669.48",
-      "age": 33,
-      "latitude": 26.700524,
-      "longitude": -178.472786
-    },
-    {
-      "index": 2,
-      "isActive": false,
-      "balance": "$3,558.33",
-      "age": 40,
-      "latitude": -65.662322,
-      "longitude": -31.090771
-    },
-    {
-      "index": 3,
-      "isActive": true,
-      "balance": "$1,399.18",
-      "age": 25,
-      "latitude": -48.918194,
-      "longitude": 20.190939
-    },
-    {
-      "index": 4,
-      "isActive": true,
-      "balance": "$1,503.99",
-      "age": 36,
-      "latitude": 61.780912,
-      "longitude": 150.737673
-    },
-    {
-      "index": 5,
-      "isActive": false,
-      "balance": "$1,725.67",
-      "age": 23,
-      "latitude": 72.643983,
-      "longitude": -160.475331
-    },
-    {
-      "index": 6,
-      "isActive": false,
-      "balance": "$2,316.69",
-      "age": 31,
-      "latitude": 17.839987,
-      "longitude": 23.605398
+      "userId": 1,
+      "id": 1,
+      "title": "delectus aut autem",
+      "completed": false
     }
   ];
 
+  lastPage = 20;
   isDatepickerMultipleSelect = true;
   minDate = moment();
   maxDate = moment().add(5, 'years');
@@ -186,6 +136,14 @@ export class AppComponent implements OnInit {
         this.progressBarLoadedLarge = 0;
       }
     });
+
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        let first20 = json.slice(0, 20);
+        this.datatableItems = [...first20];
+      });
     this.keys = Object.keys(this.datatableItems[0]);
   }
 
@@ -195,6 +153,16 @@ export class AppComponent implements OnInit {
 
   minutesChange($event) {
     console.log(`The current chosen minutes are: ${$event}`);
+  }
+
+  fetchDatatableItems($event) {
+    console.log($event);
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => {
+        let next = json.slice(0, 60);
+        this.datatableItems = [...this.datatableItems, ...next];
+      });
   }
 
   searchMethod(query) {

@@ -1,5 +1,7 @@
-<ol class="display-flex wrap">
-  <li *ngFor="let page of pages" (click)="onPageClick(page)">
-    {{page}}
+<ol class="paginator display-flex wrap">
+  <li *ngFor="let page of pages"
+      (click)="onPageClick(page)"
+      [ngClass]="{'current': page.isSelected}">
+    {{page.number}}
   </li>
 </ol>

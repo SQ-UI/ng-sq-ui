@@ -2,6 +2,7 @@
   table-layout: fixed;
   width: 100%;
   th, td {
+    word-break: break-word;
     text-align: left;
   }
 }

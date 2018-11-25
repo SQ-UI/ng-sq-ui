@@ -242,7 +242,10 @@
       <h2>DatatableModule</h2>
     </header>
 
-    <sq-datatable [items]="datatableItems" [isSortByColumnEnabled]="true">
+    <sq-datatable [items]="datatableItems"
+                  [lastPage]="lastPage"
+                  [isSortByColumnEnabled]="true"
+                  (pageChange)="fetchDatatableItems($event)">
     </sq-datatable>
 
   </section>
