@@ -1,24 +1,26 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'sq-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss']
+  styleUrls: ['./paginator.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PaginatorComponent implements OnInit, OnChanges {
   @Input() items: any[] = [];
   @Input() itemsPerPage: number = 10;
   @Input() currentPage: number = 1;
   @Input() lastPage: number;
+  @Input() maxDisplayedPages: number = 3;
   @Output() paginatedCollectionChange = new EventEmitter();
   @Output() pageChange: EventEmitter<{ page: number, firstItemIndex: number }> = new EventEmitter();
 
-  pages: { number: number, isSelected: boolean }[] = [];
+  pages: { number: number, isSelected: boolean, isHidden: boolean }[] = [];
   paginatedCollection = [];
 
   private currentPageNumber = 1;
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit() {
     console.log('hi');
@@ -61,13 +63,15 @@ export class PaginatorComponent implements OnInit, OnChanges {
     if (pageCount === 1) {
       this.pages.push({
         number: 1,
-        isSelected: false
+        isSelected: false,
+        isHidden: false
       });
     } else {
       for (let i = 1; i <= pageCount; i++) {
         this.pages.push({
           number: i,
-          isSelected: false
+          isSelected: false,
+          isHidden: true
         });
       }
     }
@@ -77,6 +81,8 @@ export class PaginatorComponent implements OnInit, OnChanges {
     });
 
     selectedItem.isSelected = true;
+
+    this.hidePages();
   }
 
   private selectPage(page) {
@@ -104,6 +110,22 @@ export class PaginatorComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this.paginatedCollectionChange.emit(this.paginatedCollection);
     }, 100);
+  }
+
+  private hidePages() {
+    const selectedItemIndex = this.pages.findIndex((pageItem) => {
+      return pageItem.isSelected === true;
+    });
+
+    const lastVisiblePagesFromBeginning = selectedItemIndex + this.maxDisplayedPages - 1;
+    const lastVisiblePagesFromEnd = this.pages.length - 1 - this.maxDisplayedPages;
+
+    this.pages.forEach((pageItem, index) => {
+      if ((index >= selectedItemIndex && index <= lastVisiblePagesFromBeginning) ||
+        index === 0 || index > lastVisiblePagesFromEnd) {
+        pageItem.isHidden = false;
+      }
+    });
   }
 
 }

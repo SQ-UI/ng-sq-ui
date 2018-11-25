@@ -1,27 +1,30 @@
-<table class="datatable">
-  <thead>
-    <tr>
-      <th sq-datatable-column
-          *ngFor="let columnName of columnNames"
-          [name]="columnName"
-          [isSortable]="isSortByColumnEnabled"
-          (onSortClicked)="sortByField($event)">
-      </th>
-      <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
-    </tr>
-  </thead>
-  <tbody>
-    <tr sq-datatable-row
-        *ngFor="let rowItem of paginatedCollection"
-        [rowItem]="rowItem"
-        class="row">
-    </tr>
-    <ng-container *ngTemplateOutlet="datatableBodyTemplate"></ng-container>
-  </tbody>
-</table>
-<sq-paginator [items]="items"
-              [itemsPerPage]="itemsPerPage"
-              [lastPage]="lastPage"
-              (pageChange)="onPageChange($event)"
-              (paginatedCollectionChange)="getPaginatedItems($event)">
-</sq-paginator>
+<div class="datatable-wrapper">
+  <table class="datatable">
+    <thead>
+      <tr>
+        <th sq-datatable-column
+            *ngFor="let columnName of columnNames"
+            [name]="columnName"
+            [isSortable]="isSortByColumnEnabled"
+            (onSortClicked)="sortByField($event)">
+        </th>
+        <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr sq-datatable-row
+          *ngFor="let rowItem of paginatedCollection"
+          [rowItem]="rowItem"
+          class="row">
+      </tr>
+      <ng-container *ngTemplateOutlet="datatableBodyTemplate"></ng-container>
+    </tbody>
+  </table>
+
+  <sq-paginator [items]="items"
+                [itemsPerPage]="itemsPerPage"
+                [lastPage]="lastPage"
+                (pageChange)="onPageChange($event)"
+                (paginatedCollectionChange)="getPaginatedItems($event)">
+  </sq-paginator>
+</div>

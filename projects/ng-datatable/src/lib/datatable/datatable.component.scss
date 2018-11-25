@@ -1,8 +1,20 @@
-.sq table.datatable {
-  table-layout: fixed;
-  width: 100%;
-  th, td {
-    word-break: break-word;
-    text-align: left;
+.sq {
+  .datatable-wrapper {
+    .paginator {
+      justify-content: center;
+      border-top: 1px solid rgba(46,159,134,.69);
+      padding-top: 10px;
+    }
+  }
+
+  table.datatable {
+    table-layout: fixed;
+    width: 100%;
+    th, td {
+      word-break: break-word;
+      text-align: left;
+    }
   }
 }
+
+

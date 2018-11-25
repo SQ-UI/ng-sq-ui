@@ -1,7 +1,11 @@
 <ol class="paginator display-flex wrap">
-  <li *ngFor="let page of pages"
+  <li *ngFor="let page of pages, let pageIndex = index"
       (click)="onPageClick(page)"
-      [ngClass]="{'current': page.isSelected}">
+      [ngClass]="{
+        'current': page.isSelected,
+        'truncated': page.isHidden
+      }"
+      [hidden]="page.isHidden">
     {{page.number}}
   </li>
 </ol>

@@ -1,4 +1,4 @@
-.paginator {
+.sq ol.paginator {
   list-style: none;
   margin-left: 0;
   li {
@@ -10,6 +10,19 @@
     margin-right: 10px;
     &.current {
       background-color: #b7d8d1;
+    }
+    &.truncated {
+      display: none;
+    }
+    &:not(.truncated) + .truncated {
+      pointer-events: none;
+      display: block;
+      font-size: 0;
+      &::before {
+        content: "...";
+        pointer-events: none;
+        font-size: 1.1rem;
+      }
     }
   }
 }
