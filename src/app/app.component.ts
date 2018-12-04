@@ -61,8 +61,8 @@ export class AppComponent implements OnInit {
       "completed": false
     }
   ];
-
-  lastPage = 20;
+lastPage = 10;
+  paginatedItems;
   isDatepickerMultipleSelect = true;
   minDate = moment();
   maxDate = moment().add(5, 'years');
@@ -209,5 +209,6 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     console.log(this.testForm.value);
+    console.log(this.paginatedItems);
   }
 }

@@ -25,6 +25,6 @@
                 [itemsPerPage]="itemsPerPage"
                 [lastPage]="lastPage"
                 (pageChange)="onPageChange($event)"
-                (paginatedCollectionChange)="getPaginatedItems($event)">
+                [(paginatedCollection)]="paginatedCollection">
   </sq-paginator>
 </div>

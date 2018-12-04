@@ -1,11 +1,39 @@
-<ol class="paginator display-flex wrap">
-  <li *ngFor="let page of pages, let pageIndex = index"
+<ul class="paginator display-flex wrap">
+  <li>
+    <button type="button"
+            [disabled]="disablePrevBtns"
+            (click)="onPageClick(pages[0])">
+      <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li>
+    <button type="button"
+            [disabled]="disablePrevBtns"
+            (click)="navigateToPage(-1)">
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li *ngFor="let page of pages"
       (click)="onPageClick(page)"
+      [hidden]="page.isHidden"
       [ngClass]="{
         'current': page.isSelected,
         'truncated': page.isHidden
-      }"
-      [hidden]="page.isHidden">
+      }">
     {{page.number}}
   </li>
-</ol>
+  <li>
+    <button type="button"
+            [disabled]="disableNextBtns"
+            (click)="navigateToPage(1)">
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li>
+    <button type="button"
+            [disabled]="disableNextBtns"
+            (click)="onPageClick(pages[pages.length - 1])">
+      <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+    </button>
+  </li>
+</ul>

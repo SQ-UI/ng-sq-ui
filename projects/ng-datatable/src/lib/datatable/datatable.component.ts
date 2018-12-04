@@ -52,10 +52,6 @@ export class DatatableComponent implements OnInit, OnChanges {
     }
   }
 
-  getPaginatedItems(paginatedCollection) {
-    this.paginatedCollection = paginatedCollection;
-  }
-
   private sortItems(columnName: string, ascending: boolean) {
     this.paginatedCollection.sort((rowItem1, rowItem2) => {
       if (rowItem1[columnName] > rowItem2[columnName]) {

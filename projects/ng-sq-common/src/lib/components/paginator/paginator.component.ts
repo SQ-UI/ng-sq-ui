@@ -1,4 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, Input, Output,
+         EventEmitter, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Page } from '../../interfaces/page';
 
 @Component({
   selector: 'sq-paginator',
@@ -12,11 +14,14 @@ export class PaginatorComponent implements OnInit, OnChanges {
   @Input() currentPage: number = 1;
   @Input() lastPage: number;
   @Input() maxDisplayedPages: number = 3;
+  @Input() paginatedCollection = [];
   @Output() paginatedCollectionChange = new EventEmitter();
   @Output() pageChange: EventEmitter<{ page: number, firstItemIndex: number }> = new EventEmitter();
 
-  pages: { number: number, isSelected: boolean, isHidden: boolean }[] = [];
-  paginatedCollection = [];
+  pages: Page[] = [];
+  _paginatedCollection = [];
+  disableNextBtns: boolean = false;
+  disablePrevBtns: boolean = true;
 
   private currentPageNumber = 1;
 
@@ -30,6 +35,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
     if (changesObj.items && changesObj.items.currentValue) {
       this.generatePaginatedCollection(this.currentPageNumber);
       this.updatePageCount(this.lastPage);
+      this.toggleControlEnabling();
     }
 
     if (changesObj.itemsPerPage && changesObj.itemsPerPage.currentValue &&
@@ -52,8 +58,17 @@ export class PaginatorComponent implements OnInit, OnChanges {
     this.selectPage(page);
     this.pageChange.emit({
       page: page.number,
-      firstItemIndex: this.items.indexOf(this.paginatedCollection[0])
+      firstItemIndex: this.items.indexOf(this._paginatedCollection[0])
     });
+  }
+
+  navigateToPage(newPageDifference: number) {
+    const selectedItemIndex = this.pages.findIndex((pageItem) => {
+      return pageItem.isSelected === true;
+    });
+
+    const newPageItem = this.pages[selectedItemIndex + newPageDifference];
+    this.onPageClick(newPageItem);
   }
 
   private updatePageCount(lastPage?: number) {
@@ -85,13 +100,15 @@ export class PaginatorComponent implements OnInit, OnChanges {
     this.hidePages();
   }
 
-  private selectPage(page) {
+  private selectPage(page: Page) {
     const previousPage = this.pages.find((pageItem) => {
       return pageItem.isSelected === true;
     });
 
     previousPage.isSelected = false;
     page.isSelected = true;
+
+    this.toggleControlEnabling(page);
     this.generatePaginatedCollection(page.number);
   }
 
@@ -104,12 +121,23 @@ export class PaginatorComponent implements OnInit, OnChanges {
       lowerLimit = newUpperLimit - this.itemsPerPage;
     }
 
-    this.paginatedCollection = this.items.slice(lowerLimit, newUpperLimit);
+    this._paginatedCollection = this.items.slice(lowerLimit, newUpperLimit);
     this.currentPageNumber = newPage;
 
     setTimeout(() => {
-      this.paginatedCollectionChange.emit(this.paginatedCollection);
+      this.paginatedCollectionChange.emit(this._paginatedCollection);
     }, 100);
+  }
+
+  private toggleControlEnabling(page?: Page) {
+    if (!page) {
+      page = this.pages.find((pageItem) => {
+        return pageItem.number === this.currentPageNumber;
+      });
+    }
+
+    this.disablePrevBtns = (this.pages.indexOf(page) === 0);
+    this.disableNextBtns = (this.pages.indexOf(page) === this.pages.length - 1);
   }
 
   private hidePages() {
