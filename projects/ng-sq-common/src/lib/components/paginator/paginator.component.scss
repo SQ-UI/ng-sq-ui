@@ -1,9 +1,8 @@
-.sq ul.paginator {
+.sq ol.paginator {
   list-style: none;
   margin-left: 0;
   li {
     position: relative;
-    cursor: pointer;
     padding: 5px 8px;
     min-width: 35px;
     text-align: center;
@@ -32,9 +31,12 @@
       bottom: 0;
       width: 100%;
       height: 100%;
-      &[disabled] .fa {
+      cursor: pointer;
+      &[disabled] {
         cursor: default;
-        color: #aba9a9;
+        .fa {
+          color: #aba9a9;
+        }
       }
     }
   }

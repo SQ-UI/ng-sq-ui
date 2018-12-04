@@ -1,4 +1,4 @@
-<ul class="paginator display-flex wrap">
+<ol class="paginator display-flex wrap">
   <li>
     <button type="button"
             [disabled]="disablePrevBtns"
@@ -14,13 +14,15 @@
     </button>
   </li>
   <li *ngFor="let page of pages"
-      (click)="onPageClick(page)"
       [hidden]="page.isHidden"
       [ngClass]="{
         'current': page.isSelected,
         'truncated': page.isHidden
       }">
-    {{page.number}}
+    <button type="button"
+            (click)="onPageClick(page)">
+      {{page.number}}
+    </button>
   </li>
   <li>
     <button type="button"
@@ -36,4 +38,4 @@
       <i class="fa fa-angle-double-right" aria-hidden="true"></i>
     </button>
   </li>
-</ul>
+</ol>
