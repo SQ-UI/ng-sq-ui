@@ -3,9 +3,9 @@
     <thead>
       <tr>
         <th sq-datatable-column
-            *ngFor="let columnName of columnNames"
-            [name]="columnName"
-            [isSortable]="isSortByColumnEnabled"
+            *ngFor="let column of columnNames"
+            [name]="column.name"
+            [isSortable]="column.canBeSortedAgainst"
             (onSortClicked)="sortByField($event)">
         </th>
         <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>

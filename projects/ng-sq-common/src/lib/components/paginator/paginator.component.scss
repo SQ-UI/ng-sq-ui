@@ -1,10 +1,11 @@
 .sq ol.paginator {
   list-style: none;
-  margin-left: 0;
+  margin: 0;
   li {
     position: relative;
     padding: 5px 8px;
     min-width: 35px;
+    height: 32px;
     text-align: center;
     margin-right: 10px;
     transition: all 400ms ease-in;

@@ -16,16 +16,17 @@ import { SortItem } from '../shared/interfaces/sort-item';
 export class DatatableComponent implements OnInit, OnChanges {
   @Input() items = [];
   @Input() rowsPerPage: number = 10;
-  @Input() isSortByColumnEnabled: boolean = false;
+  @Input() sortByAllColumns: boolean = false;
   @Input() itemsPerPage: number = 10;
   @Input() lastPage: number;
+  @Input() sortByColumns: string[] = [];
   @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter<SortItem>();
   @Output() pageChange = new EventEmitter();
 
   @ContentChild(DatatableHeaderDirective, {read: TemplateRef}) datatableHeaderTemplate;
   @ContentChild(DatatableBodyDirective, {read: TemplateRef}) datatableBodyTemplate;
 
-  columnNames: string[] = [];
+  columnNames: { name: string, canBeSortedAgainst: boolean }[] = [];
   paginatedCollection = [];
 
   constructor() { }
@@ -40,7 +41,15 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changesObj: SimpleChanges) {
     if (changesObj.items && changesObj.items.currentValue.length > 0) {
-      this.columnNames = Object.keys(changesObj.items.currentValue[0]);
+      this.generateColumns(changesObj.items.currentValue[0]);
+    }
+
+    if (changesObj.sortByColumns && changesObj.sortByColumns.currentValue.length > 0) {
+      this.generateColumns(this.items);
+    }
+
+    if (changesObj.sortByAllColumns && changesObj.sortByAllColumns.currentValue === true) {
+      this.generateColumns(this.items);
     }
   }
 
@@ -65,5 +74,18 @@ export class DatatableComponent implements OnInit, OnChanges {
       // names must be equal
       return 0;
     });
+  }
+
+  private generateColumns(item) {
+    this.columnNames = Object.keys(item)
+      .map((columnName) => {
+        let canBeSortedAgainst = this.sortByAllColumns ||
+          (this.sortByColumns && this.sortByColumns.indexOf(columnName) > -1);
+
+        return {
+          name: columnName,
+          canBeSortedAgainst: canBeSortedAgainst
+        };
+      });
   }
 }

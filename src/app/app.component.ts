@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
       "completed": false
     }
   ];
+  sortByColumns = ['userId', 'title'];
 lastPage = 10;
   paginatedItems;
   isDatepickerMultipleSelect = true;

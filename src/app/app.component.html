@@ -243,8 +243,7 @@
     </header>
 
     <sq-datatable [items]="datatableItems"
-                  [lastPage]="lastPage"
-                  [isSortByColumnEnabled]="true"
+                  [sortByAllColumns]="sortByColumns"
                   (pageChange)="fetchDatatableItems($event)">
     </sq-datatable>
 

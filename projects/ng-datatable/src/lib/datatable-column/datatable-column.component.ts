@@ -14,6 +14,7 @@ export class DatatableColumnComponent implements OnInit, OnChanges {
   @Input() width: string;
 
   isSortedByAscending: boolean;
+  listenForOutsideClick = false;
 
   constructor() { }
 
@@ -26,10 +27,16 @@ export class DatatableColumnComponent implements OnInit, OnChanges {
 
   sort() {
     this.isSortedByAscending = !this.isSortedByAscending;
+    this.listenForOutsideClick = true;
 
     this.onSortClicked.emit({
       name: this.name,
       isSortedByAscending: this.isSortedByAscending
     });
+  }
+
+  onClickOutsideComponent() {
+    this.isSortedByAscending = undefined;
+    this.listenForOutsideClick = false;
   }
 }
