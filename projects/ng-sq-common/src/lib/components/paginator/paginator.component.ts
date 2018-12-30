@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Output,
-         EventEmitter, OnChanges, ViewEncapsulation } from '@angular/core';
+import {
+  Component, OnInit, Input, Output,
+  EventEmitter, OnChanges, ViewEncapsulation
+} from '@angular/core';
 import { Page } from '../../interfaces/page';
 
 @Component({
@@ -24,17 +26,23 @@ export class PaginatorComponent implements OnInit, OnChanges {
   disablePrevBtns: boolean = true;
 
   private currentPageNumber = 1;
+  private hasSelectedCurrentPageByAuthor = false;
 
   constructor() { }
 
   ngOnInit() {
-    console.log('hi');
+
   }
 
   ngOnChanges(changesObj) {
     if (changesObj.items && changesObj.items.currentValue) {
       this.generatePaginatedCollection(this.currentPageNumber);
       this.updatePageCount(this.lastPage);
+
+      if (this.currentPage && !this.hasSelectedCurrentPageByAuthor) {
+        this.selectCurrentPageProgramatically();
+      }
+
       this.toggleControlEnabling();
     }
 
@@ -45,7 +53,8 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
     if (changesObj.currentPage && changesObj.currentPage.currentValue &&
         changesObj.currentPage.currentValue > 0) {
-      this.selectPage(changesObj.currentPage.currentValue);
+      this.hasSelectedCurrentPageByAuthor = false;
+      this.selectCurrentPageProgramatically();
     }
 
     if (changesObj.lastPage && changesObj.lastPage.currentValue &&
@@ -74,6 +83,10 @@ export class PaginatorComponent implements OnInit, OnChanges {
   private updatePageCount(lastPage?: number) {
     const pageCount = lastPage || Math.ceil(this.items.length / this.itemsPerPage);
     this.pages = [];
+
+    if (pageCount === 0) {
+      return;
+    }
 
     if (pageCount === 1) {
       this.pages.push({
@@ -154,6 +167,18 @@ export class PaginatorComponent implements OnInit, OnChanges {
         pageItem.isHidden = false;
       }
     });
+  }
+
+  private selectCurrentPageProgramatically() {
+    const pageToSelect = this.pages.find((page: Page) => {
+      return page.number === this.currentPage;
+    });
+
+    if (pageToSelect) {
+      this.selectPage(pageToSelect);
+      this.hidePages();
+      this.hasSelectedCurrentPageByAuthor = true;
+    }
   }
 
 }

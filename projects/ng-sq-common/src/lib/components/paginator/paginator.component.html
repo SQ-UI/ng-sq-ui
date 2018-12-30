@@ -2,6 +2,7 @@
   <li>
     <button type="button"
             [disabled]="disablePrevBtns"
+            data-btn-type="first"
             (click)="onPageClick(pages[0])">
       <i class="fa fa-angle-double-left" aria-hidden="true"></i>
     </button>
@@ -9,12 +10,14 @@
   <li>
     <button type="button"
             [disabled]="disablePrevBtns"
+            data-btn-type="prev"
             (click)="navigateToPage(-1)">
       <i class="fa fa-angle-left" aria-hidden="true"></i>
     </button>
   </li>
   <li *ngFor="let page of pages"
       [hidden]="page.isHidden"
+      data-btn-type="page-num"
       [ngClass]="{
         'current': page.isSelected,
         'truncated': page.isHidden
@@ -27,6 +30,7 @@
   <li>
     <button type="button"
             [disabled]="disableNextBtns"
+            data-btn-type="next"
             (click)="navigateToPage(1)">
       <i class="fa fa-angle-right" aria-hidden="true"></i>
     </button>
@@ -34,6 +38,7 @@
   <li>
     <button type="button"
             [disabled]="disableNextBtns"
+            data-btn-type="last"
             (click)="onPageClick(pages[pages.length - 1])">
       <i class="fa fa-angle-double-right" aria-hidden="true"></i>
     </button>
