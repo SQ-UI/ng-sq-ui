@@ -106,62 +106,62 @@ describe('PaginatorComponent', () => {
 
   it('#should disable ("jump to") first and previous buttons and enable ("jump to") next and last buttons on initial render',
     async(() => {
-      const recordCount = 100;
-      const recordPerPage = 5;
+    const recordCount = 100;
+    const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
+    component.items = generateDummyCollection(recordCount);
+    component.itemsPerPage = recordPerPage;
 
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
-      });
+    component.ngOnChanges({
+      items: new SimpleChange(null, component.items, true),
+      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
+    });
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
-        const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
-        const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
-        const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
+    fixture.whenRenderingDone().then(() => {
+      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+      const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
+      const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
+      const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
+      const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
 
-        expect(prevBtn.disabled).toBe(true, 'prev button is disabled');
-        expect(firstBtn.disabled).toBe(true, 'first button is disabled');
-        expect(nextBtn.disabled).toBe(false, 'next button is enabled');
-        expect(lastBtn.disabled).toBe(false, 'last button is enabled');
-      });
+      expect(prevBtn.disabled).toBe(true, 'prev button is disabled');
+      expect(firstBtn.disabled).toBe(true, 'first button is disabled');
+      expect(nextBtn.disabled).toBe(false, 'next button is enabled');
+      expect(lastBtn.disabled).toBe(false, 'last button is enabled');
+    });
   }));
 
   it('#should enable ("jump to") first and previous buttons when a page other than the first is clicked',
     async(() => {
-      const recordCount = 100;
-      const recordPerPage = 5;
+    const recordCount = 100;
+    const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
+    component.items = generateDummyCollection(recordCount);
+    component.itemsPerPage = recordPerPage;
 
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
-      });
+    component.ngOnChanges({
+      items: new SimpleChange(null, component.items, true),
+      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
+    });
 
+    fixture.detectChanges();
+
+    fixture.whenRenderingDone().then(() => {
+      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+      const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
+      const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
+
+      paginatorEl.querySelector('.current + li button').click();
       fixture.detectChanges();
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
-        const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
-
-        paginatorEl.querySelector('.current + li button').click();
-        fixture.detectChanges();
-
-        fixture.whenStable().then(() => {
-          expect(prevBtn.disabled).toBe(false, 'prev button is enabled');
-          expect(firstBtn.disabled).toBe(false, 'first button is enabled');
-        });
+      fixture.whenStable().then(() => {
+        expect(prevBtn.disabled).toBe(false, 'prev button is enabled');
+        expect(firstBtn.disabled).toBe(false, 'first button is enabled');
       });
-    }));
+    });
+  }));
 
   it('#should disable ("jump to") last and next buttons when the user clicks on the last page',
     (done: DoneFn) => {
@@ -228,28 +228,88 @@ describe('PaginatorComponent', () => {
     }));
 
   it('#should automatically select the [currentPage] number when it exists',
+  (done: DoneFn) => {
+    const recordCount = 400;
+    const recordPerPage = 10;
+    const currentPageNumber = 10;
+
+    component.items = generateDummyCollection(recordCount);
+    component.itemsPerPage = recordPerPage;
+    component.currentPage = currentPageNumber;
+
+    component.ngOnChanges({
+      items: new SimpleChange(null, component.items, true),
+      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true),
+      currentPage: new SimpleChange(null, component.currentPage, true)
+    });
+
+    fixture.detectChanges();
+
+    fixture.whenRenderingDone().then(() => {
+      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+      const currentPageEl = paginatorEl.querySelector('.current button');
+      expect(parseInt(currentPageEl.textContent, 10) === currentPageNumber)
+        .toBe(true, 'the current page passed by author is selected');
+      done();
+    });
+  });
+
+  it('#should show a maximum of [lastPage] pages when [lastPage] exists',
     (done: DoneFn) => {
-      const recordCount = 400;
+    const recordCount = 50;
+    const recordPerPage = 3;
+    const lastPage = 4;
+
+    component.items = generateDummyCollection(recordCount);
+    component.itemsPerPage = recordPerPage;
+    component.lastPage = lastPage;
+
+    component.ngOnChanges({
+      items: new SimpleChange(null, component.items, true),
+      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true),
+      lastPage: new SimpleChange(null, component.lastPage, true)
+    });
+
+    fixture.detectChanges();
+
+    fixture.whenRenderingDone().then(() => {
+      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+      const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated) button');
+      const lastVisiblePage = allVisiblePages[allVisiblePages.length - 1];
+
+      expect(parseInt(lastVisiblePage.textContent, 10) === lastPage)
+        .toBe(true, 'the last page is set correctly');
+      done();
+    });
+  });
+
+  it('#should show a maximum of [maxDisplayedPages] if it exists',
+    (done: DoneFn) => {
+      const recordCount = 300;
       const recordPerPage = 10;
-      const currentPageNumber = 10;
+      const maxDisplayedPages = 5;
 
       component.items = generateDummyCollection(recordCount);
       component.itemsPerPage = recordPerPage;
-      component.currentPage = currentPageNumber;
+      component.maxDisplayedPages = maxDisplayedPages;
 
       component.ngOnChanges({
         items: new SimpleChange(null, component.items, true),
         itemsPerPage: new SimpleChange(null, component.itemsPerPage , true),
-        currentPage: new SimpleChange(null, component.currentPage, true)
+        maxDisplayedPages: new SimpleChange(null, component.maxDisplayedPages, true)
       });
 
       fixture.detectChanges();
 
       fixture.whenRenderingDone().then(() => {
         const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const currentPageEl = paginatorEl.querySelector('.current button');
-        expect(parseInt(currentPageEl.textContent, 10) === currentPageNumber)
-          .toBe(true, 'the current page passed by author is selected');
+        const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated)');
+        const allPages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]');
+
+        expect(allVisiblePages.length === maxDisplayedPages * 2)
+          .toBe(true, 'the number of visible pages is correct');
+        expect(allPages[maxDisplayedPages + 1].classList.contains('truncated'))
+          .toBe(true, 'the correct element is hidden first');
         done();
       });
     });
