@@ -85,14 +85,14 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
   onUserInput($event) {
     if (this.newTagName.trim() !== '') {
       this.isModelEmpty = false;
-      //if the user has pressed Space
+      // if the user has pressed Space
       if ($event.keyCode === 32) {
         this.enteredItems = this.enteredItems.push(this.newTagName.trim());
         this.enteredItemsChange.emit(this.enteredItems);
         this.newTagName = '';
       }
     } else if (this.isModelEmpty) {
-      //if the user has pressed Backspace
+      // if the user has pressed Backspace
       if ($event.keyCode === 8 && this.enteredItems.size > 0) {
         this.enteredItems = this.enteredItems.remove(this.enteredItems.size - 1);
         this.enteredItemsChange.emit(this.enteredItems);
