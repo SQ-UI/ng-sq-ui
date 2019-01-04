@@ -6,6 +6,7 @@ checks:
   similar-code:
     enabled: false
   identical-code:
+    enabled: false
     config:
       threshold: 15
 exclude_patterns:
