@@ -4,8 +4,7 @@ plugins:
     config: tslint.json
 checks:
   similar-code:
-    config:
-      threshold: 10
+    enabled: false
   identical-code:
     config:
       threshold: 15
