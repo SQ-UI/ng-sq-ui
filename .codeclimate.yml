@@ -1,0 +1,25 @@
+plugins:
+  tslint:
+    enabled: true
+    config: tslint.json
+checks:
+  similar-code:
+    config:
+      threshold: 10
+  identical-code:
+    config:
+      threshold: 15
+exclude_patterns:
+- ".vscode/"
+- "docs/"
+- "dist/"
+- "e2e/"
+- "**/node_modules/"
+- "**/spec/"
+- "**/test/"
+- "**/tests/"
+- "**/vendor/"
+- "**/*.d.ts"
+- "**/*.spec.ts"
+- "**/*.json"
+- "**/*.config.js"
