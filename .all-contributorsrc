@@ -16,7 +16,8 @@
       "profile": "https://github.com/ardentia",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "test"
       ]
     },
     {
@@ -27,6 +28,7 @@
       "contributions": [
         "code",
         "doc",
+        "test",
         "talk"
       ]
     }
