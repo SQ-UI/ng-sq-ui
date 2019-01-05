@@ -1,8 +1,27 @@
 {
   "name": "@sq-ui/ng-sq-common",
   "version": "1.0.0",
+  "license": "MIT",
+  "private": false,
+  "description": "The core module for SQ-UI kit for ANgular",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SQ-UI/ng-sq-ui.git"
+  },
+  "contributors": [
+    {
+      "name": "Samuil Gospodinov",
+      "email": "samuil4@gmail.com",
+      "url": "https://github.com/samuil4/"
+    },
+    {
+      "name": "Plamena Radneva",
+      "email": "rhythmxholic@gmail.com",
+      "url": "https://github.com/ardentia/"
+    }
+  ],
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
   }
 }

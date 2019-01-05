@@ -22,8 +22,9 @@
   </table>
 
   <sq-paginator [items]="items"
-                [itemsPerPage]="itemsPerPage"
-                [lastPage]="lastPage"
+                [itemsPerPage]="paginatorConfig.itemsPerPage"
+                [lastPage]="paginatorConfig.lastPage"
+                [currentPage]="paginatorConfig.currentPage"
                 (pageChange)="onPageChange($event)"
                 [(paginatedCollection)]="paginatedCollection">
   </sq-paginator>

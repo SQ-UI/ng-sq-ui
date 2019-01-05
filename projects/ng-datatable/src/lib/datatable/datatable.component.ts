@@ -1,11 +1,12 @@
 import {
   Component, OnInit, Input, OnChanges,
   SimpleChanges, ContentChild, TemplateRef,
-  EventEmitter, Output, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy
+  EventEmitter, Output, ViewEncapsulation
 } from '@angular/core';
 import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
 import { DatatableBodyDirective } from '../directives/datatable-body.directive';
 import { SortItem } from '../shared/interfaces/sort-item';
+import { PaginatorConfig } from '@sq-ui/ng-sq-common/interfaces/paginator-config';
 
 @Component({
   selector: 'sq-datatable',
@@ -17,8 +18,7 @@ export class DatatableComponent implements OnInit, OnChanges {
   @Input() items = [];
   @Input() rowsPerPage: number = 10;
   @Input() sortByAllColumns: boolean = false;
-  @Input() itemsPerPage: number = 10;
-  @Input() lastPage: number;
+  @Input() paginatorConfig: PaginatorConfig;
   @Input() sortByColumns: string[] = [];
   @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter<SortItem>();
   @Output() pageChange = new EventEmitter();

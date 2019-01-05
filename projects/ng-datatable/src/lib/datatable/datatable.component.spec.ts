@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DatatableComponent } from './datatable.component';
+import { NgSqCommonModule } from '../../../../ng-sq-common/src/lib/ng-sq-common.module';
 
 describe('DatatableComponent', () => {
   let component: DatatableComponent;
@@ -8,7 +8,12 @@ describe('DatatableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatableComponent ]
+      declarations: [
+        DatatableComponent
+      ],
+      imports: [
+        NgSqCommonModule
+      ]
     })
     .compileComponents();
   }));

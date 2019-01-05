@@ -4,6 +4,7 @@
 
 export { DeviceOS } from './lib/enums/device-os.enum';
 export { InputCoreComponent } from './lib/entities/input-core-component';
+export { PaginatorComponent } from './lib/components/paginator/paginator.component';
 export { Size, ProgressBarSize } from './lib/interfaces/sizes';
 export { CustomEventDetails } from './lib/interfaces/custom-event-details';
 export { LabelValuePair } from './lib/interfaces/label-value-pair';

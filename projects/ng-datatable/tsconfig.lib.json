@@ -12,6 +12,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": [],
+    "noImplicitAny": false,
     "lib": [
       "dom",
       "es2018"

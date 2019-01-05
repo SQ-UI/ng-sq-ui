@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatatableComponent } from './datatable/datatable.component';
 import { DatatableColumnComponent } from './datatable-column/datatable-column.component';
@@ -25,6 +25,7 @@ import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
     DatatableBodyDirective,
     DatatableColumnComponent,
     DatatableRowComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DatatableModule { }
