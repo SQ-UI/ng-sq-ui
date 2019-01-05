@@ -6,7 +6,7 @@ import {
 import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
 import { DatatableBodyDirective } from '../directives/datatable-body.directive';
 import { SortItem } from '../shared/interfaces/sort-item';
-import { PaginatorConfig } from '@sq-ui/ng-sq-common/interfaces/paginator-config';
+import { PaginatorConfig } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-datatable',

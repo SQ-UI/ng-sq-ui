@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@sq-ui/ng-sq-common": "^1.0.0",
+    "@sq-ui/ng-datatable": "^1.0.0",
     "immutable": "^3.8.2",
     "font-awesome": "4.7.0",
     "@sq-ui/ng-datetime-picker": "^1.0.0"

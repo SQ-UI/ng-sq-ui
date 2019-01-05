@@ -10,4 +10,6 @@ export { CustomEventDetails } from './lib/interfaces/custom-event-details';
 export { LabelValuePair } from './lib/interfaces/label-value-pair';
 export { CustomEventBroadcasterService } from './lib/services/custom-event-broadcaster.service';
 export { OSDetectorService } from './lib/services/os-detector.service';
+export { PaginatorConfig } from './lib/interfaces/paginator-config';
+
 export * from './lib/ng-sq-common.module';
