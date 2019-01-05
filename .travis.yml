@@ -1,4 +1,8 @@
 sudo: required
+env:
+  global:
+    CC_TEST_REPORTER_ID=74f243d61252d77cceed36b21a35163c95b404527e746c983c155602aed25e55
+
 addons:
   chrome: stable
 
@@ -12,9 +16,11 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
-  - npm install codecov -g
   - npm install gulp -g
   - npm install gulp-cli -g
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - npm run build-libs
@@ -22,4 +28,4 @@ script:
   - ng test ng-sq-ui
 
 after_success:
-  - codecov
+   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

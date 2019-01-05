@@ -2,10 +2,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//modules
+// modules
 import { SharedModule } from '../shared/shared.module';
 
-//components
+// components
 import { InputComponent } from './input/input.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { TagsInputComponent } from './tags-input/tags-input.component';
