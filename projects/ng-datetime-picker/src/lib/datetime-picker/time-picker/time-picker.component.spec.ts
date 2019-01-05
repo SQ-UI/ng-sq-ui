@@ -172,14 +172,17 @@ describe('TimePickerComponent', () => {
   it('#should change noon relativity when [isMeridiem]=true', () => {
     component.timeObjectType = 'string';
     component.isMeridiem = true;
+    component.inputHours = 11;
+    component.inputMinutes = 30;
 
     component.ngOnChanges({
       isMeridiem: new SimpleChange(null, component.isMeridiem, true),
-      timeObjectType: new SimpleChange(null, component.timeObjectType, true)
+      timeObjectType: new SimpleChange(null, component.timeObjectType, true),
+      inputHours: new SimpleChange(null, component.inputHours, true),
+      inputMinutes: new SimpleChange(null, component.inputMinutes, true)
     });
     fixture.detectChanges();
 
-    component.changeNoonRelativity();
     component.changeNoonRelativity();
     fixture.detectChanges();
 

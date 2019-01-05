@@ -1,0 +1,26 @@
+version: "2"
+plugins:
+  tslint:
+    enabled: true
+    config: tslint.json
+checks:
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
+    config:
+      threshold: 15
+exclude_patterns:
+- ".vscode/"
+- "docs/"
+- "dist/"
+- "e2e/"
+- "**/node_modules/"
+- "**/spec/"
+- "**/test/"
+- "**/tests/"
+- "**/vendor/"
+- "**/*.d.ts"
+- "**/*.spec.ts"
+- "**/*.json"
+- "**/*.config.js"
