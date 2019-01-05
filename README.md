@@ -1,4 +1,5 @@
 # NG-SQ-UI
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 > Simple Quality UI kit for Angular
 
@@ -127,8 +128,23 @@ Thank you to all <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors"
 | [<img src="https://avatars2.githubusercontent.com/u/41083417?s=60&v=4" width="50px;"/><br /><sub><b>Plamena Radneva</b></sub>](https://github.com/ardentia)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia 'Code') [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia 'Documentation') [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia 'Tests') | [<img src="https://avatars0.githubusercontent.com/u/797921?s=60&v=4" width="50px;"/><br /><sub><b>Samuil Gospodinov</b></sub>](https://github.com/samuil4)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 'Code') [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 'Documentation') [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 'Tests') |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars2.githubusercontent.com/u/41083417?v=4" width="50px;"/><br /><sub><b>Plamena Radneva</b></sub>](https://github.com/ardentia)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Documentation") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## LICENSE
 
 - [MIT](http://opensource.org/licenses/MIT)
 - Feel free to use and contribute to the development.
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
