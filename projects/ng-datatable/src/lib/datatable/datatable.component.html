@@ -21,10 +21,12 @@
     </tbody>
   </table>
 
-  <sq-paginator [items]="items"
+  <sq-paginator #paginator
+                [items]="items"
                 [itemsPerPage]="paginatorConfig.itemsPerPage"
                 [lastPage]="paginatorConfig.lastPage"
                 [currentPage]="paginatorConfig.currentPage"
+                [maxDisplayedPages]="paginatorConfig.maxDisplayedPages"
                 (pageChange)="onPageChange($event)"
                 [(paginatedCollection)]="paginatedCollection">
   </sq-paginator>

@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, OnChanges,
   SimpleChanges, ContentChild, TemplateRef,
-  EventEmitter, Output, ViewEncapsulation
+  EventEmitter, Output, ViewEncapsulation, ViewChild
 } from '@angular/core';
 import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
 import { DatatableBodyDirective } from '../directives/datatable-body.directive';
@@ -18,13 +18,14 @@ export class DatatableComponent implements OnInit, OnChanges {
   @Input() items = [];
   @Input() rowsPerPage: number = 10;
   @Input() sortByAllColumns: boolean = false;
-  @Input() paginatorConfig: PaginatorConfig;
+  @Input() paginatorConfig: PaginatorConfig = {};
   @Input() sortByColumns: string[] = [];
   @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter<SortItem>();
   @Output() pageChange = new EventEmitter();
 
   @ContentChild(DatatableHeaderDirective, {read: TemplateRef}) datatableHeaderTemplate;
   @ContentChild(DatatableBodyDirective, {read: TemplateRef}) datatableBodyTemplate;
+  @ViewChild('paginator') paginatorComponent;
 
   columnNames: { name: string, canBeSortedAgainst: boolean }[] = [];
   paginatedCollection = [];
@@ -45,11 +46,11 @@ export class DatatableComponent implements OnInit, OnChanges {
     }
 
     if (changesObj.sortByColumns && changesObj.sortByColumns.currentValue.length > 0) {
-      this.generateColumns(this.items);
+      this.generateColumns(this.items[0]);
     }
 
     if (changesObj.sortByAllColumns && changesObj.sortByAllColumns.currentValue === true) {
-      this.generateColumns(this.items);
+      this.generateColumns(this.items[0]);
     }
   }
 
@@ -77,9 +78,13 @@ export class DatatableComponent implements OnInit, OnChanges {
   }
 
   private generateColumns(item) {
+    if (!item) {
+      return;
+    }
+
     this.columnNames = Object.keys(item)
       .map((columnName) => {
-        let canBeSortedAgainst = this.sortByAllColumns ||
+        const canBeSortedAgainst = this.sortByAllColumns ||
           (this.sortByColumns && this.sortByColumns.indexOf(columnName) > -1);
 
         return {

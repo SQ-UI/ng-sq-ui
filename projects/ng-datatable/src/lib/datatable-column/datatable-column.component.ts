@@ -1,4 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, Input,
+         Output, EventEmitter, ViewEncapsulation,
+         OnChanges, SimpleChanges } from '@angular/core';
 import { SortItem } from '../shared/interfaces/sort-item';
 
 @Component({

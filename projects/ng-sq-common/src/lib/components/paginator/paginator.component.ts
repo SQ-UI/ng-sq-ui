@@ -31,7 +31,8 @@ export class PaginatorComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-
+    this.itemsPerPage = this.itemsPerPage || 10;
+    this.maxDisplayedPages = this.maxDisplayedPages || 3;
   }
 
   ngOnChanges(changesObj) {
@@ -61,6 +62,11 @@ export class PaginatorComponent implements OnInit, OnChanges {
         changesObj.lastPage.currentValue > 0) {
       this.updatePageCount(changesObj.lastPage.currentValue);
     }
+
+    if (changesObj.maxDisplayedPages && changesObj.maxDisplayedPages.currentValue &&
+      changesObj.maxDisplayedPages.currentValue > 0) {
+      this.updatePageCount(this.lastPage);
+    }
   }
 
   onPageClick(page) {
@@ -84,7 +90,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
     const pageCount = lastPage || Math.ceil(this.items.length / this.itemsPerPage);
     this.pages = [];
 
-    if (pageCount === 0) {
+    if (!pageCount || this.items.length === 0) {
       return;
     }
 

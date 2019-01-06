@@ -1,4 +1,4 @@
-<ol class="paginator display-flex wrap">
+<ol class="paginator display-flex wrap" *ngIf="pages.length > 0">
   <li>
     <button type="button"
             [disabled]="disablePrevBtns"

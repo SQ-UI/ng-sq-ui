@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { interval } from 'rxjs';
+import { PaginatorConfig} from '@sq-ui/ng-sq-common';
 import * as momentNs from 'moment';
 const moment = momentNs;
 
@@ -84,6 +85,12 @@ lastPage = 10;
     isEditable: false,
   };
   isTimepickerEndabled = true;
+  paginatorConfig: PaginatorConfig = {
+    itemsPerPage: 3,
+    currentPage: 2,
+    maxDisplayedPages: 2,
+    lastPage: 8
+  };
 
   dropdownOptions: LabelValuePair[] = [
     {

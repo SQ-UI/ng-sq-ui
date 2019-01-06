@@ -5,9 +5,7 @@ import {Directive, ElementRef, OnInit} from '@angular/core';
 })
 export class DatatableHeaderDirective implements OnInit {
 
-  constructor(private hostElement: ElementRef) { }
+  constructor() { }
 
-  ngOnInit() {
-    console.log(this.hostElement);
-  }
+  ngOnInit() { }
 }

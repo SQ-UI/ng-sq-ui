@@ -9,8 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "docsify serve docs",
-    "prepare-deps": "ng build ng-sq-common --prod && ng build ng-datetime-picker --prod",
-    "build-libs": "npm run prepare-deps && ng build ng-sq-ui --prod && gulp copy-files-for-packages"
+    "build-libs": "ng build ng-sq-common --prod && ng build ng-datetime-picker --prod && ng build ng-datatable --prod && ng build ng-sq-ui --prod",
+    "serve-libs": "npm run build-libs && ng serve --open",
+    "build-app-prod": "npm run build-libs && ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -47,7 +48,7 @@
     "karma": "3.1.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.0",
-    "karma-jasmine": "~1.1.1",
+    "karma-jasmine": "^2.0.0",
     "karma-jasmine-html-reporter": "^1.4.0",
     "moment": "^2.22.2",
     "ng-packagr": "^4.4.0",
