@@ -56,10 +56,10 @@ export class AppComponent implements OnInit {
   progressBarLoadedLarge = 60;
   datatableItems = [
     {
-      "userId": 1,
-      "id": 1,
-      "title": "delectus aut autem",
-      "completed": false
+      'userId': 1,
+      'id': 1,
+      'title': 'delectus aut autem',
+      'completed': false
     }
   ];
   sortByColumns = ['userId', 'title'];
@@ -149,7 +149,7 @@ lastPage = 10;
       .then(response => response.json())
       .then(json => {
         console.log(json);
-        let first20 = json.slice(0, 20);
+        const first20 = json.slice(0, 20);
         this.datatableItems = [...first20];
       });
     this.keys = Object.keys(this.datatableItems[0]);
@@ -168,7 +168,7 @@ lastPage = 10;
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
       .then(json => {
-        let next = json.slice(0, 60);
+        const next = json.slice(0, 60);
         this.datatableItems = [...this.datatableItems, ...next];
       });
   }
