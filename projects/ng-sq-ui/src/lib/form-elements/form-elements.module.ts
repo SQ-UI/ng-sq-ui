@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //modules
 import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
 
-//components
+// components
 import { InputComponent } from './input/input.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { TagsInputComponent } from './tags-input/tags-input.component';

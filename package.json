@@ -11,7 +11,9 @@
     "docs": "docsify serve docs",
     "build-libs": "ng build ng-sq-common --prod && ng build ng-datetime-picker --prod && ng build ng-datatable --prod && ng build ng-sq-ui --prod",
     "serve-libs": "npm run build-libs && ng serve --open",
-    "build-app-prod": "npm run build-libs && ng build --prod"
+    "build-app-prod": "npm run build-libs && ng build --prod",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +26,7 @@
     "@angular/platform-browser": "^7.0.1",
     "@angular/platform-browser-dynamic": "^7.0.1",
     "@angular/router": "^7.0.1",
+    "all-contributors-cli": "^5.6.0",
     "core-js": "^2.5.4",
     "nyc": "^13.1.0",
     "rxjs": "^6.2.2",
