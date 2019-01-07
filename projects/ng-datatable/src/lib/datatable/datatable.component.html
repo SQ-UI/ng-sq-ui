@@ -1,0 +1,33 @@
+<div class="datatable-wrapper">
+  <table class="datatable">
+    <thead>
+      <tr>
+        <th sq-datatable-column
+            *ngFor="let column of columnNames"
+            [name]="column.name"
+            [isSortable]="column.canBeSortedAgainst"
+            (onSortClicked)="sortByField($event)">
+        </th>
+      </tr>
+      <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
+    </thead>
+    <tbody>
+      <tr sq-datatable-row
+          *ngFor="let rowItem of paginatedCollection"
+          [rowItem]="rowItem"
+          class="row">
+      </tr>
+      <ng-container *ngTemplateOutlet="datatableBodyTemplate"></ng-container>
+    </tbody>
+  </table>
+
+  <sq-paginator #paginator
+                [items]="items"
+                [itemsPerPage]="paginatorConfig.itemsPerPage"
+                [lastPage]="paginatorConfig.lastPage"
+                [currentPage]="paginatorConfig.currentPage"
+                [maxDisplayedPages]="paginatorConfig.maxDisplayedPages"
+                (pageChange)="onPageChange($event)"
+                [(paginatedCollection)]="paginatedCollection">
+  </sq-paginator>
+</div>

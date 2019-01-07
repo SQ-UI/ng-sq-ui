@@ -1,0 +1,44 @@
+.sq ol.paginator {
+  list-style: none;
+  margin: 0;
+  li {
+    position: relative;
+    padding: 5px 8px;
+    min-width: 35px;
+    height: 32px;
+    text-align: center;
+    margin-right: 10px;
+    transition: all 400ms ease-in;
+    &.current {
+      font-weight: bold;
+      background-color: #b7d8d1;
+    }
+    &.truncated {
+      display: none;
+    }
+    &:not(.truncated) + .truncated {
+      pointer-events: none;
+      display: block;
+      font-size: 0;
+      &::before {
+        content: "...";
+        pointer-events: none;
+        font-size: 1.1rem;
+      }
+    }
+    button {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      &[disabled] {
+        cursor: default;
+        .fa {
+          color: #aba9a9;
+        }
+      }
+    }
+  }
+}

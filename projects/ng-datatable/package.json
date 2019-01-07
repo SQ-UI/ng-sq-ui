@@ -1,0 +1,46 @@
+{
+  "name": "@sq-ui/ng-datatable",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": false,
+  "description": "A customizable datatable for Angular by SQ-UI",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SQ-UI/ng-sq-ui.git"
+  },
+  "contributors": [
+    {
+      "name": "Samuil Gospodinov",
+      "email": "samuil4@gmail.com",
+      "url": "https://github.com/samuil4/"
+    },
+    {
+      "name": "Plamena Radneva",
+      "email": "rhythmxholic@gmail.com",
+      "url": "https://github.com/ardentia/"
+    }
+  ],
+  "keywords": [
+    "angular",
+    "angular 6",
+    "angular 7",
+    "angular 2+",
+    "Angular",
+    "datatable",
+    "datagrid",
+    "data table",
+    "data grid",
+    "angular datatable",
+    "ui datatable",
+    "web datatable"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  },
+  "dependencies": {
+    "@sq-ui/ng-sq-common": "^1.0.0",
+    "font-awesome": "4.7.0"
+  },
+  "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
+}

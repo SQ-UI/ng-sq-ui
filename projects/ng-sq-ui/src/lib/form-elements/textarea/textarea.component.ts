@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, OnInit,
          ViewChild, ViewEncapsulation, Renderer2 } from '@angular/core';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {

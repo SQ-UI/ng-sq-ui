@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TypeaheadComponent } from './typeahead.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OutsideClickListenerDirective } from '../../shared/directives/outside-click-listener.directive';
+import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 
 describe('TypeaheadComponent', () => {
   let component: TypeaheadComponent;

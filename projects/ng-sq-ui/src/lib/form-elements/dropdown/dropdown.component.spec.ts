@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropdownComponent } from './dropdown.component';
 import { FormsModule } from '@angular/forms';
-import { OutsideClickListenerDirective } from '../../shared/directives/outside-click-listener.directive';
-import { LabelValuePair } from '../../shared/shared.module';
+import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
+import { LabelValuePair } from '@sq-ui/ng-sq-common';
 
 describe('DropdownComponent', () => {
   let component: DropdownComponent;

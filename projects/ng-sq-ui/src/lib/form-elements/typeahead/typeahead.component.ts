@@ -4,8 +4,8 @@ import { Component, OnInit, Input, OnDestroy,
 } from '@angular/core';
 
 import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
-import { LabelValuePair } from '../../shared/shared.module';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { LabelValuePair } from '@sq-ui/ng-sq-common';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';

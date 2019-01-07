@@ -1,0 +1,20 @@
+<div role="columnheader"
+     class="column"
+     sqOutsideClickListener
+     [listenForOutsideClick]="listenForOutsideClick"
+     (clickOutside)="onClickOutsideComponent()">
+
+  <button type="button" (click)="sort()" *ngIf="isSortable">
+    {{name}}
+
+    <i class="fa"
+       aria-hidden="true"
+       [ngClass]="{
+         'fa-sort': isSortedByAscending == undefined,
+         'fa-sort-asc': isSortedByAscending === true,
+         'fa-sort-desc': isSortedByAscending === false
+       }">
+    </i>
+  </button>
+</div>
+

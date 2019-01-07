@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { LabelValuePair } from 'ng-sq-ui';
+import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { interval } from 'rxjs';
+import { PaginatorConfig} from '@sq-ui/ng-sq-common';
 import * as momentNs from 'moment';
 const moment = momentNs;
 
@@ -53,7 +54,17 @@ export class AppComponent implements OnInit {
   progressBarLoadedSmall = 20;
   progressBarLoadedMedium = 40;
   progressBarLoadedLarge = 60;
-
+  datatableItems = [
+    {
+      'userId': 1,
+      'id': 1,
+      'title': 'delectus aut autem',
+      'completed': false
+    }
+  ];
+  sortByColumns = ['userId', 'title'];
+lastPage = 10;
+  paginatedItems;
   isDatepickerMultipleSelect = true;
   minDate = moment();
   maxDate = moment().add(5, 'years');
@@ -74,6 +85,12 @@ export class AppComponent implements OnInit {
     isEditable: false,
   };
   isTimepickerEndabled = true;
+  paginatorConfig: PaginatorConfig = {
+    itemsPerPage: 3,
+    currentPage: 2,
+    maxDisplayedPages: 2,
+    lastPage: 8
+  };
 
   dropdownOptions: LabelValuePair[] = [
     {
@@ -106,6 +123,8 @@ export class AppComponent implements OnInit {
     });
   }
 
+  keys = [];
+
   ngOnInit() {
     const source = interval(1000);
     source.subscribe((val) => {
@@ -125,6 +144,15 @@ export class AppComponent implements OnInit {
         this.progressBarLoadedLarge = 0;
       }
     });
+
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        const first20 = json.slice(0, 20);
+        this.datatableItems = [...first20];
+      });
+    this.keys = Object.keys(this.datatableItems[0]);
   }
 
   hoursChange($event) {
@@ -133,6 +161,16 @@ export class AppComponent implements OnInit {
 
   minutesChange($event) {
     console.log(`The current chosen minutes are: ${$event}`);
+  }
+
+  fetchDatatableItems($event) {
+    console.log($event);
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => {
+        const next = json.slice(0, 60);
+        this.datatableItems = [...this.datatableItems, ...next];
+      });
   }
 
   searchMethod(query) {
@@ -179,5 +217,6 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     console.log(this.testForm.value);
+    console.log(this.paginatedItems);
   }
 }

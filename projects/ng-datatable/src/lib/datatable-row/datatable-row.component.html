@@ -1,0 +1,7 @@
+
+  <td role="gridcell"
+      *ngFor="let column of columns"
+      [attr.data-heading]="column"
+      class="cell">
+    {{rowItem[column]}}
+  </td>

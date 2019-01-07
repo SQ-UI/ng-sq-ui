@@ -3,7 +3,7 @@ import {
   Input, Output, EventEmitter, AfterViewInit,
   OnChanges
 } from '@angular/core';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarDay, InCalendarPicker } from '../interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
