@@ -13,6 +13,7 @@ node_js:
 branches:
   only:
     - master
+    - develop
 
 before_script:
   - npm install -g @angular/cli
@@ -24,6 +25,8 @@ before_script:
 
 script:
   - npm run build-libs
+  - ng test ng-sq-common 
+  - ng test ng-datatable
   - ng test ng-datetime-picker
   - ng test ng-sq-ui
 

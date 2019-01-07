@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgSqUiModule } from 'ng-sq-ui';
+import { CommonModule } from '@angular/common';
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

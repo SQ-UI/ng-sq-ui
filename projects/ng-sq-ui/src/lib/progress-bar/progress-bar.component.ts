@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { ProgressBarSize, Size } from '../shared/interfaces/sizes';
+import { ProgressBarSize, Size } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-progress-bar',

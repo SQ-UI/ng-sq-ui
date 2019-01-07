@@ -1,11 +1,11 @@
 import {
-  Component, OnInit, Input, Output, forwardRef,
-  ViewEncapsulation, EventEmitter, OnDestroy, OnChanges,
+  Component, OnInit, forwardRef,
+  ViewEncapsulation, EventEmitter, OnDestroy,
   AfterViewInit, ViewChild
 } from '@angular/core';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
-import { DeviceOS } from '../../shared/enums/device-os.enum';
-import { OSDetectorService } from '../../shared/services/os-detector.service';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
+import { DeviceOS } from '@sq-ui/ng-sq-common';
+import { OSDetectorService } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription, fromEvent, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
