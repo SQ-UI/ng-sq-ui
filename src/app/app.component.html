@@ -249,4 +249,27 @@
     </sq-datatable>
 
   </section>
+
+  <section id="sqDatatable2" class="module">
+    <header>
+      <h2>DatatableModule with custom templates</h2>
+    </header>
+
+    <sq-datatable>
+      <ng-template sq-datatable-header>
+        <tr>
+          <th *ngFor="let col of keys">
+            {{col}}-custom
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template sq-datatable-body>
+        <tr *ngFor="let item of datatableItems">
+          <td *ngFor="let prop of keys">
+            {{item[prop]}}-custom
+          </td>
+        </tr>
+      </ng-template>
+    </sq-datatable>
+  </section>
 </div>

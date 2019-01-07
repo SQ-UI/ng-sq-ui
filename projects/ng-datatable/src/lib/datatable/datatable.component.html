@@ -8,8 +8,8 @@
             [isSortable]="column.canBeSortedAgainst"
             (onSortClicked)="sortByField($event)">
         </th>
-        <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
       </tr>
+      <ng-container *ngTemplateOutlet="datatableHeaderTemplate"></ng-container>
     </thead>
     <tbody>
       <tr sq-datatable-row
