@@ -1,9 +1,9 @@
 {
-  "name": "@sq-ui/ng-sq-ui",
-  "version": "1.0.3",
+  "name": "@sq-ui/ng-modal",
+  "version": "1.0.0",
   "license": "MIT",
   "private": false,
-  "description": "Simple Quality UI kit for Angular",
+  "description": "Simple Quality UI Modal for Angular",
   "repository": {
     "type": "git",
     "url": "https://github.com/SQ-UI/ng-sq-ui.git"
@@ -31,35 +31,17 @@
     "ui-kit",
     "ui kit",
     "components",
-    "form",
-    "form elements",
-    "form components",
-    "typeahead",
-    "autocomplete",
-    "grid",
-    "ui components",
-    "ui component",
-    "datetimepicker",
-    "datetime-picker",
-    "timepicker",
-    "time picker",
-    "time-picker",
-    "datetime picker",
-    "date time picker",
-    "date picker",
-    "modal"
+    "modal",
+    "dialog",
+    "popup"
   ],
+  "dependencies": {
+    "font-awesome": "4.7.0",
+    "@sq-ui/ng-sq-common": "^1.0.0"
+  },
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0"
-  },
-  "dependencies": {
-    "immutable": "^3.8.2",
-    "font-awesome": "4.7.0",
-    "@sq-ui/ng-sq-common": "^1.0.0",
-    "@sq-ui/ng-datatable": "^1.0.0",
-    "@sq-ui/ng-modal": "^1.0.0",
-    "@sq-ui/ng-datetime-picker": "^1.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

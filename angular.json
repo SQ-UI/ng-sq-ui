@@ -281,6 +281,41 @@
           }
         }
       }
+    },
+    "ng-modal": {
+      "root": "projects/ng-modal",
+      "sourceRoot": "projects/ng-modal/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-modal/tsconfig.lib.json",
+            "project": "projects/ng-modal/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-modal/src/test.ts",
+            "tsConfig": "projects/ng-modal/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-modal/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-modal/tsconfig.lib.json",
+              "projects/ng-modal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "sq-ui",

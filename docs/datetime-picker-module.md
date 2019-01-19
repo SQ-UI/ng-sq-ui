@@ -19,7 +19,7 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 
 - **`@Input()` name**: `string` - Name of the `'datetime-picker'`. If not provided, a generic name is generated, using the following pattern: `'sq-form-control'` + `new Date().getTime().toString()`.
 - **`@Input()` controlId**: string - Id of the datetime-picker. If not provided, a generic name is generated, using the following pattern: `'sq-form-control'` + `new Date().getTime().toString()`.
-- **`@Input()` locale**: `string` - Accepts any type of valid locale string, as documented in [momnet.js](http://momentjs.com/docs/#/i18n/getting-locale/). Defaults to **'en'** locale.
+- **`@Input()` locale**: `string` - Accepts any type of valid locale string, as documented in [moment.js](http://momentjs.com/docs/#/i18n/getting-locale/). Defaults to **'en'** locale.
 - **`@Input()` maxDate**: `momentNs.Moment` | `Date` - The maximum date which can be selected. All dates beyond this date are disabled (this also includes months and years). **Defaults to `null`**.
 - **`@Input()` minDate**: `momentNs.Moment` | `Date` - The minimum date which can be selected. All dates before this date are disabled (this also includes months and years). **Defaults to `null`**.
 - **`@Input()` isMultipleSelect**: `boolean` - Determines if multiple dates to be chosen. In this mode, the **datetime-picker returns an `array`** of selected dates. **Defaults to `false`**.
