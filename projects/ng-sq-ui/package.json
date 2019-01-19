@@ -54,10 +54,11 @@
     "@angular/core": "^7.0.0"
   },
   "dependencies": {
-    "@sq-ui/ng-sq-common": "^1.0.0",
-    "@sq-ui/ng-datatable": "^1.0.0",
     "immutable": "^3.8.2",
     "font-awesome": "4.7.0",
+    "@sq-ui/ng-sq-common": "^1.0.0",
+    "@sq-ui/ng-datatable": "^1.0.0",
+    "@sq-ui/ng-modal": "^1.0.0",
     "@sq-ui/ng-datetime-picker": "^1.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
