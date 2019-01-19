@@ -36,7 +36,8 @@
     "popup"
   ],
   "dependencies": {
-    "font-awesome": "4.7.0"
+    "font-awesome": "4.7.0",
+    "@sq-ui/ng-sq-common": "^1.0.0"
   },
   "peerDependencies": {
     "@angular/common": "^7.0.0",

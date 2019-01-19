@@ -27,6 +27,8 @@ export class ModalComponent implements OnInit, OnChanges {
   @ViewChild('sqModal') private sqModal: ElementRef;
   @ViewChild('sqModalWindow') private sqModalWindow: ElementRef;
 
+  listenForOutsideClick: boolean = false;
+
   constructor(private renderer: Renderer2) { }
 
   ngOnInit() { }
@@ -43,6 +45,7 @@ export class ModalComponent implements OnInit, OnChanges {
 
         setTimeout(() => {
           this.renderer.removeClass(this.sqModalWindow.nativeElement, entranceAnimationClass);
+          this.listenForOutsideClick = true;
         }, animationDuration);
       } else {
         this.renderer.addClass(this.sqModalWindow.nativeElement, exitAnimationClass);
@@ -61,6 +64,11 @@ export class ModalComponent implements OnInit, OnChanges {
 
   open() {
     this.showChange.emit(true);
+  }
+
+  onClickOutsideComponent() {
+    this.listenForOutsideClick = false;
+    this.close();
   }
 
 }
