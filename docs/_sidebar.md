@@ -5,3 +5,4 @@
 - [DatetimePickerModule](datetime-picker-module.md)
 - [Interfaces](interfaces.md)
 - [About us](about-us.md)
+- [Troubleshooting](troubleshooting.md)

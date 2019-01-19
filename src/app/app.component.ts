@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     }
   ];
   sortByColumns = ['userId', 'title'];
-lastPage = 10;
+  lastPage = 10;
   paginatedItems;
   isDatepickerMultipleSelect = true;
   minDate = moment();
