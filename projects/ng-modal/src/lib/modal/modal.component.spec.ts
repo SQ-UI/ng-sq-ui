@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { ModalComponent } from './modal.component';
 
 describe('ModalComponent', () => {
@@ -8,7 +8,7 @@ describe('ModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalComponent ]
+      declarations: [ ModalComponent, OutsideClickListenerDirective ]
     })
     .compileComponents();
   }));
