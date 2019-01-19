@@ -25,10 +25,11 @@ before_script:
 
 script:
   - npm run build-libs
-  - ng test ng-sq-common 
+  - ng test ng-sq-common
   - ng test ng-datatable
   - ng test ng-datetime-picker
   - ng test ng-sq-ui
+  - ng test ng-modal
 
 after_success:
    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
