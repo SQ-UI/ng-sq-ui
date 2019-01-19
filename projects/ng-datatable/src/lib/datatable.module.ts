@@ -28,4 +28,4 @@ import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DatatableModule { }
+export class NgDatatableModule { }

@@ -8,7 +8,7 @@ addons:
 
 language: node_js
 node_js:
-  - '8.11.3'
+  - '11.7.0'
 
 branches:
   only:
@@ -17,18 +17,17 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
-  - npm install gulp -g
-  - npm install gulp-cli -g
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
 script:
   - npm run build-libs
-  - ng test ng-sq-common 
+  - ng test ng-sq-common
   - ng test ng-datatable
   - ng test ng-datetime-picker
   - ng test ng-sq-ui
+  - ng test ng-modal
 
 after_success:
    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

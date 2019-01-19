@@ -2,11 +2,10 @@
 
 This module consists of two standalone components: **sq-datetime-picker** and **sq-time-picker**. Sq-datetime-picker is a regular datepicker component which also has a built-in sq-time-picker. Both components rely on **moment.js** to work, although input/output values for the datepicker can be configured to work with the JavaScript Date object.
 
+[sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-standalone-calendar?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
+
 ## sq-datetime-picker
-
-![SQ-datetime-picker](_media/sq-standalone-calendar.gif)
-
-![SQ-datetime-picker](_media/sq-datetime-picker.gif)
 
 ```html
 <sq-datetime-picker
@@ -20,7 +19,7 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 
 - **`@Input()` name**: `string` - Name of the `'datetime-picker'`. If not provided, a generic name is generated, using the following pattern: `'sq-form-control'` + `new Date().getTime().toString()`.
 - **`@Input()` controlId**: string - Id of the datetime-picker. If not provided, a generic name is generated, using the following pattern: `'sq-form-control'` + `new Date().getTime().toString()`.
-- **`@Input()` locale**: `string` - Accepts any type of valid locale string, as documented in [momnet.js](http://momentjs.com/docs/#/i18n/getting-locale/). Defaults to **'en'** locale.
+- **`@Input()` locale**: `string` - Accepts any type of valid locale string, as documented in [moment.js](http://momentjs.com/docs/#/i18n/getting-locale/). Defaults to **'en'** locale.
 - **`@Input()` maxDate**: `momentNs.Moment` | `Date` - The maximum date which can be selected. All dates beyond this date are disabled (this also includes months and years). **Defaults to `null`**.
 - **`@Input()` minDate**: `momentNs.Moment` | `Date` - The minimum date which can be selected. All dates before this date are disabled (this also includes months and years). **Defaults to `null`**.
 - **`@Input()` isMultipleSelect**: `boolean` - Determines if multiple dates to be chosen. In this mode, the **datetime-picker returns an `array`** of selected dates. **Defaults to `false`**.
@@ -36,8 +35,6 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 - **`@Output()` dateSelectionChange**: `EventEmitter<momentNs.Moment | Date>` - Event emitter triggered every time the user selects a date from the calendar.
 
 ## sq-time-picker
-
-![SQ-time-picker](_media/sq-time-picker.gif)
 
 ```html
 <sq-time-picker formControlName="standAloneTimepicker"
