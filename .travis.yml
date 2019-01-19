@@ -8,7 +8,7 @@ addons:
 
 language: node_js
 node_js:
-  - 'latest'
+  - '11.7.0'
 
 branches:
   only:
