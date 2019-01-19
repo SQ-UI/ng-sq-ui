@@ -48,6 +48,14 @@
       "@sq-ui/ng-sq-common/*": [
         "dist/ng-sq-common/*",
         "node_modules/@sq-ui/ng-sq-common/*"
+      ],
+      "@sq-ui/ng-modal": [
+        "dist/ng-modal",
+        "node_modules/@sq-ui/ng-modal/"
+      ],
+      "@sq-ui/ng-modal/*": [
+        "dist/ng-modal/*",
+        "node_modules/@sq-ui/ng-modal/*"
       ]
     }
   }
