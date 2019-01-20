@@ -10,3 +10,13 @@
 > I don't see the styles in my project.
 
 ?> Probably you have missed to add the `sq` class to a parent element.
+
+?> Or you have missed to add our css tot he project
+
+```json
+"styles": [
+  "src/styles.css",
+  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
+  "./node_modules/font-awesome/scss/font-awesome.scss"
+],
+```

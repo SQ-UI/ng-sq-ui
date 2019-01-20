@@ -2,7 +2,8 @@
 
 ## sq-modal
 
-![SQ-Modal](_media/sq-modal.gif)
+[sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-modal?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
 
 sq-modal is a generic modal window with content projection.
 
@@ -53,6 +54,32 @@ export class AppComponent {
 
 - **`@Output()` showChange:** `EventEmitter<boolean>` - Callback invoked whenever the modal is shown/hidden.
 
+!> When you dont provide `[(show)]` property binding, you will have to use the template reference methods `open` and `close`.
+
 ### Component methods:
 
 - **close():** `void` - Closes the modal.
+- **open():** `void` - Openss the modal.
+
+?> You can access component methods via template reference.
+
+```typescript
+import { ModalComponent } from '@sq-ui/ng-sq-ui';
+
+@Component({
+  ...
+})
+export class AppComponent {
+  @ViewChild('modal')
+  modalInstance: ModalComponent;
+  
+  show(): void {
+    this.modalInstance.open();
+  }
+
+  hide(): void {
+    this.modalInstance.close();
+  }
+}
+
+```

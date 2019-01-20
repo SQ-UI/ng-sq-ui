@@ -4,5 +4,6 @@
 - [ProgressBarModule](progressbar-module.md)
 - [DatetimePickerModule](datetime-picker-module.md)
 - [Interfaces](interfaces.md)
+- [Upcoming features](upcoming-features.md)
 - [About us](about-us.md)
 - [Troubleshooting](troubleshooting.md)
