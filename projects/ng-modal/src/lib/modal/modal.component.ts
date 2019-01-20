@@ -53,16 +53,19 @@ export class ModalComponent implements OnInit, OnChanges {
         setTimeout(() => {
           this.renderer.addClass(this.sqModal.nativeElement, 'display-none');
           this.renderer.removeClass(this.sqModalWindow.nativeElement, exitAnimationClass);
+          this.listenForOutsideClick = false;
         }, animationDuration);
       }
     }
   }
 
   close() {
+    this.show = false;
     this.showChange.emit(false);
   }
 
   open() {
+    this.show = true;
     this.showChange.emit(true);
   }
 
