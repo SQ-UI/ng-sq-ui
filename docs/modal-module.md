@@ -7,6 +7,8 @@
 
 sq-modal is a generic modal window with content projection.
 
+!> Available also as stand alone package [`@sq-ui/ng-modal`](https://www.npmjs.com/package/@sq-ui/ng-modal)
+
 In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L117)
 
 ```html

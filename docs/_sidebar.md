@@ -7,6 +7,7 @@
 - [Directives](directives.md)
 - [Interfaces](interfaces.md)
 - [Enums](enums.md)
+- [Stand Alone Packages](standalone-packages.md)
 - [Upcoming features](upcoming-features.md)
 - [About us](about-us.md)
 - [Troubleshooting](troubleshooting.md)

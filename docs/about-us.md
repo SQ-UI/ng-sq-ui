@@ -7,3 +7,5 @@
 ## Contribution
 
 Want to file a bug, contribute some code, or improve documentation? Read up on our [Contributing Guide](CONTRIBUTING.md) before making a pull request.
+
+!> Feature requests wanted!

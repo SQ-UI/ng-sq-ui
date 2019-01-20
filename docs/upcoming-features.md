@@ -1,6 +1,6 @@
 # Upcoming features in next versions
 
-## 1.0.7 January
+## 1.1.0 January
 
 ### New features
 > [Data tables](https://github.com/SQ-UI/ng-sq-ui/issues/12)
@@ -14,7 +14,7 @@
 + [ng-sq-modal](https://github.com/SQ-UI/ng-sq-ui/issues/60)
 + [ng-sq-common](https://github.com/SQ-UI/ng-sq-ui/issues/45)
 
-## 1.0.8 February
+## 1.1.1 February
 
 ### New features
 > [Tooltips](https://github.com/SQ-UI/ng-sq-ui/issues/11)
@@ -23,6 +23,6 @@
 
 !> Feature requests wanted!
 
-## 1.0.9 March
+## 1.1.1 March
 
 !> Feature requests wanted!

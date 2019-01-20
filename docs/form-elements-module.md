@@ -286,7 +286,7 @@ For template-driven and reactive-driven code examples, please refer to the examp
 
 ![SQ-Typeahead](_media/sq-type-ahead.gif)
 
-sq-typeahead represents a collection of items shown to the user after they have input query. Its model returns an array of `SearchResult` items the user has selected from the result list. The returned array consists of **copies** of the chosen items.
+sq-typeahead represents a collection of items shown to the user after they have input query. Its model returns an `any[]` items that the user has selected from the result list. The returned array consists of **copies** of the chosen items.
 
 In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L70)
 
@@ -304,10 +304,9 @@ In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/ap
 In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L41)
 
 ```typescript
-import { SearchResult } from 'ng-sq-ui';
 //...
 export class AppComponent {
-  searchResults: SearchResult[];
+  searchResults: any[];
   //...
   constructor(private fb: FormBuilder) {
     this.testForm = this.fb.group({
@@ -347,7 +346,7 @@ export class AppComponent {
 
 - **`@Input()` delay:** `number` - The time in milliseconds to delay the **onUserInputEnd** emitter.
 
-- **`@Input()` searchResults:** `SearchResult[]` - The list of results shown to the user after the last value which **onUserInputEnd** has emitted.
+- **`@Input()` searchResults:** `any[]` - The list of results shown to the user after the last value which **onUserInputEnd** has emitted.
 
 - **`@Input()` multiple:** `boolean` - Allow the user to choose multiple items from the search results list. Defaults to `false`.
 
@@ -361,7 +360,7 @@ export class AppComponent {
 
 ### Component methods:
 
-- **selectSearchResult(result: `SearchResult`):** `void` - Selects a result.
+- **selectSearchResult(result: `any[]`):** `void` - Selects a result.
 - **removeSearchResult(itemIndex: `number`):** `void` - Remove a search item by given index.
 
 For template-driven and reactive-driven code examples, please refer to the examples page.
