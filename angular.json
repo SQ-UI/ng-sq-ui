@@ -293,6 +293,11 @@
           "options": {
             "tsConfig": "projects/ng-modal/tsconfig.lib.json",
             "project": "projects/ng-modal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ng-modal/ng-package.prod.json"
+            }
           }
         },
         "test": {
