@@ -1,0 +1,37 @@
+<section class="section primary">
+  <header>
+    <h2>Overview:</h2>
+  </header>
+  <ul>
+    <li>
+      <span class="emphasis">
+        NPM Package Name:
+      </span>
+      {{npmPackageName}}
+    </li>
+    <li>
+      <span class="emphasis">
+        Module Name:
+      </span>
+      {{moduleName}}
+    </li>
+    <li>
+      <span class="emphasis">
+        Exported Modules:
+      </span>
+      <a *ngFor="let exportedModule of exportedModules"
+          routerLink="{{exportedModule.routeLink}}">
+        {{exportedModule.name}}
+      </a>
+    </li>
+    <li>
+      <span class="emphasis">
+        Depends On:
+      </span>
+      <a *ngFor="let dependency of dependsOn"
+         routerLink="{{dependency.routeLink}}">
+        {{dependency.name}}
+      </a>
+    </li>
+  </ul>
+</section>

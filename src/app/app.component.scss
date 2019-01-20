@@ -6,10 +6,13 @@ $primary-theme-color: rgba(46, 159, 134, 0.69);
 $secondary-theme-color: rgba(18, 125, 104, 0.21);
 $menu-item: rgba(111, 189, 171, 0.61);
 
-
-
-h2 {
+h2, h3 {
   word-wrap: break-word;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .sq-app {
@@ -40,13 +43,6 @@ ul {
   font-size: 18px;
   li {
   padding-bottom: 10px;
-    //&::before {
-    //  content: '\0203A';
-    //  font-size: 28px;
-    //  position: relative;
-    //  top: 1px;
-    //  padding-right: 5px;
-    //}
   }
 }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NavItem } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  navItems = [
+  navItems: NavItem[] = [
     {
       name: 'SQ-UI',
       routeLink: '/sq-ui'
