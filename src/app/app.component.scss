@@ -6,20 +6,57 @@ $primary-theme-color: rgba(46, 159, 134, 0.69);
 $secondary-theme-color: rgba(18, 125, 104, 0.21);
 $menu-item: rgba(111, 189, 171, 0.61);
 
+
+
 h2 {
   word-wrap: break-word;
 }
 
 .sq-app {
   font-family: 'Open Sans', sans-serif;
+  position: relative;
 }
+
+.logo {
+  width: 130px;
+  margin-right: 20px;
+}
+
+.scrollable {
+  overflow-y: auto;
+  padding: 20px;
+  height: calc(100vh - 99px);
+}
+
+.emphasis {
+  display: inline-block;
+  background-color:$secondary-theme-color;
+  padding: 5px;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 18px;
+  li {
+  padding-bottom: 10px;
+    //&::before {
+    //  content: '\0203A';
+    //  font-size: 28px;
+    //  position: relative;
+    //  top: 1px;
+    //  padding-right: 5px;
+    //}
+  }
+}
+
 .app-nav {
-  position: fixed;
+  position: relative;
   left: 0;
   top: 0;
   display: flex;
   width: 100%;
-  padding: 15px 20px;
+  padding: 0 20px;
   align-items: center;
   background-color: $secondary-theme-color;
   .nav-item {
@@ -30,11 +67,7 @@ h2 {
     padding-bottom: 2px;
     text-transform: uppercase;
     font-weight: bold;
-    &.info {
-      padding: 5px;
-      background-color: $primary-theme-color;
-      color: #250202;
-    }
+    font-size: 18px;
     &:not(.info)::after {
       content: '';
       display: block;
@@ -45,7 +78,7 @@ h2 {
       background-color: transparent;
       transition: all 0.2s ease-in;
     }
-    &:not(.info):hover {
+    &:not(.info):hover, &.active  {
       color: #250202;
       &::after {
         color: #250202;

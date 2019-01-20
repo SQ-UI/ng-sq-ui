@@ -1,31 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
   navItems = [
     {
       name: 'SQ-UI',
-      routeLink: '/sq-ui-module'
+      routeLink: '/sq-ui'
     },
     {
       name: 'Common',
-      routeLink: '/sq-common-module'
+      routeLink: '/sq-common'
     },
     {
       name: 'Datetime Picker',
-      routeLink: '/datetime-picker-module'
+      routeLink: '/datetime-picker'
     },
     {
       name: 'Datatable',
-      routeLink: '/datatable-module'
+      routeLink: '/datatable'
     },
     {
       name: 'Modal',
-      routeLink: '/modal-module'
+      routeLink: '/modal'
     }
   ];
 

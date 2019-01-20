@@ -1,21 +1,17 @@
 @import '../projects/ng-sq-ui/src/lib/sq-ui-theme';
 
-body {
-  font-family: 'Quicksand', sans-serif;
-  padding: 15px 30px;
+h2 {
+  font-size: 1.9rem;
+  margin-bottom: 5px;
 }
 
-ul {
-  font-size: 18px;
-}
-
-.module {
-  padding: 20px 0;
-  header h2 {
-    border-bottom: 1px solid rgba(46, 159, 134, 0.69);
-    padding: 3px 0 7px 10px;
-    background-color: rgba(18,125,104,.21);
+.section {
+  padding-bottom: 50px;
+  &.primary > header {
+    border-bottom: 2px solid rgba(46, 159, 134, 0.69);
+    margin-bottom: 20px;
   }
+
 }
 
 form > section {

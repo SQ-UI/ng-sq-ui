@@ -1,12 +1,17 @@
 <section class="sq-app">
   <nav class="app-nav">
-    <div class="nav-item info">Pick a package:</div>
+    <div class="nav-item info">
+      <img src="assets/logo-alt.png" alt="Simple Quality UI" class="logo">
+    </div>
     <a class="nav-item"
         *ngFor="let navItem of navItems"
+        routerLinkActive="active"
         routerLink="{{navItem.routeLink}}">
       {{navItem.name}}
     </a>
   </nav>
 
-  <router-outlet></router-outlet>
+  <div class="scrollable">
+    <router-outlet></router-outlet>
+  </div>
 </section>
