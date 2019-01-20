@@ -8,7 +8,19 @@
 
 > Available interfaces in this package
 
+### CustomEventDetails
+
+?> Used by CustomEventBroadcasterService
+
+```typescript
+interface CustomEventDetails {
+  details: any;
+}
+```
+
 ### LabelValuePair
+
+?> Used for the options in the dropdown alike components.
 
 ```typescript
 interface LabelValuePair {
@@ -18,11 +30,17 @@ interface LabelValuePair {
 ```
 
 ### Size
+
+?> Used by the ProgressBarSize interface.
+
 ```typescript
 type Size = 'small' | 'medium' | 'large';
 ```
 
 ### ProgressBarSize
+
+?> Used for specifying the visual size of the ProgressBar component.
+
 ```typescript
 interface ProgressBarSize {
   size: Size;
@@ -30,6 +48,8 @@ interface ProgressBarSize {
 ```
 
 ### PaginatorConfig
+
+?> Used for configuring the paginator component.
 
 ```typescript
 interface PaginatorConfig {
@@ -45,6 +65,8 @@ interface PaginatorConfig {
 > Available interfaces in this package
 
 ### TimepickerConfig
+
+?> Used for configuring the datetime component.
 
 ```typescript
 interface TimepickerConfig {
