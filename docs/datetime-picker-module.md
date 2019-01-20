@@ -2,11 +2,10 @@
 
 This module consists of two standalone components: **sq-datetime-picker** and **sq-time-picker**. Sq-datetime-picker is a regular datepicker component which also has a built-in sq-time-picker. Both components rely on **moment.js** to work, although input/output values for the datepicker can be configured to work with the JavaScript Date object.
 
+[sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-standalone-calendar?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
+
 ## sq-datetime-picker
-
-![SQ-datetime-picker](_media/sq-standalone-calendar.gif)
-
-![SQ-datetime-picker](_media/sq-datetime-picker.gif)
 
 ```html
 <sq-datetime-picker
@@ -36,8 +35,6 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 - **`@Output()` dateSelectionChange**: `EventEmitter<momentNs.Moment | Date>` - Event emitter triggered every time the user selects a date from the calendar.
 
 ## sq-time-picker
-
-![SQ-time-picker](_media/sq-time-picker.gif)
 
 ```html
 <sq-time-picker formControlName="standAloneTimepicker"

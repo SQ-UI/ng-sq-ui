@@ -2,7 +2,7 @@
 
 ## sq-progress-bar
 
-![SQ-Progress-Bar](_media/sq-progress-bar.gif)
+[sq-progress-bar-example](https://stackblitz.com/edit/ng-sq-ui-progress-bar?ctl=1&embed=1&view=preview ':include :type=iframe')
 
 sq-progress-bar is a highly customizable loader module.
 
