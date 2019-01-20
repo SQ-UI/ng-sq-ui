@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { interval } from 'rxjs';
