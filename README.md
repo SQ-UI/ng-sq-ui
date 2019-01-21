@@ -17,14 +17,20 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included.
 
-- [Home Page](https://sq-ui.github.io/ng-sq-ui)
-- [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
-- [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
-- [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [Progress Bar](https://sq-ui.github.io/ng-sq-ui/#/progressbar-module)
-- [Datetime Picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
-- [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
-- [Live examples](https://ng-sq-ui-examples.surge.sh)
+- [Home Page](http://bit.ly/ng-sq-ui-docs-home)
+- [Installation](http://bit.ly/ng-sq-ui-docs-installation)
+- [Form Elements](http://bit.ly/ng-sq-ui-docs-form-elements)
+- [Modal](http://bit.ly/ng-sq-ui-docs-modal)
+- [Progress Bar](http://bit.ly/ng-sq-ui-docs-progressbar)
+- [Datetime Picker](http://bit.ly/ng-sq-ui-docs-datetime-picker)
+- [Service](http://bit.ly/ng-sq-ui-docs-services)
+- [Directives](http://bit.ly/ng-sq-ui-docs-directives)
+- [Interfaces](http://bit.ly/ng-sq-ui-docs-interfaces)
+- [Enums](http://bit.ly/ng-sq-ui-docs-enums)
+- [Stand Alone Packages](http://bit.ly/ng-sq-ui-docs-standalone-packages)
+- [Upcoming features](http://bit.ly/ng-sq-ui-docs-upcoming-features)
+- [About us](http://bit.ly/ng-sq-ui-docs-about-us)
+- [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 
 ## Installation
 
