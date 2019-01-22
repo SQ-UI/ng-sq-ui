@@ -6,8 +6,43 @@ $primary-theme-color: rgba(46, 159, 134, 0.69);
 $secondary-theme-color: rgba(18, 125, 104, 0.21);
 $menu-item: rgba(111, 189, 171, 0.61);
 
+.section {
+  padding-bottom: 50px;
+  &.primary > header {
+    border-bottom: 2px solid rgba(46, 159, 134, 0.69);
+    margin-bottom: 20px;
+  }
+}
+
+form > section {
+  padding-top: 15px;
+}
+
+.sq .datetime-picker {
+  font-family: 'Nunito', sans-serif;
+}
+
+p {
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+.mg-b50 {
+  margin-bottom: 50px;
+}
+
+.mg-b20 {
+  margin-bottom: 20px;
+}
+
+
 h2, h3 {
   word-wrap: break-word;
+}
+
+h2 {
+  font-size: 1.9rem;
+  margin-bottom: 5px;
 }
 
 h3 {
@@ -46,40 +81,13 @@ ul {
   }
 }
 
-.app-nav {
-  position: relative;
-  left: 0;
-  top: 0;
-  display: flex;
-  width: 100%;
-  padding: 0 20px;
-  align-items: center;
-  background-color: $secondary-theme-color;
-  .nav-item {
-    position: relative;
-    margin-right: 24px;
-    text-decoration: none;
-    display: inline-block;
-    padding-bottom: 2px;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 18px;
-    &:not(.info)::after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: -2px;
-      width: 100%;
-      height: 3px;
-      background-color: transparent;
-      transition: all 0.2s ease-in;
-    }
-    &:not(.info):hover, &.active  {
-      color: #250202;
-      &::after {
-        color: #250202;
-        background-color: $primary-theme-color;
-      }
-    }
+@media (max-width: 800px) {
+  .app-nav .nav-item {
+    font-size: 16px;
+  }
+  .scrollable {
+    height: auto;
   }
 }
+
+
