@@ -38,7 +38,9 @@ export class AppNavComponent implements OnInit {
 
   navigateTo($event, routeLink) {
     $event.preventDefault();
-    this.onClickOutsideComponent();
+    if (this.isNavOpen) {
+      this.onClickOutsideComponent();
+    }
     this.router.navigateByUrl(routeLink);
   }
 
