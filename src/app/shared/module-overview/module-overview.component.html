@@ -19,18 +19,28 @@
       <span class="emphasis">
         Exported Modules:
       </span>
-      <a *ngFor="let exportedModule of exportedModules"
-          routerLink="{{exportedModule.routeLink}}">
-        {{exportedModule.name}}
+      <a *ngFor="let exportedModule of exportedModules; let isLast = last;"
+          class="link-list-item"
+          (click)="scrollTo(exportedModule.fragment)">
+        {{exportedModule.name}}<span *ngIf="!isLast">, </span>
       </a>
     </li>
-    <li>
+    <li *ngIf="dependsOn && dependsOn.length > 0">
       <span class="emphasis">
         Depends On:
       </span>
-      <a *ngFor="let dependency of dependsOn"
+      <a *ngFor="let dependency of dependsOn; let isLast = last;"
+         class="link-list-item"
          routerLink="{{dependency.routeLink}}">
-        {{dependency.name}}
+        {{dependency.name}}<span *ngIf="!isLast">, </span>
+      </a>
+    </li>
+    <li *ngIf="docs">
+      <span class="emphasis">
+        Documentation:
+      </span>
+      <a routerLink="{{docs.routeLink}}">
+        {{docs.name}}
       </a>
     </li>
   </ul>

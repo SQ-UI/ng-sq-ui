@@ -8,9 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CollapseContentComponent implements OnInit {
   @Input() title: string;
 
+  isCollapsed = true;
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
 
 }

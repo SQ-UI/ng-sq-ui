@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'sq-ui',
@@ -11,9 +12,14 @@ import { LabelValuePair } from '@sq-ui/ng-sq-common';
 export class SqUiComponent implements OnInit {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
   moduleName: string = 'NgSqUiModule';
-  exportedModules: NavItem[];
-  dependsOn: NavItem[];
+  exportedModules: NavItem[] = [];
+  dependsOn: NavItem[] = [];
+  docs: NavItem = {name: '', routeLink: ''};
 
+  searchResultsStrings: string[];
+  progressBarLoadedSmall = 20;
+  progressBarLoadedMedium = 40;
+  progressBarLoadedLarge = 60;
   testForm: FormGroup;
   searchResults: any[] = [
     {
@@ -51,8 +57,6 @@ export class SqUiComponent implements OnInit {
     },
   ];
 
-  searchResultsStrings: string[];
-
   dropdownOptions: LabelValuePair[] = [
     {
       label: 'option1',
@@ -85,13 +89,32 @@ export class SqUiComponent implements OnInit {
     this.exportedModules = [
       {
         name: 'FormElementsModule',
-        routeLink: ''
+        fragment: 'forms'
       },
       {
         name: 'ProgressBarModule',
-        routeLink: ''
+        fragment: 'progressBar'
       },
     ];
+
+    const source = interval(1000);
+    source.subscribe((val) => {
+      this.progressBarLoadedSmall += 20;
+      this.progressBarLoadedMedium += 20;
+      this.progressBarLoadedLarge += 20;
+
+      if (this.progressBarLoadedSmall > 100) {
+        this.progressBarLoadedSmall = 0;
+      }
+
+      if (this.progressBarLoadedMedium > 100) {
+        this.progressBarLoadedMedium = 0;
+      }
+
+      if (this.progressBarLoadedLarge > 100) {
+        this.progressBarLoadedLarge = 0;
+      }
+    });
   }
 
   searchMethod(query) {

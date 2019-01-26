@@ -6,88 +6,105 @@ $primary-theme-color: rgba(46, 159, 134, 0.69);
 $secondary-theme-color: rgba(18, 125, 104, 0.21);
 $menu-item: rgba(111, 189, 171, 0.61);
 
-.section {
-  padding-bottom: 50px;
-  &.primary > header {
-    border-bottom: 2px solid rgba(46, 159, 134, 0.69);
-    margin-bottom: 20px;
-  }
-}
-
-form > section {
-  padding-top: 15px;
-}
-
-.sq .datetime-picker {
-  font-family: 'Nunito', sans-serif;
-}
-
-p {
-  font-size: 18px;
-  padding-bottom: 10px;
-}
-
-.mg-b50 {
-  margin-bottom: 50px;
-}
-
-.mg-b20 {
-  margin-bottom: 20px;
-}
-
-
-h2, h3 {
-  word-wrap: break-word;
-}
-
-h2 {
-  font-size: 1.9rem;
-  margin-bottom: 5px;
-}
-
-h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
 .sq-app {
   font-family: 'Open Sans', sans-serif;
   position: relative;
-}
 
-.logo {
-  width: 110px;
-  margin-right: 20px;
-}
-
-.scrollable {
-  overflow-y: auto;
-  padding: 20px;
-  height: calc(100vh - 99px);
-}
-
-.emphasis {
-  display: inline-block;
-  background-color:$secondary-theme-color;
-  padding: 5px;
-  font-weight: bold;
-}
-
-ul {
-  list-style-type: none;
-  font-size: 18px;
-  li {
-  padding-bottom: 10px;
+  .section {
+    padding-bottom: 50px;
+    &.primary > header {
+      border-bottom: 2px solid rgba(46, 159, 134, 0.69);
+      margin-bottom: 20px;
+    }
   }
-}
 
-@media (max-width: 800px) {
-  .app-nav .nav-item {
-    font-size: 16px;
+  form > section {
+    padding-top: 15px;
   }
+
+  .sq .datetime-picker {
+    font-family: 'Nunito', sans-serif;
+  }
+
+  p {
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
+
+  .mg-b50 {
+    margin-bottom: 50px;
+  }
+
+  .mg-b20 {
+    margin-bottom: 20px;
+  }
+
+  h2, h3 {
+    word-wrap: break-word;
+  }
+
+  h2 {
+    font-size: 1.9rem;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 110px;
+    margin-right: 20px;
+  }
+
   .scrollable {
-    height: auto;
+    overflow-y: auto;
+    padding: 20px;
+    height: calc(100vh - 99px);
   }
+
+  .emphasis {
+    display: inline-block;
+    background-color: $secondary-theme-color;
+    padding: 5px;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style-type: none;
+    font-size: 18px;
+    li {
+      padding-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .app-nav .nav-item {
+      font-size: 16px;
+    }
+    .scrollable {
+      height: auto;
+    }
+  }
+
+  @media (max-width: 450px) {
+    font-size: 16px;
+    ul {
+      font-size:  16px;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+    }
+  }
+
 }
 
 

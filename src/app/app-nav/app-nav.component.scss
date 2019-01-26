@@ -16,6 +16,16 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
   display: none;
 }
 
+.close-btn {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 17px;
+  background-color: transparent;
+  border: 0;
+  font-size: 30px;
+}
+
 .app-nav {
   .nav-item {
     position: relative;
@@ -72,6 +82,9 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
       font-size: 33px;
     }
   }
+  .close-btn {
+    display: block;
+  }
   .app-nav {
     flex-direction: column;
     width: 400px;
@@ -87,6 +100,7 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
       margin-bottom: 20px;
     }
     .logo {
+      margin-top: 20px;
       margin-right: 0;
     }
     &.show {
@@ -96,5 +110,12 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
 
   .logo {
     width: 200px;
+  }
+}
+
+@media (max-width: 450px) {
+  .app-nav {
+    width: 100%;
+    left: -100%;
   }
 }

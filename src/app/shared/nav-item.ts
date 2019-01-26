@@ -1,4 +1,5 @@
 export interface NavItem {
   name: string;
-  routeLink: string;
+  routeLink?: string;
+  fragment?: string;
 }

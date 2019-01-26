@@ -15,7 +15,8 @@ export { NavItem } from './nav-item';
     CollapseContentComponent
   ],
   exports: [
-    ModuleOverviewComponent
+    ModuleOverviewComponent,
+    CollapseContentComponent
   ]
 })
 export class SharedModule { }

@@ -12,6 +12,10 @@
        sqOutsideClickListener
        [listenForOutsideClick]="listenForOutsideClick"
        (clickOutside)="onClickOutsideComponent()">
+    <button type="button" class="close-btn" (click)="onClickOutsideComponent()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+
     <div class="nav-item info">
       <img src="assets/logo-alt.png" alt="Simple Quality UI" class="logo">
     </div>
@@ -19,7 +23,7 @@
     <a class="nav-item"
        *ngFor="let navItem of navItems"
        routerLinkActive="active"
-       routerLink="{{navItem.routeLink}}">
+       (click)="navigateTo($event, navItem.routeLink)">
       {{navItem.name}}
     </a>
   </nav>

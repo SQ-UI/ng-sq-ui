@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavItem } from '../nav-item';
+import {ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'sq-module-overview',
@@ -12,10 +13,16 @@ export class ModuleOverviewComponent implements OnInit {
   @Input() moduleName: string;
   @Input() exportedModules: NavItem[];
   @Input() dependsOn: NavItem[];
+  @Input() docs: NavItem;
 
-  constructor() { }
+  constructor(private viewportScroller: ViewportScroller) { }
 
   ngOnInit() {
+  }
+
+  scrollTo(fragment: string) {
+    this.viewportScroller.scrollToAnchor(fragment);
+
   }
 
 }

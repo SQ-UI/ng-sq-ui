@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, ViewEncapsulation, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import { NavItem } from '../shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sq-app-nav',
@@ -13,7 +14,8 @@ export class AppNavComponent implements OnInit {
 
   isNavOpen = false;
   listenForOutsideClick = false;
-  constructor(private renderer: Renderer2) { }
+
+  constructor(private renderer: Renderer2, private router: Router) { }
 
   ngOnInit() {
   }
@@ -32,6 +34,12 @@ export class AppNavComponent implements OnInit {
     setTimeout(() => {
       this.listenForOutsideClick = false;
     }, 300);
+  }
+
+  navigateTo($event, routeLink) {
+    $event.preventDefault();
+    this.onClickOutsideComponent();
+    this.router.navigateByUrl(routeLink);
   }
 
 }

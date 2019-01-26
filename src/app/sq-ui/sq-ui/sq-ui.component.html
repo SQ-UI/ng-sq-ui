@@ -2,7 +2,8 @@
   <sq-module-overview [npmPackageName]="npmPackageName"
                       [moduleName]="moduleName"
                       [exportedModules]="exportedModules"
-                      [dependsOn]="dependsOn">
+                      [dependsOn]="dependsOn"
+                      [docs]="">
   </sq-module-overview>
 
   <section class="section primary">
@@ -10,101 +11,132 @@
       <h2>Exported Modules Preview:</h2>
     </header>
 
-    <section>
-      <header>
-        <h3>FormElementsModule</h3>
-      </header>
+    <sq-collapse-content title="FormElementsModule" id="forms">
+      <div sq-collapse-body>
+        The preview is built using the Reactive approach. The Submit button becomes enabled when all the required fields are filled in. The final input values are console logged on click on the Submit button.
 
-      The preview is built using the Reactive approach. The Submit button becomes enabled when all the required fields are filled in. The final input values are console logged on click on the Submit button.
+        <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="sq">
+          <section id="sqInput">
+            <header>
+              <h4>sq-inut</h4>
+            </header>
 
-      <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="sq">
-        <section id="sqInput">
+            <sq-input formControlName="name" controlLabel="Test Label" controlPlaceholder="Test placeholder" type="text">
+            </sq-input>
+          </section>
+
+          <section id="sqDropdown">
+            <header>
+              <h4>sq-dropdown</h4>
+            </header>
+
+            <sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example"
+                         controlPlaceholder="Select an option">
+            </sq-dropdown>
+          </section>
+
+          <section id="sqTagsInput">
+            <header>
+              <h4>sq-tags-input</h4>
+            </header>
+
+            <sq-tags-input formControlName="tags" controlLabel="Tags" controlPlaceholder="Type something and press Space">
+            </sq-tags-input>
+          </section>
+
+          <section id="sqTypeahead1">
+            <header>
+              <h4>sq-typeahead with array of objects - multiple choice</h4>
+            </header>
+
+            <sq-typeahead name="typeahead1" displayProp="myCustomProp" multiple="true" formControlName="typeahead1"
+                          [searchResults]="searchResults" (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead"
+                          controlPlaceholder="Type something in">
+            </sq-typeahead>
+          </section>
+
+          <section id="sqTypeahead2">
+            <header>
+              <h4>sq-typeahead with array of strings - single choice</h4>
+            </header>
+
+            <sq-typeahead name="typeahead2" formControlName="typeahead2" [searchResults]="searchResultsStrings"
+                          (onUserInputEnd)="searchMethodString($event)" controlLabel="Typeahead" controlPlaceholder="Type something in">
+            </sq-typeahead>
+          </section>
+
+          <section id="sqCheckbox">
+            <header>
+              <h4>sq-checkbox</h4>
+            </header>
+
+            <sq-checkbox controlLabel="Test checkbox" formControlName="checkboxValue">
+            </sq-checkbox>
+          </section>
+
+          <section id="sqTextarea">
+            <header>
+              <h4>sq-textarea</h4>
+            </header>
+
+            <sq-textarea controlLabel="Textarea Label" formControlName="textareaValue" controlPlaceholder="Type something in..."></sq-textarea>
+          </section>
+
+          <section id="sqRadioAndFormGroup">
+            <header>
+              <h4>sq-radiobutton + sq-form-group</h4>
+            </header>
+
+            <sq-form-group groupLabel="Radiobuttons Form Group example">
+              <div class="options row">
+                <sq-radiobutton name="group1" radioValue="value1" [isSelected]="true" formControlName="radioValue">
+                </sq-radiobutton>
+
+                <sq-radiobutton name="group1" radioValue="value2" formControlName="radioValue">
+                </sq-radiobutton>
+
+                <sq-radiobutton name="group1" radioValue="value3" formControlName="radioValue">
+                </sq-radiobutton>
+              </div>
+            </sq-form-group>
+          </section>
+
+          <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
+        </form>
+      </div>
+    </sq-collapse-content>
+
+    <sq-collapse-content title="ProgressBarModule" id="progressBar">
+      <div sq-collapse-body class="sq">
+        <section class="mg-b20">
           <header>
-            <h4>sq-inut</h4>
+            <h4>Small</h4>
           </header>
-
-          <sq-input formControlName="name" controlLabel="Test Label" controlPlaceholder="Test placeholder" type="text">
-          </sq-input>
+          <sq-progress-bar size="small" [loaded]="progressBarLoadedSmall"></sq-progress-bar>
         </section>
 
-        <section id="sqDropdown">
+        <section class="mg-b20">
           <header>
-            <h4>sq-dropdown</h4>
+            <h4>Medium</h4>
           </header>
-
-          <sq-dropdown formControlName="dropdown" [options]="dropdownOptions" controlLabel="Dropdown Example"
-                       controlPlaceholder="Select an option">
-          </sq-dropdown>
+          <sq-progress-bar [loaded]="progressBarLoadedMedium"></sq-progress-bar>
         </section>
 
-        <section id="sqTagsInput">
+        <section class="mg-b20">
           <header>
-            <h4>sq-tags-input</h4>
+            <h4>Large</h4>
           </header>
-
-          <sq-tags-input formControlName="tags" controlLabel="Tags" controlPlaceholder="Type something and press Space">
-          </sq-tags-input>
+          <sq-progress-bar size="large" [loaded]="progressBarLoadedLarge"></sq-progress-bar>
         </section>
 
-        <section id="sqTypeahead1">
+        <section class="mg-b20">
           <header>
-            <h4>sq-typeahead with array of objects - multiple choice</h4>
+            <h4>Infinite</h4>
           </header>
-
-          <sq-typeahead name="typeahead1" displayProp="myCustomProp" multiple="true" formControlName="typeahead1"
-                        [searchResults]="searchResults" (onUserInputEnd)="searchMethod($event)" controlLabel="Typeahead"
-                        controlPlaceholder="Type something in">
-          </sq-typeahead>
+          <sq-progress-bar size="large" [infinite]="true"></sq-progress-bar>
         </section>
+      </div>
+    </sq-collapse-content>
 
-        <section id="sqTypeahead2">
-          <header>
-            <h4>sq-typeahead with array of strings - single choice</h4>
-          </header>
-
-          <sq-typeahead name="typeahead2" formControlName="typeahead2" [searchResults]="searchResultsStrings"
-                        (onUserInputEnd)="searchMethodString($event)" controlLabel="Typeahead" controlPlaceholder="Type something in">
-          </sq-typeahead>
-        </section>
-
-        <section id="sqCheckbox">
-          <header>
-            <h4>sq-checkbox</h4>
-          </header>
-
-          <sq-checkbox controlLabel="Test checkbox" formControlName="checkboxValue">
-          </sq-checkbox>
-        </section>
-
-        <section id="sqTextarea">
-          <header>
-            <h4>sq-textarea</h4>
-          </header>
-
-          <sq-textarea controlLabel="Textarea Label" formControlName="textareaValue" controlPlaceholder="Type something in..."></sq-textarea>
-        </section>
-
-        <section id="sqRadioAndFormGroup">
-          <header>
-            <h4>sq-radiobutton + sq-form-group</h4>
-          </header>
-
-          <sq-form-group groupLabel="Radiobuttons Form Group example">
-            <div class="options row">
-              <sq-radiobutton name="group1" radioValue="value1" [isSelected]="true" formControlName="radioValue">
-              </sq-radiobutton>
-
-              <sq-radiobutton name="group1" radioValue="value2" formControlName="radioValue">
-              </sq-radiobutton>
-
-              <sq-radiobutton name="group1" radioValue="value3" formControlName="radioValue">
-              </sq-radiobutton>
-            </div>
-          </sq-form-group>
-        </section>
-
-        <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
-      </form>
-    </section>
   </section>
 </section>
