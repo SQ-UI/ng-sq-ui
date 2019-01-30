@@ -1,9 +1,11 @@
 <section>
   <sq-module-overview [npmPackageName]="npmPackageName"
                       [moduleName]="moduleName"
-                      [exportedModules]="exportedModules"
+                      [internallyDeclared]="internallyDeclared"
                       [dependsOn]="dependsOn"
-                      [docs]="">
+                      [exports]="exports"
+                      [docs]=""
+                      [liveExample]="">
   </sq-module-overview>
 
   <section class="section primary">
@@ -11,7 +13,7 @@
       <h2>Exported Modules Preview:</h2>
     </header>
 
-    <sq-collapse-content title="FormElementsModule" id="forms">
+    <sq-collapse-content title="FormElementsModule" id="formsModule">
       <div sq-collapse-body>
         The preview is built using the Reactive approach. The Submit button becomes enabled when all the required fields are filled in. The final input values are console logged on click on the Submit button.
 
@@ -106,7 +108,7 @@
       </div>
     </sq-collapse-content>
 
-    <sq-collapse-content title="ProgressBarModule" id="progressBar">
+    <sq-collapse-content title="ProgressBarModule" id="progressBarModule">
       <div sq-collapse-body class="sq">
         <section class="mg-b20">
           <header>

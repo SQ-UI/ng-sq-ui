@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { interval } from 'rxjs';
+import {NgSqCommonModule} from '../../../../projects/ng-sq-common/src/lib/ng-sq-common.module';
+import {NgDatetimePickerModule} from '../../../../projects/ng-datetime-picker/src/lib/ng-datetime-picker.module';
+import {NgDatatableModule} from '../../../../projects/ng-datatable/src/lib/datatable.module';
 
 @Component({
   selector: 'sq-ui',
@@ -12,8 +15,9 @@ import { interval } from 'rxjs';
 export class SqUiComponent implements OnInit {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
   moduleName: string = 'NgSqUiModule';
-  exportedModules: NavItem[] = [];
+  internallyDeclared: NavItem[] = [];
   dependsOn: NavItem[] = [];
+  exports: NavItem[] = [];
   docs: NavItem = {name: '', routeLink: ''};
 
   searchResultsStrings: string[];
@@ -86,16 +90,37 @@ export class SqUiComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.exportedModules = [
+    this.internallyDeclared = [
       {
         name: 'FormElementsModule',
-        fragment: 'forms'
+        fragment: 'formsModule'
       },
       {
         name: 'ProgressBarModule',
-        fragment: 'progressBar'
+        fragment: 'progressBarModule'
       },
     ];
+
+    this.dependsOn = [
+      {
+        name: 'NgSqCommonModule',
+        routeLink: 'sq-common'
+      },
+      {
+        name: 'NgDatetimePickerModule',
+        routeLink: 'datetime-picker'
+      },
+      {
+        name: 'NgDatatableModule',
+        routeLink: 'datatable'
+      },
+      {
+        name: 'NgModalModule',
+        routeLink: 'modal'
+      }
+    ];
+
+    this.exports = this.internallyDeclared.concat(this.dependsOn);
 
     const source = interval(1000);
     source.subscribe((val) => {

@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import { NavItem } from '../nav-item';
-import {ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'sq-module-overview',
@@ -11,18 +10,19 @@ import {ViewportScroller} from '@angular/common';
 export class ModuleOverviewComponent implements OnInit {
   @Input() npmPackageName: string;
   @Input() moduleName: string;
-  @Input() exportedModules: NavItem[];
+  @Input() internallyDeclared: NavItem[];
   @Input() dependsOn: NavItem[];
+  @Input() exports: NavItem[];
   @Input() docs: NavItem;
+  @Input() liveExample: NavItem;
 
-  constructor(private viewportScroller: ViewportScroller) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   scrollTo(fragment: string) {
-    this.viewportScroller.scrollToAnchor(fragment);
-
+    document.getElementById(fragment).scrollIntoView();
   }
 
 }

@@ -17,12 +17,13 @@
     </li>
     <li>
       <span class="emphasis">
-        Exported Modules:
+        Internally Declared Modules:
       </span>
-      <a *ngFor="let exportedModule of exportedModules; let isLast = last;"
+      <a *ngFor="let internalModule of internallyDeclared; let isLast = last;"
+          href="javascript:;"
           class="link-list-item"
-          (click)="scrollTo(exportedModule.fragment)">
-        {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+          (click)="scrollTo(internalModule.fragment)">
+        {{internalModule.name}}<span *ngIf="!isLast">, </span>
       </a>
     </li>
     <li *ngIf="dependsOn && dependsOn.length > 0">
@@ -35,12 +36,30 @@
         {{dependency.name}}<span *ngIf="!isLast">, </span>
       </a>
     </li>
+    <li *ngIf="exports && exports.length > 0">
+      <span class="emphasis">
+        Exports:
+      </span>
+      <a *ngFor="let exportedModule of exports; let isLast = last;"
+         class="link-list-item"
+         routerLink="{{exportedModule.routeLink}}">
+        {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+      </a>
+    </li>
     <li *ngIf="docs">
       <span class="emphasis">
         Documentation:
       </span>
       <a routerLink="{{docs.routeLink}}">
         {{docs.name}}
+      </a>
+    </li>
+    <li *ngIf="liveExample">
+      <span class="emphasis">
+        Live Example:
+      </span>
+      <a routerLink="{{liveExample.routeLink}}">
+        {{liveExample.name}}
       </a>
     </li>
   </ul>

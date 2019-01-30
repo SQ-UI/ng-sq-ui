@@ -23,6 +23,7 @@
     <a class="nav-item"
        *ngFor="let navItem of navItems"
        routerLinkActive="active"
+       routerLink="{{navItem.routeLink}}"
        (click)="navigateTo($event, navItem.routeLink)">
       {{navItem.name}}
     </a>
