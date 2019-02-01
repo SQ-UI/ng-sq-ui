@@ -1,4 +1,4 @@
-<section class="section primary">
+<section class="section primary module-overview">
   <header>
     <h2>Overview:</h2>
   </header>
@@ -40,11 +40,27 @@
       <span class="emphasis">
         Exports:
       </span>
-      <a *ngFor="let exportedModule of exports; let isLast = last;"
-         class="link-list-item"
-         routerLink="{{exportedModule.routeLink}}">
-        {{exportedModule.name}}<span *ngIf="!isLast">, </span>
-      </a>
+
+      <ng-container *ngFor="let exportedModule of exports; let isLast = last;">
+        <ng-container
+          *ngIf="exportedModule.fragment; then fragmentLink; else externalLink">
+        </ng-container>
+
+        <ng-template #externalLink>
+          <a class="link-list-item"
+             routerLink="{{exportedModule.routeLink}}">
+            {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+          </a>
+        </ng-template>
+
+        <ng-template #fragmentLink>
+          <a href="javascript:;"
+             class="link-list-item"
+             (click)="scrollTo(exportedModule.fragment)">
+            {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+          </a>
+        </ng-template>
+      </ng-container>
     </li>
     <li *ngIf="docs">
       <span class="emphasis">

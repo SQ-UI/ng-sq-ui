@@ -1,4 +1,22 @@
-.link-list-item {
-  display: inline-block;
-  margin-left: 10px;
+.module-overview {
+  .link-list-item {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 760px) {
+    .emphasis {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    ul li {
+      padding-bottom: 25px;
+    }
+
+    .link-list-item {
+      margin-left: 0;
+      margin-right: 10px;
+    }
+  }
 }
