@@ -41,7 +41,7 @@ export class AppNavComponent implements OnInit {
     if (this.isNavOpen) {
       this.onClickOutsideComponent();
     }
-    this.router.navigateByUrl(routeLink);
+    this.router.navigateByUrl('/' + routeLink);
   }
 
 }

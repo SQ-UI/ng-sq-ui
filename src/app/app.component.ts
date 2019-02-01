@@ -11,23 +11,23 @@ export class AppComponent implements OnInit {
   navItems: NavItem[] = [
     {
       name: 'SQ-UI',
-      routeLink: '/sq-ui'
+      routeLink: 'sq-ui'
     },
     {
       name: 'Common',
-      routeLink: '/sq-common'
+      routeLink: 'sq-common'
     },
     {
       name: 'Datetime Picker',
-      routeLink: '/datetime-picker'
+      routeLink: 'datetime-picker'
     },
     {
       name: 'Datatable',
-      routeLink: '/datatable'
+      routeLink: 'datatable'
     },
     {
       name: 'Modal',
-      routeLink: '/modal'
+      routeLink: 'modal'
     }
   ];
 

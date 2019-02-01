@@ -10,6 +10,7 @@ export class SqCommonComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
