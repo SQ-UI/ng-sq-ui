@@ -15,7 +15,8 @@
 
     <sq-collapse-content title="FormElementsModule" id="formsModule">
       <div sq-collapse-body>
-        The preview is built using the Reactive approach. The Submit button becomes enabled when all the required fields are filled in. The final input values are console logged on click on the Submit button.
+        The preview is built using the Reactive approach. The final input values are console logged on click on the Submit button.
+        Changes to the standalone timepicker are also console logged.
 
         <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="sq">
           <section id="sqInput">

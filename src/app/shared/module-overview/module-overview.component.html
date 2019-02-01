@@ -15,7 +15,7 @@
       </span>
       {{moduleName}}
     </li>
-    <li>
+    <li *ngIf="internallyDeclared && internallyDeclared.length > 0">
       <span class="emphasis">
         Internally Declared Modules:
       </span>

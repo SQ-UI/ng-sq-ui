@@ -1,0 +1,76 @@
+<section>
+  <sq-module-overview [npmPackageName]="npmPackageName"
+                      [moduleName]="moduleName"
+                      [dependsOn]="dependsOn"
+                      [exports]="exports"
+                      [docs]=""
+                      [liveExample]="">
+  </sq-module-overview>
+
+  <section class="section primary">
+    <header>
+      <h2>Exported Components Preview:</h2>
+    </header>
+
+    <form [formGroup]="testForm" class="sq" (ngSubmit)="onSubmit()">
+      <p>
+        The preview is built using the Reactive approach. The final input values are console logged on click on the Submit button.
+      </p>
+
+      <sq-collapse-content title="sq-datetime-picker" id="datepicker">
+        <div sq-collapse-body>
+          <section class="mg-b50">
+            <header>
+              <h4>Standalone Datepicker (multiple select enabled)</h4>
+            </header>
+
+            <sq-datetime-picker [maxDate]="maxDate"
+                                [minDate]="minDate"
+                                format="MM/DD/YYYY"
+                                formControlName="standAloneDatepicker"
+                                [isMultipleSelect]="isDatepickerMultipleSelect">
+            </sq-datetime-picker>
+          </section>
+
+          <section class="mg-b50">
+            <header>
+              <h4>Datepicker (multiple select disabled) + Timepicker (meridiem enabled)</h4>
+            </header>
+
+            <sq-datetime-picker format="DD-MM-YYYY hh:mm"
+                                formControlName="datetimePicker"
+                                [isTimepickerEnabled]="isTimepickerEndabled"
+                                [timepickerConfig]="inlineTimepickerConfig">
+            </sq-datetime-picker>
+          </section>
+        </div>
+      </sq-collapse-content>
+
+      <sq-collapse-content title="sq-time-picker" id="timepicker">
+        <div sq-collapse-body class="sq">
+          <section class="mg-b50">
+            <header>
+              <h4>Standalone Timepicker (meridiem disabled)</h4>
+            </header>
+
+            <div style="max-width: 410px;">
+              <sq-time-picker formControlName="standAloneTimepicker"
+                              (hoursChange)="hoursChange($event)"
+                              (minutesChange)="minutesChange($event)"
+                              timeObjectType="string"
+                              [hours]="standAloneTimepicker.hours"
+                              [minutes]="standAloneTimepicker.minutes"
+                              [hourStep]="standAloneTimepicker.hourStep"
+                              [minuteStep]="standAloneTimepicker.minuteStep"
+                              [isEditable]="standAloneTimepicker.isEditable"
+                              [isMeridiem]="standAloneTimepicker.isMeridiem">
+              </sq-time-picker>
+            </div>
+          </section>
+        </div>
+      </sq-collapse-content>
+
+      <sq-button type="submit">Submit</sq-button>
+    </form>
+  </section>
+</section>

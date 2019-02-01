@@ -104,19 +104,19 @@ export class SqUiComponent implements OnInit {
     this.dependsOn = [
       {
         name: 'NgSqCommonModule',
-        routeLink: 'sq-common'
+        routeLink: '/sq-common'
       },
       {
         name: 'NgDatetimePickerModule',
-        routeLink: 'datetime-picker'
+        routeLink: '/datetime-picker'
       },
       {
         name: 'NgDatatableModule',
-        routeLink: 'datatable'
+        routeLink: '/datatable'
       },
       {
         name: 'NgModalModule',
-        routeLink: 'modal'
+        routeLink: '/modal'
       }
     ];
 
