@@ -14,6 +14,10 @@ export const appRoutes: Route[] = [
     loadChildren: './datetime-picker/datetime-picker.module#DatetimePickerModule'
   },
   {
+    path: 'modal',
+    loadChildren: './modal/modal.module#ModalModule'
+  },
+  {
     path: '',
     redirectTo: '/sq-ui',
     pathMatch: 'full'

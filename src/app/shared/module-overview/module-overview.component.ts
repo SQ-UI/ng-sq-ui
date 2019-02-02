@@ -13,8 +13,8 @@ export class ModuleOverviewComponent implements OnInit {
   @Input() internallyDeclared: NavItem[];
   @Input() dependsOn: NavItem[];
   @Input() exports: NavItem[];
-  @Input() docs: NavItem;
-  @Input() liveExample: NavItem;
+  @Input() docs: NavItem[];
+  @Input() liveExamples: NavItem[];
 
   constructor() { }
 

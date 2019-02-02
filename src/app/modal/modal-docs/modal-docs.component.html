@@ -1,0 +1,46 @@
+<section class="module-overview">
+  <sq-module-overview [npmPackageName]="npmPackageName"
+                      [moduleName]="moduleName"
+                      [internallyDeclared]="internallyDeclared"
+                      [dependsOn]="dependsOn"
+                      [exports]="exports"
+                      [docs]="docs"
+                      [liveExamples]="">
+  </sq-module-overview>
+
+  <section class="section primary">
+    <header>
+      <h2>Exported Components Preview:</h2>
+    </header>
+
+    <sq-collapse-content title="sq-modal" id="modal">
+      <div sq-collapse-body class="sq">
+        <section class="mg-b20">
+          <sq-button (click)="showModal=!showModal">Show modal</sq-button>
+
+          <sq-modal [(show)]="showModal">
+            <div sq-modal-title>
+              <strong>Modal title</strong>
+            </div>
+
+            <div sq-modal-body>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi harum natus quidem recusandae voluptatibus.
+              Animi architecto
+              dolor est et in laborum neque, nisi non nulla, sunt totam velit vero voluptatibus.
+            </div>
+
+            <div sq-modal-footer>
+              <button type="button" (click)="confirmationBtnHandler()">
+                <span class="inner">Confirm</span>
+              </button>
+
+              <button type="button" (click)="rejectionBtnHandler()">
+                <span class="inner">Reject</span>
+              </button>
+            </div>
+          </sq-modal>
+        </section>
+      </div>
+    </sq-collapse-content>
+  </section>
+</section>

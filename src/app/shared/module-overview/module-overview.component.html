@@ -62,20 +62,27 @@
         </ng-template>
       </ng-container>
     </li>
-    <li *ngIf="docs">
+    <li *ngIf="docs && docs.length > 0">
       <span class="emphasis">
         Documentation:
       </span>
-      <a routerLink="{{docs.routeLink}}">
-        {{docs.name}}
+      <a *ngFor="let doc of docs; let isLast = last;"
+         target="_blank"
+         class="link-list-item"
+         [href]="doc.routeLink">{{doc.name}}<span *ngIf="!isLast">, </span>
+        <i class="fa fa-external-link" aria-hidden="true"></i>
       </a>
     </li>
-    <li *ngIf="liveExample">
+    <li *ngIf="liveExamples && liveExamples.length > 0">
       <span class="emphasis">
         Live Example:
       </span>
-      <a routerLink="{{liveExample.routeLink}}">
-        {{liveExample.name}}
+      <a *ngFor="let example of liveExamples; let isLast = last;"
+         target="_blank"
+         class="link-list-item"
+         [href]="example.routeLink">
+        {{example.name}}<span *ngIf="!isLast">, </span>
+        <i class="fa fa-external-link" aria-hidden="true"></i>
       </a>
     </li>
   </ul>
