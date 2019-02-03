@@ -1,14 +1,10 @@
 # Directives
 
-## @sq-ui/ng-sq-ui
+!> If you use [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) package all directives should be available to you
 
-> If you use this package all directives should be available to you
+!> Available directives in [@sq-ui/ng-sq-common](https://www.npmjs.com/package/@sq-ui/ng-sq-common) package
 
-## @sq-ui/ng-sq-common
-
-> Available directives in this package
-
-### OutsideClickListenerDirective
+## OutsideClickListenerDirective
 
 ?> Use to track clicks outside of an element.
 

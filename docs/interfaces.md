@@ -1,14 +1,10 @@
 # Interfaces
 
-## @sq-ui/ng-sq-ui
+!> If you use [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) package all interfaces should be available to you
 
-> If you use this package all interfaces should be available to you
+!> Available interfaces in [@sq-ui/ng-sq-common](https://www.npmjs.com/package/@sq-ui/ng-sq-common) package
 
-## @sq-ui/ng-sq-common
-
-> Available interfaces in this package
-
-### CustomEventDetails
+## CustomEventDetails
 
 ?> Used by CustomEventBroadcasterService
 
@@ -18,7 +14,7 @@ interface CustomEventDetails {
 }
 ```
 
-### LabelValuePair
+## LabelValuePair
 
 ?> Used for the options in the dropdown-like components.
 
@@ -29,7 +25,7 @@ interface LabelValuePair {
 }
 ```
 
-### Size
+## Size
 
 ?> Used by the ProgressBarSize interface.
 
@@ -37,7 +33,7 @@ interface LabelValuePair {
 type Size = 'small' | 'medium' | 'large';
 ```
 
-### ProgressBarSize
+## ProgressBarSize
 
 ?> Used for specifying the visual size of the ProgressBar component.
 
@@ -47,7 +43,7 @@ interface ProgressBarSize {
 }
 ```
 
-### PaginatorConfig
+## PaginatorConfig
 
 ?> Used for configuring the paginator component.
 
@@ -60,11 +56,9 @@ interface PaginatorConfig {
 }
 ```
 
-## @sq-ui/ng-datetime-picker
+!> Available interfaces in [@sq-ui/ng-datetime-picker](https://www.npmjs.com/package/@sq-ui/ng-datetime-picker) package
 
-> Available interfaces in this package
-
-### TimepickerConfig
+## TimepickerConfig
 
 ?> Used for configuring the datetime component.
 
@@ -79,9 +73,9 @@ interface TimepickerConfig {
 }
 ```
 
-## @sq-ui/ng-datatable
+!> Available interfaces in [@sq-ui/ng-datatable](https://www.npmjs.com/package/@sq-ui/@sq-ui/ng-datatable) package
 
-### DatatableColumn
+## DatatableColumn
 
 ?> Used for building column data consumed by sq-datatable-column.
 
@@ -92,7 +86,7 @@ interface DatatableColumn {
 }
 ```
 
-### SortItem
+## SortItem
 
 ?> Object emitted by sq-datatable-column when the sorting functionality has been triggered.
 

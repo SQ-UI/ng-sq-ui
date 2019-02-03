@@ -2,7 +2,7 @@
 
 ## sq-datatable
 
-[sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-modal?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+[sq-form-components-example](https://stackblitz.com/edit/ng-sq-datatable?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
 
 sq-datatable is a highly customizable component which builds a table based on array of objects.

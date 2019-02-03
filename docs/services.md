@@ -1,14 +1,10 @@
 # Services
 
-## @sq-ui/ng-sq-ui
+!> If you use [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) package all services should be available to you
 
-> If you use this package all services should be available to you
+!> Available services in [@sq-ui/ng-sq-common](https://www.npmjs.com/package/@sq-ui/ng-sq-common) package
 
-## @sq-ui/ng-sq-common
-
-> Available services in this package
-
-### OSDetectorService
+## OSDetectorService
 
 - **getDeviceOS():** [`DeviceOS`](enums.md??id=deviceos).
 
@@ -18,7 +14,7 @@ class OSDetectorService {
 }
 ```
 
-### CustomEventBroadcasterService
+## CustomEventBroadcasterService
 
 - **subscribeFor(`eventName`, `callback`):** `Subscription`.
 - **broadcastEvent(`eventName`, [`eventDetails`](interfaces.md?id=customeventdetails)):** `void`.

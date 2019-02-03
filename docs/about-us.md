@@ -1,8 +1,12 @@
 ## Contacts
 
-> Join us on <a href="https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg">slack</a>
+> Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-ui-repo">SQ slack channel</a>.
 
 > Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
+
+## Contributers 
+
+> Star our repo and post a message on slack :) to get free stickers.
 
 ## Contribution
 
