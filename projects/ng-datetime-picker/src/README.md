@@ -64,12 +64,6 @@ To use our styling just add the `class="sq"` on a parent element.
 </body>
 ```
 
-## Dependencies
-
-- font-awesome
-- immutable.js
-- moment.js
-
 ## Support
 
 - Use @sq-ui/ng-datetime-picker in your daily work.

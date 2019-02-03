@@ -72,11 +72,6 @@ To use our styling just add the `class="sq"` on a parent element.
 </body>
 ```
 
-## Dependencies
-
-- font-awesome
-- @sq-ui/ng-sq-common
-
 ## Support
 
 - Use NG-SQ-UI in your daily work.

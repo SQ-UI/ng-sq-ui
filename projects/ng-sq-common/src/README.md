@@ -22,13 +22,13 @@ Any types of public interfaces and services are also included.
 ## Installation
 
 ```
-npm i @sq-ui/ng-modal --save
+npm i @sq-ui/ng-sq-common --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-modal
+yarn add @sq-ui/ng-sq-common
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ yarn add @sq-ui/ng-modal
 Import the NgSqUiModule in your module:
 
 ```
-import { NgModalModule } from '@sq-ui/ng-modal';
+import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
 ```
 
 and then include it in the `imports` array of your @NgModule() decorator:
@@ -45,7 +45,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
 @NgModule({
   declarations: [ //... ],
   imports: [
-    NgModalModule,
+    NgSqCommonModule,
     //...
   ],
   //...
@@ -68,14 +68,9 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ```html
 <body class="sq">
-  <sq-modal>...</sq-modal>
+  <sq-paginator ...></sq-paginator>
 </body>
 ```
-
-## Dependencies
-
-- font-awesome
-- @sq-ui/ng-sq-common
 
 ## Support
 

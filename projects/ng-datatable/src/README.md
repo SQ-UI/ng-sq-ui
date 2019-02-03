@@ -2,7 +2,7 @@
 
 > Simple Quality UI kit for Angular
 
-> build by developers for developers!
+> built by developers for developers!
 
 ## Docs
 
@@ -22,21 +22,21 @@ Any types of public interfaces and services are also included.
 ## Installation
 
 ```
-npm i @sq-ui/ng-modal --save
+npm i @sq-ui/ng-datatable --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-modal
+yarn add @sq-ui/ng-datatable
 ```
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import the NgDatatableModule in your module:
 
 ```
-import { NgModalModule } from '@sq-ui/ng-modal';
+import { NgDatatableModule } from '@sq-ui/ng-datatable';
 ```
 
 and then include it in the `imports` array of your @NgModule() decorator:
@@ -45,7 +45,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
 @NgModule({
   declarations: [ //... ],
   imports: [
-    NgModalModule,
+    NgDatatableModule,
     //...
   ],
   //...
@@ -68,14 +68,9 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ```html
 <body class="sq">
-  <sq-modal>...</sq-modal>
+  <sq-datatable>...</sq-datatable>
 </body>
 ```
-
-## Dependencies
-
-- font-awesome
-- @sq-ui/ng-sq-common
 
 ## Support
 
