@@ -30,9 +30,11 @@
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
 
-    <div class="nav-item info">
+    <a routerLink="/about"
+       (click)="navigateTo($event, '/about')"
+       class="nav-item info">
       <img src="assets/logo-alt.png" alt="Simple Quality UI" class="logo">
-    </div>
+    </a>
 
     <div class="display-flex space-between nav-items">
       <div>

@@ -2,6 +2,10 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
+    path: 'about',
+    loadChildren: './home/home.module#HomeModule'
+  },
+  {
     path: 'sq-ui',
     loadChildren: './sq-ui/sq-ui.module#SqUiModule'
   },
@@ -23,7 +27,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    redirectTo: '/sq-ui',
+    redirectTo: '/about',
     pathMatch: 'full'
   }
 ];
