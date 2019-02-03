@@ -10,7 +10,7 @@
 
 ### OutsideClickListenerDirective
 
-?> Use to track outside clicks of element. Usefull when you need to track when to close something.
+?> Use to track clicks outside of an element.
 
 ```html
 <div #sqExample

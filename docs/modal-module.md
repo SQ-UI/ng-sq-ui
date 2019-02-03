@@ -61,7 +61,7 @@ export class AppComponent {
 ### Component methods:
 
 - **close():** `void` - Closes the modal.
-- **open():** `void` - Openss the modal.
+- **open():** `void` - Opens the modal.
 
 ?> You can access component methods via template reference.
 

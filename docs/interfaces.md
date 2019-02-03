@@ -20,7 +20,7 @@ interface CustomEventDetails {
 
 ### LabelValuePair
 
-?> Used for the options in the dropdown alike components.
+?> Used for the options in the dropdown-like components.
 
 ```typescript
 interface LabelValuePair {
@@ -76,5 +76,29 @@ interface TimepickerConfig {
   minutes?: number;
   isMeridiem?: boolean;
   isEditable?: boolean;
+}
+```
+
+## @sq-ui/ng-datatable
+
+### DatatableColumn
+
+?> Used for building column data consumed by sq-datatable-column.
+
+```typescript
+interface DatatableColumn {
+  name: string;
+  canBeSortedAgainst: boolean;
+}
+```
+
+### SortItem
+
+?> Object emitted by sq-datatable-column when the sorting functionality has been triggered.
+
+```typescript
+interface SortItem {
+  name: string;
+  isSortedByAscending: boolean;
 }
 ```

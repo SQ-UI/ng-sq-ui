@@ -1,6 +1,6 @@
 # List of all modules available as standalone packages
 
-?> When you don't need everithig :)
+?> When you don't need everything :)
 
 ## Common module [`@sq-ui/ng-sq-common`](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
 
