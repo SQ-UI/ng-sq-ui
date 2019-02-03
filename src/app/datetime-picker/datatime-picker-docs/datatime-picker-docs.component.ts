@@ -30,6 +30,7 @@ export class DatatimePickerDocsComponent implements OnInit {
       name: 'sq-time-picker',
       fragment: 'timepicker'
     },
+    { name: 'TimepickerConfig (interface)' }
   ];
 
   docs: NavItem[] = [

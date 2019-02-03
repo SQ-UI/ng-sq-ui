@@ -7,83 +7,109 @@
       <span class="emphasis">
         NPM Package Name:
       </span>
-      {{npmPackageName}}
+
+      <span class="link-list-item">
+        {{npmPackageName}}
+      </span>
     </li>
     <li>
       <span class="emphasis">
-        Module Name:
+        Exported As:
       </span>
-      {{moduleName}}
+
+      <span class="link-list-item">
+        {{moduleName}}
+      </span>
     </li>
     <li *ngIf="internallyDeclared && internallyDeclared.length > 0">
-      <span class="emphasis">
+      <div class="emphasis">
         Internally Declared Modules:
-      </span>
-      <a *ngFor="let internalModule of internallyDeclared; let isLast = last;"
-          href="javascript:;"
-          class="link-list-item"
-          (click)="scrollTo(internalModule.fragment)">
-        {{internalModule.name}}<span *ngIf="!isLast">, </span>
-      </a>
+      </div>
+
+      <div>
+        <a *ngFor="let internalModule of internallyDeclared; let isLast = last;"
+            href="javascript:;"
+            class="link-list-item"
+            (click)="scrollTo(internalModule.fragment)">
+          {{internalModule.name}}<span *ngIf="!isLast">, </span>
+        </a>
+      </div>
     </li>
     <li *ngIf="dependsOn && dependsOn.length > 0">
-      <span class="emphasis">
+      <div class="emphasis">
         Depends On:
-      </span>
-      <a *ngFor="let dependency of dependsOn; let isLast = last;"
-         class="link-list-item"
-         routerLink="{{dependency.routeLink}}">
-        {{dependency.name}}<span *ngIf="!isLast">, </span>
-      </a>
+      </div>
+
+      <div>
+        <a *ngFor="let dependency of dependsOn; let isLast = last;"
+           class="link-list-item"
+           routerLink="{{dependency.routeLink}}">
+          {{dependency.name}}<span *ngIf="!isLast">, </span>
+        </a>
+      </div>
     </li>
     <li *ngIf="exports && exports.length > 0">
-      <span class="emphasis">
+      <div class="emphasis">
         Exports:
-      </span>
+      </div>
 
-      <ng-container *ngFor="let exportedModule of exports; let isLast = last;">
-        <ng-container
-          *ngIf="exportedModule.fragment; then fragmentLink; else externalLink">
+      <div>
+        <ng-container *ngFor="let exportedModule of exports; let isLast = last;">
+          <ng-container
+            *ngIf="exportedModule.fragment; then fragmentLink; else externalLink">
+          </ng-container>
+
+          <ng-template #externalLink>
+            <a *ngIf="exportedModule.routeLink"
+               class="link-list-item"
+               routerLink="{{exportedModule.routeLink}}">
+              {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+            </a>
+
+            <span *ngIf="!exportedModule.routeLink"
+               class="link-list-item">
+              {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+            </span>
+          </ng-template>
+
+          <ng-template #fragmentLink>
+            <a href="javascript:;"
+               class="link-list-item"
+               (click)="scrollTo(exportedModule.fragment)">
+              {{exportedModule.name}}<span *ngIf="!isLast">, </span>
+            </a>
+          </ng-template>
         </ng-container>
-
-        <ng-template #externalLink>
-          <a class="link-list-item"
-             routerLink="{{exportedModule.routeLink}}">
-            {{exportedModule.name}}<span *ngIf="!isLast">, </span>
-          </a>
-        </ng-template>
-
-        <ng-template #fragmentLink>
-          <a href="javascript:;"
-             class="link-list-item"
-             (click)="scrollTo(exportedModule.fragment)">
-            {{exportedModule.name}}<span *ngIf="!isLast">, </span>
-          </a>
-        </ng-template>
-      </ng-container>
+      </div>
     </li>
     <li *ngIf="docs && docs.length > 0">
-      <span class="emphasis">
+      <div class="emphasis">
         Documentation:
-      </span>
-      <a *ngFor="let doc of docs; let isLast = last;"
-         target="_blank"
-         class="link-list-item"
-         [href]="doc.routeLink">{{doc.name}}
-        <i class="fa fa-external-link" aria-hidden="true"></i> <span *ngIf="!isLast">, </span>
-      </a>
+      </div>
+
+      <div>
+        <a *ngFor="let doc of docs; let isLast = last;"
+           target="_blank"
+           class="link-list-item"
+           [href]="doc.routeLink">{{doc.name}}
+          <i class="fa fa-external-link" aria-hidden="true"></i> <span *ngIf="!isLast">, </span>
+        </a>
+      </div>
     </li>
     <li *ngIf="liveExamples && liveExamples.length > 0">
       <span class="emphasis">
         Code Examples:
       </span>
-      <a *ngFor="let example of liveExamples; let isLast = last;"
-         target="_blank"
-         class="link-list-item"
-         [href]="example.routeLink">
-        {{example.name}}
-        <i class="fa fa-external-link" aria-hidden="true"></i> <span *ngIf="!isLast">, </span>
-      </a>
+
+      <div>
+        <a *ngFor="let example of liveExamples; let isLast = last;"
+           target="_blank"
+           class="link-list-item"
+           [href]="example.routeLink">
+          {{example.name}}
+          <i class="fa fa-external-link" aria-hidden="true"></i> <span *ngIf="!isLast">, </span>
+        </a>
+      </div>
     </li>
   </ul>
 </section>

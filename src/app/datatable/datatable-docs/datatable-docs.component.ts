@@ -39,7 +39,9 @@ export class DatatableDocsComponent implements OnInit {
     {
       name: 'sq-datatable-row',
       fragment: 'customDatatable2'
-    }
+    },
+    { name: 'DatatableColumn (interface)' },
+    { name: 'SortItem (interface)' }
   ];
 
   keys = [];

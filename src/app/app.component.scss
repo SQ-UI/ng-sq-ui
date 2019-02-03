@@ -30,8 +30,6 @@ $menu-item: rgba(111, 189, 171, 0.61);
     display: flex;
     &.space-between {
       justify-content: space-between;
-      width: 100%;
-      align-items: center;
     }
   }
 
@@ -96,6 +94,12 @@ $menu-item: rgba(111, 189, 171, 0.61);
     list-style-type: circle;
     li {
       padding-bottom: 5px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .scrollable {
+      padding-top: 100px;
     }
   }
 

@@ -1,23 +1,29 @@
 .module-overview {
+  ul li {
+    display: flex;
+    align-items: center;
+  }
+
   .link-list-item {
     display: inline-block;
     margin-left: 10px;
   }
 
-  .fa {
+  .fa-external-link {
     font-size: 15px;
     position: relative;
     top: -4px;
     left: 4px;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 1100px) {
     .emphasis {
       display: block;
       margin-bottom: 10px;
     }
 
     ul li {
+      display: block;
       padding-bottom: 25px;
     }
 
