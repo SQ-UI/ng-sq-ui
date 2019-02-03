@@ -4,9 +4,9 @@
      [listenForOutsideClick]="listenForOutsideClick"
      (clickOutside)="onClickOutsideComponent()">
 
-  <button type="button" (click)="sort()" *ngIf="isSortable">
-    {{name}}
+  {{name}}
 
+  <button type="button" (click)="sort()" *ngIf="isSortable">
     <i class="fa"
        aria-hidden="true"
        [ngClass]="{

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit} from '@angular/core';
+import {Directive, OnInit} from '@angular/core';
 
 @Directive({
   selector: '[sq-datatable-header]'

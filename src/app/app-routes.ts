@@ -18,6 +18,10 @@ export const appRoutes: Route[] = [
     loadChildren: './modal/modal.module#ModalModule'
   },
   {
+    path: 'datatable',
+    loadChildren: './datatable/datatable.module#DatatableModule'
+  },
+  {
     path: '',
     redirectTo: '/sq-ui',
     pathMatch: 'full'

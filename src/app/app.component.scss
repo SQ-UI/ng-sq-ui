@@ -83,6 +83,13 @@ $menu-item: rgba(111, 189, 171, 0.61);
     }
   }
 
+  ul.list {
+    list-style-type: circle;
+    li {
+      padding-bottom: 5px;
+    }
+  }
+
   @media (max-width: 800px) {
     .app-nav .nav-item {
       font-size: 16px;

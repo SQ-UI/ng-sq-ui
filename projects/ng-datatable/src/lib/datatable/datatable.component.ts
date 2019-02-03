@@ -7,6 +7,7 @@ import { DatatableHeaderDirective } from '../directives/datatable-header.directi
 import { DatatableBodyDirective } from '../directives/datatable-body.directive';
 import { SortItem } from '../shared/interfaces/sort-item';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
+import { DatatableColumn } from '../shared/interfaces/datatable-column';
 
 @Component({
   selector: 'sq-datatable',
@@ -27,7 +28,7 @@ export class DatatableComponent implements OnInit, OnChanges {
   @ContentChild(DatatableBodyDirective, {read: TemplateRef}) datatableBodyTemplate;
   @ViewChild('paginator') paginatorComponent;
 
-  columnNames: { name: string, canBeSortedAgainst: boolean }[] = [];
+  columnNames: DatatableColumn[] = [];
   paginatedCollection = [];
 
   constructor() { }
