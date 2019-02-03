@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavItem } from '../../shared/shared.module';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-datatime-picker-docs',
@@ -29,6 +30,13 @@ export class DatatimePickerDocsComponent implements OnInit {
       name: 'sq-time-picker',
       fragment: 'timepicker'
     },
+  ];
+
+  docs: NavItem[] = [
+    {
+      name: 'DatetimePickerModule',
+      routeLink: `${environment.docs}/datetime-picker-module`
+    }
   ];
 
   isDatepickerMultipleSelect = true;

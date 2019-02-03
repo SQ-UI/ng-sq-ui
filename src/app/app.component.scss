@@ -26,6 +26,15 @@ $menu-item: rgba(111, 189, 171, 0.61);
     font-family: 'Nunito', sans-serif;
   }
 
+  .display-flex {
+    display: flex;
+    &.space-between {
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+  }
+
   p {
     font-size: 18px;
     padding-bottom: 10px;
@@ -96,6 +105,7 @@ $menu-item: rgba(111, 189, 171, 0.61);
     }
     .scrollable {
       height: auto;
+      padding-top: 100px;
     }
   }
 

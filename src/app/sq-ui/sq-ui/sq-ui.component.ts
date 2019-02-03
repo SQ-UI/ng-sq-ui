@@ -3,9 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { interval } from 'rxjs';
-import {NgSqCommonModule} from '../../../../projects/ng-sq-common/src/lib/ng-sq-common.module';
-import {NgDatetimePickerModule} from '../../../../projects/ng-datetime-picker/src/lib/ng-datetime-picker.module';
-import {NgDatatableModule} from '../../../../projects/ng-datatable/src/lib/datatable.module';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-ui',
@@ -18,7 +16,7 @@ export class SqUiComponent implements OnInit {
   internallyDeclared: NavItem[] = [];
   dependsOn: NavItem[] = [];
   exports: NavItem[] = [];
-  docs: NavItem = {name: '', routeLink: ''};
+  docs: NavItem[] = [];
 
   searchResultsStrings: string[];
   progressBarLoadedSmall = 20;
@@ -118,6 +116,17 @@ export class SqUiComponent implements OnInit {
         name: 'NgModalModule',
         routeLink: '/modal'
       }
+    ];
+
+    this.docs = [
+      {
+        name: 'FormElementsModule',
+        routeLink: `${environment.docs}/form-elements-module`
+      },
+      {
+        name: 'ProgressBarModule',
+        routeLink: `${environment.docs}/progressbar-module`
+      },
     ];
 
     this.exports = this.internallyDeclared.concat(this.dependsOn);

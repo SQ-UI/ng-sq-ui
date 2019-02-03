@@ -4,6 +4,13 @@
     margin-left: 10px;
   }
 
+  .fa {
+    font-size: 15px;
+    position: relative;
+    top: -4px;
+    left: 4px;
+  }
+
   @media (max-width: 760px) {
     .emphasis {
       display: block;
