@@ -179,9 +179,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@^7.0.1":
-  version "7.1.4"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.1.4.tgz#ad899985290957bbb9ac5c47c62ae5a72ccf5d00"
+"@angular/core@^7.2.3":
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.2.3.tgz#fa0dd626656e8a2da9b70bde2dda569a419852a5"
+  integrity sha512-6Ql+sJJnrsxh8O0/IgIP1GgT4eLOHk+dlBs7zBbjstmLuhaQdY+awO9WKoQow+TiD1Go7FW1J3vZ2PTWXKxqjQ==
   dependencies:
     tslib "^1.9.0"
 
