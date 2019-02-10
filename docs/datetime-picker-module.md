@@ -60,3 +60,19 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 - **`@Output()` hoursChange**: `EventEmitter<number>` - Event emitter, triggered on every change to the hours property.
 - **`@Output()` minutesChange**: `new EventEmitter<number>()` - Event emitter, triggered on every change to the minutes property.
 - **`@Input()` timeObjectType**: `string` - Can have one of the following values: `string` | `moment`. Determines how the time-picker should return the selected time. - When set to `string`, it converts the time into a `string`, respecting the isMeridiem property. - When set to `moment`, it converts the time into a `moment.js object`.
+
+## Interfaces
+### TimepickerConfig
+
+?> Used for configuring the datetime component.
+
+```typescript
+interface TimepickerConfig {
+  hourStep?: number;
+  minuteStep?: number;
+  hours?: number;
+  minutes?: number;
+  isMeridiem?: boolean;
+  isEditable?: boolean;
+}
+```
