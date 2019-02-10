@@ -4,6 +4,7 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 
 [sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-standalone-calendar?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
+!> Available also as stand alone package [`@sq-ui/ng-datetime-picker`](https://www.npmjs.com/package/@sq-ui/ng-datetime-picker)
 
 ## sq-datetime-picker
 
