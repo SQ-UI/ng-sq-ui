@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
 import { SortItem, DatatableColumn } from '@sq-ui/ng-datatable';
 import { NavItem } from '../../shared/shared.module';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'sq-datatable-docs',
@@ -42,6 +43,20 @@ export class DatatableDocsComponent implements OnInit {
     },
     { name: 'DatatableColumn (interface)' },
     { name: 'SortItem (interface)' }
+  ];
+
+  docs: NavItem[] = [
+    {
+      name: 'DatatableModule',
+      routeLink: `${environment.docs}/datatable-module`
+    }
+  ];
+
+  liveExamples: NavItem[] = [
+    {
+      name: 'ng-sq-datatable',
+      routeLink: `https://ng-sq-datatable.${environment.livePreview}`
+    }
   ];
 
   keys = [];

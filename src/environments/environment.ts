@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  docs: 'https://sq-ui.github.io/ng-sq-ui/#'
+  docs: 'https://sq-ui.github.io/ng-sq-ui/#',
+  livePreview: 'stackblitz.io'
 };
 
 /*

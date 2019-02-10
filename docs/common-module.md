@@ -4,6 +4,7 @@ This module exports common interfaces, base classes, components and services uti
 
 !> Available as standalone package [`@sq-ui/ng-sq-common`](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
 
+[sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-common?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
 ## Components
 ### sq-paginator
@@ -133,7 +134,7 @@ interface PaginatorConfig {
 ## Enums
 ### DeviceOS
 
-?> Used as a return value in [OSDetectorService](services.md?id=osdetectorservice)
+?> Used as a return value in [OSDetectorService](common-module.md?id=osdetectorservice)
 
 ```typescript
 enum DeviceOS {

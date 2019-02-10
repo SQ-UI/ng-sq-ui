@@ -40,6 +40,13 @@ export class DatatimePickerDocsComponent implements OnInit {
     }
   ];
 
+  liveExamples: NavItem[] = [
+    {
+      name: 'ng-sq-ui-datetime-picker',
+      routeLink: `https://ng-sq-ui-datetime-picker.${environment.livePreview}`
+    }
+  ];
+
   isDatepickerMultipleSelect = true;
   minDate = moment();
   maxDate = moment().add(5, 'years');

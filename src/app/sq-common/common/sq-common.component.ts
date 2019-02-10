@@ -31,7 +31,19 @@ export class SqCommonComponent implements OnInit {
     { name: 'PaginatorConfig (interface)' }
   ];
 
-  docs: NavItem[] = [];
+  docs: NavItem[] = [
+    {
+      name: 'CommonModule',
+      routeLink: `${environment.docs}/common-module`
+    }
+  ];
+
+  liveExamples: NavItem[] = [
+    {
+      name: 'ng-sq-ui-common',
+      routeLink: `https://ng-sq-ui-common.${environment.livePreview}`
+    }
+  ];
 
   constructor() { }
 

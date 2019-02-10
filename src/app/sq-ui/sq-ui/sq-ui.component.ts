@@ -18,6 +18,17 @@ export class SqUiComponent implements OnInit {
   exports: NavItem[] = [];
   docs: NavItem[] = [];
 
+  liveExamples: NavItem[] = [
+    {
+      name: 'ng-sq-ui-form-elements',
+      routeLink: `https://ng-sq-ui-form-elements.${environment.livePreview}`
+    },
+    {
+      name: 'ng-sq-ui-progress-bar',
+      routeLink: `https://ng-sq-ui-progress-bar.${environment.livePreview}`
+    }
+  ];
+
   searchResultsStrings: string[];
   progressBarLoadedSmall = 20;
   progressBarLoadedMedium = 40;
