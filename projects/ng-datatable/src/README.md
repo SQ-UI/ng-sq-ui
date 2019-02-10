@@ -1,4 +1,4 @@
-# @sq-ui/ng-modal
+# @sq-ui/ng-datatable
 
 > Simple Quality UI kit for Angular
 

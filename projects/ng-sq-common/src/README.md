@@ -1,4 +1,4 @@
-# @sq-ui/ng-modal
+# @sq-ui/ng-sq-common
 
 > Simple Quality UI kit for Angular
 
