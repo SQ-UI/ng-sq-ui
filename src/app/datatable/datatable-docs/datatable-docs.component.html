@@ -1,7 +1,6 @@
 <section>
   <sq-module-overview [npmPackageName]="npmPackageName"
                       [moduleName]="moduleName"
-                      [internallyDeclared]="internallyDeclared"
                       [dependsOn]="dependsOn"
                       [exports]="exports"
                       [docs]="docs"
@@ -35,7 +34,7 @@
           <sq-datatable [items]="datatableItems"
                         [sortByColumns]="sortByColumns"
                         [paginatorConfig]="paginatorConfig"
-                        (pageChange)="fetchToDoItems($event)">
+                        (pageChange)="fetchToDoItems()">
           </sq-datatable>
         </section>
       </div>

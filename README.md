@@ -103,7 +103,7 @@ font-awesome and immutable.js (both will be installed with ng-sq-ui)
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 npm i
-npm run build-libs
+npm run build:libs
 ng serve [--open]
 ```
 
@@ -112,7 +112,7 @@ ng serve [--open]
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 yarn install
-yarn build-libs
+yarn build:libs
 ng serve [--open]
 ```
 
