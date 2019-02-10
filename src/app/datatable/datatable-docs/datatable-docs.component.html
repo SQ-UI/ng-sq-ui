@@ -1,0 +1,146 @@
+<section>
+  <sq-module-overview [npmPackageName]="npmPackageName"
+                      [moduleName]="moduleName"
+                      [dependsOn]="dependsOn"
+                      [exports]="exports"
+                      [docs]="docs"
+                      [liveExamples]="liveExamples">
+  </sq-module-overview>
+
+  <section class="section primary">
+    <header>
+      <h2>Exported Components Preview:</h2>
+    </header>
+
+    <sq-collapse-content title="sq-datatable" id="datatable">
+      <div sq-collapse-body class="sq">
+        <section class="mg-b50">
+          <header>
+            <h4>Datatable with default options</h4>
+          </header>
+          <div class="mg-b20">
+            <p>
+              This is the simplest table setup.
+              This example consumes data from <b>jsonplaceholder.typicode.com/todos</b>
+            </p>
+            <ul class="list">
+              <li>A collection of todo items is directly passed to the [items] prop.</li>
+              <li>A [paginatorConfig] object is passed.</li>
+              <li>[sortByColumns] is set to allow sorting only by the "id" and "title" columns.</li>
+              <li>A handler is bound to (pageChange) to load new items on page click.</li>
+            </ul>
+          </div>
+
+          <sq-datatable [items]="datatableItems"
+                        [sortByColumns]="sortByColumns"
+                        [paginatorConfig]="paginatorConfig"
+                        (pageChange)="fetchToDoItems()">
+          </sq-datatable>
+        </section>
+      </div>
+    </sq-collapse-content>
+
+    <sq-collapse-content title="sq-datatable-body and sq-datatable-header" id="customDatatable">
+      <div sq-collapse-body class="sq">
+        <section class="mg-b50">
+          <header>
+            <h4>Datatable with custom templates for header and body</h4>
+          </header>
+
+          <div class="mg-b20">
+            <p>
+              This example consumes data from <b>reqres.in/api/users</b>
+            </p>
+            <ul class="list">
+              <li>
+                <b>sq-datatable</b> is used as a container.
+              </li>
+              <li>This example does not use any of the default properties of the datatable.</li>
+              <li>No automatic paganation available, since the presentation depends entirely on the author.</li>
+              <li>
+                The <b>sq-datatable-header</b> and <b>sq-datatable-body</b> directives are used for content projection,
+                respectively for the datatable columns and rows.
+              </li>
+            </ul>
+          </div>
+
+          <sq-datatable>
+            <ng-template sq-datatable-header>
+              <tr>
+                <th *ngFor="let col of userItemColumns">
+                  {{col}}
+                </th>
+              </tr>
+            </ng-template>
+
+            <ng-template sq-datatable-body>
+              <tr *ngFor="let item of userItems">
+                <td *ngFor="let prop of userItemColumns"
+                    [attr.data-heading]="prop">
+                  {{item[prop]}}
+                </td>
+              </tr>
+            </ng-template>
+          </sq-datatable>
+        </section>
+      </div>
+    </sq-collapse-content>
+
+    <sq-collapse-content title="sq-datatable-row and sq-datatable-column" id="customDatatable2">
+      <div sq-collapse-body class="sq">
+        <section class="mg-b50">
+          <header>
+            <h4>Custom datatable using sq-datatable-row and sq-datatable-column</h4>
+          </header>
+
+          <div class="mg-b20">
+            <p>
+              This example consumes data from <b>reqres.in/api/unknown</b>
+            </p>
+            <ul class="list">
+              <li>
+                <b>sq-datatable</b> is used as a container.
+              </li>
+              <li>This example does not use any of the default properties of the datatable.</li>
+              <li>No automatic paganation available, since the presentation depends entirely on the author.</li>
+              <li>
+                The <b>sq-datatable-header</b> and <b>sq-datatable-body</b> directives are used for content projection,
+                respectively for the datatable columns and rows.
+              </li>
+              <li>
+                Each column (th) is represented by a <b>sq-datatable-column</b> component which
+                exposes custom properties to bind name, event handlers and information if the row data can be
+                sorted by that column.
+              </li>
+              <li>
+                Each row (tr) is represented by a <b>sq-datatable-row</b> component which
+                exposes custom properties to bind row data.
+              </li>
+            </ul>
+          </div>
+
+          <sq-datatable>
+            <ng-template sq-datatable-header>
+              <tr>
+                <th sq-datatable-column
+                    *ngFor="let column of resourceItemColumns"
+                    [name]="column.name"
+                    [isSortable]="column.canBeSortedAgainst"
+                    (onSortClicked)="sortResourceItemsByColumn($event)">
+                </th>
+              </tr>
+            </ng-template>
+
+            <ng-template sq-datatable-body>
+              <tr sq-datatable-row
+                  *ngFor="let rowItem of resourceItems"
+                  [rowItem]="rowItem"
+                  class="row">
+              </tr>
+            </ng-template>
+          </sq-datatable>
+        </section>
+      </div>
+    </sq-collapse-content>
+  </section>
+</section>

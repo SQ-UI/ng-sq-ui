@@ -2,7 +2,7 @@
 
 > Simple Quality UI kit for Angular
 
-> build by developers for developers!
+> built by developers for developers!
 
 ## Docs
 
@@ -11,13 +11,14 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included.
 
-- [Home Page](https://sq-ui.github.io/ng-sq-ui)
 - [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
-- [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
-- [Datetime Picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
-- [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
-- [Live examples](https://ng-sq-ui-examples.surge.sh)
+- [FormElementsModule](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
+- [ModalModule](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
+- [ProgressBarModule](https://sq-ui.github.io/ng-sq-ui/#/progressbar-module)
+- [DatetimePickerModule](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
+- [DatatableModule](https://sq-ui.github.io/ng-sq-ui/#/datatable-module)
+- [CommonModule](https://sq-ui.github.io/ng-sq-ui/#/common-module)
+- [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 
 ## Installation
 
@@ -51,7 +52,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
   //...
 ```
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
 
 ### Add styles to angular.json
 
@@ -71,11 +72,6 @@ To use our styling just add the `class="sq"` on a parent element.
   <sq-modal>...</sq-modal>
 </body>
 ```
-
-## Dependencies
-
-- font-awesome
-- @sq-ui/ng-sq-common
 
 ## Support
 

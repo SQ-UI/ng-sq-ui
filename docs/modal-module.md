@@ -56,7 +56,7 @@ export class AppComponent {
 
 - **`@Output()` showChange:** `EventEmitter<boolean>` - Callback invoked whenever the modal is shown/hidden.
 
-!> When you dont provide `[(show)]` property binding, you will have to use the template reference methods `open` and `close`.
+!> If you don't want to use the `[(show)]` property binding, you can alternatively use the component methods `open` and `close`.
 
 ### Component methods:
 

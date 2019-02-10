@@ -1,0 +1,19 @@
+<section>
+  <header class="display-flex">
+    <h3 (click)="toggleCollapse()" class="header-btn">
+      {{title}}
+    </h3>
+
+    <button type="button" class="btn-collapse" (click)="toggleCollapse()">
+      <i class="fa"
+         [ngClass]="{'fa-chevron-up': isCollapsed, 'fa-chevron-down': !isCollapsed}"
+         aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <div class="collapsed-content">
+    <ng-content select="[sq-collapse-body]"
+                *ngIf="isCollapsed">
+    </ng-content>
+  </div>
+</section>
