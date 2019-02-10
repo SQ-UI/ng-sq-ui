@@ -2,7 +2,7 @@
 
 > Simple Quality UI kit for Angular
 
-> build by developers for developers!
+> built by developers for developers!
 
 ## Docs
 
@@ -11,12 +11,13 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included.
 
-- [Home Page](https://sq-ui.github.io/ng-sq-ui)
 - [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
-- [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
-- [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [Datetime Picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
-- [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
+- [FormElementsModule](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
+- [ModalModule](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
+- [ProgressBarModule](https://sq-ui.github.io/ng-sq-ui/#/progressbar-module)
+- [DatetimePickerModule](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
+- [DatatableModule](https://sq-ui.github.io/ng-sq-ui/#/datatable-module)
+- [CommonModule](https://sq-ui.github.io/ng-sq-ui/#/common-module)
 - [Live examples](https://ng-sq-ui-examples.surge.sh)
 
 ## Installation
