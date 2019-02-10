@@ -17,7 +17,6 @@ import { DatatableColumn } from '../shared/interfaces/datatable-column';
 })
 export class DatatableComponent implements OnInit, OnChanges {
   @Input() items = [];
-  @Input() rowsPerPage: number = 10;
   @Input() sortByAllColumns: boolean = false;
   @Input() paginatorConfig: PaginatorConfig = {};
   @Input() sortByColumns: string[] = [];
