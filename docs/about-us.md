@@ -18,4 +18,4 @@ Want to file a [bug](http://bit.ly/ng-sq-ui-bug-report) / [request feature](http
 
 !> [Feature requests](http://bit.ly/ng-sq-ui-request-feature) wanted!
 
-> Sponsor with [DevToken](https://devtoken.rocks/) on our [address](0x7129FD777858CDC8A27cb7627F7Cd81C60d4C194)
+> Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
