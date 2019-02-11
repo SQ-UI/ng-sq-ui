@@ -32,6 +32,13 @@ export class ModalDocsComponent implements OnInit {
     }
   ];
 
+  liveExamples: NavItem[] = [
+    {
+      name: 'ng-sq-ui-modal',
+      routeLink: `https://ng-sq-ui-modal.${environment.livePreview}`
+    }
+  ];
+
   showModal = false;
 
   constructor() { }

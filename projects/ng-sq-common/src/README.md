@@ -18,7 +18,7 @@ Any types of public interfaces and services are also included.
 - [DatetimePickerModule](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
 - [DatatableModule](https://sq-ui.github.io/ng-sq-ui/#/datatable-module)
 - [CommonModule](https://sq-ui.github.io/ng-sq-ui/#/common-module)
-- [Live examples](https://ng-sq-ui-examples.surge.sh)
+- [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 
 ## Installation
 
@@ -52,7 +52,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
   //...
 ```
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
 
 ### Add styles to angular.json
 

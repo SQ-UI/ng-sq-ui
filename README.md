@@ -11,6 +11,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
+[![@sq-ui/ng-sq-ui Dev Token](https://badge.devtoken.rocks/@sq-ui/ng-sq-ui)](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+
 ## Docs
 
 You will find a description of the public API for each component.
@@ -24,14 +26,11 @@ Any types of public interfaces and services are also included.
 - [Modal](http://bit.ly/ng-sq-ui-docs-modal)
 - [Progress Bar](http://bit.ly/ng-sq-ui-docs-progressbar)
 - [Datetime Picker](http://bit.ly/ng-sq-ui-docs-datetime-picker)
-- [Service](http://bit.ly/ng-sq-ui-docs-services)
-- [Directives](http://bit.ly/ng-sq-ui-docs-directives)
-- [Interfaces](http://bit.ly/ng-sq-ui-docs-interfaces)
-- [Enums](http://bit.ly/ng-sq-ui-docs-enums)
-- [Stand Alone Packages](http://bit.ly/ng-sq-ui-docs-standalone-packages)
-- [Upcoming features](http://bit.ly/ng-sq-ui-docs-upcoming-features)
+- [Datatable](http://bit.ly/ng-sq-ui-docs-datatable)
+- [Common](http://bit.ly/ng-sq-ui-docs-common)
 - [About us](http://bit.ly/ng-sq-ui-docs-about-us)
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
+- [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
 ## Installation
 
@@ -67,7 +66,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
   //...
 ```
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
 
 Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
@@ -104,7 +103,7 @@ font-awesome and immutable.js (both will be installed with ng-sq-ui)
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 npm i
-npm run build-libs
+npm run build:libs
 ng serve [--open]
 ```
 
@@ -113,7 +112,7 @@ ng serve [--open]
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 yarn install
-yarn build-libs
+yarn build:libs
 ng serve [--open]
 ```
 
@@ -123,8 +122,11 @@ Every time you make changes to any of the libraries, you should run `npm run bui
 
 - Use NG-SQ-UI in your daily work.
 - **Star** it if you like.
-- [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
+- Join us on <a href="https://spectrum.chat/sq-ui">spectrum.chat</a>.
+- Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
+- Or simply send an email to contact[at]sq-ui.xyz.
+- Sponsor with [DevToken](https://devtoken.rocks/) on our [address](0x7129FD777858CDC8A27cb7627F7Cd81C60d4C194)
 
 ## Contribution
 
