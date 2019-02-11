@@ -20,14 +20,17 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included.
 
-- [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
-- [FormElementsModule](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
-- [ModalModule](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [ProgressBarModule](https://sq-ui.github.io/ng-sq-ui/#/progressbar-module)
-- [DatetimePickerModule](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
-- [DatatableModule](https://sq-ui.github.io/ng-sq-ui/#/datatable-module)
-- [CommonModule](https://sq-ui.github.io/ng-sq-ui/#/common-module)
+- [Home Page](http://bit.ly/ng-sq-ui-docs-home)
+- [Installation](http://bit.ly/ng-sq-ui-docs-installation)
+- [FormElementsModule](http://bit.ly/ng-sq-ui-docs-form-elements)
+- [ModalModule](http://bit.ly/ng-sq-ui-docs-modal)
+- [ProgressBarModule](http://bit.ly/ng-sq-ui-docs-progressbar)
+- [DatetimePickerModule](http://bit.ly/ng-sq-ui-docs-datetime-picker)
+- [DatatableModule](http://bit.ly/ng-sq-ui-docs-datatable)
+- [CommonModule](http://bit.ly/ng-sq-ui-docs-common)
+- [About us](http://bit.ly/ng-sq-ui-docs-about-us)
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
+- [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
 ## Installation
 
@@ -93,4 +96,4 @@ To use our styling just add the `class="sq"` on a parent element.
 - Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 - Or simply send an email to contact[at]sq-ui.xyz.
-- Sponsor with [DevToken](https://devtoken.rocks/) on our [address](0x7129FD777858CDC8A27cb7627F7Cd81C60d4C194)
+- Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)

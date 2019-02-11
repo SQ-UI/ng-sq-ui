@@ -22,12 +22,12 @@ Any types of public interfaces and services are also included.
 
 - [Home Page](http://bit.ly/ng-sq-ui-docs-home)
 - [Installation](http://bit.ly/ng-sq-ui-docs-installation)
-- [Form Elements](http://bit.ly/ng-sq-ui-docs-form-elements)
-- [Modal](http://bit.ly/ng-sq-ui-docs-modal)
-- [Progress Bar](http://bit.ly/ng-sq-ui-docs-progressbar)
-- [Datetime Picker](http://bit.ly/ng-sq-ui-docs-datetime-picker)
-- [Datatable](http://bit.ly/ng-sq-ui-docs-datatable)
-- [Common](http://bit.ly/ng-sq-ui-docs-common)
+- [FormElementsModule](http://bit.ly/ng-sq-ui-docs-form-elements)
+- [ModalModule](http://bit.ly/ng-sq-ui-docs-modal)
+- [ProgressBarModule](http://bit.ly/ng-sq-ui-docs-progressbar)
+- [DatetimePickerModule](http://bit.ly/ng-sq-ui-docs-datetime-picker)
+- [DatatableModule](http://bit.ly/ng-sq-ui-docs-datatable)
+- [CommonModule](http://bit.ly/ng-sq-ui-docs-common)
 - [About us](http://bit.ly/ng-sq-ui-docs-about-us)
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
@@ -126,7 +126,7 @@ Every time you make changes to any of the libraries, you should run `npm run bui
 - Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 - Or simply send an email to contact[at]sq-ui.xyz.
-- Sponsor with [DevToken](https://devtoken.rocks/) on our [address](0x7129FD777858CDC8A27cb7627F7Cd81C60d4C194)
+- Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
 
 ## Contribution
 
