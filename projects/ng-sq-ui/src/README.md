@@ -2,7 +2,16 @@
 
 > Simple Quality UI kit for Angular
 
-> build by developers for developers!
+> built by developers for developers!
+
+![angular](https://badge.fury.io/js/angular.svg)
+![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
+[![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d53c1670c301071be452/maintainability)](https://codeclimate.com/github/SQ-UI/ng-sq-ui/maintainability)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
+![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
+[![@sq-ui/ng-sq-ui Dev Token](https://badge.devtoken.rocks/@sq-ui/ng-sq-ui)](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
 
 ## Docs
 
@@ -11,13 +20,14 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included.
 
-- [Home Page](https://sq-ui.github.io/ng-sq-ui)
 - [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
-- [Form Elements](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
-- [Datetime Picker](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
-- [Modal](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
-- [Interfaces](https://sq-ui.github.io/ng-sq-ui/#/interfaces)
-- [Live examples](https://ng-sq-ui-examples.surge.sh)
+- [FormElementsModule](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
+- [ModalModule](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
+- [ProgressBarModule](https://sq-ui.github.io/ng-sq-ui/#/progressbar-module)
+- [DatetimePickerModule](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
+- [DatatableModule](https://sq-ui.github.io/ng-sq-ui/#/datatable-module)
+- [CommonModule](https://sq-ui.github.io/ng-sq-ui/#/common-module)
+- [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 
 ## Installation
 
@@ -51,7 +61,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
   //...
 ```
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://ng-sq-ui-examples.surge.sh).
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
 
 ### Add styles to angular.json
 
@@ -75,15 +85,12 @@ To use our styling just add the `class="sq"` on a parent element.
 </body>
 ```
 
-## Dependencies
-
-- font-awesome
-- immutable.js
-- @sq-ui/ng-datetime-picker
-
 ## Support
 
 - Use NG-SQ-UI in your daily work.
 - **Star** it if you like.
-- [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
+- Join us on <a href="https://spectrum.chat/sq-ui">spectrum.chat</a>.
+- Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
+- Or simply send an email to contact[at]sq-ui.xyz.
+- Sponsor with [DevToken](https://devtoken.rocks/) on our [address](0x7129FD777858CDC8A27cb7627F7Cd81C60d4C194)

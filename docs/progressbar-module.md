@@ -6,6 +6,8 @@
 
 sq-progress-bar is a highly customizable loader module.
 
+!> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-sq-common](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
+
 In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L211)
 
 ```html

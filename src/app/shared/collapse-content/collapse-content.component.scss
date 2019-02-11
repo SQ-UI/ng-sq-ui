@@ -1,0 +1,19 @@
+.btn-collapse {
+  background: none;
+  border: none;
+  cursor: pointer;
+  .fa {
+    position: relative;
+    top: -2px;
+  }
+}
+
+.header-btn {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.collapsed-content {
+  margin-bottom: 30px;
+}

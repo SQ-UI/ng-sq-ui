@@ -3,6 +3,7 @@
 - [ModalModule](modal-module.md)
 - [ProgressBarModule](progressbar-module.md)
 - [DatetimePickerModule](datetime-picker-module.md)
-- [Interfaces](interfaces.md)
+- [DatatableModule](datatable-module.md)
+- [CommonModule](common-module.md)
 - [About us](about-us.md)
 - [Troubleshooting](troubleshooting.md)
