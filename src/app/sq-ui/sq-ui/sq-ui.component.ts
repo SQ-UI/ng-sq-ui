@@ -13,10 +13,45 @@ import { environment } from '../../../environments/environment';
 export class SqUiComponent implements OnInit {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
   moduleName: string = 'NgSqUiModule';
-  internallyDeclared: NavItem[] = [];
-  dependsOn: NavItem[] = [];
+  internallyDeclared: NavItem[] = [
+    {
+      name: 'FormElementsModule',
+      fragment: 'formsModule'
+    },
+    {
+      name: 'ProgressBarModule',
+      fragment: 'progressBarModule'
+    },
+  ];
+  dependsOn: NavItem[] = [
+    {
+      name: 'NgSqCommonModule',
+      routeLink: '/sq-common'
+    },
+    {
+      name: 'NgDatetimePickerModule',
+      routeLink: '/datetime-picker'
+    },
+    {
+      name: 'NgDatatableModule',
+      routeLink: '/datatable'
+    },
+    {
+      name: 'NgModalModule',
+      routeLink: '/modal'
+    }
+  ];
   exports: NavItem[] = [];
-  docs: NavItem[] = [];
+  docs: NavItem[] =  [
+    {
+      name: 'FormElementsModule',
+      routeLink: `${environment.docs}/form-elements-module`
+    },
+    {
+      name: 'ProgressBarModule',
+      routeLink: `${environment.docs}/progressbar-module`
+    },
+  ];
 
   liveExamples: NavItem[] = [
     {
@@ -99,46 +134,6 @@ export class SqUiComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.internallyDeclared = [
-      {
-        name: 'FormElementsModule',
-        fragment: 'formsModule'
-      },
-      {
-        name: 'ProgressBarModule',
-        fragment: 'progressBarModule'
-      },
-    ];
-
-    this.dependsOn = [
-      {
-        name: 'NgSqCommonModule',
-        routeLink: '/sq-common'
-      },
-      {
-        name: 'NgDatetimePickerModule',
-        routeLink: '/datetime-picker'
-      },
-      {
-        name: 'NgDatatableModule',
-        routeLink: '/datatable'
-      },
-      {
-        name: 'NgModalModule',
-        routeLink: '/modal'
-      }
-    ];
-
-    this.docs = [
-      {
-        name: 'FormElementsModule',
-        routeLink: `${environment.docs}/form-elements-module`
-      },
-      {
-        name: 'ProgressBarModule',
-        routeLink: `${environment.docs}/progressbar-module`
-      },
-    ];
 
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
