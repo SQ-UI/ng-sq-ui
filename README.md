@@ -2,7 +2,7 @@
 
 > Simple Quality UI kit for Angular
 
-> build by developers for developers!
+> built by developers for developers!
 
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
@@ -75,7 +75,8 @@ Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 ```json
 "styles": [
   "src/styles.css",
-  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
+  "./node_modules/@sq-ui/ng-sq-common/sq-ui-theme.scss",
+  "./node_modules/@sq-ui/ng-sq-ui/styles/form-elements.scss",
   "./node_modules/font-awesome/scss/font-awesome.scss"
 ],
 ```
