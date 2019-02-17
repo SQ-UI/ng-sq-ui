@@ -87,6 +87,10 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
   z-index: 1000;
 }
 
+.sq .display-none {
+  display: none !important;
+}
+
 .sq .modal-window {
   position: relative;
   min-height: 500px;
