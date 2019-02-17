@@ -21,6 +21,7 @@ import { NgDatatableModule } from '@sq-ui/ng-datatable';
     NgDatetimePickerModule,
     NgDatatableModule,
     ProgressBarModule,
+    NgSqCommonModule
   ]
 })
 export class NgSqUiModule {}
