@@ -164,10 +164,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/compiler-cli@^7.2.4":
-  version "7.2.4"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-7.2.4.tgz#3de23fd5f558a859a444c58dab18f2981c9c2937"
-  integrity sha512-UhLosSeuwFIfaGqGcYOh9WSOuzEpeuhIRAOt81MeqOQEqkoreUjfxrQq8XWNkdqsPZHtiptF5ZwXlMBxlj9jJg==
+"@angular/compiler-cli@^7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-7.2.5.tgz#745fc2ccab3e583d7bb883e664ef53dd4c2d800b"
+  integrity sha512-3PzRaz3cKKnhhWKixKhXUvD2klKoAiFO/81ETMC+lp4GGWL35NAts0KnudSNxQIktYOlardQHEggtfgxq+spRg==
   dependencies:
     canonical-path "1.0.0"
     chokidar "^1.4.2"
@@ -181,10 +181,10 @@
     tslib "^1.9.0"
     yargs "9.0.1"
 
-"@angular/compiler@^7.2.2":
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.2.2.tgz#7e0251f1283a58c0c991f7975eb38e2cab02a6b5"
-  integrity sha512-vjPreOVPca6HSuDmj7N1w5u8hwXdm98gEPo2wqQMVuJd6qvGEyLYE9FsHc0XCchyQEKSybAYl1dwsjZq2nNSvQ==
+"@angular/compiler@^7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.2.5.tgz#4ee2dd429835e7b8d9859ec6b6c3c4a57c5408d0"
+  integrity sha512-/41ehOSupAA+uc32XHmN5jOvqmb4A4D+V+MXDmnlYVaYAYZrGf3AS+1RJuBy5cIUGQ1Nv+Nbj4Y7X/ydb6ncOQ==
   dependencies:
     tslib "^1.9.0"
 
@@ -4555,10 +4555,10 @@ neo-async@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
 
-ng-packagr@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-4.7.0.tgz#d04a93fd70e1895aa7a7ec3cf79c6ef6f7582327"
-  integrity sha512-FNCe4WpHwBk107pCX0KOnsv+cUaM2bCGAD/oYUl0FIwQXkI+iYjDik9KlqJ/bWDUsiCUxiAH2v5AsTaEF7G4bw==
+ng-packagr@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-4.7.1.tgz#a3e8fd2a7b70573a3a7759c4c57408a3b0e8ce11"
+  integrity sha512-MIPKxyrnV22fS3wSfst2XjwWOonFKujVVEnIehYJhiu8GOg37bCdbbr9plsE1jRDmDAUz6M1MvdKibUrJyRp6Q==
   dependencies:
     "@ngtools/json-schema" "^1.1.0"
     autoprefixer "^9.0.0"
@@ -4574,7 +4574,7 @@ ng-packagr@^4.7.0:
     less-plugin-npm-import "^2.1.0"
     node-sass "^4.9.3"
     node-sass-tilde-importer "^1.0.0"
-    opencollective "^1.0.3"
+    opencollective-postinstall "^2.0.1"
     postcss "^7.0.0"
     postcss-url "^8.0.0"
     read-pkg-up "^4.0.0"
@@ -4955,6 +4955,11 @@ onetime@^2.0.0:
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"
   dependencies:
     mimic-fn "^1.0.0"
+
+opencollective-postinstall@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.2.tgz#5657f1bede69b6e33a45939b061eb53d3c6c3a89"
+  integrity sha512-pVOEP16TrAO2/fjej1IdOyupJY8KDUM1CvsaScRbw6oddvpQoOfGk4ywha0HKKVAD6RkW4x6Q+tNBwhf3Bgpuw==
 
 opencollective@^1.0.3:
   version "1.0.3"
