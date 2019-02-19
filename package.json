@@ -33,7 +33,7 @@
     "docsify": "^4.8.6",
     "nyc": "^13.1.0",
     "rxjs": "^6.2.2",
-    "zone.js": "~0.8.28"
+    "zone.js": "~0.8.29"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.12.1",
