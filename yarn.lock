@@ -6820,10 +6820,10 @@ ts-node@~8.0.2:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
-tsickle@0.34.0:
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.34.0.tgz#10187fa6401a288a65efb93a60bf28b2ff95f90b"
-  integrity sha512-O3wCPRtL18Hc/ZBnaiKwmmjVzeCWTOTpsi0btfC7FWL3RnXpxLPxD6hoJ0QEXuSfG/0QJk+MWNjqT9N6fOyyIg==
+tsickle@0.34.2:
+  version "0.34.2"
+  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.34.2.tgz#cc06c5de19c9e639d7a7fd69c4c57253e52fa858"
+  integrity sha512-dQnEfBdVb9AUFr/27zC2C1fs1FVPUek+GoCvTS34ZbgEwV/RwS8dGZPiGx6bV+nlDlpIgTwLJHuHhj7kPdbDsg==
   dependencies:
     minimist "^1.2.0"
     mkdirp "^0.5.1"
