@@ -2097,10 +2097,10 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
-docsify@^4.8.6:
-  version "4.8.6"
-  resolved "https://registry.yarnpkg.com/docsify/-/docsify-4.8.6.tgz#e1cf19d64760c91a1471e6f99b69d175f9b86ef8"
-  integrity sha512-AFjLpFqe4J1EAYxkIlRtWQRLJidgx4hkdEFgSECcIwv82X7sDuQx4D6hlMEVbNVBFUr6b2XtYV2FhNhRFyO0Fw==
+docsify@^4.9.1:
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/docsify/-/docsify-4.9.1.tgz#40b1b7fca7c9d2ffd901019d1d51ba5991ea4a4e"
+  integrity sha512-qRKsYYKMc4uWJXDk8bvYp93TaUJoYPisAo+6LoCYW3vBdmGs/wzafzrWNu5Vq229ZPtHcJOh/FrS+9H1m4sVfA==
   dependencies:
     marked "^0.5.1"
     medium-zoom "^0.4.0"
