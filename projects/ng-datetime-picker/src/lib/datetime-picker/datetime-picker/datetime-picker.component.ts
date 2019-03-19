@@ -195,6 +195,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
 
   onTimeChange() {
     this.setValueResult();
+    this.dateSelectionChange.emit(this.value);
   }
 
   private initializeAuthorValuesIfAny() {
