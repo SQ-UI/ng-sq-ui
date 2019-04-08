@@ -27,7 +27,7 @@
     "@angular/http": "^7.2.1",
     "@angular/platform-browser": "^7.2.1",
     "@angular/platform-browser-dynamic": "^7.2.1",
-    "@angular/router": "^7.2.8",
+    "@angular/router": "^7.2.12",
     "all-contributors-cli": "^6.2.0",
     "core-js": "^2.6.5",
     "docsify": "^4.9.1",
