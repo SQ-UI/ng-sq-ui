@@ -49,7 +49,7 @@
     "copyfiles": "^2.1.0",
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.2",
-    "jasmine-core": "~3.3.0",
+    "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "4.0.1",
     "karma-chrome-launcher": "~2.2.0",
