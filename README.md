@@ -128,6 +128,7 @@ Every time you make changes to any of the libraries, you should run `npm run bui
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 - Or simply send an email to contact[at]sq-ui.xyz.
 - Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+- Tip us with BAT from brave awards or download [brave](https://brave.com/ngs747)
 
 ## Contribution
 
