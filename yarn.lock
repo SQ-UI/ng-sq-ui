@@ -2,14 +2,6 @@
 # yarn lockfile v1
 
 
-"@angular-devkit/architect@0.13.6":
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.13.6.tgz#7758ab9f288cfd4f64d8b88b0700bac5c4961d06"
-  integrity sha512-Cg9z4lmCvjt5uD00E/0tBRz3ESjYicmqT3NL/BIsNVNb+s1GwCCoPSOIM8Ss4nyGDtrdono1XKSOmkJnlzF3Cw==
-  dependencies:
-    "@angular-devkit/core" "7.3.6"
-    rxjs "6.3.3"
-
 "@angular-devkit/architect@0.13.8":
   version "0.13.8"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.13.8.tgz#c3b7469e15e2710d48b6fe4e54efea26b557bf14"
@@ -70,13 +62,13 @@
   optionalDependencies:
     node-sass "4.11.0"
 
-"@angular-devkit/build-ng-packagr@~0.13.6":
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.13.6.tgz#4c3d4825d95485a6fe457bb264b238407af9c834"
-  integrity sha512-MYcuMAFPouSWf4E697b2Qw3v5JtJoGuX2Zszy3TaDdUIy9yDKDBKmvMr6rZuMIx3pqJTTjl/g44KTfsiElAGgQ==
+"@angular-devkit/build-ng-packagr@~0.13.8":
+  version "0.13.8"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.13.8.tgz#569a8d18c13a883a49c428b3397157fe522e397d"
+  integrity sha512-wpEGrN2KPnXNlFXQbIO20V0jOM0d3Co7QC0jvViV/LJ9KcQ0nYBeboQP+jwtVg7CGidQpbndUCmAdX5gCJS58w==
   dependencies:
-    "@angular-devkit/architect" "0.13.6"
-    "@angular-devkit/core" "7.3.6"
+    "@angular-devkit/architect" "0.13.8"
+    "@angular-devkit/core" "7.3.8"
     rxjs "6.3.3"
     semver "5.6.0"
 
@@ -98,17 +90,6 @@
     "@angular-devkit/architect" "0.13.8"
     "@angular-devkit/core" "7.3.8"
     rxjs "6.3.3"
-
-"@angular-devkit/core@7.3.6":
-  version "7.3.6"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-7.3.6.tgz#bc11ca571187f0f0ce9df012332794907e0b8133"
-  integrity sha512-aoarMK0DJIdwjVA0OuQIN7b8nKPcF9n5vSMF7MFmhKpTw5/uV3SynQZbm3YCgylu/2CMuiTzKuAunnWWdli//g==
-  dependencies:
-    ajv "6.9.1"
-    chokidar "2.0.4"
-    fast-json-stable-stringify "2.0.0"
-    rxjs "6.3.3"
-    source-map "0.7.3"
 
 "@angular-devkit/core@7.3.8":
   version "7.3.8"
