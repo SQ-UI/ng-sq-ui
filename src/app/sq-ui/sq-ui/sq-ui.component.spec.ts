@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SqUiComponent } from './sq-ui.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 
 describe('SqUiComponent', () => {
   let component: SqUiComponent;
@@ -8,7 +11,13 @@ describe('SqUiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SqUiComponent ]
+      declarations: [ SqUiComponent ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgSqUiModule
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
