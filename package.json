@@ -45,7 +45,7 @@
     "@types/jasminewd2": "~2.0.6",
     "@types/node": "~11.13.0",
     "adm-zip": "^0.4.11",
-    "codelyzer": "~5.0.0",
+    "codelyzer": "~5.0.1",
     "copyfiles": "^2.1.0",
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.2",
