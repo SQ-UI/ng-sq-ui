@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatableDocsComponent } from './datatable-docs.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgDatatableModule } from '@sq-ui/ng-datatable';
+
 
 describe('DatatableDocsComponent', () => {
   let component: DatatableDocsComponent;
@@ -8,7 +13,13 @@ describe('DatatableDocsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatableDocsComponent ]
+      declarations: [ DatatableDocsComponent ],
+      imports: [
+        RouterTestingModule,
+        CommonModule,
+        NgDatatableModule
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     })
     .compileComponents();
   }));

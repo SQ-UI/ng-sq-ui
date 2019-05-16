@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatimePickerDocsComponent } from './datatime-picker-docs.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DatatimePickerDocsComponent', () => {
   let component: DatatimePickerDocsComponent;
@@ -8,7 +14,15 @@ describe('DatatimePickerDocsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatimePickerDocsComponent ]
+      declarations: [ DatatimePickerDocsComponent ],
+      imports: [
+        CommonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        NgDatetimePickerModule,
+        RouterTestingModule
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     })
     .compileComponents();
   }));

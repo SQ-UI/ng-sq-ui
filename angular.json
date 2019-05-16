@@ -73,8 +73,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
+            "codeCoverage": true,
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -145,6 +146,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/ng-sq-ui/src/test.ts",
             "tsConfig": "projects/ng-sq-ui/tsconfig.spec.json",
             "karmaConfig": "projects/ng-sq-ui/karma.conf.js"
@@ -185,6 +187,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/ng-datetime-picker/src/test.ts",
             "tsConfig": "projects/ng-datetime-picker/tsconfig.spec.json",
             "karmaConfig": "projects/ng-datetime-picker/karma.conf.js"
@@ -225,6 +228,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/ng-datatable/src/test.ts",
             "tsConfig": "projects/ng-datatable/tsconfig.spec.json",
             "karmaConfig": "projects/ng-datatable/karma.conf.js"
@@ -265,6 +269,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/ng-sq-common/src/test.ts",
             "tsConfig": "projects/ng-sq-common/tsconfig.spec.json",
             "karmaConfig": "projects/ng-sq-common/karma.conf.js"
@@ -305,6 +310,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/ng-modal/src/test.ts",
             "tsConfig": "projects/ng-modal/tsconfig.spec.json",
             "karmaConfig": "projects/ng-modal/karma.conf.js"

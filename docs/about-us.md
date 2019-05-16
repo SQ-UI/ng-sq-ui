@@ -19,3 +19,5 @@ Want to file a [bug](http://bit.ly/ng-sq-ui-bug-report) / [request feature](http
 !> [Feature requests](http://bit.ly/ng-sq-ui-request-feature) wanted!
 
 > Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+
+> Tip us with BAT from brave awards or download [brave](https://brave.com/ngs747)
