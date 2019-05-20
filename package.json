@@ -32,7 +32,7 @@
     "docsify": "^4.9.4",
     "nyc": "^14.1.1",
     "rxjs": "^6.5.2",
-    "core-js": "^3.0.1",
+    "core-js": "^3.1.1",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
