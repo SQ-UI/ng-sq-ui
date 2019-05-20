@@ -35,6 +35,6 @@ after_success:
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.ng-datetime-picker.json coverage/ng-datetime-picker/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.ng-sq-ui.json coverage/ng-sq-ui/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.ng-modal.json coverage/ng-modal/lcov.info
-  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2                  # Sum all coverage parts into coverage/codeclimate.json
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 5                  # Sum all coverage parts into coverage/codeclimate.json
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
 
