@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-datetime-picker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI Datetime-Picker for Angular",
