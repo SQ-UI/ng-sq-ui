@@ -117,7 +117,8 @@ yarn install
 npm start
 ```
 
-Every time you make changes to any of the libraries, you should run `npm run build-libs` to compile the latest versions of them before serving the main app.
+The libraries are watched automatically when you run `npm start`:
+* The TypeScript compiler for this project is configured to look for the libraries under `dist/` and if `dist/` does not exist, it refers to the libraries' source code. That is why you should run `npm start` instead of just `ng serve --open` - `npm start` removes `dist/` (if it exists) and then runs `ng serve --open`. This prepares the compiler to listen for changes under the `projects/` directory.
 
 ## Support
 
