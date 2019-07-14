@@ -3,15 +3,14 @@
   "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "rimraf dist && ng serve --open",
     "build": "ng build",
     "test": "ng test --watch=false --browsers=ChromeHeadless --code-coverage --reporters=coverage-istanbul",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "docsify serve docs",
     "copy:styles": "copyfiles -f \"./projects/ng-sq-common/src/lib/styles/**/*.scss\" \"./dist/ng-sq-common/styles\" && copyfiles -f \"./projects/ng-sq-common/src/lib/sq-ui-theme.scss\" \"./dist/ng-sq-common/\" && copyfiles -f \"./projects/ng-sq-ui/src/lib/styles/**/*.scss\" \"./dist/ng-sq-ui/styles\"",
-    "build:libs": "ng build ng-sq-common && ng build ng-modal && ng build ng-datetime-picker && ng build ng-datatable && ng build ng-sq-ui --prod",
-    "serve:libs": "npm run build:libs && ng serve --open",
+    "build:libs": "ng build ng-sq-common && ng build ng-modal && ng build ng-datetime-picker && ng build ng-datatable && npm run copy:styles && ng build ng-sq-ui",
     "build:app:prod": "npm run build:libs && ng build --prod",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
@@ -27,10 +26,10 @@
     "@angular/platform-browser-dynamic": "^8.1.1",
     "@angular/router": "^8.1.1",
     "all-contributors-cli": "^6.7.0",
+    "core-js": "^3.1.4",
     "docsify": "^4.9.4",
     "nyc": "^14.1.1",
     "rxjs": "^6.5.2",
-    "core-js": "^3.1.4",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
@@ -47,6 +46,8 @@
     "codelyzer": "^5.0.1",
     "copyfiles": "^2.1.1",
     "font-awesome": "^4.7.0",
+    "hawk": "^7.0.10",
+    "hoek": "^6.1.3",
     "immutable": "^4.0.0-rc.12",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -55,13 +56,18 @@
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "^2.0.0",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "marked": "^0.7.0",
+    "mime": "^2.4.4",
     "moment": "^2.24.0",
     "ng-packagr": "^5.1.0",
     "protractor": "~5.4.2",
+    "request": "^2.88.0",
+    "rimraf": "^2.6.3",
     "ts-node": "~8.3.0",
     "tsickle": "^0.35.0",
     "tslib": "^1.10.0",
     "tslint": "~5.18.0",
+    "tunnel-agent": "^0.6.0",
     "typescript": "^3.4.5"
   }
 }

@@ -104,8 +104,7 @@ font-awesome and immutable.js (both will be installed with ng-sq-ui)
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 npm i
-npm run build:libs
-ng serve [--open]
+npm start
 ```
 
 -- or --
@@ -113,8 +112,7 @@ ng serve [--open]
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 yarn install
-yarn build:libs
-ng serve [--open]
+npm start
 ```
 
 Every time you make changes to any of the libraries, you should run `npm run build-libs` to compile the latest versions of them before serving the main app.
