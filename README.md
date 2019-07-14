@@ -77,7 +77,9 @@ Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
   "src/styles.css",
   "./node_modules/@sq-ui/ng-sq-common/sq-ui-theme.scss",
   "./node_modules/@sq-ui/ng-sq-ui/styles/form-elements.scss",
-  "./node_modules/font-awesome/scss/font-awesome.scss"
+  "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
 ],
 ```
 
@@ -104,8 +106,7 @@ font-awesome and immutable.js (both will be installed with ng-sq-ui)
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 npm i
-npm run build:libs
-ng serve [--open]
+npm start
 ```
 
 -- or --
@@ -113,11 +114,11 @@ ng serve [--open]
 ```
 git clone git@github.com:SQ-UI/ng-sq-ui.git
 yarn install
-yarn build:libs
-ng serve [--open]
+npm start
 ```
 
-Every time you make changes to any of the libraries, you should run `npm run build-libs` to compile the latest versions of them before serving the main app.
+The libraries are watched automatically when you run `npm start`:
+* The TypeScript compiler for this project is configured to look for the libraries under `dist/` and if `dist/` does not exist, it refers to the libraries' source code. That is why you should run `npm start` instead of just `ng serve --open` - `npm start` removes `dist/` (if it exists) and then runs `ng serve --open`. This prepares the compiler to listen for changes under the `projects/` directory.
 
 ## Support
 

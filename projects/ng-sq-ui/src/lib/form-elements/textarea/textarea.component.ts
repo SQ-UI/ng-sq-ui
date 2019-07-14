@@ -18,7 +18,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 })
 export class TextareaComponent extends InputCoreComponent implements OnInit {
   @Input() minHeight = 100;
-  @ViewChild('textarea') textarea;
+  @ViewChild('textarea', {static: true}) textarea;
 
   isPlaceholderVisible = true;
 

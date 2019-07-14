@@ -3,27 +3,27 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: 'about',
-    loadChildren: './home/home.module#HomeModule'
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'sq-ui',
-    loadChildren: './sq-ui/sq-ui.module#SqUiModule'
+    loadChildren: () => import('./sq-ui/sq-ui.module').then(m => m.SqUiModule)
   },
   {
     path: 'sq-common',
-    loadChildren: './sq-common/sq-common.module#SqCommonModule'
+    loadChildren: () => import('./sq-common/sq-common.module').then(m => m.SqCommonModule)
   },
   {
     path: 'datetime-picker',
-    loadChildren: './datetime-picker/datetime-picker.module#DatetimePickerModule'
+    loadChildren: () => import('./datetime-picker/datetime-picker.module').then(m => m.DatetimePickerModule)
   },
   {
     path: 'modal',
-    loadChildren: './modal/modal.module#ModalModule'
+    loadChildren: () => import('./modal/modal.module').then(m => m.ModalModule)
   },
   {
     path: 'datatable',
-    loadChildren: './datatable/datatable.module#DatatableModule'
+    loadChildren: () => import('./datatable/datatable.module').then(m => m.DatatableModule)
   },
   {
     path: '',

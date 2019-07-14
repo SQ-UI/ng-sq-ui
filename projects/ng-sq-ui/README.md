@@ -1,4 +1,4 @@
-# @sq-ui/ng-sq-common
+# NG-SQ-UI
 
 > Simple Quality UI kit for Angular
 
@@ -35,13 +35,13 @@ Any types of public interfaces and services are also included.
 ## Installation
 
 ```
-npm i @sq-ui/ng-sq-common --save
+npm i @sq-ui/ng-sq-ui --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-sq-common
+yarn add @sq-ui/ng-sq-ui
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ yarn add @sq-ui/ng-sq-common
 Import the NgSqUiModule in your module:
 
 ```
-import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
+import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 ```
 
 and then include it in the `imports` array of your @NgModule() decorator:
@@ -58,7 +58,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
 @NgModule({
   declarations: [ //... ],
   imports: [
-    NgSqCommonModule,
+    NgSqUiModule,
     //...
   ],
   //...
@@ -71,7 +71,10 @@ ng-sq-ui does not come with a specific font. Including the default theme is also
 ```json
 "styles": [
   "src/styles.css",
-  "./node_modules/font-awesome/scss/font-awesome.scss"
+  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
+  "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
 ],
 ```
 
@@ -81,7 +84,9 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ```html
 <body class="sq">
-  <sq-paginator ...></sq-paginator>
+  <div class="row">
+    <sq-input ...></sq-input>
+  </div>
 </body>
 ```
 
@@ -89,5 +94,8 @@ To use our styling just add the `class="sq"` on a parent element.
 
 - Use NG-SQ-UI in your daily work.
 - **Star** it if you like.
-- [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
+- Join us on <a href="https://spectrum.chat/sq-ui">spectrum.chat</a>.
+- Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
+- Or simply send an email to contact[at]sq-ui.xyz.
+- Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)

@@ -2,7 +2,7 @@
   <div class="loader" *ngIf="isLoading"></div>
 
   <div class="input-field typeahead" [ngClass]="{'disabled': disabled}">
-    <i class="fa fa-search" aria-hidden="true"></i>
+    <i class="fas fa-search" aria-hidden="true"></i>
 
     <label class="label" for="{{controlId}}" *ngIf="controlLabel">
       {{controlLabel}}
@@ -15,7 +15,7 @@
            *ngFor="let selectedItem of selectedItems, index as itemIndex;">
         <div class="content">{{ selectedItem.label }}</div>
         <div class="remove" (click)="removeSearchResult(itemIndex)" *ngIf="!disabled">
-          <i class="fa fa-times" aria-hidden="true"></i>
+          <i class="fas fa-times" aria-hidden="true"></i>
         </div>
       </div>
     </div>

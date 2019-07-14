@@ -23,9 +23,9 @@ export class DatatableComponent implements OnInit, OnChanges {
   @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter<SortItem>();
   @Output() pageChange = new EventEmitter();
 
-  @ContentChild(DatatableHeaderDirective, {read: TemplateRef}) datatableHeaderTemplate;
-  @ContentChild(DatatableBodyDirective, {read: TemplateRef}) datatableBodyTemplate;
-  @ViewChild('paginator') paginatorComponent;
+  @ContentChild(DatatableHeaderDirective, {read: TemplateRef, static: true}) datatableHeaderTemplate;
+  @ContentChild(DatatableBodyDirective, {read: TemplateRef, static: true}) datatableBodyTemplate;
+  @ViewChild('paginator', {static: true}) paginatorComponent;
 
   columnNames: DatatableColumn[] = [];
   paginatedCollection = [];

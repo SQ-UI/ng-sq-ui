@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-sq-ui",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI kit for Angular",
@@ -22,14 +22,16 @@
   ],
   "keywords": [
     "angular",
-    "angular 6",
-    "angular 7",
-    "angular 2+",
+    "angular 8",
     "Angular",
     "typescript",
     "ui",
     "ui-kit",
     "ui kit",
+    "sq ui",
+    "simple quality ui",
+    "sq-ui",
+    "ng-sq-ui",
     "components",
     "form",
     "form elements",
@@ -50,12 +52,12 @@
     "modal"
   ],
   "peerDependencies": {
-    "@angular/common": "^7.0.0",
-    "@angular/core": "^7.0.0"
+    "@angular/common": "^8.1.1",
+    "@angular/core": "^8.1.1"
   },
   "dependencies": {
     "immutable": "^3.8.2",
-    "font-awesome": "4.7.0",
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "@sq-ui/ng-sq-common": "^1.0.0",
     "@sq-ui/ng-datatable": "^1.0.0",
     "@sq-ui/ng-modal": "^1.0.0",

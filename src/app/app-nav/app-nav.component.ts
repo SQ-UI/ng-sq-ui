@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppNavComponent implements OnInit {
   @Input() navItems: NavItem[] = [];
-  @ViewChild('nav') nav: ElementRef;
+  @ViewChild('nav', {static: true}) nav: ElementRef;
 
   isNavOpen = false;
   listenForOutsideClick = false;
