@@ -1,4 +1,4 @@
-# NG-SQ-UI
+# @sq-ui/ng-modal
 
 > Simple Quality UI kit for Angular
 
@@ -35,13 +35,13 @@ Any types of public interfaces and services are also included.
 ## Installation
 
 ```
-npm i @sq-ui/ng-sq-ui --save
+npm i @sq-ui/ng-modal --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-sq-ui
+yarn add @sq-ui/ng-modal
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ yarn add @sq-ui/ng-sq-ui
 Import the NgSqUiModule in your module:
 
 ```
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+import { NgModalModule } from '@sq-ui/ng-modal';
 ```
 
 and then include it in the `imports` array of your @NgModule() decorator:
@@ -58,7 +58,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
 @NgModule({
   declarations: [ //... ],
   imports: [
-    NgSqUiModule,
+    NgModalModule,
     //...
   ],
   //...
@@ -71,8 +71,9 @@ ng-sq-ui does not come with a specific font. Including the default theme is also
 ```json
 "styles": [
   "src/styles.css",
-  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
-  "./node_modules/font-awesome/scss/font-awesome.scss"
+  "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
 ],
 ```
 
@@ -82,9 +83,7 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ```html
 <body class="sq">
-  <div class="row">
-    <sq-input ...></sq-input>
-  </div>
+  <sq-modal>...</sq-modal>
 </body>
 ```
 

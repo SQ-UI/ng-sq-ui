@@ -1,4 +1,4 @@
-# @sq-ui/ng-modal
+# @sq-ui/ng-sq-common
 
 > Simple Quality UI kit for Angular
 
@@ -35,13 +35,13 @@ Any types of public interfaces and services are also included.
 ## Installation
 
 ```
-npm i @sq-ui/ng-modal --save
+npm i @sq-ui/ng-sq-common --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-modal
+yarn add @sq-ui/ng-sq-common
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ yarn add @sq-ui/ng-modal
 Import the NgSqUiModule in your module:
 
 ```
-import { NgModalModule } from '@sq-ui/ng-modal';
+import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
 ```
 
 and then include it in the `imports` array of your @NgModule() decorator:
@@ -58,7 +58,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
 @NgModule({
   declarations: [ //... ],
   imports: [
-    NgModalModule,
+    NgSqCommonModule,
     //...
   ],
   //...
@@ -71,7 +71,9 @@ ng-sq-ui does not come with a specific font. Including the default theme is also
 ```json
 "styles": [
   "src/styles.css",
-  "./node_modules/font-awesome/scss/font-awesome.scss"
+  "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
 ],
 ```
 
@@ -81,7 +83,7 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ```html
 <body class="sq">
-  <sq-modal>...</sq-modal>
+  <sq-paginator ...></sq-paginator>
 </body>
 ```
 
@@ -89,8 +91,5 @@ To use our styling just add the `class="sq"` on a parent element.
 
 - Use NG-SQ-UI in your daily work.
 - **Star** it if you like.
-- Join us on <a href="https://spectrum.chat/sq-ui">spectrum.chat</a>.
-- Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
+- [Join slack chat](https://join.slack.com/t/ng-sq-ui/shared_invite/enQtNDE2NDQxMjA4NzU4LTNiOWZjMGU5Mzc1N2NiMjRkMjJlM2U5OWY4ZGUyOWNjNjFmY2EyMzQ0Zjg0Mjk5OTE4MGUyMjQwMmU3NDI2Yzg) to help solve problems.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
-- Or simply send an email to contact[at]sq-ui.xyz.
-- Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)

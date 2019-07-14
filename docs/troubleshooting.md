@@ -18,6 +18,8 @@ Two possible reasons:
   "src/styles.css",
   "./node_modules/@sq-ui/ng-sq-common/sq-ui-theme.scss",
   "./node_modules/@sq-ui/ng-sq-ui/styles/form-elements.scss",
-  "./node_modules/font-awesome/scss/font-awesome.scss"
+  "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
 ],
 ```
