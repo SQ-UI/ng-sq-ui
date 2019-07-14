@@ -25,7 +25,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TagsInputComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('tagsInput') tagsInput;
+  @ViewChild('tagsInput', {static: true}) tagsInput;
   private isModelEmpty: boolean = false;
   private enteredItemsSubscription: Subscription;
   private valueChangedSubscription: Subscription;
