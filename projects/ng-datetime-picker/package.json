@@ -22,9 +22,11 @@
   ],
   "keywords": [
     "angular",
-    "angular 6",
-    "angular 7",
-    "angular 2+",
+    "angular 8",
+    "sq ui",
+    "simple quality ui",
+    "sq-ui",
+    "ng-sq-ui",
     "Angular",
     "typescript",
     "ui",
@@ -56,7 +58,7 @@
   "dependencies": {
     "@sq-ui/ng-sq-common": "^1.0.0",
     "immutable": "^3.8.2",
-    "font-awesome": "4.7.0",
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "moment": "^2.22.2"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"

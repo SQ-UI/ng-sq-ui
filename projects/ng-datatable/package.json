@@ -22,10 +22,13 @@
   ],
   "keywords": [
     "angular",
-    "angular 6",
-    "angular 7",
+    "angular 8",
     "angular 2+",
     "Angular",
+    "sq ui",
+    "simple quality ui",
+    "sq-ui",
+    "ng-sq-ui",
     "datatable",
     "datagrid",
     "data table",
@@ -40,7 +43,7 @@
   },
   "dependencies": {
     "@sq-ui/ng-sq-common": "^1.0.0",
-    "font-awesome": "4.7.0"
+    "@fortawesome/fontawesome-free": "^5.9.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }
