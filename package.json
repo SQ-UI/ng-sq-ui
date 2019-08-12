@@ -37,7 +37,7 @@
     "@angular-devkit/build-ng-packagr": "~0.801.1",
     "@angular/cli": "~8.1.1",
     "@angular/compiler-cli": "^8.1.1",
-    "@angular/language-service": "^8.1.1",
+    "@angular/language-service": "^8.2.1",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@types/jasmine": "~3.3.13",
     "@types/jasminewd2": "~2.0.6",
