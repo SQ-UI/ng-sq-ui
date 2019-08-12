@@ -26,7 +26,7 @@
     "@angular/platform-browser-dynamic": "^8.1.1",
     "@angular/router": "^8.1.1",
     "all-contributors-cli": "^6.7.0",
-    "core-js": "^3.1.4",
+    "core-js": "^3.2.0",
     "docsify": "^4.9.4",
     "nyc": "^14.1.1",
     "rxjs": "^6.5.2",
