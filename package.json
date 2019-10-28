@@ -41,7 +41,7 @@
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@types/jasminewd2": "~2.0.8",
     "@types/jasmine": "~3.4.4",
-    "@types/node": "~12.7.12",
+    "@types/node": "~12.11.7",
     "adm-zip": "^0.4.13",
     "codecov.io": "^0.1.6",
     "codelyzer": "^5.1.2",
