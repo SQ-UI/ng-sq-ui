@@ -66,7 +66,7 @@ describe('DatetimePickerComponent', () => {
     const selectItem = component.calendar[2][5];
     component.isMultipleSelect = false;
 
-    component.dateSelectionChange.subscribe((selectedValue) => {
+    const subscription = component.dateSelectionChange.subscribe((selectedValue) => {
       const isValueSame = selectedValue.isSame(selectItem.momentObj, 'day');
       const isValueSelected = selectItem.isSelected;
       const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value);
@@ -75,35 +75,34 @@ describe('DatetimePickerComponent', () => {
         .toBe(true, 'the selected date is correct');
 
       done();
+      subscription.unsubscribe();
     });
 
     component.select(selectItem);
     fixture.detectChanges();
   });
 
-  it('#should select dates correctly when [isMultipleSelect]=true', (done: DoneFn) => {
+  it('#should select dates correctly when [isMultipleSelect]=true', () => {
     component.calendar = component.getMonthCalendar(moment());
-    const expectedItems = [component.calendar[2][3], component.calendar[1][5]];
+    const expectedItems = [component.calendar[1][3], component.calendar[1][5]];
     component.isMultipleSelect = true;
 
-    component.dateSelectionChange.subscribe((selectedValue) => {
-      const isArray = Array.isArray(selectedValue);
-      const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value);
-      const areValuesSameAndSelected = selectedValue.every((date, index) => {
-        return date.isSame(expectedItems[index], 'day') && date.isSelected === true;
+    fixture.detectChanges();
+
+    expectedItems.forEach((item, index) => {
+      component.select(item);
+      fixture.detectChanges();
+
+      const isArray = Array.isArray(component.value);
+      const addedDate = component.value.find((selectedDate) => {
+        return selectedDate.isSame(item.momentObj, 'day');
       });
 
-      expect(isArray && areValuesSameAndSelected === false && isEmittedValueSameAsComponentValue)
+      const areValuesSameAndSelected = !!addedDate;
+
+      expect(isArray && areValuesSameAndSelected)
         .toBe(true, 'the selected date is correct');
-
-      done();
     });
-
-    expectedItems.forEach((item) => {
-      component.select(item);
-    });
-
-    fixture.detectChanges();
   });
 
   it('#should jump to previous month when a date before current month is selected', () => {
