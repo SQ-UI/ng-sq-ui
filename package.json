@@ -40,7 +40,7 @@
     "@angular/language-service": "^8.2.14",
     "@fortawesome/fontawesome-free": "^5.12.0",
     "@types/jasminewd2": "~2.0.8",
-    "@types/jasmine": "~3.5.1",
+    "@types/jasmine": "~3.5.2",
     "@types/node": "~13.5.0",
     "adm-zip": "^0.4.13",
     "codecov.io": "^0.1.6",
