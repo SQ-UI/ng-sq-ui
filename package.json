@@ -42,7 +42,7 @@
     "@types/jasminewd2": "~2.0.8",
     "@types/jasmine": "~3.5.2",
     "@types/node": "~13.7.7",
-    "adm-zip": "^0.4.13",
+    "adm-zip": "^0.4.14",
     "codecov.io": "^0.1.6",
     "codelyzer": "^5.2.1",
     "copyfiles": "^2.2.0",
