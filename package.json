@@ -60,7 +60,7 @@
     "mime": "^2.4.4",
     "moment": "^2.24.0",
     "ng-packagr": "^5.7.1",
-    "protractor": "~5.4.2",
+    "protractor": "~5.4.3",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "ts-node": "~8.6.2",
