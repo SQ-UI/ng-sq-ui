@@ -24,8 +24,8 @@ export class ModalComponent implements OnInit, OnChanges {
     exitAnimation: ''
   };
 
-  @ViewChild('sqModal', { static: false }) private sqModal: ElementRef;
-  @ViewChild('sqModalWindow', { static: false }) private sqModalWindow: ElementRef;
+  @ViewChild('sqModal') private sqModal: ElementRef;
+  @ViewChild('sqModalWindow') private sqModalWindow: ElementRef;
 
   listenForOutsideClick: boolean = false;
 
