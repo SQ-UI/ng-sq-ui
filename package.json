@@ -40,7 +40,7 @@
     "@angular/compiler-cli": "^9.0.6",
     "@angular/language-service": "^9.0.6",
     "@fortawesome/fontawesome-free": "^5.12.1",
-    "@types/jasmine": "~3.5.8",
+    "@types/jasmine": "~3.5.9",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^12.11.1",
     "adm-zip": "^0.4.14",
