@@ -64,7 +64,7 @@
     "protractor": "~5.4.3",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
-    "ts-node": "~8.6.2",
+    "ts-node": "~8.8.1",
     "tslint": "~5.20.1",
     "tunnel-agent": "^0.6.0",
     "typescript": "^3.7.5"
