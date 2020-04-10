@@ -60,7 +60,7 @@
     "marked": "^0.8.2",
     "mime": "^2.4.4",
     "moment": "^2.24.0",
-    "ng-packagr": "^9.0.0",
+    "ng-packagr": "^9.1.0",
     "protractor": "~5.4.3",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
