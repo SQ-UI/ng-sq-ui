@@ -84,7 +84,7 @@ describe('DatetimePickerComponent', () => {
 
   it('#should select dates correctly when [isMultipleSelect]=true', () => {
     component.calendar = component.getMonthCalendar(moment());
-    const expectedItems = [component.calendar[1][3], component.calendar[1][5]];
+    const expectedItems = [component.calendar[1][2], component.calendar[1][5]];
     component.isMultipleSelect = true;
 
     fixture.detectChanges();
