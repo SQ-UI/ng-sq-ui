@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-modal",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI Modal for Angular",
@@ -42,8 +42,8 @@
     "@sq-ui/ng-sq-common": "^1.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^8.1.1",
-    "@angular/core": "^8.1.1"
+    "@angular/common": "^9.0.6",
+    "@angular/core": "^9.0.6"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

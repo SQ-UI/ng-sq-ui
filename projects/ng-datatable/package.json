@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-datatable",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "MIT",
   "private": false,
   "description": "A customizable datatable for Angular by SQ-UI",
@@ -38,8 +38,8 @@
     "web datatable"
   ],
   "peerDependencies": {
-    "@angular/common": "^8.1.1",
-    "@angular/core": "^8.1.1"
+    "@angular/common": "^9.0.6",
+    "@angular/core": "^9.0.6"
   },
   "dependencies": {
     "@sq-ui/ng-sq-common": "^1.0.0",
