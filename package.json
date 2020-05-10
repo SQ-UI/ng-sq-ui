@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "docs": "docsify serve docs",
     "copy:styles": "copyfiles -f \"./projects/ng-sq-common/src/lib/styles/**/*.scss\" \"./dist/ng-sq-common/styles\" && copyfiles -f \"./projects/ng-sq-common/src/lib/sq-ui-theme.scss\" \"./dist/ng-sq-common/\" && copyfiles -f \"./projects/ng-sq-ui/src/lib/styles/**/*.scss\" \"./dist/ng-sq-ui/styles\"",
-    "build:libs": "ng build ng-sq-common && ng build ng-modal && ng build ng-datetime-picker && ng build ng-datatable && npm run copy:styles && ng build ng-sq-ui",
+    "build:libs": "ng build --prod ng-sq-common && ng build --prod ng-modal && ng build --prod ng-datetime-picker && ng build --prod ng-datatable && npm run copy:styles && ng build --prod ng-sq-ui",
     "build:app:prod": "npm run build:libs && ng build --prod",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
