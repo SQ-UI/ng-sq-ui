@@ -12,6 +12,7 @@
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
 [![@sq-ui/ng-sq-ui Dev Token](https://badge.devtoken.rocks/@sq-ui/ng-sq-ui)](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys)
 
 ## Docs
 **Note:**
