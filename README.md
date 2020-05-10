@@ -12,8 +12,17 @@
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
 [![@sq-ui/ng-sq-ui Dev Token](https://badge.devtoken.rocks/@sq-ui/ng-sq-ui)](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys)
 
 ## Docs
+**Note:**
+For projects that use Angular version < 9, please use the following version for each package:
+
+**@sq-ui/ng-sq-ui:** 1.1.5<br>
+**@sq-ui/ng-datetime-picker:** 1.1.0<br>
+**@sq-ui/ng-sq-common:** 1.0.3<br>
+**@sq-ui/ng-modal:** 1.0.6<br>
+**@sq-ui/ng-datatable:** 1.0.3<br>
 
 You will find a description of the public API for each component.
 The components are grouped by modules. Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
