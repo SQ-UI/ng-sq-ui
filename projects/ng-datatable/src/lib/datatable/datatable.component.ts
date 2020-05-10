@@ -63,6 +63,10 @@ export class DatatableComponent implements OnInit, OnChanges {
   }
 
   private sortItems(columnName: string, ascending: boolean) {
+    if (typeof ascending === 'undefined') {
+      ascending = true;
+    }
+
     this.paginatedCollection.sort((rowItem1, rowItem2) => {
       if (rowItem1[columnName] > rowItem2[columnName]) {
         return ascending ? 1 : -1;
