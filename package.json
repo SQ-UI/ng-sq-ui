@@ -57,7 +57,7 @@
     "karma-coverage-istanbul-reporter": "^3.0.0",
     "karma-jasmine": "^3.1.1",
     "karma-jasmine-html-reporter": "^1.5.4",
-    "marked": "^1.0.0",
+    "marked": "^1.1.0",
     "mime": "^2.4.5",
     "moment": "^2.25.3",
     "ng-packagr": "^9.1.5",
