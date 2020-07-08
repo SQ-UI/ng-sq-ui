@@ -45,7 +45,7 @@
     "@types/node": "^14.0.14",
     "adm-zip": "^0.4.14",
     "codecov": "^3.7.0",
-    "codelyzer": "^5.2.2",
+    "codelyzer": "^6.0.0",
     "copyfiles": "^2.3.0",
     "hawk": "^7.0.10",
     "hoek": "^6.1.3",
