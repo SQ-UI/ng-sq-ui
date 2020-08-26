@@ -27,7 +27,7 @@
     "@angular/router": "^9.0.6",
     "all-contributors-cli": "^6.16.1",
     "core-js": "^3.6.5",
-    "docsify": "^4.11.4",
+    "docsify": "^4.11.6",
     "nyc": "^15.1.0",
     "rxjs": "^6.6.0",
     "tslib": "^1.13.0",
