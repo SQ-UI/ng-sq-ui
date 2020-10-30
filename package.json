@@ -47,7 +47,7 @@
     "codecov": "^3.8.0",
     "codelyzer": "^6.0.1",
     "copyfiles": "^2.4.0",
-    "hawk": "^7.0.10",
+    "hawk": "^8.0.1",
     "hoek": "^6.1.3",
     "immutable": "^4.0.0-rc.12",
     "jasmine-core": "~3.6.0",
