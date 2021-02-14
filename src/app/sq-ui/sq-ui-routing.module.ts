@@ -1,4 +1,4 @@
-import { ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SqUiComponent } from './sq-ui/sq-ui.component';
 
@@ -9,4 +9,9 @@ const routes: Routes = [
   }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class SqUiRoutingModule { }
+

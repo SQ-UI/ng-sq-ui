@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RadiobuttonComponent } from './radiobutton.component';
 import { FormsModule } from '@angular/forms';
@@ -11,9 +11,9 @@ describe('RadiobuttonComponent', () => {
   const groupName = 'testGroupName';
   const radioValue = 'testValue';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RadiobuttonComponent ],
+      declarations: [RadiobuttonComponent],
       imports: [
         FormsModule
       ],
@@ -21,12 +21,12 @@ describe('RadiobuttonComponent', () => {
         CustomEventBroadcasterService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RadiobuttonComponent);
-    eventBroadcaster = TestBed.get(CustomEventBroadcasterService);
+    eventBroadcaster = TestBed.inject(CustomEventBroadcasterService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -35,7 +35,7 @@ describe('RadiobuttonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should select the radiobutton correctly when clicked', () => {
+  it('should select the radiobutton correctly when clicked', () => {
     const radio2Fixture = TestBed.createComponent(RadiobuttonComponent);
     const radio2 = radio2Fixture.componentInstance;
     radio2Fixture.detectChanges();

@@ -44,12 +44,12 @@ describe('CalendarManagerService', () => {
   }));
 
   it('should be created', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     expect(service).toBeTruthy();
   });
 
-  it('#should create a calendar month table correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should create a calendar month table correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const startDate = moment().startOf('month');
     const isStartOfTable = startDate.weekday() === 0;
 
@@ -62,7 +62,7 @@ describe('CalendarManagerService', () => {
     // the calendar should be 6 rows x 7 days
     const endDate = moment(startDate).add(41, 'days');
 
-    const calendar = service.generateCalendarForMonth(moment(), moment(), [], {minDate: null, maxDate: null});
+    const calendar = service.generateCalendarForMonth(moment(), moment(), [], { minDate: null, maxDate: null });
     const firstCalendarDay = calendar[0][0];
     const lastCalendarDay = calendar[calendar.length - 1][calendar[calendar.length - 1].length - 1];
 
@@ -77,23 +77,23 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'table should be 6 rows x 7 days and the starting day should be adjusted if needed');
   });
 
-  it('#should find a date from month calendar correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should find a date from month calendar correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const dayToFind = moment();
 
-    const calendar = service.generateCalendarForMonth(moment(), moment(), [], {minDate: null, maxDate: null});
+    const calendar = service.generateCalendarForMonth(moment(), moment(), [], { minDate: null, maxDate: null });
     const searchResult = service.findADateFromCalendar(dayToFind, calendar);
 
     expect((searchResult.momentObj).isSame(dayToFind, 'day'))
       .toBe(true, 'the search date and the result date should be the same month and day');
   });
 
-  it('#should disable calendar dates that are outside the [min, max] range', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should disable calendar dates that are outside the [min, max] range', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const minDate = moment().startOf('month').add(3, 'days');
     const maxDate = moment(minDate).add(7, 'days');
 
-    const calendar = service.generateCalendarForMonth(moment(), moment(), [], {minDate: minDate, maxDate: maxDate});
+    const calendar = service.generateCalendarForMonth(moment(), moment(), [], { minDate: minDate, maxDate: maxDate });
     const dayBeforeMin = service.findADateFromCalendar(moment(minDate).subtract(1, 'day'), calendar);
     const dayAfterMax = service.findADateFromCalendar(moment(maxDate).add(1, 'day'), calendar);
 
@@ -101,8 +101,8 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'the date before minDate and the date after maxDate should be disabled');
   });
 
-  it('#should generate a list of years with a given margin correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should generate a list of years with a given margin correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const margin = 40;
     const startDate = moment();
     const endDate = moment(startDate).add(margin, 'years');
@@ -110,15 +110,15 @@ describe('CalendarManagerService', () => {
     const yearsList = service.getYearList(startDate, margin);
 
     expect(yearsList.length === margin + 1 &&
-                yearsList[0] === startDate.year() &&
-                yearsList[yearsList.length - 1] === endDate.year())
+      yearsList[0] === startDate.year() &&
+      yearsList[yearsList.length - 1] === endDate.year())
       .toBe(true, `the start date and the end date should be ${margin} years apart`);
   });
 
-  it('#should generate a month calendar with preselected dates', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should generate a month calendar with preselected dates', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const preselectedDates = [moment(), moment().add(1, 'day')];
-    const calendar = service.generateCalendarForMonth(moment(), moment(), preselectedDates, {minDate: null, maxDate: null});
+    const calendar = service.generateCalendarForMonth(moment(), moment(), preselectedDates, { minDate: null, maxDate: null });
 
     const preselectedDate1 = service.findADateFromCalendar(preselectedDates[0], calendar);
     const preselectedDate2 = service.findADateFromCalendar(preselectedDates[1], calendar);
@@ -127,8 +127,8 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'the preselected dates should be marked as selected in the calendar');
   });
 
-  it('#should generate a list of months correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should generate a list of months correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const momentMonthsLong = moment.months();
     const monthsListLong = service.getMonths(false);
     const momentMonthsShort = moment.monthsShort();
@@ -146,8 +146,8 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'moment and service long and short months lists match');
   });
 
-  it('#should generate a list of weekdays correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should generate a list of weekdays correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const momentWeekdaysLong = moment.weekdays();
     const weekdaysListLong = service.getWeekdays(false);
     const momentWeekdaysShort = moment.weekdaysShort();
@@ -165,8 +165,8 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'moment and service long and short weekdays lists match');
   });
 
-  it('#should determine date relativity correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should determine date relativity correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const beforeCurrentMonthDate = moment().subtract(1, 'month');
     const afterCurrentMonthDate = moment().add(1, 'month');
 
@@ -175,13 +175,13 @@ describe('CalendarManagerService', () => {
     const currentDateIsCorrectlyMarked = service.determineDateRelativityToCurrentMonth(moment(), moment());
 
     expect(beforeDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.Before &&
-                afterDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.After &&
-                currentDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.Current)
+      afterDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.After &&
+      currentDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.Current)
       .toBe(true, 'the dates are correctly marked relatively to the current month');
   });
 
-  it('#should generate a month picker correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should generate a month picker correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const momentMonthsShort = moment.monthsShort();
     const dateRange = {
       minDate: moment().add(1, 'month'),
@@ -212,8 +212,8 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'month picker items are correctly generated');
   });
 
-  it('#should generate a year picker correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should generate a year picker correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const margin = 20;
     const testYearsList = getYearList(moment(), margin);
     const dateRange = {
@@ -245,8 +245,8 @@ describe('CalendarManagerService', () => {
       .toBe(true, 'year picker items are correctly generated');
   });
 
-  it('#should find the index of a selected date correctly', () => {
-    const service: CalendarManagerService = TestBed.get(CalendarManagerService);
+  it('should find the index of a selected date correctly', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const preselectedDates = [moment().add(1, 'day'), moment(), moment().add(1, 'month'), moment().add(1, 'year')];
     const dateToFind = moment().add(1, 'month');
 

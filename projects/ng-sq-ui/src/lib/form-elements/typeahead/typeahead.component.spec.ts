@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TypeaheadComponent } from './typeahead.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ describe('TypeaheadComponent', () => {
     },
   ];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TypeaheadComponent, OutsideClickListenerDirective],
       imports: [FormsModule, ReactiveFormsModule],
@@ -41,7 +41,7 @@ describe('TypeaheadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should populate with search results on end of user input', () => {
+  it('should populate with search results on end of user input', () => {
     component.searchResults = testSearchResults;
 
     expect(component.searchResults.length > 0).toBe(
@@ -50,7 +50,7 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should choose one item when [multiple] = false', () => {
+  it('should choose one item when [multiple] = false', () => {
     component.searchResults = testSearchResults;
     const firstChosenItem = component.searchResults[2];
 
@@ -68,7 +68,7 @@ describe('TypeaheadComponent', () => {
     ).toBe(true, 'single choice is correctly populated');
   });
 
-  it('#should be able to choose more than one result when [multiple] = true', () => {
+  it('should be able to choose more than one result when [multiple] = true', () => {
     component.searchResults = testSearchResults;
     component.multiple = true;
 
@@ -82,7 +82,7 @@ describe('TypeaheadComponent', () => {
     ).toBe(true, 'multiple choice is correctly populated');
   });
 
-  it('#should remove selected item by using the remove button', () => {
+  it('should remove selected item by using the remove button', () => {
     component.searchResults = testSearchResults;
     component.multiple = false;
 
@@ -96,7 +96,7 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should be able to populate correctly with a pre-defined result item when [multiple] = true', () => {
+  it('should be able to populate correctly with a pre-defined result item when [multiple] = true', () => {
     component.multiple = true;
     component.searchResults = testSearchResults;
     component.selectSearchResult(component.searchResults[0]);
@@ -108,7 +108,7 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should be able to populate correctly with a pre-defined result item when [multiple] = false', () => {
+  it('should be able to populate correctly with a pre-defined result item when [multiple] = false', () => {
     component.multiple = false;
     component.searchResults = testSearchResults;
     component.selectSearchResult(component.searchResults[0]);
@@ -126,7 +126,7 @@ describe('TypeaheadComponent', () => {
     );
   });
 
-  it('#should be working with plain strings', () => {
+  it('should be working with plain strings', () => {
     const stringSearchResults = ['option1', 'option2', 'option3'];
 
     component.displayProp = '';

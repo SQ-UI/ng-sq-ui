@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, forwardRef, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, forwardRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DatetimePickerComponent } from './datetime-picker.component';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
@@ -44,15 +44,15 @@ describe('DatetimePickerComponent', () => {
       providers: [
         CalendarManagerService
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatetimePickerComponent);
     component = fixture.componentInstance;
-    calendarManager = TestBed.get(CalendarManagerService);
+    calendarManager = TestBed.inject(CalendarManagerService);
     component.isTimepickerEnabled = false;
     fixture.detectChanges();
   });
@@ -61,13 +61,13 @@ describe('DatetimePickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should select a date correctly when [isMultipleSelect]=false', (done) => {
+  it('should select a date correctly when [isMultipleSelect]=false', (done) => {
     component.calendar = component.getMonthCalendar(moment());
     const selectItem = component.calendar[2][5];
     component.isMultipleSelect = false;
 
     const subscription = component.dateSelectionChange.subscribe((selectedValue) => {
-      const isValueSame = selectedValue.isSame(selectItem.momentObj, 'day');
+      const isValueSame = (selectedValue as moment.Moment).isSame(selectItem.momentObj, 'day');
       const isValueSelected = selectItem.isSelected;
       const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value);
 
@@ -82,7 +82,7 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('#should select dates correctly when [isMultipleSelect]=true', () => {
+  it('should select dates correctly when [isMultipleSelect]=true', () => {
     component.calendar = component.getMonthCalendar(moment());
     const expectedItems = [component.calendar[1][2], component.calendar[1][5]];
     component.isMultipleSelect = true;
@@ -105,7 +105,7 @@ describe('DatetimePickerComponent', () => {
     });
   });
 
-  it('#should jump to previous month when a date before current month is selected', () => {
+  it('should jump to previous month when a date before current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
     const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
     component.isMultipleSelect = false;
@@ -122,7 +122,7 @@ describe('DatetimePickerComponent', () => {
       .toBe(true, 'the selected date is from previous month');
   });
 
-  it('#should jump to next month when a date after current month is selected', () => {
+  it('should jump to next month when a date after current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
     const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
     component.isMultipleSelect = false;
@@ -140,7 +140,7 @@ describe('DatetimePickerComponent', () => {
       .toBe(true, 'the selected date is from next month');
   });
 
-  it('#should show only monthpicker when the user clicks on month name', () => {
+  it('should show only monthpicker when the user clicks on month name', () => {
     component.showMonthsPicker();
     const isOnlyMonthPickerShown = !component.isYearsPickerEnabled && component.isMonthsPickerEnabled;
     fixture.detectChanges();
@@ -150,7 +150,7 @@ describe('DatetimePickerComponent', () => {
     expect(component.months).toBeTruthy();
   });
 
-  it('#should generate a calendar corresponding to selected month', () => {
+  it('should generate a calendar corresponding to selected month', () => {
     component.showMonthsPicker();
     fixture.detectChanges();
 
@@ -164,7 +164,7 @@ describe('DatetimePickerComponent', () => {
     expect(component.calendar).toBeTruthy();
   });
 
-  it('#should show only yearpicker when the user clicks on year', () => {
+  it('should show only yearpicker when the user clicks on year', () => {
     component.showYearsPicker();
     const isOnlyYearPickerShown = component.isYearsPickerEnabled && !component.isMonthsPickerEnabled;
     fixture.detectChanges();
@@ -174,7 +174,7 @@ describe('DatetimePickerComponent', () => {
     expect(component.yearsList).toBeTruthy();
   });
 
-  it('#should show monthpicker when the user clicks on year from list', () => {
+  it('should show monthpicker when the user clicks on year from list', () => {
     component.showYearsPicker();
     component.selectYear(component.yearsList[0]);
     fixture.detectChanges();

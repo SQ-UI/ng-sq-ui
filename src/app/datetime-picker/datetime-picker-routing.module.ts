@@ -1,4 +1,4 @@
-import { ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DatatimePickerDocsComponent } from './datatime-picker-docs/datatime-picker-docs.component';
 
@@ -9,4 +9,8 @@ const routes: Routes = [
   }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class DatetimePickerRoutingModule { }

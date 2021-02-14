@@ -18,11 +18,15 @@
 **Note:**
 For projects that use Angular version < 9, please use the following version for each package:
 
-**@sq-ui/ng-sq-ui:** 1.1.5<br>
-**@sq-ui/ng-datetime-picker:** 1.1.0<br>
-**@sq-ui/ng-sq-common:** 1.0.3<br>
-**@sq-ui/ng-modal:** 1.0.6<br>
-**@sq-ui/ng-datatable:** 1.0.3<br>
+**@sq-ui/ng-sq-ui:** 1.1.5 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-sq-ui/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-sq-ui)
+<br>
+**@sq-ui/ng-datetime-picker:** 1.1.0 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-datetime-picker/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-datetime-picker)<br>
+**@sq-ui/ng-sq-common:** 1.0.3 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-sq-common/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-sq-common)
+<br>
+**@sq-ui/ng-modal:** 1.0.6 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-modal/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-modal)
+<br>
+**@sq-ui/ng-datatable:** 1.0.3 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-datatable/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-datatable)
+<br>
 
 You will find a description of the public API for each component.
 The components are grouped by modules. Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
