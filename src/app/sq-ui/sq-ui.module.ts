@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SqUiComponent } from './sq-ui/sq-ui.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
-import { routing } from './sq-ui-routing';
+import { SqUiRoutingModule } from './sq-ui-routing.module';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { routing } from './sq-ui-routing';
     ReactiveFormsModule,
     NgSqUiModule,
     SharedModule,
-    routing
+    SqUiRoutingModule
   ],
   declarations: [SqUiComponent],
   exports: [
