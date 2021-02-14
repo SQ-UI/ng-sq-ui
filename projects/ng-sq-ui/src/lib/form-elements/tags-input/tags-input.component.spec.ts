@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagsInputComponent } from './tags-input.component';
 import { FormsModule } from '@angular/forms';
@@ -22,14 +22,14 @@ describe('TagsInputComponent', () => {
     }
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TagsInputComponent ],
+      declarations: [TagsInputComponent],
       imports: [
         FormsModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -42,16 +42,16 @@ describe('TagsInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should insert tags correctly on Space press', () => {
+  it('should insert tags correctly on Space press', () => {
     const testTag = 'randomTag';
     addNewTag(testTag);
 
     expect(component.enteredItems.indexOf(testTag) > -1 &&
-          !Object.is(component.enteredItems, component.value))
+      !Object.is(component.enteredItems, component.value))
       .toBe(true, 'new tag is added on pressing Space');
   });
 
-  it('#should remove tags correctly when pressing Backspace', () => {
+  it('should remove tags correctly when pressing Backspace', () => {
     const testTag = 'newRandomTag';
     addTags(3);
     addNewTag(testTag);
@@ -84,7 +84,7 @@ describe('TagsInputComponent', () => {
       .toBe(true, 'all tags should be removed if the Backspace has been pressed as many times as there are tags or more');
   });
 
-  it('#should remove tags when using the remove button', () => {
+  it('should remove tags when using the remove button', () => {
     const testTag = 'randomTag';
     addNewTag(testTag);
 

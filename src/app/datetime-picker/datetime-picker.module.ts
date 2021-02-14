@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
 import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 import { ReactiveFormsModule } from '@angular/forms';
-import { routing } from './datetime-picker-routing';
+import { DatetimePickerRoutingModule } from './datetime-picker-routing.module';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { routing } from './datetime-picker-routing';
     ReactiveFormsModule,
     NgSqUiModule,
     NgDatetimePickerModule,
-    routing
+    DatetimePickerRoutingModule
   ],
   declarations: [DatatimePickerDocsComponent],
   exports: [DatatimePickerDocsComponent]

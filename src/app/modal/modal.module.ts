@@ -4,7 +4,7 @@ import { ModalDocsComponent } from './modal-docs/modal-docs.component';
 import { NgModalModule } from '@sq-ui/ng-modal';
 import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 import { SharedModule } from '../shared/shared.module';
-import { routing } from './modal-routing';
+import { ModalRoutingModule } from './modal-routing.module';
 
 @NgModule({
   imports: [
@@ -12,7 +12,7 @@ import { routing } from './modal-routing';
     SharedModule,
     NgModalModule,
     NgSqUiModule,
-    routing
+    ModalRoutingModule
   ],
   declarations: [ModalDocsComponent],
   exports: [ModalDocsComponent]

@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-datatable",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "private": false,
   "description": "A customizable datatable for Angular by SQ-UI",
@@ -43,7 +43,8 @@
   },
   "dependencies": {
     "@sq-ui/ng-sq-common": "^1.0.0",
-    "@fortawesome/fontawesome-free": "^5.9.0"
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

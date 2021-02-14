@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppNavComponent } from './app-nav.component';
 import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
@@ -9,16 +9,16 @@ describe('AppNavComponent', () => {
   let component: AppNavComponent;
   let fixture: ComponentFixture<AppNavComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppNavComponent ],
+      declarations: [AppNavComponent],
       imports: [
         RouterTestingModule,
         NgSqCommonModule,
         CommonModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

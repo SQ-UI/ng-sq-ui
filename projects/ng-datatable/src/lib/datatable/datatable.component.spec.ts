@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DatatableComponent } from './datatable.component';
 import { NgSqCommonModule } from '../../../../ng-sq-common/src/lib/ng-sq-common.module';
 import { SimpleChange } from '@angular/core';
@@ -33,7 +33,7 @@ describe('DatatableComponent', () => {
     return collection;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         DatatableHeaderDirective,
@@ -46,7 +46,7 @@ describe('DatatableComponent', () => {
         NgSqCommonModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -60,7 +60,7 @@ describe('DatatableComponent', () => {
     expect(datatableComponent).toBeDefined();
   });
 
-  it('#should display items as table rows', (done: DoneFn) => {
+  it('should display items as table rows', (done: DoneFn) => {
     const itemsCount = 30;
 
     datatableComponent.items = generateDummyCollection(itemsCount);
@@ -91,7 +91,7 @@ describe('DatatableComponent', () => {
     });
   });
 
-  it('#should get the props of the first object and make render them as columns', () => {
+  it('should get the props of the first object and make render them as columns', () => {
     const itemsCount = 50;
     datatableComponent.items = generateDummyCollection(itemsCount);
 
@@ -105,7 +105,7 @@ describe('DatatableComponent', () => {
       .toBe(true, 'the props of the first object are assigned as columns');
   });
 
-  it('#should enable sorting for specified column name', () => {
+  it('should enable sorting for specified column name', () => {
     const itemsCount = 50;
     const sortableColumnName = 'id';
     datatableComponent.items = generateDummyCollection(itemsCount);
@@ -125,9 +125,9 @@ describe('DatatableComponent', () => {
     const areAllOtherColumnsUnsortable = datatableComponent.columnNames.filter((column) => {
       return column.name !== sortableColumnName;
     })
-    .every((column) => {
-      return !column.canBeSortedAgainst;
-    });
+      .every((column) => {
+        return !column.canBeSortedAgainst;
+      });
 
     expect(sortableColumn).toBeDefined();
     expect(sortableColumn.canBeSortedAgainst)

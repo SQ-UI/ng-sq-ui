@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxComponent } from './checkbox.component';
 import { FormsModule } from '@angular/forms';
@@ -7,14 +7,14 @@ describe('CheckboxComponent', () => {
   let component: CheckboxComponent;
   let fixture: ComponentFixture<CheckboxComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckboxComponent ],
+      declarations: [CheckboxComponent],
       imports: [
         FormsModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('CheckboxComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should toggle its values when clicked', () => {
+  it('should toggle its values when clicked', () => {
     expect(component.isSelected).toBe(false, 'unselected at first');
     component.toggleCheckboxSelection();
     expect(component.isSelected).toBe(true, 'selected after click');

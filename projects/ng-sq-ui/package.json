@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-sq-ui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI kit for Angular",
@@ -61,7 +61,8 @@
     "@sq-ui/ng-sq-common": "^1.0.0",
     "@sq-ui/ng-datatable": "^1.0.0",
     "@sq-ui/ng-modal": "^1.0.0",
-    "@sq-ui/ng-datetime-picker": "^1.0.0"
+    "@sq-ui/ng-datetime-picker": "^1.0.0",
+    "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

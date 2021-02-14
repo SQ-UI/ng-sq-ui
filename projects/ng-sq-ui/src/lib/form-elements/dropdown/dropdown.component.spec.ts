@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropdownComponent } from './dropdown.component';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ describe('DropdownComponent', () => {
     }
   ];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         DropdownComponent,
@@ -33,7 +33,7 @@ describe('DropdownComponent', () => {
         FormsModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -46,7 +46,7 @@ describe('DropdownComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should populate the dropdown value prop correctly when an option is chosen', () => {
+  it('should populate the dropdown value prop correctly when an option is chosen', () => {
     const selectedItem = testOptions[1];
 
     const subscription = component.onSelectItem.subscribe((chosenOption) => {
