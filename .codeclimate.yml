@@ -15,7 +15,7 @@ checks:
       threshold: 30
   method-lines:
     config:
-      threshold: 35
+      threshold: 100
   similar-code:
     enabled: false
   identical-code:
