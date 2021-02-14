@@ -28,7 +28,8 @@ export class SqCommonComponent implements OnInit {
     { name: 'LabelValuePair (interface)' },
     { name: 'CustomEventBroadcasterService' },
     { name: 'OSDetectorService' },
-    { name: 'PaginatorConfig (interface)' }
+    { name: 'PaginatorConfig (interface)' },
+    { name: 'ScrolledToBottomListenerDirective' }
   ];
 
   docs: NavItem[] = [

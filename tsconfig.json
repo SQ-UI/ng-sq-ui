@@ -69,5 +69,8 @@
         "node_modules/@sq-ui/ng-modal/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

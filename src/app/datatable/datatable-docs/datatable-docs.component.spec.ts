@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatableDocsComponent } from './datatable-docs.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,17 +11,17 @@ describe('DatatableDocsComponent', () => {
   let component: DatatableDocsComponent;
   let fixture: ComponentFixture<DatatableDocsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatableDocsComponent ],
+      declarations: [DatatableDocsComponent],
       imports: [
         RouterTestingModule,
         CommonModule,
         NgDatatableModule
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

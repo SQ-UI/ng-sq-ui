@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextareaComponent } from './textarea.component';
 import { FormsModule } from '@angular/forms';
@@ -24,14 +24,14 @@ describe('TextareaComponent', () => {
   let fixture: ComponentFixture<TextareaComponent>;
   let textarea: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextareaComponent ],
+      declarations: [TextareaComponent],
       imports: [
         FormsModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe('TextareaComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should set the textarea height to a given [minHeight]', () => {
+  it('should set the textarea height to a given [minHeight]', () => {
     component.minHeight = 400;
     fixture.detectChanges();
 
@@ -53,7 +53,7 @@ describe('TextareaComponent', () => {
       .toBe(true, 'textearea height matches [minHeight]');
   });
 
-  it('#should expand automatically when the user types in text', () => {
+  it('should expand automatically when the user types in text', () => {
     textarea.textContent = populateWitheDummyData(4);
     fixture.detectChanges();
 
@@ -61,7 +61,7 @@ describe('TextareaComponent', () => {
       .toBe(true, 'textearea expands automatically on user input');
   });
 
-  it('#should shrink automatically when the user deletes text', () => {
+  it('should shrink automatically when the user deletes text', () => {
     textarea.textContent = populateWitheDummyData(4);
     fixture.detectChanges();
     const textareaHeightBefore = textarea.offsetHeight;

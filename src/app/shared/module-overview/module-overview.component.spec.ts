@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModuleOverviewComponent } from './module-overview.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -8,13 +8,13 @@ describe('ModuleOverviewComponent', () => {
   let component: ModuleOverviewComponent;
   let fixture: ComponentFixture<ModuleOverviewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModuleOverviewComponent ],
-      imports: [ RouterTestingModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      declarations: [ModuleOverviewComponent],
+      imports: [RouterTestingModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

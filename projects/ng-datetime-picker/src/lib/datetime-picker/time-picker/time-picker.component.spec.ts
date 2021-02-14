@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {SimpleChange} from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SimpleChange } from '@angular/core';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimePickerComponent } from './time-picker.component';
 import { FormsModule } from '@angular/forms';
@@ -10,12 +10,12 @@ describe('TimePickerComponent', () => {
   let component: TimePickerComponent;
   let fixture: ComponentFixture<TimePickerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimePickerComponent ],
-      imports: [ FormsModule ]
+      declarations: [TimePickerComponent],
+      imports: [FormsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('TimePickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should convert given hours and minutes when [isMeridiem]=true', () => {
+  it('should convert given hours and minutes when [isMeridiem]=true', () => {
     component.inputHours = 22;
     component.inputMinutes = 30;
     component.isMeridiem = true;
@@ -54,7 +54,7 @@ describe('TimePickerComponent', () => {
     expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
   });
 
-  it('#should retain given hours and minutes when [isMeridiem]=false', () => {
+  it('should retain given hours and minutes when [isMeridiem]=false', () => {
     component.inputHours = 22;
     component.inputMinutes = 30;
     component.isMeridiem = false;
@@ -74,12 +74,12 @@ describe('TimePickerComponent', () => {
 
     expect(noonRelativityToggle).not.toBeTruthy();
     expect(component.hours === component.inputHours.toString() &&
-          component.minutes === component.inputMinutes.toString())
+      component.minutes === component.inputMinutes.toString())
       .toBe(true, 'correctly outputs hours and minutes');
     expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
   });
 
-  it('#should increment hours and minutes with a given [hourStep] and [minuteStep]', () => {
+  it('should increment hours and minutes with a given [hourStep] and [minuteStep]', () => {
     component.inputHours = 10;
     component.inputMinutes = 50;
     component.hourStep = 2;
@@ -124,7 +124,7 @@ describe('TimePickerComponent', () => {
     expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
   });
 
-  it('#should decrement hours and minutes with a given [hourStep] and [minuteStep]', () => {
+  it('should decrement hours and minutes with a given [hourStep] and [minuteStep]', () => {
     component.inputHours = 10;
     component.inputMinutes = 0;
     component.hourStep = 2;
@@ -169,7 +169,7 @@ describe('TimePickerComponent', () => {
     expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
   });
 
-  it('#should change noon relativity when [isMeridiem]=true', () => {
+  it('should change noon relativity when [isMeridiem]=true', () => {
     component.timeObjectType = 'string';
     component.isMeridiem = true;
     component.inputHours = 11;
@@ -194,7 +194,7 @@ describe('TimePickerComponent', () => {
       .toBe(true, 'component value is in correct format');
   });
 
-  it('#should export the time in accordance with a TimeObjectType value', () => {
+  it('should export the time in accordance with a TimeObjectType value', () => {
     component.timeObjectType = 'string';
     component.ngOnChanges({
       timeObjectType: new SimpleChange(null, component.timeObjectType, true)
@@ -213,7 +213,7 @@ describe('TimePickerComponent', () => {
       .toBe(true, 'component value is a moment object when [timeObjectType]="moment"');
   });
 
-  it('#should normalize user input according time limits', () => {
+  it('should normalize user input according time limits', () => {
     component.isMeridiem = true;
     component.ngOnChanges({
       isMeridiem: new SimpleChange(null, component.isMeridiem, true)
@@ -228,7 +228,7 @@ describe('TimePickerComponent', () => {
     fixture.detectChanges();
 
     expect(component.hours === component.limits.hours.max.toString() &&
-            component.minutes === component.limits.minutes.max.toString())
+      component.minutes === component.limits.minutes.max.toString())
       .toBe(true, 'when inputting over-the-max values, they get reset to equal max limits');
 
     component.hours = -10;
@@ -240,7 +240,7 @@ describe('TimePickerComponent', () => {
     fixture.detectChanges();
 
     expect(component.hours === component.limits.hours.min.toString() &&
-            component.minutes === component.limits.minutes.min.toString())
+      component.minutes === component.limits.minutes.min.toString())
       .toBe(true, 'when inputting under-the-min values, they get reset to the min limits');
   });
 });

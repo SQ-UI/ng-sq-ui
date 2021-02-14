@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SimpleChange } from '@angular/core';
 
 import { DatatableColumnComponent } from './datatable-column.component';
@@ -8,14 +8,14 @@ describe('DatatableColumnComponent', () => {
   let component: DatatableColumnComponent;
   let fixture: ComponentFixture<DatatableColumnComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatatableColumnComponent ],
+      declarations: [DatatableColumnComponent],
       imports: [
         NgSqCommonModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -28,13 +28,13 @@ describe('DatatableColumnComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should emit information that the parent should sort by column name', (done: DoneFn) => {
+  it('should emit information that the parent should sort by column name', (done: DoneFn) => {
     component.name = 'columnName';
     component.isSortable = true;
 
     component.ngOnChanges({
       name: new SimpleChange(null, component.name, true),
-      isSortable: new SimpleChange(null, component.isSortable , true)
+      isSortable: new SimpleChange(null, component.isSortable, true)
     });
 
     fixture.detectChanges();

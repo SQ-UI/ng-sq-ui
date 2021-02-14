@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SimpleChange } from '@angular/core';
 
 import { PaginatorComponent } from './paginator.component';
@@ -27,11 +27,11 @@ describe('PaginatorComponent', () => {
     return collection;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaginatorComponent ]
+      declarations: [PaginatorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,126 +44,126 @@ describe('PaginatorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#should split a finite collection of items into a correct number of pages',
+  it('should split a finite collection of items into a correct number of pages',
     () => {
-    const recordCount = 238;
-    const recordPerPage = 5;
+      const recordCount = 238;
+      const recordPerPage = 5;
 
-    component.items = generateDummyCollection(recordCount);
-    component.itemsPerPage = recordPerPage;
+      component.items = generateDummyCollection(recordCount);
+      component.itemsPerPage = recordPerPage;
 
-    component.ngOnChanges({
-      items: new SimpleChange(null, component.items, true),
-      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
-    });
-
-    fixture.detectChanges();
-
-    expect(component.pages[component.pages.length - 1].number)
-      .toEqual(Math.ceil(recordCount / recordPerPage), 'the page number is calculated correctly');
-    expect(component._paginatedCollection.length)
-      .toEqual(recordPerPage, 'the number of paginated items is correct');
-  });
-
-  it('#should recalculate its pages correctly when the collection is dynamic',
-    (done: DoneFn) => {
-    const recordCount = 20;
-    const recordPerPage = 5;
-
-    component.items = generateDummyCollection(recordCount);
-    component.itemsPerPage = recordPerPage;
-
-    component.ngOnChanges({
-      items: new SimpleChange(null, component.items, true),
-      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
-    });
-
-    component.pageChange
-      .subscribe((pageInfo: { page: number, firstItemIndex: number }) => {
-        if (pageInfo.page % (Math.ceil(recordCount / recordPerPage)) === 0) {
-          const newItems = generateDummyCollection(recordCount * 2, 21);
-          component.items = component.items.concat(newItems);
-
-          component.ngOnChanges({
-            items: new SimpleChange(null, component.items, false)
-          });
-
-          fixture.detectChanges();
-
-          expect(component.items.length)
-            .toEqual(recordCount * 2, 'the items are changed successfully');
-          expect(component.pages[component.pages.length - 1].number)
-            .toEqual(Math.ceil(recordCount / recordPerPage) * 2, 'the number of pages has changed');
-
-          done();
-        }
+      component.ngOnChanges({
+        items: new SimpleChange(null, component.items, true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
       });
 
-    fixture.detectChanges();
-    component.onPageClick(component.pages[component.pages.length - 1]);
-    fixture.detectChanges();
-  });
-
-  it('#should disable ("jump to") first and previous buttons and enable ("jump to") next and last buttons on initial render',
-    async(() => {
-    const recordCount = 100;
-    const recordPerPage = 5;
-
-    component.items = generateDummyCollection(recordCount);
-    component.itemsPerPage = recordPerPage;
-
-    component.ngOnChanges({
-      items: new SimpleChange(null, component.items, true),
-      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
-    });
-
-    fixture.detectChanges();
-
-    fixture.whenRenderingDone().then(() => {
-      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-      const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
-      const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
-      const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
-      const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
-
-      expect(prevBtn.disabled).toBe(true, 'prev button is disabled');
-      expect(firstBtn.disabled).toBe(true, 'first button is disabled');
-      expect(nextBtn.disabled).toBe(false, 'next button is enabled');
-      expect(lastBtn.disabled).toBe(false, 'last button is enabled');
-    });
-  }));
-
-  it('#should enable ("jump to") first and previous buttons when a page other than the first is clicked',
-    async(() => {
-    const recordCount = 100;
-    const recordPerPage = 5;
-
-    component.items = generateDummyCollection(recordCount);
-    component.itemsPerPage = recordPerPage;
-
-    component.ngOnChanges({
-      items: new SimpleChange(null, component.items, true),
-      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
-    });
-
-    fixture.detectChanges();
-
-    fixture.whenRenderingDone().then(() => {
-      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-      const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
-      const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
-
-      paginatorEl.querySelector('.current + li button').click();
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(prevBtn.disabled).toBe(false, 'prev button is enabled');
-        expect(firstBtn.disabled).toBe(false, 'first button is enabled');
-      });
+      expect(component.pages[component.pages.length - 1].number)
+        .toEqual(Math.ceil(recordCount / recordPerPage), 'the page number is calculated correctly');
+      expect(component._paginatedCollection.length)
+        .toEqual(recordPerPage, 'the number of paginated items is correct');
     });
-  }));
 
-  it('#should disable ("jump to") last and next buttons when the user clicks on the last page',
+  it('should recalculate its pages correctly when the collection is dynamic',
+    (done: DoneFn) => {
+      const recordCount = 20;
+      const recordPerPage = 5;
+
+      component.items = generateDummyCollection(recordCount);
+      component.itemsPerPage = recordPerPage;
+
+      component.ngOnChanges({
+        items: new SimpleChange(null, component.items, true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
+      });
+
+      component.pageChange
+        .subscribe((pageInfo: { page: number, firstItemIndex: number }) => {
+          if (pageInfo.page % (Math.ceil(recordCount / recordPerPage)) === 0) {
+            const newItems = generateDummyCollection(recordCount * 2, 21);
+            component.items = component.items.concat(newItems);
+
+            component.ngOnChanges({
+              items: new SimpleChange(null, component.items, false)
+            });
+
+            fixture.detectChanges();
+
+            expect(component.items.length)
+              .toEqual(recordCount * 2, 'the items are changed successfully');
+            expect(component.pages[component.pages.length - 1].number)
+              .toEqual(Math.ceil(recordCount / recordPerPage) * 2, 'the number of pages has changed');
+
+            done();
+          }
+        });
+
+      fixture.detectChanges();
+      component.onPageClick(component.pages[component.pages.length - 1]);
+      fixture.detectChanges();
+    });
+
+  it('should disable ("jump to") first and previous buttons and enable ("jump to") next and last buttons on initial render',
+    waitForAsync(() => {
+      const recordCount = 100;
+      const recordPerPage = 5;
+
+      component.items = generateDummyCollection(recordCount);
+      component.itemsPerPage = recordPerPage;
+
+      component.ngOnChanges({
+        items: new SimpleChange(null, component.items, true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
+      });
+
+      fixture.detectChanges();
+
+      fixture.whenRenderingDone().then(() => {
+        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+        const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
+        const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
+        const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
+        const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
+
+        expect(prevBtn.disabled).toBe(true, 'prev button is disabled');
+        expect(firstBtn.disabled).toBe(true, 'first button is disabled');
+        expect(nextBtn.disabled).toBe(false, 'next button is enabled');
+        expect(lastBtn.disabled).toBe(false, 'last button is enabled');
+      });
+    }));
+
+  it('should enable ("jump to") first and previous buttons when a page other than the first is clicked',
+    waitForAsync(() => {
+      const recordCount = 100;
+      const recordPerPage = 5;
+
+      component.items = generateDummyCollection(recordCount);
+      component.itemsPerPage = recordPerPage;
+
+      component.ngOnChanges({
+        items: new SimpleChange(null, component.items, true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
+      });
+
+      fixture.detectChanges();
+
+      fixture.whenRenderingDone().then(() => {
+        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+        const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
+        const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
+
+        paginatorEl.querySelector('.current + li button').click();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(prevBtn.disabled).toBe(false, 'prev button is enabled');
+          expect(firstBtn.disabled).toBe(false, 'first button is enabled');
+        });
+      });
+    }));
+
+  it('should disable ("jump to") last and next buttons when the user clicks on the last page',
     (done: DoneFn) => {
       const recordCount = 100;
       const recordPerPage = 5;
@@ -173,7 +173,7 @@ describe('PaginatorComponent', () => {
 
       component.ngOnChanges({
         items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
       });
 
       fixture.detectChanges();
@@ -195,8 +195,8 @@ describe('PaginatorComponent', () => {
       });
     });
 
-  it('#should change the paginated collection correctly when the user clicks another page',
-    async(() => {
+  it('should change the paginated collection correctly when the user clicks another page',
+    waitForAsync(() => {
       const recordCount = 100;
       const recordPerPage = 5;
 
@@ -205,7 +205,7 @@ describe('PaginatorComponent', () => {
 
       component.ngOnChanges({
         items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage , true)
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
       });
 
       fixture.detectChanges();
@@ -227,63 +227,63 @@ describe('PaginatorComponent', () => {
       });
     }));
 
-  it('#should automatically select the [currentPage] number when it exists',
-  (done: DoneFn) => {
-    const recordCount = 400;
-    const recordPerPage = 10;
-    const currentPageNumber = 10;
-
-    component.items = generateDummyCollection(recordCount);
-    component.itemsPerPage = recordPerPage;
-    component.currentPage = currentPageNumber;
-
-    component.ngOnChanges({
-      items: new SimpleChange(null, component.items, true),
-      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true),
-      currentPage: new SimpleChange(null, component.currentPage, true)
-    });
-
-    fixture.detectChanges();
-
-    fixture.whenRenderingDone().then(() => {
-      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-      const currentPageEl = paginatorEl.querySelector('.current button');
-      expect(parseInt(currentPageEl.textContent, 10) === currentPageNumber)
-        .toBe(true, 'the current page passed by author is selected');
-      done();
-    });
-  });
-
-  it('#should show a maximum of [lastPage] pages when [lastPage] exists',
+  it('should automatically select the [currentPage] number when it exists',
     (done: DoneFn) => {
-    const recordCount = 50;
-    const recordPerPage = 3;
-    const lastPage = 4;
+      const recordCount = 400;
+      const recordPerPage = 10;
+      const currentPageNumber = 10;
 
-    component.items = generateDummyCollection(recordCount);
-    component.itemsPerPage = recordPerPage;
-    component.lastPage = lastPage;
+      component.items = generateDummyCollection(recordCount);
+      component.itemsPerPage = recordPerPage;
+      component.currentPage = currentPageNumber;
 
-    component.ngOnChanges({
-      items: new SimpleChange(null, component.items, true),
-      itemsPerPage: new SimpleChange(null, component.itemsPerPage , true),
-      lastPage: new SimpleChange(null, component.lastPage, true)
+      component.ngOnChanges({
+        items: new SimpleChange(null, component.items, true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true),
+        currentPage: new SimpleChange(null, component.currentPage, true)
+      });
+
+      fixture.detectChanges();
+
+      fixture.whenRenderingDone().then(() => {
+        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+        const currentPageEl = paginatorEl.querySelector('.current button');
+        expect(parseInt(currentPageEl.textContent, 10) === currentPageNumber)
+          .toBe(true, 'the current page passed by author is selected');
+        done();
+      });
     });
 
-    fixture.detectChanges();
+  it('should show a maximum of [lastPage] pages when [lastPage] exists',
+    (done: DoneFn) => {
+      const recordCount = 50;
+      const recordPerPage = 3;
+      const lastPage = 4;
 
-    fixture.whenRenderingDone().then(() => {
-      const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-      const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated) button');
-      const lastVisiblePage = allVisiblePages[allVisiblePages.length - 1];
+      component.items = generateDummyCollection(recordCount);
+      component.itemsPerPage = recordPerPage;
+      component.lastPage = lastPage;
 
-      expect(parseInt(lastVisiblePage.textContent, 10) === lastPage)
-        .toBe(true, 'the last page is set correctly');
-      done();
+      component.ngOnChanges({
+        items: new SimpleChange(null, component.items, true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true),
+        lastPage: new SimpleChange(null, component.lastPage, true)
+      });
+
+      fixture.detectChanges();
+
+      fixture.whenRenderingDone().then(() => {
+        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
+        const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated) button');
+        const lastVisiblePage = allVisiblePages[allVisiblePages.length - 1];
+
+        expect(parseInt(lastVisiblePage.textContent, 10) === lastPage)
+          .toBe(true, 'the last page is set correctly');
+        done();
+      });
     });
-  });
 
-  it('#should show a maximum of [maxDisplayedPages] if it exists',
+  it('should show a maximum of [maxDisplayedPages] if it exists',
     (done: DoneFn) => {
       const recordCount = 300;
       const recordPerPage = 10;
@@ -295,7 +295,7 @@ describe('PaginatorComponent', () => {
 
       component.ngOnChanges({
         items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage , true),
+        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true),
         maxDisplayedPages: new SimpleChange(null, component.maxDisplayedPages, true)
       });
 
