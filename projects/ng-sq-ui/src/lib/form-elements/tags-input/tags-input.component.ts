@@ -105,7 +105,9 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
     }
   }
 
-  removeTag = (tagIndex: number) => {
+  removeTag = (tag: string) => {
+    const tagIndex = this.enteredItems.indexOf(tag);
+
     if (tagIndex < 0 || tagIndex > this.enteredItems.size) {
       return;
     }

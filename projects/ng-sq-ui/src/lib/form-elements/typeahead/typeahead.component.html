@@ -11,11 +11,11 @@
       (focus)="turnClickOutsideListenerOn()" placeholder="{{controlPlaceholder}}">
 
     <div class="entered-items" *ngIf="selectedItems.size > 0">
-      <ng-container *ngFor="let selectedItem of selectedItems, index as itemIndex;">
+      <ng-container *ngFor="let selectedItem of selectedItems">
         <ng-template #defaultSelectedOptionTemplate>
           <div class="entered-item chosen-item">
             <div class="content">{{ selectedItem.label }}</div>
-            <div class="remove" (click)="removeSearchResult(itemIndex)" *ngIf="!disabled">
+            <div class="remove" (click)="removeSearchResult(selectedItem)" *ngIf="!disabled">
               <i class="fas fa-times" aria-hidden="true"></i>
             </div>
           </div>

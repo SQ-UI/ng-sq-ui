@@ -8,12 +8,12 @@
 
     <div class="entered-items" *ngIf="enteredItems.size > 0">
       <div class="inner display-flex wrap">
-        <ng-container *ngFor="let enteredValue of enteredItems; index as tagIndex">
+        <ng-container *ngFor="let enteredValue of enteredItems">
           <ng-template #defaultTagTemplate>
             <div class="entered-item">
               {{enteredValue}}
               <span class="button"
-                    (click)="removeTag(tagIndex)"
+                    (click)="removeTag(enteredValue)"
                     *ngIf="!disabled">
                 <i aria-hidden="true"
                    class="fas fa-times"></i>
