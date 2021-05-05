@@ -124,8 +124,10 @@ export class SqUiComponent implements OnInit {
     this.testForm = this.fb.group({
       name: [''],
       dropdown: [null],
+      dropdownWithTemplates: [null],
       tags: [['tag1']],
       typeahead1: [[this.searchResults[0], this.searchResults[2]]],
+      typeaheadWithTemplates: [[this.searchResults[0], this.searchResults[2]]],
       typeahead2: [[]],
       radioValue: ['value1'],
       checkboxValue: [false],

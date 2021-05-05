@@ -15,6 +15,11 @@ import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { ButtonComponent } from './button/button.component';
 import { TextareaComponent } from './textarea/textarea.component';
+import { SqDropdownChevronTemplateDirective, SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './dropdown/dropdown-templates.directive';
+import { SqRadiobuttonLabelTemplateDirective } from './radiobutton/radiobutton-templates.directive';
+import { SqTagTemplateDirective } from './tags-input/tags-input-templates.directive';
+import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead/typeahead-templates.directive';
+import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox-templates.directive';
 
 @NgModule({
   imports: [
@@ -32,7 +37,15 @@ import { TextareaComponent } from './textarea/textarea.component';
     TypeaheadComponent,
     CheckboxComponent,
     ButtonComponent,
-    TextareaComponent
+    TextareaComponent,
+    SqDropdownOptionTemplateDirective,
+    SqDropdownChevronTemplateDirective,
+    SqDropdownSelectedOptionTemplateDirective,
+    SqRadiobuttonLabelTemplateDirective,
+    SqTagTemplateDirective,
+    SqTypeaheadOptionTemplateDirective,
+    SqTypeaheadSelectedOptionTemplateDirective,
+    SqCheckboxLabelTemplateDirective
   ],
   exports: [
     InputComponent,
@@ -43,8 +56,15 @@ import { TextareaComponent } from './textarea/textarea.component';
     TypeaheadComponent,
     CheckboxComponent,
     ButtonComponent,
-    TextareaComponent
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    TextareaComponent,
+    SqDropdownOptionTemplateDirective,
+    SqDropdownChevronTemplateDirective,
+    SqDropdownSelectedOptionTemplateDirective,
+    SqRadiobuttonLabelTemplateDirective,
+    SqTagTemplateDirective,
+    SqTypeaheadOptionTemplateDirective,
+    SqTypeaheadSelectedOptionTemplateDirective,
+    SqCheckboxLabelTemplateDirective
+  ]
 })
 export class FormElementsModule { }

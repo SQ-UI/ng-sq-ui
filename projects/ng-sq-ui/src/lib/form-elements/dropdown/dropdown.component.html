@@ -6,15 +6,40 @@
      (click)="toggleOptionsDropdown();">
 
   <div class="label">{{controlLabel}}</div>
-  <div class="chosen-item" *ngIf="value">{{value.label}}</div>
+
+  <ng-template #defaultSelectedItemTemplate>
+    <div class="chosen-item" *ngIf="value">{{value.label}}</div>
+  </ng-template>
+  <ng-template *ngIf="value"
+               [ngTemplateOutlet]="selectedItemTemplate || defaultSelectedItemTemplate"
+               [ngTemplateOutletContext]="{ value: value }">
+  </ng-template>
+
   <div class="input-placeholder" *ngIf="!value">{{controlPlaceholder}}</div>
 
-  <i class="fas fa-chevron-down dropdown-icon" aria-hidden="true"></i>
-  <div class="options" *ngIf="showOptions">
-    <div class="option"
-         *ngFor="let option of options"
-         (click)="selectOption(option)">
-      {{option.label}}
-    </div>
+  <ng-template #defaultChevronTemplate>
+    <i class="fas fa-chevron-down dropdown-icon"
+       aria-hidden="true">
+    </i>
+  </ng-template>
+  
+  <ng-template [ngTemplateOutlet]="chevronTemplate || defaultChevronTemplate"
+               [ngTemplateOutletContext]="{ isDropdownOpen: isOpen }">
+  </ng-template>
+
+  <div class="options" *ngIf="isOpen">
+    <ng-container *ngFor="let option of options">
+      <div (click)="selectOption(option)">
+        <ng-template #defaultOptionTemplate>
+          <div class="option">
+            {{option.label}}
+          </div>
+        </ng-template>
+
+        <ng-template [ngTemplateOutlet]="optionTemplate || defaultOptionTemplate"
+                     [ngTemplateOutletContext]="{ option: option }">
+        </ng-template>
+      </div>
+    </ng-container>
   </div>
 </div>

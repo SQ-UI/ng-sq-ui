@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CollapseContentComponent implements OnInit {
   @Input() title: string;
+  @Input() isSecondary = false;
 
   isCollapsed = true;
 

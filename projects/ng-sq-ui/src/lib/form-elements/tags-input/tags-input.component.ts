@@ -1,15 +1,16 @@
 import {
   Component, OnInit, forwardRef,
   ViewEncapsulation, EventEmitter, OnDestroy,
-  AfterViewInit, ViewChild
+  AfterViewInit, ViewChild, ContentChild, TemplateRef
 } from '@angular/core';
 import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { DeviceOS } from '@sq-ui/ng-sq-common';
 import { OSDetectorService } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription, fromEvent, pipe } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { List } from 'immutable';
+import { SqTagTemplateDirective } from './tags-input-templates.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -26,6 +27,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 })
 export class TagsInputComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('tagsInput', {static: true}) tagsInput;
+  @ContentChild(SqTagTemplateDirective, { read: TemplateRef }) tagTemplate: TemplateRef<any>;
+
   private isModelEmpty: boolean = false;
   private enteredItemsSubscription: Subscription;
   private valueChangedSubscription: Subscription;
@@ -102,7 +105,9 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
     }
   }
 
-  removeTag(tagIndex: number) {
+  removeTag = (tag: string) => {
+    const tagIndex = this.enteredItems.indexOf(tag);
+
     if (tagIndex < 0 || tagIndex > this.enteredItems.size) {
       return;
     }

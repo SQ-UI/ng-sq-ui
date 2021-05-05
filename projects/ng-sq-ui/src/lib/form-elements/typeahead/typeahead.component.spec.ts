@@ -87,8 +87,7 @@ describe('TypeaheadComponent', () => {
     component.multiple = false;
 
     component.selectSearchResult(testSearchResults[0]);
-
-    component.removeSearchResult(component.selectedItems.size - 1);
+    component.removeSearchResult(testSearchResults[0]);
 
     expect(component.value.length === 0).toBe(
       true,
