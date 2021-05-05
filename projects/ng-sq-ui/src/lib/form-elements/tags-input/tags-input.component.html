@@ -22,7 +22,7 @@
           </ng-template>
 
           <ng-template [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
-                       [ngTemplateOutletContext]="{ tag: enteredValue, removeTag: removeTag }">
+                       [ngTemplateOutletContext]="{ tag: enteredValue, remove: removeTag }">
           </ng-template>
         </ng-container>
       </div>

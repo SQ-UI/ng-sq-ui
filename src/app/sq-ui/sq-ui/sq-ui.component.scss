@@ -1,12 +1,27 @@
 .custom {
   &.dropdown-option {
-    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    color:#2d5d92;
     max-width: 350px;
     padding-bottom: 3px;
     padding-top: 10px;
+    &::before {
+      content: '⮞';
+    }
   }
   &.dropdown-option-selected {
     background-color: #ffe8ea;
     padding: 6px 5px;
+  }
+  &.tag {
+    background-color: #2d5d92;
+    color: #f4f4f4;
+    padding: 3px;
+    border-radius: 10px 5px;
+    margin-right: 10px;
+    .button {
+      position: relative;
+      top: 2px;
+    }
   }
 }

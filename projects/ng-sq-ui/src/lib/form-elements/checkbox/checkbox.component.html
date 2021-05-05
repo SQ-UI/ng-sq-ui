@@ -15,6 +15,6 @@
   </ng-template>
 
   <ng-template [ngTemplateOutlet]="checkboxTemplate || defaultCheckboxTemplate"
-               [ngTemplateOutletContext]="{ value: isSelected }">
+               [ngTemplateOutletContext]="{ isSelected: isSelected }">
   </ng-template>
 </div>

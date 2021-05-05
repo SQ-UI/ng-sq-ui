@@ -15,6 +15,6 @@
   </ng-template>
 
   <ng-template [ngTemplateOutlet]="radioButtonTemplate || defaultRadioButtonTemplate"
-               [ngTemplateOutletContext]="{ value: radioValue }">
+               [ngTemplateOutletContext]="{ value: radioValue, isSelected: isSelected }">
   </ng-template>
 </div>

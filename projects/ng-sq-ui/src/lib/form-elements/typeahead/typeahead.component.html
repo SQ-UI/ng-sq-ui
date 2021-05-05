@@ -7,8 +7,6 @@
     <label class="label" for="{{controlId}}" *ngIf="controlLabel">
       {{controlLabel}}
     </label>
-    <input [formControl]="queryInputControl" *ngIf="selectedItems.size === 0" type="text" id="{{controlId}}" name="{{name}}"
-      (focus)="turnClickOutsideListenerOn()" placeholder="{{controlPlaceholder}}">
 
     <div class="entered-items" *ngIf="selectedItems.size > 0">
       <ng-container *ngFor="let selectedItem of selectedItems">
@@ -26,6 +24,15 @@
         </ng-template>
       </ng-container>
     </div>
+
+    <input *ngIf="!multiple ? selectedItems.size === 0 : multiple"
+            [formControl]="queryInputControl"
+            autocomplete="off"
+            type="text"
+            id="{{controlId}}"
+            name="{{name}}"
+            (focus)="turnClickOutsideListenerOn()"
+            placeholder="{{controlPlaceholder}}">
 
     <div class="options" [ngClass]="{'display-none': hideResults}">
       <ng-container *ngFor="let result of options">
