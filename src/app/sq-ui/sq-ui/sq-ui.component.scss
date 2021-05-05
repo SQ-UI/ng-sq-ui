@@ -1,7 +1,7 @@
 .custom {
   &.dropdown-option {
     cursor: pointer;
-    color:#2d5d92;
+    color:#4f6d8c;
     max-width: 350px;
     padding-bottom: 3px;
     padding-top: 10px;
@@ -14,8 +14,8 @@
     padding: 6px 5px;
   }
   &.tag {
-    background-color: #2d5d92;
-    color: #f4f4f4;
+    background-color: #4f6d8c;
+    color: #fffefe;
     padding: 3px;
     border-radius: 10px 5px;
     margin-right: 10px;
@@ -24,4 +24,8 @@
       top: 2px;
     }
   }
+}
+
+.content {
+  padding-bottom: 20px;
 }
