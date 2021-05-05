@@ -15,68 +15,103 @@
 
     <sq-collapse-content title="FormElementsModule" id="formsModule">
       <div sq-collapse-body>
-        The preview is built using the Reactive approach. The final input values are console logged on click on the Submit button.
-        Changes to the standalone timepicker are also console logged.
+        <div class="content">
+          The preview is built using the Reactive approach. The final input values are console logged on click on the Submit
+          button.
+          Changes to the standalone timepicker are also console logged.
+        </div>
 
         <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="sq">
-          <section id="sqInput">
-            <header>
-              <h4>sq-inut</h4>
-            </header>
+          <sq-collapse-content title="sq-input"
+                               id="sq-input"
+                               [isSecondary]="true">
+            <div sq-collapse-body
+                 class="sq">
+              <section id="sqInput">
+                <header>
+                  <h4>sq-inut</h4>
+                </header>
+              
+                <sq-input formControlName="name"
+                          controlLabel="Test Label"
+                          controlPlaceholder="Test placeholder"
+                          type="text">
+                </sq-input>
+              </section>
+            </div>
+          </sq-collapse-content>
 
-            <sq-input formControlName="name" controlLabel="Test Label" controlPlaceholder="Test placeholder" type="text">
-            </sq-input>
-          </section>
+          <sq-collapse-content title="sq-textarea"
+                               id="sq-textarea"
+                               [isSecondary]="true">
+            <div sq-collapse-body
+                 class="sq">
+              <section id="sqTextarea">
+                <header>
+                  <h4>sq-textarea</h4>
+                </header>
+              
+                <sq-textarea controlLabel="Textarea Label"
+                             formControlName="textareaValue"
+                             controlPlaceholder="Type something in..."></sq-textarea>
+              </section>
+            </div>
+          </sq-collapse-content>
 
-          <section id="sqTextarea">
-            <header>
-              <h4>sq-textarea</h4>
-            </header>
-
-            <sq-textarea controlLabel="Textarea Label" formControlName="textareaValue" controlPlaceholder="Type something in..."></sq-textarea>
-          </section>
-
-          <section id="sqRadioAndFormGroup">
-            <header>
-              <h4>sq-radiobutton + sq-form-group</h4>
-            </header>
-
-            <sq-form-group groupLabel="Radiobuttons Form Group example">
-              <div class="options row">
-                <sq-radiobutton name="group1" radioValue="value1" [isSelected]="true" formControlName="radioValue">
-                </sq-radiobutton>
-
-                <sq-radiobutton name="group1" radioValue="value2" formControlName="radioValue">
-                  <ng-template sq-radio-label
-                               let-isSelected="isSelected">
-                    <svg *ngIf="!isSelected"
-                         xmlns="http://www.w3.org/2000/svg"
-                         width="16"
-                         height="16"
-                         fill="currentColor"
-                         class="bi bi-check-circle"
-                         viewBox="0 0 16 16">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                      <path
-                            d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                    </svg>
-                  
-                    <svg *ngIf="isSelected"
-                         xmlns="http://www.w3.org/2000/svg"
-                         width="16"
-                         height="16"
-                         fill="#2d5d92"
-                         class="bi bi-check-circle-fill"
-                         viewBox="0 0 16 16">
-                      <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                    </svg>
-                    <span style="padding-left: 5px">Custom Radio Label</span>
-                  </ng-template>
-                </sq-radiobutton>
-              </div>
-            </sq-form-group>
-          </section>
+          <sq-collapse-content title="sq-form-group"
+                               id="sq-form-group"
+                               [isSecondary]="true">
+            <div sq-collapse-body
+                 class="sq">
+              <section id="sqRadioAndFormGroup">
+                <header>
+                  <h4>sq-radiobutton + sq-form-group</h4>
+                </header>
+              
+                <sq-form-group groupLabel="Radiobuttons Form Group example">
+                  <div class="options row">
+                    <sq-radiobutton name="group1"
+                                    radioValue="value1"
+                                    [isSelected]="true"
+                                    formControlName="radioValue">
+                    </sq-radiobutton>
+              
+                    <sq-radiobutton name="group1"
+                                    radioValue="value2"
+                                    formControlName="radioValue">
+                      <ng-template sq-radio-label
+                                    let-isSelected="isSelected">
+                        <svg *ngIf="!isSelected"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="bi bi-check-circle"
+                              viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                          <path
+                                d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                        </svg>
+              
+                        <svg *ngIf="isSelected"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="#4f6d8c"
+                              class="bi bi-check-circle-fill"
+                              viewBox="0 0 16 16">
+                          <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <span style="padding-left: 5px">Custom Radio Label</span>
+                      </ng-template>
+                    </sq-radiobutton>
+                  </div>
+                </sq-form-group>
+              </section>
+            </div>
+          </sq-collapse-content>
+  
 
           <sq-collapse-content title="sq-dropdown"
                                 id="sq-dropdown"
@@ -310,7 +345,7 @@
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
-                          fill="#2d5d92"
+                          fill="#4f6d8c"
                           class="bi bi-check-square-fill"
                           viewBox="0 0 16 16">
                       <path
