@@ -30,5 +30,8 @@ Reward is up to 2 DEV tokens.
 
 ## SQ-UI team preserves its rights to change reward program:
 
+> You are not eligible to participate in this program if you have criminal background (including malicious OSS contributions on any platform)
 > We might cancel or temporarily stop the bounty program if we run out of DEV tokens
 > We can increase the bounty rewards if more people are staking DEV tokens to our project
+
+Thank you for your support.
