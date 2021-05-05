@@ -6,4 +6,5 @@
 - [DatatableModule](datatable-module.md)
 - [CommonModule](common-module.md)
 - [About us](about-us.md)
+- [Bounty program](bounty-program.md)
 - [Troubleshooting](troubleshooting.md)
