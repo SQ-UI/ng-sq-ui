@@ -61,7 +61,7 @@ describe('DropdownComponent', () => {
     expect(!Object.is(component.value, selectedItem))
       .toBe(true, 'populated after choosing an item');
 
-    expect(component.showOptions).toBe(false, 'dropdown-menu items should be hidden');
+    expect(component.isOpen).toBe(false, 'dropdown-menu items should be hidden');
 
     subscription.unsubscribe();
   });

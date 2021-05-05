@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, OnDestroy,
   forwardRef, ViewEncapsulation, OnChanges, Output,
-  EventEmitter
+  EventEmitter,
+  SimpleChanges,
+  ContentChild,
+  TemplateRef
 } from '@angular/core';
 
 import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
@@ -10,7 +13,8 @@ import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 
-import { List, is } from 'immutable';
+import { List } from 'immutable';
+import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead-templates.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -31,7 +35,11 @@ export class TypeaheadComponent extends InputCoreComponent
   @Input() multiple = false;
   @Input() delay = 500;
   @Input() displayProp = '';
+  @Input() hideSearchIcon: boolean = false;
   @Output() onUserInputEnd = new EventEmitter<string>();
+
+  @ContentChild(SqTypeaheadOptionTemplateDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any>;
+  @ContentChild(SqTypeaheadSelectedOptionTemplateDirective, { read: TemplateRef }) selectedOptionTemplate: TemplateRef<any>;
 
   private onInputValueChangeSubscription: Subscription;
   private onQueryInputControlSubscription: Subscription;
@@ -86,7 +94,7 @@ export class TypeaheadComponent extends InputCoreComponent
     );
   }
 
-  ngOnChanges(changesObj) {
+  ngOnChanges(changesObj: SimpleChanges) {
     if (changesObj.searchResults && changesObj.searchResults.currentValue) {
       const parsedResults = this.transformToLabelValuePairList(this.searchResults);
       this.options = List(parsedResults);
@@ -114,7 +122,9 @@ export class TypeaheadComponent extends InputCoreComponent
     this.selectItem(result);
   }
 
-  removeSearchResult(itemIndex: number) {
+  removeSearchResult = (choice: LabelValuePair) => {
+    const itemIndex = this.selectedItems.indexOf(choice);
+
     if (itemIndex < 0 || itemIndex > this.selectedItems.size) {
       return;
     }

@@ -88,7 +88,7 @@ describe('TagsInputComponent', () => {
     const testTag = 'randomTag';
     addNewTag(testTag);
 
-    component.removeTag(component.enteredItems.size - 1);
+    component.removeTag(testTag);
     expect(component.enteredItems.indexOf(testTag) === -1).toBe(true, 'entered tag is deleted by using the remove button');
   });
 
