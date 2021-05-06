@@ -23,7 +23,7 @@
     "@angular/compiler": "^11.2.0",
     "@angular/core": "^11.2.0",
     "@angular/forms": "^11.2.0",
-    "@angular/platform-browser": "^11.2.0",
+    "@angular/platform-browser": "^11.2.13",
     "@angular/platform-browser-dynamic": "^11.2.0",
     "@angular/router": "^11.2.0",
     "all-contributors-cli": "^6.19.0",
