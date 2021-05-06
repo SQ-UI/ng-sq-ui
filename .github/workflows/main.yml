@@ -42,8 +42,8 @@ jobs:
         with:
          coverageCommand: npm run coverage
          coverageLocations: |
-            ${{github.workspace}}/coverage/ng-sq-common/lcov.info:json
-            ${{github.workspace}}/coverage/ng-datatable/lcov.info:json
-            ${{github.workspace}}/coverage/ng-datetime-picker/lcov.info:json
-            ${{github.workspace}}/coverage/ng-sq-ui/lcov.info:json
-            ${{github.workspace}}/coverage/ng-modal/lcov.info:json
+            ${{github.workspace}}/coverage/ng-sq-common/lcov.info:lcov
+            ${{github.workspace}}/coverage/ng-datatable/lcov.info:lcov
+            ${{github.workspace}}/coverage/ng-datetime-picker/lcov.info:lcov
+            ${{github.workspace}}/coverage/ng-sq-ui/lcov.info:lcov
+            ${{github.workspace}}/coverage/ng-modal/lcov.info:lcov
