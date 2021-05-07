@@ -28,6 +28,13 @@ Reward is up to 5 DEV tokens.
 
 Reward is up to 2 DEV tokens.
 
+
+## Getting rewards
+
+After a contributor accumulates rewards of at least 10 DEV we will send them to their address.
+
+> Other types of contributions are also welcome and will be rewarded.
+
 ## SQ-UI team preserves its rights to change reward program:
 
 > You are not eligible to participate in this program if you have criminal background (including malicious OSS contributions on any platform)

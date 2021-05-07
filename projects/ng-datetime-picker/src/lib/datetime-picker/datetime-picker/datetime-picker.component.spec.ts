@@ -83,11 +83,12 @@ describe('DatetimePickerComponent', () => {
   });
 
   it('should select dates correctly when [isMultipleSelect]=true', () => {
-    component.calendar = component.getMonthCalendar(moment());
-    const expectedItems = [component.calendar[1][2], component.calendar[1][5]];
     component.isMultipleSelect = true;
-
-    fixture.detectChanges();
+    component.calendar = component.getMonthCalendar(moment());
+    const date1 = calendarManager.findADateFromCalendar(moment().add(1, 'day'), component.calendar);
+    const date2 = calendarManager.findADateFromCalendar(moment().add(4, 'days'), component.calendar);
+    const expectedItems = [date1, date2];
+    spyOn(component, 'select').and.callThrough();
 
     expectedItems.forEach((item, index) => {
       component.select(item);
@@ -103,6 +104,8 @@ describe('DatetimePickerComponent', () => {
       expect(isArray && areValuesSameAndSelected)
         .toBe(true, 'the selected date is correct');
     });
+
+    expect(component.select).toHaveBeenCalledTimes(expectedItems.length);
   });
 
   it('should jump to previous month when a date before current month is selected', () => {
