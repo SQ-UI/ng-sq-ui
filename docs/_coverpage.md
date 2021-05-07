@@ -4,8 +4,7 @@
 
 > Simple Quality UI kit for Angular
 
-[GitHub](https://github.com/SQ-UI/ng-sq-ui)
-
-[Get Started](#Introduction)
-
 Funded on [stakes.social](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
+
+[GitHub](https://github.com/SQ-UI/ng-sq-ui) [Get Started](#Introduction)
+
