@@ -1,62 +1,39 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LabelValuePair, SearchResult } from 'ng-sq-ui';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NavItem } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
-  testForm: FormGroup;
-  showModal = false;
-  searchResults: SearchResult[];
-
-  dropdownOptions: LabelValuePair[] = [
+export class AppComponent implements OnInit {
+  navItems: NavItem[] = [
     {
-      label: 'option1',
-      value: 'someVal1'
+      name: 'SQ-UI',
+      routeLink: 'sq-ui'
     },
     {
-      label: 'option2',
-      value: 'someVal2'
+      name: 'Common',
+      routeLink: 'sq-common'
     },
     {
-      label: 'option3',
-      value: 'someVal3'
+      name: 'Datetime Picker',
+      routeLink: 'datetime-picker'
+    },
+    {
+      name: 'Datatable',
+      routeLink: 'datatable'
+    },
+    {
+      name: 'Modal',
+      routeLink: 'modal'
     }
   ];
 
-  constructor(private fb: FormBuilder) {
-    this.testForm = this.fb.group({
-      name: ['', Validators.required],
-      dropdown: [null, Validators.required],
-      tags: [['tag1'], Validators.required],
-      typeahead: [[], Validators.required],
-      radioValue: ['value1'],
-      checkboxValue: [false]
-    });
+  constructor() {
+
   }
 
-  searchMethod(query) {
-    this.searchResults = [
-      {
-        displayName: 'Search result 1',
-        value: 1
-      },
-      {
-        displayName: 'Search result 2',
-        value: 2
-      }
-      ,
-      {
-        displayName: 'Search result 3',
-        value: 3
-      }
-    ];
-  }
-
-  onSubmit() {
-    console.log(this.testForm.value);
-  }
+  ngOnInit() { }
 }

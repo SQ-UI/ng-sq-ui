@@ -1,0 +1,400 @@
+<section>
+  <sq-module-overview [npmPackageName]="npmPackageName"
+                      [moduleName]="moduleName"
+                      [internallyDeclared]="internallyDeclared"
+                      [dependsOn]="dependsOn"
+                      [exports]="exports"
+                      [docs]="docs"
+                      [liveExamples]="liveExamples">
+  </sq-module-overview>
+
+  <section class="section primary">
+    <header>
+      <h2>Exported Modules Preview:</h2>
+    </header>
+
+    <sq-collapse-content title="FormElementsModule" id="formsModule">
+      <div sq-collapse-body>
+        <div class="content">
+          The preview is built using the Reactive approach. The final input values are console logged on click on the Submit
+          button.
+          Changes to the standalone timepicker are also console logged.
+        </div>
+
+        <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="sq">
+          <sq-collapse-content title="sq-input"
+                               id="sq-input"
+                               [isSecondary]="true">
+            <div sq-collapse-body
+                 class="sq">
+              <section id="sqInput">
+                <header>
+                  <h4>sq-inut</h4>
+                </header>
+              
+                <sq-input formControlName="name"
+                          controlLabel="Test Label"
+                          controlPlaceholder="Test placeholder"
+                          type="text">
+                </sq-input>
+              </section>
+            </div>
+          </sq-collapse-content>
+
+          <sq-collapse-content title="sq-textarea"
+                               id="sq-textarea"
+                               [isSecondary]="true">
+            <div sq-collapse-body
+                 class="sq">
+              <section id="sqTextarea">
+                <header>
+                  <h4>sq-textarea</h4>
+                </header>
+              
+                <sq-textarea controlLabel="Textarea Label"
+                             formControlName="textareaValue"
+                             controlPlaceholder="Type something in..."></sq-textarea>
+              </section>
+            </div>
+          </sq-collapse-content>
+
+          <sq-collapse-content title="sq-form-group"
+                               id="sq-form-group"
+                               [isSecondary]="true">
+            <div sq-collapse-body
+                 class="sq">
+              <section id="sqRadioAndFormGroup">
+                <header>
+                  <h4>sq-radiobutton + sq-form-group</h4>
+                </header>
+              
+                <sq-form-group groupLabel="Radiobuttons Form Group example">
+                  <div class="options row">
+                    <sq-radiobutton name="group1"
+                                    radioValue="value1"
+                                    [isSelected]="true"
+                                    formControlName="radioValue">
+                    </sq-radiobutton>
+              
+                    <sq-radiobutton name="group1"
+                                    radioValue="value2"
+                                    formControlName="radioValue">
+                      <ng-template sq-radio-label
+                                    let-isSelected="isSelected">
+                        <svg *ngIf="!isSelected"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="bi bi-check-circle"
+                              viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                          <path
+                                d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                        </svg>
+              
+                        <svg *ngIf="isSelected"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="#4f6d8c"
+                              class="bi bi-check-circle-fill"
+                              viewBox="0 0 16 16">
+                          <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <span style="padding-left: 5px">Custom Radio Label</span>
+                      </ng-template>
+                    </sq-radiobutton>
+                  </div>
+                </sq-form-group>
+              </section>
+            </div>
+          </sq-collapse-content>
+  
+
+          <sq-collapse-content title="sq-dropdown"
+                                id="sq-dropdown"
+                                [isSecondary]="true">
+            <div sq-collapse-body
+                  class="sq">
+              <section id="sqDropdownDefault">
+                <header>
+                  <h4>sq-dropdown default</h4>
+                </header>
+          
+                <sq-dropdown formControlName="dropdown"
+                              [options]="dropdownOptions"
+                              controlLabel="Dropdown Example"
+                              controlPlaceholder="Select an option">
+                </sq-dropdown>
+              </section>
+          
+              <section id="sqDropdown-templates">
+                <header>
+                  <h4>sq-dropdown with templates</h4>
+                </header>
+          
+                <sq-dropdown formControlName="dropdownWithTemplates"
+                              [options]="dropdownOptions"
+                              controlLabel="Dropdown Example With Templates"
+                              controlPlaceholder="Select an option">
+                  <ng-template sq-dropdown-selected-option
+                                let-value="value">
+                    <span class="custom tag">
+                      {{value.label}}
+                    </span>
+                  </ng-template>
+          
+                  <ng-template sq-dropdown-option
+                                let-option="option">
+                    <div class="custom dropdown-option">
+                      {{option.label}}
+                    </div>
+                  </ng-template>
+          
+                  <ng-template sq-dropdown-chevron
+                                let-isDropdownOpen="isDropdownOpen">
+                    <div *ngIf="isDropdownOpen"
+                          class="dropdown-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-chevron-double-up"
+                            viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                        <path fill-rule="evenodd"
+                              d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                      </svg>
+                    </div>
+          
+                    <div *ngIf="!isDropdownOpen"
+                          class="dropdown-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-chevron-double-down"
+                            viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                        <path fill-rule="evenodd"
+                              d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                      </svg>
+                    </div>
+                  </ng-template>
+                </sq-dropdown>
+              </section>
+          
+            </div>
+          </sq-collapse-content>
+
+          <sq-collapse-content title="sq-tags-input"
+                                id="sq-tags-input"
+                                [isSecondary]="true">
+            <div sq-collapse-body
+                  class="sq">
+              <section id="sqTagsInput">
+                <header>
+                  <h4>sq-tags-input default</h4>
+                </header>
+          
+                <sq-tags-input formControlName="tags"
+                                controlLabel="Tags"
+                                controlPlaceholder="Type something and press Space">
+                </sq-tags-input>
+              </section>
+          
+              <section id="sqTagsInputWithCustomTemplate">
+                <header>
+                  <h4>sq-tags-input with a custom tag template</h4>
+                </header>
+          
+                <sq-tags-input formControlName="tags"
+                                controlLabel="Tags"
+                                controlPlaceholder="Type something and press Space">
+                  <ng-template sq-tag
+                                let-tag="tag"
+                                let-remove="remove">
+                    <div class="custom tag">
+                      {{tag}}
+          
+                      <span class="button"
+                            (click)="remove(tag)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="#f4f4f4"
+                              class="bi bi-trash2"
+                              viewBox="0 0 16 16">
+                          <path
+                                d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z" />
+                        </svg>
+                      </span>
+                    </div>
+                  </ng-template>
+                </sq-tags-input>
+              </section>
+            </div>
+          </sq-collapse-content>
+
+          <sq-collapse-content title="sq-typeahead"
+                                id="sq-typeahead"
+                                [isSecondary]="true">
+            <div sq-collapse-body
+                  class="sq">
+              <section id="sqTypeaheadWithTemplates">
+                <header>
+                  <h4>sq-typeahead multiple choice with custom templates</h4>
+                </header>
+          
+                <sq-typeahead name="typeaheadWithTemplates"
+                              displayProp="myCustomProp"
+                              [hideSearchIcon]="true"
+                              [multiple]="true"
+                              formControlName="typeaheadWithTemplates"
+                              [searchResults]="searchResults"
+                              (onUserInputEnd)="searchMethod($event)"
+                              controlLabel="Typeahead With Templates"
+                              controlPlaceholder="Type something in">
+                  <ng-template sq-typeahead-option
+                                let-option="option">
+                    <div class="custom dropdown-option">
+                      {{option.label}}
+                    </div>
+                  </ng-template>
+          
+                  <ng-template sq-typeahead-selected-option
+                                let-item="item"
+                                let-remove="remove">
+                    <div class="custom tag chosen-item">
+                      {{item.label}}
+          
+                      <span class="button"
+                            (click)="remove(item)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="#f4f4f4"
+                              class="bi bi-trash2"
+                              viewBox="0 0 16 16">
+                          <path
+                                d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z" />
+                        </svg>
+                      </span>
+                    </div>
+                  </ng-template>
+                </sq-typeahead>
+              </section>
+          
+              <section id="sqTypeahead2">
+                <header>
+                  <h4>sq-typeahead with array of strings - single choice</h4>
+                </header>
+          
+                <sq-typeahead name="typeahead2"
+                              formControlName="typeahead2"
+                              [searchResults]="searchResultsStrings"
+                              (onUserInputEnd)="searchMethodString($event)"
+                              controlLabel="Typeahead"
+                              controlPlaceholder="Type something in">
+                </sq-typeahead>
+              </section>
+            </div>
+          </sq-collapse-content>
+          
+          <sq-collapse-content title="sq-checkbox"
+                                id="sq-checkbox"
+                                [isSecondary]="true">
+            <div sq-collapse-body
+                  class="sq">
+              <section id="sqCheckbox">
+                <header>
+                  <h4>sq-checkbox defualt</h4>
+                </header>
+          
+                <sq-checkbox controlLabel="Test checkbox"
+                              formControlName="checkboxValue">
+                </sq-checkbox>
+              </section>
+          
+              <section id="sqCheckboxWithTemplates">
+                <header>
+                  <h4>sq-checkbox with a custom template</h4>
+                </header>
+          
+                <sq-checkbox formControlName="checkboxValue">
+                  <ng-template sq-checkbox-label
+                                let-isSelected="isSelected">
+                    <svg *ngIf="!isSelected"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-check-square"
+                          viewBox="0 0 16 16">
+                      <path
+                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                      <path
+                            d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                    </svg>
+          
+                    <svg *ngIf="isSelected"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="#4f6d8c"
+                          class="bi bi-check-square-fill"
+                          viewBox="0 0 16 16">
+                      <path
+                            d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                    </svg>
+                    <span style="padding-left: 5px">Custom Checkbox Label</span>
+                  </ng-template>
+                </sq-checkbox>
+              </section>
+            </div>
+          </sq-collapse-content>
+
+
+          <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
+        </form>
+      </div>
+    </sq-collapse-content>
+
+    <sq-collapse-content title="ProgressBarModule" id="progressBarModule">
+      <div sq-collapse-body class="sq">
+        <section class="mg-b20">
+          <header>
+            <h4>Small</h4>
+          </header>
+          <sq-progress-bar size="small" [loaded]="progressBarLoadedSmall"></sq-progress-bar>
+        </section>
+
+        <section class="mg-b20">
+          <header>
+            <h4>Medium</h4>
+          </header>
+          <sq-progress-bar [loaded]="progressBarLoadedMedium"></sq-progress-bar>
+        </section>
+
+        <section class="mg-b20">
+          <header>
+            <h4>Large</h4>
+          </header>
+          <sq-progress-bar size="large" [loaded]="progressBarLoadedLarge"></sq-progress-bar>
+        </section>
+
+        <section class="mg-b20">
+          <header>
+            <h4>Infinite</h4>
+          </header>
+          <sq-progress-bar size="large" [infinite]="true"></sq-progress-bar>
+        </section>
+      </div>
+    </sq-collapse-content>
+
+  </section>
+</section>

@@ -1,0 +1,36 @@
+{
+  "projectName": "ng-sq-ui",
+  "projectOwner": "SQ-UI",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 50,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "ardentia",
+      "name": "Plamena Radneva",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/41083417?v=4",
+      "profile": "https://github.com/ardentia",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "samuil4",
+      "name": "Samuil Gospodinov",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/797921?v=4",
+      "profile": "https://github.com/samuil4",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "talk"
+      ]
+    }
+  ]
+}

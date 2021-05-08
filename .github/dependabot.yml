@@ -1,0 +1,14 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 5
+  target-branch: develop
+  reviewers:
+  - samuil4
+  assignees:
+  - samuil4
+  labels:
+  - dependency update

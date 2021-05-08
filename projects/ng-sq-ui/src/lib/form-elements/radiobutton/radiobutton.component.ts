@@ -1,10 +1,13 @@
-import { Component, OnInit, Input, OnDestroy,
-         Output, EventEmitter, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CustomEventDetails } from '../../shared/interfaces/custom-event-details';
-import { CustomEventBroadcasterService } from '../../shared/services/custom-event-broadcaster.service';
-
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
+import {
+  Component, OnInit, Input, OnDestroy,
+  Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef
+} from '@angular/core';
+import { CustomEventDetails } from '@sq-ui/ng-sq-common';
+import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,23 +23,25 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadiobuttonComponent extends InputCoreComponent implements OnInit, OnDestroy {
-  private listenerId: string;
+  private eventBroadcasterSubscription: Subscription;
   @Input() radioValue: any;
   @Input() controlLabel: string;
 
   @Input() isSelected: boolean;
   @Output() isSelectedChange = new EventEmitter<boolean>();
 
-  constructor() {
+  @ContentChild(SqRadiobuttonLabelTemplateDirective, { read: TemplateRef }) radioButtonTemplate: TemplateRef<any>;
+
+  constructor(private eventBroadcaster: CustomEventBroadcasterService) {
     super();
   }
 
   ngOnInit() {
-    this.listenerId = CustomEventBroadcasterService.addEventListener(
+    this.eventBroadcasterSubscription = this.eventBroadcaster.subscribeFor(
       'sqRadio:selected',
       (eventDetails: CustomEventDetails) => {
         if (eventDetails.details.group === this.name &&
-            !Object.is(this.radioValue, eventDetails.details.sqRadio.radioValue)) {
+          !Object.is(this.radioValue, eventDetails.details.sqRadio.radioValue)) {
           this.isSelected = false;
           this.value = eventDetails.details.sqRadio.radioValue;
           this.isSelectedChange.emit(false);
@@ -45,11 +50,11 @@ export class RadiobuttonComponent extends InputCoreComponent implements OnInit, 
   }
 
   ngOnDestroy() {
-    CustomEventBroadcasterService.removeEventListener('sqRadio:selected', this.listenerId);
+    this.eventBroadcasterSubscription.unsubscribe();
   }
 
   selectRadio() {
-    CustomEventBroadcasterService.broadcastEvent(
+    this.eventBroadcaster.broadcastEvent(
       'sqRadio:selected',
       {
         details: {

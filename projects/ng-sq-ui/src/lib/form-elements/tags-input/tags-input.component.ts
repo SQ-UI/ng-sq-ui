@@ -1,15 +1,16 @@
 import {
-  Component, OnInit, Input, Output, forwardRef,
-  ViewEncapsulation, EventEmitter, OnDestroy, OnChanges,
-  AfterViewInit, ViewChild
+  Component, OnInit, forwardRef,
+  ViewEncapsulation, EventEmitter, OnDestroy,
+  AfterViewInit, ViewChild, ContentChild, TemplateRef
 } from '@angular/core';
-import { InputCoreComponent } from '../../shared/entities/input-core-component';
-import { DeviceOS } from '../../shared/enums/device-os.enum';
-import { OSDetectorService } from '../../shared/services/os-detector.service';
+import { InputCoreComponent } from '@sq-ui/ng-sq-common';
+import { DeviceOS } from '@sq-ui/ng-sq-common';
+import { OSDetectorService } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription, fromEvent, pipe } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { List } from 'immutable';
+import { SqTagTemplateDirective } from './tags-input.template.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -25,7 +26,9 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TagsInputComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('tagsInput') tagsInput;
+  @ViewChild('tagsInput', {static: true}) tagsInput;
+  @ContentChild(SqTagTemplateDirective, { read: TemplateRef }) tagTemplate: TemplateRef<any>;
+
   private isModelEmpty: boolean = false;
   private enteredItemsSubscription: Subscription;
   private valueChangedSubscription: Subscription;
@@ -43,13 +46,13 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
 
   ngOnInit() {
     this.enteredItemsSubscription = this.enteredItemsChange.subscribe((newTags) => {
-        this.innerEnteredItemsListCopy = List(this.enteredItems);
+      this.innerEnteredItemsListCopy = List(this.enteredItems);
 
-        const itemsCopy = this.innerEnteredItemsListCopy;
-        this.value = itemsCopy.toArray();
+      const itemsCopy = this.innerEnteredItemsListCopy;
+      this.value = itemsCopy.toArray();
     });
 
-    this.valueChangedSubscription = this._valueChange.subscribe((predefinedEnteredItems) => {
+    this.valueChangedSubscription = this._modelToViewChange.subscribe((predefinedEnteredItems) => {
       if (this.enteredItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
         this.enteredItems = List<string>(predefinedEnteredItems);
         this.valueChangedSubscription.unsubscribe();
@@ -85,14 +88,14 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
   onUserInput($event) {
     if (this.newTagName.trim() !== '') {
       this.isModelEmpty = false;
-      //if the user has pressed Space
+      // if the user has pressed Space
       if ($event.keyCode === 32) {
         this.enteredItems = this.enteredItems.push(this.newTagName.trim());
         this.enteredItemsChange.emit(this.enteredItems);
         this.newTagName = '';
       }
     } else if (this.isModelEmpty) {
-      //if the user has pressed Backspace
+      // if the user has pressed Backspace
       if ($event.keyCode === 8 && this.enteredItems.size > 0) {
         this.enteredItems = this.enteredItems.remove(this.enteredItems.size - 1);
         this.enteredItemsChange.emit(this.enteredItems);
@@ -102,7 +105,9 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
     }
   }
 
-  removeTag(tagIndex: number) {
+  removeTag = (tag: string) => {
+    const tagIndex = this.enteredItems.indexOf(tag);
+
     if (tagIndex < 0 || tagIndex > this.enteredItems.size) {
       return;
     }

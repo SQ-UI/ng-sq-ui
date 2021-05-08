@@ -1,41 +1,53 @@
-<div class="typeahead-wrapper"
-     sqOutsideClickListener
-     [listenForOutsideClick]="listenForOutsideClick"
-     (clickOutside)="onClickOutsideComponent()">
+<div class="typeahead-wrapper" sqOutsideClickListener [listenForOutsideClick]="listenForOutsideClick" (clickOutside)="onClickOutsideComponent()">
   <div class="loader" *ngIf="isLoading"></div>
 
   <div class="input-field typeahead" [ngClass]="{'disabled': disabled}">
-    <i class="fa fa-search" aria-hidden="true"></i>
+    <i class="fas fa-search" aria-hidden="true" *ngIf="!hideSearchIcon"></i>
 
-    <label class="label"
-           for="{{controlId}}"
-           *ngIf="controlLabel">
+    <label class="label" for="{{controlId}}" *ngIf="controlLabel">
       {{controlLabel}}
     </label>
-    <input [formControl]="queryInputControl"
-           *ngIf="selectedItems.size === 0"
-           type="text"
-           id="{{controlId}}"
-           name="{{name}}"
-           (focus)="turnClickOutsideListenerOn()"
-           placeholder="{{controlPlaceholder}}">
 
     <div class="entered-items" *ngIf="selectedItems.size > 0">
-      <div class="entered-item chosen-item"
-           *ngFor="let selectedItem of selectedItems, index as itemIndex;">
-        <div class="content">{{selectedItem.displayName}}</div>
-        <div class="remove" (click)="removeSearchResult(itemIndex)" *ngIf="!disabled">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </div>
-      </div>
+      <ng-container *ngFor="let selectedItem of selectedItems">
+        <ng-template #defaultSelectedOptionTemplate>
+          <div class="entered-item chosen-item">
+            <div class="content">{{ selectedItem.label }}</div>
+            <div class="remove" (click)="removeSearchResult(selectedItem)" *ngIf="!disabled">
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template [ngTemplateOutlet]="selectedOptionTemplate || defaultSelectedOptionTemplate"
+                     [ngTemplateOutletContext]="{ item: selectedItem, remove: removeSearchResult }">
+        </ng-template>
+      </ng-container>
     </div>
 
+    <input *ngIf="!multiple ? selectedItems.size === 0 : multiple"
+            [formControl]="queryInputControl"
+            autocomplete="off"
+            type="text"
+            id="{{controlId}}"
+            name="{{name}}"
+            (focus)="turnClickOutsideListenerOn()"
+            placeholder="{{controlPlaceholder}}">
+
     <div class="options" [ngClass]="{'display-none': hideResults}">
-      <div class="option"
-           *ngFor="let result of searchResults"
-           (click)="selectSearchResult(result)">
-        {{result.displayName}}
-      </div>
+      <ng-container *ngFor="let result of options">
+        <div (click)="selectSearchResult(result)">
+          <ng-template #defaultOptionTemplate>
+            <div class="option">
+              {{ result.label }}
+            </div>
+          </ng-template>
+
+          <ng-template [ngTemplateOutlet]="optionTemplate || defaultOptionTemplate"
+                       [ngTemplateOutletContext]="{ option: result }">
+          </ng-template>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

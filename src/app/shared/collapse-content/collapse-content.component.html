@@ -1,0 +1,23 @@
+<section class="content-wrapper">
+  <header class="display-flex">
+    <h3 (click)="toggleCollapse()" class="header-btn" *ngIf="!isSecondary">
+      {{title}}
+    </h3>
+
+    <h4 (click)="toggleCollapse()" class="header-btn" *ngIf="isSecondary">
+      {{title}}
+    </h4>
+
+    <button type="button" class="btn-collapse" (click)="toggleCollapse()">
+      <i class="fas"
+         [ngClass]="{'fa-chevron-up': isCollapsed, 'fa-chevron-down': !isCollapsed}"
+         aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <div class="collapsed-content">
+    <ng-content select="[sq-collapse-body]"
+                *ngIf="isCollapsed">
+    </ng-content>
+  </div>
+</section>

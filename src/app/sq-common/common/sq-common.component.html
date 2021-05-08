@@ -1,0 +1,49 @@
+<section>
+  <sq-module-overview [npmPackageName]="npmPackageName"
+                      [moduleName]="moduleName"
+                      [exports]="exports"
+                      [docs]="docs"
+                      [liveExamples]="liveExamples">
+  </sq-module-overview>
+
+  <section class="section primary">
+    <header>
+      <h2>Description:</h2>
+    </header>
+
+    <div class="sq">
+      <p>
+        This module exports common interfaces, base classes, components and services utilized
+        by other modules. Some examples include:
+      </p>
+
+      <ul class="list">
+        <li>
+          The <b>sqOutsideClickListener</b> directive is
+          used to track if the user has clicked outside a specific element.
+          It has been applied to the <a routerLink="/modal">sq-modal</a> component,
+          as well as <a routerLink="/sq-ui">sq-dropdown</a> and <a routerLink="/sq-ui">sq-typeahead</a>.
+        </li>
+        <li>
+          The <b>sqScrolledToBottomListener</b> directive is
+          used to track if the user has scrolled to the bottom of a specified container.
+          Emits an event only if the user has reached the bottom of the container.
+        </li>
+        <li>The <b>InputCoreComponent</b> class is
+          used to make all of the <a routerLink="/sq-ui">FormElementsModule</a>
+          components "bindable" to the internal Angular data-binding mechanisms and
+          reactive form approach.
+        </li>
+        <li>
+          The <b>sq-paginator</b> component is
+          used to control the view collection of the
+          <a routerLink="/datatable">sq-datatable</a> component.
+        </li>
+      </ul>
+
+      <p>
+        For information on how to apply each specific tool, refer to the documentation.
+      </p>
+    </div>
+  </section>
+</section>

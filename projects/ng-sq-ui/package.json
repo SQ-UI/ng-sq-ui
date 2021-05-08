@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-sq-ui",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI kit for Angular",
@@ -22,26 +22,46 @@
   ],
   "keywords": [
     "angular",
-    "angular 6",
-    "angular 7",
+    "Angular",
     "typescript",
     "ui",
     "ui-kit",
     "ui kit",
+    "sq ui",
+    "simple quality ui",
+    "sq-ui",
+    "ng-sq-ui",
     "components",
     "form",
     "form elements",
     "form components",
     "typeahead",
+    "autocomplete",
+    "grid",
+    "ui components",
+    "ui component",
+    "datetimepicker",
+    "datetime-picker",
+    "timepicker",
+    "time picker",
+    "time-picker",
+    "datetime picker",
+    "date time picker",
+    "date picker",
     "modal"
   ],
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+    "@angular/common": "^9.0.6",
+    "@angular/core": "^9.0.6"
   },
   "dependencies": {
     "immutable": "^3.8.2",
-    "font-awesome": "4.7.0"
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "@sq-ui/ng-sq-common": "^1.0.0",
+    "@sq-ui/ng-datatable": "^1.0.0",
+    "@sq-ui/ng-modal": "^1.0.0",
+    "@sq-ui/ng-datetime-picker": "^1.0.0",
+    "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

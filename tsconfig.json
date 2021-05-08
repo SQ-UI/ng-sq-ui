@@ -2,28 +2,75 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "es2020",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
+    "noImplicitAny": false,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2018",
       "dom"
     ],
     "paths": {
-      "ng-sq-ui": [
-        "dist/ng-sq-ui"
+      "@sq-ui/ng-sq-ui": [
+        "dist/ng-sq-ui",
+        "projects/ng-sq-ui/src"
       ],
-      "ng-sq-ui/*": [
-        "dist/ng-sq-ui/*"
+      "@sq-ui/ng-sq-ui/*": [
+        "dist/ng-sq-ui/*",
+        "projects/ng-sq-ui/src/*"
+      ],
+      "@sq-ui/ng-datetime-picker": [
+        "dist/ng-datetime-picker",
+        "projects/ng-datetime-picker/src",
+        "node_modules/@sq-ui/ng-datetime-picker"
+      ],
+      "@sq-ui/ng-datetime-picker/*": [
+        "dist/ng-datetime-picker/*",
+        "projects/ng-datetime-picker/src/*",
+        "node_modules/@sq-ui/ng-datetime-picker/*"
+      ],
+      "@sq-ui/ng-datatable": [
+        "dist/ng-datatable",
+        "projects/ng-datatable/src",
+        "node_modules/@sq-ui/ng-datatable"
+      ],
+      "@sq-ui/ng-datatable/*": [
+        "dist/ng-datatable/*",
+        "projects/ng-datatable/src/*",
+        "node_modules/@sq-ui/ng-datatable/*"
+      ],
+      "@sq-ui/ng-sq-common": [
+        "dist/ng-sq-common",
+        "projects/ng-sq-common/src",
+        "node_modules/@sq-ui/ng-sq-common"
+      ],
+      "@sq-ui/ng-sq-common/*": [
+        "dist/ng-sq-common/*",
+        "projects/ng-sq-common/src/*",
+        "node_modules/@sq-ui/ng-sq-common/*"
+      ],
+      "@sq-ui/ng-modal": [
+        "dist/ng-modal",
+        "projects/ng-modal/src",
+        "node_modules/@sq-ui/ng-modal/"
+      ],
+      "@sq-ui/ng-modal/*": [
+        "dist/ng-modal/*",
+        "projects/ng-modal/src/*",
+        "node_modules/@sq-ui/ng-modal/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

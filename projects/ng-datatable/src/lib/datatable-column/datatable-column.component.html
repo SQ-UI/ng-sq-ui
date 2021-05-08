@@ -1,0 +1,16 @@
+<div role="columnheader"
+     class="column">
+  {{name}}
+
+  <button type="button" (click)="sort()" *ngIf="isSortable">
+    <i class="fas"
+       aria-hidden="true"
+       [ngClass]="{
+         'fa-sort': isSortedByAscending == undefined,
+         'fa-sort-up': isSortedByAscending === true,
+         'fa-sort-down': isSortedByAscending === false
+       }">
+    </i>
+  </button>
+</div>
+

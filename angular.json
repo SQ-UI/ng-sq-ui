@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/sq-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -22,13 +23,21 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
               "src/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -38,7 +47,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -71,8 +79,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
+            "codeCoverage": true,
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -129,20 +138,21 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-sq-ui/tsconfig.lib.json",
             "project": "projects/ng-sq-ui/ng-package.json"
-          },
-          "configurations": {
+          }
+        ,          "configurations": {
             "production": {
-              "project": "projects/ng-sq-ui/ng-package.prod.json"
+              "tsConfig": "projects/ng-sq-ui/tsconfig.lib.prod.json"
             }
           }
-        },
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/ng-sq-ui/src/test.ts",
             "tsConfig": "projects/ng-sq-ui/tsconfig.spec.json",
             "karmaConfig": "projects/ng-sq-ui/karma.conf.js"
@@ -161,13 +171,177 @@
           }
         }
       }
+    },
+    "ng-datetime-picker": {
+      "root": "projects/ng-datetime-picker",
+      "sourceRoot": "projects/ng-datetime-picker/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.json",
+            "project": "projects/ng-datetime-picker/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "codeCoverage": true,
+            "main": "projects/ng-datetime-picker/src/test.ts",
+            "tsConfig": "projects/ng-datetime-picker/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-datetime-picker/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-datetime-picker/tsconfig.lib.json",
+              "projects/ng-datetime-picker/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-datatable": {
+      "root": "projects/ng-datatable",
+      "sourceRoot": "projects/ng-datatable/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-datatable/tsconfig.lib.json",
+            "project": "projects/ng-datatable/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-datatable/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "codeCoverage": true,
+            "main": "projects/ng-datatable/src/test.ts",
+            "tsConfig": "projects/ng-datatable/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-datatable/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-datatable/tsconfig.lib.json",
+              "projects/ng-datatable/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-sq-common": {
+      "root": "projects/ng-sq-common",
+      "sourceRoot": "projects/ng-sq-common/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-sq-common/tsconfig.lib.json",
+            "project": "projects/ng-sq-common/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-sq-common/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "codeCoverage": true,
+            "main": "projects/ng-sq-common/src/test.ts",
+            "tsConfig": "projects/ng-sq-common/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-sq-common/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-sq-common/tsconfig.lib.json",
+              "projects/ng-sq-common/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-modal": {
+      "root": "projects/ng-modal",
+      "sourceRoot": "projects/ng-modal/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-modal/tsconfig.lib.json",
+            "project": "projects/ng-modal/ng-package.json"
+          }
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-modal/tsconfig.lib.prod.json"
+            }
+          }
+},
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "codeCoverage": true,
+            "main": "projects/ng-modal/src/test.ts",
+            "tsConfig": "projects/ng-modal/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-modal/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-modal/tsconfig.lib.json",
+              "projects/ng-modal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "sq-ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "sq",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "sq"
