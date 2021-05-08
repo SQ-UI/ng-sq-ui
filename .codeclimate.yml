@@ -36,3 +36,4 @@ exclude_patterns:
 - "**/*.spec.ts"
 - "**/*.json"
 - "**/*.config.js"
+- "projects/ng-sq-ui/src/lib/form-elements/**/*-templates.directive.ts"
