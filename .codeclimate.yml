@@ -36,3 +36,4 @@ exclude_patterns:
 - "**/*.spec.ts"
 - "**/*.json"
 - "**/*.config.js"
+- "**/*.template.directive.ts"
