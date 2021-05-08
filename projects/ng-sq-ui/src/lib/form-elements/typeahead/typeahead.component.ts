@@ -14,7 +14,7 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 
 import { List } from 'immutable';
-import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead-templates.directive';
+import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,

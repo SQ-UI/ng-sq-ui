@@ -15,11 +15,11 @@ import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { ButtonComponent } from './button/button.component';
 import { TextareaComponent } from './textarea/textarea.component';
-import { SqDropdownChevronTemplateDirective, SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './dropdown/dropdown-templates.directive';
-import { SqRadiobuttonLabelTemplateDirective } from './radiobutton/radiobutton-templates.directive';
-import { SqTagTemplateDirective } from './tags-input/tags-input-templates.directive';
-import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead/typeahead-templates.directive';
-import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox-templates.directive';
+import { SqDropdownChevronTemplateDirective, SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './dropdown/dropdown.template.directive';
+import { SqRadiobuttonLabelTemplateDirective } from './radiobutton/radiobutton.template.directive';
+import { SqTagTemplateDirective } from './tags-input/tags-input.template.directive';
+import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead/typeahead.template.directive';
+import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox.template.directive';
 
 @NgModule({
   imports: [

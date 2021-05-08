@@ -5,7 +5,7 @@ import {
 
 import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SqCheckboxLabelTemplateDirective } from './checkbox-templates.directive';
+import { SqCheckboxLabelTemplateDirective } from './checkbox.template.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,

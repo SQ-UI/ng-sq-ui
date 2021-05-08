@@ -10,7 +10,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription, fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { List } from 'immutable';
-import { SqTagTemplateDirective } from './tags-input-templates.directive';
+import { SqTagTemplateDirective } from './tags-input.template.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,

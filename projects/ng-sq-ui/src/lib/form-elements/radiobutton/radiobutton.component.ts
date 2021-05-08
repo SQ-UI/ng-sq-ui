@@ -7,7 +7,7 @@ import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
 import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { SqRadiobuttonLabelTemplateDirective } from './radiobutton-templates.directive';
+import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.directive';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,

@@ -60,7 +60,6 @@ describe('TypeaheadComponent', () => {
     component.selectSearchResult(component.searchResults[0]);
     component.selectSearchResult(component.searchResults[1]);
 
-    console.log(Object.is(component.selectedItems.get(0), component.value[0]));
     // the typeahead should return a new array with the copied search items
     expect(
       component.value.length === 1 &&
