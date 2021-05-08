@@ -11,7 +11,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
-[![@sq-ui/ng-sq-ui Dev Token](https://badge.devtoken.rocks/@sq-ui/ng-sq-ui)](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+[![Stake to support us](https://badge.devprotocol.xyz/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8/descriptive)](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys)
 
 ## Docs
@@ -42,6 +42,7 @@ Any types of public interfaces and services are also included.
 - [DatatableModule](http://bit.ly/ng-sq-ui-docs-datatable)
 - [CommonModule](http://bit.ly/ng-sq-ui-docs-common)
 - [About us](http://bit.ly/ng-sq-ui-docs-about-us)
+- [Bounty Program](http://bit.ly/bounty-program)
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
@@ -137,11 +138,10 @@ The libraries are watched automatically when you run `npm start`:
 
 - Use NG-SQ-UI in your daily work.
 - **Star** it if you like.
-- Join us on <a href="https://spectrum.chat/sq-ui">spectrum.chat</a>.
 - Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 - Or simply send an email to contact[at]sq-ui.xyz.
-- Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+- Sponsor with [DevToken](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
 - Tip us with BAT from brave awards or download [brave](https://brave.com/ngs747)
 
 ## Contribution

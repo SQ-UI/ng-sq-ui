@@ -60,7 +60,6 @@ describe('TypeaheadComponent', () => {
     component.selectSearchResult(component.searchResults[0]);
     component.selectSearchResult(component.searchResults[1]);
 
-    console.log(Object.is(component.selectedItems.get(0), component.value[0]));
     // the typeahead should return a new array with the copied search items
     expect(
       component.value.length === 1 &&
@@ -87,8 +86,7 @@ describe('TypeaheadComponent', () => {
     component.multiple = false;
 
     component.selectSearchResult(testSearchResults[0]);
-
-    component.removeSearchResult(component.selectedItems.size - 1);
+    component.removeSearchResult(testSearchResults[0]);
 
     expect(component.value.length === 0).toBe(
       true,

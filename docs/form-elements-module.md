@@ -74,6 +74,20 @@ sq-checkbox is a custom implementation using a wrapper over the native HTML `inp
 <sq-checkbox controlLabel="Test checkbox" formControlName="checkboxValue"></sq-checkbox>
 ```
 
+Example using custom templates
+
+```html
+<sq-checkbox formControlName="checkboxValue">
+  <ng-template sq-checkbox-label let-isSelected="isSelected">
+    <svg *ngIf="!isSelected">Example not selected</svg>
+    <svg *ngIf="isSelected">Example selected</svg>
+    <span style="padding-left: 5px">Custom Checkbox Label</span>
+  </ng-template>
+</sq-checkbox>
+```
+
+[sq-checkbox-custom-template](https://stackblitz.com/edit/sq-checkbox-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the checkbox. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -89,6 +103,12 @@ sq-checkbox is a custom implementation using a wrapper over the native HTML `inp
 - **`@Output()` isSelectedChange:** `EventEmitter<boolean>` - Callback invoked when the checkbox has been selected/deselected.
 
 - **`@Input()` disabled:** `boolean` - Enables/disables the component.
+
+### Custom Templates:
+
+#### **sq-checkbox-label** exposed variables
+
+- **isSelected**: `boolean`
 
 For template-driven and reactive-driven code examples, please refer to the examples page.
 
@@ -132,6 +152,43 @@ and then declare options in [app.component.ts](https://github.com/SQ-UI/ng-sq-ui
   ];
 ```
 
+Example using custom templates
+
+```html
+<sq-dropdown
+    formControlName="dropdown"
+    [options]="dropdownOptions"
+    controlLabel="Dropdown Example*"
+    controlPlaceholder="Select an option">
+
+    <ng-template sq-dropdown-selected-option let-value="value">
+      <span class="custom tag">
+        {{value.label}}
+      </span>
+    </ng-template>
+
+    <ng-template sq-dropdown-option let-option="option">
+      <div class="custom dropdown-option">
+        {{option.label}}
+      </div>
+    </ng-template>
+
+    <ng-template sq-dropdown-chevron let-isDropdownOpen="isDropdownOpen">
+      <div *ngIf="isDropdownOpen" class="dropdown-icon">
+        <svg class="bi bi-chevron-double-up">---</svg>
+      </div>
+
+      <div *ngIf="!isDropdownOpen" class="dropdown-icon">
+        <svg class="bi bi-chevron-double-down">---</svg>
+      </div>
+    </ng-template>
+</sq-dropdown>
+
+```
+
+
+[sq-dropdown-custom-template](https://stackblitz.com/edit/sq-dropdown-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the dropdown. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -153,6 +210,20 @@ and then declare options in [app.component.ts](https://github.com/SQ-UI/ng-sq-ui
 - **`@Input()` showOptions:** `boolean` - Programatically show/hide the dropdown list of options.
 
 - **`@Input()` disabled:** `boolean` - Enables/disables the component.
+
+### Custom Templates
+
+#### **q-dropdown-selected-option** exposed varaibles
+
+- **value**: `string`
+
+#### **sq-dropdown-option** exposed varaibles
+
+- **option**: `LabelValuePair`
+
+#### **sq-dropdown-chevron** exposed varaibles
+
+- **isDropdownOpen**: `boolean`
 
 ### Component methods:
 
@@ -205,6 +276,31 @@ constructor(private fb: FormBuilder) {
 }
 ```
 
+Example using custom templates
+
+```html
+<sq-radiobutton
+  name="group1"
+  radioValue="value2"
+  [isSelected]="true"
+  formControlName="radioValue">
+  <ng-template sq-radio-label let-isSelected="isSelected">
+    <svg
+      *ngIf="!isSelected"
+      class="bi bi-check-circle"
+    ></svg>
+
+    <svg
+      *ngIf="isSelected"
+      class="bi bi-check-circle-fill"></svg>
+    <span style="padding-left: 5px">Custom Radio Label</span>
+  </ng-template>
+</sq-radiobutton>
+```
+
+[sq-radio-custom-template](https://stackblitz.com/edit/sq-radio-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the radiobutton. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`. If the radiobutton is part of a radiobutton group, all of the related radiobuttons should have the same value for **name**.
@@ -222,6 +318,12 @@ constructor(private fb: FormBuilder) {
 - **`@Output()` isSelectedChange:** `EventEmitter<boolean>` - Callback invoked when the radiobutton has been selected/deselected.
 
 For template-driven and reactive-driven code examples, please refer to the examples page.
+
+### Custom Templates
+
+#### **sq-radio-label** exposed variables
+
+- **isSelected**: `boolean`
 
 ## sq-tags-input
 
@@ -247,6 +349,25 @@ constructor(private fb: FormBuilder) {
 }
 ```
 
+Example using custom templates
+
+```html
+<sq-tags-input formControlName=" tags" controlLabel="Tags" controlPlaceholder="Type something and press Space">
+  <ng-template sq-tag let-tag="tag" let-remove="remove">
+    <div class="custom tag">
+      {{tag}}
+      <span class="button"
+            (click)="remove(tag)">
+        <svg class="bi bi-trash2"></svg>
+      </span>
+    </div>
+  </ng-template>
+</sq-tags-input>
+```
+
+[sq-tags-input-custom-template](https://stackblitz.com/edit/sq-tags-input-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the tags-input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -264,6 +385,14 @@ constructor(private fb: FormBuilder) {
 - **`@Input()` disabled:** `boolean` - Enables/disables the component.
 
 For template-driven and reactive-driven code examples, please refer to the examples page.
+
+### Custom templates
+
+#### **sq-tag** exposed variables and functions
+
+- **tag**: `string`
+- **`remove`**: `(tag: string)=>void`
+
 
 ### Class properties:
 
@@ -315,6 +444,41 @@ export class AppComponent {
 
 > If you wish to pass just an array of string, you must omit the property `displayProp` in the html.
 
+Example using custom templates
+
+```html
+<sq-typeahead
+    displayProp="myCustomProp"
+    [hideSearchIcon]="true"
+    [multiple]="true"
+    formControlName="typeaheadWithTemplates"
+    [searchResults]="searchResults"
+    (onUserInputEnd)="searchMethod($event)"
+    controlLabel="Typeahead With Templates"
+    controlPlaceholder="Type something in">
+    <ng-template sq-typeahead-option let-option="option">
+      <div class="custom dropdown-option">
+        {{option.label}}
+      </div>
+    </ng-template>
+
+    <ng-template
+      sq-typeahead-selected-option
+      let-item="item"
+      let-remove="remove">
+      <div class="custom tag chosen-item">
+        {{item.label}}
+
+        <span class="button" (click)="remove(item)">
+          <svg class="bi bi-trash2"></svg>
+        </span>
+      </div>
+    </ng-template>
+</sq-typeahead>
+```
+
+[sq-typeahead-custom-template](https://stackblitz.com/edit/sq-typeahead-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+
 ### Component properties:
 
 - **`@Input()` name:** `string` - Name of the typeahead. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
@@ -340,6 +504,17 @@ export class AppComponent {
 - **`@Input()` multiple:** `boolean` - Allow the user to choose multiple items from the search results list. Defaults to `false`.
 
 - **`@Input()` displayProp:** `string` - Specify which property of the object to use as display property. If you are just passing an array of strings you must not assign a value to this property.
+
+### Custom templates
+
+#### **sq-typeahead-option** exposed variables
+
+- **option**: `any`
+
+#### **sq-typeahead-selected-option** exposed variables and functions
+
+- **item**: `any`
+- **`remove`**: (item: LabelValuePair)=>void
 
 ### Class properties:
 

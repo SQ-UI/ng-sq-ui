@@ -8,7 +8,7 @@
 
 > Or simply send an email to contact[at]sq-ui.xyz.
 
-## Contributers 
+## Contributers
 
 > Star our repo and post a message on slack :) to get free stickers.
 
@@ -18,6 +18,6 @@ Want to file a [bug](http://bit.ly/ng-sq-ui-bug-report) / [request feature](http
 
 !> [Feature requests](http://bit.ly/ng-sq-ui-request-feature) wanted!
 
-> Sponsor with [DevToken](https://devtoken.rocks/package/@sq-ui/ng-sq-ui)
+> Sponsor us with [DEV](https://devprotocol.xyz) on the [stakes.social](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8) platform.
 
 > Tip us with BAT from brave awards or download [brave](https://brave.com/ngs747)
