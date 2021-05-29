@@ -12,3 +12,6 @@ updates:
   - samuil4
   labels:
   - dependency update
+ignore:
+  - dependency-name: *
+    update-types: ["version-update:semver-patch", "version-update:semver-minor"]
