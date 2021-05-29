@@ -14,7 +14,7 @@
       &::before {
         position: absolute;
         color: $input-placeholder-color;
-        content: attr(data-label);
+        content: attr(data-placeholder);
       }
       &.hide-placeholder::before {
         display: none;
