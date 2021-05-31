@@ -11,8 +11,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
-[![Stake to support us](https://badge.devprotocol.xyz/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8/descriptive)](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys)
+[![Stake to support us](https://badge.devprotocol.xyz/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8/descriptive)](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)[![Stake to support us](https://badge.devprotocol.xyz/0x8DC86777aefe019c994A70b5c6471e03d2E86568/descriptive)](https://stakes.social/0x8DC86777aefe019c994A70b5c6471e03d2E86568)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSQ-UI%2Fng-sq-ui.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2FSQ-UI%2Fng-sq-ui?ref=badge_small)
 
 ## Docs
 **Note:**

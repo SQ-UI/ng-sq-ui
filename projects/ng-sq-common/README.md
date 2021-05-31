@@ -11,7 +11,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
-[![Stake to support us](https://badge.devprotocol.xyz/0xf86A0B73875F6e231401B3eCd31a2Cb22d8eAF93/descriptive)](https://stakes.social/0xf86A0B73875F6e231401B3eCd31a2Cb22d8eAF93)
+[![Stake to support us](https://badge.devprotocol.xyz/0x8DC86777aefe019c994A70b5c6471e03d2E86568/descriptive)](https://stakes.social/0x8DC86777aefe019c994A70b5c6471e03d2E86568) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSQ-UI%2Fng-sq-ui.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2FSQ-UI%2Fng-sq-ui?ref=badge_small)
 
 ## Docs
 
