@@ -1,11 +1,13 @@
-import { Input, Directive, Injectable } from '@angular/core';
+import { Input, Component } from '@angular/core';
 import { ControlValueAccessorEnabler } from './control-value-accessor-enabler';
 
 /**
  * This class contains all the base properties
  * needed for every possible SQ UI form control
  **/
-@Injectable()
+@Component({
+  template: ''
+})
 export class InputCoreComponent extends ControlValueAccessorEnabler {
   private defaultInputIdentifier = 'sq-form-control' + new Date().getTime().toString();
 

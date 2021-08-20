@@ -5,6 +5,7 @@ import { OutsideClickListenerDirective } from './directives/outside-click-listen
 import { OSDetectorService } from './services/os-detector.service';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ScrolledToBottomListenerDirective } from './directives/scrolled-to-bottom-listener.directive';
+import { InputCoreComponent } from './entities/input-core-component';
 
 @NgModule({
   imports: [
@@ -17,12 +18,14 @@ import { ScrolledToBottomListenerDirective } from './directives/scrolled-to-bott
   declarations: [
     OutsideClickListenerDirective,
     PaginatorComponent,
-    ScrolledToBottomListenerDirective
+    ScrolledToBottomListenerDirective,
+    InputCoreComponent
   ],
   exports: [
     OutsideClickListenerDirective,
     PaginatorComponent,
-    ScrolledToBottomListenerDirective
+    ScrolledToBottomListenerDirective,
+    InputCoreComponent
   ]
 })
 export class NgSqCommonModule { }
