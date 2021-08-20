@@ -38,4 +38,9 @@ export class CheckboxComponent extends InputCoreComponent implements OnInit {
     this.isSelectedChange.emit(this.isSelected);
   }
 
+  writeValue(value: any) {
+    super.writeValue(value);
+    this.isSelected = this.value;
+  }
+
 }
