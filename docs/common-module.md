@@ -41,9 +41,9 @@ import { AfterViewInit } from '@angular/core';
 export class ExampleComponent implements AfterViewInit {
 
     listenForOutsideClick: boolean = false;
-    
+
     ngAfterViewInit() {
-        listenForOutsideClick = true;
+        this.listenForOutsideClick = true;
     }
 
     onClickOutsideComponent() {
@@ -54,7 +54,7 @@ export class ExampleComponent implements AfterViewInit {
 ```
 
 
-## Services 
+## Services
 ### OSDetectorService
 
 - **getDeviceOS():** [`DeviceOS`](enums.md??id=deviceos).
