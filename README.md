@@ -13,20 +13,9 @@
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
 [![Stake to support us](https://badge.devprotocol.xyz/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8/descriptive)](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys)
+ [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-sq-ui/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-sq-ui)
 
 ## Docs
-**Note:**
-For projects that use Angular version < 9, please use the following version for each package:
-
-**@sq-ui/ng-sq-ui:** 1.1.5 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-sq-ui/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-sq-ui)
-<br>
-**@sq-ui/ng-datetime-picker:** 1.1.0 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-datetime-picker/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-datetime-picker)<br>
-**@sq-ui/ng-sq-common:** 1.0.3 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-sq-common/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-sq-common)
-<br>
-**@sq-ui/ng-modal:** 1.0.6 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-modal/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-modal)
-<br>
-**@sq-ui/ng-datatable:** 1.0.3 [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-datatable/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-datatable)
-<br>
 
 You will find a description of the public API for each component.
 The components are grouped by modules. Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
@@ -45,6 +34,15 @@ Any types of public interfaces and services are also included.
 - [Bounty Program](http://bit.ly/bounty-program)
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
+
+**Note:**
+For projects that use Angular version < 9, please use the following version for each package:
+
+**@sq-ui/ng-sq-ui:** 1.1.5 <br>
+**@sq-ui/ng-datetime-picker:** 1.1.0 <br>
+**@sq-ui/ng-sq-common:** 1.0.3 <br>
+**@sq-ui/ng-modal:** 1.0.6 <br>
+**@sq-ui/ng-datatable:** 1.0.3<br>
 
 ## Installation
 
@@ -158,9 +156,18 @@ Want to file a bug, contribute some code, or improve documentation? Read up on o
 Thanks goes to these wonderful <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors">people</a>!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/41083417?v=4" width="50px;"/><br /><sub><b>Plamena Radneva</b></sub>](https://github.com/ardentia)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Documentation") [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Tests") | [<img src="https://avatars0.githubusercontent.com/u/797921?v=4" width="50px;"/><br /><sub><b>Samuil Gospodinov</b></sub>](https://github.com/samuil4)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Documentation") [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Tests") [📢](#talk-samuil4 "Talks") |
-| :---: | :---: |
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/ardentia"><img src="https://avatars2.githubusercontent.com/u/41083417?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Plamena Radneva</b></sub></a><br /><a href="https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia" title="Code">💻</a> <a href="https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia" title="Documentation">📖</a> <a href="https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia" title="Tests">⚠️</a> <a href="#tutorial-ardentia" title="Tutorials">✅</a> <a href="#blog-ardentia" title="Blogposts">📝</a></td>
+    <td align="center"><a href="https://github.com/samuil4"><img src="https://avatars0.githubusercontent.com/u/797921?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Samuil Gospodinov</b></sub></a><br /><a href="https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4" title="Code">💻</a> <a href="https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4" title="Documentation">📖</a> <a href="https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4" title="Tests">⚠️</a> <a href="#talk-samuil4" title="Talks">📢</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
