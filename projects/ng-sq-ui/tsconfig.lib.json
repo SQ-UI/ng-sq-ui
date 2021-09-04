@@ -17,7 +17,52 @@
     "lib": [
       "dom",
       "es2017"
-    ]
+    ],
+    "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "@sq-ui/ng-sq-common": [
+        "./dist/ng-sq-common",
+        "./projects/ng-sq-common/src",
+        "./node_modules/@sq-ui/ng-sq-common"
+      ],
+      "@sq-ui/ng-sq-common/*": [
+        "./dist/ng-sq-common/*",
+        "./projects/ng-sq-common/src/*",
+        "./node_modules/@sq-ui/ng-sq-common/*"
+      ],
+      "@sq-ui/ng-datetime-picker": [
+        "./dist/ng-datetime-picker",
+        "./projects/ng-datetime-picker/src",
+        "./node_modules/@sq-ui/ng-datetime-picker"
+      ],
+      "@sq-ui/ng-datetime-picker/*": [
+        "./dist/ng-datetime-picker/*",
+        "./projects/ng-datetime-picker/src/*",
+        "./node_modules/@sq-ui/ng-datetime-picker/*"
+      ],
+      "@sq-ui/ng-datatable": [
+        "./dist/ng-datatable",
+        "./projects/ng-datatable/src",
+        "./node_modules/@sq-ui/ng-datatable"
+      ],
+      "@sq-ui/ng-datatable/*": [
+        "./dist/ng-datatable/*",
+        "./projects/ng-datatable/src/*",
+        "./node_modules/@sq-ui/ng-datatable/*"
+      ],
+      "@sq-ui/ng-modal": [
+        "./dist/ng-modal",
+        "./projects/ng-modal/src",
+        "./node_modules/@sq-ui/ng-modal/"
+      ],
+      "@sq-ui/ng-modal/*": [
+        "./dist/ng-modal/*",
+        "./projects/ng-modal/src/*",
+        "./node_modules/@sq-ui/ng-modal/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
