@@ -17,7 +17,9 @@
       "contributions": [
         "code",
         "doc",
-        "test"
+        "test",
+        "tutorial",
+        "blog"
       ]
     },
     {

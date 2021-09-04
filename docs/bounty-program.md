@@ -16,7 +16,6 @@ Reward for a feature request is up to 2 DEV tokens determined by quality / contr
 
 ## Merge Requests and Commits
 
-
 > Create an MR that completes a well defined feature and:
 * passes the build pipeline
 * has tests covering the acceptance criteria
