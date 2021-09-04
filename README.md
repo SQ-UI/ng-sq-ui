@@ -137,7 +137,7 @@ The libraries are watched automatically when you run `npm start`:
 ## Support
 
 - Use NG-SQ-UI in your daily work.
-- **Star** it if you like.
+- **Star** ⭐ it if you like.
 - Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 - Or simply send an email to contact[at]sq-ui.xyz.
@@ -148,14 +148,6 @@ The libraries are watched automatically when you run `npm start`:
 
 Want to file a bug, contribute some code, or improve documentation? Read up on our [Contributing Guide](CONTRIBUTING.md) before making a pull request.
 
-Thank you to all <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors">contributers</a>!
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/41083417?v=4" width="50px;"/><br /><sub><b>Plamena Radneva</b></sub>](https://github.com/ardentia)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Documentation") [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Tests") | [<img src="https://avatars0.githubusercontent.com/u/797921?v=4" width="50px;"/><br /><sub><b>Samuil Gospodinov</b></sub>](https://github.com/samuil4)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Documentation") [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Tests") [📢](#talk-samuil4 "Talks") |
-| :---: | :---: |
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
 ## LICENSE
 
 - [MIT](http://opensource.org/licenses/MIT)
@@ -163,10 +155,12 @@ Thank you to all <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors"
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+Thanks goes to these wonderful <a href="https://github.com/sq-ui/ng-sq-ui/graphs/contributors">people</a>!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
+| [<img src="https://avatars2.githubusercontent.com/u/41083417?v=4" width="50px;"/><br /><sub><b>Plamena Radneva</b></sub>](https://github.com/ardentia)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Documentation") [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=ardentia "Tests") | [<img src="https://avatars0.githubusercontent.com/u/797921?v=4" width="50px;"/><br /><sub><b>Samuil Gospodinov</b></sub>](https://github.com/samuil4)<br />[💻](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Code") [📖](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Documentation") [⚠️](https://github.com/SQ-UI/ng-sq-ui/commits?author=samuil4 "Tests") [📢](#talk-samuil4 "Talks") |
+| :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
