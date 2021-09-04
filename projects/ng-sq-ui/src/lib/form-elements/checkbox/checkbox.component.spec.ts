@@ -35,4 +35,11 @@ describe('CheckboxComponent', () => {
     expect(component.isSelected).toBe(false, 'unselected again');
   });
 
+  it('should automatically change isSelected on onWrite(...)', () => {
+    component.writeValue(true);
+    expect(component.isSelected).toEqual(true);
+    component.writeValue(false);
+    expect(component.isSelected).toEqual(false);
+  });
+
 });

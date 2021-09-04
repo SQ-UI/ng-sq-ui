@@ -51,10 +51,6 @@
     "date picker",
     "modal"
   ],
-  "peerDependencies": {
-    "@angular/common": "^9.0.6",
-    "@angular/core": "^9.0.6"
-  },
   "dependencies": {
     "@sq-ui/ng-sq-common": "^1.0.0",
     "immutable": "^3.8.2",
