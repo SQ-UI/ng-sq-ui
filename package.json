@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "docs": "docsify serve docs",
     "copy:styles": "copyfiles -f \"./projects/ng-sq-common/src/lib/styles/**/*.scss\" \"./dist/ng-sq-common/styles\" && copyfiles -f \"./projects/ng-sq-common/src/lib/sq-ui-theme.scss\" \"./dist/ng-sq-common/\" && copyfiles -f \"./projects/ng-sq-ui/src/lib/styles/**/*.scss\" \"./dist/ng-sq-ui/styles\"",
-    "build:libs": "ng build ng-sq-common && ng build ng-modal && ng build ng-datetime-picker && ng build ng-datatable && ng build ng-sq-ui && npm run copy:styles",
+    "build:libs": "ng build --configuration production ng-sq-common && ng build --configuration production ng-modal && ng build --configuration production ng-datetime-picker && ng build --configuration production ng-datatable && ng build --configuration production ng-sq-ui && npm run copy:styles",
     "build:app:prod": "npm run build:libs && ng build",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
