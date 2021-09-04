@@ -16,7 +16,12 @@
     "lib": [
       "dom",
       "es2015"
-    ]
+    ],
+    "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
