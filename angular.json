@@ -52,19 +52,24 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sq-ui:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "sq-ui:build:production"
+            },
+            "development": {
+              "browserTarget": "sq-ui:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -111,14 +116,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sq-ui:serve"
+            "protractorConfig": "e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "sq-ui:serve:production"
+            },
+            "development": {
+              "devServerTarget": "sq-ui:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -146,8 +154,10 @@
         ,          "configurations": {
             "production": {
               "tsConfig": "projects/ng-sq-ui/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
 },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -187,8 +197,10 @@
         ,          "configurations": {
             "production": {
               "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
 },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -228,8 +240,10 @@
         ,          "configurations": {
             "production": {
               "tsConfig": "projects/ng-datatable/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
 },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -269,8 +283,10 @@
         ,          "configurations": {
             "production": {
               "tsConfig": "projects/ng-sq-common/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
 },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -310,8 +326,10 @@
         ,          "configurations": {
             "production": {
               "tsConfig": "projects/ng-modal/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
 },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
