@@ -207,13 +207,11 @@ Example using custom templates
 
 - **`@Output()` onSelectItem:** `EventEmitter<LabelValuePair>` - Callback which is invoked when an item has been selected.
 
-- **`@Input()` showOptions:** `boolean` - Programatically show/hide the dropdown list of options.
-
 - **`@Input()` disabled:** `boolean` - Enables/disables the component.
 
 ### Custom Templates
 
-#### **q-dropdown-selected-option** exposed varaibles
+#### **sq-dropdown-selected-option** exposed varaibles
 
 - **value**: `string`
 

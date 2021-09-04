@@ -34,6 +34,9 @@ export class TextareaComponent extends InputCoreComponent implements OnInit {
     if (value) {
       this.renderer.setProperty(this.textarea.nativeElement, 'textContent', value);
     }
+
+    this.value = value;
+    this.isPlaceholderVisible = !this.value;
   }
 
   inputChange($event) {
@@ -42,7 +45,7 @@ export class TextareaComponent extends InputCoreComponent implements OnInit {
     this.isPlaceholderVisible = !$event.target.textContent;
   }
 
-  setDisabledState( isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     const div = this.textarea.nativeElement;
     const action = isDisabled ? 'addClass' : 'removeClass';
     this.renderer[action](div, 'disabled');
