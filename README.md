@@ -35,7 +35,20 @@ Any types of public interfaces and services are also included.
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
-**Note:**
+**Note:**<br>
+For projects that use the View Engine, instead Ivy (Angular 10 ~ Angular 12), please use the following version for each package:
+
+**@sq-ui/ng-sq-ui:** 1.3.3
+<br>
+**@sq-ui/ng-datetime-picker:** 1.1.2
+<br>
+**@sq-ui/ng-sq-common:** 1.1.5
+<br>
+**@sq-ui/ng-modal:** 1.1.2
+<br>
+**@sq-ui/ng-datatable:** 1.1.3
+
+<br>
 For projects that use Angular version < 9, please use the following version for each package:
 
 **@sq-ui/ng-sq-ui:** 1.1.5 <br>
