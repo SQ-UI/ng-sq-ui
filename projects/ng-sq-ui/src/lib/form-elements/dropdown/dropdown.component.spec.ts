@@ -65,4 +65,22 @@ describe('DropdownComponent', () => {
 
     subscription.unsubscribe();
   });
+
+  it('should toggle the options', () => {
+    component.isOpen = false;
+    component.listenForOutsideClick = false;
+
+    component.toggleOptionsDropdown();
+    expect(component.isOpen).toBe(true);
+    expect(component.listenForOutsideClick).toBe(true);
+  });
+
+  it('should close the dropdown onClickOutsideComponent', () => {
+    component.isOpen = true;
+    component.listenForOutsideClick = true;
+
+    component.onClickOutsideComponent();
+    expect(component.isOpen).toBe(false);
+    expect(component.listenForOutsideClick).toBe(false);
+  });
 });
