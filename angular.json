@@ -52,19 +52,23 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "sq-ui:build"
-          },
+          "options": {},
           "configurations": {
             "production": {
               "browserTarget": "sq-ui:build:production"
+            },
+            "development": {
+              "browserTarget": "sq-ui:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -111,14 +115,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sq-ui:serve"
+            "protractorConfig": "e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "sq-ui:serve:production"
+            },
+            "development": {
+              "devServerTarget": "sq-ui:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -142,13 +149,15 @@
           "options": {
             "tsConfig": "projects/ng-sq-ui/tsconfig.lib.json",
             "project": "projects/ng-sq-ui/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/ng-sq-ui/tsconfig.lib.prod.json"
-            }
-          }
-},
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -159,14 +168,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-sq-ui/tsconfig.lib.json",
-              "projects/ng-sq-ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-sq-ui/**/*.ts",
+              "projects/ng-sq-ui/**/*.html"
             ]
           }
         }
@@ -183,13 +189,15 @@
           "options": {
             "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.json",
             "project": "projects/ng-datetime-picker/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.prod.json"
-            }
-          }
-},
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -200,14 +208,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-datetime-picker/tsconfig.lib.json",
-              "projects/ng-datetime-picker/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-datetime-picker/**/*.ts",
+              "projects/ng-datetime-picker/**/*.html"
             ]
           }
         }
@@ -224,13 +229,15 @@
           "options": {
             "tsConfig": "projects/ng-datatable/tsconfig.lib.json",
             "project": "projects/ng-datatable/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/ng-datatable/tsconfig.lib.prod.json"
-            }
-          }
-},
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -241,14 +248,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-datatable/tsconfig.lib.json",
-              "projects/ng-datatable/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-datatable/**/*.ts",
+              "projects/ng-datatable/**/*.html"
             ]
           }
         }
@@ -265,13 +269,15 @@
           "options": {
             "tsConfig": "projects/ng-sq-common/tsconfig.lib.json",
             "project": "projects/ng-sq-common/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/ng-sq-common/tsconfig.lib.prod.json"
-            }
-          }
-},
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -282,14 +288,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-sq-common/tsconfig.lib.json",
-              "projects/ng-sq-common/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-sq-common/**/*.ts",
+              "projects/ng-sq-common/**/*.html"
             ]
           }
         }
@@ -306,13 +309,15 @@
           "options": {
             "tsConfig": "projects/ng-modal/tsconfig.lib.json",
             "project": "projects/ng-modal/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/ng-modal/tsconfig.lib.prod.json"
-            }
-          }
-},
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -323,14 +328,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-modal/tsconfig.lib.json",
-              "projects/ng-modal/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-modal/**/*.ts",
+              "projects/ng-modal/**/*.html"
             ]
           }
         }

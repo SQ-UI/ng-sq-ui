@@ -1,6 +1,5 @@
 import {
-  Component, EventEmitter, Input, OnInit,
-  Output, ViewEncapsulation, forwardRef, ContentChild, TemplateRef
+  Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef, ContentChild, TemplateRef
 } from '@angular/core';
 
 import { InputCoreComponent } from '@sq-ui/ng-sq-common';
@@ -20,16 +19,13 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class CheckboxComponent extends InputCoreComponent implements OnInit {
+export class CheckboxComponent extends InputCoreComponent {
   @Input() isSelected: boolean = false;
   @Output() isSelectedChange = new EventEmitter<boolean>();
   @ContentChild(SqCheckboxLabelTemplateDirective, { read: TemplateRef }) checkboxTemplate: TemplateRef<any>;
 
   constructor() {
     super();
-  }
-
-  ngOnInit() {
   }
 
   toggleCheckboxSelection() {

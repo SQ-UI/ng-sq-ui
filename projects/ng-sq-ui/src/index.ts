@@ -15,3 +15,8 @@ export { TypeaheadComponent } from './lib/form-elements/typeahead/typeahead.comp
 export { CheckboxComponent } from './lib/form-elements/checkbox/checkbox.component';
 export { ButtonComponent } from './lib/form-elements/button/button.component';
 export { TextareaComponent } from './lib/form-elements/textarea/textarea.component';
+export { SqCheckboxLabelTemplateDirective } from './lib/form-elements/checkbox/checkbox.template.directive';
+export { SqDropdownOptionTemplateDirective, SqDropdownChevronTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './lib/form-elements/dropdown/dropdown.template.directive';
+export { SqRadiobuttonLabelTemplateDirective } from './lib/form-elements/radiobutton/radiobutton.template.directive';
+export { SqTagTemplateDirective } from './lib/form-elements/tags-input/tags-input.template.directive';
+export { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './lib/form-elements/typeahead/typeahead.template.directive';

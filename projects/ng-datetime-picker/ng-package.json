@@ -7,7 +7,7 @@
       "moment": "moment"
     }
   },
-  "whitelistedNonPeerDependencies": [
+  "allowedNonPeerDependencies": [
     "."
   ]
 }
