@@ -1,0 +1,7 @@
+{
+  "name": "@sq-ui/ng-progress-bar",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sq-ui/ng-sq-common": "^1.0.0"
+  }
+}

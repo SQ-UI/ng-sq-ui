@@ -47,3 +47,5 @@ jobs:
             ${{github.workspace}}/coverage/ng-datetime-picker/lcov.info:lcov
             ${{github.workspace}}/coverage/ng-sq-ui/lcov.info:lcov
             ${{github.workspace}}/coverage/ng-modal/lcov.info:lcov
+            ${{github.workspace}}/coverage/ng-form-elements/lcov.info:lcov
+            ${{github.workspace}}/coverage/ng-progress-bar/lcov.info:lcov

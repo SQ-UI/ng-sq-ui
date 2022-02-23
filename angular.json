@@ -337,6 +337,68 @@
           }
         }
       }
+    },
+    "ng-form-elements": {
+      "projectType": "library",
+      "root": "projects/ng-form-elements",
+      "sourceRoot": "projects/ng-form-elements/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-form-elements/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-form-elements/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-form-elements/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-form-elements/src/test.ts",
+            "tsConfig": "projects/ng-form-elements/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-form-elements/karma.conf.js"
+          }
+        }
+      }
+    },
+    "ng-progress-bar": {
+      "projectType": "library",
+      "root": "projects/ng-progress-bar",
+      "sourceRoot": "projects/ng-progress-bar/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-progress-bar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-progress-bar/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-progress-bar/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-progress-bar/src/test.ts",
+            "tsConfig": "projects/ng-progress-bar/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-progress-bar/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "sq-ui",
