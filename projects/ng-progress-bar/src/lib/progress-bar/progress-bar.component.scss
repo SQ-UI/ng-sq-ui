@@ -1,0 +1,81 @@
+@import '../../../../ng-sq-common/src/lib/styles/colors.scss';
+
+.sq .progress {
+  width: 100%;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+
+  &.small {
+    height: 2px;
+  }
+
+  &.medium {
+    height: 4px;
+  }
+
+  &.large {
+    height: 7px;
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: $progress-backogrund-color;
+  }
+
+  .loading-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: $progress-line-color;
+    transition: 0.2s;
+  }
+
+  &.infinite {
+    .infinite-line-1 {
+      width: 50%;
+      animation: infinite-animation-1;
+      animation-duration: 2.5s;
+      animation-iteration-count: infinite;
+    }
+    .infinite-line-2 {
+      width: 50%;
+      animation: infinite-animation-2;
+      animation-duration: 2.5s;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+@keyframes infinite-animation-1 {
+  0% {
+    left: -100%;
+    right: 100%;
+  }
+  60% {
+    left: -100%;
+    right: 100%;
+  }
+  100% {
+    left: 100%;
+    right: -40%;
+  }
+}
+
+@keyframes infinite-animation-2 {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -20%;
+  }
+  100% {
+    left: 100%;
+    right: -20%;
+  }
+}

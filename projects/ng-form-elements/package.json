@@ -1,0 +1,7 @@
+{
+  "name": "@sq-ui/ng-form-elements",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sq-ui/ng-sq-common": "^1.0.0"
+  }
+}
