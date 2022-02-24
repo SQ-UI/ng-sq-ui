@@ -1,7 +1,46 @@
 {
   "name": "@sq-ui/ng-form-elements",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "license": "MIT",
+  "private": false,
+  "description": "Form elements for Angular by SQ-UI",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SQ-UI/ng-sq-ui.git"
+  },
+  "contributors": [
+    {
+      "name": "Samuil Gospodinov",
+      "email": "samuil4@gmail.com",
+      "url": "https://github.com/samuil4/"
+    },
+    {
+      "name": "Plamena Radneva",
+      "email": "rhythmxholic@gmail.com",
+      "url": "https://github.com/ardentia/"
+    }
+  ],
+  "keywords": [
+    "angular",
+    "angular 8",
+    "angular 2+",
+    "Angular",
+    "sq ui",
+    "simple quality ui",
+    "sq-ui",
+    "ng-sq-ui",
+    "form",
+    "form elements",
+    "form components",
+    "autocomplete",
+    "typeahead",
+    "dropdown",
+    "tags",
+    "input"
+  ],
   "dependencies": {
-    "@sq-ui/ng-sq-common": "^1.0.0"
-  }
+    "@sq-ui/ng-sq-common": "^1.0.0",
+    "immutable": "^4.0.0-rc.12"
+  },
+  "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

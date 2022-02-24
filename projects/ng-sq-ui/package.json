@@ -59,7 +59,6 @@
     "@sq-ui/ng-form-elements": "^1.0.0",
     "@sq-ui/ng-progress-bar": "^1.0.0",
     "@sq-ui/ng-datetime-picker": "^1.0.0",
-
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
