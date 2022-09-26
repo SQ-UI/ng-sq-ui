@@ -1,0 +1,31 @@
+@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+
+.sq .tags-input-wrapper {
+  .input-field {
+    display: block;
+    input {
+      min-width: 250px;
+    }
+    input, .entered-items {
+      width: auto;
+      display: inline-block;
+    }
+    &.disabled .entered-item {
+      background-color: $disabled-color;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .sq .tags-input-wrapper {
+    .input-field input, .entered-items {
+      margin-top: 10px;
+    }
+
+    .input-field .entered-items {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+

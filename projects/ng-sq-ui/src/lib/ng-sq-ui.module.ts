@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FormElementsModule } from './form-elements/form-elements.module';
-import { ProgressBarModule } from './progress-bar/progress-bar.module';
+import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import { NgProgressBarModule } from '@sq-ui/ng-progress-bar';
 import { NgModalModule } from '@sq-ui/ng-modal';
 import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
 import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
@@ -10,17 +10,17 @@ import { NgDatatableModule } from '@sq-ui/ng-datatable';
   declarations: [],
   imports: [
     NgSqCommonModule,
-    FormElementsModule,
+    NgFormElementsModule,
     NgDatetimePickerModule,
-    ProgressBarModule,
+    NgProgressBarModule,
     NgDatatableModule
   ],
   exports: [
-    FormElementsModule,
+    NgFormElementsModule,
     NgModalModule,
     NgDatetimePickerModule,
     NgDatatableModule,
-    ProgressBarModule,
+    NgProgressBarModule,
     NgSqCommonModule
   ]
 })
