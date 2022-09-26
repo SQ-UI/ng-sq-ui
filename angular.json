@@ -318,7 +318,6 @@
       }
     }
   },
-  "defaultProject": "sq-ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "sq",

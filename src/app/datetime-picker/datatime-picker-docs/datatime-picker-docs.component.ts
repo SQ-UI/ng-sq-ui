@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavItem } from '../../shared/shared.module';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 import { environment } from '../../../environments/environment';
 
@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class DatatimePickerDocsComponent implements OnInit {
 
-  testForm: FormGroup;
+  testForm: UntypedFormGroup;
   npmPackageName: string = '@sq-ui/ng-datetime-picker';
   moduleName: string = 'NgDatetimePickerModule';
   dependsOn: NavItem[] = [
@@ -68,7 +68,7 @@ export class DatatimePickerDocsComponent implements OnInit {
   };
   isTimepickerEndabled = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.testForm = this.fb.group({
       standAloneDatepicker: [moment().add(1, 'day')],
       datetimePicker: [moment().add(1, 'day')],

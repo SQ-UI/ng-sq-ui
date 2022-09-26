@@ -6,7 +6,7 @@ import { Component, OnInit, Input, OnDestroy,
   TemplateRef
 } from '@angular/core';
 
-import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, UntypedFormControl } from '@angular/forms';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 
@@ -52,7 +52,7 @@ export class TypeaheadComponent extends InputCoreComponent
     super();
   }
 
-  queryInputControl = new FormControl();
+  queryInputControl = new UntypedFormControl();
   isLoading = false;
   listenForOutsideClick = false;
   hideResults = true;
