@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { CalendarDay, InCalendarPicker } from './interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
 import { DateRange } from './interfaces/date-range';
-// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 @Injectable()
 export class CalendarManagerService {
@@ -19,10 +17,10 @@ export class CalendarManagerService {
     this.locale = locale;
   }
 
-  generateCalendarForMonth(startDate: momentNs.Moment | Date,
-                           currentMonth: momentNs.Moment,
-                           selectedDates: momentNs.Moment[],
-                           dateRange: DateRange): Array<CalendarDay[]> {
+  generateCalendarForMonth(startDate: moment.Moment | Date,
+    currentMonth: moment.Moment,
+    selectedDates: moment.Moment[],
+    dateRange: DateRange): Array<CalendarDay[]> {
     const monthStart = moment(startDate).startOf('month').locale(this.locale);
     const isStartOfChosenMonthTheFirstDayOfTable = (monthStart.weekday() === 0);
 
@@ -75,7 +73,7 @@ export class CalendarManagerService {
     });
   }
 
-  generateYearPickerCollection(start: momentNs.Moment, margin: number = 19, dateRange: DateRange): InCalendarPicker[] {
+  generateYearPickerCollection(start: moment.Moment, margin: number = 19, dateRange: DateRange): InCalendarPicker[] {
     const yearsList = this.getYearList(start, margin);
 
     return yearsList.map((year) => {
@@ -97,7 +95,7 @@ export class CalendarManagerService {
     return short ? moment.monthsShort() : moment.months();
   }
 
-  getYearList(start: momentNs.Moment, margin: number = 19): number[] {
+  getYearList(start: moment.Moment, margin: number = 19): number[] {
     let yearIterator;
     let endYear;
 
@@ -125,7 +123,7 @@ export class CalendarManagerService {
     return yearList;
   }
 
-  findADateFromCalendar(date: momentNs.Moment | Date, calendarTable: Array<CalendarDay[]>): CalendarDay {
+  findADateFromCalendar(date: moment.Moment | Date, calendarTable: Array<CalendarDay[]>): CalendarDay {
     const dateToFind = moment(date);
 
     const flatCalendarTable = calendarTable.reduce((acc, val) => acc.concat(val), []);
@@ -135,22 +133,22 @@ export class CalendarManagerService {
     });
   }
 
-  getSelectedItemIndex(date: momentNs.Moment, selectedDates: momentNs.Moment[]): number {
+  getSelectedItemIndex(date: moment.Moment, selectedDates: moment.Moment[]): number {
     return selectedDates.findIndex((selectedDate) => {
       return moment(selectedDate).isSame(date, 'day');
     });
   }
 
-  determineIfDateIsDisabled(currentDate: momentNs.Moment | Date,
-                            minDate: momentNs.Moment | Date,
-                            maxDate: momentNs.Moment | Date): boolean {
+  determineIfDateIsDisabled(currentDate: moment.Moment | Date,
+    minDate: moment.Moment | Date,
+    maxDate: moment.Moment | Date): boolean {
     const isAfterMaxDate = maxDate && moment(currentDate).isAfter(maxDate, 'day');
     const isBeforeMinDate = minDate && moment(currentDate).isBefore(minDate, 'day');
 
     return <boolean>(isAfterMaxDate || isBeforeMinDate);
   }
 
-  determineDateRelativityToCurrentMonth(date: momentNs.Moment, currentMonth: momentNs.Moment): CalendarPeriodRelativityEnum {
+  determineDateRelativityToCurrentMonth(date: moment.Moment, currentMonth: moment.Moment): CalendarPeriodRelativityEnum {
     const startOfCurrentMonth = moment(currentMonth).startOf('month');
     const endOfCurrentMonth = moment(currentMonth).endOf('month');
 

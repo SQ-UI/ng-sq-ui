@@ -3,8 +3,7 @@ import { SimpleChange } from '@angular/core';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimePickerComponent } from './time-picker.component';
 import { FormsModule } from '@angular/forms';
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 describe('TimePickerComponent', () => {
   let component: TimePickerComponent;

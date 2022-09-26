@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavItem } from '../../shared/shared.module';
 import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './datatime-picker-docs.component.html',
   styleUrls: ['./datatime-picker-docs.component.scss']
 })
-export class DatatimePickerDocsComponent implements OnInit {
+export class DatatimePickerDocsComponent {
 
   testForm: UntypedFormGroup;
   npmPackageName: string = '@sq-ui/ng-datetime-picker';
@@ -74,9 +74,6 @@ export class DatatimePickerDocsComponent implements OnInit {
       datetimePicker: [moment().add(1, 'day')],
       standAloneTimepicker: []
     });
-  }
-
-  ngOnInit() {
   }
 
   hoursChange($event) {

@@ -12,6 +12,8 @@
     "experimentalDecorators": true,
     "target": "es2020",
     "noImplicitAny": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "node_modules/@types"
     ],

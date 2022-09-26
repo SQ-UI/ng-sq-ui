@@ -1,7 +1,7 @@
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
+
 
 export interface DateRange {
-  minDate: momentNs.Moment | Date;
-  maxDate: momentNs.Moment | Date;
+  minDate: moment.Moment | Date;
+  maxDate: moment.Moment | Date;
 }

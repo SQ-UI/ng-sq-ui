@@ -4,11 +4,8 @@ import { DatetimePickerComponent } from './datetime-picker.component';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
-
-// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import { CalendarManagerService } from '../calendar-manager.service';
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
