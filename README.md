@@ -35,6 +35,9 @@ Any types of public interfaces and services are also included.
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
+## BREAKING CHANGES:
+The 2.0.0 relases of all packages are compatible with Angular 14+. If you need a backwards-compatible version, please refer to 1.x.y packages, as stated below.
+
 **Note:**<br>
 For projects that use the View Engine, instead Ivy (Angular 10 ~ Angular 12), please use the following version for each package:
 
