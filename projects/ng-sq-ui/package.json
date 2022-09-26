@@ -57,6 +57,7 @@
     "@sq-ui/ng-datatable": "^2.0.0",
     "@sq-ui/ng-modal": "^2.0.0",
     "@sq-ui/ng-datetime-picker": "^2.0.0",
+    "@sq-ui/ng-form-elements": "^2.0.0",
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"

@@ -69,9 +69,29 @@
         "./node_modules/@sq-ui/ng-modal/"
       ],
       "@sq-ui/ng-modal/*": [
-        "./dist/ng-modal/*",
-        "./projects/ng-modal/src/*",
-        "./node_modules/@sq-ui/ng-modal/*"
+        "dist/ng-modal/*",
+        "projects/ng-modal/src/*",
+        "node_modules/@sq-ui/ng-modal/*"
+      ],
+      "@sq-ui/ng-form-elements": [
+        "./dist/ng-form-elements",
+        "./projects/ng-form-elements/src",
+        "./node_modules/@sq-ui/ng-form-elements"
+      ],
+      "@sq-ui/ng-form-elements/*": [
+        "./dist/ng-form-elements/*",
+        "./projects/ng-form-elements/src/*",
+        "./node_modules/@sq-ui/ng-form-elements/*"
+      ],
+      "@sq-ui/ng-progress-bar": [
+        "./dist/ng-progress-bar",
+        "./projects/ng-progress-bar/src",
+        "./node_modules/@sq-ui/ng-progress-bar"
+      ],
+      "@sq-ui/ng-progress-bar/*": [
+        "./dist/ng-progress-bar/*",
+        "./projects/ng-progress-bar/src/*",
+        "./node_modules/@sq-ui/ng-progress-bar/*"
       ]
     }
   }

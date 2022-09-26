@@ -1,0 +1,23 @@
+@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+
+.sq {
+  .radio {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid $base-form-element-color;
+    padding: 3px;
+    margin-right: 5px;
+  }
+
+  .disabled .radio {
+    border-color: darken($disabled-color, 50%);
+  }
+}
+
+.checkable.checked .radio .inner {
+  border-radius: 50%;
+}
+
+
