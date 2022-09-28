@@ -6,9 +6,8 @@ import { InputCoreComponent } from '@sq-ui/ng-sq-common';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimeObject } from '../enums/time-object-type.enum';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
+
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -81,17 +80,17 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, A
     }
 
     if (changesObj.inputHours &&
-        changesObj.inputHours.currentValue !== null &&
-        typeof changesObj.inputHours.currentValue !== 'undefined' &&
-        changesObj.inputHours.currentValue > -1) {
+      changesObj.inputHours.currentValue !== null &&
+      typeof changesObj.inputHours.currentValue !== 'undefined' &&
+      changesObj.inputHours.currentValue > -1) {
       this.hours = this.start.hours(changesObj.inputHours.currentValue).format(this.hourFormat);
       this.noonRelativity = this.start.format('a');
     }
 
     if (changesObj.inputMinutes &&
-        changesObj.inputMinutes.currentValue !== null &&
-        typeof changesObj.inputMinutes.currentValue !== 'undefined' &&
-        changesObj.inputMinutes.currentValue > -1) {
+      changesObj.inputMinutes.currentValue !== null &&
+      typeof changesObj.inputMinutes.currentValue !== 'undefined' &&
+      changesObj.inputMinutes.currentValue > -1) {
       this.minutes = this.start.minutes(changesObj.inputMinutes.currentValue).format('mm');
     }
 
@@ -173,7 +172,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, A
   }
 
   private setValueResult() {
-    let timeMoment: momentNs.Moment;
+    let timeMoment: moment.Moment;
     let timeString = `${this.hours}:${this.minutes}`;
     timeString = this.isMeridiem ? `${timeString} ${this.noonRelativity.toUpperCase()}` : timeString;
 

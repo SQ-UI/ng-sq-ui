@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
-// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 import { CalendarManagerService } from './calendar-manager.service';
 
 let previouslySelectedYear;
 
-function getYearList(start: momentNs.Moment, margin: number = 19): number[] {
+function getYearList(start: moment.Moment, margin: number = 19): number[] {
   let yearIterator;
   let endYear;
 
