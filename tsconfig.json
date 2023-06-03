@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2020",
+    "target": "ES2022",
     "noImplicitAny": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -93,6 +93,7 @@
         "./projects/ng-progress-bar/src/*",
         "./node_modules/@sq-ui/ng-progress-bar/*"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }
