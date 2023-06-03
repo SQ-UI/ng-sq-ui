@@ -387,6 +387,12 @@
     },
     "@schematics/angular:directive": {
       "prefix": "sq"
+    },
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
     }
   }
 }
