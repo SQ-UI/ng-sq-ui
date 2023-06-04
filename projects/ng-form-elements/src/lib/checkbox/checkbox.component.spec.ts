@@ -28,11 +28,11 @@ describe('CheckboxComponent', () => {
   });
 
   it('should toggle its values when clicked', () => {
-    expect(component.isSelected).toBe(false, 'unselected at first');
+    expect(component.isSelected).toBe(false);
     component.toggleCheckboxSelection();
-    expect(component.isSelected).toBe(true, 'selected after click');
+    expect(component.isSelected).toBe(true);
     component.toggleCheckboxSelection();
-    expect(component.isSelected).toBe(false, 'unselected again');
+    expect(component.isSelected).toBe(false);
   });
 
   it('should automatically change isSelected on onWrite(...)', () => {

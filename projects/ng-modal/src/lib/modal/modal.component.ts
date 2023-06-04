@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewEncapsulation, Input,
+  Component, ViewEncapsulation, Input,
   Output, EventEmitter, ViewChild, OnChanges,
   Renderer2, ElementRef, SimpleChanges
 } from '@angular/core';
@@ -10,7 +10,7 @@ import {
   styleUrls: ['./modal.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ModalComponent implements OnInit, OnChanges {
+export class ModalComponent implements OnChanges {
   @Input() show: boolean = false;
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -30,8 +30,6 @@ export class ModalComponent implements OnInit, OnChanges {
   listenForOutsideClick: boolean = false;
 
   constructor(private renderer: Renderer2) { }
-
-  ngOnInit() { }
 
   ngOnChanges(changesObj: SimpleChanges) {
     if (changesObj.show && this.sqModalWindow) {

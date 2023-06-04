@@ -8,10 +8,10 @@ describe('ScrolledToBottomListenerDirective', () => {
 
   beforeEach(() => {
     elementRef = new ElementRef(null);
-    renderer2Mock = jasmine.createSpyObj('renderer2Mock', [
-      'scroll',
-      'listen'
-    ]);
+    renderer2Mock = {
+      scroll: jest.fn(),
+      listen: jest.fn(),
+    };
 
     directive = new ScrolledToBottomListenerDirective(elementRef, renderer2Mock);
   });
@@ -27,7 +27,7 @@ describe('ScrolledToBottomListenerDirective', () => {
       clientHeight: 1000
     };
 
-    spyOn(directive.scrolledToBottom, 'emit');
+    jest.spyOn(directive.scrolledToBottom, 'emit');
     directive.checkIfHasScrolledToBottom(mockHtmlEl as HTMLElement);
 
     expect(directive.scrolledToBottom.emit).toHaveBeenCalled();
@@ -40,7 +40,7 @@ describe('ScrolledToBottomListenerDirective', () => {
       clientHeight: 1000
     };
 
-    spyOn(directive.scrolledToBottom, 'emit');
+    jest.spyOn(directive.scrolledToBottom, 'emit');
     directive.checkIfHasScrolledToBottom(mockHtmlEl as HTMLElement);
 
     expect(directive.scrolledToBottom.emit).not.toHaveBeenCalled();
@@ -53,7 +53,7 @@ describe('ScrolledToBottomListenerDirective', () => {
       clientHeight: 1000
     };
 
-    spyOn(directive.scrolledToBottom, 'emit');
+    jest.spyOn(directive.scrolledToBottom, 'emit');
     directive.checkIfHasScrolledToBottom(mockHtmlEl as HTMLElement);
 
     expect(directive.scrolledToBottom.emit).not.toHaveBeenCalled();
