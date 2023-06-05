@@ -79,13 +79,13 @@ describe('DatatableComponent', () => {
       const datatableRowEls = datatableFixture.nativeElement.querySelectorAll('.datatable tbody > tr');
 
       expect(datatableComponent.items.length === itemsCount)
-        .toBe(true, 'paginator gets items from datatable');
+        .toBe(true);
 
       expect(paginatorComponent._paginatedCollection.length === datatableComponent.paginatorConfig.itemsPerPage)
-        .toBe(true, 'paginator has correctly sliced items');
+        .toBe(true);
 
       expect(datatableRowEls.length === paginatorComponent.paginatedCollection.length)
-        .toBe(true, 'datatable displays paginated collection');
+        .toBe(true);
 
       done();
     });
@@ -102,7 +102,7 @@ describe('DatatableComponent', () => {
     datatableFixture.detectChanges();
 
     expect(Object.keys(datatableComponent.items[0]).length === datatableComponent.columnNames.length)
-      .toBe(true, 'the props of the first object are assigned as columns');
+      .toBe(true);
   });
 
   it('should enable sorting for specified column name', () => {
@@ -131,8 +131,8 @@ describe('DatatableComponent', () => {
 
     expect(sortableColumn).toBeDefined();
     expect(sortableColumn.canBeSortedAgainst)
-      .toBe(true, 'the column is marked as sortable');
+      .toBe(true);
     expect(areAllOtherColumnsUnsortable)
-      .toBe(true, 'all other columns are not sortable');
+      .toBe(true);
   });
 });

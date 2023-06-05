@@ -48,7 +48,7 @@ describe('TagsInputComponent', () => {
 
     expect(component.enteredItems.indexOf(testTag) > -1 &&
       !Object.is(component.enteredItems, component.value))
-      .toBe(true, 'new tag is added on pressing Space');
+      .toBe(true);
   });
 
   it('should remove tags correctly when pressing Backspace', () => {
@@ -64,7 +64,7 @@ describe('TagsInputComponent', () => {
     component.onUserInput(mockEventObject);
 
     expect(component.enteredItems.indexOf(testTag) > - 1)
-      .toBe(true, 'the last tag should not be removed when the user has typed in something');
+      .toBe(true);
 
     // below 2 lines emulate an already empty field
     component.newTagName = '';
@@ -74,14 +74,14 @@ describe('TagsInputComponent', () => {
     component.onUserInput(mockEventObject);
 
     expect(component.enteredItems.indexOf(testTag) === -1)
-      .toBe(true, 'the last tag should be removed if the user has not typed in anything');
+      .toBe(true);
 
     for (let i = 0; i < component.enteredItems.size + 2; i++) {
       component.onUserInput(mockEventObject);
     }
 
     expect(component.enteredItems.size === 0)
-      .toBe(true, 'all tags should be removed if the Backspace has been pressed as many times as there are tags or more');
+      .toBe(true);
   });
 
   it('should remove tags when using the remove button', () => {
@@ -89,7 +89,7 @@ describe('TagsInputComponent', () => {
     addNewTag(testTag);
 
     component.removeTag(testTag);
-    expect(component.enteredItems.indexOf(testTag) === -1).toBe(true, 'entered tag is deleted by using the remove button');
+    expect(component.enteredItems.indexOf(testTag) === -1).toBe(true);
   });
 
 });

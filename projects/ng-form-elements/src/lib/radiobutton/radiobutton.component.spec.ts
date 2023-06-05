@@ -48,11 +48,11 @@ describe('RadiobuttonComponent', () => {
     radio2Fixture.detectChanges();
 
     component.selectRadio();
-    expect(component.isSelected).toBe(true, 'after clicking on the first radio, it is selected');
-    expect(radio2.isSelected).toBe(false, 'the second radio should not be selected');
+    expect(component.isSelected).toBe(true);
+    expect(radio2.isSelected).toBe(false);
 
     radio2.selectRadio();
-    expect(component.isSelected).toBe(false, 'after clicking on the second radio, the first is deselected');
-    expect(radio2.isSelected).toBe(true, 'after clicking on the second radio, it is deselected');
+    expect(component.isSelected).toBe(false);
+    expect(radio2.isSelected).toBe(true);
   });
 });

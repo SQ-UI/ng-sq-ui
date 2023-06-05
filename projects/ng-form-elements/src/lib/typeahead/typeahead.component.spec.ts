@@ -44,10 +44,7 @@ describe('TypeaheadComponent', () => {
   it('should populate with search results on end of user input', () => {
     component.searchResults = testSearchResults;
 
-    expect(component.searchResults.length > 0).toBe(
-      true,
-      'search results are properly populated',
-    );
+    expect(component.searchResults.length > 0).toBe(true);
   });
 
   it('should choose one item when [multiple] = false', () => {
@@ -64,7 +61,7 @@ describe('TypeaheadComponent', () => {
     expect(
       component.value.length === 1 &&
       Object.is(component.selectedItems.get(0), component.value[0]),
-    ).toBe(true, 'single choice is correctly populated');
+    ).toBe(true);
   });
 
   it('should be able to choose more than one result when [multiple] = true', () => {
@@ -78,7 +75,7 @@ describe('TypeaheadComponent', () => {
     expect(
       component.value.length === testSearchResults.length &&
       !Object.is(component.selectedItems, component.value),
-    ).toBe(true, 'multiple choice is correctly populated');
+    ).toBe(true);
   });
 
   it('should remove selected item by using the remove button', () => {
@@ -88,10 +85,7 @@ describe('TypeaheadComponent', () => {
     component.selectSearchResult(testSearchResults[0]);
     component.removeSearchResult(testSearchResults[0]);
 
-    expect(component.value.length === 0).toBe(
-      true,
-      'selected item successfully removed',
-    );
+    expect(component.value.length === 0).toBe(true);
   });
 
   it('should be able to populate correctly with a pre-defined result item when [multiple] = true', () => {
@@ -113,15 +107,9 @@ describe('TypeaheadComponent', () => {
     component.selectSearchResult(component.searchResults[component.searchResults.length - 1]);
 
     const itemsToArray = component.selectedItems.toArray();
-    expect(itemsToArray.length === 1).toBe(
-      true,
-      'immutable list has only one item',
-    );
+    expect(itemsToArray.length === 1).toBe(true);
 
-    expect(Object.is(itemsToArray[0], component.value[0])).toBe(
-      true,
-      'the only item is the first one from the value array',
-    );
+    expect(Object.is(itemsToArray[0], component.value[0])).toBe(true);
   });
 
   it('should be working with plain strings', () => {
@@ -134,14 +122,8 @@ describe('TypeaheadComponent', () => {
     component.selectSearchResult(testSearchResults[1]);
 
     const itemsToArray = component.selectedItems.toArray();
-    expect(itemsToArray.length === 1).toBe(
-      true,
-      'immutable list has only one item',
-    );
+    expect(itemsToArray.length === 1).toBe(true);
 
-    expect(itemsToArray[0] === component.value[0]).toBe(
-      true,
-      'the only item is the first one from the value array',
-    );
+    expect(itemsToArray[0] === component.value[0]).toBe(true);
   });
 });
