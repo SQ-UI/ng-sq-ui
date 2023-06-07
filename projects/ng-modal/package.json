@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-modal",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI Modal for Angular",
@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
-    "@sq-ui/ng-sq-common": "^2.0.1",
+    "@sq-ui/ng-sq-common": "^2.1.0",
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"

@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-datetime-picker",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI Datetime-Picker for Angular",
@@ -52,7 +52,7 @@
     "modal"
   ],
   "dependencies": {
-    "@sq-ui/ng-sq-common": "^2.0.1",
+    "@sq-ui/ng-sq-common": "^2.1.0",
     "immutable": "^3.8.2",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "moment": "^2.22.2",
