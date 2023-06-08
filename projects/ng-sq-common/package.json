@@ -1,9 +1,9 @@
 {
   "name": "@sq-ui/ng-sq-common",
-  "version": "1.2.5",
+  "version": "2.1.0",
   "license": "MIT",
   "private": false,
-  "description": "The core module for SQ-UI kit for ANgular",
+  "description": "The core module for SQ-UI kit for Angular",
   "repository": {
     "type": "git",
     "url": "https://github.com/SQ-UI/ng-sq-ui.git"

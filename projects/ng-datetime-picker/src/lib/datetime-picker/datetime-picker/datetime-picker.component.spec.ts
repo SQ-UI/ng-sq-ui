@@ -4,11 +4,8 @@ import { DatetimePickerComponent } from './datetime-picker.component';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
-
-// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
 import { CalendarManagerService } from '../calendar-manager.service';
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -88,7 +85,7 @@ describe('DatetimePickerComponent', () => {
     const date1 = calendarManager.findADateFromCalendar(moment().add(1, 'day'), component.calendar);
     const date2 = calendarManager.findADateFromCalendar(moment().add(4, 'days'), component.calendar);
     const expectedItems = [date1, date2];
-    spyOn(component, 'select').and.callThrough();
+    jest.spyOn(component, 'select');
 
     expectedItems.forEach((item, index) => {
       component.select(item);
@@ -102,7 +99,7 @@ describe('DatetimePickerComponent', () => {
       const areValuesSameAndSelected = !!addedDate;
 
       expect(isArray && areValuesSameAndSelected)
-        .toBe(true, 'the selected date is correct');
+        .toBe(true);
     });
 
     expect(component.select).toHaveBeenCalledTimes(expectedItems.length);
@@ -122,7 +119,7 @@ describe('DatetimePickerComponent', () => {
     const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
 
     expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
-      .toBe(true, 'the selected date is from previous month');
+      .toBe(true);
   });
 
   it('should jump to next month when a date after current month is selected', () => {
@@ -140,7 +137,7 @@ describe('DatetimePickerComponent', () => {
     const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
 
     expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
-      .toBe(true, 'the selected date is from next month');
+      .toBe(true);
   });
 
   it('should show only monthpicker when the user clicks on month name', () => {
@@ -149,7 +146,7 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
 
     expect(isOnlyMonthPickerShown && component.period === CalendarPeriodTypeEnum.Month)
-      .toBe(true, 'the selected date is from next month');
+      .toBe(true);
     expect(component.months).toBeTruthy();
   });
 
@@ -163,7 +160,7 @@ describe('DatetimePickerComponent', () => {
     const isCalendarCorrect = component.months[2].momentObj.isSame(component.currentMonth, 'month');
 
     expect(isCalendarCorrect && !component.isMonthsPickerEnabled)
-      .toBe(true, 'the generated calendar is correct');
+      .toBe(true);
     expect(component.calendar).toBeTruthy();
   });
 
@@ -173,7 +170,7 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
 
     expect(isOnlyYearPickerShown && component.period === CalendarPeriodTypeEnum.Year)
-      .toBe(true, 'the selected date is from next year');
+      .toBe(true);
     expect(component.yearsList).toBeTruthy();
   });
 
@@ -183,7 +180,7 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
 
     expect(!component.isYearsPickerEnabled && component.isMonthsPickerEnabled)
-      .toBe(true, 'the selected date is from next year');
+      .toBe(true);
     expect(component.months).toBeTruthy();
   });
 

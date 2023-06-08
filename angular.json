@@ -77,63 +77,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "codeCoverage": true,
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "sq-ui-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "sq-ui:serve:production"
-            },
-            "development": {
-              "devServerTarget": "sq-ui:serve:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         }
       }
@@ -159,12 +106,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "codeCoverage": true,
-            "main": "projects/ng-sq-ui/src/test.ts",
-            "tsConfig": "projects/ng-sq-ui/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-sq-ui/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         },
         "lint": {
@@ -199,12 +144,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "codeCoverage": true,
-            "main": "projects/ng-datetime-picker/src/test.ts",
-            "tsConfig": "projects/ng-datetime-picker/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-datetime-picker/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         },
         "lint": {
@@ -239,12 +182,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "codeCoverage": true,
-            "main": "projects/ng-datatable/src/test.ts",
-            "tsConfig": "projects/ng-datatable/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-datatable/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         },
         "lint": {
@@ -279,12 +220,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "codeCoverage": true,
-            "main": "projects/ng-sq-common/src/test.ts",
-            "tsConfig": "projects/ng-sq-common/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-sq-common/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         },
         "lint": {
@@ -319,12 +258,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "codeCoverage": true,
-            "main": "projects/ng-modal/src/test.ts",
-            "tsConfig": "projects/ng-modal/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-modal/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         },
         "lint": {
@@ -360,11 +297,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/ng-form-elements/src/test.ts",
-            "tsConfig": "projects/ng-form-elements/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-form-elements/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         }
       }
@@ -391,17 +327,15 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/ng-progress-bar/src/test.ts",
-            "tsConfig": "projects/ng-progress-bar/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-progress-bar/karma.conf.js"
+            "configPath": "../../jest.config.js",
+            "no-cache": true
           }
         }
       }
     }
   },
-  "defaultProject": "sq-ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "sq",
@@ -409,6 +343,12 @@
     },
     "@schematics/angular:directive": {
       "prefix": "sq"
+    },
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
     }
   }
 }

@@ -10,8 +10,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "ES2022",
     "noImplicitAny": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -91,6 +93,7 @@
         "./projects/ng-progress-bar/src/*",
         "./node_modules/@sq-ui/ng-progress-bar/*"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }

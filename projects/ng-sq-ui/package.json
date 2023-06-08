@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-sq-ui",
-  "version": "1.5.3",
+  "version": "2.1.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI kit for Angular",
@@ -53,13 +53,12 @@
   "dependencies": {
     "immutable": "^3.8.2",
     "@fortawesome/fontawesome-free": "^5.9.0",
-    "@sq-ui/ng-sq-common": "^1.0.0",
-    "@sq-ui/ng-datatable": "^1.0.0",
-    "@sq-ui/ng-modal": "^1.0.0",
-    "@sq-ui/ng-form-elements": "^1.0.0",
-    "@sq-ui/ng-progress-bar": "^1.0.0",
-    "@sq-ui/ng-datetime-picker": "^1.0.0",
-
+    "@sq-ui/ng-sq-common": "^2.1.0",
+    "@sq-ui/ng-datatable": "^2.1.0",
+    "@sq-ui/ng-modal": "^2.1.0",
+    "@sq-ui/ng-datetime-picker": "^2.1.0",
+    "@sq-ui/ng-form-elements": "^2.1.0",
+    "@sq-ui/ng-progress-bar": "^2.1.0",
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"

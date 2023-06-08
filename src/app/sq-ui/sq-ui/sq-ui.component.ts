@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { interval } from 'rxjs';
@@ -68,7 +68,7 @@ export class SqUiComponent implements OnInit {
   progressBarLoadedSmall = 20;
   progressBarLoadedMedium = 40;
   progressBarLoadedLarge = 60;
-  testForm: FormGroup;
+  testForm: UntypedFormGroup;
   searchResults: any[] = [
     {
       myCustomProp: 'option1',
@@ -120,7 +120,7 @@ export class SqUiComponent implements OnInit {
     },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.testForm = this.fb.group({
       name: [''],
       dropdown: [null],

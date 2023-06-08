@@ -3,8 +3,7 @@ import { SimpleChange } from '@angular/core';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimePickerComponent } from './time-picker.component';
 import { FormsModule } from '@angular/forms';
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 describe('TimePickerComponent', () => {
   let component: TimePickerComponent;
@@ -48,10 +47,10 @@ describe('TimePickerComponent', () => {
     const isValueCorrect = component.value.format(timeFormat) === expectedMoment.format(timeFormat);
 
     expect(noonRelativityToggle.textContent)
-      .toContain('PM', 'correctly displays meridiem');
+      .toContain('PM');
     expect(component.hours === '10' && component.minutes === component.inputMinutes.toString())
-      .toBe(true, 'correctly outputs hours and minutes');
-    expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
+      .toBe(true);
+    expect(isValueCorrect).toBe(true);
   });
 
   it('should retain given hours and minutes when [isMeridiem]=false', () => {
@@ -75,8 +74,8 @@ describe('TimePickerComponent', () => {
     expect(noonRelativityToggle).not.toBeTruthy();
     expect(component.hours === component.inputHours.toString() &&
       component.minutes === component.inputMinutes.toString())
-      .toBe(true, 'correctly outputs hours and minutes');
-    expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
+      .toBe(true);
+    expect(isValueCorrect).toBe(true);
   });
 
   it('should increment hours and minutes with a given [hourStep] and [minuteStep]', () => {
@@ -103,12 +102,12 @@ describe('TimePickerComponent', () => {
 
     component.inputMinutesChange.subscribe((minutes) => {
       expect(minutes === parseInt(momentIncrementMinutes, 10))
-        .toBe(true, 'minutes get increased as integers');
+        .toBe(true);
     });
 
     component.inputHoursChange.subscribe((hours) => {
       expect(hours === parseInt(momentIncrementHours, 10))
-        .toBe(true, 'hours get increased as integers');
+        .toBe(true);
     });
 
     component.increment(TimeUnit.Hours);
@@ -118,10 +117,10 @@ describe('TimePickerComponent', () => {
     const isValueCorrect = component.value.format(timeFormat) === `${momentIncrementHours}:${momentIncrementMinutes}`;
 
     expect(component.hours === momentIncrementHours)
-      .toBe(true, 'the hours are incremented correctly');
+      .toBe(true);
     expect(component.minutes === momentIncrementMinutes)
-      .toBe(true, 'the minutes are incremented correctly');
-    expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
+      .toBe(true);
+    expect(isValueCorrect).toBe(true);
   });
 
   it('should decrement hours and minutes with a given [hourStep] and [minuteStep]', () => {
@@ -148,12 +147,12 @@ describe('TimePickerComponent', () => {
 
     component.inputMinutesChange.subscribe((minutes) => {
       expect(minutes === parseInt(momentDecrementMinutes, 10))
-        .toBe(true, 'minutes get decreased as integers');
+        .toBe(true);
     });
 
     component.inputHoursChange.subscribe((hours) => {
       expect(hours === parseInt(momentDecrementHours, 10))
-        .toBe(true, 'hours get decreased as integers');
+        .toBe(true);
     });
 
     component.decrement(TimeUnit.Hours);
@@ -163,10 +162,10 @@ describe('TimePickerComponent', () => {
     const isValueCorrect = component.value.format(timeFormat) === `${momentDecrementHours}:${momentDecrementMinutes}`;
 
     expect(component.hours === momentDecrementHours)
-      .toBe(true, 'the hours are decremented correctly');
+      .toBe(true);
     expect(component.minutes === momentDecrementMinutes)
-      .toBe(true, 'the minutes are decremented correctly');
-    expect(isValueCorrect).toBe(true, 'component value has correct hours and minutes');
+      .toBe(true);
+    expect(isValueCorrect).toBe(true);
   });
 
   it('should change noon relativity when [isMeridiem]=true', () => {
@@ -186,12 +185,12 @@ describe('TimePickerComponent', () => {
     component.changeNoonRelativity();
     fixture.detectChanges();
 
-    expect(component.noonRelativity).toEqual('pm', 'correctly toggles AM->PM');
+    expect(component.noonRelativity).toEqual('pm');
 
     const expectedTimeFormat = `${component.hours}:${component.minutes} ${component.noonRelativity.toUpperCase()}`;
 
     expect(component.value === expectedTimeFormat)
-      .toBe(true, 'component value is in correct format');
+      .toBe(true);
   });
 
   it('should export the time in accordance with a TimeObjectType value', () => {
@@ -202,7 +201,7 @@ describe('TimePickerComponent', () => {
     fixture.detectChanges();
     const expectedTimeFormat = `${component.hours}:${component.minutes}`;
     expect(component.value === expectedTimeFormat)
-      .toBe(true, 'component value is string when [timeObjectType]="string"');
+      .toBe(true);
 
     component.timeObjectType = 'moment';
     component.ngOnChanges({
@@ -210,7 +209,7 @@ describe('TimePickerComponent', () => {
     });
     fixture.detectChanges();
     expect(moment.isMoment(component.value))
-      .toBe(true, 'component value is a moment object when [timeObjectType]="moment"');
+      .toBe(true);
   });
 
   it('should normalize user input according time limits', () => {
@@ -229,7 +228,7 @@ describe('TimePickerComponent', () => {
 
     expect(component.hours === component.limits.hours.max.toString() &&
       component.minutes === component.limits.minutes.max.toString())
-      .toBe(true, 'when inputting over-the-max values, they get reset to equal max limits');
+      .toBe(true);
 
     component.hours = -10;
     component.validateInput(TimeUnit.Hours);
@@ -241,6 +240,6 @@ describe('TimePickerComponent', () => {
 
     expect(component.hours === component.limits.hours.min.toString() &&
       component.minutes === component.limits.minutes.min.toString())
-      .toBe(true, 'when inputting under-the-min values, they get reset to the min limits');
+      .toBe(true);
   });
 });

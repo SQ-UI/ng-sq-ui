@@ -13,9 +13,7 @@ import { DateObjectType } from '../enums/date-object-type.enum';
 import { TimepickerConfig } from '../interfaces/timepicker-config';
 import { List } from 'immutable';
 import { CalendarManagerService } from '../calendar-manager.service';
-// temporary fix for https://github.com/ng-packagr/ng-packagr/issues/217#issuecomment-360176759
-import * as momentNs from 'moment';
-const moment = momentNs;
+import moment from 'moment';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -32,28 +30,28 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 })
 export class DatetimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() locale = 'en';
-  @Input() maxDate: momentNs.Moment | Date;
-  @Input() minDate: momentNs.Moment | Date;
+  @Input() maxDate: moment.Moment | Date;
+  @Input() minDate: moment.Moment | Date;
   @Input() isMultipleSelect = false;
   @Input() format: string;
   @Input() isTimepickerEnabled = false;
   @Input() dateObjectType: string = DateObjectType.Moment;
   @Input() timepickerConfig: TimepickerConfig;
 
-  @Output() dateSelectionChange: EventEmitter<momentNs.Moment | Date> = new EventEmitter<momentNs.Moment | Date>();
+  @Output() dateSelectionChange: EventEmitter<moment.Moment | Date> = new EventEmitter<moment.Moment | Date>();
 
   weekdays: string[];
   months: InCalendarPicker[];
   yearsList: InCalendarPicker[];
   calendar: Array<CalendarDay[]>;
-  currentMonth: momentNs.Moment;
+  currentMonth: moment.Moment;
   isMonthsPickerEnabled = false;
   isYearsPickerEnabled = false;
-  time: momentNs.Moment;
+  time: moment.Moment;
   calendarPeriodRelativity = CalendarPeriodRelativityEnum;
   period: CalendarPeriodTypeEnum = CalendarPeriodTypeEnum.Month;
 
-  private selectedDates: List<momentNs.Moment> = List<momentNs.Moment>();
+  private selectedDates: List<moment.Moment> = List<moment.Moment>();
   private parsedSelectedDates: any;
 
   constructor(private calendarManager: CalendarManagerService) {
@@ -145,7 +143,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
   }
 
-  getMonthCalendar(startPeriod: momentNs.Moment): Array<CalendarDay[]> {
+  getMonthCalendar(startPeriod: moment.Moment): Array<CalendarDay[]> {
     const selectedDates = this.selectedDates.toArray();
     const dateRange: DateRange = {
       minDate: this.minDate,
@@ -280,7 +278,7 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     }
   }
 
-  private toValueDateObjectTypeIfNeeded()  {
+  private toValueDateObjectTypeIfNeeded() {
     if (!this.format) {
       switch (this.dateObjectType) {
         case DateObjectType.Date:

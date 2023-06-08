@@ -126,10 +126,10 @@ describe('PaginatorComponent', () => {
         const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
         const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
 
-        expect(prevBtn.disabled).toBe(true, 'prev button is disabled');
-        expect(firstBtn.disabled).toBe(true, 'first button is disabled');
-        expect(nextBtn.disabled).toBe(false, 'next button is enabled');
-        expect(lastBtn.disabled).toBe(false, 'last button is enabled');
+        expect(prevBtn.disabled).toBe(true);
+        expect(firstBtn.disabled).toBe(true);
+        expect(nextBtn.disabled).toBe(false);
+        expect(lastBtn.disabled).toBe(false);
       });
     }));
 
@@ -157,8 +157,8 @@ describe('PaginatorComponent', () => {
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-          expect(prevBtn.disabled).toBe(false, 'prev button is enabled');
-          expect(firstBtn.disabled).toBe(false, 'first button is enabled');
+          expect(prevBtn.disabled).toBe(false);
+          expect(firstBtn.disabled).toBe(false);
         });
       });
     }));
@@ -188,8 +188,8 @@ describe('PaginatorComponent', () => {
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-          expect(nextBtn.disabled).toBe(true, 'next button is disabled');
-          expect(lastBtn.disabled).toBe(true, 'last button is disabled');
+          expect(nextBtn.disabled).toBe(true);
+          expect(lastBtn.disabled).toBe(true);
           done();
         });
       });
@@ -249,7 +249,7 @@ describe('PaginatorComponent', () => {
         const paginatorEl = fixture.nativeElement.querySelector('.paginator');
         const currentPageEl = paginatorEl.querySelector('.current button');
         expect(parseInt(currentPageEl.textContent, 10) === currentPageNumber)
-          .toBe(true, 'the current page passed by author is selected');
+          .toBe(true);
         done();
       });
     });
@@ -278,7 +278,7 @@ describe('PaginatorComponent', () => {
         const lastVisiblePage = allVisiblePages[allVisiblePages.length - 1];
 
         expect(parseInt(lastVisiblePage.textContent, 10) === lastPage)
-          .toBe(true, 'the last page is set correctly');
+          .toBe(true);
         done();
       });
     });
@@ -307,9 +307,9 @@ describe('PaginatorComponent', () => {
         const allPages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]');
 
         expect(allVisiblePages.length === maxDisplayedPages * 2)
-          .toBe(true, 'the number of visible pages is correct');
+          .toBe(true);
         expect(allPages[maxDisplayedPages + 1].classList.contains('truncated'))
-          .toBe(true, 'the correct element is hidden first');
+          .toBe(true);
         done();
       });
     });
