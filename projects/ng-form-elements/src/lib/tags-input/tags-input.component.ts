@@ -31,7 +31,6 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
 
   private isModelEmpty: boolean = false;
   private enteredItemsSubscription: Subscription;
-  private valueChangedSubscription: Subscription;
   private inputEventSubscription: Subscription;
   private innerEnteredItemsListCopy: List<string>;
 
@@ -51,13 +50,13 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
       const itemsCopy = this.innerEnteredItemsListCopy;
       this.value = itemsCopy.toArray();
     });
+  }
 
-    this.valueChangedSubscription = this._modelToViewChange.subscribe((predefinedEnteredItems) => {
-      if (this.enteredItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
-        this.enteredItems = List<string>(predefinedEnteredItems);
-        this.valueChangedSubscription.unsubscribe();
-      }
-    });
+  override writeValue(predefinedEnteredItems): void {
+    super.writeValue(predefinedEnteredItems);
+    if (this.enteredItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
+      this.enteredItems = List<string>(predefinedEnteredItems);
+    }
   }
 
   ngAfterViewInit() {
@@ -78,10 +77,6 @@ export class TagsInputComponent extends InputCoreComponent implements OnInit, Af
 
     if (this.inputEventSubscription) {
       this.inputEventSubscription.unsubscribe();
-    }
-
-    if (!this.valueChangedSubscription.closed) {
-      this.valueChangedSubscription.unsubscribe();
     }
   }
 

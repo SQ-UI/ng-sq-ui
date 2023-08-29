@@ -43,7 +43,6 @@ export class TypeaheadComponent extends InputCoreComponent
 
   private onInputValueChangeSubscription: Subscription;
   private onQueryInputControlSubscription: Subscription;
-  private valueChangedSubscription: Subscription;
 
   selectedItems: List<LabelValuePair> = List<LabelValuePair>();
   options: List<LabelValuePair> = List<LabelValuePair>();
@@ -80,18 +79,15 @@ export class TypeaheadComponent extends InputCoreComponent
         }
       },
     );
+  }
 
-    this.valueChangedSubscription = this._modelToViewChange.subscribe(
-      (predefinedEnteredItems) => {
-        if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
-          this.transformToLabelValuePairList(predefinedEnteredItems).forEach((item) => {
-            this.selectItem(item, false, true);
-          });
-        }
-
-        this.valueChangedSubscription.unsubscribe();
-      },
-    );
+  override writeValue(predefinedEnteredItems): void {
+    super.writeValue(predefinedEnteredItems);
+    if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
+      this.transformToLabelValuePairList(predefinedEnteredItems).forEach((item) => {
+        this.selectItem(item, false, true);
+      });
+    }
   }
 
   ngOnChanges(changesObj: SimpleChanges) {
@@ -112,10 +108,6 @@ export class TypeaheadComponent extends InputCoreComponent
     this.listenForOutsideClick = false;
     this.onQueryInputControlSubscription.unsubscribe();
     this.onInputValueChangeSubscription.unsubscribe();
-
-    if (!this.valueChangedSubscription.closed) {
-      this.valueChangedSubscription.unsubscribe();
-    }
   }
 
   selectSearchResult(result: LabelValuePair) {

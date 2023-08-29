@@ -7,7 +7,6 @@ import { ControlValueAccessor } from '@angular/forms';
  * Its only purpose is to implement the ControlValueAccessor interface.
  **/
 export class ControlValueAccessorEnabler implements ControlValueAccessor {
-  protected _modelToViewChange: EventEmitter<any> = new EventEmitter();
   protected _value: any;
   protected _onChange: any = () => {};
   protected _onTouched: any = () => {};
@@ -32,7 +31,6 @@ export class ControlValueAccessorEnabler implements ControlValueAccessor {
   writeValue(newValue: any): void {
     if (newValue !== this._value) {
       this._value = newValue;
-      this._modelToViewChange.emit(newValue);
     }
   }
 

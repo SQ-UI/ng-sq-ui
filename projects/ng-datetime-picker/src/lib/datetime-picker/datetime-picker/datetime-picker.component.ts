@@ -1,6 +1,6 @@
 import {
   Component, forwardRef, OnInit, ViewEncapsulation,
-  Input, Output, EventEmitter, AfterViewInit,
+  Input, Output, EventEmitter,
   OnChanges
 } from '@angular/core';
 import { InputCoreComponent } from '@sq-ui/ng-sq-common';
@@ -28,7 +28,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   encapsulation: ViewEncapsulation.None,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class DatetimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnChanges {
+export class DatetimePickerComponent extends InputCoreComponent implements OnInit, OnChanges {
   @Input() locale = 'en';
   @Input() maxDate: moment.Moment | Date;
   @Input() minDate: moment.Moment | Date;
@@ -62,21 +62,35 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     moment.locale(this.locale);
     this.calendarManager.setLocale(this.locale);
     const now = moment().hours(0).minutes(0).locale(this.locale);
-    this.selectedDates = List([now.clone()]);
     this.weekdays = this.calendarManager.getWeekdays();
     this.calendar = this.getMonthCalendar(now.clone());
-    this.initializeAuthorValuesIfAny();
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.setValueResult();
-    });
   }
 
   ngOnChanges(changesObj) {
     if (changesObj.timepickerConfig && changesObj.timepickerConfig.currentValue) {
       this.setValueResult();
+    }
+  }
+
+  override writeValue(newValue): void {
+    super.writeValue(newValue);
+
+    if (newValue) {
+      this.deselectAll();
+
+      if (Array.isArray(newValue)) {
+        newValue.forEach((date) => {
+          const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
+          this.markDateAsSelected(convertedDate);
+        });
+      } else {
+        const calendarDay = this.calendarManager.findADateFromCalendar(moment(newValue), this.calendar);
+        this.markDateAsSelected(calendarDay);
+      }
+    } else {
+      const now = moment().hours(0).minutes(0).locale(this.locale);
+      const convertedDate = this.calendarManager.findADateFromCalendar(now, this.calendar);
+      this.markDateAsSelected(convertedDate);
     }
   }
 
@@ -194,28 +208,6 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   onTimeChange() {
     this.setValueResult();
     this.dateSelectionChange.emit(this.value);
-  }
-
-  private initializeAuthorValuesIfAny() {
-    const subscription = this._modelToViewChange.subscribe((newValue) => {
-      if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
-        if (newValue) {
-          this.deselectAll();
-
-          if (Array.isArray(newValue)) {
-            newValue.forEach((date) => {
-              const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
-              this.markDateAsSelected(convertedDate);
-            });
-          } else {
-            const calendarDay = this.calendarManager.findADateFromCalendar(moment(newValue), this.calendar);
-            this.markDateAsSelected(calendarDay);
-          }
-        }
-      }
-
-      subscription.unsubscribe();
-    });
   }
 
   private markDateAsSelected(date: CalendarDay) {
