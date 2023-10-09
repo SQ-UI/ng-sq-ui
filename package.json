@@ -23,7 +23,7 @@
     "@angular/core": "^16.0.4",
     "@angular/forms": "^16.0.4",
     "@angular/platform-browser": "^16.0.4",
-    "@angular/platform-browser-dynamic": "^16.0.4",
+    "@angular/platform-browser-dynamic": "^16.2.8",
     "@angular/router": "^16.0.4",
     "all-contributors-cli": "^6.19.0",
     "core-js": "^3.11.1",
