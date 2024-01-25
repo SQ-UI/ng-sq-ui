@@ -1,5 +1,5 @@
 import {
-  Directive, ElementRef, EventEmitter, Output, Renderer2, OnDestroy
+  Directive, ElementRef, EventEmitter, Output, Renderer2, OnDestroy, NgZone, ChangeDetectorRef
 } from '@angular/core';
 
 @Directive({
@@ -10,17 +10,21 @@ export class ScrolledToBottomListenerDirective implements OnDestroy {
 
   private listener;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    this.listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
-      this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone, private cd: ChangeDetectorRef) {
+    this.ngZone.runOutsideAngular(() => {
+      this.listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
+        this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
+      });
     });
   }
 
   checkIfHasScrolledToBottom(element: HTMLElement) {
-    const hasScrolledToBottom = element.scrollTop > 0 ? ((element.scrollHeight - element.scrollTop) === element.clientHeight) : false;
+    const hasScrolledToBottom = element.scrollTop > 0 ?
+      (Math.ceil(element.scrollHeight - element.scrollTop) <= Math.ceil(element.clientHeight + 3)) : false;
 
     if (hasScrolledToBottom) {
       this.scrolledToBottom.emit();
+      this.cd.detectChanges();
     }
   }
 
