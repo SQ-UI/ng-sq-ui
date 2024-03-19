@@ -65,7 +65,6 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
     this.selectedDates = List([now.clone()]);
     this.weekdays = this.calendarManager.getWeekdays();
     this.calendar = this.getMonthCalendar(now.clone());
-    this.initializeAuthorValuesIfAny();
   }
 
   ngAfterViewInit() {
@@ -77,6 +76,32 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   ngOnChanges(changesObj) {
     if (changesObj.timepickerConfig && changesObj.timepickerConfig.currentValue) {
       this.setValueResult();
+    }
+  }
+
+  override writeValue(newValue: any): void {
+    super.writeValue(newValue);
+
+    if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
+      if (newValue) {
+        this.deselectAll();
+
+        if (Array.isArray(newValue)) {
+          newValue.forEach((date) => {
+            if (!this.currentMonth.isSame(moment(date), 'month')) {
+              this.calendar = this.getMonthCalendar(moment(date));
+            }
+            const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
+            this.markDateAsSelected(convertedDate);
+          });
+        } else {
+          if (!this.currentMonth.isSame(moment(newValue), 'month')) {
+            this.calendar = this.getMonthCalendar(moment(newValue));
+          }
+          const calendarDay = this.calendarManager.findADateFromCalendar(moment(newValue), this.calendar);
+          this.markDateAsSelected(calendarDay);
+        }
+      }
     }
   }
 
@@ -194,28 +219,6 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   onTimeChange() {
     this.setValueResult();
     this.dateSelectionChange.emit(this.value);
-  }
-
-  private initializeAuthorValuesIfAny() {
-    const subscription = this._modelToViewChange.subscribe((newValue) => {
-      if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
-        if (newValue) {
-          this.deselectAll();
-
-          if (Array.isArray(newValue)) {
-            newValue.forEach((date) => {
-              const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
-              this.markDateAsSelected(convertedDate);
-            });
-          } else {
-            const calendarDay = this.calendarManager.findADateFromCalendar(moment(newValue), this.calendar);
-            this.markDateAsSelected(calendarDay);
-          }
-        }
-      }
-
-      subscription.unsubscribe();
-    });
   }
 
   private markDateAsSelected(date: CalendarDay) {
