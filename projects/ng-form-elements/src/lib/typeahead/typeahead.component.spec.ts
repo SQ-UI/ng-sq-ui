@@ -1,8 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TypeaheadComponent } from './typeahead.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 
 describe('TypeaheadComponent', () => {
   let component: TypeaheadComponent;
@@ -25,15 +23,13 @@ describe('TypeaheadComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TypeaheadComponent, OutsideClickListenerDirective],
-      imports: [FormsModule, ReactiveFormsModule],
+      imports: [TypeaheadComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TypeaheadComponent);
     component = fixture.componentInstance;
-    component.displayProp = '';
     fixture.detectChanges();
   });
 
@@ -42,88 +38,95 @@ describe('TypeaheadComponent', () => {
   });
 
   it('should populate with search results on end of user input', () => {
-    component.searchResults = testSearchResults;
+    fixture.componentRef.setInput('searchResults', testSearchResults);
+    fixture.detectChanges();
 
-    expect(component.searchResults.length > 0).toBe(true);
+    expect(component.searchResults().length > 0).toBe(true);
   });
 
   it('should choose one item when [multiple] = false', () => {
-    component.searchResults = testSearchResults;
-    const firstChosenItem = component.searchResults[2];
+    fixture.componentRef.setInput('searchResults', testSearchResults);
+    fixture.componentRef.setInput('multiple', false);
+    fixture.detectChanges();
 
-    component.multiple = false;
+    const firstChosenItem = component.searchResults()[2];
 
     component.selectSearchResult(firstChosenItem);
-    component.selectSearchResult(component.searchResults[0]);
-    component.selectSearchResult(component.searchResults[1]);
+    component.selectSearchResult(component.searchResults()[0]);
+    component.selectSearchResult(component.searchResults()[1]);
 
     // the typeahead should return a new array with the copied search items
     expect(
-      component.value.length === 1 &&
-      Object.is(component.selectedItems.get(0), component.value[0]),
+      component.value().length === 1 &&
+      Object.is(component.selectedItems()[0], component.value()[0]),
     ).toBe(true);
   });
 
   it('should be able to choose more than one result when [multiple] = true', () => {
-    component.searchResults = testSearchResults;
-    component.multiple = true;
+    fixture.componentRef.setInput('searchResults', testSearchResults);
+    fixture.componentRef.setInput('multiple', true);
+    fixture.detectChanges();
 
-    for (let i = 0; i < component.searchResults.length; i++) {
-      component.selectSearchResult(component.searchResults[i]);
+    const results = component.searchResults();
+    for (let i = 0; i < results.length; i++) {
+      component.selectSearchResult(results[i]);
     }
 
     expect(
-      component.value.length === testSearchResults.length &&
-      !Object.is(component.selectedItems, component.value),
+      component.value().length === testSearchResults.length &&
+      !Object.is(component.selectedItems(), component.value()),
     ).toBe(true);
   });
 
   it('should remove selected item by using the remove button', () => {
-    component.searchResults = testSearchResults;
-    component.multiple = false;
+    fixture.componentRef.setInput('searchResults', testSearchResults);
+    fixture.componentRef.setInput('multiple', false);
+    fixture.detectChanges();
 
     component.selectSearchResult(testSearchResults[0]);
     component.removeSearchResult(testSearchResults[0]);
 
-    expect(component.value.length === 0).toBe(true);
+    expect(component.value().length === 0).toBe(true);
   });
 
   it('should be able to populate correctly with a pre-defined result item when [multiple] = true', () => {
-    component.multiple = true;
-    component.searchResults = testSearchResults;
-    component.selectSearchResult(component.searchResults[0]);
-    component.selectSearchResult(component.searchResults[component.searchResults.length - 1]);
+    fixture.componentRef.setInput('multiple', true);
+    fixture.componentRef.setInput('searchResults', testSearchResults);
+    fixture.detectChanges();
 
-    expect(component.selectedItems.toArray()).toEqual(
-      component.value,
-      'component value and immutable list have the same items and length',
+    component.selectSearchResult(component.searchResults()[0]);
+    component.selectSearchResult(component.searchResults()[component.searchResults().length - 1]);
+
+    expect(component.selectedItems()).toEqual(
+      component.value(),
     );
   });
 
   it('should be able to populate correctly with a pre-defined result item when [multiple] = false', () => {
-    component.multiple = false;
-    component.searchResults = testSearchResults;
-    component.selectSearchResult(component.searchResults[0]);
-    component.selectSearchResult(component.searchResults[component.searchResults.length - 1]);
+    fixture.componentRef.setInput('multiple', false);
+    fixture.componentRef.setInput('searchResults', testSearchResults);
+    fixture.detectChanges();
 
-    const itemsToArray = component.selectedItems.toArray();
-    expect(itemsToArray.length === 1).toBe(true);
+    component.selectSearchResult(component.searchResults()[0]);
+    component.selectSearchResult(component.searchResults()[component.searchResults().length - 1]);
 
-    expect(Object.is(itemsToArray[0], component.value[0])).toBe(true);
+    const items = component.selectedItems();
+    expect(items.length === 1).toBe(true);
+    expect(Object.is(items[0], component.value()[0])).toBe(true);
   });
 
   it('should be working with plain strings', () => {
     const stringSearchResults = ['option1', 'option2', 'option3'];
 
-    component.displayProp = '';
-    component.multiple = false;
-    component.value = stringSearchResults;
+    fixture.componentRef.setInput('displayProp', '');
+    fixture.componentRef.setInput('multiple', false);
+    fixture.detectChanges();
+
     component.selectSearchResult(testSearchResults[0]);
     component.selectSearchResult(testSearchResults[1]);
 
-    const itemsToArray = component.selectedItems.toArray();
-    expect(itemsToArray.length === 1).toBe(true);
-
-    expect(itemsToArray[0] === component.value[0]).toBe(true);
+    const items = component.selectedItems();
+    expect(items.length === 1).toBe(true);
+    expect(items[0] === component.value()[0]).toBe(true);
   });
 });
