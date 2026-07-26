@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { NavItem } from '../../shared/nav-item';
 import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime-picker';
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
@@ -12,7 +11,6 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-datatime-picker-docs',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     DatetimePickerComponent,
     TimePickerComponent,
     ButtonComponent,
@@ -25,7 +23,6 @@ import { environment } from '../../../environments/environment';
 })
 export class DatatimePickerDocsComponent {
 
-  testForm: UntypedFormGroup;
   npmPackageName: string = '@sq-ui/ng-datetime-picker';
   moduleName: string = 'ng-datetime-picker';
   dependsOn: NavItem[] = [
@@ -81,15 +78,10 @@ export class DatatimePickerDocsComponent {
     isEditable: false,
   };
   isTimepickerEndabled = true;
-  standAloneTimepickerValue: any = null;
 
-  constructor(private fb: UntypedFormBuilder) {
-    const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
-    this.testForm = this.fb.group({
-      standAloneDatepicker: [tomorrow],
-      datetimePicker: [tomorrow]
-    });
-  }
+  standAloneDatepickerValue = signal<any>(Temporal.Now.plainDateISO().add({ days: 1 }));
+  datetimePickerValue = signal<any>(Temporal.Now.plainDateISO().add({ days: 1 }));
+  standAloneTimepickerValue = signal<any>(null);
 
   hoursChange($event: number) {
     console.log(`The current chosen hours are: ${$event}`);
@@ -100,6 +92,10 @@ export class DatatimePickerDocsComponent {
   }
 
   onSubmit() {
-    console.log(this.testForm.value);
+    console.log({
+      standAloneDatepicker: this.standAloneDatepickerValue(),
+      datetimePicker: this.datetimePickerValue(),
+      standAloneTimepicker: this.standAloneTimepickerValue(),
+    });
   }
 }

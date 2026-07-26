@@ -12,9 +12,10 @@
       <h2>Exported Components Preview:</h2>
     </header>
 
-    <form [formGroup]="testForm" class="sq" (ngSubmit)="onSubmit()">
+    <form class="sq" (ngSubmit)="onSubmit()">
       <p>
-        The preview is built using the Reactive approach. The final input values are console logged on click on the Submit button.
+        The preview uses signal-based two-way binding via [(value)].
+        The final input values are console logged on click of the Submit button.
       </p>
 
       <sq-collapse-content title="sq-datetime-picker" id="datepicker">
@@ -27,7 +28,7 @@
             <sq-datetime-picker [maxDate]="maxDate"
                                 [minDate]="minDate"
                                 format="MM/DD/YYYY"
-                                formControlName="standAloneDatepicker"
+                                [(value)]="standAloneDatepickerValue"
                                 [isMultipleSelect]="isDatepickerMultipleSelect">
             </sq-datetime-picker>
           </section>
@@ -38,7 +39,7 @@
             </header>
 
             <sq-datetime-picker format="DD-MM-YYYY hh:mm"
-                                formControlName="datetimePicker"
+                                [(value)]="datetimePickerValue"
                                 [isTimepickerEnabled]="isTimepickerEndabled"
                                 [timepickerConfig]="inlineTimepickerConfig">
             </sq-datetime-picker>

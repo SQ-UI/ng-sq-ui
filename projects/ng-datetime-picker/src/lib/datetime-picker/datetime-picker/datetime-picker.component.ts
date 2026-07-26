@@ -328,25 +328,4 @@ export class DatetimePickerComponent implements OnInit {
     return dates;
   }
 
-  /**
-   * Converts a Date or Temporal.PlainDate to Temporal.PlainDate.
-   */
-  private toPlainDate(date: any): Temporal.PlainDate {
-    if (date instanceof Date) {
-      return Temporal.PlainDate.from({
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        day: date.getDate()
-      });
-    }
-    if (typeof date === 'string' || typeof date === 'number') {
-      const d = new Date(date);
-      return Temporal.PlainDate.from({
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate()
-      });
-    }
-    return date;
-  }
 }
