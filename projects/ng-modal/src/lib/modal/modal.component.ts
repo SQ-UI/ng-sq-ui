@@ -36,8 +36,10 @@ export class ModalComponent {
 
   listenForOutsideClick = signal<boolean>(false);
 
+  private initialized = false;
+
   constructor() {
-    effect(() => {
+    effect((onCleanup) => {
       const isVisible = this.show();
 
       const animation = this.customCssAnimation();
@@ -45,23 +47,32 @@ export class ModalComponent {
       const exitAnimationClass = animation.exitAnimation || 'fadeOutUp';
       const animationDuration = animation.duration || 500;
 
+      if (!this.initialized) {
+        this.initialized = true;
+        return;
+      }
+
+      let timerId: ReturnType<typeof setTimeout>;
+
       if (isVisible) {
         this.isHidden.set(false);
         this.entranceClass.set(entranceAnimationClass);
 
-        setTimeout(() => {
+        timerId = setTimeout(() => {
           this.entranceClass.set('');
           this.listenForOutsideClick.set(true);
         }, animationDuration);
       } else {
         this.exitClass.set(exitAnimationClass);
 
-        setTimeout(() => {
+        timerId = setTimeout(() => {
           this.isHidden.set(true);
           this.exitClass.set('');
           this.listenForOutsideClick.set(false);
         }, animationDuration);
       }
+
+      onCleanup(() => clearTimeout(timerId));
     });
   }
 
