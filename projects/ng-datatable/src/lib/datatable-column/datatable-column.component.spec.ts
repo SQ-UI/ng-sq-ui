@@ -23,22 +23,21 @@ describe('DatatableColumnComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit information that the parent should sort by column name', (done: DoneFn) => {
+  it('should emit information that the parent should sort by column name', async () => {
     fixture.componentRef.setInput('name', 'columnName');
     fixture.componentRef.setInput('isSortable', true);
     fixture.detectChanges();
 
-    fixture.whenRenderingDone().then(() => {
-      const sortingBtn = fixture.nativeElement.querySelector('button');
-      sortingBtn.click();
-      fixture.detectChanges();
-      expect(component.isSortedByAscending)
-        .toEqual(true);
-      sortingBtn.click();
-      fixture.detectChanges();
-      expect(component.isSortedByAscending)
-        .toEqual(false);
-      done();
-    });
+    await fixture.whenRenderingDone();
+
+    const sortingBtn = fixture.nativeElement.querySelector('button');
+    sortingBtn.click();
+    fixture.detectChanges();
+    expect(component.isSortedByAscending)
+      .toEqual(true);
+    sortingBtn.click();
+    fixture.detectChanges();
+    expect(component.isSortedByAscending)
+      .toEqual(false);
   });
 });
