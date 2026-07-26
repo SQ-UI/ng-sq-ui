@@ -22,7 +22,7 @@
   <div class="tint" [ngClass]="{'display-none': !isNavOpen() }"></div>
 
   <nav class="app-nav"
-       #nav
+       [class.show]="isNavOpen()"
        sqOutsideClickListener
        [listenForOutsideClick]="listenForOutsideClick()"
        (clickOutside)="onClickOutsideComponent()">

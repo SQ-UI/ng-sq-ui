@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef, Renderer2, ChangeDetectionStrategy, input, viewChild, signal } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
@@ -15,19 +15,14 @@ import { NavItem } from '../shared/nav-item';
 })
 export class AppNavComponent {
   readonly navItems = input<NavItem[]>([]);
-  readonly nav = viewChild<ElementRef>('nav');
 
   isNavOpen = signal(false);
   listenForOutsideClick = signal(false);
 
-  constructor(private renderer: Renderer2, private router: Router) { }
+  constructor(private router: Router) { }
 
   showNav() {
     this.isNavOpen.set(true);
-    const navEl = this.nav();
-    if (navEl) {
-      this.renderer.addClass(navEl.nativeElement, 'show');
-    }
     setTimeout(() => {
       this.listenForOutsideClick.set(true);
     }, 300);
@@ -35,10 +30,6 @@ export class AppNavComponent {
 
   onClickOutsideComponent() {
     this.isNavOpen.set(false);
-    const navEl = this.nav();
-    if (navEl) {
-      this.renderer.removeClass(navEl.nativeElement, 'show');
-    }
     setTimeout(() => {
       this.listenForOutsideClick.set(false);
     }, 300);
