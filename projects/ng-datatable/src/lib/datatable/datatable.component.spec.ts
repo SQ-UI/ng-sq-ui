@@ -74,7 +74,7 @@ describe('DatatableComponent', () => {
     expect(datatableComponent).toBeDefined();
   });
 
-  it('should display items as table rows', (done: DoneFn) => {
+  it('should display items as table rows', async () => {
     const itemsCount = 30;
 
     hostComponent.items.set(generateDummyCollection(itemsCount));
@@ -84,14 +84,11 @@ describe('DatatableComponent', () => {
 
     hostFixture.detectChanges();
 
-    hostFixture.whenStable().then(() => {
-      hostFixture.detectChanges();
+    await hostFixture.whenStable();
+    hostFixture.detectChanges();
 
-      expect(datatableComponent.items().length === itemsCount)
-        .toBe(true);
-
-      done();
-    });
+    expect(datatableComponent.items().length === itemsCount)
+      .toBe(true);
   });
 
   it('should get the props of the first object and render them as columns', () => {
