@@ -82,6 +82,14 @@ export class TimePickerComponent {
         });
         this.hours.set(time.hour.toString().padStart(2, '0'));
       }
+      this.setValueResult();
+    });
+
+    // React to timeObjectType changes
+    effect(() => {
+      // Read the signal to subscribe to its changes
+      this.timeObjectType();
+      this.setValueResult();
     });
 
     // React to inputHours changes

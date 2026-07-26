@@ -35,26 +35,28 @@ describe('DatetimePickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should select a date correctly when [isMultipleSelect]=false', (done) => {
-    const now = Temporal.Now.plainDateISO();
-    component.calendar.set(component.getMonthCalendar(now));
-    const selectItem = component.calendar()[2][5];
-    fixture.componentRef.setInput('isMultipleSelect', false);
+  it('should select a date correctly when [isMultipleSelect]=false', () => {
+    return new Promise<void>((resolve) => {
+      const now = Temporal.Now.plainDateISO();
+      component.calendar.set(component.getMonthCalendar(now));
+      const selectItem = component.calendar()[2][5];
+      fixture.componentRef.setInput('isMultipleSelect', false);
 
-    const subscription = component.dateSelectionChange.subscribe((selectedValue) => {
-      const isValueSame = Temporal.PlainDate.compare(selectedValue as Temporal.PlainDate, selectItem.date) === 0;
-      const isValueSelected = selectItem.isSelected;
-      const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value());
+      const subscription = component.dateSelectionChange.subscribe((selectedValue) => {
+        const isValueSame = Temporal.PlainDate.compare(selectedValue as Temporal.PlainDate, selectItem.date) === 0;
+        const isValueSelected = selectItem.isSelected;
+        const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value());
 
-      expect(isValueSame && isValueSelected && isEmittedValueSameAsComponentValue)
-        .toBe(true);
+        expect(isValueSame && isValueSelected && isEmittedValueSameAsComponentValue)
+          .toBe(true);
 
-      done();
-      subscription.unsubscribe();
+        subscription.unsubscribe();
+        resolve();
+      });
+
+      component.select(selectItem);
+      fixture.detectChanges();
     });
-
-    component.select(selectItem);
-    fixture.detectChanges();
   });
 
   it('should select dates correctly when [isMultipleSelect]=true', () => {

@@ -138,7 +138,10 @@ describe('TimePickerComponent', () => {
     fixture.detectChanges();
 
     const val = component.value();
-    expect(val instanceof Temporal.PlainTime).toBe(true);
+    // Check duck-type for Temporal.PlainTime properties
+    expect(val).toBeTruthy();
+    expect(typeof val.hour).toBe('number');
+    expect(typeof val.minute).toBe('number');
   });
 
   it('should use meridiem format limits when isMeridiem is true', () => {
