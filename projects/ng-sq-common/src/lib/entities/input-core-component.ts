@@ -1,4 +1,4 @@
-import { Input, Component } from '@angular/core';
+import { input, Component } from '@angular/core';
 import { ControlValueAccessorEnabler } from './control-value-accessor-enabler';
 
 /**
@@ -6,18 +6,19 @@ import { ControlValueAccessorEnabler } from './control-value-accessor-enabler';
  * needed for every possible SQ UI form control
  **/
 @Component({
-  template: ''
+  template: '',
+  standalone: true
 })
 export class InputCoreComponent extends ControlValueAccessorEnabler {
   private defaultInputIdentifier = 'sq-form-control' + new Date().getTime().toString();
 
-  @Input() name: string = this.defaultInputIdentifier;
-  @Input() controlId: string = this.defaultInputIdentifier;
-  @Input() controlLabel: string = '';
-  @Input() controlPlaceholder: string = '';
-  @Input() required: boolean = false;
-  @Input() pattern: any = '';
-  @Input() disabled: boolean = false;
+  name = input<string>(this.defaultInputIdentifier);
+  controlId = input<string>(this.defaultInputIdentifier);
+  controlLabel = input<string>('');
+  controlPlaceholder = input<string>('');
+  required = input<boolean>(false);
+  pattern = input<any>('');
+  disabled = input<boolean>(false);
 
   constructor() {
     super();

@@ -15,4 +15,3 @@ export { PaginatorConfig } from './lib/interfaces/paginator-config';
 export { ControlValueAccessorEnabler } from './lib/entities/control-value-accessor-enabler';
 export { ScrolledToBottomListenerDirective } from './lib/directives/scrolled-to-bottom-listener.directive';
 
-export * from './lib/ng-sq-common.module';
