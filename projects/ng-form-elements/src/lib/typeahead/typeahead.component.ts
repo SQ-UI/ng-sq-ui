@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, signal, contentChild, output, effect, TemplateRef,
+  input, model, signal, contentChild, output, effect, untracked, TemplateRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
@@ -75,14 +75,18 @@ export class TypeaheadComponent {
       this.onUserInputEnd.emit(query);
     });
 
-    // React to searchResults input changes
+    let searchResultsInitialized = false;
     effect(() => {
       const results = this.searchResults();
-      if (results && results.length > 0) {
-        const parsedResults = this.transformToLabelValuePairList(results);
+      if (!searchResultsInitialized) {
+        searchResultsInitialized = true;
+        return;
+      }
+      if (results) {
+        const parsedResults = untracked(() => this.transformToLabelValuePairList(results));
         this.options.set(parsedResults);
         this.isLoading.set(false);
-        this.hideResults.set(false);
+        this.hideResults.set(results.length > 0 ? false : true);
       }
     });
   }
@@ -115,6 +119,7 @@ export class TypeaheadComponent {
   }
 
   onClickOutsideComponent() {
+    this.options.set([]);
     this.listenForOutsideClick.set(false);
     this.hideResults.set(true);
   }
