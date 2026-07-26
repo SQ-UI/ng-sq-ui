@@ -20,6 +20,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-tags-input',
+  standalone: false,
   templateUrl: './tags-input.component.html',
   styleUrls: ['./tags-input.component.scss'],
   encapsulation: ViewEncapsulation.None,

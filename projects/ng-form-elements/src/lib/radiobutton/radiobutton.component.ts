@@ -17,6 +17,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-radiobutton',
+  standalone: false,
   templateUrl: './radiobutton.component.html',
   styleUrls: ['./radiobutton.component.scss'],
   encapsulation: ViewEncapsulation.None,

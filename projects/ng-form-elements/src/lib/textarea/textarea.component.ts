@@ -11,6 +11,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-textarea',
+  standalone: false,
   templateUrl: './textarea.component.html',
   styleUrls: ['./textarea.component.scss'],
   encapsulation: ViewEncapsulation.None,

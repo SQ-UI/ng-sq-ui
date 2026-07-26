@@ -17,6 +17,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-time-picker',
+  standalone: false,
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,

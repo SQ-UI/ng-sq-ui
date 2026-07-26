@@ -8,6 +8,7 @@ export enum ButtonTypes {
 
 @Component({
   selector: 'sq-button',
+  standalone: false,
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   encapsulation: ViewEncapsulation.None

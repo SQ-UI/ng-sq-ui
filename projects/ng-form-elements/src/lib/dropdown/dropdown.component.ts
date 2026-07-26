@@ -15,6 +15,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-dropdown',
+  standalone: false,
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   encapsulation: ViewEncapsulation.None,

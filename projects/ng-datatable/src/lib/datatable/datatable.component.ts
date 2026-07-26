@@ -11,6 +11,7 @@ import { DatatableColumn } from '../shared/interfaces/datatable-column';
 
 @Component({
   selector: 'sq-datatable',
+  standalone: false,
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.scss'],
   encapsulation: ViewEncapsulation.None

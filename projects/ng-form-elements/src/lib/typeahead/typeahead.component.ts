@@ -24,6 +24,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-typeahead',
+  standalone: false,
   templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss'],
   encapsulation: ViewEncapsulation.None,
