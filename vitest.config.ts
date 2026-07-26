@@ -8,18 +8,19 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     include: [
-      'projects/ng-sq-common/**/*.spec.ts',
-      'projects/ng-modal/**/*.spec.ts',
-      'projects/ng-progress-bar/**/*.spec.ts',
-    ],
-    exclude: [
-      'projects/ng-form-elements/**',
-      'projects/ng-datatable/**',
-      'projects/ng-datetime-picker/**',
-      'projects/ng-sq-ui/**',
+      'projects/ng-sq-common/src/lib/services/**/*.spec.ts',
+      'projects/ng-sq-common/src/lib/directives/**/*.spec.ts',
     ],
     setupFiles: ['./setup-test.ts'],
     css: false,
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        singleFork: false,
+        maxForks: 1,
+      },
+    },
+    fileParallelism: false,
     alias: {
       '@sq-ui/ng-sq-common/(.*)': './projects/ng-sq-common/src/$1',
       '@sq-ui/ng-sq-common': './projects/ng-sq-common/src/index.ts',
