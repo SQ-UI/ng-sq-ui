@@ -30,16 +30,11 @@ import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox.template.d
     FormsModule,
     ReactiveFormsModule,
     ButtonComponent,
-    FormGroupComponent
-  ],
-  declarations: [
-    InputComponent,
+    FormGroupComponent,
     DropdownComponent,
-    TagsInputComponent,
     RadiobuttonComponent,
-    TypeaheadComponent,
     CheckboxComponent,
-    TextareaComponent,
+    SqCheckboxLabelTemplateDirective,
     SqDropdownOptionTemplateDirective,
     SqDropdownChevronTemplateDirective,
     SqDropdownSelectedOptionTemplateDirective,
@@ -47,7 +42,12 @@ import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox.template.d
     SqTagTemplateDirective,
     SqTypeaheadOptionTemplateDirective,
     SqTypeaheadSelectedOptionTemplateDirective,
-    SqCheckboxLabelTemplateDirective
+    TextareaComponent,
+    TagsInputComponent,
+    InputComponent,
+    TypeaheadComponent
+  ],
+  declarations: [
   ],
   exports: [
     InputComponent,
