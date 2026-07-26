@@ -5,14 +5,12 @@ import { DatatableColumnComponent } from './datatable-column/datatable-column.co
 import { DatatableHeaderDirective } from './directives/datatable-header.directive';
 import { DatatableBodyDirective } from './directives/datatable-body.directive';
 import { DatatableRowComponent } from './datatable-row/datatable-row.component';
-import { PaginatorComponent, OutsideClickListenerDirective, ScrolledToBottomListenerDirective } from '@sq-ui/ng-sq-common';
+import { PaginatorComponent } from '@sq-ui/ng-sq-common';
 
 @NgModule({
   imports: [
     CommonModule,
-    PaginatorComponent,
-    OutsideClickListenerDirective,
-    ScrolledToBottomListenerDirective
+    PaginatorComponent
   ],
   declarations: [
     DatatableComponent,
