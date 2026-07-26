@@ -1,5 +1,5 @@
 import {
-  Component, input, output, effect, signal,
+  Component, input, output, effect, signal, untracked,
   ChangeDetectionStrategy, ViewEncapsulation
 } from '@angular/core';
 import { NgClass } from '@angular/common';
@@ -34,59 +34,48 @@ export class PaginatorComponent {
   private hasSelectedCurrentPageByAuthor = false;
 
   constructor() {
-    // Effect for when items change
     effect(() => {
       const items = this.items();
       if (items) {
-        // Read other signals needed for computation
-        const lastPage = this.lastPage();
-        const currentPage = this.currentPage();
-        const itemsPerPage = this.itemsPerPage();
-        const maxDisplayedPages = this.maxDisplayedPages();
+        untracked(() => {
+          this.generatePaginatedCollection(this.currentPageNumber());
+          this.updatePageCount(this.lastPage());
 
-        this.generatePaginatedCollection(this.currentPageNumber());
-        this.updatePageCount(lastPage);
+          if (this.currentPage() && !this.hasSelectedCurrentPageByAuthor) {
+            this.selectCurrentPageProgramatically();
+          }
 
-        if (currentPage && !this.hasSelectedCurrentPageByAuthor) {
-          this.selectCurrentPageProgramatically();
-        }
-
-        this.toggleControlEnabling();
+          this.toggleControlEnabling();
+        });
       }
     });
 
-    // Effect for when itemsPerPage changes
     effect(() => {
       const itemsPerPage = this.itemsPerPage();
       if (itemsPerPage && itemsPerPage > 0) {
-        const lastPage = this.lastPage();
-        this.updatePageCount(lastPage);
+        untracked(() => this.updatePageCount(this.lastPage()));
       }
     });
 
-    // Effect for when currentPage changes
     effect(() => {
       const currentPage = this.currentPage();
       if (currentPage && currentPage > 0) {
         this.hasSelectedCurrentPageByAuthor = false;
-        this.selectCurrentPageProgramatically();
+        untracked(() => this.selectCurrentPageProgramatically());
       }
     });
 
-    // Effect for when lastPage changes
     effect(() => {
       const lastPage = this.lastPage();
       if (lastPage && lastPage > 0) {
-        this.updatePageCount(lastPage);
+        untracked(() => this.updatePageCount(lastPage));
       }
     });
 
-    // Effect for when maxDisplayedPages changes
     effect(() => {
       const maxDisplayedPages = this.maxDisplayedPages();
       if (maxDisplayedPages && maxDisplayedPages > 0) {
-        const lastPage = this.lastPage();
-        this.updatePageCount(lastPage);
+        untracked(() => this.updatePageCount(this.lastPage()));
       }
     });
   }
