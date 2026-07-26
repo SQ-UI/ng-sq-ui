@@ -6,19 +6,19 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "es2022",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2022",
     "noImplicitAny": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "useDefineForClassFields": true,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ],
     "paths": {
@@ -93,7 +93,6 @@
         "./projects/ng-progress-bar/src/*",
         "./node_modules/@sq-ui/ng-progress-bar/*"
       ]
-    },
-    "useDefineForClassFields": false
+    }
   }
 }
