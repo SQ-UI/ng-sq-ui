@@ -9,12 +9,9 @@
     "types": [],
     "lib": [
       "dom",
-      "es2018"
+      "es2022"
     ],
     "paths": {
-      "@angular/*": [
-        "./node_modules/@angular/*"
-      ],
       "@sq-ui/ng-sq-common": [
         "./dist/ng-sq-common",
         "./projects/ng-sq-common/src",

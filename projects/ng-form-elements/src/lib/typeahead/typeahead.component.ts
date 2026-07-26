@@ -57,7 +57,7 @@ export class TypeaheadComponent extends InputCoreComponent
   isLoading = false;
   listenForOutsideClick = false;
   hideResults = true;
-  onInputValueChange = new Subject();
+  onInputValueChange = new Subject<string>();
 
   ngOnInit() {
     this.value = [];

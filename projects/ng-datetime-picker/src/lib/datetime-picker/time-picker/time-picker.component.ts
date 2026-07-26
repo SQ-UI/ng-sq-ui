@@ -173,7 +173,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, A
   }
 
   private setValueResult() {
-    let timeMoment: moment.Moment;
+    let timeMoment: moment.Moment | undefined;
     let timeString = `${this.hours}:${this.minutes}`;
     timeString = this.isMeridiem ? `${timeString} ${this.noonRelativity.toUpperCase()}` : timeString;
 

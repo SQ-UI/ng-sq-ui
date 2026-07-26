@@ -4,7 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CustomEventBroadcasterService {
-  private broadcasterSubject = new Subject();
+  private broadcasterSubject = new Subject<{broadcastEvent: string, eventDetails?: CustomEventDetails}>();
   private broadcasterSubjectAsObservable = this.broadcasterSubject.asObservable();
 
   constructor() { }

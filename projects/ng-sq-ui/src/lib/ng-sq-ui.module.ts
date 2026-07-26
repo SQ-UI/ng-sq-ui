@@ -15,6 +15,7 @@ import { NgDatatableModule } from '@sq-ui/ng-datatable';
     NgFormElementsModule,
     NgDatetimePickerModule,
     ProgressBarComponent,
+    ModalComponent,
     NgDatatableModule
   ],
   exports: [
