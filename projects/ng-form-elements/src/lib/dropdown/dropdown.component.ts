@@ -1,56 +1,72 @@
 import {
-  Component, OnInit, Input, Output, forwardRef,
-  ViewEncapsulation, EventEmitter, TemplateRef, ContentChild
+  Component, ViewEncapsulation, ChangeDetectionStrategy,
+  input, model, signal, contentChild, output
 } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
+import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SqDropdownChevronTemplateDirective, SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './dropdown.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DropdownComponent),
-  multi: true
-};
+import {
+  SqDropdownChevronTemplateDirective,
+  SqDropdownOptionTemplateDirective,
+  SqDropdownSelectedOptionTemplateDirective
+} from './dropdown.template.directive';
 
 @Component({
   selector: 'sq-dropdown',
-  standalone: false,
+  standalone: true,
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormsModule,
+    NgTemplateOutlet,
+    OutsideClickListenerDirective,
+  ],
 })
-export class DropdownComponent extends InputCoreComponent implements OnInit {
-  @Input() options: LabelValuePair[];
-  @Output() onSelectItem: EventEmitter<LabelValuePair> = new EventEmitter<LabelValuePair>();
+export class DropdownComponent {
+  // FormFieldConfig signal inputs
+  readonly name = input<string>(generateFormFieldId());
+  readonly controlId = input<string>(generateFormFieldId());
+  readonly controlLabel = input<string>('');
+  readonly controlPlaceholder = input<string>('');
+  readonly required = input<boolean>(false);
+  readonly pattern = input<string>('');
+  readonly disabled = input<boolean>(false);
 
-  @ContentChild(SqDropdownOptionTemplateDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any>;
-  @ContentChild(SqDropdownChevronTemplateDirective, { read: TemplateRef }) chevronTemplate: TemplateRef<any>;
-  @ContentChild(SqDropdownSelectedOptionTemplateDirective, { read: TemplateRef }) selectedItemTemplate: TemplateRef<any>;
+  // Component-specific inputs
+  readonly options = input<LabelValuePair[]>([]);
 
-  isOpen: boolean = false;
-  listenForOutsideClick: boolean = false;
+  // Two-way binding value
+  readonly value = model<LabelValuePair | null>(null);
 
-  constructor() {
-    super();
-  }
+  // Event output
+  readonly onSelectItem = output<LabelValuePair>();
 
-  ngOnInit() { }
+  // Content children for custom templates
+  readonly optionTemplate = contentChild(SqDropdownOptionTemplateDirective);
+  readonly chevronTemplate = contentChild(SqDropdownChevronTemplateDirective);
+  readonly selectedOptionTemplate = contentChild(SqDropdownSelectedOptionTemplateDirective);
+
+  // Internal state
+  readonly isOpen = signal<boolean>(false);
+  readonly listenForOutsideClick = signal<boolean>(false);
 
   toggleOptionsDropdown() {
-    this.listenForOutsideClick = true;
-    this.isOpen = !this.isOpen;
+    this.listenForOutsideClick.set(true);
+    this.isOpen.update(open => !open);
   }
 
   onClickOutsideComponent() {
-    this.isOpen = false;
-    this.listenForOutsideClick = false;
+    this.isOpen.set(false);
+    this.listenForOutsideClick.set(false);
   }
 
   selectOption(option: LabelValuePair) {
-    this.value = Object.assign({}, option);
-    this.listenForOutsideClick = false;
+    this.value.set({ ...option });
+    this.isOpen.set(false);
+    this.listenForOutsideClick.set(false);
     this.onSelectItem.emit(option);
   }
 }
