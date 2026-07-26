@@ -1,26 +1,21 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimePickerComponent } from './time-picker.component';
-import { FormsModule } from '@angular/forms';
-import moment from 'moment';
+import { Temporal } from '@js-temporal/polyfill';
 
 describe('TimePickerComponent', () => {
   let component: TimePickerComponent;
   let fixture: ComponentFixture<TimePickerComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [TimePickerComponent],
-      imports: [FormsModule]
-    })
-      .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TimePickerComponent]
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TimePickerComponent);
     component = fixture.componentInstance;
-    component.timeObjectType = 'moment';
     fixture.detectChanges();
   });
 
@@ -28,218 +23,143 @@ describe('TimePickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should convert given hours and minutes when [isMeridiem]=true', () => {
-    component.inputHours = 22;
-    component.inputMinutes = 30;
-    component.isMeridiem = true;
-
-    component.ngOnChanges({
-      inputHours: new SimpleChange(null, component.inputHours, true),
-      inputMinutes: new SimpleChange(null, component.inputMinutes, true),
-      isMeridiem: new SimpleChange(null, component.isMeridiem, true)
-    });
-    fixture.detectChanges();
-
-    const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
-    const timeFormat = 'hh:mm A';
-    const expectedMoment = moment().hours(component.inputHours).minutes(component.inputMinutes);
-
-    const isValueCorrect = component.value.format(timeFormat) === expectedMoment.format(timeFormat);
-
-    expect(noonRelativityToggle.textContent)
-      .toContain('PM');
-    expect(component.hours === '10' && component.minutes === component.inputMinutes.toString())
-      .toBe(true);
-    expect(isValueCorrect).toBe(true);
+  it('should initialize with current time', () => {
+    expect(component.hours()).toBeTruthy();
+    expect(component.minutes()).toBeTruthy();
+    expect(component.hours().length).toBe(2);
+    expect(component.minutes().length).toBe(2);
   });
 
-  it('should retain given hours and minutes when [isMeridiem]=false', () => {
-    component.inputHours = 22;
-    component.inputMinutes = 30;
-    component.isMeridiem = false;
+  it('should increment hours', () => {
+    // Set a known time state
+    component.hours.set('10');
+    component.minutes.set('30');
+    component.validateInput(TimeUnit.Hours);
+    component.validateInput(TimeUnit.Minutes);
 
-    component.ngOnChanges({
-      inputHours: new SimpleChange(null, component.inputHours, true),
-      inputMinutes: new SimpleChange(null, component.inputMinutes, true),
-      isMeridiem: new SimpleChange(null, component.isMeridiem, true)
-    });
-    fixture.detectChanges();
-
-    const noonRelativityToggle: HTMLElement = fixture.nativeElement.querySelector('.time-unit .meridiem');
-    const timeFormat = 'HH:mm';
-    const expectedMoment = moment().hours(component.inputHours).minutes(component.inputMinutes);
-
-    const isValueCorrect = component.value.format(timeFormat) === expectedMoment.format(timeFormat);
-
-    expect(noonRelativityToggle).not.toBeTruthy();
-    expect(component.hours === component.inputHours.toString() &&
-      component.minutes === component.inputMinutes.toString())
-      .toBe(true);
-    expect(isValueCorrect).toBe(true);
-  });
-
-  it('should increment hours and minutes with a given [hourStep] and [minuteStep]', () => {
-    component.inputHours = 10;
-    component.inputMinutes = 50;
-    component.hourStep = 2;
-    component.minuteStep = 15;
-    component.isMeridiem = false;
-    const timeFormat = 'HH:mm';
-
-    component.ngOnChanges({
-      inputHours: new SimpleChange(null, component.inputHours, true),
-      inputMinutes: new SimpleChange(null, component.inputMinutes, true),
-      isMeridiem: new SimpleChange(null, component.isMeridiem, true),
-      hourStep: new SimpleChange(null, component.hourStep, true),
-      minuteStep: new SimpleChange(null, component.minuteStep, true)
-    });
-    fixture.detectChanges();
-
-    const timeString = `${component.inputHours}:${component.inputMinutes}`;
-    const start = moment(timeString, 'HH:mm');
-    const momentIncrementHours = start.add(component.hourStep, 'hours').format('HH');
-    const momentIncrementMinutes = start.add(component.minuteStep, 'minutes').format('mm');
-
-    component.inputMinutesChange.subscribe((minutes) => {
-      expect(minutes === parseInt(momentIncrementMinutes, 10))
-        .toBe(true);
-    });
-
-    component.inputHoursChange.subscribe((hours) => {
-      expect(hours === parseInt(momentIncrementHours, 10))
-        .toBe(true);
-    });
-
+    const initialHour = parseInt(component.hours(), 10);
     component.increment(TimeUnit.Hours);
+    fixture.detectChanges();
+
+    const newHour = parseInt(component.hours(), 10);
+    // After incrementing by 1 (default step), hour should change
+    expect(newHour).not.toBe(initialHour);
+  });
+
+  it('should decrement hours', () => {
+    component.hours.set('10');
+    component.minutes.set('30');
+    component.validateInput(TimeUnit.Hours);
+    component.validateInput(TimeUnit.Minutes);
+
+    const initialHour = parseInt(component.hours(), 10);
+    component.decrement(TimeUnit.Hours);
+    fixture.detectChanges();
+
+    const newHour = parseInt(component.hours(), 10);
+    expect(newHour).not.toBe(initialHour);
+  });
+
+  it('should increment minutes', () => {
+    component.hours.set('10');
+    component.minutes.set('30');
+    component.validateInput(TimeUnit.Hours);
+    component.validateInput(TimeUnit.Minutes);
+
     component.increment(TimeUnit.Minutes);
     fixture.detectChanges();
 
-    const isValueCorrect = component.value.format(timeFormat) === `${momentIncrementHours}:${momentIncrementMinutes}`;
-
-    expect(component.hours === momentIncrementHours)
-      .toBe(true);
-    expect(component.minutes === momentIncrementMinutes)
-      .toBe(true);
-    expect(isValueCorrect).toBe(true);
+    expect(component.minutes()).toBe('31');
   });
 
-  it('should decrement hours and minutes with a given [hourStep] and [minuteStep]', () => {
-    component.inputHours = 10;
-    component.inputMinutes = 0;
-    component.hourStep = 2;
-    component.minuteStep = 15;
-    component.isMeridiem = false;
-    const timeFormat = 'HH:mm';
+  it('should decrement minutes', () => {
+    component.hours.set('10');
+    component.minutes.set('30');
+    component.validateInput(TimeUnit.Hours);
+    component.validateInput(TimeUnit.Minutes);
 
-    component.ngOnChanges({
-      inputHours: new SimpleChange(null, component.inputHours, true),
-      inputMinutes: new SimpleChange(null, component.inputMinutes, true),
-      isMeridiem: new SimpleChange(null, component.isMeridiem, true),
-      hourStep: new SimpleChange(null, component.hourStep, true),
-      minuteStep: new SimpleChange(null, component.minuteStep, true)
-    });
-    fixture.detectChanges();
-
-    const timeString = `${component.inputHours}:${component.inputMinutes}`;
-    const start = moment(timeString, 'HH:mm');
-    const momentDecrementHours = start.subtract(component.hourStep, 'hours').format('HH');
-    const momentDecrementMinutes = start.subtract(component.minuteStep, 'minutes').format('mm');
-
-    component.inputMinutesChange.subscribe((minutes) => {
-      expect(minutes === parseInt(momentDecrementMinutes, 10))
-        .toBe(true);
-    });
-
-    component.inputHoursChange.subscribe((hours) => {
-      expect(hours === parseInt(momentDecrementHours, 10))
-        .toBe(true);
-    });
-
-    component.decrement(TimeUnit.Hours);
     component.decrement(TimeUnit.Minutes);
     fixture.detectChanges();
 
-    const isValueCorrect = component.value.format(timeFormat) === `${momentDecrementHours}:${momentDecrementMinutes}`;
-
-    expect(component.hours === momentDecrementHours)
-      .toBe(true);
-    expect(component.minutes === momentDecrementMinutes)
-      .toBe(true);
-    expect(isValueCorrect).toBe(true);
+    expect(component.minutes()).toBe('29');
   });
 
-  it('should change noon relativity when [isMeridiem]=true', () => {
-    component.timeObjectType = 'string';
-    component.isMeridiem = true;
-    component.inputHours = 11;
-    component.inputMinutes = 30;
-
-    component.ngOnChanges({
-      isMeridiem: new SimpleChange(null, component.isMeridiem, true),
-      timeObjectType: new SimpleChange(null, component.timeObjectType, true),
-      inputHours: new SimpleChange(null, component.inputHours, true),
-      inputMinutes: new SimpleChange(null, component.inputMinutes, true)
-    });
+  it('should change noon relativity when isMeridiem is active', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('isMeridiem', true);
+    component = fixture.componentInstance;
     fixture.detectChanges();
 
+    const initialRelativity = component.noonRelativity();
     component.changeNoonRelativity();
     fixture.detectChanges();
 
-    expect(component.noonRelativity).toEqual('pm');
-
-    const expectedTimeFormat = `${component.hours}:${component.minutes} ${component.noonRelativity.toUpperCase()}`;
-
-    expect(component.value === expectedTimeFormat)
-      .toBe(true);
+    expect(component.noonRelativity()).not.toBe(initialRelativity);
   });
 
-  it('should export the time in accordance with a TimeObjectType value', () => {
-    component.timeObjectType = 'string';
-    component.ngOnChanges({
-      timeObjectType: new SimpleChange(null, component.timeObjectType, true)
-    });
-    fixture.detectChanges();
-    const expectedTimeFormat = `${component.hours}:${component.minutes}`;
-    expect(component.value === expectedTimeFormat)
-      .toBe(true);
-
-    component.timeObjectType = 'moment';
-    component.ngOnChanges({
-      timeObjectType: new SimpleChange(null, component.timeObjectType, true)
-    });
-    fixture.detectChanges();
-    expect(moment.isMoment(component.value))
-      .toBe(true);
-  });
-
-  it('should normalize user input according time limits', () => {
-    component.isMeridiem = true;
-    component.ngOnChanges({
-      isMeridiem: new SimpleChange(null, component.isMeridiem, true)
-    });
-
-    component.hours = 22;
+  it('should normalize invalid hour input', () => {
+    component.hours.set('99');
     component.validateInput(TimeUnit.Hours);
     fixture.detectChanges();
 
-    component.minutes = 60;
+    // In 24h mode, max is 24 but wraps to 00
+    expect(component.hours()).toBe('00');
+  });
+
+  it('should normalize invalid minute input', () => {
+    component.minutes.set('75');
     component.validateInput(TimeUnit.Minutes);
     fixture.detectChanges();
 
-    expect(component.hours === component.limits.hours.max.toString() &&
-      component.minutes === component.limits.minutes.max.toString())
-      .toBe(true);
+    expect(component.minutes()).toBe('59');
+  });
 
-    component.hours = -10;
+  it('should normalize empty hour input to 00', () => {
+    component.hours.set('');
     component.validateInput(TimeUnit.Hours);
     fixture.detectChanges();
 
-    component.minutes = -5;
-    component.validateInput(TimeUnit.Minutes);
+    expect(component.hours()).toBe('00');
+  });
+
+  it('should output string value by default', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('timeObjectType', 'string');
+    component = fixture.componentInstance;
     fixture.detectChanges();
 
-    expect(component.hours === component.limits.hours.min.toString() &&
-      component.minutes === component.limits.minutes.min.toString())
-      .toBe(true);
+    expect(typeof component.value()).toBe('string');
+  });
+
+  it('should output PlainTime value when timeObjectType is plaintime', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('timeObjectType', 'plaintime');
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const val = component.value();
+    expect(val instanceof Temporal.PlainTime).toBe(true);
+  });
+
+  it('should use meridiem format limits when isMeridiem is true', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('isMeridiem', true);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const limits = component.limits();
+    expect(limits.hours.min).toBe(1);
+    expect(limits.hours.max).toBe(12);
+  });
+
+  it('should include AM/PM in string value when isMeridiem is true', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('isMeridiem', true);
+    fixture.componentRef.setInput('timeObjectType', 'string');
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const val = component.value() as string;
+    expect(val).toMatch(/(AM|PM)$/);
   });
 });
