@@ -1,16 +1,17 @@
-<div class="input-field" [ngClass]="{'disabled': disabled}">
-  <label class="label"
-         for="{{controlId}}"
-         *ngIf="controlLabel !== ''">
-    {{controlLabel}}
-  </label>
+<div class="input-field" [class.disabled]="disabled()">
+  @if (controlLabel() !== '') {
+    <label class="label"
+           for="{{controlId()}}">
+      {{controlLabel()}}
+    </label>
+  }
 
-  <input type="{{type}}"
-         name="{{name}}"
-         id="{{controlId}}"
-         placeholder="{{controlPlaceholder}}"
-         [required]="required"
-         [pattern]="pattern"
-         [disabled]="disabled"
+  <input type="{{type()}}"
+         name="{{name()}}"
+         id="{{controlId()}}"
+         placeholder="{{controlPlaceholder()}}"
+         [required]="required()"
+         [pattern]="pattern()"
+         [disabled]="disabled()"
          [(ngModel)]="value">
 </div>

@@ -2,7 +2,7 @@ import { Directive, TemplateRef } from '@angular/core';
 
 @Directive({
   selector: '[sq-checkbox-label]',
-  standalone: false,
+  standalone: true,
 })
 export class SqCheckboxLabelTemplateDirective {
   constructor(public template: TemplateRef<any>) { }

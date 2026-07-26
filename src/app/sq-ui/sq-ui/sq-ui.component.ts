@@ -1,8 +1,27 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { compatForm } from '@angular/forms/signals/compat';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import {
+  InputComponent,
+  DropdownComponent,
+  TagsInputComponent,
+  RadiobuttonComponent,
+  FormGroupComponent,
+  TypeaheadComponent,
+  CheckboxComponent,
+  ButtonComponent,
+  TextareaComponent,
+  SqDropdownOptionTemplateDirective,
+  SqDropdownChevronTemplateDirective,
+  SqDropdownSelectedOptionTemplateDirective,
+  SqRadiobuttonLabelTemplateDirective,
+  SqTagTemplateDirective,
+  SqTypeaheadOptionTemplateDirective,
+  SqTypeaheadSelectedOptionTemplateDirective,
+  SqCheckboxLabelTemplateDirective,
+} from '@sq-ui/ng-form-elements';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
@@ -14,8 +33,24 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-ui',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    NgFormElementsModule,
+    InputComponent,
+    DropdownComponent,
+    TagsInputComponent,
+    RadiobuttonComponent,
+    FormGroupComponent,
+    TypeaheadComponent,
+    CheckboxComponent,
+    ButtonComponent,
+    TextareaComponent,
+    SqDropdownOptionTemplateDirective,
+    SqDropdownChevronTemplateDirective,
+    SqDropdownSelectedOptionTemplateDirective,
+    SqRadiobuttonLabelTemplateDirective,
+    SqTagTemplateDirective,
+    SqTypeaheadOptionTemplateDirective,
+    SqTypeaheadSelectedOptionTemplateDirective,
+    SqCheckboxLabelTemplateDirective,
+    FormsModule,
     ProgressBarComponent,
     ModuleOverviewComponent,
     CollapseContentComponent,
@@ -26,7 +61,7 @@ import { environment } from '../../../environments/environment';
 })
 export class SqUiComponent {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
-  moduleName: string = 'NgSqUiModule';
+  moduleName: string = 'ng-sq-ui (barrel re-exports)';
   internallyDeclared: NavItem[] = [
     {
       name: 'FormElementsModule',
@@ -43,11 +78,11 @@ export class SqUiComponent {
       routeLink: '/sq-common'
     },
     {
-      name: 'NgDatetimePickerModule',
+      name: 'ng-datetime-picker',
       routeLink: '/datetime-picker'
     },
     {
-      name: 'NgDatatableModule',
+      name: 'NgDatatable',
       routeLink: '/datatable'
     },
     {
@@ -79,10 +114,31 @@ export class SqUiComponent {
   ];
 
   searchResultsStrings: string[];
+  radioGroupValue = signal<string>('value1');
   progressBarLoadedSmall = signal(20);
   progressBarLoadedMedium = signal(40);
   progressBarLoadedLarge = signal(60);
-  testForm: UntypedFormGroup;
+
+  // Individual value signals for direct two-way binding with form components
+  nameValue = signal('');
+  dropdownValue = signal<LabelValuePair | null>(null);
+  dropdownWithTemplatesValue = signal<LabelValuePair | null>(null);
+  tagsValue = signal<string[]>(['tag1']);
+  typeaheadWithTemplatesValue = signal<LabelValuePair[]>([]);
+  typeahead2Value = signal<LabelValuePair[]>([]);
+  checkboxValue = signal(false);
+  textareaValue = signal('');
+
+  // Signal Forms compatForm() bridge: wraps a WritableSignal model
+  formModel = signal({
+    name: '',
+    dropdown: null as LabelValuePair | null,
+    tags: ['tag1'] as string[],
+    checkboxValue: false,
+    textareaValue: '',
+  });
+  testForm = compatForm(this.formModel);
+
   searchResults: any[] = [
     {
       myCustomProp: 'option1',
@@ -134,20 +190,7 @@ export class SqUiComponent {
     },
   ];
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.testForm = this.fb.group({
-      name: [''],
-      dropdown: [null],
-      dropdownWithTemplates: [null],
-      tags: [['tag1']],
-      typeahead1: [[this.searchResults[0], this.searchResults[2]]],
-      typeaheadWithTemplates: [[this.searchResults[0], this.searchResults[2]]],
-      typeahead2: [[]],
-      radioValue: ['value1'],
-      checkboxValue: [false],
-      textareaValue: ['']
-    });
-
+  constructor() {
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
     interval(1000).pipe(takeUntilDestroyed()).subscribe(() => {
@@ -200,6 +243,13 @@ export class SqUiComponent {
   }
 
   onSubmit() {
-    console.log(this.testForm.value);
+    this.formModel.set({
+      name: this.nameValue(),
+      dropdown: this.dropdownValue(),
+      tags: this.tagsValue(),
+      checkboxValue: this.checkboxValue(),
+      textareaValue: this.textareaValue(),
+    });
+    console.log('Signal Forms (compatForm) value:', this.testForm.value);
   }
 }

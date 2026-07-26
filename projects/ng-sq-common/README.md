@@ -49,19 +49,19 @@ yarn add @sq-ui/ng-sq-common
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import standalone components in your component:
 
 ```
-import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
+import { PaginatorComponent } from '@sq-ui/ng-sq-common';
 ```
 
-and then include it in the `imports` array of your @NgModule() decorator:
+and then include them in the `imports` array of your standalone component:
 
 ```
-@NgModule({
-  declarations: [ //... ],
+@Component({
+  standalone: true,
   imports: [
-    NgSqCommonModule,
+    PaginatorComponent,
     //...
   ],
   //...

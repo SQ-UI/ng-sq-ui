@@ -9,12 +9,13 @@
     <div class="time display-flex column align-items-center">
       <input type="text"
              name="time"
-             [(ngModel)]="hours"
+             [ngModel]="hours()"
+             (ngModelChange)="hours.set($event)"
              maxlength="2"
              minlength="1"
-             [disabled]="!isEditable"
+             [disabled]="!isEditable()"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="validateInput(timeUnit.Hours)">
+             (blur)="validateInput(timeUnit.Hours)">
     </div>
 
     <button type="button"
@@ -36,12 +37,13 @@
     <div class="time">
       <input type="text"
              name="minutes"
-             [(ngModel)]="minutes"
+             [ngModel]="minutes()"
+             (ngModelChange)="minutes.set($event)"
              maxlength="2"
              minlength="1"
-             [disabled]="!isEditable"
+             [disabled]="!isEditable()"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="validateInput(timeUnit.Minutes)">
+             (blur)="validateInput(timeUnit.Minutes)">
     </div>
 
     <button type="button"
@@ -51,15 +53,16 @@
     </button>
   </div>
 
-  <div *ngIf="isMeridiem"
-        class="time-unit">
-    <button type="button"
-            class="display-flex justify-center align-items-center"
-            (click)="changeNoonRelativity()">
-      <span class="meridiem">
-        {{noonRelativity.toUpperCase()}}
-      </span>
-      <i class="far fa-clock meridiem-icon" aria-hidden="true"></i>
-    </button>
-  </div>
+  @if (isMeridiem()) {
+    <div class="time-unit">
+      <button type="button"
+              class="display-flex justify-center align-items-center"
+              (click)="changeNoonRelativity()">
+        <span class="meridiem">
+          {{noonRelativity().toUpperCase()}}
+        </span>
+        <i class="far fa-clock meridiem-icon" aria-hidden="true"></i>
+      </button>
+    </div>
+  }
 </div>

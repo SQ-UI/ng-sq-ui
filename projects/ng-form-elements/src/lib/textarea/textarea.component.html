@@ -1,18 +1,19 @@
-<div class="input-field textarea" [ngClass]="{'disabled': disabled}">
-  <div class="label"
-       (click)="focusOnArea()"
-       *ngIf="controlLabel !== ''">
-    {{controlLabel}}
-  </div>
+<div class="input-field textarea" [class.disabled]="disabled()">
+  @if (controlLabel() !== '') {
+    <div class="label"
+         (click)="focusOnArea()">
+      {{controlLabel()}}
+    </div>
+  }
 
   <div contenteditable="true"
        #textarea
        tabindex="0"
        (click)="focusOnArea()"
-       (input)="inputChange($event)"
-       [ngStyle]="{'min-height.px': minHeight}"
-       [attr.data-placeholder]="controlPlaceholder"
-       [ngClass]="{'hide-placeholder': !isPlaceholderVisible}"
+       (input)="onInput($event)"
+       [style.min-height.px]="minHeight()"
+       [attr.data-placeholder]="controlPlaceholder()"
+       [class.hide-placeholder]="!isPlaceholderVisible()"
        role="textarea">
   </div>
 

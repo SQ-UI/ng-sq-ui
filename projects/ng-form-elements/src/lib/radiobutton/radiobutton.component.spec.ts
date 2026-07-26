@@ -1,32 +1,21 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RadiobuttonComponent } from './radiobutton.component';
-import { FormsModule } from '@angular/forms';
-import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
 
 describe('RadiobuttonComponent', () => {
   let component: RadiobuttonComponent;
   let fixture: ComponentFixture<RadiobuttonComponent>;
-  let eventBroadcaster: CustomEventBroadcasterService;
   const groupName = 'testGroupName';
-  const radioValue = 'testValue';
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [RadiobuttonComponent],
-      imports: [
-        FormsModule
-      ],
-      providers: [
-        CustomEventBroadcasterService
-      ]
+      imports: [RadiobuttonComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RadiobuttonComponent);
-    eventBroadcaster = TestBed.inject(CustomEventBroadcasterService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -40,19 +29,30 @@ describe('RadiobuttonComponent', () => {
     const radio2 = radio2Fixture.componentInstance;
     radio2Fixture.detectChanges();
 
-    radio2.radioValue = 'radio2Value';
-    radio2.name = groupName;
+    fixture.componentRef.setInput('radioValue', 'testValue');
+    fixture.componentRef.setInput('name', groupName);
 
-    component.name = groupName;
-    component.radioValue = radioValue;
+    radio2Fixture.componentRef.setInput('radioValue', 'radio2Value');
+    radio2Fixture.componentRef.setInput('name', groupName);
+
+    fixture.detectChanges();
     radio2Fixture.detectChanges();
 
     component.selectRadio();
-    expect(component.isSelected).toBe(true);
-    expect(radio2.isSelected).toBe(false);
+    expect(component.isSelected()).toBe(true);
+    expect(radio2.isSelected()).toBe(false);
 
     radio2.selectRadio();
-    expect(component.isSelected).toBe(false);
-    expect(radio2.isSelected).toBe(true);
+    expect(component.isSelected()).toBe(false);
+    expect(radio2.isSelected()).toBe(true);
+  });
+
+  it('should update value model when selected', () => {
+    fixture.componentRef.setInput('radioValue', 'testValue');
+    fixture.componentRef.setInput('name', groupName);
+    fixture.detectChanges();
+
+    component.selectRadio();
+    expect(component.value()).toBe('testValue');
   });
 });

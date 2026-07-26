@@ -1,45 +1,67 @@
 <div class="input-field dropdown"
-     [ngClass]="{'disabled': disabled}"
+     [class.disabled]="disabled()"
      sqOutsideClickListener
-     [listenForOutsideClick]="listenForOutsideClick"
+     [listenForOutsideClick]="listenForOutsideClick()"
      (clickOutside)="onClickOutsideComponent()"
      (click)="toggleOptionsDropdown();">
 
-  <div class="label">{{controlLabel}}</div>
+  <div class="label">{{controlLabel()}}</div>
 
   <ng-template #defaultSelectedItemTemplate>
-    <div class="chosen-item" *ngIf="value">{{value.label}}</div>
-  </ng-template>
-  <ng-template *ngIf="value"
-               [ngTemplateOutlet]="selectedItemTemplate || defaultSelectedItemTemplate"
-               [ngTemplateOutletContext]="{ value: value }">
+    <div class="chosen-item">{{value()?.label}}</div>
   </ng-template>
 
-  <div class="input-placeholder" *ngIf="!value">{{controlPlaceholder}}</div>
+  @if (value()) {
+    @if (selectedOptionTemplate(); as tmpl) {
+      <ng-template [ngTemplateOutlet]="tmpl.template"
+                   [ngTemplateOutletContext]="{ value: value() }">
+      </ng-template>
+    } @else {
+      <ng-template [ngTemplateOutlet]="defaultSelectedItemTemplate"
+                   [ngTemplateOutletContext]="{ value: value() }">
+      </ng-template>
+    }
+  } @else {
+    <div class="input-placeholder">{{controlPlaceholder()}}</div>
+  }
 
   <ng-template #defaultChevronTemplate>
     <i class="fas fa-chevron-down dropdown-icon"
        aria-hidden="true">
     </i>
   </ng-template>
-  
-  <ng-template [ngTemplateOutlet]="chevronTemplate || defaultChevronTemplate"
-               [ngTemplateOutletContext]="{ isDropdownOpen: isOpen }">
-  </ng-template>
 
-  <div class="options" *ngIf="isOpen">
-    <ng-container *ngFor="let option of options">
-      <div (click)="selectOption(option)">
-        <ng-template #defaultOptionTemplate>
-          <div class="option">
-            {{option.label}}
-          </div>
-        </ng-template>
+  @if (chevronTemplate(); as tmpl) {
+    <ng-template [ngTemplateOutlet]="tmpl.template"
+                 [ngTemplateOutletContext]="{ isDropdownOpen: isOpen() }">
+    </ng-template>
+  } @else {
+    <ng-template [ngTemplateOutlet]="defaultChevronTemplate"
+                 [ngTemplateOutletContext]="{ isDropdownOpen: isOpen() }">
+    </ng-template>
+  }
 
-        <ng-template [ngTemplateOutlet]="optionTemplate || defaultOptionTemplate"
-                     [ngTemplateOutletContext]="{ option: option }">
-        </ng-template>
-      </div>
-    </ng-container>
-  </div>
+  @if (isOpen()) {
+    <div class="options">
+      @for (option of options(); track option.value) {
+        <div (click)="selectOption(option)">
+          <ng-template #defaultOptionTemplate>
+            <div class="option">
+              {{option.label}}
+            </div>
+          </ng-template>
+
+          @if (optionTemplate(); as tmpl) {
+            <ng-template [ngTemplateOutlet]="tmpl.template"
+                         [ngTemplateOutletContext]="{ option: option }">
+            </ng-template>
+          } @else {
+            <ng-template [ngTemplateOutlet]="defaultOptionTemplate"
+                         [ngTemplateOutletContext]="{ option: option }">
+            </ng-template>
+          }
+        </div>
+      }
+    </div>
+  }
 </div>

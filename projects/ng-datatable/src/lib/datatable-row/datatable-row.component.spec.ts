@@ -8,7 +8,7 @@ describe('DatatableRowComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DatatableRowComponent]
+      imports: [DatatableRowComponent]
     })
       .compileComponents();
   }));

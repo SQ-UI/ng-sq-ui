@@ -1,71 +1,74 @@
 import {
-  Component, OnInit, Input, OnDestroy,
-  Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef
+  Component, ViewEncapsulation, ChangeDetectionStrategy,
+  input, model, computed, contentChild, output, inject, DestroyRef
 } from '@angular/core';
-import { CustomEventDetails } from '@sq-ui/ng-sq-common';
+import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => RadiobuttonComponent),
-  multi: true
-};
 
 @Component({
   selector: 'sq-radiobutton',
-  standalone: false,
+  standalone: true,
   templateUrl: './radiobutton.component.html',
   styleUrls: ['./radiobutton.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormsModule, NgTemplateOutlet, SqRadiobuttonLabelTemplateDirective],
 })
-export class RadiobuttonComponent extends InputCoreComponent implements OnInit, OnDestroy {
-  private eventBroadcasterSubscription: Subscription;
-  @Input() radioValue: any;
-  @Input() controlLabel: string;
+export class RadiobuttonComponent {
+  private readonly eventBroadcaster = inject(CustomEventBroadcasterService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  @Input() isSelected: boolean;
-  @Output() isSelectedChange = new EventEmitter<boolean>();
+  // FormFieldConfig signal inputs
+  readonly name = input<string>(generateFormFieldId());
+  readonly controlId = input<string>(generateFormFieldId());
+  readonly controlLabel = input<string>('');
+  readonly controlPlaceholder = input<string>('');
+  readonly required = input<boolean>(false);
+  readonly pattern = input<string>('');
+  readonly disabled = input<boolean>(false);
 
-  @ContentChild(SqRadiobuttonLabelTemplateDirective, { read: TemplateRef }) radioButtonTemplate: TemplateRef<any>;
+  // Two-way binding value
+  readonly value = model<any>(null);
 
-  constructor(private eventBroadcaster: CustomEventBroadcasterService) {
-    super();
-  }
+  // Radio-specific inputs and state
+  readonly radioValue = input<any>(null);
+  readonly isSelected = computed(() => Object.is(this.value(), this.radioValue()));
+  readonly isSelectedChange = output<boolean>();
 
-  ngOnInit() {
-    this.eventBroadcasterSubscription = this.eventBroadcaster.subscribeFor(
+  // Content child for custom label template
+  readonly labelTemplate = contentChild(SqRadiobuttonLabelTemplateDirective);
+
+  constructor() {
+    const subscription = this.eventBroadcaster.subscribeFor(
       'sqRadio:selected',
-      (eventDetails?: CustomEventDetails) => {
-        if (eventDetails && eventDetails.details.group === this.name &&
-          !Object.is(this.radioValue, eventDetails.details.sqRadio.radioValue)) {
-          this.isSelected = false;
-          this.value = eventDetails.details.sqRadio.radioValue;
+      (eventDetails) => {
+        if (eventDetails && eventDetails.details.group === this.name() &&
+          !Object.is(this.radioValue(), eventDetails.details.sqRadio.radioValue)) {
+          this.value.set(eventDetails.details.sqRadio.radioValue);
           this.isSelectedChange.emit(false);
         }
-      });
-  }
+      }
+    );
 
-  ngOnDestroy() {
-    this.eventBroadcasterSubscription.unsubscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   selectRadio() {
+    this.value.set(this.radioValue());
+
     this.eventBroadcaster.broadcastEvent(
       'sqRadio:selected',
       {
         details: {
-          group: this.name,
-          sqRadio: this
+          group: this.name(),
+          sqRadio: { radioValue: this.radioValue() }
         }
-      });
+      }
+    );
 
-    this.isSelected = true;
-    this.value = this.radioValue;
     this.isSelectedChange.emit(true);
   }
 }

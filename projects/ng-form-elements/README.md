@@ -50,22 +50,21 @@ yarn add @sq-ui/ng-progress-bar
 
 ## Usage
 
-Import the NgProgressBarModule in your module:
+All form element components are standalone. Import them directly in your component:
 
-```
-import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
-```
+```typescript
+import { InputComponent, DropdownComponent, ButtonComponent } from '@sq-ui/ng-form-elements';
 
-and then include it in the `imports` array of your @NgModule() decorator:
-
-```
-@NgModule({
-  declarations: [ //... ],
+@Component({
+  standalone: true,
   imports: [
-    NgFormElementsModule,
+    InputComponent,
+    DropdownComponent,
+    ButtonComponent,
     //...
   ],
   //...
+})
 ```
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).

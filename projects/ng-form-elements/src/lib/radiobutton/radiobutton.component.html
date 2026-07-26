@@ -1,20 +1,27 @@
 <div class="checkable"
-     [ngClass]="{'checked': isSelected, 'disabled': disabled}"
+     [class.checked]="isSelected()"
+     [class.disabled]="disabled()"
      (click)="selectRadio()">
   <input type="radio"
-         name="{{name}}"
-         id="{{controlId}}"
-         [disabled]="disabled"
-         [ngModel]="radioValue">
+         name="{{name()}}"
+         id="{{controlId()}}"
+         [disabled]="disabled()"
+         [ngModel]="radioValue()">
 
   <ng-template #defaultRadioButtonTemplate>
     <div class="radio">
       <div class="inner"></div>
     </div>
-    <div class="label">{{controlLabel ? controlLabel : radioValue}}</div>
+    <div class="label">{{controlLabel() ? controlLabel() : radioValue()}}</div>
   </ng-template>
 
-  <ng-template [ngTemplateOutlet]="radioButtonTemplate || defaultRadioButtonTemplate"
-               [ngTemplateOutletContext]="{ value: radioValue, isSelected: isSelected }">
-  </ng-template>
+  @if (labelTemplate(); as tmpl) {
+    <ng-template [ngTemplateOutlet]="tmpl.template"
+                 [ngTemplateOutletContext]="{ value: radioValue(), isSelected: isSelected() }">
+    </ng-template>
+  } @else {
+    <ng-template [ngTemplateOutlet]="defaultRadioButtonTemplate"
+                 [ngTemplateOutletContext]="{ value: radioValue(), isSelected: isSelected() }">
+    </ng-template>
+  }
 </div>
