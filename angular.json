@@ -73,6 +73,9 @@
           "options": {
             "buildTarget": "sq-ui:build"
           }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         }
       }
     },
@@ -95,6 +98,9 @@
             "development": {}
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -127,6 +133,9 @@
           },
           "defaultConfiguration": "production"
         },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
@@ -157,6 +166,9 @@
             "development": {}
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -189,6 +201,9 @@
           },
           "defaultConfiguration": "production"
         },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
@@ -219,6 +234,9 @@
             "development": {}
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -251,6 +269,9 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         }
       }
     },
@@ -274,6 +295,9 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         }
       }
     }
