@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
-import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import { ButtonComponent } from '@sq-ui/ng-form-elements';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import moment from 'moment';
@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
   imports: [
     ReactiveFormsModule,
     NgDatetimePickerModule,
-    NgFormElementsModule,
+    ButtonComponent,
     ModuleOverviewComponent,
     CollapseContentComponent,
   ],

@@ -2,7 +2,25 @@ import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import {
+  InputComponent,
+  DropdownComponent,
+  TagsInputComponent,
+  RadiobuttonComponent,
+  FormGroupComponent,
+  TypeaheadComponent,
+  CheckboxComponent,
+  ButtonComponent,
+  TextareaComponent,
+  SqDropdownOptionTemplateDirective,
+  SqDropdownChevronTemplateDirective,
+  SqDropdownSelectedOptionTemplateDirective,
+  SqRadiobuttonLabelTemplateDirective,
+  SqTagTemplateDirective,
+  SqTypeaheadOptionTemplateDirective,
+  SqTypeaheadSelectedOptionTemplateDirective,
+  SqCheckboxLabelTemplateDirective,
+} from '@sq-ui/ng-form-elements';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
@@ -15,7 +33,23 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgFormElementsModule,
+    InputComponent,
+    DropdownComponent,
+    TagsInputComponent,
+    RadiobuttonComponent,
+    FormGroupComponent,
+    TypeaheadComponent,
+    CheckboxComponent,
+    ButtonComponent,
+    TextareaComponent,
+    SqDropdownOptionTemplateDirective,
+    SqDropdownChevronTemplateDirective,
+    SqDropdownSelectedOptionTemplateDirective,
+    SqRadiobuttonLabelTemplateDirective,
+    SqTagTemplateDirective,
+    SqTypeaheadOptionTemplateDirective,
+    SqTypeaheadSelectedOptionTemplateDirective,
+    SqCheckboxLabelTemplateDirective,
     ProgressBarComponent,
     ModuleOverviewComponent,
     CollapseContentComponent,
@@ -47,7 +81,7 @@ export class SqUiComponent {
       routeLink: '/datetime-picker'
     },
     {
-      name: 'NgDatatableModule',
+      name: 'NgDatatable',
       routeLink: '/datatable'
     },
     {
