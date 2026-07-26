@@ -1,6 +1,14 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
-import { SortItem, DatatableColumn, NgDatatableModule } from '@sq-ui/ng-datatable';
+import {
+  SortItem,
+  DatatableColumn,
+  DatatableComponent,
+  DatatableRowComponent,
+  DatatableColumnComponent,
+  DatatableHeaderDirective,
+  DatatableBodyDirective,
+} from '@sq-ui/ng-datatable';
 import { NavItem } from '../../shared/nav-item';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
@@ -10,7 +18,11 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-datatable-docs',
   standalone: true,
   imports: [
-    NgDatatableModule,
+    DatatableComponent,
+    DatatableRowComponent,
+    DatatableColumnComponent,
+    DatatableHeaderDirective,
+    DatatableBodyDirective,
     ModuleOverviewComponent,
     CollapseContentComponent,
   ],
@@ -20,7 +32,7 @@ import { environment } from '../../../environments/environment';
 })
 export class DatatableDocsComponent {
   npmPackageName: string = '@sq-ui/ng-datatable';
-  moduleName: string = 'NgDatatableModule';
+  moduleName: string = 'NgDatatable';
 
   dependsOn: NavItem[] = [
     {
