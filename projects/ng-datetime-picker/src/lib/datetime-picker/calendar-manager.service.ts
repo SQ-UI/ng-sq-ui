@@ -77,7 +77,7 @@ export class CalendarManagerService {
     });
   }
 
-  generateYearPickerCollection(start: Temporal.PlainDate, margin: number = 19, dateRange: DateRange): InCalendarPicker[] {
+  generateYearPickerCollection(start: Temporal.PlainDate | null, margin: number = 19, dateRange: DateRange): InCalendarPicker[] {
     const yearsList = this.getYearList(start, margin);
 
     return yearsList.map((year) => {
@@ -114,7 +114,7 @@ export class CalendarManagerService {
     return months;
   }
 
-  getYearList(start: Temporal.PlainDate, margin: number = 19): number[] {
+  getYearList(start: Temporal.PlainDate | null, margin: number = 19): number[] {
     let yearIterator: Temporal.PlainDate;
     let endYear: Temporal.PlainDate;
 

@@ -39,4 +39,12 @@ describe('CheckboxComponent', () => {
     expect(component.value()).toBe(false);
   });
 
+  it('should reflect externally set value in isSelected', () => {
+    expect(component.isSelected()).toBe(false);
+    fixture.componentRef.setInput('value', true);
+    expect(component.isSelected()).toBe(true);
+    fixture.componentRef.setInput('value', false);
+    expect(component.isSelected()).toBe(false);
+  });
+
 });

@@ -262,12 +262,20 @@ export class DatetimePickerComponent implements OnInit {
     if (!this.format()) {
       switch (this.dateObjectType()) {
         case DateObjectType.Date:
-          return dates.map((plainDate: Temporal.PlainDate) => {
-            return new Date(plainDate.year, plainDate.month - 1, plainDate.day);
+          return dates.map((date: Temporal.PlainDate | Temporal.PlainDateTime) => {
+            if ('hour' in date) {
+              const dt = date as Temporal.PlainDateTime;
+              return new Date(dt.year, dt.month - 1, dt.day, dt.hour, dt.minute, dt.second);
+            }
+            return new Date(date.year, date.month - 1, date.day);
           });
         case DateObjectType.Unix:
-          return dates.map((plainDate: Temporal.PlainDate) => {
-            return new Date(plainDate.year, plainDate.month - 1, plainDate.day).getTime();
+          return dates.map((date: Temporal.PlainDate | Temporal.PlainDateTime) => {
+            if ('hour' in date) {
+              const dt = date as Temporal.PlainDateTime;
+              return new Date(dt.year, dt.month - 1, dt.day, dt.hour, dt.minute, dt.second).getTime();
+            }
+            return new Date(date.year, date.month - 1, date.day).getTime();
           });
       }
     }
