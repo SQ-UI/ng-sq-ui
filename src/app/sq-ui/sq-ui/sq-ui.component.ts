@@ -8,6 +8,7 @@ import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import { interval } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -151,8 +152,7 @@ export class SqUiComponent {
 
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
-    const source = interval(1000);
-    source.subscribe(() => {
+    interval(1000).pipe(takeUntilDestroyed()).subscribe(() => {
       this.progressBarLoadedSmall.update(v => v + 20 > 100 ? 0 : v + 20);
       this.progressBarLoadedMedium.update(v => v + 20 > 100 ? 0 : v + 20);
       this.progressBarLoadedLarge.update(v => v + 20 > 100 ? 0 : v + 20);
