@@ -10,9 +10,7 @@ import { PaginatorComponent } from '@sq-ui/ng-sq-common';
 @NgModule({
   imports: [
     CommonModule,
-    PaginatorComponent
-  ],
-  declarations: [
+    PaginatorComponent,
     DatatableComponent,
     DatatableHeaderDirective,
     DatatableBodyDirective,
