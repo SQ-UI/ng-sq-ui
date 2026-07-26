@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          check-latest: true
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -29,11 +29,13 @@ jobs:
       - name: Build libraries
         run: npm run build:libs
 
-      - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      - name: Run tests with coverage
+        run: npm run coverage
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          coverageCommand: npm run coverage
-          coverageLocations: |
-            ${{github.workspace}}/coverage/lcov.info:lcov
+          name: coverage-lcov
+          path: coverage/lcov.info
+          if-no-files-found: ignore
