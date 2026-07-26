@@ -49,19 +49,19 @@ yarn add @sq-ui/ng-modal
 
 ## Usage
 
-Import the module in your component or module:
+Import the standalone component in your component:
 
 ```
-import { NgModalModule } from '@sq-ui/ng-modal';
+import { ModalComponent } from '@sq-ui/ng-modal';
 ```
 
-and then include it in the `imports` array of your @NgModule() decorator:
+and then include it in the `imports` array of your standalone component:
 
 ```
-@NgModule({
-  declarations: [ //... ],
+@Component({
+  standalone: true,
   imports: [
-    NgModalModule,
+    ModalComponent,
     //...
   ],
   //...
