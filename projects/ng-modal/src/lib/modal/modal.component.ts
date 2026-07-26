@@ -1,75 +1,81 @@
 import {
-  Component, ViewEncapsulation, Input,
-  Output, EventEmitter, ViewChild, OnChanges,
-  Renderer2, ElementRef, SimpleChanges
+  Component, ViewEncapsulation,
+  Renderer2, ElementRef, ChangeDetectionStrategy,
+  model, input, viewChild, effect, signal, inject
 } from '@angular/core';
+import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-modal',
+  standalone: true,
+  imports: [OutsideClickListenerDirective],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModalComponent implements OnChanges {
-  @Input() show: boolean = false;
-  @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+export class ModalComponent {
+  show = model<boolean>(false);
 
-  @Input() customCssAnimation: {
+  customCssAnimation = input<{
     duration: number,
     entranceAnimation: string,
     exitAnimation: string
-  } = {
+  }>({
     duration: 0,
     entranceAnimation: '',
     exitAnimation: ''
-  };
+  });
 
-  @ViewChild('sqModal') private sqModal: ElementRef;
-  @ViewChild('sqModalWindow') private sqModalWindow: ElementRef;
+  private sqModal = viewChild<ElementRef>('sqModal');
+  private sqModalWindow = viewChild<ElementRef>('sqModalWindow');
 
-  listenForOutsideClick: boolean = false;
+  listenForOutsideClick = signal<boolean>(false);
 
-  constructor(private renderer: Renderer2) { }
+  private renderer = inject(Renderer2);
 
-  ngOnChanges(changesObj: SimpleChanges) {
-    if (changesObj.show && this.sqModalWindow) {
-      const entranceAnimationClass = this.customCssAnimation.entranceAnimation || 'fadeInDown';
-      const exitAnimationClass = this.customCssAnimation.exitAnimation || 'fadeOutUp';
-      const animationDuration = this.customCssAnimation.duration || 500;
+  constructor() {
+    effect(() => {
+      const isVisible = this.show();
+      const modalEl = this.sqModal();
+      const windowEl = this.sqModalWindow();
+      if (!modalEl || !windowEl) return;
 
-      if (changesObj.show.currentValue === true) {
-        this.renderer.removeClass(this.sqModal.nativeElement, 'display-none');
-        this.renderer.addClass(this.sqModalWindow.nativeElement, entranceAnimationClass);
+      const animation = this.customCssAnimation();
+      const entranceAnimationClass = animation.entranceAnimation || 'fadeInDown';
+      const exitAnimationClass = animation.exitAnimation || 'fadeOutUp';
+      const animationDuration = animation.duration || 500;
+
+      if (isVisible) {
+        this.renderer.removeClass(modalEl.nativeElement, 'display-none');
+        this.renderer.addClass(windowEl.nativeElement, entranceAnimationClass);
 
         setTimeout(() => {
-          this.renderer.removeClass(this.sqModalWindow.nativeElement, entranceAnimationClass);
-          this.listenForOutsideClick = true;
+          this.renderer.removeClass(windowEl.nativeElement, entranceAnimationClass);
+          this.listenForOutsideClick.set(true);
         }, animationDuration);
       } else {
-        this.renderer.addClass(this.sqModalWindow.nativeElement, exitAnimationClass);
+        this.renderer.addClass(windowEl.nativeElement, exitAnimationClass);
 
         setTimeout(() => {
-          this.renderer.addClass(this.sqModal.nativeElement, 'display-none');
-          this.renderer.removeClass(this.sqModalWindow.nativeElement, exitAnimationClass);
-          this.listenForOutsideClick = false;
+          this.renderer.addClass(modalEl.nativeElement, 'display-none');
+          this.renderer.removeClass(windowEl.nativeElement, exitAnimationClass);
+          this.listenForOutsideClick.set(false);
         }, animationDuration);
       }
-    }
+    });
   }
 
   close() {
-    this.show = false;
-    this.showChange.emit(false);
+    this.show.set(false);
   }
 
   open() {
-    this.show = true;
-    this.showChange.emit(true);
+    this.show.set(true);
   }
 
   onClickOutsideComponent() {
-    this.listenForOutsideClick = false;
+    this.listenForOutsideClick.set(false);
     this.close();
   }
-
 }
