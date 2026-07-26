@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
-import { NgProgressBarModule } from '@sq-ui/ng-progress-bar';
+import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { ModalComponent } from '@sq-ui/ng-modal';
-import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
+import { PaginatorComponent, OutsideClickListenerDirective, ScrolledToBottomListenerDirective } from '@sq-ui/ng-sq-common';
 import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
 import { NgDatatableModule } from '@sq-ui/ng-datatable';
 
 @NgModule({
   declarations: [],
   imports: [
-    NgSqCommonModule,
+    PaginatorComponent,
+    OutsideClickListenerDirective,
+    ScrolledToBottomListenerDirective,
     NgFormElementsModule,
     NgDatetimePickerModule,
-    NgProgressBarModule,
+    ProgressBarComponent,
     NgDatatableModule
   ],
   exports: [
@@ -20,8 +22,10 @@ import { NgDatatableModule } from '@sq-ui/ng-datatable';
     ModalComponent,
     NgDatetimePickerModule,
     NgDatatableModule,
-    NgProgressBarModule,
-    NgSqCommonModule
+    ProgressBarComponent,
+    PaginatorComponent,
+    OutsideClickListenerDirective,
+    ScrolledToBottomListenerDirective
   ]
 })
 export class NgSqUiModule {}
