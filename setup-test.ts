@@ -1,4 +1,4 @@
-import 'jest-preset-angular/setup-jest';
+import '@analogjs/vitest-angular/setup-zone';
 
 // Fail tests when console throws an error
 // https://github.com/facebook/jest/issues/6121#issuecomment-529591574
@@ -31,9 +31,9 @@ Object.defineProperty(document.body.style, 'transform', {
 });
 
 export const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
 };
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });

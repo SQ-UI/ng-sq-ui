@@ -85,7 +85,7 @@ describe('DatetimePickerComponent', () => {
     const date1 = calendarManager.findADateFromCalendar(moment().add(1, 'day'), component.calendar);
     const date2 = calendarManager.findADateFromCalendar(moment().add(4, 'days'), component.calendar);
     const expectedItems = [date1, date2];
-    jest.spyOn(component, 'select');
+    vi.spyOn(component, 'select');
 
     expectedItems.forEach((item, index) => {
       component.select(item);

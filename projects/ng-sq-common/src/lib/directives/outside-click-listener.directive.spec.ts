@@ -5,7 +5,7 @@ describe('OutsideClickListenerDirective', () => {
   it('should create an instance', () => {
     const elementRef = new ElementRef(null);
     const renderer2Mock = {
-      listen: jest.fn(),
+      listen: vi.fn(),
     } as unknown as Renderer2;
 
     const directive = new OutsideClickListenerDirective(elementRef, renderer2Mock);
