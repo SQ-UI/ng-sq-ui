@@ -1,58 +1,39 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { RadiobuttonComponent } from './radiobutton.component';
-import { FormsModule } from '@angular/forms';
-import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
+
+function stubReadonlySignal<T>(component: RadiobuttonComponent, name: 'name' | 'radioValue', value: T): void {
+  Object.defineProperty(component, name, { value: () => value, configurable: true });
+}
 
 describe('RadiobuttonComponent', () => {
   let component: RadiobuttonComponent;
-  let fixture: ComponentFixture<RadiobuttonComponent>;
-  let eventBroadcaster: CustomEventBroadcasterService;
+  let radio2: RadiobuttonComponent;
   const groupName = 'testGroupName';
   const radioValue = 'testValue';
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [RadiobuttonComponent],
-      imports: [
-        FormsModule
-      ],
-      providers: [
-        CustomEventBroadcasterService
-      ]
-    })
-      .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(RadiobuttonComponent);
-    eventBroadcaster = TestBed.inject(CustomEventBroadcasterService);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new RadiobuttonComponent());
+    radio2 = TestBed.runInInjectionContext(() => new RadiobuttonComponent());
+
+    stubReadonlySignal(component, 'name', groupName);
+    stubReadonlySignal(component, 'radioValue', radioValue);
+    stubReadonlySignal(radio2, 'name', groupName);
+    stubReadonlySignal(radio2, 'radioValue', 'radio2Value');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should select the radiobutton correctly when clicked', () => {
-    const radio2Fixture = TestBed.createComponent(RadiobuttonComponent);
-    const radio2 = radio2Fixture.componentInstance;
-    radio2Fixture.detectChanges();
-
-    radio2.radioValue = 'radio2Value';
-    radio2.name = groupName;
-
-    component.name = groupName;
-    component.radioValue = radioValue;
-    radio2Fixture.detectChanges();
-
+  it('should select the radiobutton correctly when clicked, deselecting its siblings', () => {
     component.selectRadio();
-    expect(component.isSelected).toBe(true);
-    expect(radio2.isSelected).toBe(false);
+    expect(component.isSelected()).toBe(true);
+    expect(radio2.isSelected()).toBe(false);
 
     radio2.selectRadio();
-    expect(component.isSelected).toBe(false);
-    expect(radio2.isSelected).toBe(true);
+    expect(component.isSelected()).toBe(false);
+    expect(radio2.isSelected()).toBe(true);
   });
 });

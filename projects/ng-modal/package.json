@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-modal",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI Modal for Angular",
@@ -37,9 +37,13 @@
     "dialog",
     "popup"
   ],
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/common": "^22.0.0"
+  },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0",
-    "@sq-ui/ng-sq-common": "^2.0.1",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@sq-ui/ng-sq-common": "^3.0.0",
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"

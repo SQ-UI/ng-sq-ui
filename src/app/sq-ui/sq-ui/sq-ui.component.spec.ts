@@ -1,34 +1,30 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { SqUiComponent } from './sq-ui.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 
 describe('SqUiComponent', () => {
   let component: SqUiComponent;
-  let fixture: ComponentFixture<SqUiComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SqUiComponent],
-      imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgSqUiModule
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SqUiComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new SqUiComponent());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should merge internally declared and depended-on packages into exports', () => {
+    expect(component.exports).toEqual([...component.internallyDeclared, ...component.dependsOn]);
+  });
+
+  it('should start with an invalid form because the name field is required', () => {
+    expect(component.testForm().invalid()).toBe(true);
+  });
+
+  it('should become valid once the name field is filled in', () => {
+    component.testForm.name().value.set('Ada');
+
+    expect(component.testForm().valid()).toBe(true);
   });
 });

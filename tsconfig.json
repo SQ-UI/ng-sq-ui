@@ -2,96 +2,52 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "module": "ES2022",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "target": "ES2022",
+    "lib": ["ES2022", "dom"],
     "noImplicitAny": false,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
+    "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@angular/*": [
-        "./node_modules/@angular/*"
-      ],
-      "@sq-ui/ng-sq-ui": [
-        "./dist/ng-sq-ui",
-        "./projects/ng-sq-ui/src"
-      ],
-      "@sq-ui/ng-sq-ui/*": [
-        "./dist/ng-sq-ui/*",
-        "./projects/ng-sq-ui/src/*"
-      ],
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@sq-ui/ng-sq-ui": ["./dist/ng-sq-ui", "./projects/ng-sq-ui/src/index.ts"],
+      "@sq-ui/ng-sq-ui/*": ["./dist/ng-sq-ui/*", "./projects/ng-sq-ui/src/*"],
       "@sq-ui/ng-datetime-picker": [
         "./dist/ng-datetime-picker",
-        "./projects/ng-datetime-picker/src",
-        "./node_modules/@sq-ui/ng-datetime-picker"
+        "./projects/ng-datetime-picker/src/index.ts"
       ],
       "@sq-ui/ng-datetime-picker/*": [
         "./dist/ng-datetime-picker/*",
-        "./projects/ng-datetime-picker/src/*",
-        "./node_modules/@sq-ui/ng-datetime-picker/*"
+        "./projects/ng-datetime-picker/src/*"
       ],
-      "@sq-ui/ng-datatable": [
-        "./dist/ng-datatable",
-        "./projects/ng-datatable/src",
-        "./node_modules/@sq-ui/ng-datatable"
-      ],
-      "@sq-ui/ng-datatable/*": [
-        "./dist/ng-datatable/*",
-        "./projects/ng-datatable/src/*",
-        "./node_modules/@sq-ui/ng-datatable/*"
-      ],
-      "@sq-ui/ng-sq-common": [
-        "./dist/ng-sq-common",
-        "./projects/ng-sq-common/src",
-        "./node_modules/@sq-ui/ng-sq-common"
-      ],
-      "@sq-ui/ng-sq-common/*": [
-        "./dist/ng-sq-common/*",
-        "./projects/ng-sq-common/src/*",
-        "./node_modules/@sq-ui/ng-sq-common/*"
-      ],
-      "@sq-ui/ng-modal": [
-        "./dist/ng-modal",
-        "./projects/ng-modal/src",
-        "./node_modules/@sq-ui/ng-modal/"
-      ],
-      "@sq-ui/ng-modal/*": [
-        "dist/ng-modal/*",
-        "projects/ng-modal/src/*",
-        "node_modules/@sq-ui/ng-modal/*"
-      ],
+      "@sq-ui/ng-datatable": ["./dist/ng-datatable", "./projects/ng-datatable/src/index.ts"],
+      "@sq-ui/ng-datatable/*": ["./dist/ng-datatable/*", "./projects/ng-datatable/src/*"],
+      "@sq-ui/ng-sq-common": ["./dist/ng-sq-common", "./projects/ng-sq-common/src/index.ts"],
+      "@sq-ui/ng-sq-common/*": ["./dist/ng-sq-common/*", "./projects/ng-sq-common/src/*"],
+      "@sq-ui/ng-modal": ["./dist/ng-modal", "./projects/ng-modal/src/index.ts"],
+      "@sq-ui/ng-modal/*": ["./dist/ng-modal/*", "./projects/ng-modal/src/*"],
       "@sq-ui/ng-form-elements": [
         "./dist/ng-form-elements",
-        "./projects/ng-form-elements/src",
-        "./node_modules/@sq-ui/ng-form-elements"
+        "./projects/ng-form-elements/src/index.ts"
       ],
       "@sq-ui/ng-form-elements/*": [
         "./dist/ng-form-elements/*",
-        "./projects/ng-form-elements/src/*",
-        "./node_modules/@sq-ui/ng-form-elements/*"
+        "./projects/ng-form-elements/src/*"
       ],
       "@sq-ui/ng-progress-bar": [
         "./dist/ng-progress-bar",
-        "./projects/ng-progress-bar/src",
-        "./node_modules/@sq-ui/ng-progress-bar"
+        "./projects/ng-progress-bar/src/index.ts"
       ],
       "@sq-ui/ng-progress-bar/*": [
         "./dist/ng-progress-bar/*",
-        "./projects/ng-progress-bar/src/*",
-        "./node_modules/@sq-ui/ng-progress-bar/*"
+        "./projects/ng-progress-bar/src/*"
       ]
     },
     "useDefineForClassFields": false

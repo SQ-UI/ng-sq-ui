@@ -1,30 +1,32 @@
 import {
-  Component, OnInit, ViewEncapsulation, forwardRef,
-  Input } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => InputComponent),
-  multi: true
-};
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+  computed,
+  input,
+  model,
+} from '@angular/core';
+import { FormValueControl } from '@angular/forms/signals';
+import { SqInputCore } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class InputComponent extends InputCoreComponent implements OnInit {
-  @Input() type: string = 'text';
+export class InputComponent extends SqInputCore implements FormValueControl<string> {
+  readonly type = input<string>('text');
+  readonly value = model('');
 
-  constructor() {
-    super();
-  }
+  protected readonly patternAttr = computed(() => {
+    const patterns = this.pattern();
+    return patterns.length > 0 ? patterns.map((regExp) => regExp.source).join('|') : undefined;
+  });
 
-  ngOnInit() {
-
+  onInput(event: Event): void {
+    this.value.set((event.target as HTMLInputElement).value);
   }
 }

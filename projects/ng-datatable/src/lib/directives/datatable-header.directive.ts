@@ -1,11 +1,8 @@
-import {Directive, OnInit} from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[sq-datatable-header]'
+  selector: '[sq-datatable-header]',
+  standalone: true,
 })
-export class DatatableHeaderDirective implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() { }
+export class DatatableHeaderDirective {
 }

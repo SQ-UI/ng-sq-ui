@@ -1,20 +1,21 @@
 <div class="checkable"
-     [ngClass]="{'checked': isSelected, 'disabled': disabled}"
+     [class.checked]="checked()"
+     [class.disabled]="disabled()"
      (click)="toggleCheckboxSelection()">
   <input type="checkbox"
-          name="{{name}}"
-          id="{{controlId}}"
-          [disabled]="disabled"
-          [ngModel]="isSelected">
+         [name]="name()"
+         [id]="controlId()"
+         [disabled]="disabled()"
+         [checked]="checked()">
 
   <ng-template #defaultCheckboxTemplate>
     <div class="checkbox">
       <div class="inner"></div>
     </div>
-    <div class="label">{{controlLabel}}</div>
+    <div class="label">{{ controlLabel() }}</div>
   </ng-template>
 
-  <ng-template [ngTemplateOutlet]="checkboxTemplate || defaultCheckboxTemplate"
-               [ngTemplateOutletContext]="{ isSelected: isSelected }">
+  <ng-template [ngTemplateOutlet]="checkboxTemplate() || defaultCheckboxTemplate"
+               [ngTemplateOutletContext]="{ isSelected: checked() }">
   </ng-template>
 </div>

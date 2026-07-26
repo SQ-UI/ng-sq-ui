@@ -1,188 +1,164 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, forwardRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { DatetimePickerComponent } from './datetime-picker.component';
-import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
-import { TimePickerComponent } from '../time-picker/time-picker.component';
+import { TestBed } from '@angular/core/testing';
+import { Temporal } from '@js-temporal/polyfill';
+
 import { CalendarManagerService } from '../calendar-manager.service';
-import moment from 'moment';
+import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
+import { DatetimePickerComponent } from './datetime-picker.component';
 
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TimePickerStubComponent),
-  multi: true,
-};
+type StubbableInput = 'locale' | 'minDate' | 'maxDate' | 'isMultipleSelect';
 
-@Component({
-  selector: 'sq-time-picker',
-  templateUrl: '../time-picker/time-picker.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
-})
-class TimePickerStubComponent extends TimePickerComponent {
-  constructor() {
-    super();
-  }
+function stubInput<T>(component: DatetimePickerComponent, name: StubbableInput, value: T): void {
+  Object.defineProperty(component, name, { value: () => value, configurable: true });
 }
 
 describe('DatetimePickerComponent', () => {
   let component: DatetimePickerComponent;
-  let fixture: ComponentFixture<DatetimePickerComponent>;
   let calendarManager: CalendarManagerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        TimePickerStubComponent,
-        DatetimePickerComponent
-      ],
-      imports: [
-        FormsModule
-      ],
-      providers: [
-        CalendarManagerService
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DatetimePickerComponent);
-    component = fixture.componentInstance;
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new DatetimePickerComponent());
     calendarManager = TestBed.inject(CalendarManagerService);
-    component.isTimepickerEnabled = false;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should select a date correctly when [isMultipleSelect]=false', (done) => {
-    component.calendar = component.getMonthCalendar(moment());
-    const selectItem = component.calendar[2][5];
-    component.isMultipleSelect = false;
-
-    const subscription = component.dateSelectionChange.subscribe((selectedValue) => {
-      const isValueSame = (selectedValue as moment.Moment).isSame(selectItem.momentObj, 'day');
-      const isValueSelected = selectItem.isSelected;
-      const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value);
-
-      expect(isValueSame && isValueSelected && isEmittedValueSameAsComponentValue)
-        .toBe(true, 'the selected date is correct');
-
-      done();
-      subscription.unsubscribe();
-    });
-
-    component.select(selectItem);
-    fixture.detectChanges();
+  it('should initialise with an empty selection and the current month grid', () => {
+    expect(component.value()).toBeNull();
+    expect(component.calendar().length).toBe(6);
+    expect(component.calendar().every((row) => row.length === 7)).toBe(true);
   });
 
-  it('should select dates correctly when [isMultipleSelect]=true', () => {
-    component.isMultipleSelect = true;
-    component.calendar = component.getMonthCalendar(moment());
-    const date1 = calendarManager.findADateFromCalendar(moment().add(1, 'day'), component.calendar);
-    const date2 = calendarManager.findADateFromCalendar(moment().add(4, 'days'), component.calendar);
-    const expectedItems = [date1, date2];
-    jest.spyOn(component, 'select');
+  it('should select a single date when isMultipleSelect=false and expose PlainDate as value', () => {
+    stubInput(component, 'isMultipleSelect', false);
+    const cell = component.calendar()[2][3];
 
-    expectedItems.forEach((item, index) => {
-      component.select(item);
-      fixture.detectChanges();
+    let emitted: unknown = 'no-emit';
+    component.dateSelectionChange.subscribe((v) => (emitted = v));
 
-      const isArray = Array.isArray(component.value);
-      const addedDate = component.value.find((selectedDate) => {
-        return selectedDate.isSame(item.momentObj, 'day');
-      });
+    component.select(cell);
 
-      const areValuesSameAndSelected = !!addedDate;
-
-      expect(isArray && areValuesSameAndSelected)
-        .toBe(true);
-    });
-
-    expect(component.select).toHaveBeenCalledTimes(expectedItems.length);
+    const value = component.value();
+    expect(value instanceof Temporal.PlainDate).toBe(true);
+    expect(Temporal.PlainDate.compare(value as Temporal.PlainDate, cell.plainDate)).toBe(0);
+    expect(emitted).toBe(value);
   });
 
-  it('should jump to previous month when a date before current month is selected', () => {
-    // we are sure September 2018 doesn't start from Monday
-    const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
-    component.isMultipleSelect = false;
-    component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
-    const date = component.calendar[0][1];
-    component.onDateClick(date);
-    fixture.detectChanges();
+  it('should collect selections into an array when isMultipleSelect=true', () => {
+    stubInput(component, 'isMultipleSelect', true);
+    const first = component.calendar()[1][2];
+    const second = component.calendar()[1][5];
 
-    const isDateSelected = date.isSelected;
-    const isCurrentMonthChanged = component.currentMonth.month() === date.momentObj.month();
-    const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
+    component.select(first);
+    component.select(second);
 
-    expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
-      .toBe(true);
+    const value = component.value();
+    expect(Array.isArray(value)).toBe(true);
+    const arr = value as Temporal.PlainDate[];
+    expect(arr.length).toBe(2);
+    // The service returns sorted ascending on multi-select emission.
+    expect(Temporal.PlainDate.compare(arr[0], arr[1])).toBeLessThanOrEqual(0);
+    expect(arr.some((d) => Temporal.PlainDate.compare(d, first.plainDate) === 0)).toBe(true);
+    expect(arr.some((d) => Temporal.PlainDate.compare(d, second.plainDate) === 0)).toBe(true);
   });
 
-  it('should jump to next month when a date after current month is selected', () => {
-    // we are sure September 2018 doesn't start from Monday
-    const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
-    component.isMultipleSelect = false;
-    component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
+  it('toggles a previously selected date off when isMultipleSelect=true', () => {
+    stubInput(component, 'isMultipleSelect', true);
+    const cell = component.calendar()[2][2];
 
-    const date = component.calendar[5][1];
-    component.onDateClick(date);
-    fixture.detectChanges();
+    component.select(cell);
+    expect((component.value() as Temporal.PlainDate[]).length).toBe(1);
 
-    const isDateSelected = date.isSelected;
-    const isCurrentMonthChanged = component.currentMonth.month() === date.momentObj.month();
-    const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
-
-    expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
-      .toBe(true);
+    // Re-fetch the same day from the (freshly-rendered) grid so we hit the same PlainDate.
+    const refreshed = calendarManager.findADateFromCalendar(cell.plainDate, component.calendar());
+    component.select(refreshed!);
+    expect((component.value() as Temporal.PlainDate[]).length).toBe(0);
   });
 
-  it('should show only monthpicker when the user clicks on month name', () => {
+  it('jumps to the previous month when a "before" cell is clicked', () => {
+    // September 2024 starts on a Sunday — the first row has 5 "before" cells.
+    component.currentMonth.set(new Temporal.PlainDate(2024, 9, 15));
+    const beforeCell = component.calendar()[0][1];
+    expect(beforeCell.plainDate.month).toBe(8);
+
+    component.onDateClick(beforeCell);
+
+    expect(component.currentMonth().month).toBe(8);
+    expect(
+      Temporal.PlainDate.compare(component.value() as Temporal.PlainDate, beforeCell.plainDate)
+    ).toBe(0);
+  });
+
+  it('jumps to the next month when an "after" cell is clicked', () => {
+    component.currentMonth.set(new Temporal.PlainDate(2024, 9, 15));
+    const lastRow = component.calendar()[5];
+    const afterCell = lastRow[lastRow.length - 1];
+    expect(afterCell.plainDate.month).toBe(10);
+
+    component.onDateClick(afterCell);
+
+    expect(component.currentMonth().month).toBe(10);
+    expect(
+      Temporal.PlainDate.compare(component.value() as Temporal.PlainDate, afterCell.plainDate)
+    ).toBe(0);
+  });
+
+  it('shows the months picker with 12 entries and switches period', () => {
     component.showMonthsPicker();
-    const isOnlyMonthPickerShown = !component.isYearsPickerEnabled && component.isMonthsPickerEnabled;
-    fixture.detectChanges();
-
-    expect(isOnlyMonthPickerShown && component.period === CalendarPeriodTypeEnum.Month)
-      .toBe(true);
-    expect(component.months).toBeTruthy();
+    expect(component.isMonthsPickerEnabled()).toBe(true);
+    expect(component.isYearsPickerEnabled()).toBe(false);
+    expect(component.period()).toBe(CalendarPeriodTypeEnum.Month);
+    expect(component.months().length).toBe(12);
   });
 
-  it('should generate a calendar corresponding to selected month', () => {
+  it('selectMonth switches the current month and closes the months picker', () => {
     component.showMonthsPicker();
-    fixture.detectChanges();
+    const march = component.months()[2];
+    component.selectMonth(march);
 
-    component.selectMonth(component.months[2]);
-    fixture.detectChanges();
-
-    const isCalendarCorrect = component.months[2].momentObj.isSame(component.currentMonth, 'month');
-
-    expect(isCalendarCorrect && !component.isMonthsPickerEnabled)
-      .toBe(true);
-    expect(component.calendar).toBeTruthy();
+    expect(component.isMonthsPickerEnabled()).toBe(false);
+    expect(component.currentMonth().month).toBe(march.plainDate.month);
   });
 
-  it('should show only yearpicker when the user clicks on year', () => {
+  it('shows the years picker with entries and switches period', () => {
     component.showYearsPicker();
-    const isOnlyYearPickerShown = component.isYearsPickerEnabled && !component.isMonthsPickerEnabled;
-    fixture.detectChanges();
-
-    expect(isOnlyYearPickerShown && component.period === CalendarPeriodTypeEnum.Year)
-      .toBe(true);
-    expect(component.yearsList).toBeTruthy();
+    expect(component.isYearsPickerEnabled()).toBe(true);
+    expect(component.isMonthsPickerEnabled()).toBe(false);
+    expect(component.period()).toBe(CalendarPeriodTypeEnum.Year);
+    expect(component.yearsList().length).toBeGreaterThan(0);
   });
 
-  it('should show monthpicker when the user clicks on year from list', () => {
+  it('selectYear from the years picker opens the months picker for that year', () => {
     component.showYearsPicker();
-    component.selectYear(component.yearsList[0]);
-    fixture.detectChanges();
+    const firstYear = component.yearsList()[0];
+    component.selectYear(firstYear);
 
-    expect(!component.isYearsPickerEnabled && component.isMonthsPickerEnabled)
-      .toBe(true);
-    expect(component.months).toBeTruthy();
+    expect(component.isMonthsPickerEnabled()).toBe(true);
+    expect(component.isYearsPickerEnabled()).toBe(false);
+    expect(component.currentMonth().year).toBe(firstYear.plainDate.year);
   });
 
+  it('normalises a PlainDate value set externally into selectedDates', () => {
+    const external = new Temporal.PlainDate(2024, 2, 29); // leap-day
+    component.value.set(external);
+    TestBed.tick();
+
+    const cell = calendarManager.findADateFromCalendar(external, component.calendar());
+    expect(cell?.isSelected).toBe(true);
+    expect(component.currentMonth().year).toBe(2024);
+    expect(component.currentMonth().month).toBe(2);
+  });
+
+  it('accepts an array of Date/ISO string values when isMultipleSelect=true', () => {
+    stubInput(component, 'isMultipleSelect', true);
+    component.value.set(['2024-05-01', new Date(2024, 4, 5)]);
+    TestBed.tick();
+
+    const may1 = calendarManager.findADateFromCalendar('2024-05-01', component.calendar());
+    const may5 = calendarManager.findADateFromCalendar('2024-05-05', component.calendar());
+    expect(may1?.isSelected).toBe(true);
+    expect(may5?.isSelected).toBe(true);
+  });
 });
-

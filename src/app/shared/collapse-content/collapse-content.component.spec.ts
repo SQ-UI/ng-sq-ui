@@ -1,25 +1,25 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { CollapseContentComponent } from './collapse-content.component';
 
 describe('CollapseContentComponent', () => {
   let component: CollapseContentComponent;
-  let fixture: ComponentFixture<CollapseContentComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [CollapseContentComponent]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CollapseContentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new CollapseContentComponent());
   });
 
-  it('should create', () => {
+  it('should create and start collapsed (expanded content visible)', () => {
     expect(component).toBeTruthy();
+    expect(component.isCollapsed()).toBe(true);
+  });
+
+  it('should toggle the collapsed state', () => {
+    component.toggleCollapse();
+    expect(component.isCollapsed()).toBe(false);
+
+    component.toggleCollapse();
+    expect(component.isCollapsed()).toBe(true);
   });
 });

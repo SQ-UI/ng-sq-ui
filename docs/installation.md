@@ -1,6 +1,8 @@
 # Installation
 
-## First install the package
+!> **3.0** requires **Angular 22+** and **Node 22+**. Components are standalone and integrate with [Signal Forms](https://angular.dev/guide/forms/signals). See [Migrating to 3.0](migration-3.md).
+
+## Install the package
 
 `npm i @sq-ui/ng-sq-ui@latest --save`
 
@@ -8,73 +10,68 @@
 
 `yarn add @sq-ui/ng-sq-ui@latest`
 
-## Add the appropriate module - either FormsModule or ReactiveFormsModule
+Install leaf packages instead if you only need a subset (e.g. `@sq-ui/ng-form-elements`, `@sq-ui/ng-modal`).
 
-```typescript
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+For datetime picker, add the Temporal polyfill (peer of `@sq-ui/ng-datetime-picker`):
 
-@NgModule({
-  declarations: [],
-  imports: [ReactiveFormsModule, NgSqUiModule],
-})
-export class AppModule {}
+```bash
+npm i @js-temporal/polyfill --save
 ```
 
--- or --
+## Import standalone components + Signal Forms
+
+There are **no NgModules**. Import the components (and `FormField`) into your standalone component or route:
 
 ```typescript
-import { FormsModule } from '@angular/forms';
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
+import { InputComponent, CheckboxComponent } from '@sq-ui/ng-form-elements';
+// or from the umbrella: import { InputComponent, CheckboxComponent } from '@sq-ui/ng-sq-ui';
 
-@NgModule({
-  declarations: [],
-  imports: [FormsModule, NgSqUiModule],
+@Component({
+  imports: [FormField, InputComponent, CheckboxComponent],
+  template: `
+    <sq-input [formField]="f.name" controlLabel="Name" />
+    <sq-checkbox [formField]="f.accept" controlLabel="Accept" />
+  `,
 })
-export class AppModule {}
+export class ExampleComponent {
+  model = signal({ name: '', accept: false });
+  f = form(this.model);
+}
 ```
 
-> If you are lazy loading all your modules, you will need to include it in every module you want to use it.
+`@sq-ui/ng-sq-ui` re-exports standalone symbols only — there is no `NgSqUiModule`.
+
+?> Reactive Forms consumers can bridge via Angular’s `compatForm` from `@angular/forms/signals/compat` (see Angular docs). Prefer Signal Forms for new code.
 
 ## Add styles to angular.json
 
 ```json
 "styles": [
   "src/styles.css",
-  "./node_modules/@sq-ui/ng-sq-ui/sq-ui-theme.scss",
+  "./node_modules/@sq-ui/ng-sq-common/sq-ui-theme.scss",
   "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
-  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css"
 ],
 ```
 
+Font Awesome **6** CSS paths are required for icons used by the kit.
+
 ## Apply styling to the components
 
-To use our styling just add the `class="sq"` on a parent element.
-
-> If you want to use our sq theme, add the `sq` class on the body of the document or the app wrapper
+Add `class="sq"` on a parent element to opt into the theme:
 
 ```html
 <body class="sq">
-  <div class="row">
-    <sq-input ...></sq-input>
-  </div>
+  <sq-input ...></sq-input>
 </body>
 ```
-
-```html
-<body>
-  <app class="sq">
-    <sq-input ...></sq-input>
-  </app>
-</body>
-```
-
-> If you would like to use our theme on a specific component (or a set of components) just add the `sq` class on a parent wrapper
 
 ```html
 <div class="sq">
   <sq-input ...></sq-input>
-  <sq-droprdown ...></sq-droprdown>
+  <sq-dropdown ...></sq-dropdown>
 </div>
 ```

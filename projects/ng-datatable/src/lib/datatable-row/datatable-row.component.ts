@@ -1,28 +1,29 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  computed,
+  input,
+} from "@angular/core";
 
 @Component({
-  selector: '[sq-datatable-row]',
-  templateUrl: './datatable-row.component.html',
-  styleUrls: ['./datatable-row.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "[sq-datatable-row]",
+  templateUrl: "./datatable-row.component.html",
+  styleUrls: ["./datatable-row.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [],
 })
-export class DatatableRowComponent implements OnInit, OnChanges {
-  @Input() rowItem: {[key: string]: any};
-  @Input() width: string;
+export class DatatableRowComponent {
+  readonly rowItem = input<{ [key: string]: any }>({});
+  readonly width = input<string>();
 
-  columns = [];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changesObj: SimpleChanges) {
-    if (changesObj.rowItem && changesObj.rowItem.currentValue) {
-      if (!this.width) {
-        this.columns = Object.keys(changesObj.rowItem.currentValue);
-      }
+  readonly columns = computed<string[]>(() => {
+    if (this.width()) {
+      return [];
     }
-  }
 
+    return Object.keys(this.rowItem());
+  });
 }

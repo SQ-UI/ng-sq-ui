@@ -1,57 +1,57 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NavItem } from '../../shared/shared.module';
-import { environment} from '../../../environments/environment';
+import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+
+import { ButtonComponent } from "@sq-ui/ng-form-elements";
+import { ModalComponent } from "@sq-ui/ng-modal";
+
+import { CollapseContentComponent, ModuleOverviewComponent, NavItem } from "../../shared";
+import { environment } from "../../../environments/environment";
 
 @Component({
-  selector: 'sq-modal-docs',
-  templateUrl: './modal-docs.component.html',
-  styleUrls: ['./modal-docs.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "sq-modal-docs",
+  templateUrl: "./modal-docs.component.html",
+  styleUrls: ["./modal-docs.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [ModuleOverviewComponent, CollapseContentComponent, ModalComponent, ButtonComponent],
 })
-export class ModalDocsComponent implements OnInit {
-  npmPackageName: string = '@sq-ui/ng-modal';
-  moduleName: string = 'NgModalModule';
-  dependsOn: NavItem[] = [
+export class ModalDocsComponent {
+  readonly npmPackageName = "@sq-ui/ng-modal";
+  readonly moduleName = "ng-modal (standalone)";
+  readonly dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
-      routeLink: '/sq-common'
-    }
+      name: "ng-sq-common",
+      routeLink: "/sq-common",
+    },
   ];
 
-  exports: NavItem[] = [
+  readonly exports: NavItem[] = [
     {
-      name: 'sq-modal',
-      fragment: 'modal'
-    }
+      name: "sq-modal",
+      fragment: "modal",
+    },
   ];
 
-  docs: NavItem[] = [
+  readonly docs: NavItem[] = [
     {
-      name: 'ModalModule',
-      routeLink: `${environment.docs}/modal-module`
-    }
+      name: "ng-modal",
+      routeLink: `${environment.docs}/modal-module`,
+    },
   ];
 
-  liveExamples: NavItem[] = [
+  readonly liveExamples: NavItem[] = [
     {
-      name: 'ng-sq-ui-modal',
-      routeLink: `https://ng-sq-ui-modal.${environment.livePreview}`
-    }
+      name: "ng-sq-ui-modal",
+      routeLink: `https://ng-sq-ui-modal.${environment.livePreview}`,
+    },
   ];
 
-  showModal = false;
+  readonly showModal = signal(false);
 
-  constructor() { }
-
-  ngOnInit() {
+  confirmationBtnHandler(): void {
+    console.log("Confirmation clicked");
   }
 
-  confirmationBtnHandler() {
-    console.log('Confirmation clicked');
+  rejectionBtnHandler(): void {
+    console.log("Rejection clicked");
   }
-
-  rejectionBtnHandler() {
-    console.log('Rejection clicked');
-  }
-
 }

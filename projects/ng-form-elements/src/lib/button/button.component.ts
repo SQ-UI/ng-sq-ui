@@ -1,32 +1,31 @@
-import { Component, OnInit, Input, ViewEncapsulation, OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+  computed,
+  input,
+} from '@angular/core';
 
 export enum ButtonTypes {
   Button = 'button',
   Submit = 'submit',
-  Reset = 'reset'
+  Reset = 'reset',
 }
 
 @Component({
   selector: 'sq-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class ButtonComponent implements OnInit, OnChanges {
-  @Input() type = ButtonTypes.Button;
-  @Input() disabled = false;
+export class ButtonComponent {
+  readonly type = input<ButtonTypes>(ButtonTypes.Button);
+  readonly disabled = input(false);
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changesObj) {
-    if (changesObj.hasOwnProperty('type')) {
-      if (!Object.values(ButtonTypes).includes(changesObj.type.currentValue)) {
-        this.type = ButtonTypes.Button;
-      }
-    }
-  }
-
+  protected readonly resolvedType = computed(() => {
+    const requestedType = this.type();
+    return Object.values(ButtonTypes).includes(requestedType) ? requestedType : ButtonTypes.Button;
+  });
 }

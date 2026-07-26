@@ -1,8 +1,8 @@
-<div class="modal-cover display-none" #sqModal>
-  <article #sqModalWindow
-           class="modal-window animated"
+<div class="modal-cover" [class.display-none]="isHidden()">
+  <article class="modal-window animated"
+           [class]="animationClass()"
            sqOutsideClickListener
-           [listenForOutsideClick]="listenForOutsideClick"
+           [listenForOutsideClick]="listenForOutsideClick()"
            (clickOutside)="onClickOutsideComponent()">
     <header class="modal-header-wrapper display-flex space-between align-items-center">
       <div class="modal-title">

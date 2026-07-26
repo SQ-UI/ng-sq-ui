@@ -1,261 +1,247 @@
 import { TestBed } from '@angular/core/testing';
-import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
-import moment from 'moment';
+import { Temporal } from '@js-temporal/polyfill';
 
 import { CalendarManagerService } from './calendar-manager.service';
+import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
 
-let previouslySelectedYear;
-
-function getYearList(start: moment.Moment, margin: number = 19): number[] {
-  let yearIterator;
-  let endYear;
-
-  if (start) {
-    previouslySelectedYear = start.clone();
-  }
-
-  if (margin < 0) {
-    endYear = moment(previouslySelectedYear).add(margin, 'years');
-    yearIterator = moment(endYear).add(margin, 'years');
-  } else {
-    yearIterator = moment(previouslySelectedYear);
-    endYear = moment(yearIterator).add(margin, 'years');
-  }
-
-  const yearList = [];
-
-  while (yearIterator.isSameOrBefore(endYear)) {
-    yearList.push(yearIterator.clone().year());
-    yearIterator.add(1, 'year');
-  }
-
-  previouslySelectedYear = yearIterator.subtract(1, 'year').clone();
-
-  return yearList;
-}
+const NULL_RANGE = { minDate: null, maxDate: null };
 
 describe('CalendarManagerService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      CalendarManagerService
-    ]
-  }));
+  let service: CalendarManagerService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(CalendarManagerService);
+  });
 
   it('should be created', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     expect(service).toBeTruthy();
   });
 
-  it('should create a calendar month table correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const startDate = moment().startOf('month');
-    const isStartOfTable = startDate.weekday() === 0;
+  it('generates a 6x7 grid whose first cell is the Monday on or before the 1st', () => {
+    // 2024-05 (May 2024) starts on Wednesday (ISO dayOfWeek = 3).
+    const start = new Temporal.PlainDate(2024, 5, 15);
+    const calendar = service.generateCalendarForMonth(start, start, [], NULL_RANGE);
 
-    if (!isStartOfTable) {
-      let daysToGoBack = startDate.weekday();
-      daysToGoBack = (daysToGoBack === 0) ? 1 : daysToGoBack;
-      startDate.subtract(daysToGoBack, 'days');
-    }
+    expect(calendar.length).toBe(6);
+    expect(calendar.every((row) => row.length === 7)).toBe(true);
 
-    // the calendar should be 6 rows x 7 days
-    const endDate = moment(startDate).add(41, 'days');
+    const first = calendar[0][0].plainDate;
+    // Grid first cell is the Monday preceding May 1st, i.e. April 29 2024.
+    expect(first.year).toBe(2024);
+    expect(first.month).toBe(4);
+    expect(first.day).toBe(29);
+    expect(first.dayOfWeek).toBe(1); // Monday
 
-    const calendar = service.generateCalendarForMonth(moment(), moment(), [], { minDate: null, maxDate: null });
-    const firstCalendarDay = calendar[0][0];
-    const lastCalendarDay = calendar[calendar.length - 1][calendar[calendar.length - 1].length - 1];
+    const last = calendar[5][6].plainDate;
+    // 6 rows * 7 cols = 42 days from Monday Apr 29 → Sunday Jun 9 2024.
+    expect(last.year).toBe(2024);
+    expect(last.month).toBe(6);
+    expect(last.day).toBe(9);
+    expect(last.dayOfWeek).toBe(7); // Sunday
+  });
 
-    const firstDayIsCorrect = firstCalendarDay.momentObj.isSame(startDate, 'day');
-    const lastDayIsCorrect = lastCalendarDay.momentObj.isSame(endDate, 'day');
+  it('starts the grid exactly on the 1st when the month begins on a Monday', () => {
+    // April 2024 starts on Monday.
+    const monthThatStartsMonday = new Temporal.PlainDate(2024, 4, 1);
+    const calendar = service.generateCalendarForMonth(
+      monthThatStartsMonday,
+      monthThatStartsMonday,
+      [],
+      NULL_RANGE
+    );
 
-    const everyRowHas7Days = calendar.every((row) => {
-      return row.length === 7;
+    const first = calendar[0][0].plainDate;
+    expect(first.day).toBe(1);
+    expect(first.month).toBe(4);
+    expect(first.year).toBe(2024);
+  });
+
+  it('handles the February leap-year boundary (2024)', () => {
+    const feb = new Temporal.PlainDate(2024, 2, 1);
+    const calendar = service.generateCalendarForMonth(feb, feb, [], NULL_RANGE);
+
+    const flat = calendar.flat();
+    const feb29 = flat.find(
+      (d) => d.plainDate.year === 2024 && d.plainDate.month === 2 && d.plainDate.day === 29
+    );
+    expect(feb29).toBeTruthy();
+    expect(feb29!.relativityToCurrentMonth).toBe(CalendarPeriodRelativityEnum.Current);
+  });
+
+  it('does not include Feb 29 in a non-leap year (2023)', () => {
+    const feb = new Temporal.PlainDate(2023, 2, 15);
+    const calendar = service.generateCalendarForMonth(feb, feb, [], NULL_RANGE);
+
+    const anyFeb29 = calendar
+      .flat()
+      .find((d) => d.plainDate.month === 2 && d.plainDate.day === 29);
+    expect(anyFeb29).toBeUndefined();
+  });
+
+  it('correctly marks month boundary cells relative to the current month', () => {
+    const current = new Temporal.PlainDate(2024, 3, 15);
+    const calendar = service.generateCalendarForMonth(current, current, [], NULL_RANGE);
+
+    const beforeCell = calendar
+      .flat()
+      .find((d) => d.relativityToCurrentMonth === CalendarPeriodRelativityEnum.Before);
+    const afterCell = calendar
+      .flat()
+      .find((d) => d.relativityToCurrentMonth === CalendarPeriodRelativityEnum.After);
+    const currentCell = calendar
+      .flat()
+      .find((d) => d.plainDate.day === 15 && d.plainDate.month === 3);
+
+    expect(beforeCell?.plainDate.month).toBe(2);
+    expect(afterCell?.plainDate.month).toBe(4);
+    expect(currentCell?.relativityToCurrentMonth).toBe(CalendarPeriodRelativityEnum.Current);
+  });
+
+  it('finds a date from the grid using PlainDate, Date, or ISO string', () => {
+    const start = new Temporal.PlainDate(2024, 6, 1);
+    const calendar = service.generateCalendarForMonth(start, start, [], NULL_RANGE);
+    const target = new Temporal.PlainDate(2024, 6, 15);
+
+    const byPlainDate = service.findADateFromCalendar(target, calendar);
+    const byDate = service.findADateFromCalendar(new Date(2024, 5, 15), calendar);
+    const byIso = service.findADateFromCalendar('2024-06-15', calendar);
+
+    expect(byPlainDate?.plainDate.day).toBe(15);
+    expect(byDate?.plainDate.day).toBe(15);
+    expect(byIso?.plainDate.day).toBe(15);
+  });
+
+  it('disables calendar dates outside the [min, max] range', () => {
+    const anchor = new Temporal.PlainDate(2024, 7, 15);
+    const min = anchor.subtract({ days: 3 });
+    const max = anchor.add({ days: 3 });
+
+    const calendar = service.generateCalendarForMonth(anchor, anchor, [], {
+      minDate: min,
+      maxDate: max,
     });
 
-    expect(firstDayIsCorrect && lastDayIsCorrect && calendar.length === 6 && everyRowHas7Days)
-      .toBe(true, 'table should be 6 rows x 7 days and the starting day should be adjusted if needed');
+    const dayBeforeMin = service.findADateFromCalendar(min.subtract({ days: 1 }), calendar);
+    const dayAfterMax = service.findADateFromCalendar(max.add({ days: 1 }), calendar);
+    const dayInsideRange = service.findADateFromCalendar(anchor, calendar);
+
+    expect(dayBeforeMin?.isDisabled).toBe(true);
+    expect(dayAfterMax?.isDisabled).toBe(true);
+    expect(dayInsideRange?.isDisabled).toBe(false);
   });
 
-  it('should find a date from month calendar correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const dayToFind = moment();
+  it('accepts Date + ISO string bounds for min/max', () => {
+    const currentDate = new Temporal.PlainDate(2024, 8, 15);
+    const calendar = service.generateCalendarForMonth(currentDate, currentDate, [], {
+      minDate: new Date(2024, 7, 10),
+      maxDate: '2024-08-20',
+    });
 
-    const calendar = service.generateCalendarForMonth(moment(), moment(), [], { minDate: null, maxDate: null });
-    const searchResult = service.findADateFromCalendar(dayToFind, calendar);
-
-    expect((searchResult.momentObj).isSame(dayToFind, 'day'))
-      .toBe(true, 'the search date and the result date should be the same month and day');
+    expect(service.findADateFromCalendar('2024-08-09', calendar)?.isDisabled).toBe(true);
+    expect(service.findADateFromCalendar('2024-08-21', calendar)?.isDisabled).toBe(true);
+    expect(service.findADateFromCalendar('2024-08-15', calendar)?.isDisabled).toBe(false);
   });
 
-  it('should disable calendar dates that are outside the [min, max] range', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const minDate = moment().startOf('month').add(3, 'days');
-    const maxDate = moment(minDate).add(7, 'days');
-
-    const calendar = service.generateCalendarForMonth(moment(), moment(), [], { minDate: minDate, maxDate: maxDate });
-    const dayBeforeMin = service.findADateFromCalendar(moment(minDate).subtract(1, 'day'), calendar);
-    const dayAfterMax = service.findADateFromCalendar(moment(maxDate).add(1, 'day'), calendar);
-
-    expect(dayBeforeMin.isDisabled && dayAfterMax.isDisabled)
-      .toBe(true, 'the date before minDate and the date after maxDate should be disabled');
+  it('generates 12 month-picker entries with locale-aware names', () => {
+    service.setLocale('en');
+    const months = service.generateMonthPickerCollection(2024, NULL_RANGE);
+    expect(months.length).toBe(12);
+    expect(months[0].plainDate.month).toBe(1);
+    expect(months[11].plainDate.month).toBe(12);
+    expect(months[0].displayName.toLowerCase()).toContain('jan');
   });
 
-  it('should generate a list of years with a given margin correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
+  it('disables months outside the min/max range', () => {
+    const months = service.generateMonthPickerCollection(2024, {
+      minDate: new Temporal.PlainDate(2024, 4, 1),
+      maxDate: new Temporal.PlainDate(2024, 6, 30),
+    });
+
+    expect(months[0].isDisabled).toBe(true);
+    expect(months[3].isDisabled).toBe(false); // April
+    expect(months[5].isDisabled).toBe(false); // June
+    expect(months[6].isDisabled).toBe(true); // July
+  });
+
+  it('generates a year list inclusive of both endpoints', () => {
+    const start = new Temporal.PlainDate(2020, 1, 1);
     const margin = 40;
-    const startDate = moment();
-    const endDate = moment(startDate).add(margin, 'years');
-
-    const yearsList = service.getYearList(startDate, margin);
-
-    expect(yearsList.length === margin + 1 &&
-      yearsList[0] === startDate.year() &&
-      yearsList[yearsList.length - 1] === endDate.year())
-      .toBe(true, `the start date and the end date should be ${margin} years apart`);
+    const years = service.getYearList(start, margin);
+    expect(years.length).toBe(margin + 1);
+    expect(years[0]).toBe(2020);
+    expect(years[years.length - 1]).toBe(2020 + margin);
   });
 
-  it('should generate a month calendar with preselected dates', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const preselectedDates = [moment(), moment().add(1, 'day')];
-    const calendar = service.generateCalendarForMonth(moment(), moment(), preselectedDates, { minDate: null, maxDate: null });
+  it('produces month calendar entries flagged as selected when preselected dates match', () => {
+    const anchor = new Temporal.PlainDate(2024, 9, 10);
+    const preselected = [anchor, anchor.add({ days: 1 })];
+    const calendar = service.generateCalendarForMonth(anchor, anchor, preselected, NULL_RANGE);
 
-    const preselectedDate1 = service.findADateFromCalendar(preselectedDates[0], calendar);
-    const preselectedDate2 = service.findADateFromCalendar(preselectedDates[1], calendar);
-
-    expect(preselectedDate1.isSelected && preselectedDate2.isSelected)
-      .toBe(true, 'the preselected dates should be marked as selected in the calendar');
+    expect(service.findADateFromCalendar(preselected[0], calendar)?.isSelected).toBe(true);
+    expect(service.findADateFromCalendar(preselected[1], calendar)?.isSelected).toBe(true);
+    expect(service.findADateFromCalendar(anchor.add({ days: 3 }), calendar)?.isSelected).toBe(false);
   });
 
-  it('should generate a list of months correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const momentMonthsLong = moment.months();
-    const monthsListLong = service.getMonths(false);
-    const momentMonthsShort = moment.monthsShort();
-    const monthsListShort = service.getMonths();
-
-    const longMonthsCorrect = monthsListLong.every((month, index) => {
-      return month === momentMonthsLong[index];
-    });
-
-    const shortMonthsCorrect = momentMonthsShort.every((month, index) => {
-      return month === monthsListShort[index];
-    });
-
-    expect(longMonthsCorrect && shortMonthsCorrect)
-      .toBe(true, 'moment and service long and short months lists match');
+  it('returns 7 weekday and 12 month labels via Intl for the current locale', () => {
+    service.setLocale('en');
+    expect(service.getWeekdays().length).toBe(7);
+    expect(service.getWeekdays(false).length).toBe(7);
+    expect(service.getMonths().length).toBe(12);
+    expect(service.getMonths(false).length).toBe(12);
   });
 
-  it('should generate a list of weekdays correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const momentWeekdaysLong = moment.weekdays();
-    const weekdaysListLong = service.getWeekdays(false);
-    const momentWeekdaysShort = moment.weekdaysShort();
-    const weekdaysListShort = service.getWeekdays();
-
-    const longWeekdaysCorrect = weekdaysListLong.every((month, index) => {
-      return month === momentWeekdaysLong[index];
-    });
-
-    const shortWeekdaysCorrect = weekdaysListShort.every((month, index) => {
-      return month === momentWeekdaysShort[index];
-    });
-
-    expect(longWeekdaysCorrect && shortWeekdaysCorrect)
-      .toBe(true, 'moment and service long and short weekdays lists match');
+  it('determines the relativity of a date to the current month', () => {
+    const currentMonth = new Temporal.PlainDate(2024, 3, 15);
+    expect(
+      service.determineDateRelativityToCurrentMonth(
+        currentMonth.subtract({ months: 1 }),
+        currentMonth
+      )
+    ).toBe(CalendarPeriodRelativityEnum.Before);
+    expect(
+      service.determineDateRelativityToCurrentMonth(currentMonth.add({ months: 1 }), currentMonth)
+    ).toBe(CalendarPeriodRelativityEnum.After);
+    expect(service.determineDateRelativityToCurrentMonth(currentMonth, currentMonth)).toBe(
+      CalendarPeriodRelativityEnum.Current
+    );
   });
 
-  it('should determine date relativity correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const beforeCurrentMonthDate = moment().subtract(1, 'month');
-    const afterCurrentMonthDate = moment().add(1, 'month');
+  it('sortDatesAsc returns a new ascending array without mutating input', () => {
+    const dates = [
+      new Temporal.PlainDate(2024, 3, 10),
+      new Temporal.PlainDate(2023, 5, 5),
+      new Temporal.PlainDate(2024, 3, 1),
+    ];
+    const originalOrder = dates.slice();
+    const sorted = service.sortDatesAsc(dates);
 
-    const beforeDateIsCorrectlyMarked = service.determineDateRelativityToCurrentMonth(beforeCurrentMonthDate, moment());
-    const afterDateIsCorrectlyMarked = service.determineDateRelativityToCurrentMonth(afterCurrentMonthDate, moment());
-    const currentDateIsCorrectlyMarked = service.determineDateRelativityToCurrentMonth(moment(), moment());
-
-    expect(beforeDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.Before &&
-      afterDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.After &&
-      currentDateIsCorrectlyMarked === CalendarPeriodRelativityEnum.Current)
-      .toBe(true, 'the dates are correctly marked relatively to the current month');
+    expect(dates).toEqual(originalOrder);
+    expect(sorted.map((d) => d.toString())).toEqual([
+      '2023-05-05',
+      '2024-03-01',
+      '2024-03-10',
+    ]);
   });
 
-  it('should generate a month picker correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const momentMonthsShort = moment.monthsShort();
-    const dateRange = {
-      minDate: moment().add(1, 'month'),
-      maxDate: moment().add(2, 'months')
-    };
-
-    const expectedPickerItems = momentMonthsShort.map((monthName, index) => {
-      const date = moment().year(moment().year()).month(index);
-
-      return {
-        displayName: monthName,
-        momentObj: date,
-        isDisabled: service.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate)
-      };
-    });
-
-    const actualPickerItems = service.generateMonthPickerCollection(moment().year(), dateRange);
-
-    const arePickerItemsCorrect = actualPickerItems.every((pickerItem, index) => {
-      const isDisplayNameOK = pickerItem.displayName === expectedPickerItems[index].displayName;
-      const isMomentObjOK = pickerItem.momentObj.isSame(expectedPickerItems[index].momentObj, 'day');
-      const isDisabledOK = pickerItem.isDisabled === expectedPickerItems[index].isDisabled;
-
-      return isDisplayNameOK && isMomentObjOK && isDisabledOK;
-    });
-
-    expect(arePickerItemsCorrect)
-      .toBe(true, 'month picker items are correctly generated');
+  it('getSelectedItemIndex uses calendar-day equality (ignoring time)', () => {
+    const dates = [
+      new Temporal.PlainDate(2024, 1, 1),
+      new Temporal.PlainDate(2024, 6, 15),
+      new Temporal.PlainDate(2025, 12, 31),
+    ];
+    expect(service.getSelectedItemIndex(new Temporal.PlainDate(2024, 6, 15), dates)).toBe(1);
+    expect(service.getSelectedItemIndex(new Temporal.PlainDate(2024, 6, 16), dates)).toBe(-1);
   });
 
-  it('should generate a year picker correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const margin = 20;
-    const testYearsList = getYearList(moment(), margin);
-    const dateRange = {
-      minDate: moment().add(1, 'year'),
-      maxDate: moment().add(2, 'years')
-    };
-
-    const expectedPickerItems = testYearsList.map((year) => {
-      const date = moment().year(year);
-
-      return {
-        displayName: year.toString(),
-        momentObj: date,
-        isDisabled: service.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate)
-      };
-    });
-
-    const actualPickerItems = service.generateYearPickerCollection(moment(), margin, dateRange);
-
-    const arePickerItemsCorrect = actualPickerItems.every((pickerItem, index) => {
-      const isDisplayNameOK = pickerItem.displayName === expectedPickerItems[index].displayName;
-      const isMomentObjOK = pickerItem.momentObj.isSame(expectedPickerItems[index].momentObj, 'day');
-      const isDisabledOK = pickerItem.isDisabled === expectedPickerItems[index].isDisabled;
-
-      return isDisplayNameOK && isMomentObjOK && isDisabledOK;
-    });
-
-    expect(arePickerItemsCorrect)
-      .toBe(true, 'year picker items are correctly generated');
-  });
-
-  it('should find the index of a selected date correctly', () => {
-    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
-    const preselectedDates = [moment().add(1, 'day'), moment(), moment().add(1, 'month'), moment().add(1, 'year')];
-    const dateToFind = moment().add(1, 'month');
-
-    const expectedIndex = preselectedDates.findIndex((selectedDate) => {
-      return moment(selectedDate).isSame(dateToFind, 'day');
-    });
-
-    const actualIndex = service.getSelectedItemIndex(dateToFind, preselectedDates);
-
-    expect(expectedIndex === actualIndex)
-      .toBe(true, 'the returned date index is correct');
+  it('toPlainDate normalises PlainDate, Date, ISO date, and ISO date-time strings', () => {
+    const pd = new Temporal.PlainDate(2024, 2, 29);
+    expect(service.toPlainDate(pd)).toBe(pd);
+    expect(service.toPlainDate(new Date(2024, 1, 29))?.toString()).toBe('2024-02-29');
+    expect(service.toPlainDate('2024-02-29')?.toString()).toBe('2024-02-29');
+    expect(service.toPlainDate('2024-02-29T10:00:00')?.toString()).toBe('2024-02-29');
+    expect(service.toPlainDate(null)).toBeNull();
+    expect(service.toPlainDate(undefined)).toBeNull();
+    expect(service.toPlainDate('not-a-date')).toBeNull();
   });
 });
-

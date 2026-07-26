@@ -1,55 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import {NavItem} from '../../shared/shared.module';
-import { environment } from '../../../environments/environment';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { RouterLink } from "@angular/router";
+import { ModuleOverviewComponent, NavItem } from "../../shared";
+import { environment } from "../../../environments/environment";
 
 @Component({
-  selector: 'sq-common',
-  templateUrl: './sq-common.component.html',
-  styleUrls: ['./sq-common.component.scss']
+  selector: "sq-common",
+  templateUrl: "./sq-common.component.html",
+  styleUrls: ["./sq-common.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [RouterLink, ModuleOverviewComponent],
 })
-export class SqCommonComponent implements OnInit {
-  npmPackageName: string = '@sq-ui/ng-sq-common';
-  moduleName: string = 'NgSqCommonModule';
+export class SqCommonComponent {
+  readonly npmPackageName = "@sq-ui/ng-sq-common";
+  readonly moduleName = "ng-sq-common (standalone)";
 
-  exports: NavItem[] = [
+  readonly exports: NavItem[] = [
     {
-      name: 'sqOutsideClickListener',
-      routeLink: '/modal'
+      name: "sqOutsideClickListener",
+      routeLink: "/modal",
     },
     {
-      name: 'sq-paginator',
-      fragment: '/datatable'
+      name: "sq-paginator",
+      fragment: "/datatable",
     },
-    { name: 'DeviceOS (enum)' },
-    { name: 'InputCoreComponent (class)' },
-    { name: 'Size (interface)' },
-    { name: 'ProgressBarSize (interface)' },
-    { name: 'CustomEventDetails (interface)' },
-    { name: 'LabelValuePair (interface)' },
-    { name: 'CustomEventBroadcasterService' },
-    { name: 'OSDetectorService' },
-    { name: 'PaginatorConfig (interface)' },
-    { name: 'ScrolledToBottomListenerDirective' }
+    { name: "DeviceOS (enum)" },
+    { name: "SqInputCore (base class)" },
+    { name: "Size (interface)" },
+    { name: "ProgressBarSize (interface)" },
+    { name: "CustomEventDetails (interface)" },
+    { name: "LabelValuePair (interface)" },
+    { name: "RadioGroupRegistry" },
+    { name: "OSDetectorService" },
+    { name: "PaginatorConfig (interface)" },
+    { name: "ScrolledToBottomListenerDirective" },
   ];
 
-  docs: NavItem[] = [
+  readonly docs: NavItem[] = [
     {
-      name: 'CommonModule',
-      routeLink: `${environment.docs}/common-module`
-    }
+      name: "ng-sq-common",
+      routeLink: `${environment.docs}/common-module`,
+    },
   ];
 
-  liveExamples: NavItem[] = [
+  readonly liveExamples: NavItem[] = [
     {
-      name: 'ng-sq-ui-common',
-      routeLink: `https://ng-sq-ui-common.${environment.livePreview}`
-    }
+      name: "ng-sq-ui-common",
+      routeLink: `https://ng-sq-ui-common.${environment.livePreview}`,
+    },
   ];
-
-  constructor() { }
-
-  ngOnInit() {
-
-  }
-
 }

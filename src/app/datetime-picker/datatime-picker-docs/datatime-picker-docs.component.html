@@ -12,9 +12,11 @@
       <h2>Exported Components Preview:</h2>
     </header>
 
-    <form [formGroup]="testForm" class="sq" (ngSubmit)="onSubmit()">
+    <form (submit)="onSubmit($event)" class="sq">
       <p>
-        The preview is built using the Reactive approach. The final input values are console logged on click on the Submit button.
+        The preview is built using Signal Forms (`form()` + `[formField]`). The final
+        model values are console logged on click on the Submit button. Changes to the
+        standalone timepicker are also console logged.
       </p>
 
       <sq-collapse-content title="sq-datetime-picker" id="datepicker">
@@ -26,21 +28,17 @@
 
             <sq-datetime-picker [maxDate]="maxDate"
                                 [minDate]="minDate"
-                                format="MM/DD/YYYY"
-                                formControlName="standAloneDatepicker"
+                                [formField]="testForm.standAloneDatepicker"
                                 [isMultipleSelect]="isDatepickerMultipleSelect">
             </sq-datetime-picker>
           </section>
 
           <section class="mg-b50">
             <header>
-              <h4>Datepicker (multiple select disabled) + Timepicker (meridiem enabled)</h4>
+              <h4>Datepicker (single select)</h4>
             </header>
 
-            <sq-datetime-picker format="DD-MM-YYYY hh:mm"
-                                formControlName="datetimePicker"
-                                [isTimepickerEnabled]="isTimepickerEndabled"
-                                [timepickerConfig]="inlineTimepickerConfig">
+            <sq-datetime-picker [formField]="testForm.datetimePicker">
             </sq-datetime-picker>
           </section>
         </div>
@@ -54,10 +52,9 @@
             </header>
 
             <div style="max-width: 410px;">
-              <sq-time-picker formControlName="standAloneTimepicker"
+              <sq-time-picker [formField]="testForm.standAloneTimepicker"
                               (hoursChange)="hoursChange($event)"
                               (minutesChange)="minutesChange($event)"
-                              timeObjectType="string"
                               [hours]="standAloneTimepicker.hours"
                               [minutes]="standAloneTimepicker.minutes"
                               [hourStep]="standAloneTimepicker.hourStep"

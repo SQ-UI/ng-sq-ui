@@ -1,87 +1,54 @@
-# ModalModule
+# Modal
 
 ## sq-modal
 
+Standalone modal with content projection. Import `ModalComponent` from `@sq-ui/ng-modal` or `@sq-ui/ng-sq-ui`.
+
 [sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-modal?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
-
-sq-modal is a generic modal window with content projection.
-
-!> Available also as stand alone package [`@sq-ui/ng-modal`](https://www.npmjs.com/package/@sq-ui/ng-modal)
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L117)
-
-```html
-<sq-button (click)="showModal=!showModal">Toggle modal</sq-button>
-
-<sq-modal [(show)]="showModal">
-  <div sq-modal-title>
-    <strong>Modal title</strong>
-  </div>
-
-  <div sq-modal-body>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi harum natus quidem recusandae voluptatibus. Animi architecto
-    dolor est et in laborum neque, nisi non nulla, sunt totam velit vero voluptatibus.
-  </div>
-
-  <div sq-modal-footer>
-    <button type="button">
-      <span class="inner">Yes</span>
-    </button>
-
-    <button type="button">
-      <span class="inner">No</span>
-    </button>
-  </div>
-</sq-modal>
-```
-
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L12)
+!> Package: [`@sq-ui/ng-modal`](https://www.npmjs.com/package/@sq-ui/ng-modal)
 
 ```typescript
-//...
-export class AppComponent {
-  //...
-  showModal = false;
-  //...
-}
-```
-
-### Component properties:
-
-- **`@Input()` customCssAnimation:** `{ duration: number, entranceAnimation: string, exitAnimation: string }` - A configurational object which determines the CSS animation the modal uses. The duration of the animation is in milliseconds. The default values for each property are:
-  `{ duration: 1000, entranceAnimation: 'flipInX', exitAnimation: flipOutX }`.
-
-- **`@Input()` show:** `boolean` - Shows/hides the modal window. Defaults to `false`.
-
-- **`@Output()` showChange:** `EventEmitter<boolean>` - Callback invoked whenever the modal is shown/hidden.
-
-!> If you don't want to use the `[(show)]` property binding, you can alternatively use the component methods `open` and `close`.
-
-### Component methods:
-
-- **close():** `void` - Closes the modal.
-- **open():** `void` - Opens the modal.
-
-?> You can access component methods via template reference.
-
-```typescript
-import { ModalComponent } from '@sq-ui/ng-sq-ui';
+import { Component, signal } from '@angular/core';
+import { ModalComponent, ButtonComponent } from '@sq-ui/ng-sq-ui';
 
 @Component({
-  ...
+  imports: [ModalComponent, ButtonComponent],
+  template: `
+    <sq-button (click)="showModal.set(!showModal())">Toggle modal</sq-button>
+
+    <sq-modal [(show)]="showModal">
+      <div sq-modal-title>
+        <strong>Modal title</strong>
+      </div>
+      <div sq-modal-body>…</div>
+      <div sq-modal-footer>…</div>
+    </sq-modal>
+  `,
 })
-export class AppComponent {
-  @ViewChild('modal')
-  modalInstance: ModalComponent;
-  
-  show(): void {
-    this.modalInstance.open();
-  }
-
-  hide(): void {
-    this.modalInstance.close();
-  }
+export class Example {
+  showModal = signal(false);
 }
+```
 
+### Properties
+
+- **`show`**: `model<boolean>` — two-way visibility. Defaults to `false`. Use `[(show)]`.
+- **`customCssAnimation`**: `{ duration: number, entranceAnimation: string, exitAnimation: string }` — CSS animation config (duration in ms). Built-in fallbacks use `fadeInDown` / `fadeOutUp` when entrance/exit strings are empty.
+
+!> Prefer `[(show)]`. You can also call `open()` / `close()` via a template reference.
+
+### Methods
+
+- **`close()`** / **`open()`** — set `show` to `false` / `true`.
+
+```typescript
+import { viewChild } from '@angular/core';
+import { ModalComponent } from '@sq-ui/ng-modal';
+
+readonly modal = viewChild.required<ModalComponent>('modal');
+
+show(): void {
+  this.modal().open();
+}
 ```

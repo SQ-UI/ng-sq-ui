@@ -1,55 +1,38 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SimpleChange } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { DatatableColumnComponent } from './datatable-column.component';
-import { NgSqCommonModule } from '../../../../ng-sq-common/src/lib/ng-sq-common.module';
 
 describe('DatatableColumnComponent', () => {
   let component: DatatableColumnComponent;
-  let fixture: ComponentFixture<DatatableColumnComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DatatableColumnComponent],
-      imports: [
-        NgSqCommonModule
-      ]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatatableColumnComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new DatatableColumnComponent());
+    Object.defineProperty(component, 'name', { value: () => 'columnName', configurable: true });
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit information that the parent should sort by column name', (done: DoneFn) => {
-    component.name = 'columnName';
-    component.isSortable = true;
+  it('should emit information that the parent should sort by column name', () => {
+    const spy = vi.fn();
+    component.onSortClicked.subscribe(spy);
 
-    component.ngOnChanges({
-      name: new SimpleChange(null, component.name, true),
-      isSortable: new SimpleChange(null, component.isSortable, true)
-    });
+    component.sort();
 
-    fixture.detectChanges();
+    expect(component.isSortedByAscending).toBe(true);
+    expect(spy).toHaveBeenCalledWith({ name: 'columnName', isSortedByAscending: true });
 
-    fixture.whenRenderingDone().then(() => {
-      const sortingBtn = fixture.nativeElement.querySelector('button');
-      sortingBtn.click();
-      fixture.detectChanges();
-      expect(component.isSortedByAscending)
-        .toEqual(true, 'first time clicking triggers sort by asc');
-      sortingBtn.click();
-      fixture.detectChanges();
-      expect(component.isSortedByAscending)
-        .toEqual(false, 'second time clicking triggers sort by desc');
-      done();
-    });
+    component.sort();
+
+    expect(component.isSortedByAscending).toBe(false);
+    expect(spy).toHaveBeenCalledWith({ name: 'columnName', isSortedByAscending: false });
+
+    component.sort();
+
+    expect(component.isSortedByAscending).toBeUndefined();
+    expect(spy).toHaveBeenCalledWith({ name: 'columnName', isSortedByAscending: undefined });
   });
 });

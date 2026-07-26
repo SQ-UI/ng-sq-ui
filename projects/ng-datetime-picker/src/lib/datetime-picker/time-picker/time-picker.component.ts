@@ -1,186 +1,259 @@
 import {
-  Component, forwardRef, OnInit, ViewEncapsulation,
-  Input, OnChanges, Output, EventEmitter, AfterViewInit
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  input,
+  linkedSignal,
+  model,
+  output,
+  untracked,
+  ViewEncapsulation,
 } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
+import { FormValueControl } from '@angular/forms/signals';
+import { Temporal } from '@js-temporal/polyfill';
+import { SqInputCore } from '@sq-ui/ng-sq-common';
+
 import { TimeUnit } from '../enums/time-unit.enum';
-import { TimeObject } from '../enums/time-object-type.enum';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import moment from 'moment';
 
+type NoonRelativity = 'am' | 'pm';
 
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TimePickerComponent),
-  multi: true,
-};
-
+/**
+ * Signal Forms-compatible time picker.
+ *
+ * Canonical `value` is a {@link Temporal.PlainTime}. Display state is derived
+ * from `value` + `isMeridiem` via `linkedSignal`, which resets automatically on
+ * upstream changes but stays writable while the user is typing.
+ *
+ * The optional `hours` / `minutes` inputs let parents seed initial numeric
+ * values; matching change outputs fire whenever the user increments, decrements,
+ * or validates a field.
+ */
 @Component({
   selector: 'sq-time-picker',
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class TimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() hourStep = 1;
-  @Input() minuteStep = 1;
-  @Input() isMeridiem = false;
-  @Input() isEditable = true;
-  @Input('hours') inputHours: number;
-  @Input('minutes') inputMinutes: number;
-  @Input() timeObjectType: string = TimeObject.String;
+export class TimePickerComponent extends SqInputCore implements FormValueControl<Temporal.PlainTime | null> {
+  readonly value = model<Temporal.PlainTime | null>(Temporal.Now.plainTimeISO());
 
-  @Output('hoursChange') inputHoursChange = new EventEmitter<number>();
-  @Output('minutesChange') inputMinutesChange = new EventEmitter<number>();
+  readonly hourStep = input(1);
+  readonly minuteStep = input(1);
+  readonly isMeridiem = input(false);
+  readonly isEditable = input(true);
+  readonly hours = input<number | null>(null);
+  readonly minutes = input<number | null>(null);
 
-  hours;
-  minutes;
-  noonRelativity = 'am';
-  timeUnit = TimeUnit;
+  readonly hoursChange = output<number>();
+  readonly minutesChange = output<number>();
 
-  private start = moment();
-  private hourFormat = 'HH'; // 24-hour format by default
+  readonly timeUnit = TimeUnit;
 
-  limits = {
-    hours: {
-      min: 0,
-      max: 24
-    },
-    minutes: {
-      min: 0,
-      max: 59
+  protected readonly limits = computed(() => {
+    if (this.isMeridiem()) {
+      return { hours: { min: 1, max: 12 }, minutes: { min: 0, max: 59 } };
     }
-  };
+    return { hours: { min: 0, max: 23 }, minutes: { min: 0, max: 59 } };
+  });
+
+  /**
+   * Derived-but-writable text mirrors of the current {@link value}. Typing into
+   * the inputs writes here directly; when `value`/`isMeridiem` change upstream
+   * the display resets to the freshly-formatted representation.
+   */
+  protected readonly hoursText = linkedSignal<{ hour: number; meridiem: boolean }, string>({
+    source: () => ({ hour: this.value()?.hour ?? 0, meridiem: this.isMeridiem() }),
+    computation: ({ hour, meridiem }) =>
+      meridiem ? this.to12HourDisplay(hour) : this.pad2(hour),
+  });
+
+  protected readonly minutesText = linkedSignal<number, string>({
+    source: () => this.value()?.minute ?? 0,
+    computation: (minute) => this.pad2(minute),
+  });
+
+  protected readonly noonRelativity = linkedSignal<number, NoonRelativity>({
+    source: () => this.value()?.hour ?? 0,
+    computation: (hour) => (hour >= 12 ? 'pm' : 'am'),
+  });
 
   constructor() {
     super();
-  }
 
-  ngOnInit() {
-    this.hours = this.start.format(this.hourFormat);
-    this.minutes = this.start.format('mm');
-    this.setValueResult();
-  }
-
-  ngOnChanges(changesObj) {
-    if (changesObj.isMeridiem) {
-      if (changesObj.isMeridiem.currentValue) {
-        this.hourFormat = 'hh';
-        this.noonRelativity = this.start.format('a');
-        this.limits.hours.min = 1;
-        this.limits.hours.max = 12;
-      } else {
-        this.hourFormat = 'HH';
-        this.limits.hours.min = 0;
-        this.limits.hours.max = 24;
+    // One-way `hours` input — seed hour without touching the minute.
+    effect(() => {
+      const h = this.hours();
+      if (h == null) {
+        return;
       }
+      untracked(() => {
+        const currentValue = this.value() ?? new Temporal.PlainTime(0, 0);
+        const nextHour = this.clampHour24(h);
+        if (currentValue.hour === nextHour) {
+          return;
+        }
+        this.value.set(new Temporal.PlainTime(nextHour, currentValue.minute));
+      });
+    });
 
-      this.hours = this.start.format(this.hourFormat);
-    }
-
-    if (changesObj.inputHours &&
-      changesObj.inputHours.currentValue !== null &&
-      typeof changesObj.inputHours.currentValue !== 'undefined' &&
-      changesObj.inputHours.currentValue > -1) {
-      this.hours = this.start.hours(changesObj.inputHours.currentValue).format(this.hourFormat);
-      this.noonRelativity = this.start.format('a');
-    }
-
-    if (changesObj.inputMinutes &&
-      changesObj.inputMinutes.currentValue !== null &&
-      typeof changesObj.inputMinutes.currentValue !== 'undefined' &&
-      changesObj.inputMinutes.currentValue > -1) {
-      this.minutes = this.start.minutes(changesObj.inputMinutes.currentValue).format('mm');
-    }
-
-    this.setValueResult();
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.setValueResult();
+    // One-way `minutes` input — seed minute without touching the hour.
+    effect(() => {
+      const m = this.minutes();
+      if (m == null) {
+        return;
+      }
+      untracked(() => {
+        const currentValue = this.value() ?? new Temporal.PlainTime(0, 0);
+        const nextMinute = this.clampMinute(m);
+        if (currentValue.minute === nextMinute) {
+          return;
+        }
+        this.value.set(new Temporal.PlainTime(currentValue.hour, nextMinute));
+      });
     });
   }
 
-  increment(unit: TimeUnit) {
-    switch (unit) {
-      case TimeUnit.Hours:
-        this.hours = this.start.add(this.hourStep, 'hours').format(this.hourFormat);
-        this.inputHoursChange.emit(parseInt(this.hours, 10));
-        break;
-      case TimeUnit.Minutes:
-        this.minutes = this.start.add(this.minuteStep, 'minutes').format('mm');
-        this.inputMinutesChange.emit(parseInt(this.minutes, 10));
-        break;
-    }
-
-    this.setValueResult();
+  increment(unit: TimeUnit): void {
+    const step = unit === TimeUnit.Hours ? this.hourStep() : this.minuteStep();
+    this.shift(unit, step);
+    this.emitPart(unit);
   }
 
-  decrement(unit: TimeUnit) {
-    switch (unit) {
-      case TimeUnit.Hours:
-        this.hours = this.start.subtract(this.hourStep, 'hours').format(this.hourFormat);
-        this.inputHoursChange.emit(parseInt(this.hours, 10));
-        break;
-      case TimeUnit.Minutes:
-        this.minutes = this.start.subtract(this.minuteStep, 'minutes').format('mm');
-        this.inputMinutesChange.emit(parseInt(this.minutes, 10));
-        break;
-    }
-
-    this.setValueResult();
+  decrement(unit: TimeUnit): void {
+    const step = unit === TimeUnit.Hours ? this.hourStep() : this.minuteStep();
+    this.shift(unit, -step);
+    this.emitPart(unit);
   }
 
-  changeNoonRelativity() {
-    this.noonRelativity = this.noonRelativity === 'am' ? 'pm' : 'am';
-    this.setValueResult();
+  changeNoonRelativity(): void {
+    const nextRelativity: NoonRelativity = this.noonRelativity() === 'am' ? 'pm' : 'am';
+    this.noonRelativity.set(nextRelativity);
+    this.recomputeValueFromDisplay();
   }
 
-  validateInput(unit: TimeUnit) {
-    switch (unit) {
-      case TimeUnit.Hours:
-        this.hours = this.normalizeTimeInput(this.hours, TimeUnit.Hours);
-        break;
-      case TimeUnit.Minutes:
-        this.minutes = this.normalizeTimeInput(this.minutes, TimeUnit.Minutes);
-        break;
-    }
-
-    this.setValueResult();
+  onHoursInput(raw: string): void {
+    this.hoursText.set(raw);
   }
 
-  private normalizeTimeInput(value: string, unit: TimeUnit) {
-    if (!value) {
-      value = '00';
+  onMinutesInput(raw: string): void {
+    this.minutesText.set(raw);
+  }
+
+  validateInput(unit: TimeUnit, raw?: string): void {
+    const source = raw ?? (unit === TimeUnit.Hours ? this.hoursText() : this.minutesText());
+    const normalised = this.normalizeTimeInput(source, unit);
+    if (unit === TimeUnit.Hours) {
+      this.hoursText.set(normalised);
+    } else {
+      this.minutesText.set(normalised);
+    }
+    this.recomputeValueFromDisplay();
+    this.emitPart(unit);
+  }
+
+  private shift(unit: TimeUnit, delta: number): void {
+    const current = this.value() ?? new Temporal.PlainTime(0, 0);
+    const next =
+      unit === TimeUnit.Hours
+        ? current.add({ hours: delta })
+        : current.add({ minutes: delta });
+    this.value.set(next);
+  }
+
+  private recomputeValueFromDisplay(): void {
+    const hour24 = this.clamp24(this.parseHourFromDisplay(), this.isMeridiem(), this.noonRelativity());
+    const minute = this.clampMinute(this.parseMinuteFromDisplay());
+    this.value.set(new Temporal.PlainTime(hour24, minute));
+  }
+
+  private emitPart(unit: TimeUnit): void {
+    const v = this.value();
+    if (!v) {
+      return;
+    }
+    if (unit === TimeUnit.Hours) {
+      this.hoursChange.emit(v.hour);
+    } else {
+      this.minutesChange.emit(v.minute);
+    }
+  }
+
+  private to12HourDisplay(hour24: number): string {
+    const twelve = hour24 % 12;
+    return this.pad2(twelve === 0 ? 12 : twelve);
+  }
+
+  private clamp24(hour: number, meridiem: boolean, relativity: NoonRelativity): number {
+    if (!Number.isFinite(hour)) {
+      return 0;
     }
 
-    if (parseInt(value, 10) >= this.limits[unit].max) {
-      value = this.limits[unit].max.toString();
+    if (meridiem) {
+      let h = Math.max(1, Math.min(12, Math.trunc(hour)));
+      // Map 12 AM → 0h, 1..11 AM → 1..11, 12 PM → 12, 1..11 PM → 13..23.
+      if (relativity === 'am') {
+        h = h === 12 ? 0 : h;
+      } else if (h !== 12) {
+        h += 12;
+      }
+      return h;
+    }
 
-      if (unit === TimeUnit.Hours && !this.isMeridiem) {
-        value = '00';
+    return this.clampHour24(hour);
+  }
+
+  private clampHour24(hour: number): number {
+    if (!Number.isFinite(hour)) {
+      return 0;
+    }
+    return Math.max(0, Math.min(23, Math.trunc(hour)));
+  }
+
+  private clampMinute(minute: number): number {
+    if (!Number.isFinite(minute)) {
+      return 0;
+    }
+    return Math.max(0, Math.min(59, Math.trunc(minute)));
+  }
+
+  private parseHourFromDisplay(): number {
+    const raw = parseInt(this.hoursText(), 10);
+    return Number.isNaN(raw) ? 0 : raw;
+  }
+
+  private parseMinuteFromDisplay(): number {
+    const raw = parseInt(this.minutesText(), 10);
+    return Number.isNaN(raw) ? 0 : raw;
+  }
+
+  private pad2(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
+  }
+
+  private normalizeTimeInput(raw: string, unit: TimeUnit): string {
+    const limits = this.limits();
+    const trimmed = (raw ?? '').trim();
+    let numeric = parseInt(trimmed || '0', 10);
+    if (Number.isNaN(numeric)) {
+      numeric = 0;
+    }
+
+    if (numeric >= limits[unit].max) {
+      if (unit === TimeUnit.Hours && !this.isMeridiem()) {
+        // 24h mode wraps 24 → 00; keeps parity with the moment-based picker.
+        numeric = numeric >= 24 ? 0 : limits[unit].max;
+      } else {
+        numeric = limits[unit].max;
       }
     }
 
-    if (parseInt(value, 10) < this.limits[unit].min) {
-      value = this.limits[unit].min.toString();
+    if (numeric < limits[unit].min) {
+      numeric = limits[unit].min;
     }
 
-    return value;
-  }
-
-  private setValueResult() {
-    let timeMoment: moment.Moment;
-    let timeString = `${this.hours}:${this.minutes}`;
-    timeString = this.isMeridiem ? `${timeString} ${this.noonRelativity.toUpperCase()}` : timeString;
-
-    if (this.timeObjectType === TimeObject.Moment) {
-      const momentFormat = this.isMeridiem ? 'hh:mm A' : 'HH:mm';
-      timeMoment = moment(timeString, momentFormat);
-    }
-
-    this.value = timeMoment ? timeMoment : timeString;
+    return this.pad2(numeric);
   }
 }

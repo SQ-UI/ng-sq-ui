@@ -1,29 +1,30 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { ModuleOverviewComponent } from './module-overview.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ModuleOverviewComponent', () => {
   let component: ModuleOverviewComponent;
-  let fixture: ComponentFixture<ModuleOverviewComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ModuleOverviewComponent],
-      imports: [RouterTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModuleOverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new ModuleOverviewComponent());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should scroll to a fragment when it exists', () => {
+    const element = document.createElement('div');
+    element.id = 'my-fragment';
+    document.body.appendChild(element);
+    const scrollIntoViewSpy = vi.fn();
+    element.scrollIntoView = scrollIntoViewSpy;
+
+    component.scrollTo('my-fragment');
+
+    expect(scrollIntoViewSpy).toHaveBeenCalled();
+    element.remove();
   });
 });

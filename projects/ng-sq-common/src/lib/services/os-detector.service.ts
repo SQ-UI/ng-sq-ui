@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DeviceOS } from '../enums/device-os.enum';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OSDetectorService {
-
-  constructor() { }
 
   static getDeviceOS(): DeviceOS {
     const userAgent = navigator.userAgent || navigator.vendor;

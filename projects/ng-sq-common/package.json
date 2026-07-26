@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-sq-common",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "license": "MIT",
   "private": false,
   "description": "The core module for SQ-UI kit for Angular",
@@ -20,6 +20,11 @@
       "url": "https://github.com/ardentia/"
     }
   ],
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/forms": "^22.0.0"
+  },
   "dependencies": {
     "tslib": "^2.0.0"
   }

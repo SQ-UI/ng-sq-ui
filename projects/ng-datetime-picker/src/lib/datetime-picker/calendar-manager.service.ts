@@ -1,175 +1,292 @@
 import { Injectable } from '@angular/core';
-import { CalendarDay, InCalendarPicker } from './interfaces/calendar-entities';
+import { Temporal } from '@js-temporal/polyfill';
+
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
-import { DateRange } from './interfaces/date-range';
-import moment from 'moment';
+import { CalendarDay, InCalendarPicker } from './interfaces/calendar-entities';
+import { DateRange, DateRangeBound } from './interfaces/date-range';
 
-@Injectable()
+/**
+ * Number of calendar rows rendered in the month grid.
+ * Six rows guarantees a stable grid regardless of the starting weekday.
+ */
+const CALENDAR_ROWS = 6;
+
+/** Days per row (Mon → Sun, ISO week). */
+const CALENDAR_COLS = 7;
+
+/**
+ * Temporal-based reimplementation of the calendar rendering / navigation helpers
+ * that used to be built on top of `moment`. All exposed dates are
+ * `Temporal.PlainDate` values (calendar-only, no timezone). Callers may still
+ * pass legacy `Date` / ISO-string values in `DateRange`; they are normalised
+ * internally.
+ *
+ * The picker renders a Monday-first ISO week regardless of locale — the
+ * previous `moment.weekday()`-based math was locale-dependent and inconsistent.
+ * Locale still drives the *display names* of weekdays and months via `Intl`.
+ */
+@Injectable({ providedIn: 'root' })
 export class CalendarManagerService {
-
-  constructor() { }
-
   private locale = 'en';
-  private previouslySelectedYear = moment();
+  private previouslySelectedYear: Temporal.PlainDate = Temporal.Now.plainDateISO();
 
-  setLocale(locale: string) {
-    moment.locale(locale);
-    this.locale = locale;
+  setLocale(locale: string): void {
+    this.locale = locale || 'en';
   }
 
-  generateCalendarForMonth(startDate: moment.Moment | Date,
-    currentMonth: moment.Moment,
-    selectedDates: moment.Moment[],
-    dateRange: DateRange): Array<CalendarDay[]> {
-    const monthStart = moment(startDate).startOf('month').locale(this.locale);
-    const isStartOfChosenMonthTheFirstDayOfTable = (monthStart.weekday() === 0);
+  getLocale(): string {
+    return this.locale;
+  }
 
-    const dateIterator = monthStart.clone();
-    const calendar = [];
-    let tableRow: CalendarDay[] = [];
-    let newDate: CalendarDay;
+  /**
+   * Builds a 6×7 grid of {@link CalendarDay}s for the month containing
+   * `startDate`. The grid always starts on the Monday preceding (or equal to)
+   * the first day of the month, so every row has exactly 7 days.
+   */
+  generateCalendarForMonth(
+    startDate: Temporal.PlainDate,
+    currentMonth: Temporal.PlainDate,
+    selectedDates: readonly Temporal.PlainDate[],
+    dateRange: DateRange
+  ): CalendarDay[][] {
+    const monthStart = startDate.with({ day: 1 });
+    // ISO dayOfWeek: 1 = Monday … 7 = Sunday.
+    const daysToGoBack = monthStart.dayOfWeek - 1;
+    let iterator = monthStart.subtract({ days: daysToGoBack });
 
-    if (!isStartOfChosenMonthTheFirstDayOfTable) {
-      let daysToGoBack = dateIterator.weekday();
-      daysToGoBack = (daysToGoBack === 0) ? 1 : daysToGoBack;
-      dateIterator.subtract(daysToGoBack, 'days');
-    }
+    const calendar: CalendarDay[][] = [];
+    let row: CalendarDay[] = [];
 
-    // add dates until the calendar has 6 week rows
-    while (calendar.length < 6) {
-      newDate = {
-        displayDate: dateIterator.format('D'),
-        momentObj: dateIterator.clone(),
-        relativityToCurrentMonth: this.determineDateRelativityToCurrentMonth(dateIterator, currentMonth),
-        isDisabled: this.determineIfDateIsDisabled(dateIterator, dateRange.minDate, dateRange.maxDate),
-        isSelected: this.getSelectedItemIndex(dateIterator, selectedDates) > -1
-      };
+    for (let i = 0; i < CALENDAR_ROWS * CALENDAR_COLS; i++) {
+      row.push(this.buildCalendarDay(iterator, currentMonth, selectedDates, dateRange));
 
-      if (tableRow.length <= 6) {
-        tableRow.push(newDate);
-
-      } else {
-        calendar.push(tableRow);
-        tableRow = [newDate];
+      if (row.length === CALENDAR_COLS) {
+        calendar.push(row);
+        row = [];
       }
 
-      dateIterator.add(1, 'day');
+      iterator = iterator.add({ days: 1 });
     }
 
     return calendar;
   }
 
-  generateMonthPickerCollection(currentYear: number, dateRange: DateRange): InCalendarPicker[] {
-    const months = this.getMonths();
+  generateMonthPickerCollection(
+    currentYear: number,
+    dateRange: DateRange,
+    locale: string = this.locale
+  ): InCalendarPicker[] {
+    const months = this.getMonths(true, locale);
 
     return months.map((monthName, index) => {
-      const date = moment().year(currentYear).month(index);
-
+      const date = new Temporal.PlainDate(currentYear, index + 1, 1);
       return {
         displayName: monthName,
-        momentObj: date,
-        isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate)
+        plainDate: date,
+        isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate),
       };
     });
   }
 
-  generateYearPickerCollection(start: moment.Moment, margin: number = 19, dateRange: DateRange): InCalendarPicker[] {
-    const yearsList = this.getYearList(start, margin);
+  /**
+   * Generates a rolling window of years around the previously selected year.
+   *
+   * Called with:
+   * - `start` set → anchor the window on `start` (used the first time or when
+   *   the user picks an explicit year).
+   * - positive `margin` → step forward by `margin` years.
+   * - negative `margin` → step *backward* by roughly `2 × |margin|` years,
+   *   mirroring the original moment-based navigation logic used by the year
+   *   picker's "previous" button.
+   */
+  generateYearPickerCollection(
+    start: Temporal.PlainDate | null,
+    margin: number,
+    dateRange: DateRange
+  ): InCalendarPicker[] {
+    const years = this.getYearList(start, margin);
 
-    return yearsList.map((year) => {
-      const date = moment().year(year);
-
+    return years.map((year) => {
+      const date = new Temporal.PlainDate(year, 1, 1);
       return {
         displayName: year.toString(),
-        momentObj: date,
-        isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate)
+        plainDate: date,
+        isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate),
       };
     });
   }
 
-  getWeekdays(short: boolean = true) {
-    return short ? moment.weekdaysShort(true) : moment.weekdays(true);
-  }
+  /**
+   * Locale-aware ISO-order (Monday-first) weekday labels.
+   * `short` maps to `weekday: 'short'`, otherwise `'long'`.
+   */
+  getWeekdays(short: boolean = true, locale: string = this.locale): string[] {
+    const formatter = new Intl.DateTimeFormat(locale, {
+      weekday: short ? 'short' : 'long',
+    });
 
-  getMonths(short: boolean = true) {
-    return short ? moment.monthsShort() : moment.months();
-  }
-
-  getYearList(start: moment.Moment, margin: number = 19): number[] {
-    let yearIterator;
-    let endYear;
-
-    if (start) {
-      this.previouslySelectedYear = start.clone();
+    // Anchor on a known Monday (2024-01-01 is a Monday).
+    const anchor = new Temporal.PlainDate(2024, 1, 1);
+    const weekdays: string[] = [];
+    for (let i = 0; i < 7; i++) {
+      weekdays.push(formatter.format(new Date(anchor.add({ days: i }).toString())));
     }
+
+    return weekdays;
+  }
+
+  /** Locale-aware month labels. `short` maps to `month: 'short'`, otherwise `'long'`. */
+  getMonths(short: boolean = true, locale: string = this.locale): string[] {
+    const formatter = new Intl.DateTimeFormat(locale, {
+      month: short ? 'short' : 'long',
+    });
+
+    const months: string[] = [];
+    for (let m = 1; m <= 12; m++) {
+      months.push(formatter.format(new Date(Date.UTC(2020, m - 1, 15))));
+    }
+
+    return months;
+  }
+
+  /** Inclusive `[start, start + margin]` year list. */
+  getYearList(start: Temporal.PlainDate | null, margin: number = 19): number[] {
+    if (start) {
+      this.previouslySelectedYear = start;
+    }
+
+    let iteratorDate: Temporal.PlainDate;
+    let endDate: Temporal.PlainDate;
 
     if (margin < 0) {
-      endYear = moment(this.previouslySelectedYear).add(margin, 'years');
-      yearIterator = moment(endYear).add(margin, 'years');
+      endDate = this.previouslySelectedYear.add({ years: margin });
+      iteratorDate = endDate.add({ years: margin });
     } else {
-      yearIterator = moment(this.previouslySelectedYear);
-      endYear = moment(yearIterator).add(margin, 'years');
+      iteratorDate = this.previouslySelectedYear;
+      endDate = iteratorDate.add({ years: margin });
     }
 
-    const yearList = [];
-
-    while (yearIterator.isSameOrBefore(endYear)) {
-      yearList.push(yearIterator.clone().year());
-      yearIterator.add(1, 'year');
+    const years: number[] = [];
+    let cursor = iteratorDate;
+    while (Temporal.PlainDate.compare(cursor, endDate) <= 0) {
+      years.push(cursor.year);
+      cursor = cursor.add({ years: 1 });
     }
 
-    this.previouslySelectedYear = yearIterator.subtract(1, 'year').clone();
+    this.previouslySelectedYear = cursor.subtract({ years: 1 });
 
-    return yearList;
+    return years;
   }
 
-  findADateFromCalendar(date: moment.Moment | Date, calendarTable: Array<CalendarDay[]>): CalendarDay {
-    const dateToFind = moment(date);
+  findADateFromCalendar(
+    date: Temporal.PlainDate | Date | string | null | undefined,
+    calendarTable: CalendarDay[][]
+  ): CalendarDay | undefined {
+    const target = this.toPlainDate(date);
+    if (!target) {
+      return undefined;
+    }
 
-    const flatCalendarTable = calendarTable.reduce((acc, val) => acc.concat(val), []);
+    for (const row of calendarTable) {
+      for (const day of row) {
+        if (Temporal.PlainDate.compare(day.plainDate, target) === 0) {
+          return day;
+        }
+      }
+    }
 
-    return flatCalendarTable.find((calendarDay) => {
-      return calendarDay.momentObj.isSame(dateToFind, 'day');
-    });
+    return undefined;
   }
 
-  getSelectedItemIndex(date: moment.Moment, selectedDates: moment.Moment[]): number {
-    return selectedDates.findIndex((selectedDate) => {
-      return moment(selectedDate).isSame(date, 'day');
-    });
+  getSelectedItemIndex(date: Temporal.PlainDate, selectedDates: readonly Temporal.PlainDate[]): number {
+    return selectedDates.findIndex((selected) => Temporal.PlainDate.compare(selected, date) === 0);
   }
 
-  determineIfDateIsDisabled(currentDate: moment.Moment | Date,
-    minDate: moment.Moment | Date,
-    maxDate: moment.Moment | Date): boolean {
-    const isAfterMaxDate = maxDate && moment(currentDate).isAfter(maxDate, 'day');
-    const isBeforeMinDate = minDate && moment(currentDate).isBefore(minDate, 'day');
+  determineIfDateIsDisabled(
+    currentDate: Temporal.PlainDate,
+    minDate: DateRangeBound | null | undefined,
+    maxDate: DateRangeBound | null | undefined
+  ): boolean {
+    const min = this.toPlainDate(minDate);
+    const max = this.toPlainDate(maxDate);
 
-    return <boolean>(isAfterMaxDate || isBeforeMinDate);
+    const isAfterMax = !!max && Temporal.PlainDate.compare(currentDate, max) > 0;
+    const isBeforeMin = !!min && Temporal.PlainDate.compare(currentDate, min) < 0;
+
+    return isAfterMax || isBeforeMin;
   }
 
-  determineDateRelativityToCurrentMonth(date: moment.Moment, currentMonth: moment.Moment): CalendarPeriodRelativityEnum {
-    const startOfCurrentMonth = moment(currentMonth).startOf('month');
-    const endOfCurrentMonth = moment(currentMonth).endOf('month');
+  determineDateRelativityToCurrentMonth(
+    date: Temporal.PlainDate,
+    currentMonth: Temporal.PlainDate
+  ): CalendarPeriodRelativityEnum {
+    const startOfMonth = currentMonth.with({ day: 1 });
+    const endOfMonth = currentMonth.with({ day: currentMonth.daysInMonth });
 
-    if (moment(date).isBefore(startOfCurrentMonth)) {
+    if (Temporal.PlainDate.compare(date, startOfMonth) < 0) {
       return CalendarPeriodRelativityEnum.Before;
     }
 
-    if (moment(date).isAfter(endOfCurrentMonth)) {
+    if (Temporal.PlainDate.compare(date, endOfMonth) > 0) {
       return CalendarPeriodRelativityEnum.After;
     }
 
     return CalendarPeriodRelativityEnum.Current;
   }
 
-  sortDatesAsc(dates) {
-    return dates.sort((date1, date2) => {
-      if (moment(date1).isAfter(date2)) {
-        return 1;
-      } else {
-        return -1;
+  sortDatesAsc(dates: readonly Temporal.PlainDate[]): Temporal.PlainDate[] {
+    return [...dates].sort((a, b) => Temporal.PlainDate.compare(a, b));
+  }
+
+  /**
+   * Normalises anything the public API accepts (`PlainDate`, `Date`, ISO string)
+   * into a `Temporal.PlainDate`. `Date` values are interpreted in the host's
+   * time zone so the picker's grid matches what the user sees on the wall clock.
+   */
+  toPlainDate(input: Temporal.PlainDate | Date | string | null | undefined): Temporal.PlainDate | null {
+    if (input == null) {
+      return null;
+    }
+
+    if (input instanceof Temporal.PlainDate) {
+      return input;
+    }
+
+    if (input instanceof Date) {
+      if (Number.isNaN(input.getTime())) {
+        return null;
       }
-    });
+      return new Temporal.PlainDate(input.getFullYear(), input.getMonth() + 1, input.getDate());
+    }
+
+    if (typeof input === 'string') {
+      // Accept both `YYYY-MM-DD` and full ISO date-time strings.
+      try {
+        return Temporal.PlainDate.from(input);
+      } catch {
+        try {
+          return Temporal.PlainDateTime.from(input).toPlainDate();
+        } catch {
+          return null;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  private buildCalendarDay(
+    date: Temporal.PlainDate,
+    currentMonth: Temporal.PlainDate,
+    selectedDates: readonly Temporal.PlainDate[],
+    dateRange: DateRange
+  ): CalendarDay {
+    return {
+      displayDate: String(date.day),
+      plainDate: date,
+      relativityToCurrentMonth: this.determineDateRelativityToCurrentMonth(date, currentMonth),
+      isDisabled: this.determineIfDateIsDisabled(date, dateRange.minDate, dateRange.maxDate),
+      isSelected: this.getSelectedItemIndex(date, selectedDates) > -1,
+    };
   }
 }

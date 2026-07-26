@@ -1,7 +1,32 @@
 {
   "name": "@sq-ui/ng-progress-bar",
-  "version": "2.0.1",
+  "version": "3.0.0",
+  "license": "MIT",
+  "private": false,
+  "description": "Simple Quality UI Progress Bar for Angular",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SQ-UI/ng-sq-ui.git"
+  },
+  "contributors": [
+    {
+      "name": "Samuil Gospodinov",
+      "email": "samuil4@gmail.com",
+      "url": "https://github.com/samuil4/"
+    },
+    {
+      "name": "Plamena Radneva",
+      "email": "rhythmxholic@gmail.com",
+      "url": "https://github.com/ardentia/"
+    }
+  ],
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/common": "^22.0.0"
+  },
   "dependencies": {
-    "@sq-ui/ng-sq-common": "^2.0.1"
-  }
+    "@sq-ui/ng-sq-common": "^3.0.0",
+    "tslib": "^2.0.0"
+  },
+  "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

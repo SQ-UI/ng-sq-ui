@@ -1,69 +1,84 @@
+import { NgTemplateOutlet } from "@angular/common";
 import {
-  Component, OnInit, Input, OnChanges,
-  SimpleChanges, ContentChild, TemplateRef,
-  EventEmitter, Output, ViewEncapsulation, ViewChild
-} from '@angular/core';
-import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
-import { DatatableBodyDirective } from '../directives/datatable-body.directive';
-import { SortItem } from '../shared/interfaces/sort-item';
-import { PaginatorConfig } from '@sq-ui/ng-sq-common';
-import { DatatableColumn } from '../shared/interfaces/datatable-column';
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  TemplateRef,
+  input,
+  output,
+  computed,
+  contentChild,
+  viewChild,
+} from "@angular/core";
+import { PaginatorComponent, PaginatorConfig } from "@sq-ui/ng-sq-common";
+import { DatatableHeaderDirective } from "../directives/datatable-header.directive";
+import { DatatableBodyDirective } from "../directives/datatable-body.directive";
+import { DatatableColumnComponent } from "../datatable-column/datatable-column.component";
+import { DatatableRowComponent } from "../datatable-row/datatable-row.component";
+import { SortItem } from "../shared/interfaces/sort-item";
+import { DatatableColumn } from "../shared/interfaces/datatable-column";
 
 @Component({
-  selector: 'sq-datatable',
-  templateUrl: './datatable.component.html',
-  styleUrls: ['./datatable.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "sq-datatable",
+  templateUrl: "./datatable.component.html",
+  styleUrls: ["./datatable.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgTemplateOutlet,
+    PaginatorComponent,
+    DatatableColumnComponent,
+    DatatableRowComponent,
+  ],
 })
-export class DatatableComponent implements OnInit, OnChanges {
-  @Input() items = [];
-  @Input() sortByAllColumns: boolean = false;
-  @Input() paginatorConfig: PaginatorConfig = {};
-  @Input() sortByColumns: string[] = [];
-  @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter<SortItem>();
-  @Output() pageChange = new EventEmitter();
+export class DatatableComponent {
+  readonly items = input<any[]>([]);
+  readonly sortByAllColumns = input(false);
+  readonly paginatorConfig = input<PaginatorConfig>({});
+  readonly sortByColumns = input<string[]>([]);
+  /** When true, only the `onSortClicked` event is emitted and the built-in default sort is skipped. */
+  readonly useCustomSort = input(false);
 
-  @ContentChild(DatatableHeaderDirective, {read: TemplateRef, static: true}) datatableHeaderTemplate;
-  @ContentChild(DatatableBodyDirective, {read: TemplateRef, static: true}) datatableBodyTemplate;
-  @ViewChild('paginator', {static: true}) paginatorComponent;
+  readonly onSortClicked = output<SortItem>();
+  readonly pageChange = output<any>();
 
-  columnNames: DatatableColumn[] = [];
-  paginatedCollection = [];
+  readonly datatableHeaderTemplate = contentChild(DatatableHeaderDirective, { read: TemplateRef });
+  readonly datatableBodyTemplate = contentChild(DatatableBodyDirective, { read: TemplateRef });
+  readonly paginatorComponent = viewChild<PaginatorComponent>("paginator");
 
-  constructor() { }
+  readonly columnNames = computed<DatatableColumn[]>(() => {
+    const firstItem = this.items()[0];
 
-  ngOnInit() {
-
-  }
-
-  onPageChange($event) {
-    this.pageChange.emit($event);
-  }
-
-  ngOnChanges(changesObj: SimpleChanges) {
-    if (changesObj.items && changesObj.items.currentValue.length > 0) {
-      this.generateColumns(changesObj.items.currentValue[0]);
+    if (!firstItem) {
+      return [];
     }
 
-    if (changesObj.sortByColumns && changesObj.sortByColumns.currentValue.length > 0) {
-      this.generateColumns(this.items[0]);
-    }
+    const sortByAllColumns = this.sortByAllColumns();
+    const sortByColumns = this.sortByColumns();
 
-    if (changesObj.sortByAllColumns && changesObj.sortByAllColumns.currentValue === true) {
-      this.generateColumns(this.items[0]);
-    }
+    return Object.keys(firstItem).map((columnName) => ({
+      name: columnName,
+      canBeSortedAgainst: sortByAllColumns || sortByColumns.indexOf(columnName) > -1,
+    }));
+  });
+
+  paginatedCollection: any[] = [];
+
+  onPageChange(event: unknown): void {
+    this.pageChange.emit(event);
   }
 
-  sortByField(column: SortItem) {
-    if (this.onSortClicked.observers.length > 0) {
-      this.onSortClicked.emit(column);
-    } else {
+  sortByField(column: SortItem): void {
+    this.onSortClicked.emit(column);
+
+    if (!this.useCustomSort()) {
       this.sortItems(column.name, column.isSortedByAscending);
     }
   }
 
-  private sortItems(columnName: string, ascending: boolean) {
-    if (typeof ascending === 'undefined') {
+  private sortItems(columnName: string, ascending: boolean | undefined): void {
+    if (typeof ascending === "undefined") {
       ascending = true;
     }
 
@@ -76,25 +91,7 @@ export class DatatableComponent implements OnInit, OnChanges {
         return ascending ? -1 : 1;
       }
 
-      // names must be equal
       return 0;
     });
-  }
-
-  private generateColumns(item) {
-    if (!item) {
-      return;
-    }
-
-    this.columnNames = Object.keys(item)
-      .map((columnName) => {
-        const canBeSortedAgainst = this.sortByAllColumns ||
-          (this.sortByColumns && this.sortByColumns.indexOf(columnName) > -1);
-
-        return {
-          name: columnName,
-          canBeSortedAgainst: canBeSortedAgainst
-        };
-      });
   }
 }

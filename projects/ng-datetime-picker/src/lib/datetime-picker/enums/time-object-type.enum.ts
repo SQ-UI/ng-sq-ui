@@ -1,4 +1,4 @@
 export enum TimeObject {
   String = 'string',
-  Moment = 'moment'
+  PlainTime = 'plainTime',
 }

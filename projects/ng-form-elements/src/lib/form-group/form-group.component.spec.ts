@@ -1,25 +1,20 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { FormGroupComponent } from './form-group.component';
 
 describe('FormGroupComponent', () => {
   let component: FormGroupComponent;
-  let fixture: ComponentFixture<FormGroupComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [FormGroupComponent]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormGroupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new FormGroupComponent());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should default groupLabel to an empty string', () => {
+    expect(component.groupLabel()).toBe('');
   });
 });

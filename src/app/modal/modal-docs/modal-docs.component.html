@@ -15,7 +15,7 @@
     <sq-collapse-content title="sq-modal" id="modal">
       <div sq-collapse-body class="sq">
         <section class="mg-b20">
-          <sq-button (click)="showModal=!showModal">Show modal</sq-button>
+          <sq-button (click)="showModal.set(true)">Show modal</sq-button>
 
           <sq-modal [(show)]="showModal">
             <div sq-modal-title>

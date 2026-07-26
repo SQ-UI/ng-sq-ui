@@ -1,6 +1,6 @@
 export enum DateObjectType {
-  Moment = 'moment',
+  PlainDate = 'plainDate',
   Date = 'date',
-  Unix = 'unix'
+  Unix = 'unix',
+  Iso = 'iso',
 }
-

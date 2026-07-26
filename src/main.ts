@@ -1,12 +1,19 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter, withHashLocation } from '@angular/router';
+import { provideZonelessChangeDetection, enableProdMode } from '@angular/core';
+import { Temporal } from '@js-temporal/polyfill';
 
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
+import { appRoutes } from './app/app-routes';
 import { environment } from './environments/environment';
+
+(globalThis as typeof globalThis & { Temporal?: typeof Temporal }).Temporal ??=
+  Temporal;
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+bootstrapApplication(AppComponent, {
+  providers: [provideZonelessChangeDetection(), provideRouter(appRoutes, withHashLocation())],
+}).catch(console.error);

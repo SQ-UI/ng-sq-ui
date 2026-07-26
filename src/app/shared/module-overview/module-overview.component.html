@@ -4,112 +4,110 @@
   </header>
   <ul>
     <li>
-      <span class="emphasis">
-        NPM Package Name:
-      </span>
+      <span class="emphasis"> NPM Package Name: </span>
 
       <span class="link-list-item">
-        {{npmPackageName}}
+        {{ npmPackageName() }}
       </span>
     </li>
     <li>
-      <span class="emphasis">
-        Exported As:
-      </span>
+      <span class="emphasis"> Exported As: </span>
 
       <span class="link-list-item">
-        {{moduleName}}
+        {{ moduleName() }}
       </span>
     </li>
-    <li *ngIf="internallyDeclared && internallyDeclared.length > 0">
-      <div class="emphasis">
-        Internally Declared Modules:
-      </div>
-
+    @if (internallyDeclared().length > 0) {
+    <li>
+      <div class="emphasis">Internally Declared Modules:</div>
       <div>
-        <a *ngFor="let internalModule of internallyDeclared; let isLast = last;"
-            href="javascript:;"
-            class="link-list-item"
-            (click)="scrollTo(internalModule.fragment)">
-          {{internalModule.name}}<span *ngIf="!isLast">, </span>
+        @for (internalModule of internallyDeclared(); track internalModule; let
+        isLast = $last) {
+        <a
+          href="javascript:;"
+          class="link-list-item"
+          (click)="scrollTo(internalModule.fragment!)"
+        >
+          {{ internalModule.name }}@if (!isLast) {
+          <span>, </span>
+          }
         </a>
+        }
       </div>
     </li>
-    <li *ngIf="dependsOn && dependsOn.length > 0">
-      <div class="emphasis">
-        Depends On:
-      </div>
-
+    } @if (dependsOn().length > 0) {
+    <li>
+      <div class="emphasis">Depends On:</div>
       <div>
-        <a *ngFor="let dependency of dependsOn; let isLast = last;"
-           class="link-list-item"
-           routerLink="{{dependency.routeLink}}">
-          {{dependency.name}}<span *ngIf="!isLast">, </span>
+        @for (dependency of dependsOn(); track dependency; let isLast = $last) {
+        <a class="link-list-item" routerLink="{{ dependency.routeLink }}">
+          {{ dependency.name }}@if (!isLast) {
+          <span>, </span>
+          }
         </a>
+        }
       </div>
     </li>
-    <li *ngIf="exports && exports.length > 0">
-      <div class="emphasis">
-        Exports:
-      </div>
-
+    } @if (exports().length > 0) {
+    <li>
+      <div class="emphasis">Exports:</div>
       <div>
-        <ng-container *ngFor="let exportedModule of exports; let isLast = last;">
-          <ng-container
-            *ngIf="exportedModule.fragment; then fragmentLink; else externalLink">
-          </ng-container>
-
-          <ng-template #externalLink>
-            <a *ngIf="exportedModule.routeLink"
-               class="link-list-item"
-               routerLink="{{exportedModule.routeLink}}">
-              {{exportedModule.name}}<span *ngIf="!isLast">, </span>
-            </a>
-
-            <span *ngIf="!exportedModule.routeLink"
-               class="link-list-item">
-              {{exportedModule.name}}<span *ngIf="!isLast">, </span>
-            </span>
-          </ng-template>
-
-          <ng-template #fragmentLink>
-            <a href="javascript:;"
-               class="link-list-item"
-               (click)="scrollTo(exportedModule.fragment)">
-              {{exportedModule.name}}<span *ngIf="!isLast">, </span>
-            </a>
-          </ng-template>
-        </ng-container>
-      </div>
-    </li>
-    <li *ngIf="docs && docs.length > 0">
-      <div class="emphasis">
-        Documentation:
-      </div>
-
-      <div>
-        <a *ngFor="let doc of docs; let isLast = last;"
-           target="_blank"
-           class="link-list-item"
-           [href]="doc.routeLink">{{doc.name}}
-          <i class="fas fa-external-link-square-alt" aria-hidden="true"></i> <span *ngIf="!isLast">, </span>
+        @for (exportedModule of exports(); track exportedModule; let isLast =
+        $last) { @if (exportedModule.fragment) {
+        <a
+          href="javascript:;"
+          class="link-list-item"
+          (click)="scrollTo(exportedModule.fragment)"
+        >
+          {{ exportedModule.name }}@if (!isLast) {
+          <span>, </span>
+          }
         </a>
-      </div>
-    </li>
-    <li *ngIf="liveExamples && liveExamples.length > 0">
-      <span class="emphasis">
-        Code Examples:
-      </span>
-
-      <div>
-        <a *ngFor="let example of liveExamples; let isLast = last;"
-           target="_blank"
-           class="link-list-item"
-           [href]="example.routeLink">
-          {{example.name}}
-          <i class="fas fa-external-link-square-alt" aria-hidden="true"></i> <span *ngIf="!isLast">, </span>
+        } @else { @if (exportedModule.routeLink) {
+        <a class="link-list-item" routerLink="{{ exportedModule.routeLink }}">
+          {{ exportedModule.name }}@if (!isLast) {
+          <span>, </span>
+          }
         </a>
+        } @if (!exportedModule.routeLink) {
+        <span class="link-list-item">
+          {{ exportedModule.name }}@if (!isLast) {
+          <span>, </span>
+          }
+        </span>
+        } } }
       </div>
     </li>
+    } @if (docs().length > 0) {
+    <li>
+      <div class="emphasis">Documentation:</div>
+      <div>
+        @for (doc of docs(); track doc; let isLast = $last) {
+        <a target="_blank" class="link-list-item" [href]="doc.routeLink"
+          >{{ doc.name }}
+          <i class="fas fa-external-link-square-alt" aria-hidden="true"></i> @if
+          (!isLast) {
+          <span>, </span>
+          }
+        </a>
+        }
+      </div>
+    </li>
+    } @if (liveExamples().length > 0) {
+    <li>
+      <span class="emphasis"> Code Examples: </span>
+      <div>
+        @for (example of liveExamples(); track example; let isLast = $last) {
+        <a target="_blank" class="link-list-item" [href]="example.routeLink">
+          {{ example.name }}
+          <i class="fas fa-external-link-square-alt" aria-hidden="true"></i> @if
+          (!isLast) {
+          <span>, </span>
+          }
+        </a>
+        }
+      </div>
+    </li>
+    }
   </ul>
 </section>
