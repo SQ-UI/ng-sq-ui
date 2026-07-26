@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
 import { SortItem, DatatableColumn, NgDatatableModule } from '@sq-ui/ng-datatable';
 import { NavItem } from '../../shared/nav-item';
@@ -69,11 +69,11 @@ export class DatatableDocsComponent {
   ];
 
   keys: string[] = [];
-  datatableItems: any[] = [];
-  userItems: any[] = [];
-  userItemColumns: string[] = [];
-  resourceItems: any[] = [];
-  resourceItemColumns: DatatableColumn[] = [];
+  datatableItems = signal<any[]>([]);
+  userItems = signal<any[]>([]);
+  userItemColumns = signal<string[]>([]);
+  resourceItems = signal<any[]>([]);
+  resourceItemColumns = signal<DatatableColumn[]>([]);
 
   paginatorConfig: PaginatorConfig = {
     itemsPerPage: 5,
@@ -95,7 +95,7 @@ export class DatatableDocsComponent {
       .then(response => response.json())
       .then(json => {
         const next = json.slice(0, 20);
-        this.datatableItems = [...this.datatableItems, ...next];
+        this.datatableItems.update(items => [...items, ...next]);
       });
   }
 
@@ -104,8 +104,8 @@ export class DatatableDocsComponent {
       .then(response => response.json())
       .then(json => {
         const users = json.data.slice(0, 20);
-        this.userItemColumns = Object.keys(users[0]);
-        this.userItems = users;
+        this.userItemColumns.set(Object.keys(users[0]));
+        this.userItems.set(users);
       });
   }
 
@@ -114,15 +114,14 @@ export class DatatableDocsComponent {
       .then(response => response.json())
       .then(json => {
         const resources = json.data.slice(0, 20);
-        this.resourceItemColumns = Object.keys(resources[0])
-          .map((columnName) => {
-            return {
-              name: columnName,
-              canBeSortedAgainst: columnName === 'id'
-            };
-          });
+        this.resourceItemColumns.set(
+          Object.keys(resources[0]).map((columnName) => ({
+            name: columnName,
+            canBeSortedAgainst: columnName === 'id'
+          }))
+        );
 
-        this.resourceItems = resources;
+        this.resourceItems.set(resources);
       });
   }
 
@@ -130,17 +129,19 @@ export class DatatableDocsComponent {
     const columnName = $event.name;
     const ascending = $event.isSortedByAscending;
 
-    this.resourceItems.sort((rowItem1, rowItem2) => {
-      if (rowItem1[columnName] > rowItem2[columnName]) {
-        return ascending ? 1 : -1;
-      }
+    this.resourceItems.update(items =>
+      [...items].sort((rowItem1, rowItem2) => {
+        if (rowItem1[columnName] > rowItem2[columnName]) {
+          return ascending ? 1 : -1;
+        }
 
-      if (rowItem1[columnName] < rowItem2[columnName]) {
-        return ascending ? -1 : 1;
-      }
+        if (rowItem1[columnName] < rowItem2[columnName]) {
+          return ascending ? -1 : 1;
+        }
 
-      // names must be equal
-      return 0;
-    });
+        // names must be equal
+        return 0;
+      })
+    );
   }
 }

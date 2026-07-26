@@ -31,7 +31,7 @@
             </ul>
           </div>
 
-          <sq-datatable [items]="datatableItems"
+          <sq-datatable [items]="datatableItems()"
                         [sortByColumns]="sortByColumns"
                         [paginatorConfig]="paginatorConfig"
                         (pageChange)="fetchToDoItems()">
@@ -67,7 +67,7 @@
           <sq-datatable>
             <ng-template sq-datatable-header>
               <tr>
-                @for (col of userItemColumns; track col) {
+                @for (col of userItemColumns(); track col) {
                 <th>
                   {{col}}
                 </th>
@@ -76,9 +76,9 @@
             </ng-template>
 
             <ng-template sq-datatable-body>
-              @for (item of userItems; track $index) {
+              @for (item of userItems(); track $index) {
               <tr>
-                @for (prop of userItemColumns; track prop) {
+                @for (prop of userItemColumns(); track prop) {
                 <td [attr.data-heading]="prop">
                   {{item[prop]}}
                 </td>
@@ -127,7 +127,7 @@
           <sq-datatable>
             <ng-template sq-datatable-header>
               <tr>
-                @for (column of resourceItemColumns; track column.name) {
+                @for (column of resourceItemColumns(); track column.name) {
                 <th sq-datatable-column
                     [name]="column.name"
                     [isSortable]="column.canBeSortedAgainst"
@@ -138,7 +138,7 @@
             </ng-template>
 
             <ng-template sq-datatable-body>
-              @for (rowItem of resourceItems; track $index) {
+              @for (rowItem of resourceItems(); track $index) {
               <tr sq-datatable-row
                   [rowItem]="rowItem"
                   class="row">
