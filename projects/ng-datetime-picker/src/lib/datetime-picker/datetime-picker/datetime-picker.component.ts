@@ -277,11 +277,19 @@ export class DatetimePickerComponent implements OnInit {
   private toValueFormatIfNeeded(dates: any[]): any[] {
     const fmt = this.format();
     if (fmt) {
-      return dates.map((date: Temporal.PlainDate) => {
-        return fmt
+      return dates.map((date: Temporal.PlainDate | Temporal.PlainDateTime) => {
+        let result = fmt
           .replace('YYYY', String(date.year))
-          .replace('MM', String(date.month).padStart(2, '0'))
           .replace('DD', String(date.day).padStart(2, '0'));
+        if ('hour' in date) {
+          const dt = date as Temporal.PlainDateTime;
+          result = result
+            .replace('hh', String(dt.hour).padStart(2, '0'))
+            .replace('mm', String(dt.minute).padStart(2, '0'))
+            .replace('ss', String(dt.second).padStart(2, '0'));
+        }
+        result = result.replace('MM', String(date.month).padStart(2, '0'));
+        return result;
       });
     }
     return dates;
