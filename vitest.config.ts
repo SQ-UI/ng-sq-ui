@@ -25,6 +25,11 @@ export default defineConfig({
     },
     fileParallelism: false,
     restoreMocks: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['lcov', 'text'],
+      reportsDirectory: 'coverage',
+    },
     alias: {
       '@sq-ui/ng-sq-common/(.*)': './projects/ng-sq-common/src/$1',
       '@sq-ui/ng-sq-common': './projects/ng-sq-common/src/index.ts',
