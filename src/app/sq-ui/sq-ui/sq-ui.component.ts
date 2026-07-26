@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { NavItem } from '../../shared/nav-item';
@@ -80,9 +80,9 @@ export class SqUiComponent {
   ];
 
   searchResultsStrings: string[];
-  progressBarLoadedSmall = 20;
-  progressBarLoadedMedium = 40;
-  progressBarLoadedLarge = 60;
+  progressBarLoadedSmall = signal(20);
+  progressBarLoadedMedium = signal(40);
+  progressBarLoadedLarge = signal(60);
   testForm: UntypedFormGroup;
   searchResults: any[] = [
     {
@@ -152,22 +152,10 @@ export class SqUiComponent {
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
     const source = interval(1000);
-    source.subscribe((val) => {
-      this.progressBarLoadedSmall += 20;
-      this.progressBarLoadedMedium += 20;
-      this.progressBarLoadedLarge += 20;
-
-      if (this.progressBarLoadedSmall > 100) {
-        this.progressBarLoadedSmall = 0;
-      }
-
-      if (this.progressBarLoadedMedium > 100) {
-        this.progressBarLoadedMedium = 0;
-      }
-
-      if (this.progressBarLoadedLarge > 100) {
-        this.progressBarLoadedLarge = 0;
-      }
+    source.subscribe(() => {
+      this.progressBarLoadedSmall.update(v => v + 20 > 100 ? 0 : v + 20);
+      this.progressBarLoadedMedium.update(v => v + 20 > 100 ? 0 : v + 20);
+      this.progressBarLoadedLarge.update(v => v + 20 > 100 ? 0 : v + 20);
     });
   }
 

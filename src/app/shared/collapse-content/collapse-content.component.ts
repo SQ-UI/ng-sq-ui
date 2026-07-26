@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -13,9 +13,9 @@ export class CollapseContentComponent {
   readonly title = input<string>('');
   readonly isSecondary = input(false);
 
-  isCollapsed = true;
+  isCollapsed = signal(true);
 
   toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
+    this.isCollapsed.update(v => !v);
   }
 }

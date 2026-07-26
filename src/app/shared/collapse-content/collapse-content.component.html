@@ -14,13 +14,13 @@
 
     <button type="button" class="btn-collapse" (click)="toggleCollapse()">
       <i class="fas"
-         [ngClass]="{'fa-chevron-up': isCollapsed, 'fa-chevron-down': !isCollapsed}"
+         [ngClass]="{'fa-chevron-up': isCollapsed(), 'fa-chevron-down': !isCollapsed()}"
          aria-hidden="true"></i>
     </button>
   </header>
 
   <div class="collapsed-content">
-    @if (isCollapsed) {
+    @if (isCollapsed()) {
       <ng-content select="[sq-collapse-body]"></ng-content>
     }
   </div>
