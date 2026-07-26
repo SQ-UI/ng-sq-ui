@@ -29,8 +29,4 @@ export class InputComponent {
 
   // Two-way value binding via model()
   readonly value = model<any>('');
-
-  onBlur() {
-    // Touch tracking hook — no-op for now, available for consumers
-  }
 }

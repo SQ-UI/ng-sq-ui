@@ -12,7 +12,6 @@ import { SortItem } from '../shared/interfaces/sort-item';
 export class DatatableColumnComponent {
   readonly name = input<string>();
   readonly isSortable = input<boolean>(false);
-  readonly width = input<string>();
 
   readonly onSortClicked = output<SortItem>();
 

@@ -2,7 +2,6 @@ import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
   input, model, signal, contentChild, output
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
@@ -20,7 +19,6 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    FormsModule,
     NgTemplateOutlet,
     OutsideClickListenerDirective,
   ],

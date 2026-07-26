@@ -116,8 +116,6 @@ describe('TypeaheadComponent', () => {
   });
 
   it('should be working with plain strings', () => {
-    const stringSearchResults = ['option1', 'option2', 'option3'];
-
     fixture.componentRef.setInput('displayProp', '');
     fixture.componentRef.setInput('multiple', false);
     fixture.detectChanges();

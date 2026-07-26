@@ -2,7 +2,6 @@ import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
   input, model, signal, contentChild, output, effect, untracked, TemplateRef,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
@@ -19,7 +18,6 @@ import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDi
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    FormsModule,
     NgTemplateOutlet,
     OutsideClickListenerDirective,
   ],

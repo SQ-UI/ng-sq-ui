@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimePickerComponent } from './time-picker.component';
-import { Temporal } from '@js-temporal/polyfill';
 
 describe('TimePickerComponent', () => {
   let component: TimePickerComponent;

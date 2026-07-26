@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, viewChild, contentChild, ElementRef, TemplateRef,
+  input, model, contentChild, TemplateRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
@@ -30,7 +30,6 @@ export class TagsInputComponent {
   readonly value = model<string[]>([]);
 
   // Signal-based queries
-  readonly tagsInput = viewChild<ElementRef>('tagsInput');
   readonly tagTemplate = contentChild(SqTagTemplateDirective, { read: TemplateRef });
 
   private isModelEmpty: boolean = false;

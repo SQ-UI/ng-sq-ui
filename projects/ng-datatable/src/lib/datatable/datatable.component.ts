@@ -1,6 +1,6 @@
 import {
   Component, input, output, effect, signal, untracked,
-  contentChild, viewChild, TemplateRef,
+  contentChild, TemplateRef,
   ChangeDetectionStrategy, ViewEncapsulation
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -40,7 +40,6 @@ export class DatatableComponent {
 
   datatableHeaderTemplate = contentChild(DatatableHeaderDirective, { read: TemplateRef });
   datatableBodyTemplate = contentChild(DatatableBodyDirective, { read: TemplateRef });
-  paginatorComponent = viewChild<PaginatorComponent>('paginator');
 
   columnNames = signal<DatatableColumn[]>([]);
   paginatedCollection = signal<any[]>([]);
