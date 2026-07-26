@@ -14,13 +14,13 @@
               class="month-name"
               (click)="showMonthsPicker()"
               *ngIf="!isMonthsPickerEnabled && !isYearsPickerEnabled">
-        <strong class="period-name">{{ currentMonth.format('MMMM') }}</strong>
+        <strong class="period-name">{{ currentMonthName }}</strong>
       </button>
 
       <button type="button"
               (click)="showYearsPicker()"
               *ngIf="!isYearsPickerEnabled">
-        <strong class="period-name">{{ currentMonth.format('YYYY') }}</strong>
+        <strong class="period-name">{{ currentMonth.year }}</strong>
       </button>
 
       <strong class="period-name" *ngIf="isYearsPickerEnabled">

@@ -1,7 +1,7 @@
-import moment from 'moment';
+import { Temporal } from '@js-temporal/polyfill';
 
 
 export interface DateRange {
-  minDate: moment.Moment | Date;
-  maxDate: moment.Moment | Date;
+  minDate: Temporal.PlainDate | Date;
+  maxDate: Temporal.PlainDate | Date;
 }

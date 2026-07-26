@@ -5,7 +5,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
 import { CalendarManagerService } from '../calendar-manager.service';
-import moment from 'moment';
+import { Temporal } from '@js-temporal/polyfill';
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -60,17 +60,18 @@ describe('DatetimePickerComponent', () => {
   });
 
   it('should select a date correctly when [isMultipleSelect]=false', (done) => {
-    component.calendar = component.getMonthCalendar(moment());
+    const now = Temporal.Now.plainDateISO();
+    component.calendar = component.getMonthCalendar(now);
     const selectItem = component.calendar[2][5];
     component.isMultipleSelect = false;
 
     const subscription = component.dateSelectionChange.subscribe((selectedValue) => {
-      const isValueSame = (selectedValue as moment.Moment).isSame(selectItem.momentObj, 'day');
+      const isValueSame = Temporal.PlainDate.compare(selectedValue as Temporal.PlainDate, selectItem.date) === 0;
       const isValueSelected = selectItem.isSelected;
       const isEmittedValueSameAsComponentValue = Object.is(selectedValue, component.value);
 
       expect(isValueSame && isValueSelected && isEmittedValueSameAsComponentValue)
-        .toBe(true, 'the selected date is correct');
+        .toBe(true);
 
       done();
       subscription.unsubscribe();
@@ -81,10 +82,11 @@ describe('DatetimePickerComponent', () => {
   });
 
   it('should select dates correctly when [isMultipleSelect]=true', () => {
+    const now = Temporal.Now.plainDateISO();
     component.isMultipleSelect = true;
-    component.calendar = component.getMonthCalendar(moment());
-    const date1 = calendarManager.findADateFromCalendar(moment().add(1, 'day'), component.calendar);
-    const date2 = calendarManager.findADateFromCalendar(moment().add(4, 'days'), component.calendar);
+    component.calendar = component.getMonthCalendar(now);
+    const date1 = calendarManager.findADateFromCalendar(now.add({ days: 1 }), component.calendar);
+    const date2 = calendarManager.findADateFromCalendar(now.add({ days: 4 }), component.calendar);
     const expectedItems = [date1, date2];
     vi.spyOn(component, 'select');
 
@@ -93,8 +95,8 @@ describe('DatetimePickerComponent', () => {
       fixture.detectChanges();
 
       const isArray = Array.isArray(component.value);
-      const addedDate = component.value.find((selectedDate) => {
-        return selectedDate.isSame(item.momentObj, 'day');
+      const addedDate = component.value.find((selectedDate: Temporal.PlainDate) => {
+        return Temporal.PlainDate.compare(selectedDate, item.date) === 0;
       });
 
       const areValuesSameAndSelected = !!addedDate;
@@ -108,7 +110,7 @@ describe('DatetimePickerComponent', () => {
 
   it('should jump to previous month when a date before current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
-    const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
+    const monthWhichDoesNotStartWithTable = Temporal.PlainDate.from({ year: 2018, month: 8, day: 1 });
     component.isMultipleSelect = false;
     component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
     const date = component.calendar[0][1];
@@ -116,8 +118,8 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
 
     const isDateSelected = date.isSelected;
-    const isCurrentMonthChanged = component.currentMonth.month() === date.momentObj.month();
-    const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
+    const isCurrentMonthChanged = component.currentMonth.month === date.date.month;
+    const isComponentValueSameAsSelectedDate = Temporal.PlainDate.compare(date.date, component.value as Temporal.PlainDate) === 0;
 
     expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
       .toBe(true);
@@ -125,7 +127,7 @@ describe('DatetimePickerComponent', () => {
 
   it('should jump to next month when a date after current month is selected', () => {
     // we are sure September 2018 doesn't start from Monday
-    const monthWhichDoesNotStartWithTable = moment().year(2018).month(7);
+    const monthWhichDoesNotStartWithTable = Temporal.PlainDate.from({ year: 2018, month: 8, day: 1 });
     component.isMultipleSelect = false;
     component.calendar = component.getMonthCalendar(monthWhichDoesNotStartWithTable);
 
@@ -134,8 +136,8 @@ describe('DatetimePickerComponent', () => {
     fixture.detectChanges();
 
     const isDateSelected = date.isSelected;
-    const isCurrentMonthChanged = component.currentMonth.month() === date.momentObj.month();
-    const isComponentValueSameAsSelectedDate = date.momentObj.isSame(component.value);
+    const isCurrentMonthChanged = component.currentMonth.month === date.date.month;
+    const isComponentValueSameAsSelectedDate = Temporal.PlainDate.compare(date.date, component.value as Temporal.PlainDate) === 0;
 
     expect(isDateSelected && isCurrentMonthChanged && isComponentValueSameAsSelectedDate)
       .toBe(true);
@@ -158,7 +160,7 @@ describe('DatetimePickerComponent', () => {
     component.selectMonth(component.months[2]);
     fixture.detectChanges();
 
-    const isCalendarCorrect = component.months[2].momentObj.isSame(component.currentMonth, 'month');
+    const isCalendarCorrect = component.months[2].date.month === component.currentMonth.month;
 
     expect(isCalendarCorrect && !component.isMonthsPickerEnabled)
       .toBe(true);
@@ -186,4 +188,3 @@ describe('DatetimePickerComponent', () => {
   });
 
 });
-
