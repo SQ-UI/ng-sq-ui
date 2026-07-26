@@ -21,9 +21,7 @@
                    [ngTemplateOutletContext]="{ value: value() }">
       </ng-template>
     }
-  }
-
-  @if (!value()) {
+  } @else {
     <div class="input-placeholder">{{controlPlaceholder()}}</div>
   }
 

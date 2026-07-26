@@ -24,9 +24,7 @@
                 (click)="showYearsPicker()">
           <strong class="period-name">{{ currentMonth().year }}</strong>
         </button>
-      }
-
-      @if (isYearsPickerEnabled()) {
+      } @else {
         <strong class="period-name">
           {{ yearsList()[0].displayName + ' - ' + yearsList()[yearsList().length - 1].displayName }}
         </strong>
@@ -66,9 +64,7 @@
         }
       }
     </div>
-  }
-
-  @if (!isMonthsPickerEnabled() && !isYearsPickerEnabled()) {
+  } @else {
     <table class="datetime-picker">
       <thead>
         <tr>
