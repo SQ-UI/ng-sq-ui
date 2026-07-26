@@ -54,7 +54,7 @@
             </header>
 
             <div style="max-width: 410px;">
-              <sq-time-picker formControlName="standAloneTimepicker"
+              <sq-time-picker [(value)]="standAloneTimepickerValue"
                               (hoursChange)="hoursChange($event)"
                               (minutesChange)="minutesChange($event)"
                               timeObjectType="string"

@@ -159,8 +159,8 @@ export class CalendarManagerService {
   }
 
   determineIfDateIsDisabled(currentDate: Temporal.PlainDate | Date,
-    minDate: Temporal.PlainDate | Date,
-    maxDate: Temporal.PlainDate | Date): boolean {
+    minDate: Temporal.PlainDate | Date | undefined,
+    maxDate: Temporal.PlainDate | Date | undefined): boolean {
     const current = this.toPlainDate(currentDate);
     const isAfterMaxDate = maxDate && Temporal.PlainDate.compare(current, this.toPlainDate(maxDate)) > 0;
     const isBeforeMinDate = minDate && Temporal.PlainDate.compare(current, this.toPlainDate(minDate)) < 0;

@@ -5,7 +5,7 @@ import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
-import moment from 'moment';
+import { Temporal } from '@js-temporal/polyfill';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -61,8 +61,8 @@ export class DatatimePickerDocsComponent {
   ];
 
   isDatepickerMultipleSelect = true;
-  minDate = moment();
-  maxDate = moment().add(5, 'years');
+  minDate = Temporal.Now.plainDateISO();
+  maxDate = Temporal.Now.plainDateISO().add({ years: 5 });
   inlineTimepickerConfig = {
     hourStep: 2,
     minuteStep: 15,
@@ -80,12 +80,13 @@ export class DatatimePickerDocsComponent {
     isEditable: false,
   };
   isTimepickerEndabled = true;
+  standAloneTimepickerValue: any = null;
 
   constructor(private fb: UntypedFormBuilder) {
+    const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
     this.testForm = this.fb.group({
-      standAloneDatepicker: [moment().add(1, 'day')],
-      datetimePicker: [moment().add(1, 'day')],
-      standAloneTimepicker: []
+      standAloneDatepicker: [tomorrow],
+      datetimePicker: [tomorrow]
     });
   }
 
