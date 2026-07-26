@@ -7,9 +7,8 @@
   <div class="background"></div>
   <div class="progress-bar">
     @if (!infinite()) {
-      <div class="loading-line" [ngStyle]="{width: loaded() + '%'}"></div>
-    }
-    @if (infinite()) {
+      <div class="loading-line" [style.width.%]="loaded()"></div>
+    } @else {
       <div class="loading-line infinite-line-1"></div>
       <div class="loading-line infinite-line-2"></div>
     }
