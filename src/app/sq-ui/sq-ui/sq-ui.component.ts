@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { compatForm } from '@angular/forms/signals/compat';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import {
@@ -32,7 +32,6 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-ui',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     InputComponent,
     DropdownComponent,
     TagsInputComponent,
@@ -117,7 +116,30 @@ export class SqUiComponent {
   progressBarLoadedSmall = signal(20);
   progressBarLoadedMedium = signal(40);
   progressBarLoadedLarge = signal(60);
-  testForm: UntypedFormGroup;
+
+  // Individual value signals for direct two-way binding with form components
+  nameValue = signal('');
+  dropdownValue = signal<LabelValuePair | null>(null);
+  dropdownWithTemplatesValue = signal<LabelValuePair | null>(null);
+  tagsValue = signal<string[]>(['tag1']);
+  typeaheadWithTemplatesValue = signal<LabelValuePair[]>([]);
+  typeahead2Value = signal<LabelValuePair[]>([]);
+  checkboxValue = signal(false);
+  textareaValue = signal('');
+
+  // Aggregate form model as a computed signal, bridged via compatForm()
+  // to demonstrate the Signal Forms compat API
+  formModel = computed(() => ({
+    name: this.nameValue(),
+    dropdown: this.dropdownValue(),
+    dropdownWithTemplates: this.dropdownWithTemplatesValue(),
+    tags: this.tagsValue(),
+    typeaheadWithTemplates: this.typeaheadWithTemplatesValue(),
+    typeahead2: this.typeahead2Value(),
+    checkboxValue: this.checkboxValue(),
+    textareaValue: this.textareaValue(),
+  }));
+  testForm = compatForm(this.formModel);
   searchResults: any[] = [
     {
       myCustomProp: 'option1',
@@ -169,19 +191,7 @@ export class SqUiComponent {
     },
   ];
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.testForm = this.fb.group({
-      name: [''],
-      dropdown: [null],
-      dropdownWithTemplates: [null],
-      tags: [['tag1']],
-      typeahead1: [[this.searchResults[0], this.searchResults[2]]],
-      typeaheadWithTemplates: [[this.searchResults[0], this.searchResults[2]]],
-      typeahead2: [[]],
-      checkboxValue: [false],
-      textareaValue: ['']
-    });
-
+  constructor() {
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
     interval(1000).pipe(takeUntilDestroyed()).subscribe(() => {
@@ -234,6 +244,7 @@ export class SqUiComponent {
   }
 
   onSubmit() {
-    console.log(this.testForm.value);
+    console.log('Form values (signals):', this.formModel());
+    console.log('Form values (compatForm bridge):', this.testForm.value);
   }
 }
