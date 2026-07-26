@@ -65,7 +65,6 @@ export class DropdownComponent {
 
   selectOption(option: LabelValuePair) {
     this.value.set({ ...option });
-    this.isOpen.set(false);
     this.listenForOutsideClick.set(false);
     this.onSelectItem.emit(option);
   }
