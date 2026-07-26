@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { NgFor } from '@angular/common';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
 import { SortItem, DatatableColumn, NgDatatableModule } from '@sq-ui/ng-datatable';
 import { NavItem } from '../../shared/nav-item';
@@ -11,7 +10,6 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-datatable-docs',
   standalone: true,
   imports: [
-    NgFor,
     NgDatatableModule,
     ModuleOverviewComponent,
     CollapseContentComponent,

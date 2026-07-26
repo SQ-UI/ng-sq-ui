@@ -67,19 +67,24 @@
           <sq-datatable>
             <ng-template sq-datatable-header>
               <tr>
-                <th *ngFor="let col of userItemColumns">
+                @for (col of userItemColumns; track col) {
+                <th>
                   {{col}}
                 </th>
+                }
               </tr>
             </ng-template>
 
             <ng-template sq-datatable-body>
-              <tr *ngFor="let item of userItems">
-                <td *ngFor="let prop of userItemColumns"
-                    [attr.data-heading]="prop">
+              @for (item of userItems; track $index) {
+              <tr>
+                @for (prop of userItemColumns; track prop) {
+                <td [attr.data-heading]="prop">
                   {{item[prop]}}
                 </td>
+                }
               </tr>
+              }
             </ng-template>
           </sq-datatable>
         </section>
@@ -122,21 +127,23 @@
           <sq-datatable>
             <ng-template sq-datatable-header>
               <tr>
+                @for (column of resourceItemColumns; track column.name) {
                 <th sq-datatable-column
-                    *ngFor="let column of resourceItemColumns"
                     [name]="column.name"
                     [isSortable]="column.canBeSortedAgainst"
                     (onSortClicked)="sortResourceItemsByColumn($event)">
                 </th>
+                }
               </tr>
             </ng-template>
 
             <ng-template sq-datatable-body>
+              @for (rowItem of resourceItems; track $index) {
               <tr sq-datatable-row
-                  *ngFor="let rowItem of resourceItems"
                   [rowItem]="rowItem"
                   class="row">
               </tr>
+              }
             </ng-template>
           </sq-datatable>
         </section>
