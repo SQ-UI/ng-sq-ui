@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime-picker';
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
@@ -11,6 +12,7 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-datatime-picker-docs',
   standalone: true,
   imports: [
+    FormsModule,
     DatetimePickerComponent,
     TimePickerComponent,
     ButtonComponent,

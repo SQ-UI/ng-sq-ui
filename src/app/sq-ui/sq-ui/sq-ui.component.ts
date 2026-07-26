@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, signal, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { compatForm } from '@angular/forms/signals/compat';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
@@ -49,6 +50,7 @@ import { environment } from '../../../environments/environment';
     SqTypeaheadOptionTemplateDirective,
     SqTypeaheadSelectedOptionTemplateDirective,
     SqCheckboxLabelTemplateDirective,
+    FormsModule,
     ProgressBarComponent,
     ModuleOverviewComponent,
     CollapseContentComponent,
