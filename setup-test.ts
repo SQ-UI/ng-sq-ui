@@ -14,6 +14,12 @@ try {
   // Already initialized in another test file
 }
 
+const originalConsoleError = console.error;
+console.error = function (...args: unknown[]) {
+  originalConsoleError.apply(console, args);
+  throw new Error(String(args[0]));
+};
+
 Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => {
