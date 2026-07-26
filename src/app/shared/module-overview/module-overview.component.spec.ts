@@ -1,8 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { ModuleOverviewComponent } from './module-overview.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ModuleOverviewComponent', () => {
   let component: ModuleOverviewComponent;
@@ -10,9 +9,8 @@ describe('ModuleOverviewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ModuleOverviewComponent],
-      imports: [RouterTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [ModuleOverviewComponent],
+      providers: [provideRouter([])]
     })
       .compileComponents();
   }));

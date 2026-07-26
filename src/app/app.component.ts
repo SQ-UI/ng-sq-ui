@@ -1,13 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NavItem } from './shared/shared.module';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NavItem } from './shared/nav-item';
+import { AppNavComponent } from './app-nav/app-nav.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, AppNavComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   navItems: NavItem[] = [
     {
       name: 'SQ-UI',
@@ -30,10 +35,4 @@ export class AppComponent implements OnInit {
       routeLink: 'modal'
     }
   ];
-
-  constructor() {
-
-  }
-
-  ngOnInit() { }
 }

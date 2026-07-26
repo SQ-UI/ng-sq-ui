@@ -1,16 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
+import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import { interval } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-ui',
+  standalone: true,
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    NgFormElementsModule,
+    ProgressBarComponent,
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+  ],
   templateUrl: './sq-ui.component.html',
-  styleUrls: ['./sq-ui.component.scss']
+  styleUrls: ['./sq-ui.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SqUiComponent implements OnInit {
+export class SqUiComponent {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
   moduleName: string = 'NgSqUiModule';
   internallyDeclared: NavItem[] = [
@@ -133,9 +148,6 @@ export class SqUiComponent implements OnInit {
       checkboxValue: [false],
       textareaValue: ['']
     });
-  }
-
-  ngOnInit() {
 
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
@@ -159,7 +171,7 @@ export class SqUiComponent implements OnInit {
     });
   }
 
-  searchMethod(query) {
+  searchMethod(query: string) {
     this.searchResults = [
       {
         myCustomProp: 'option1',
@@ -197,12 +209,11 @@ export class SqUiComponent implements OnInit {
     ];
   }
 
-  searchMethodString(query) {
+  searchMethodString(query: string) {
     this.searchResultsStrings = ['option1', 'option2', 'option3', 'option4'];
   }
 
   onSubmit() {
     console.log(this.testForm.value);
   }
-
 }

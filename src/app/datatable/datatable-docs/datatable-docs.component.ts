@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { NgFor } from '@angular/common';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
-import { SortItem, DatatableColumn } from '@sq-ui/ng-datatable';
-import { NavItem } from '../../shared/shared.module';
-import { environment } from 'src/environments/environment';
+import { SortItem, DatatableColumn, NgDatatableModule } from '@sq-ui/ng-datatable';
+import { NavItem } from '../../shared/nav-item';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-datatable-docs',
+  standalone: true,
+  imports: [
+    NgFor,
+    NgDatatableModule,
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+  ],
   templateUrl: './datatable-docs.component.html',
-  styleUrls: ['./datatable-docs.component.scss']
+  styleUrls: ['./datatable-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatatableDocsComponent implements OnInit {
+export class DatatableDocsComponent {
   npmPackageName: string = '@sq-ui/ng-datatable';
   moduleName: string = 'NgDatatableModule';
 
@@ -59,11 +70,11 @@ export class DatatableDocsComponent implements OnInit {
     }
   ];
 
-  keys = [];
-  datatableItems = [];
-  userItems = [];
-  userItemColumns = [];
-  resourceItems = [];
+  keys: string[] = [];
+  datatableItems: any[] = [];
+  userItems: any[] = [];
+  userItemColumns: string[] = [];
+  resourceItems: any[] = [];
   resourceItemColumns: DatatableColumn[] = [];
 
   paginatorConfig: PaginatorConfig = {
@@ -75,9 +86,7 @@ export class DatatableDocsComponent implements OnInit {
 
   sortByColumns = ['id', 'title'];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
     this.fetchToDoItems();
     this.fetchUserItems();
     this.fetchResourcesItems();
@@ -136,5 +145,4 @@ export class DatatableDocsComponent implements OnInit {
       return 0;
     });
   }
-
 }

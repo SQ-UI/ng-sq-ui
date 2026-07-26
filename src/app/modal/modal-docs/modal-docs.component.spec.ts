@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { ModalDocsComponent } from './modal-docs.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ModalDocsComponent', () => {
   let component: ModalDocsComponent;
@@ -9,7 +9,7 @@ describe('ModalDocsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalDocsComponent],
+      imports: [ModalDocsComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();

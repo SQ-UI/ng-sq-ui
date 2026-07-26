@@ -1,12 +1,16 @@
 <section class="content-wrapper">
   <header class="display-flex">
-    <h3 (click)="toggleCollapse()" class="header-btn" *ngIf="!isSecondary">
-      {{title}}
-    </h3>
+    @if (!isSecondary()) {
+      <h3 (click)="toggleCollapse()" class="header-btn">
+        {{title()}}
+      </h3>
+    }
 
-    <h4 (click)="toggleCollapse()" class="header-btn" *ngIf="isSecondary">
-      {{title}}
-    </h4>
+    @if (isSecondary()) {
+      <h4 (click)="toggleCollapse()" class="header-btn">
+        {{title()}}
+      </h4>
+    }
 
     <button type="button" class="btn-collapse" (click)="toggleCollapse()">
       <i class="fas"
@@ -16,8 +20,8 @@
   </header>
 
   <div class="collapsed-content">
-    <ng-content select="[sq-collapse-body]"
-                *ngIf="isCollapsed">
-    </ng-content>
+    @if (isCollapsed) {
+      <ng-content select="[sq-collapse-body]"></ng-content>
+    }
   </div>
 </section>
