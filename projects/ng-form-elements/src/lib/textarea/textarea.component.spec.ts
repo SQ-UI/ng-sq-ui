@@ -1,48 +1,49 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextareaComponent } from './textarea.component';
-import { FormsModule } from '@angular/forms';
-import { ElementRef, Renderer2 } from '@angular/core';
 
 describe('TextareaComponent', () => {
   let component: TextareaComponent;
   let fixture: ComponentFixture<TextareaComponent>;
-  const renderer = {
-    setProperty: vi.fn(),
-    addClass: vi.fn(),
-    removeClass: vi.fn(),
-  } as unknown as Renderer2;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [TextareaComponent],
-      imports: [
-        FormsModule
-      ]
-    })
-      .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TextareaComponent],
+    }).compileComponents();
 
-  beforeEach(() => {
-    component = new TextareaComponent(renderer);
-    component.textarea = new ElementRef({ textContent: '' });
+    fixture = TestBed.createComponent(TextareaComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should write to the textarea if value is defined', () => {
-    vi.spyOn(renderer, 'setProperty');
-    let testValue = null;
-    component.writeValue(testValue);
-    expect(renderer.setProperty).not.toHaveBeenCalled();
-    expect(component.value).toEqual(null);
-    expect(component.isPlaceholderVisible).toBe(true);
-    testValue = 'some test text';
-    component.writeValue(testValue);
-    expect(renderer.setProperty).toHaveBeenCalledWith(component.textarea.nativeElement, 'textContent', testValue);
-    expect(component.value).toEqual(testValue);
-    expect(component.isPlaceholderVisible).toBe(false);
+  it('should show placeholder when value is empty', () => {
+    expect(component.isPlaceholderVisible()).toBe(true);
+  });
+
+  it('should hide placeholder when value is set', () => {
+    component.value.set('some test text');
+    expect(component.isPlaceholderVisible()).toBe(false);
+  });
+
+  it('should sync value to the contentEditable div via effect', async () => {
+    component.value.set('hello world');
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const textareaEl = fixture.nativeElement.querySelector('[contenteditable]');
+    expect(textareaEl.textContent).toBe('hello world');
+  });
+
+  it('should update value on input event', () => {
+    const textareaEl = fixture.nativeElement.querySelector('[contenteditable]') as HTMLElement;
+    textareaEl.textContent = 'typed text';
+    textareaEl.dispatchEvent(new Event('input', { bubbles: true }));
+
+    expect(component.value()).toBe('typed text');
+    expect(component.isPlaceholderVisible()).toBe(false);
   });
 });
