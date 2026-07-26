@@ -1,5 +1,5 @@
 import {
-  Component, input, output, effect, signal, untracked,
+  Component, input, output, model, effect, signal, untracked,
   ChangeDetectionStrategy, ViewEncapsulation
 } from '@angular/core';
 import { NgClass } from '@angular/common';
@@ -20,9 +20,7 @@ export class PaginatorComponent {
   currentPage = input<number>(1);
   lastPage = input<number | undefined>(undefined);
   maxDisplayedPages = input<number>(3);
-  paginatedCollection = input<any[]>([]);
-
-  paginatedCollectionChange = output<any[]>();
+  paginatedCollection = model<any[]>([]);
   pageChange = output<{ page: number, firstItemIndex: number }>();
 
   pages = signal<Page[]>([]);
@@ -172,7 +170,7 @@ export class PaginatorComponent {
     this.currentPageNumber.set(newPage);
 
     setTimeout(() => {
-      this.paginatedCollectionChange.emit(newCollection);
+      this.paginatedCollection.set(newCollection);
     }, 100);
   }
 
