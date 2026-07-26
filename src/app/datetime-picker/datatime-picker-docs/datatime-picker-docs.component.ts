@@ -1,13 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { NavItem } from '../../shared/shared.module';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NavItem } from '../../shared/nav-item';
+import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
+import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import moment from 'moment';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-datatime-picker-docs',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    NgDatetimePickerModule,
+    NgFormElementsModule,
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+  ],
   templateUrl: './datatime-picker-docs.component.html',
-  styleUrls: ['./datatime-picker-docs.component.scss']
+  styleUrls: ['./datatime-picker-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatatimePickerDocsComponent {
 
@@ -76,16 +89,15 @@ export class DatatimePickerDocsComponent {
     });
   }
 
-  hoursChange($event) {
+  hoursChange($event: number) {
     console.log(`The current chosen hours are: ${$event}`);
   }
 
-  minutesChange($event) {
+  minutesChange($event: number) {
     console.log(`The current chosen minutes are: ${$event}`);
   }
 
   onSubmit() {
     console.log(this.testForm.value);
   }
-
 }

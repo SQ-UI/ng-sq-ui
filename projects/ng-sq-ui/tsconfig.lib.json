@@ -3,12 +3,11 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
     "declarationMap": true,
-    "module": "es2015",
-    "moduleResolution": "node",
+    "module": "es2022",
+    "moduleResolution": "bundler",
     "declaration": true,
     "sourceMap": true,
     "inlineSources": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "esModuleInterop": true,
@@ -17,12 +16,9 @@
     "noImplicitAny": false,
     "lib": [
       "dom",
-      "es2017"
+      "es2022"
     ],
     "paths": {
-      "@angular/*": [
-        "./node_modules/@angular/*"
-      ],
       "@sq-ui/ng-sq-common": [
         "./dist/ng-sq-common",
         "./projects/ng-sq-common/src",

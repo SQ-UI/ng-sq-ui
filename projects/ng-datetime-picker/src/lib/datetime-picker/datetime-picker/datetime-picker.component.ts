@@ -23,6 +23,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-datetime-picker',
+  standalone: false,
   templateUrl: './datetime-picker.component.html',
   styleUrls: ['./datetime-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,

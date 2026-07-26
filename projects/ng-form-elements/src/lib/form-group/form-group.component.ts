@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'sq-form-group',
+  standalone: false,
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.scss'],
   encapsulation: ViewEncapsulation.None

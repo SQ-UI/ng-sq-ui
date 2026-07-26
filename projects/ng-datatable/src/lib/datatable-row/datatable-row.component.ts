@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} f
 
 @Component({
   selector: '[sq-datatable-row]',
+  standalone: false,
   templateUrl: './datatable-row.component.html',
   styleUrls: ['./datatable-row.component.scss'],
   encapsulation: ViewEncapsulation.None

@@ -17,6 +17,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-radiobutton',
+  standalone: false,
   templateUrl: './radiobutton.component.html',
   styleUrls: ['./radiobutton.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -39,8 +40,8 @@ export class RadiobuttonComponent extends InputCoreComponent implements OnInit, 
   ngOnInit() {
     this.eventBroadcasterSubscription = this.eventBroadcaster.subscribeFor(
       'sqRadio:selected',
-      (eventDetails: CustomEventDetails) => {
-        if (eventDetails.details.group === this.name &&
+      (eventDetails?: CustomEventDetails) => {
+        if (eventDetails && eventDetails.details.group === this.name &&
           !Object.is(this.radioValue, eventDetails.details.sqRadio.radioValue)) {
           this.isSelected = false;
           this.value = eventDetails.details.sqRadio.radioValue;

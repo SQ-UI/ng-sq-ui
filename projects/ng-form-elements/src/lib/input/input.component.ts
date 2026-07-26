@@ -12,6 +12,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-input',
+  standalone: false,
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   encapsulation: ViewEncapsulation.None,

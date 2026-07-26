@@ -88,9 +88,9 @@
                   timeObjectType="moment"
                   [hours]="timepickerConfig.hours"
                   [minutes]="timepickerConfig.minutes"
-                  [hourStep]="timepickerConfig.hourStep"
-                  [minuteStep]="timepickerConfig.minuteStep"
-                  [isEditable]="timepickerConfig.isEditable"
-                  [isMeridiem]="timepickerConfig.isMeridiem">
+                  [hourStep]="timepickerConfig.hourStep ?? 1"
+                  [minuteStep]="timepickerConfig.minuteStep ?? 1"
+                  [isEditable]="timepickerConfig.isEditable ?? true"
+                  [isMeridiem]="timepickerConfig.isMeridiem ?? false">
   </sq-time-picker>
 </div>

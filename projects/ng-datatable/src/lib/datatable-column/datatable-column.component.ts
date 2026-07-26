@@ -5,6 +5,7 @@ import { SortItem } from '../shared/interfaces/sort-item';
 
 @Component({
   selector: '[sq-datatable-column]',
+  standalone: false,
   templateUrl: './datatable-column.component.html',
   styleUrls: ['./datatable-column.component.scss'],
   encapsulation: ViewEncapsulation.None

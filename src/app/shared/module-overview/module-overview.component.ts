@@ -1,28 +1,26 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NavItem } from '../nav-item';
 
 @Component({
   selector: 'sq-module-overview',
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './module-overview.component.html',
   styleUrls: ['./module-overview.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModuleOverviewComponent implements OnInit {
-  @Input() npmPackageName: string;
-  @Input() moduleName: string;
-  @Input() internallyDeclared: NavItem[];
-  @Input() dependsOn: NavItem[];
-  @Input() exports: NavItem[];
-  @Input() docs: NavItem[];
-  @Input() liveExamples: NavItem[];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class ModuleOverviewComponent {
+  readonly npmPackageName = input<string>('');
+  readonly moduleName = input<string>('');
+  readonly internallyDeclared = input<NavItem[]>([]);
+  readonly dependsOn = input<NavItem[]>([]);
+  readonly exports = input<NavItem[]>([]);
+  readonly docs = input<NavItem[]>([]);
+  readonly liveExamples = input<NavItem[]>([]);
 
   scrollTo(fragment: string) {
-    document.getElementById(fragment).scrollIntoView();
+    document.getElementById(fragment)?.scrollIntoView();
   }
-
 }

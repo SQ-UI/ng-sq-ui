@@ -8,7 +8,7 @@ describe('CollapseContentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollapseContentComponent]
+      imports: [CollapseContentComponent]
     })
       .compileComponents();
   }));

@@ -17,6 +17,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-time-picker',
+  standalone: false,
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -172,7 +173,7 @@ export class TimePickerComponent extends InputCoreComponent implements OnInit, A
   }
 
   private setValueResult() {
-    let timeMoment: moment.Moment;
+    let timeMoment: moment.Moment | undefined;
     let timeString = `${this.hours}:${this.minutes}`;
     timeString = this.isMeridiem ? `${timeString} ${this.noonRelativity.toUpperCase()}` : timeString;
 

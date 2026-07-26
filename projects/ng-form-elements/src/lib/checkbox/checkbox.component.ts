@@ -14,6 +14,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-checkbox',
+  standalone: false,
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
   encapsulation: ViewEncapsulation.None,

@@ -8,9 +8,9 @@ describe('TextareaComponent', () => {
   let component: TextareaComponent;
   let fixture: ComponentFixture<TextareaComponent>;
   const renderer = {
-    setProperty: jest.fn(),
-    addClass: jest.fn(),
-    removeClass: jest.fn(),
+    setProperty: vi.fn(),
+    addClass: vi.fn(),
+    removeClass: vi.fn(),
   } as unknown as Renderer2;
 
   beforeEach(waitForAsync(() => {
@@ -33,7 +33,7 @@ describe('TextareaComponent', () => {
   });
 
   it('should write to the textarea if value is defined', () => {
-    jest.spyOn(renderer, 'setProperty');
+    vi.spyOn(renderer, 'setProperty');
     let testValue = null;
     component.writeValue(testValue);
     expect(renderer.setProperty).not.toHaveBeenCalled();

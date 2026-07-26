@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DeviceOS } from '../enums/device-os.enum';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OSDetectorService {
 
   constructor() { }

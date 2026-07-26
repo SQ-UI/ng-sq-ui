@@ -1,30 +1,30 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "module": "es2022",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "target": "ES2022",
     "noImplicitAny": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "useDefineForClassFields": false,
+    "strict": false,
+    "strictPropertyInitialization": false,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ],
     "paths": {
-      "@angular/*": [
-        "./node_modules/@angular/*"
-      ],
       "@sq-ui/ng-sq-ui": [
         "./dist/ng-sq-ui",
         "./projects/ng-sq-ui/src"
@@ -93,7 +93,6 @@
         "./projects/ng-progress-bar/src/*",
         "./node_modules/@sq-ui/ng-progress-bar/*"
       ]
-    },
-    "useDefineForClassFields": false
+    }
   }
 }

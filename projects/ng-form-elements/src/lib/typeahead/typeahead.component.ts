@@ -24,6 +24,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 
 @Component({
   selector: 'sq-typeahead',
+  standalone: false,
   templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -56,7 +57,7 @@ export class TypeaheadComponent extends InputCoreComponent
   isLoading = false;
   listenForOutsideClick = false;
   hideResults = true;
-  onInputValueChange = new Subject();
+  onInputValueChange = new Subject<string>();
 
   ngOnInit() {
     this.value = [];

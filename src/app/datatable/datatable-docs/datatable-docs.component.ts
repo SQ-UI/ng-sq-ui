@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { PaginatorConfig } from '@sq-ui/ng-sq-common';
-import { SortItem, DatatableColumn } from '@sq-ui/ng-datatable';
-import { NavItem } from '../../shared/shared.module';
-import { environment } from 'src/environments/environment';
+import { SortItem, DatatableColumn, NgDatatableModule } from '@sq-ui/ng-datatable';
+import { NavItem } from '../../shared/nav-item';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-datatable-docs',
+  standalone: true,
+  imports: [
+    NgDatatableModule,
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+  ],
   templateUrl: './datatable-docs.component.html',
-  styleUrls: ['./datatable-docs.component.scss']
+  styleUrls: ['./datatable-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatatableDocsComponent implements OnInit {
+export class DatatableDocsComponent {
   npmPackageName: string = '@sq-ui/ng-datatable';
   moduleName: string = 'NgDatatableModule';
 
@@ -59,12 +68,12 @@ export class DatatableDocsComponent implements OnInit {
     }
   ];
 
-  keys = [];
-  datatableItems = [];
-  userItems = [];
-  userItemColumns = [];
-  resourceItems = [];
-  resourceItemColumns: DatatableColumn[] = [];
+  keys: string[] = [];
+  datatableItems = signal<any[]>([]);
+  userItems = signal<any[]>([]);
+  userItemColumns = signal<string[]>([]);
+  resourceItems = signal<any[]>([]);
+  resourceItemColumns = signal<DatatableColumn[]>([]);
 
   paginatorConfig: PaginatorConfig = {
     itemsPerPage: 5,
@@ -75,9 +84,7 @@ export class DatatableDocsComponent implements OnInit {
 
   sortByColumns = ['id', 'title'];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
     this.fetchToDoItems();
     this.fetchUserItems();
     this.fetchResourcesItems();
@@ -88,7 +95,7 @@ export class DatatableDocsComponent implements OnInit {
       .then(response => response.json())
       .then(json => {
         const next = json.slice(0, 20);
-        this.datatableItems = [...this.datatableItems, ...next];
+        this.datatableItems.update(items => [...items, ...next]);
       });
   }
 
@@ -97,8 +104,8 @@ export class DatatableDocsComponent implements OnInit {
       .then(response => response.json())
       .then(json => {
         const users = json.data.slice(0, 20);
-        this.userItemColumns = Object.keys(users[0]);
-        this.userItems = users;
+        this.userItemColumns.set(Object.keys(users[0]));
+        this.userItems.set(users);
       });
   }
 
@@ -107,15 +114,14 @@ export class DatatableDocsComponent implements OnInit {
       .then(response => response.json())
       .then(json => {
         const resources = json.data.slice(0, 20);
-        this.resourceItemColumns = Object.keys(resources[0])
-          .map((columnName) => {
-            return {
-              name: columnName,
-              canBeSortedAgainst: columnName === 'id'
-            };
-          });
+        this.resourceItemColumns.set(
+          Object.keys(resources[0]).map((columnName) => ({
+            name: columnName,
+            canBeSortedAgainst: columnName === 'id'
+          }))
+        );
 
-        this.resourceItems = resources;
+        this.resourceItems.set(resources);
       });
   }
 
@@ -123,18 +129,19 @@ export class DatatableDocsComponent implements OnInit {
     const columnName = $event.name;
     const ascending = $event.isSortedByAscending;
 
-    this.resourceItems.sort((rowItem1, rowItem2) => {
-      if (rowItem1[columnName] > rowItem2[columnName]) {
-        return ascending ? 1 : -1;
-      }
+    this.resourceItems.update(items =>
+      [...items].sort((rowItem1, rowItem2) => {
+        if (rowItem1[columnName] > rowItem2[columnName]) {
+          return ascending ? 1 : -1;
+        }
 
-      if (rowItem1[columnName] < rowItem2[columnName]) {
-        return ascending ? -1 : 1;
-      }
+        if (rowItem1[columnName] < rowItem2[columnName]) {
+          return ascending ? -1 : 1;
+        }
 
-      // names must be equal
-      return 0;
-    });
+        // names must be equal
+        return 0;
+      })
+    );
   }
-
 }

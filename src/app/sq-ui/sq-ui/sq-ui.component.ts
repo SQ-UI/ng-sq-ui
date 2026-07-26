@@ -1,16 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
+import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import { interval } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-ui',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    NgFormElementsModule,
+    ProgressBarComponent,
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+  ],
   templateUrl: './sq-ui.component.html',
-  styleUrls: ['./sq-ui.component.scss']
+  styleUrls: ['./sq-ui.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SqUiComponent implements OnInit {
+export class SqUiComponent {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
   moduleName: string = 'NgSqUiModule';
   internallyDeclared: NavItem[] = [
@@ -65,9 +79,9 @@ export class SqUiComponent implements OnInit {
   ];
 
   searchResultsStrings: string[];
-  progressBarLoadedSmall = 20;
-  progressBarLoadedMedium = 40;
-  progressBarLoadedLarge = 60;
+  progressBarLoadedSmall = signal(20);
+  progressBarLoadedMedium = signal(40);
+  progressBarLoadedLarge = signal(60);
   testForm: UntypedFormGroup;
   searchResults: any[] = [
     {
@@ -133,33 +147,17 @@ export class SqUiComponent implements OnInit {
       checkboxValue: [false],
       textareaValue: ['']
     });
-  }
-
-  ngOnInit() {
 
     this.exports = this.internallyDeclared.concat(this.dependsOn);
 
-    const source = interval(1000);
-    source.subscribe((val) => {
-      this.progressBarLoadedSmall += 20;
-      this.progressBarLoadedMedium += 20;
-      this.progressBarLoadedLarge += 20;
-
-      if (this.progressBarLoadedSmall > 100) {
-        this.progressBarLoadedSmall = 0;
-      }
-
-      if (this.progressBarLoadedMedium > 100) {
-        this.progressBarLoadedMedium = 0;
-      }
-
-      if (this.progressBarLoadedLarge > 100) {
-        this.progressBarLoadedLarge = 0;
-      }
+    interval(1000).pipe(takeUntilDestroyed()).subscribe(() => {
+      this.progressBarLoadedSmall.update(v => v + 20 > 100 ? 0 : v + 20);
+      this.progressBarLoadedMedium.update(v => v + 20 > 100 ? 0 : v + 20);
+      this.progressBarLoadedLarge.update(v => v + 20 > 100 ? 0 : v + 20);
     });
   }
 
-  searchMethod(query) {
+  searchMethod(query: string) {
     this.searchResults = [
       {
         myCustomProp: 'option1',
@@ -197,12 +195,11 @@ export class SqUiComponent implements OnInit {
     ];
   }
 
-  searchMethodString(query) {
+  searchMethodString(query: string) {
     this.searchResultsStrings = ['option1', 'option2', 'option3', 'option4'];
   }
 
   onSubmit() {
     console.log(this.testForm.value);
   }
-
 }

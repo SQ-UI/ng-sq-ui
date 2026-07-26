@@ -16,7 +16,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 @Component({
   selector: 'sq-time-picker',
   templateUrl: '../time-picker/time-picker.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  standalone: false
 })
 class TimePickerStubComponent extends TimePickerComponent {
   constructor() {
@@ -85,7 +86,7 @@ describe('DatetimePickerComponent', () => {
     const date1 = calendarManager.findADateFromCalendar(moment().add(1, 'day'), component.calendar);
     const date2 = calendarManager.findADateFromCalendar(moment().add(4, 'days'), component.calendar);
     const expectedItems = [date1, date2];
-    jest.spyOn(component, 'select');
+    vi.spyOn(component, 'select');
 
     expectedItems.forEach((item, index) => {
       component.select(item);

@@ -2,8 +2,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// modules
-import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
+// standalone components/directives from ng-sq-common
+import { OutsideClickListenerDirective, ScrolledToBottomListenerDirective, PaginatorComponent } from '@sq-ui/ng-sq-common';
 
 // components
 import { InputComponent } from './input/input.component';
@@ -24,7 +24,9 @@ import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox.template.d
 @NgModule({
   imports: [
     CommonModule,
-    NgSqCommonModule,
+    OutsideClickListenerDirective,
+    ScrolledToBottomListenerDirective,
+    PaginatorComponent,
     FormsModule,
     ReactiveFormsModule
   ],

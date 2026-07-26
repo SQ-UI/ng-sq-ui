@@ -1,47 +1,45 @@
-import {Component, OnInit, Input, ViewEncapsulation, ViewChild, ElementRef, Renderer2} from '@angular/core';
-import { NavItem } from '../shared/shared.module';
-import { Router } from '@angular/router';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
+import { NavItem } from '../shared/nav-item';
 
 @Component({
   selector: 'sq-app-nav',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, NgClass, OutsideClickListenerDirective],
   templateUrl: './app-nav.component.html',
   styleUrls: ['./app-nav.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppNavComponent implements OnInit {
-  @Input() navItems: NavItem[] = [];
-  @ViewChild('nav', {static: true}) nav: ElementRef;
+export class AppNavComponent {
+  readonly navItems = input<NavItem[]>([]);
 
-  isNavOpen = false;
-  listenForOutsideClick = false;
+  isNavOpen = signal(false);
+  listenForOutsideClick = signal(false);
 
-  constructor(private renderer: Renderer2, private router: Router) { }
-
-  ngOnInit() {
-  }
+  constructor(private router: Router) { }
 
   showNav() {
-    this.isNavOpen = true;
-    this.renderer.addClass(this.nav.nativeElement, 'show');
+    this.isNavOpen.set(true);
     setTimeout(() => {
-      this.listenForOutsideClick = true;
+      this.listenForOutsideClick.set(true);
     }, 300);
   }
 
   onClickOutsideComponent() {
-    this.isNavOpen = false;
-    this.renderer.removeClass(this.nav.nativeElement, 'show');
+    this.isNavOpen.set(false);
     setTimeout(() => {
-      this.listenForOutsideClick = false;
+      this.listenForOutsideClick.set(false);
     }, 300);
   }
 
-  navigateTo($event, routeLink) {
+  navigateTo($event: Event, routeLink: string) {
     $event.preventDefault();
-    if (this.isNavOpen) {
+    if (this.isNavOpen()) {
       this.onClickOutsideComponent();
     }
     this.router.navigateByUrl('/' + routeLink);
   }
-
 }

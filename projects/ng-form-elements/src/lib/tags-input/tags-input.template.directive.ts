@@ -1,7 +1,8 @@
 import { Directive, TemplateRef } from '@angular/core';
 
 @Directive({
-  selector: '[sq-tag]'
+  selector: '[sq-tag]',
+  standalone: false,
 })
 export class SqTagTemplateDirective {
   constructor(public template: TemplateRef<any>) { }
