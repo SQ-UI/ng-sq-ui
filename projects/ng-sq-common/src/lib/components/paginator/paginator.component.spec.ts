@@ -1,5 +1,4 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SimpleChange } from '@angular/core';
 
 import { PaginatorComponent } from './paginator.component';
 
@@ -29,7 +28,7 @@ describe('PaginatorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [PaginatorComponent]
+      imports: [PaginatorComponent]
     })
       .compileComponents();
   }));
@@ -49,19 +48,14 @@ describe('PaginatorComponent', () => {
       const recordCount = 238;
       const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
 
       fixture.detectChanges();
 
-      expect(component.pages[component.pages.length - 1].number)
+      expect(component.pages()[component.pages().length - 1].number)
         .toEqual(Math.ceil(recordCount / recordPerPage), 'the page number is calculated correctly');
-      expect(component._paginatedCollection.length)
+      expect(component._paginatedCollection().length)
         .toEqual(recordPerPage, 'the number of paginated items is correct');
     });
 
@@ -70,29 +64,22 @@ describe('PaginatorComponent', () => {
       const recordCount = 20;
       const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
 
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
-      });
+      fixture.detectChanges();
 
       component.pageChange
         .subscribe((pageInfo: { page: number, firstItemIndex: number }) => {
           if (pageInfo.page % (Math.ceil(recordCount / recordPerPage)) === 0) {
-            const newItems = generateDummyCollection(recordCount * 2, 21);
-            component.items = component.items.concat(newItems);
-
-            component.ngOnChanges({
-              items: new SimpleChange(null, component.items, false)
-            });
+            const newItems = component.items().concat(generateDummyCollection(recordCount * 2, 21));
+            fixture.componentRef.setInput('items', newItems);
 
             fixture.detectChanges();
 
-            expect(component.items.length)
+            expect(component.items().length)
               .toEqual(recordCount * 2, 'the items are changed successfully');
-            expect(component.pages[component.pages.length - 1].number)
+            expect(component.pages()[component.pages().length - 1].number)
               .toEqual(Math.ceil(recordCount / recordPerPage) * 2, 'the number of pages has changed');
 
             done();
@@ -100,7 +87,7 @@ describe('PaginatorComponent', () => {
         });
 
       fixture.detectChanges();
-      component.onPageClick(component.pages[component.pages.length - 1]);
+      component.onPageClick(component.pages()[component.pages().length - 1]);
       fixture.detectChanges();
     });
 
@@ -109,13 +96,8 @@ describe('PaginatorComponent', () => {
       const recordCount = 100;
       const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
 
       fixture.detectChanges();
 
@@ -138,13 +120,8 @@ describe('PaginatorComponent', () => {
       const recordCount = 100;
       const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
 
       fixture.detectChanges();
 
@@ -168,13 +145,8 @@ describe('PaginatorComponent', () => {
       const recordCount = 100;
       const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
 
       fixture.detectChanges();
 
@@ -200,18 +172,13 @@ describe('PaginatorComponent', () => {
       const recordCount = 100;
       const recordPerPage = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
 
       fixture.detectChanges();
 
-      const expectedPaginatedItemsForFirstPage = component.items.slice(0, recordPerPage);
-      const firstPaginatedCollection = component._paginatedCollection.slice();
+      const expectedPaginatedItemsForFirstPage = component.items().slice(0, recordPerPage);
+      const firstPaginatedCollection = component._paginatedCollection().slice();
 
       fixture.whenRenderingDone().then(() => {
         const paginatorEl = fixture.nativeElement.querySelector('.paginator');
@@ -221,8 +188,8 @@ describe('PaginatorComponent', () => {
         fixture.whenStable().then(() => {
           expect(expectedPaginatedItemsForFirstPage)
             .toEqual(firstPaginatedCollection, 'first paginated collection is correct');
-          expect(component.items.slice(recordPerPage, recordPerPage * 2))
-            .toEqual(component._paginatedCollection, 'second paginated collection is correct');
+          expect(component.items().slice(recordPerPage, recordPerPage * 2))
+            .toEqual(component._paginatedCollection(), 'second paginated collection is correct');
         });
       });
     }));
@@ -233,15 +200,9 @@ describe('PaginatorComponent', () => {
       const recordPerPage = 10;
       const currentPageNumber = 10;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-      component.currentPage = currentPageNumber;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true),
-        currentPage: new SimpleChange(null, component.currentPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+      fixture.componentRef.setInput('currentPage', currentPageNumber);
 
       fixture.detectChanges();
 
@@ -260,15 +221,9 @@ describe('PaginatorComponent', () => {
       const recordPerPage = 3;
       const lastPage = 4;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-      component.lastPage = lastPage;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true),
-        lastPage: new SimpleChange(null, component.lastPage, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+      fixture.componentRef.setInput('lastPage', lastPage);
 
       fixture.detectChanges();
 
@@ -289,15 +244,9 @@ describe('PaginatorComponent', () => {
       const recordPerPage = 10;
       const maxDisplayedPages = 5;
 
-      component.items = generateDummyCollection(recordCount);
-      component.itemsPerPage = recordPerPage;
-      component.maxDisplayedPages = maxDisplayedPages;
-
-      component.ngOnChanges({
-        items: new SimpleChange(null, component.items, true),
-        itemsPerPage: new SimpleChange(null, component.itemsPerPage, true),
-        maxDisplayedPages: new SimpleChange(null, component.maxDisplayedPages, true)
-      });
+      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
+      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+      fixture.componentRef.setInput('maxDisplayedPages', maxDisplayedPages);
 
       fixture.detectChanges();
 
