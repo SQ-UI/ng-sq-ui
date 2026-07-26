@@ -1,26 +1,37 @@
 import { ScrolledToBottomListenerDirective } from './scrolled-to-bottom-listener.directive';
-import { ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+
+@Component({
+  standalone: true,
+  imports: [ScrolledToBottomListenerDirective],
+  template: `<div sqScrolledToBottomListener (scrolledToBottom)="onScrolledToBottom()" style="height:100px;overflow:auto;"></div>`
+})
+class TestHostComponent {
+  @ViewChild(ScrolledToBottomListenerDirective) directive!: ScrolledToBottomListenerDirective;
+  onScrolledToBottom = vi.fn();
+}
 
 describe('ScrolledToBottomListenerDirective', () => {
-  let elementRef: ElementRef;
-  let renderer2Mock;
-  let directive: ScrolledToBottomListenerDirective;
+  let fixture: ComponentFixture<TestHostComponent>;
+  let component: TestHostComponent;
 
-  beforeEach(() => {
-    elementRef = new ElementRef(null);
-    renderer2Mock = {
-      scroll: vi.fn(),
-      listen: vi.fn(),
-    };
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent]
+    }).compileComponents();
 
-    directive = new ScrolledToBottomListenerDirective(elementRef, renderer2Mock);
+    fixture = TestBed.createComponent(TestHostComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create an instance', () => {
-    expect(directive).toBeTruthy();
+    expect(component.directive).toBeTruthy();
   });
 
   it('should emit an event when the user has scrolled to the bottom of the container', () => {
+    const directive = component.directive;
     const mockHtmlEl = {
       scrollTop: 1400,
       scrollHeight: 2400,
@@ -34,6 +45,7 @@ describe('ScrolledToBottomListenerDirective', () => {
   });
 
   it('should not emit an event when the user has not scrolled to the bottom of the container', () => {
+    const directive = component.directive;
     const mockHtmlEl = {
       scrollTop: 1400,
       scrollHeight: 1500,
@@ -47,6 +59,7 @@ describe('ScrolledToBottomListenerDirective', () => {
   });
 
   it('should not emit an event when the user remains at the bottom of the container', () => {
+    const directive = component.directive;
     const mockHtmlEl = {
       scrollTop: 0,
       scrollHeight: 1500,

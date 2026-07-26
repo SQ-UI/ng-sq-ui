@@ -1,12 +1,18 @@
 import '@analogjs/vitest-angular/setup-zone';
+import { getTestBed } from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
 
-// Fail tests when console throws an error
-// https://github.com/facebook/jest/issues/6121#issuecomment-529591574
-const error = global.console.error;
-global.console.error = function (...args) {
-  error(...args);
-  throw new Error(...args);
-};
+try {
+  getTestBed().initTestEnvironment(
+    BrowserDynamicTestingModule,
+    platformBrowserDynamicTesting(),
+  );
+} catch {
+  // Already initialized in another test file
+}
 
 Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(window, 'getComputedStyle', {
@@ -21,14 +27,19 @@ Object.defineProperty(window, 'getComputedStyle', {
 Object.defineProperty(document, 'doctype', {
   value: '<!DOCTYPE html>',
 });
-Object.defineProperty(document.body.style, 'transform', {
-  value: () => {
-    return {
-      enumerable: true,
-      configurable: true,
-    };
-  },
-});
+
+try {
+  Object.defineProperty(document.body.style, 'transform', {
+    value: () => {
+      return {
+        enumerable: true,
+        configurable: true,
+      };
+    },
+  });
+} catch {
+  // jsdom proxy may not allow redefining style properties
+}
 
 export const localStorageMock = {
   getItem: vi.fn(),

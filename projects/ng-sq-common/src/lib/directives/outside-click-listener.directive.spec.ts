@@ -1,14 +1,29 @@
 import { OutsideClickListenerDirective } from './outside-click-listener.directive';
-import { ElementRef, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+
+@Component({
+  standalone: true,
+  imports: [OutsideClickListenerDirective],
+  template: `<div sqOutsideClickListener [listenForOutsideClick]="true" (clickOutside)="onClickOutside()"></div>`
+})
+class TestHostComponent {
+  onClickOutside = vi.fn();
+}
 
 describe('OutsideClickListenerDirective', () => {
-  it('should create an instance', () => {
-    const elementRef = new ElementRef(null);
-    const renderer2Mock = {
-      listen: vi.fn(),
-    } as unknown as Renderer2;
+  let fixture: ComponentFixture<TestHostComponent>;
 
-    const directive = new OutsideClickListenerDirective(elementRef, renderer2Mock);
-    expect(directive).toBeTruthy();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+  });
+
+  it('should create an instance', () => {
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
