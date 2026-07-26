@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, signal, contentChild, output, inject, DestroyRef
+  input, model, computed, contentChild, output, inject, DestroyRef
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
@@ -35,7 +35,7 @@ export class RadiobuttonComponent {
 
   // Radio-specific inputs and state
   readonly radioValue = input<any>(null);
-  readonly isSelected = signal<boolean>(false);
+  readonly isSelected = computed(() => Object.is(this.value(), this.radioValue()));
   readonly isSelectedChange = output<boolean>();
 
   // Content child for custom label template
@@ -47,7 +47,6 @@ export class RadiobuttonComponent {
       (eventDetails) => {
         if (eventDetails && eventDetails.details.group === this.name() &&
           !Object.is(this.radioValue(), eventDetails.details.sqRadio.radioValue)) {
-          this.isSelected.set(false);
           this.value.set(eventDetails.details.sqRadio.radioValue);
           this.isSelectedChange.emit(false);
         }
@@ -58,7 +57,6 @@ export class RadiobuttonComponent {
   }
 
   selectRadio() {
-    this.isSelected.set(true);
     this.value.set(this.radioValue());
 
     this.eventBroadcaster.broadcastEvent(
