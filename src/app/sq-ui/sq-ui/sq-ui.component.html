@@ -16,8 +16,8 @@
     <sq-collapse-content title="FormElementsModule" id="formsModule">
       <div sq-collapse-body>
         <div class="content">
-          The preview uses Signal Forms with individual value signals and two-way binding via [(value)].
-          A compatForm() bridge aggregates the signals for demonstration purposes.
+          The preview uses signal-based two-way binding via [(value)] on each form component.
+          On submit, a compatForm() bridge from @angular/forms/signals/compat aggregates the signal values.
           The final input values are console logged on click of the Submit button.
         </div>
 

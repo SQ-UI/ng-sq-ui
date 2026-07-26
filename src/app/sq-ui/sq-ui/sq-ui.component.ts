@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, effect } from '@angular/core';
+import { compatForm } from '@angular/forms/signals/compat';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import {
@@ -126,6 +127,16 @@ export class SqUiComponent {
   checkboxValue = signal(false);
   textareaValue = signal('');
 
+  // Signal Forms compatForm() bridge: wraps a WritableSignal model
+  formModel = signal({
+    name: '',
+    dropdown: null as LabelValuePair | null,
+    tags: ['tag1'] as string[],
+    checkboxValue: false,
+    textareaValue: '',
+  });
+  testForm = compatForm(this.formModel);
+
   searchResults: any[] = [
     {
       myCustomProp: 'option1',
@@ -230,15 +241,13 @@ export class SqUiComponent {
   }
 
   onSubmit() {
-    console.log('Form values (signals):', {
+    this.formModel.set({
       name: this.nameValue(),
       dropdown: this.dropdownValue(),
-      dropdownWithTemplates: this.dropdownWithTemplatesValue(),
       tags: this.tagsValue(),
-      typeaheadWithTemplates: this.typeaheadWithTemplatesValue(),
-      typeahead2: this.typeahead2Value(),
       checkboxValue: this.checkboxValue(),
       textareaValue: this.textareaValue(),
     });
+    console.log('Signal Forms (compatForm) value:', this.testForm.value);
   }
 }
