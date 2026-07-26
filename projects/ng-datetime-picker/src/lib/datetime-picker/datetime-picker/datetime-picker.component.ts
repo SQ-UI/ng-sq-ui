@@ -275,9 +275,13 @@ export class DatetimePickerComponent implements OnInit {
   }
 
   private toValueFormatIfNeeded(dates: any[]): any[] {
-    if (this.format()) {
+    const fmt = this.format();
+    if (fmt) {
       return dates.map((date: Temporal.PlainDate) => {
-        return date.toLocaleString(this.locale());
+        return fmt
+          .replace('YYYY', String(date.year))
+          .replace('MM', String(date.month).padStart(2, '0'))
+          .replace('DD', String(date.day).padStart(2, '0'));
       });
     }
     return dates;

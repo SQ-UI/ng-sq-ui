@@ -120,6 +120,7 @@ export class TypeaheadComponent {
   }
 
   turnClickOutsideListenerOn() {
+    this.value.set([]);
     this.listenForOutsideClick.set(true);
   }
 
