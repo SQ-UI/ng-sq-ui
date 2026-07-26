@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
-import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
+import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime-picker';
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
@@ -13,7 +13,8 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgDatetimePickerModule,
+    DatetimePickerComponent,
+    TimePickerComponent,
     ButtonComponent,
     ModuleOverviewComponent,
     CollapseContentComponent,
@@ -26,7 +27,7 @@ export class DatatimePickerDocsComponent {
 
   testForm: UntypedFormGroup;
   npmPackageName: string = '@sq-ui/ng-datetime-picker';
-  moduleName: string = 'NgDatetimePickerModule';
+  moduleName: string = 'ng-datetime-picker';
   dependsOn: NavItem[] = [
     {
       name: 'NgSqCommonModule',
@@ -48,7 +49,7 @@ export class DatatimePickerDocsComponent {
 
   docs: NavItem[] = [
     {
-      name: 'DatetimePickerModule',
+      name: 'ng-datetime-picker',
       routeLink: `${environment.docs}/datetime-picker-module`
     }
   ];
