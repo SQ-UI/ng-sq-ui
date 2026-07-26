@@ -10,6 +10,9 @@ export default defineConfig({
     include: [
       'projects/ng-sq-common/src/lib/services/**/*.spec.ts',
       'projects/ng-sq-common/src/lib/directives/**/*.spec.ts',
+      'projects/ng-sq-common/src/lib/components/**/*.spec.ts',
+      'projects/ng-modal/src/**/*.spec.ts',
+      'projects/ng-progress-bar/src/**/*.spec.ts',
     ],
     setupFiles: ['./setup-test.ts'],
     css: false,
