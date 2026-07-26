@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
@@ -15,7 +14,6 @@ import { environment } from '../../../environments/environment';
   selector: 'sq-ui',
   standalone: true,
   imports: [
-    NgIf,
     ReactiveFormsModule,
     NgFormElementsModule,
     ProgressBarComponent,
