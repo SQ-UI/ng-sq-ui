@@ -9,18 +9,23 @@ export default defineConfig({
     alias: [
       { find: /^@sq-ui\/ng-sq-common$/, replacement: path.resolve(__dirname, 'projects/ng-sq-common/src/index.ts') },
       { find: /^@sq-ui\/ng-sq-common\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-sq-common/src/$1') },
+      { find: /^@sq-ui\/ng-form-elements$/, replacement: path.resolve(__dirname, 'projects/ng-form-elements/src/index.ts') },
+      { find: /^@sq-ui\/ng-form-elements\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-form-elements/src/$1') },
+      { find: /^@sq-ui\/ng-datetime-picker$/, replacement: path.resolve(__dirname, 'projects/ng-datetime-picker/src/index.ts') },
+      { find: /^@sq-ui\/ng-datetime-picker\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-datetime-picker/src/$1') },
+      { find: /^@sq-ui\/ng-datatable$/, replacement: path.resolve(__dirname, 'projects/ng-datatable/src/index.ts') },
+      { find: /^@sq-ui\/ng-datatable\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-datatable/src/$1') },
     ],
   },
   test: {
     globals: true,
     environment: 'jsdom',
     include: [
-      'projects/ng-sq-common/src/lib/services/**/*.spec.ts',
-      'projects/ng-sq-common/src/lib/directives/**/*.spec.ts',
-      'projects/ng-sq-common/src/lib/components/**/*.spec.ts',
+      'projects/ng-sq-common/src/**/*.spec.ts',
       'projects/ng-modal/src/**/*.spec.ts',
       'projects/ng-progress-bar/src/**/*.spec.ts',
       'projects/ng-form-elements/src/**/*.spec.ts',
+      'projects/ng-datetime-picker/src/**/*.spec.ts',
       'projects/ng-datatable/src/**/*.spec.ts',
     ],
     setupFiles: ['./setup-test.ts'],
@@ -41,6 +46,9 @@ export default defineConfig({
     },
     alias: [
       { find: '@sq-ui/ng-sq-common', replacement: path.resolve(__dirname, 'projects/ng-sq-common/src/index.ts') },
+      { find: '@sq-ui/ng-form-elements', replacement: path.resolve(__dirname, 'projects/ng-form-elements/src/index.ts') },
+      { find: '@sq-ui/ng-datetime-picker', replacement: path.resolve(__dirname, 'projects/ng-datetime-picker/src/index.ts') },
+      { find: '@sq-ui/ng-datatable', replacement: path.resolve(__dirname, 'projects/ng-datatable/src/index.ts') },
     ],
   },
 });

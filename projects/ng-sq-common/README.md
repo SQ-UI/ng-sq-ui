@@ -49,7 +49,7 @@ yarn add @sq-ui/ng-sq-common
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import the module in your component or module:
 
 ```
 import { NgSqCommonModule } from '@sq-ui/ng-sq-common';

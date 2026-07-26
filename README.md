@@ -76,22 +76,16 @@ yarn add @sq-ui/ng-sq-ui@latest
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import individual components directly in your standalone components or modules:
 
-```
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
-```
+```typescript
+import { InputComponent, DropdownComponent } from '@sq-ui/ng-sq-ui';
 
-and then include it in the `imports` array of your @NgModule() decorator:
-
-```
-@NgModule({
-  declarations: [ //... ],
-  imports: [
-    NgSqUiModule,
-    //...
-  ],
+@Component({
+  standalone: true,
+  imports: [InputComponent, DropdownComponent],
   //...
+})
 ```
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).

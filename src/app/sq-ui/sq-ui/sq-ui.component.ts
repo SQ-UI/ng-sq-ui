@@ -60,7 +60,7 @@ import { environment } from '../../../environments/environment';
 })
 export class SqUiComponent {
   npmPackageName: string = '@sq-ui/ng-sq-ui';
-  moduleName: string = 'NgSqUiModule';
+  moduleName: string = 'ng-sq-ui (barrel re-exports)';
   internallyDeclared: NavItem[] = [
     {
       name: 'FormElementsModule',
@@ -77,7 +77,7 @@ export class SqUiComponent {
       routeLink: '/sq-common'
     },
     {
-      name: 'NgDatetimePickerModule',
+      name: 'ng-datetime-picker',
       routeLink: '/datetime-picker'
     },
     {

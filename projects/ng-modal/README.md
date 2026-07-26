@@ -49,7 +49,7 @@ yarn add @sq-ui/ng-modal
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import the module in your component or module:
 
 ```
 import { NgModalModule } from '@sq-ui/ng-modal';
