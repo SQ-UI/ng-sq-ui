@@ -72,13 +72,12 @@
                   <div class="options row">
                     <sq-radiobutton name="group1"
                                     radioValue="value1"
-                                    [isSelected]="true"
-                                    formControlName="radioValue">
+                                    [(value)]="radioGroupValue">
                     </sq-radiobutton>
-              
+
                     <sq-radiobutton name="group1"
                                     radioValue="value2"
-                                    formControlName="radioValue">
+                                    [(value)]="radioGroupValue">
                       <ng-template sq-radio-label
                                     let-isSelected="isSelected">
                         @if (!isSelected) {

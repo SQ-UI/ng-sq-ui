@@ -1,7 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxComponent } from './checkbox.component';
-import { FormsModule } from '@angular/forms';
 
 describe('CheckboxComponent', () => {
   let component: CheckboxComponent;
@@ -9,10 +8,7 @@ describe('CheckboxComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CheckboxComponent],
-      imports: [
-        FormsModule
-      ]
+      imports: [CheckboxComponent]
     })
       .compileComponents();
   }));
@@ -28,18 +24,19 @@ describe('CheckboxComponent', () => {
   });
 
   it('should toggle its values when clicked', () => {
-    expect(component.isSelected).toBe(false);
+    expect(component.isSelected()).toBe(false);
     component.toggleCheckboxSelection();
-    expect(component.isSelected).toBe(true);
+    expect(component.isSelected()).toBe(true);
     component.toggleCheckboxSelection();
-    expect(component.isSelected).toBe(false);
+    expect(component.isSelected()).toBe(false);
   });
 
-  it('should automatically change isSelected on onWrite(...)', () => {
-    component.writeValue(true);
-    expect(component.isSelected).toEqual(true);
-    component.writeValue(false);
-    expect(component.isSelected).toEqual(false);
+  it('should update value model when toggled', () => {
+    expect(component.value()).toBe(false);
+    component.toggleCheckboxSelection();
+    expect(component.value()).toBe(true);
+    component.toggleCheckboxSelection();
+    expect(component.value()).toBe(false);
   });
 
 });

@@ -79,6 +79,7 @@ export class SqUiComponent {
   ];
 
   searchResultsStrings: string[];
+  radioGroupValue = signal<string>('value1');
   progressBarLoadedSmall = signal(20);
   progressBarLoadedMedium = signal(40);
   progressBarLoadedLarge = signal(60);
@@ -143,7 +144,6 @@ export class SqUiComponent {
       typeahead1: [[this.searchResults[0], this.searchResults[2]]],
       typeaheadWithTemplates: [[this.searchResults[0], this.searchResults[2]]],
       typeahead2: [[]],
-      radioValue: ['value1'],
       checkboxValue: [false],
       textareaValue: ['']
     });
