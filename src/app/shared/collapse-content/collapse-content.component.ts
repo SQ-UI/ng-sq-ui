@@ -1,24 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  signal,
+} from "@angular/core";
 
 @Component({
-  selector: 'sq-collapse-content',
-  templateUrl: './collapse-content.component.html',
-  styleUrls: ['./collapse-content.component.scss']
+  selector: "sq-collapse-content",
+  templateUrl: "./collapse-content.component.html",
+  styleUrls: ["./collapse-content.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class CollapseContentComponent implements OnInit {
-  @Input() title: string;
-  @Input() isSecondary = false;
+export class CollapseContentComponent {
+  readonly title = input<string>("");
+  readonly isSecondary = input(false);
 
-  isCollapsed = true;
+  readonly isCollapsed = signal(true);
 
-  constructor() { }
-
-  ngOnInit() {
+  toggleCollapse(): void {
+    this.isCollapsed.update((collapsed) => !collapsed);
   }
-
-  toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-
-
 }

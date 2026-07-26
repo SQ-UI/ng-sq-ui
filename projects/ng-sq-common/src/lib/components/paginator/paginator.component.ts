@@ -1,79 +1,92 @@
+import { NgClass } from "@angular/common";
 import {
-  Component, OnInit, Input, Output,
-  EventEmitter, OnChanges, ViewEncapsulation
-} from '@angular/core';
-import { Page } from '../../interfaces/page';
+  Component,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  model,
+} from "@angular/core";
+import { Page } from "../../interfaces/page";
 
 @Component({
-  selector: 'sq-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "sq-paginator",
+  templateUrl: "./paginator.component.html",
+  styleUrls: ["./paginator.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgClass],
 })
-export class PaginatorComponent implements OnInit, OnChanges {
-  @Input() items: any[] = [];
-  @Input() itemsPerPage: number = 10;
-  @Input() currentPage: number = 1;
-  @Input() lastPage: number;
-  @Input() maxDisplayedPages: number = 3;
-  @Input() paginatedCollection = [];
-  @Output() paginatedCollectionChange = new EventEmitter();
-  @Output() pageChange: EventEmitter<{ page: number, firstItemIndex: number }> = new EventEmitter();
+export class PaginatorComponent implements OnChanges {
+  readonly items = input<any[]>([]);
+  readonly itemsPerPage = input<number>(10);
+  readonly currentPage = input<number>(1);
+  readonly lastPage = input<number | undefined>(undefined);
+  readonly maxDisplayedPages = input<number>(3);
+  readonly paginatedCollection = model<any[]>([]);
+  readonly pageChange = output<{ page: number; firstItemIndex: number }>();
 
   pages: Page[] = [];
-  _paginatedCollection = [];
   disableNextBtns: boolean = false;
   disablePrevBtns: boolean = true;
 
   private currentPageNumber = 1;
   private hasSelectedCurrentPageByAuthor = false;
 
-  constructor() { }
-
-  ngOnInit() {
-    this.itemsPerPage = this.itemsPerPage || 10;
-    this.maxDisplayedPages = this.maxDisplayedPages || 3;
-  }
-
-  ngOnChanges(changesObj) {
-    if (changesObj.items && changesObj.items.currentValue) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["items"] && changes["items"].currentValue) {
       this.generatePaginatedCollection(this.currentPageNumber);
-      this.updatePageCount(this.lastPage);
+      this.updatePageCount(this.lastPage());
 
-      if (this.currentPage && !this.hasSelectedCurrentPageByAuthor) {
+      if (this.currentPage() && !this.hasSelectedCurrentPageByAuthor) {
         this.selectCurrentPageProgramatically();
       }
 
       this.toggleControlEnabling();
     }
 
-    if (changesObj.itemsPerPage && changesObj.itemsPerPage.currentValue &&
-        changesObj.itemsPerPage.currentValue > 0) {
-      this.updatePageCount(this.lastPage);
+    if (
+      changes["itemsPerPage"] &&
+      changes["itemsPerPage"].currentValue &&
+      changes["itemsPerPage"].currentValue > 0
+    ) {
+      this.updatePageCount(this.lastPage());
     }
 
-    if (changesObj.currentPage && changesObj.currentPage.currentValue &&
-        changesObj.currentPage.currentValue > 0) {
+    if (
+      changes["currentPage"] &&
+      changes["currentPage"].currentValue &&
+      changes["currentPage"].currentValue > 0
+    ) {
       this.hasSelectedCurrentPageByAuthor = false;
       this.selectCurrentPageProgramatically();
     }
 
-    if (changesObj.lastPage && changesObj.lastPage.currentValue &&
-        changesObj.lastPage.currentValue > 0) {
-      this.updatePageCount(changesObj.lastPage.currentValue);
+    if (
+      changes["lastPage"] &&
+      changes["lastPage"].currentValue &&
+      changes["lastPage"].currentValue > 0
+    ) {
+      this.updatePageCount(changes["lastPage"].currentValue);
     }
 
-    if (changesObj.maxDisplayedPages && changesObj.maxDisplayedPages.currentValue &&
-      changesObj.maxDisplayedPages.currentValue > 0) {
-      this.updatePageCount(this.lastPage);
+    if (
+      changes["maxDisplayedPages"] &&
+      changes["maxDisplayedPages"].currentValue &&
+      changes["maxDisplayedPages"].currentValue > 0
+    ) {
+      this.updatePageCount(this.lastPage());
     }
   }
 
-  onPageClick(page) {
+  onPageClick(page: Page) {
     this.selectPage(page);
     this.pageChange.emit({
       page: page.number,
-      firstItemIndex: this.items.indexOf(this._paginatedCollection[0])
+      firstItemIndex: this.items().indexOf(this.paginatedCollection()[0]),
     });
   }
 
@@ -86,11 +99,20 @@ export class PaginatorComponent implements OnInit, OnChanges {
     this.onPageClick(newPageItem);
   }
 
+  private get effectiveItemsPerPage(): number {
+    return this.itemsPerPage() || 10;
+  }
+
+  private get effectiveMaxDisplayedPages(): number {
+    return this.maxDisplayedPages() || 3;
+  }
+
   private updatePageCount(lastPage?: number) {
-    const pageCount = lastPage || Math.ceil(this.items.length / this.itemsPerPage);
+    const items = this.items();
+    const pageCount = lastPage || Math.ceil(items.length / this.effectiveItemsPerPage);
     this.pages = [];
 
-    if (!pageCount || this.items.length === 0) {
+    if (!pageCount || items.length === 0) {
       return;
     }
 
@@ -98,14 +120,14 @@ export class PaginatorComponent implements OnInit, OnChanges {
       this.pages.push({
         number: 1,
         isSelected: false,
-        isHidden: false
+        isHidden: false,
       });
     } else {
       for (let i = 1; i <= pageCount; i++) {
         this.pages.push({
           number: i,
           isSelected: false,
-          isHidden: true
+          isHidden: true,
         });
       }
     }
@@ -114,7 +136,9 @@ export class PaginatorComponent implements OnInit, OnChanges {
       return pageItem.number === this.currentPageNumber;
     });
 
-    selectedItem.isSelected = true;
+    if (selectedItem) {
+      selectedItem.isSelected = true;
+    }
 
     this.hidePages();
   }
@@ -124,7 +148,9 @@ export class PaginatorComponent implements OnInit, OnChanges {
       return pageItem.isSelected === true;
     });
 
-    previousPage.isSelected = false;
+    if (previousPage) {
+      previousPage.isSelected = false;
+    }
     page.isSelected = true;
 
     this.toggleControlEnabling(page);
@@ -132,19 +158,20 @@ export class PaginatorComponent implements OnInit, OnChanges {
   }
 
   private generatePaginatedCollection(newPage: number) {
-    let newUpperLimit = this.itemsPerPage * newPage;
-    let lowerLimit = newUpperLimit - this.itemsPerPage;
+    const items = this.items();
+    let newUpperLimit = this.effectiveItemsPerPage * newPage;
+    let lowerLimit = newUpperLimit - this.effectiveItemsPerPage;
 
-    if (!this.items[lowerLimit]) {
-      newUpperLimit = this.items.length - 1;
-      lowerLimit = newUpperLimit - this.itemsPerPage;
+    if (!items[lowerLimit]) {
+      newUpperLimit = items.length - 1;
+      lowerLimit = newUpperLimit - this.effectiveItemsPerPage;
     }
 
-    this._paginatedCollection = this.items.slice(lowerLimit, newUpperLimit);
+    const paginatedCollection = items.slice(lowerLimit, newUpperLimit);
     this.currentPageNumber = newPage;
 
     setTimeout(() => {
-      this.paginatedCollectionChange.emit(this._paginatedCollection);
+      this.paginatedCollection.set(paginatedCollection);
     }, 100);
   }
 
@@ -155,8 +182,12 @@ export class PaginatorComponent implements OnInit, OnChanges {
       });
     }
 
-    this.disablePrevBtns = (this.pages.indexOf(page) === 0);
-    this.disableNextBtns = (this.pages.indexOf(page) === this.pages.length - 1);
+    if (!page) {
+      return;
+    }
+
+    this.disablePrevBtns = this.pages.indexOf(page) === 0;
+    this.disableNextBtns = this.pages.indexOf(page) === this.pages.length - 1;
   }
 
   private hidePages() {
@@ -164,12 +195,18 @@ export class PaginatorComponent implements OnInit, OnChanges {
       return pageItem.isSelected === true;
     });
 
-    const lastVisiblePagesFromBeginning = selectedItemIndex + this.maxDisplayedPages - 1;
-    const lastVisiblePagesFromEnd = this.pages.length - 1 - this.maxDisplayedPages;
+    const lastVisiblePagesFromBeginning =
+      selectedItemIndex + this.effectiveMaxDisplayedPages - 1;
+    const lastVisiblePagesFromEnd =
+      this.pages.length - 1 - this.effectiveMaxDisplayedPages;
 
     this.pages.forEach((pageItem, index) => {
-      if ((index >= selectedItemIndex && index <= lastVisiblePagesFromBeginning) ||
-        index === 0 || index > lastVisiblePagesFromEnd) {
+      if (
+        (index >= selectedItemIndex &&
+          index <= lastVisiblePagesFromBeginning) ||
+        index === 0 ||
+        index > lastVisiblePagesFromEnd
+      ) {
         pageItem.isHidden = false;
       }
     });
@@ -177,7 +214,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
   private selectCurrentPageProgramatically() {
     const pageToSelect = this.pages.find((page: Page) => {
-      return page.number === this.currentPage;
+      return page.number === this.currentPage();
     });
 
     if (pageToSelect) {
@@ -186,5 +223,4 @@ export class PaginatorComponent implements OnInit, OnChanges {
       this.hasSelectedCurrentPageByAuthor = true;
     }
   }
-
 }

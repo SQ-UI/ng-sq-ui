@@ -1,191 +1,181 @@
-import { Component, OnInit, Input, OnDestroy,
-  forwardRef, ViewEncapsulation, OnChanges, Output,
-  EventEmitter,
-  SimpleChanges,
-  ContentChild,
-  TemplateRef
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewEncapsulation,
+  contentChild,
+  effect,
+  input,
+  model,
+  output,
+  signal,
 } from '@angular/core';
-
-import { NG_VALUE_ACCESSOR, UntypedFormControl } from '@angular/forms';
-import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
-
-import { List } from 'immutable';
-import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TypeaheadComponent),
-  multi: true,
-};
+import { NgTemplateOutlet } from '@angular/common';
+import { FormValueControl } from '@angular/forms/signals';
+import { Subject, Subscription, timer } from 'rxjs';
+import { debounce, tap } from 'rxjs/operators';
+import { LabelValuePair, OutsideClickListenerDirective, SqInputCore } from '@sq-ui/ng-sq-common';
+import {
+  SqTypeaheadOptionTemplateDirective,
+  SqTypeaheadSelectedOptionTemplateDirective,
+} from './typeahead.template.directive';
 
 @Component({
   selector: 'sq-typeahead',
   templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgTemplateOutlet, OutsideClickListenerDirective],
 })
-export class TypeaheadComponent extends InputCoreComponent
-  implements OnInit, OnDestroy, OnChanges {
-  @Input() searchResults: any[] = [];
-  @Input() multiple = false;
-  @Input() delay = 500;
-  @Input() displayProp = '';
-  @Input() hideSearchIcon: boolean = false;
-  @Output() onUserInputEnd = new EventEmitter<string>();
+export class TypeaheadComponent extends SqInputCore implements FormValueControl<any[]>, OnInit, OnDestroy {
+  readonly searchResults = input<any[]>([]);
+  readonly multiple = input(false);
+  readonly delay = input(500);
+  readonly displayProp = input('');
+  readonly hideSearchIcon = input(false);
+  readonly onUserInputEnd = output<string>();
 
-  @ContentChild(SqTypeaheadOptionTemplateDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any>;
-  @ContentChild(SqTypeaheadSelectedOptionTemplateDirective, { read: TemplateRef }) selectedOptionTemplate: TemplateRef<any>;
+  readonly optionTemplate = contentChild(SqTypeaheadOptionTemplateDirective, { read: TemplateRef });
+  readonly selectedOptionTemplate = contentChild(SqTypeaheadSelectedOptionTemplateDirective, { read: TemplateRef });
 
-  private onInputValueChangeSubscription: Subscription;
-  private onQueryInputControlSubscription: Subscription;
-  private valueChangedSubscription: Subscription;
+  readonly value = model<any[]>([]);
 
-  selectedItems: List<LabelValuePair> = List<LabelValuePair>();
-  options: List<LabelValuePair> = List<LabelValuePair>();
+  readonly query = signal('');
+  readonly isLoading = signal(false);
+  readonly listenForOutsideClick = signal(false);
+  readonly hideResults = signal(true);
+
+  readonly selectedItems = signal<LabelValuePair[]>([]);
+  readonly options = signal<LabelValuePair[]>([]);
+
+  private readonly onInputValueChange = new Subject<string>();
+  private readonly onInputValueChangeSubscription: Subscription;
 
   constructor() {
     super();
-  }
 
-  queryInputControl = new UntypedFormControl();
-  isLoading = false;
-  listenForOutsideClick = false;
-  hideResults = true;
-  onInputValueChange = new Subject();
-
-  ngOnInit() {
-    this.value = [];
+    effect(() => this.syncOptionsFromSearchResults());
 
     this.onInputValueChangeSubscription = this.onInputValueChange
       .pipe(
         tap(() => {
-          this.isLoading = true;
-          this.hideResults = true;
+          this.isLoading.set(true);
+          this.hideResults.set(true);
         }),
-        debounceTime(this.delay),
+        debounce(() => timer(this.delay())),
       )
-      .subscribe((query: string) => {
+      .subscribe((query) => {
         this.onUserInputEnd.emit(query);
       });
-
-    this.onQueryInputControlSubscription = this.queryInputControl.valueChanges.subscribe(
-      (newValue) => {
-        if (newValue !== null) {
-          this.onInputValueChange.next(newValue);
-        }
-      },
-    );
-
-    this.valueChangedSubscription = this._modelToViewChange.subscribe(
-      (predefinedEnteredItems) => {
-        if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
-          this.transformToLabelValuePairList(predefinedEnteredItems).forEach((item) => {
-            this.selectItem(item, false, true);
-          });
-        }
-
-        this.valueChangedSubscription.unsubscribe();
-      },
-    );
   }
 
-  ngOnChanges(changesObj: SimpleChanges) {
-    if (changesObj.searchResults && changesObj.searchResults.currentValue) {
-      const parsedResults = this.transformToLabelValuePairList(this.searchResults);
-      this.options = List(parsedResults);
+  ngOnInit(): void {
+    const initialValue = this.value();
 
-      this.isLoading = false;
-      this.hideResults = false;
-    }
+    if (this.selectedItems().length === 0 && initialValue && initialValue.length > 0) {
+      this.selectedItems.set(this.transformToLabelValuePairList(initialValue));
 
-    if (changesObj.disabled) {
-      this.queryInputControl.disable();
+      if (!this.multiple()) {
+        this.hideResults.set(true);
+      }
     }
   }
 
-  ngOnDestroy() {
-    this.listenForOutsideClick = false;
-    this.onQueryInputControlSubscription.unsubscribe();
+  ngOnDestroy(): void {
     this.onInputValueChangeSubscription.unsubscribe();
+  }
 
-    if (!this.valueChangedSubscription.closed) {
-      this.valueChangedSubscription.unsubscribe();
+  onQueryInput(event: Event): void {
+    const newValue = (event.target as HTMLInputElement).value;
+    this.query.set(newValue);
+
+    if (newValue !== null) {
+      this.onInputValueChange.next(newValue);
     }
   }
 
-  selectSearchResult(result: LabelValuePair) {
+  selectSearchResult(result: LabelValuePair): void {
     this.selectItem(result);
   }
 
-  removeSearchResult = (choice: LabelValuePair) => {
-    const itemIndex = this.selectedItems.indexOf(choice);
+  removeSearchResult = (choice: LabelValuePair): void => {
+    const items = this.selectedItems();
+    const itemIndex = items.indexOf(choice);
 
-    if (itemIndex < 0 || itemIndex > this.selectedItems.size) {
+    if (itemIndex < 0) {
       return;
     }
 
-    this.selectedItems = this.selectedItems.remove(itemIndex);
+    this.selectedItems.set(items.filter((_, index) => index !== itemIndex));
 
-    if (this.selectedItems.size > 0) {
+    if (this.selectedItems().length > 0) {
       this.copyResults();
     } else {
-      this.value = [];
+      this.value.set([]);
+    }
+  };
+
+  onClickOutsideComponent(): void {
+    this.listenForOutsideClick.set(false);
+    this.hideResults.set(true);
+  }
+
+  turnClickOutsideListenerOn(): void {
+    this.listenForOutsideClick.set(true);
+    this.value.set([]);
+  }
+
+  protected syncOptionsFromSearchResults(): void {
+    const results = this.searchResults();
+
+    if (results && results.length > 0) {
+      this.options.set(this.transformToLabelValuePairList(results));
+      this.isLoading.set(false);
+      this.hideResults.set(false);
     }
   }
 
-  onClickOutsideComponent() {
-    this.listenForOutsideClick = false;
-    this.hideResults = true;
-    this.searchResults = [];
-  }
+  private selectItem(result: LabelValuePair, copyResults: boolean = true, isInitialSelection: boolean = false): void {
+    this.query.set('');
 
-  turnClickOutsideListenerOn() {
-    this.listenForOutsideClick = true;
-    this.value = [];
-  }
-
-  private selectItem(result: LabelValuePair, copyResults: boolean = true, isInitialSelection: boolean = false) {
-    this.queryInputControl.setValue(null);
-
-    if (!this.multiple && this.selectedItems.size === 1) {
+    if (!this.multiple() && this.selectedItems().length === 1) {
       return;
     }
 
-    if (this.selectedItems.indexOf(result) === -1) {
-      this.selectedItems = this.selectedItems.push(result);
+    if (this.selectedItems().indexOf(result) === -1) {
+      this.selectedItems.update((items) => [...items, result]);
     }
 
     if (copyResults) {
       this.copyResults();
     }
 
-    if (!this.multiple || isInitialSelection) {
-      this.hideResults = true;
+    if (!this.multiple() || isInitialSelection) {
+      this.hideResults.set(true);
     }
   }
 
-  private copyResults() {
-      this.value = this.selectedItems.toArray();
+  private copyResults(): void {
+    this.value.set(this.selectedItems().slice());
   }
 
-  private transformToLabelValuePairList(resultsList: any): Array<LabelValuePair> {
-    const newList = resultsList.map(item => {
+  private transformToLabelValuePairList(resultsList: any[]): Array<LabelValuePair> {
+    return resultsList.map((item) => {
       let searchResult: LabelValuePair | any;
 
       if (typeof item === 'object') {
         // if displayProp is an empty string,
         // it assumes that the author passes LabelValuePair items
-        if (this.displayProp === '') {
+        if (this.displayProp() === '') {
           searchResult = Object.assign({}, item);
         } else {
           // in case the author wants a specific display property
           searchResult = {
-            label: item[this.displayProp],
+            label: item[this.displayProp()],
             value: Object.assign({}, item),
           };
         }
@@ -198,7 +188,5 @@ export class TypeaheadComponent extends InputCoreComponent
 
       return searchResult;
     });
-
-    return newList;
   }
 }

@@ -1,140 +1,157 @@
-import { Component, OnInit } from '@angular/core';
-import { PaginatorConfig } from '@sq-ui/ng-sq-common';
-import { SortItem, DatatableColumn } from '@sq-ui/ng-datatable';
-import { NavItem } from '../../shared/shared.module';
-import { environment } from 'src/environments/environment';
+import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+
+import { PaginatorConfig } from "@sq-ui/ng-sq-common";
+import {
+  DatatableColumn,
+  DatatableBodyDirective,
+  DatatableColumnComponent,
+  DatatableComponent,
+  DatatableHeaderDirective,
+  DatatableRowComponent,
+  SortItem,
+} from "@sq-ui/ng-datatable";
+
+import { ModuleOverviewComponent, CollapseContentComponent, NavItem } from "../../shared";
+import { environment } from "../../../environments/environment";
 
 @Component({
-  selector: 'sq-datatable-docs',
-  templateUrl: './datatable-docs.component.html',
-  styleUrls: ['./datatable-docs.component.scss']
+  selector: "sq-datatable-docs",
+  templateUrl: "./datatable-docs.component.html",
+  styleUrls: ["./datatable-docs.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+    DatatableComponent,
+    DatatableColumnComponent,
+    DatatableRowComponent,
+    DatatableHeaderDirective,
+    DatatableBodyDirective,
+  ],
 })
-export class DatatableDocsComponent implements OnInit {
-  npmPackageName: string = '@sq-ui/ng-datatable';
-  moduleName: string = 'NgDatatableModule';
+export class DatatableDocsComponent {
+  readonly npmPackageName = "@sq-ui/ng-datatable";
+  readonly moduleName = "ng-datatable (standalone)";
 
-  dependsOn: NavItem[] = [
+  readonly dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
-      routeLink: '/sq-common'
-    }
+      name: "ng-sq-common",
+      routeLink: "/sq-common",
+    },
   ];
 
-  exports: NavItem[] = [
+  readonly exports: NavItem[] = [
     {
-      name: 'sq-datatable',
-      fragment: 'datatable'
+      name: "sq-datatable",
+      fragment: "datatable",
     },
     {
-      name: 'sq-datatable-header',
-      fragment: 'customDatatable'
+      name: "sq-datatable-header",
+      fragment: "customDatatable",
     },
     {
-      name: 'sq-datatable-body',
-      fragment: 'customDatatable'
+      name: "sq-datatable-body",
+      fragment: "customDatatable",
     },
     {
-      name: 'sq-datatable-column',
-      fragment: 'customDatatable2'
+      name: "sq-datatable-column",
+      fragment: "customDatatable2",
     },
     {
-      name: 'sq-datatable-row',
-      fragment: 'customDatatable2'
+      name: "sq-datatable-row",
+      fragment: "customDatatable2",
     },
-    { name: 'DatatableColumn (interface)' },
-    { name: 'SortItem (interface)' }
+    { name: "DatatableColumn (interface)" },
+    { name: "SortItem (interface)" },
   ];
 
-  docs: NavItem[] = [
+  readonly docs: NavItem[] = [
     {
-      name: 'DatatableModule',
-      routeLink: `${environment.docs}/datatable-module`
-    }
+      name: "ng-datatable",
+      routeLink: `${environment.docs}/datatable-module`,
+    },
   ];
 
-  liveExamples: NavItem[] = [
+  readonly liveExamples: NavItem[] = [
     {
-      name: 'ng-sq-datatable',
-      routeLink: `https://ng-sq-datatable.${environment.livePreview}`
-    }
+      name: "ng-sq-datatable",
+      routeLink: `https://ng-sq-datatable.${environment.livePreview}`,
+    },
   ];
 
-  keys = [];
-  datatableItems = [];
-  userItems = [];
-  userItemColumns = [];
-  resourceItems = [];
-  resourceItemColumns: DatatableColumn[] = [];
+  protected readonly datatableItems = signal<any[]>([]);
+  protected readonly userItems = signal<any[]>([]);
+  protected readonly userItemColumns = signal<string[]>([]);
+  protected readonly resourceItems = signal<any[]>([]);
+  protected readonly resourceItemColumns = signal<DatatableColumn[]>([]);
 
-  paginatorConfig: PaginatorConfig = {
+  readonly paginatorConfig: PaginatorConfig = {
     itemsPerPage: 5,
     currentPage: 1,
     maxDisplayedPages: 2,
-    lastPage: 8
+    lastPage: 8,
   };
 
-  sortByColumns = ['id', 'title'];
+  readonly sortByColumns = ["id", "title"];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
     this.fetchToDoItems();
     this.fetchUserItems();
     this.fetchResourcesItems();
   }
 
-  fetchToDoItems() {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => response.json())
-      .then(json => {
+  fetchToDoItems(): void {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => response.json())
+      .then((json: any[]) => {
         const next = json.slice(0, 20);
-        this.datatableItems = [...this.datatableItems, ...next];
+        this.datatableItems.update((items) => [...items, ...next]);
       });
   }
 
-  fetchUserItems() {
-    fetch('https://reqres.in/api/users')
-      .then(response => response.json())
-      .then(json => {
+  fetchUserItems(): void {
+    fetch("https://reqres.in/api/users")
+      .then((response) => response.json())
+      .then((json) => {
         const users = json.data.slice(0, 20);
-        this.userItemColumns = Object.keys(users[0]);
-        this.userItems = users;
+        this.userItemColumns.set(Object.keys(users[0]));
+        this.userItems.set(users);
       });
   }
 
-  fetchResourcesItems() {
-    fetch('https://reqres.in/api/unknown')
-      .then(response => response.json())
-      .then(json => {
+  fetchResourcesItems(): void {
+    fetch("https://reqres.in/api/unknown")
+      .then((response) => response.json())
+      .then((json) => {
         const resources = json.data.slice(0, 20);
-        this.resourceItemColumns = Object.keys(resources[0])
-          .map((columnName) => {
-            return {
-              name: columnName,
-              canBeSortedAgainst: columnName === 'id'
-            };
-          });
+        this.resourceItemColumns.set(
+          Object.keys(resources[0]).map((columnName) => ({
+            name: columnName,
+            canBeSortedAgainst: columnName === "id",
+          })),
+        );
 
-        this.resourceItems = resources;
+        this.resourceItems.set(resources);
       });
   }
 
-  sortResourceItemsByColumn($event: SortItem) {
+  sortResourceItemsByColumn($event: SortItem): void {
     const columnName = $event.name;
     const ascending = $event.isSortedByAscending;
 
-    this.resourceItems.sort((rowItem1, rowItem2) => {
-      if (rowItem1[columnName] > rowItem2[columnName]) {
-        return ascending ? 1 : -1;
-      }
+    this.resourceItems.update((items) =>
+      [...items].sort((rowItem1, rowItem2) => {
+        if (rowItem1[columnName] > rowItem2[columnName]) {
+          return ascending ? 1 : -1;
+        }
 
-      if (rowItem1[columnName] < rowItem2[columnName]) {
-        return ascending ? -1 : 1;
-      }
+        if (rowItem1[columnName] < rowItem2[columnName]) {
+          return ascending ? -1 : 1;
+        }
 
-      // names must be equal
-      return 0;
-    });
+        return 0;
+      }),
+    );
   }
-
 }

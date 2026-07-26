@@ -1,118 +1,95 @@
 import {
-  Component, OnInit, forwardRef,
-  ViewEncapsulation, EventEmitter, OnDestroy,
-  AfterViewInit, ViewChild, ContentChild, TemplateRef
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  AfterViewInit,
+  TemplateRef,
+  ViewEncapsulation,
+  contentChild,
+  model,
+  signal,
+  viewChild,
 } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { DeviceOS } from '@sq-ui/ng-sq-common';
-import { OSDetectorService } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription, fromEvent } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { List } from 'immutable';
+import { NgTemplateOutlet } from '@angular/common';
+import { FormValueControl } from '@angular/forms/signals';
+import { DeviceOS, OSDetectorService, SqInputCore } from '@sq-ui/ng-sq-common';
 import { SqTagTemplateDirective } from './tags-input.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TagsInputComponent),
-  multi: true
-};
 
 @Component({
   selector: 'sq-tags-input',
   templateUrl: './tags-input.component.html',
   styleUrls: ['./tags-input.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgTemplateOutlet],
 })
-export class TagsInputComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('tagsInput', {static: true}) tagsInput;
-  @ContentChild(SqTagTemplateDirective, { read: TemplateRef }) tagTemplate: TemplateRef<any>;
+export class TagsInputComponent
+  extends SqInputCore
+  implements FormValueControl<string[]>, AfterViewInit, OnDestroy
+{
+  readonly value = model<string[]>([]);
 
-  private isModelEmpty: boolean = false;
-  private enteredItemsSubscription: Subscription;
-  private valueChangedSubscription: Subscription;
-  private inputEventSubscription: Subscription;
-  private innerEnteredItemsListCopy: List<string>;
+  readonly tagTemplate = contentChild(SqTagTemplateDirective, { read: TemplateRef });
+  private readonly tagsInputRef = viewChild.required<ElementRef<HTMLInputElement>>('tagsInput');
 
-  enteredItems: List<string> = List<string>();
-  protected enteredItemsChange: EventEmitter<List<string>> = new EventEmitter<List<string>>();
+  readonly newTagName = signal('');
 
-  newTagName: string = '';
+  private isModelEmpty = false;
+  private removeAndroidSpaceListener: (() => void) | undefined;
 
-  constructor() {
-    super();
-  }
-
-  ngOnInit() {
-    this.enteredItemsSubscription = this.enteredItemsChange.subscribe((newTags) => {
-      this.innerEnteredItemsListCopy = List(this.enteredItems);
-
-      const itemsCopy = this.innerEnteredItemsListCopy;
-      this.value = itemsCopy.toArray();
-    });
-
-    this.valueChangedSubscription = this._modelToViewChange.subscribe((predefinedEnteredItems) => {
-      if (this.enteredItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
-        this.enteredItems = List<string>(predefinedEnteredItems);
-        this.valueChangedSubscription.unsubscribe();
-      }
-    });
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (OSDetectorService.getDeviceOS() === DeviceOS.Android) {
-      const inputEvent = fromEvent(this.tagsInput.nativeElement, 'input');
-      inputEvent.pipe(map(event => event));
-
-      this.inputEventSubscription = inputEvent.subscribe(($event: any) => {
-        if ($event.data === ' ') {
+      const inputEl = this.tagsInputRef().nativeElement;
+      const listener = (event: Event) => {
+        if ((event as InputEvent).data === ' ') {
           this.onUserInput({ keyCode: 32 });
         }
-      });
+      };
+
+      inputEl.addEventListener('input', listener);
+      this.removeAndroidSpaceListener = () => inputEl.removeEventListener('input', listener);
     }
   }
 
-  ngOnDestroy() {
-    this.enteredItemsSubscription.unsubscribe();
-
-    if (this.inputEventSubscription) {
-      this.inputEventSubscription.unsubscribe();
-    }
-
-    if (!this.valueChangedSubscription.closed) {
-      this.valueChangedSubscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.removeAndroidSpaceListener?.();
   }
 
-  onUserInput($event) {
-    if (this.newTagName.trim() !== '') {
+  onNewTagNameInput(event: Event): void {
+    this.newTagName.set((event.target as HTMLInputElement).value);
+  }
+
+  onUserInput($event: { keyCode: number }): void {
+    const currentTagName = this.newTagName().trim();
+
+    if (currentTagName !== '') {
       this.isModelEmpty = false;
+
       // if the user has pressed Space
       if ($event.keyCode === 32) {
-        this.enteredItems = this.enteredItems.push(this.newTagName.trim());
-        this.enteredItemsChange.emit(this.enteredItems);
-        this.newTagName = '';
+        this.value.update((items) => [...items, currentTagName]);
+        this.newTagName.set('');
       }
     } else if (this.isModelEmpty) {
       // if the user has pressed Backspace
-      if ($event.keyCode === 8 && this.enteredItems.size > 0) {
-        this.enteredItems = this.enteredItems.remove(this.enteredItems.size - 1);
-        this.enteredItemsChange.emit(this.enteredItems);
+      if ($event.keyCode === 8 && this.value().length > 0) {
+        this.value.update((items) => items.slice(0, -1));
       }
     } else {
       this.isModelEmpty = true;
     }
   }
 
-  removeTag = (tag: string) => {
-    const tagIndex = this.enteredItems.indexOf(tag);
+  removeTag = (tag: string): void => {
+    const items = this.value();
+    const tagIndex = items.indexOf(tag);
 
-    if (tagIndex < 0 || tagIndex > this.enteredItems.size) {
+    if (tagIndex < 0) {
       return;
     }
 
-    this.enteredItems = this.enteredItems.remove(tagIndex);
-    this.enteredItemsChange.emit(this.enteredItems);
-  }
+    this.value.set(items.filter((_, index) => index !== tagIndex));
+  };
 }

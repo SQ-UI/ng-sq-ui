@@ -1,208 +1,228 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import { NavItem } from '../../shared/nav-item';
-import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { interval } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { FormControl } from "@angular/forms";
+import { FormField, form, required } from "@angular/forms/signals";
+import { compatForm } from "@angular/forms/signals/compat";
+import { interval } from "rxjs";
+
+import { LabelValuePair } from "@sq-ui/ng-sq-common";
+import {
+  ButtonComponent,
+  CheckboxComponent,
+  DropdownComponent,
+  FormGroupComponent,
+  InputComponent,
+  RadiobuttonComponent,
+  SqCheckboxLabelTemplateDirective,
+  SqDropdownChevronTemplateDirective,
+  SqDropdownOptionTemplateDirective,
+  SqDropdownSelectedOptionTemplateDirective,
+  SqRadiobuttonLabelTemplateDirective,
+  SqTagTemplateDirective,
+  SqTypeaheadOptionTemplateDirective,
+  SqTypeaheadSelectedOptionTemplateDirective,
+  TagsInputComponent,
+  TextareaComponent,
+  TypeaheadComponent,
+} from "@sq-ui/ng-form-elements";
+import { ProgressBarComponent } from "@sq-ui/ng-progress-bar";
+
+import { CollapseContentComponent, ModuleOverviewComponent, NavItem } from "../../shared";
+import { environment } from "../../../environments/environment";
+
+interface TypeaheadResult {
+  myCustomProp: string;
+  value: string;
+  prop: number;
+  uid: number;
+  nested: { level2: { prop: string } };
+}
+
+interface SqUiFormModel {
+  name: string;
+  dropdown: LabelValuePair | null;
+  dropdownWithTemplates: LabelValuePair | null;
+  tags: string[];
+  typeaheadWithTemplates: TypeaheadResult[];
+  typeahead2: string[];
+  radioValue: string;
+  checkboxValue: boolean;
+  textareaValue: string;
+}
+
+interface CompatFormModel {
+  legacyEmail: FormControl<string>;
+}
+
+const INITIAL_SEARCH_RESULTS: TypeaheadResult[] = [
+  {
+    myCustomProp: "option1",
+    value: "someVal1",
+    prop: 1,
+    uid: 12,
+    nested: { level2: { prop: "1" } },
+  },
+  {
+    myCustomProp: "option2",
+    value: "someVal2",
+    prop: 2,
+    uid: 22,
+    nested: { level2: { prop: "2" } },
+  },
+  {
+    myCustomProp: "option3",
+    value: "someVal3",
+    prop: 3,
+    uid: 32,
+    nested: { level2: { prop: "1" } },
+  },
+];
 
 @Component({
-  selector: 'sq-ui',
-  templateUrl: './sq-ui.component.html',
-  styleUrls: ['./sq-ui.component.scss']
+  selector: "sq-ui",
+  templateUrl: "./sq-ui.component.html",
+  styleUrls: ["./sq-ui.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+    InputComponent,
+    TextareaComponent,
+    FormGroupComponent,
+    RadiobuttonComponent,
+    DropdownComponent,
+    TagsInputComponent,
+    TypeaheadComponent,
+    CheckboxComponent,
+    ButtonComponent,
+    ProgressBarComponent,
+    FormField,
+    SqRadiobuttonLabelTemplateDirective,
+    SqDropdownOptionTemplateDirective,
+    SqDropdownChevronTemplateDirective,
+    SqDropdownSelectedOptionTemplateDirective,
+    SqTagTemplateDirective,
+    SqTypeaheadOptionTemplateDirective,
+    SqTypeaheadSelectedOptionTemplateDirective,
+    SqCheckboxLabelTemplateDirective,
+  ],
 })
-export class SqUiComponent implements OnInit {
-  npmPackageName: string = '@sq-ui/ng-sq-ui';
-  moduleName: string = 'NgSqUiModule';
-  internallyDeclared: NavItem[] = [
+export class SqUiComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly npmPackageName = "@sq-ui/ng-sq-ui";
+  readonly moduleName = "ng-sq-ui (standalone re-exports)";
+  readonly internallyDeclared: NavItem[] = [
     {
-      name: 'FormElementsModule',
-      fragment: 'formsModule'
+      name: "ng-form-elements",
+      fragment: "formsModule",
     },
     {
-      name: 'ProgressBarModule',
-      fragment: 'progressBarModule'
+      name: "ng-progress-bar",
+      fragment: "progressBarModule",
     },
   ];
-  dependsOn: NavItem[] = [
+  readonly dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
-      routeLink: '/sq-common'
+      name: "ng-sq-common",
+      routeLink: "/sq-common",
     },
     {
-      name: 'NgDatetimePickerModule',
-      routeLink: '/datetime-picker'
+      name: "ng-datetime-picker",
+      routeLink: "/datetime-picker",
     },
     {
-      name: 'NgDatatableModule',
-      routeLink: '/datatable'
+      name: "ng-datatable",
+      routeLink: "/datatable",
     },
     {
-      name: 'NgModalModule',
-      routeLink: '/modal'
-    }
+      name: "ng-modal",
+      routeLink: "/modal",
+    },
   ];
-  exports: NavItem[] = [];
-  docs: NavItem[] =  [
+  readonly exports: NavItem[] = this.internallyDeclared.concat(this.dependsOn);
+  readonly docs: NavItem[] = [
     {
-      name: 'FormElementsModule',
-      routeLink: `${environment.docs}/form-elements-module`
+      name: "ng-form-elements",
+      routeLink: `${environment.docs}/form-elements-module`,
     },
     {
-      name: 'ProgressBarModule',
-      routeLink: `${environment.docs}/progressbar-module`
+      name: "ng-progress-bar",
+      routeLink: `${environment.docs}/progressbar-module`,
     },
   ];
 
-  liveExamples: NavItem[] = [
+  readonly liveExamples: NavItem[] = [
     {
-      name: 'ng-sq-ui-form-elements',
-      routeLink: `https://ng-sq-ui-form-elements.${environment.livePreview}`
+      name: "ng-sq-ui-form-elements",
+      routeLink: `https://ng-sq-ui-form-elements.${environment.livePreview}`,
     },
     {
-      name: 'ng-sq-ui-progress-bar',
-      routeLink: `https://ng-sq-ui-progress-bar.${environment.livePreview}`
-    }
-  ];
-
-  searchResultsStrings: string[];
-  progressBarLoadedSmall = 20;
-  progressBarLoadedMedium = 40;
-  progressBarLoadedLarge = 60;
-  testForm: UntypedFormGroup;
-  searchResults: any[] = [
-    {
-      myCustomProp: 'option1',
-      value: 'someVal1',
-      prop: 1,
-      uid: 12,
-      nested: {
-        level2: {
-          prop: '1',
-        },
-      },
-    },
-    {
-      myCustomProp: 'option2',
-      value: 'someVal2',
-      prop: 2,
-      uid: 22,
-      nested: {
-        level2: {
-          prop: '2',
-        },
-      },
-    },
-    {
-      myCustomProp: 'option3',
-      value: 'someVal3',
-      prop: 3,
-      uid: 32,
-      nested: {
-        level2: {
-          prop: '1',
-        },
-      },
+      name: "ng-sq-ui-progress-bar",
+      routeLink: `https://ng-sq-ui-progress-bar.${environment.livePreview}`,
     },
   ];
 
-  dropdownOptions: LabelValuePair[] = [
-    {
-      label: 'option1',
-      value: 'someVal1',
-    },
-    {
-      label: 'option2',
-      value: 'someVal2',
-    },
-    {
-      label: 'option3',
-      value: 'someVal3',
-    },
+  readonly dropdownOptions: LabelValuePair[] = [
+    { label: "option1", value: "someVal1" },
+    { label: "option2", value: "someVal2" },
+    { label: "option3", value: "someVal3" },
   ];
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.testForm = this.fb.group({
-      name: [''],
-      dropdown: [null],
-      dropdownWithTemplates: [null],
-      tags: [['tag1']],
-      typeahead1: [[this.searchResults[0], this.searchResults[2]]],
-      typeaheadWithTemplates: [[this.searchResults[0], this.searchResults[2]]],
-      typeahead2: [[]],
-      radioValue: ['value1'],
-      checkboxValue: [false],
-      textareaValue: ['']
-    });
+  protected readonly searchResults = signal<TypeaheadResult[]>(INITIAL_SEARCH_RESULTS);
+  protected readonly searchResultsStrings = signal<string[]>([]);
+
+  protected readonly progressBarLoadedSmall = signal(20);
+  protected readonly progressBarLoadedMedium = signal(40);
+  protected readonly progressBarLoadedLarge = signal(60);
+
+  protected readonly formModel = signal<SqUiFormModel>({
+    name: "",
+    dropdown: null,
+    dropdownWithTemplates: null,
+    tags: ["tag1"],
+    typeaheadWithTemplates: [INITIAL_SEARCH_RESULTS[0], INITIAL_SEARCH_RESULTS[2]],
+    typeahead2: [],
+    radioValue: "value1",
+    checkboxValue: false,
+    textareaValue: "",
+  });
+
+  protected readonly testForm = form(this.formModel, (p) => {
+    required(p.name, { message: "Name is required" });
+  });
+
+  /**
+   * A small demo of the Reactive Forms interop layer: `compatForm` lets a legacy
+   * `FormControl` live inside a Signal Forms model so consumers can migrate top-down
+   * while still using `[formField]` on the control.
+   */
+  protected readonly compatModel = signal<CompatFormModel>({
+    legacyEmail: new FormControl("", { nonNullable: true }),
+  });
+  protected readonly compatTestForm = compatForm(this.compatModel);
+
+  constructor() {
+    interval(1000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.progressBarLoadedSmall.update((value) => (value + 20 > 100 ? 0 : value + 20));
+        this.progressBarLoadedMedium.update((value) => (value + 20 > 100 ? 0 : value + 20));
+        this.progressBarLoadedLarge.update((value) => (value + 20 > 100 ? 0 : value + 20));
+      });
   }
 
-  ngOnInit() {
-
-    this.exports = this.internallyDeclared.concat(this.dependsOn);
-
-    const source = interval(1000);
-    source.subscribe((val) => {
-      this.progressBarLoadedSmall += 20;
-      this.progressBarLoadedMedium += 20;
-      this.progressBarLoadedLarge += 20;
-
-      if (this.progressBarLoadedSmall > 100) {
-        this.progressBarLoadedSmall = 0;
-      }
-
-      if (this.progressBarLoadedMedium > 100) {
-        this.progressBarLoadedMedium = 0;
-      }
-
-      if (this.progressBarLoadedLarge > 100) {
-        this.progressBarLoadedLarge = 0;
-      }
-    });
+  searchMethod(_query: string): void {
+    this.searchResults.set([...INITIAL_SEARCH_RESULTS]);
   }
 
-  searchMethod(query) {
-    this.searchResults = [
-      {
-        myCustomProp: 'option1',
-        value: 'someVal1',
-        prop: 1,
-        uid: 12,
-        nested: {
-          level2: {
-            prop: '1',
-          },
-        },
-      },
-      {
-        myCustomProp: 'option2',
-        value: 'someVal2',
-        prop: 2,
-        uid: 22,
-        nested: {
-          level2: {
-            prop: '2',
-          },
-        },
-      },
-      {
-        myCustomProp: 'option3',
-        value: 'someVal3',
-        prop: 3,
-        uid: 32,
-        nested: {
-          level2: {
-            prop: '1',
-          },
-        },
-      },
-    ];
+  searchMethodString(_query: string): void {
+    this.searchResultsStrings.set(["option1", "option2", "option3", "option4"]);
   }
 
-  searchMethodString(query) {
-    this.searchResultsStrings = ['option1', 'option2', 'option3', 'option4'];
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    console.log(this.formModel());
   }
-
-  onSubmit() {
-    console.log(this.testForm.value);
-  }
-
 }

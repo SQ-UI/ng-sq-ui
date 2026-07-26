@@ -1,6 +1,6 @@
 {
   "name": "@sq-ui/ng-datetime-picker",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "license": "MIT",
   "private": false,
   "description": "Simple Quality UI Datetime-Picker for Angular",
@@ -22,7 +22,7 @@
   ],
   "keywords": [
     "angular",
-    "angular 14+",
+    "angular 22",
     "sq ui",
     "simple quality ui",
     "sq-ui",
@@ -36,11 +36,6 @@
     "form",
     "form elements",
     "form components",
-    "typeahead",
-    "autocomplete",
-    "grid",
-    "ui components",
-    "ui component",
     "datetimepicker",
     "datetime-picker",
     "timepicker",
@@ -49,13 +44,18 @@
     "datetime picker",
     "date time picker",
     "date picker",
-    "modal"
+    "temporal",
+    "signal-forms"
   ],
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@sq-ui/ng-sq-common": "^3.0.0"
+  },
   "dependencies": {
-    "@sq-ui/ng-sq-common": "^2.0.1",
-    "immutable": "^3.8.2",
-    "@fortawesome/fontawesome-free": "^5.9.0",
-    "moment": "^2.22.2",
+    "@js-temporal/polyfill": "^0.5.1",
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"

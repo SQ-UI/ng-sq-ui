@@ -1,42 +1,31 @@
 import {
-  Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef, ContentChild, TemplateRef
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  ViewEncapsulation,
+  contentChild,
+  model,
 } from '@angular/core';
-
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { FormCheckboxControl } from '@angular/forms/signals';
+import { SqInputCore } from '@sq-ui/ng-sq-common';
 import { SqCheckboxLabelTemplateDirective } from './checkbox.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CheckboxComponent),
-  multi: true
-};
 
 @Component({
   selector: 'sq-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgTemplateOutlet],
 })
-export class CheckboxComponent extends InputCoreComponent {
-  @Input() isSelected: boolean = false;
-  @Output() isSelectedChange = new EventEmitter<boolean>();
-  @ContentChild(SqCheckboxLabelTemplateDirective, { read: TemplateRef }) checkboxTemplate: TemplateRef<any>;
+export class CheckboxComponent extends SqInputCore implements FormCheckboxControl {
+  readonly checked = model(false);
 
-  constructor() {
-    super();
+  readonly checkboxTemplate = contentChild(SqCheckboxLabelTemplateDirective, { read: TemplateRef });
+
+  toggleCheckboxSelection(): void {
+    this.checked.update((isChecked) => !isChecked);
   }
-
-  toggleCheckboxSelection() {
-    this.isSelected = !this.isSelected;
-    this.value = this.isSelected;
-    this.isSelectedChange.emit(this.isSelected);
-  }
-
-  writeValue(value: any) {
-    super.writeValue(value);
-    this.isSelected = this.value;
-  }
-
 }

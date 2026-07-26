@@ -11,13 +11,13 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "aot": true,
-            "outputPath": "dist/sq-ui",
+            "outputPath": {
+              "base": "dist/sq-ui"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/assets"
@@ -28,7 +28,11 @@
               "node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "jsbi"
+            ]
           },
           "configurations": {
             "production": {
@@ -48,40 +52,33 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "extractLicenses": true
             },
             "development": {}
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {},
           "configurations": {
             "production": {
-              "browserTarget": "sq-ui:build:production"
+              "buildTarget": "sq-ui:build:production"
             },
             "development": {
-              "browserTarget": "sq-ui:build:development"
+              "buildTarget": "sq-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
-            "browserTarget": "sq-ui:build"
+            "buildTarget": "sq-ui:build"
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         }
       }
     },
@@ -92,7 +89,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-sq-ui/tsconfig.lib.json",
             "project": "projects/ng-sq-ui/ng-package.json"
@@ -106,11 +103,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -130,7 +123,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-datetime-picker/tsconfig.lib.json",
             "project": "projects/ng-datetime-picker/ng-package.json"
@@ -144,11 +137,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -168,7 +157,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-datatable/tsconfig.lib.json",
             "project": "projects/ng-datatable/ng-package.json"
@@ -182,11 +171,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -206,7 +191,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-sq-common/tsconfig.lib.json",
             "project": "projects/ng-sq-common/ng-package.json"
@@ -220,11 +205,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -244,7 +225,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-modal/tsconfig.lib.json",
             "project": "projects/ng-modal/ng-package.json"
@@ -258,11 +239,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -282,7 +259,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "projects/ng-form-elements/ng-package.json"
           },
@@ -297,11 +274,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         }
       }
     },
@@ -312,7 +285,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "projects/ng-progress-bar/ng-package.json"
           },
@@ -327,11 +300,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "../../jest.config.js",
-            "no-cache": true
-          }
+          "builder": "@angular/build:unit-test"
         }
       }
     }
@@ -339,16 +308,36 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "sq",
-      "style": "scss"
+      "style": "scss",
+      "type": "component"
     },
     "@schematics/angular:directive": {
-      "prefix": "sq"
+      "prefix": "sq",
+      "type": "directive"
     },
     "@angular-eslint/schematics:application": {
       "setParserOptionsProject": true
     },
     "@angular-eslint/schematics:library": {
       "setParserOptionsProject": true
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   }
 }

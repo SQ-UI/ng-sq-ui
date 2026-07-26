@@ -1,27 +1,17 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { ModalDocsComponent } from './modal-docs.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ModalDocsComponent', () => {
   let component: ModalDocsComponent;
-  let fixture: ComponentFixture<ModalDocsComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ModalDocsComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalDocsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new ModalDocsComponent());
   });
 
-  it('should create', () => {
+  it('should create and start with the modal hidden', () => {
     expect(component).toBeTruthy();
+    expect(component.showModal()).toBe(false);
   });
 });

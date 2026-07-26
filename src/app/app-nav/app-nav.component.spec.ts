@@ -1,33 +1,29 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { AppNavComponent } from './app-nav.component';
-import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppNavComponent', () => {
   let component: AppNavComponent;
-  let fixture: ComponentFixture<AppNavComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [AppNavComponent],
-      imports: [
-        RouterTestingModule,
-        NgSqCommonModule,
-        CommonModule
-      ]
-    })
-      .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppNavComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      providers: [provideRouter([])],
+    });
+    component = TestBed.runInInjectionContext(() => new AppNavComponent());
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should start with the nav closed', () => {
+    expect(component.isNavOpen()).toBe(false);
+    expect(component.listenForOutsideClick()).toBe(false);
+  });
+
+  it('should open the nav via showNav', () => {
+    component.showNav();
+    expect(component.isNavOpen()).toBe(true);
   });
 });

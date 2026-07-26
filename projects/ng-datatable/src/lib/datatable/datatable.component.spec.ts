@@ -1,138 +1,114 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
+
 import { DatatableComponent } from './datatable.component';
-import { NgSqCommonModule } from '../../../../ng-sq-common/src/lib/ng-sq-common.module';
-import { SimpleChange } from '@angular/core';
-import { DatatableColumnComponent } from '../datatable-column/datatable-column.component';
-import { DatatableRowComponent } from '../datatable-row/datatable-row.component';
-import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
-import { DatatableBodyDirective } from '../directives/datatable-body.directive';
-import { PaginatorComponent } from '../../../../ng-sq-common/src/lib/components/paginator/paginator.component';
+
+interface DummyRecord {
+  id: number;
+  additionalField: string;
+}
+
+function generateDummyCollection(numberOfRecords: number, startFrom: number = 1): DummyRecord[] {
+  const collection: DummyRecord[] = [];
+  let i = startFrom;
+  while (i <= numberOfRecords) {
+    collection.push({
+      id: i,
+      additionalField: 'somestring' + i,
+    });
+
+    i++;
+  }
+
+  return collection;
+}
+
+type StubbableInput = 'items' | 'sortByAllColumns' | 'sortByColumns' | 'useCustomSort';
+
+function stubInput<T>(component: DatatableComponent, name: StubbableInput, value: T): void {
+  Object.defineProperty(component, name, { value: () => value, configurable: true });
+}
 
 describe('DatatableComponent', () => {
-  let datatableComponent: DatatableComponent;
-  let datatableFixture: ComponentFixture<DatatableComponent>;
-  let paginatorComponent: PaginatorComponent;
-
-  interface DummyRecord {
-    id: number;
-    additionalField: string;
-  }
-
-  function generateDummyCollection(numberOfRecords: number, startFrom: number = 1): DummyRecord[] {
-    const collection: DummyRecord[] = [];
-    let i = startFrom;
-    while (i <= numberOfRecords) {
-      collection.push({
-        id: i,
-        additionalField: 'somestring' + i
-      });
-
-      i++;
-    }
-
-    return collection;
-  }
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        DatatableHeaderDirective,
-        DatatableBodyDirective,
-        DatatableColumnComponent,
-        DatatableRowComponent,
-        DatatableComponent
-      ],
-      imports: [
-        NgSqCommonModule
-      ]
-    })
-      .compileComponents();
-  }));
+  let component: DatatableComponent;
 
   beforeEach(() => {
-    datatableFixture = TestBed.createComponent(DatatableComponent);
-    datatableComponent = datatableFixture.componentInstance;
-    paginatorComponent = datatableFixture.componentInstance.paginatorComponent;
-    datatableFixture.detectChanges();
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new DatatableComponent());
   });
 
   it('should create', () => {
-    expect(datatableComponent).toBeDefined();
+    expect(component).toBeDefined();
   });
 
-  it('should display items as table rows', (done: DoneFn) => {
-    const itemsCount = 30;
-
-    datatableComponent.items = generateDummyCollection(itemsCount);
-    datatableComponent.paginatorConfig = {
-      itemsPerPage: 5
-    };
-
-    datatableComponent.ngOnChanges({
-      items: new SimpleChange(null, datatableComponent.items, true),
-      paginatorConfig: new SimpleChange(null, datatableComponent.paginatorConfig, true)
-    });
-
-    datatableFixture.detectChanges();
-
-    datatableFixture.whenStable().then(() => {
-      const datatableRowEls = datatableFixture.nativeElement.querySelectorAll('.datatable tbody > tr');
-
-      expect(datatableComponent.items.length === itemsCount)
-        .toBe(true);
-
-      expect(paginatorComponent._paginatedCollection.length === datatableComponent.paginatorConfig.itemsPerPage)
-        .toBe(true);
-
-      expect(datatableRowEls.length === paginatorComponent.paginatedCollection.length)
-        .toBe(true);
-
-      done();
-    });
-  });
-
-  it('should get the props of the first object and make render them as columns', () => {
+  it('should get the props of the first object and derive them as columns', () => {
     const itemsCount = 50;
-    datatableComponent.items = generateDummyCollection(itemsCount);
+    const items = generateDummyCollection(itemsCount);
+    stubInput(component, 'items', items);
 
-    datatableComponent.ngOnChanges({
-      items: new SimpleChange(null, datatableComponent.items, true)
-    });
-
-    datatableFixture.detectChanges();
-
-    expect(Object.keys(datatableComponent.items[0]).length === datatableComponent.columnNames.length)
-      .toBe(true);
+    expect(component.columnNames().length).toEqual(Object.keys(items[0]).length);
   });
 
-  it('should enable sorting for specified column name', () => {
+  it('should return no columns when there are no items', () => {
+    stubInput(component, 'items', []);
+
+    expect(component.columnNames()).toEqual([]);
+  });
+
+  it('should enable sorting only for the specified column names', () => {
     const itemsCount = 50;
     const sortableColumnName = 'id';
-    datatableComponent.items = generateDummyCollection(itemsCount);
-    datatableComponent.sortByColumns = [sortableColumnName];
+    const items = generateDummyCollection(itemsCount);
+    stubInput(component, 'items', items);
+    stubInput(component, 'sortByColumns', [sortableColumnName]);
 
-    datatableComponent.ngOnChanges({
-      items: new SimpleChange(null, datatableComponent.items, true),
-      sortByColumns: new SimpleChange(null, datatableComponent.sortByColumns, true)
-    });
+    const sortableColumn = component.columnNames().find((column) => column.name === sortableColumnName);
+    const areAllOtherColumnsUnsortable = component
+      .columnNames()
+      .filter((column) => column.name !== sortableColumnName)
+      .every((column) => !column.canBeSortedAgainst);
 
-    datatableFixture.detectChanges();
+    expect(sortableColumn?.canBeSortedAgainst).toBe(true);
+    expect(areAllOtherColumnsUnsortable).toBe(true);
+  });
 
-    const sortableColumn = datatableComponent.columnNames.find((column) => {
-      return column.name === sortableColumnName;
-    });
+  it('should enable sorting for all columns when sortByAllColumns is true', () => {
+    const items = generateDummyCollection(10);
+    stubInput(component, 'items', items);
+    stubInput(component, 'sortByAllColumns', true);
 
-    const areAllOtherColumnsUnsortable = datatableComponent.columnNames.filter((column) => {
-      return column.name !== sortableColumnName;
-    })
-      .every((column) => {
-        return !column.canBeSortedAgainst;
-      });
+    expect(component.columnNames().every((column) => column.canBeSortedAgainst)).toBe(true);
+  });
 
-    expect(sortableColumn).toBeDefined();
-    expect(sortableColumn.canBeSortedAgainst)
-      .toBe(true);
-    expect(areAllOtherColumnsUnsortable)
-      .toBe(true);
+  it('should always emit onSortClicked and run the default sort unless useCustomSort is set', () => {
+    component.paginatedCollection = [{ id: 3 }, { id: 1 }, { id: 2 }];
+    const spy = vi.fn();
+    component.onSortClicked.subscribe(spy);
+
+    component.sortByField({ name: 'id', isSortedByAscending: true });
+
+    expect(spy).toHaveBeenCalledWith({ name: 'id', isSortedByAscending: true });
+    expect(component.paginatedCollection).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
+  });
+
+  it('should only emit onSortClicked and skip the default sort when useCustomSort is true', () => {
+    stubInput(component, 'useCustomSort', true);
+    component.paginatedCollection = [{ id: 3 }, { id: 1 }, { id: 2 }];
+    const spy = vi.fn();
+    component.onSortClicked.subscribe(spy);
+
+    component.sortByField({ name: 'id', isSortedByAscending: true });
+
+    expect(spy).toHaveBeenCalledWith({ name: 'id', isSortedByAscending: true });
+    expect(component.paginatedCollection).toEqual([{ id: 3 }, { id: 1 }, { id: 2 }]);
+  });
+
+  it('should emit pageChange when the paginator page changes', () => {
+    const spy = vi.fn();
+    component.pageChange.subscribe(spy);
+
+    component.onPageChange({ page: 2, firstItemIndex: 10 });
+
+    expect(spy).toHaveBeenCalledWith({ page: 2, firstItemIndex: 10 });
   });
 });

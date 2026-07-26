@@ -1,44 +1,43 @@
-import { Component, OnInit, Input,
-         Output, EventEmitter, ViewEncapsulation,
-         OnChanges, SimpleChanges } from '@angular/core';
-import { SortItem } from '../shared/interfaces/sort-item';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  input,
+  output,
+} from "@angular/core";
+import { SortItem } from "../shared/interfaces/sort-item";
 
 @Component({
-  selector: '[sq-datatable-column]',
-  templateUrl: './datatable-column.component.html',
-  styleUrls: ['./datatable-column.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "[sq-datatable-column]",
+  templateUrl: "./datatable-column.component.html",
+  styleUrls: ["./datatable-column.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [],
 })
-export class DatatableColumnComponent implements OnInit, OnChanges {
-  @Input() name: string;
-  @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter();
-  @Input() isSortable: boolean = false;
-  @Input() width: string;
+export class DatatableColumnComponent {
+  readonly name = input<string>("");
+  readonly isSortable = input(false);
+  readonly width = input<string>();
 
-  isSortedByAscending: boolean;
+  readonly onSortClicked = output<SortItem>();
 
-  constructor() { }
+  isSortedByAscending: boolean | undefined;
 
-  ngOnInit() {
-  }
-
-  ngOnChanges(changesObj: SimpleChanges) {
-
-  }
-
-  sort() {
+  sort(): void {
     switch (typeof this.isSortedByAscending) {
-      case 'undefined':
+      case "undefined":
         this.isSortedByAscending = true;
         break;
-      case 'boolean':
+      case "boolean":
         this.isSortedByAscending = this.isSortedByAscending ? false : undefined;
         break;
     }
 
     this.onSortClicked.emit({
-      name: this.name,
-      isSortedByAscending: this.isSortedByAscending
+      name: this.name(),
+      isSortedByAscending: this.isSortedByAscending,
     });
   }
 }

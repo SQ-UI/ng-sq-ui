@@ -1,75 +1,108 @@
 import {
-  Component, ViewEncapsulation, Input,
-  Output, EventEmitter, ViewChild, OnChanges,
-  Renderer2, ElementRef, SimpleChanges
-} from '@angular/core';
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  input,
+  model,
+  signal,
+  effect,
+} from "@angular/core";
+import { OutsideClickListenerDirective } from "@sq-ui/ng-sq-common";
+
+export interface ModalCssAnimation {
+  duration: number;
+  entranceAnimation: string;
+  exitAnimation: string;
+}
+
+const DEFAULT_ENTRANCE_ANIMATION = "fadeInDown";
+const DEFAULT_EXIT_ANIMATION = "fadeOutUp";
+const DEFAULT_ANIMATION_DURATION = 500;
 
 @Component({
-  selector: 'sq-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "sq-modal",
+  templateUrl: "./modal.component.html",
+  styleUrls: ["./modal.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [OutsideClickListenerDirective],
 })
-export class ModalComponent implements OnChanges {
-  @Input() show: boolean = false;
-  @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input() customCssAnimation: {
-    duration: number,
-    entranceAnimation: string,
-    exitAnimation: string
-  } = {
+export class ModalComponent {
+  readonly show = model(false);
+  readonly customCssAnimation = input<ModalCssAnimation>({
     duration: 0,
-    entranceAnimation: '',
-    exitAnimation: ''
-  };
+    entranceAnimation: "",
+    exitAnimation: "",
+  });
 
-  @ViewChild('sqModal') private sqModal: ElementRef;
-  @ViewChild('sqModalWindow') private sqModalWindow: ElementRef;
+  readonly isHidden = signal(true);
+  readonly animationClass = signal("");
+  readonly listenForOutsideClick = signal(false);
 
-  listenForOutsideClick: boolean = false;
+  private isFirstRun = true;
+  private entranceTimeout?: ReturnType<typeof setTimeout>;
+  private exitTimeout?: ReturnType<typeof setTimeout>;
 
-  constructor(private renderer: Renderer2) { }
+  constructor() {
+    effect(() => {
+      const shouldShow = this.show();
 
-  ngOnChanges(changesObj: SimpleChanges) {
-    if (changesObj.show && this.sqModalWindow) {
-      const entranceAnimationClass = this.customCssAnimation.entranceAnimation || 'fadeInDown';
-      const exitAnimationClass = this.customCssAnimation.exitAnimation || 'fadeOutUp';
-      const animationDuration = this.customCssAnimation.duration || 500;
-
-      if (changesObj.show.currentValue === true) {
-        this.renderer.removeClass(this.sqModal.nativeElement, 'display-none');
-        this.renderer.addClass(this.sqModalWindow.nativeElement, entranceAnimationClass);
-
-        setTimeout(() => {
-          this.renderer.removeClass(this.sqModalWindow.nativeElement, entranceAnimationClass);
-          this.listenForOutsideClick = true;
-        }, animationDuration);
-      } else {
-        this.renderer.addClass(this.sqModalWindow.nativeElement, exitAnimationClass);
-
-        setTimeout(() => {
-          this.renderer.addClass(this.sqModal.nativeElement, 'display-none');
-          this.renderer.removeClass(this.sqModalWindow.nativeElement, exitAnimationClass);
-          this.listenForOutsideClick = false;
-        }, animationDuration);
+      // Skip animating on the initial run so the modal simply renders in its starting state.
+      if (this.isFirstRun) {
+        this.isFirstRun = false;
+        this.isHidden.set(!shouldShow);
+        return;
       }
-    }
+
+      if (shouldShow) {
+        this.playEntranceAnimation();
+      } else {
+        this.playExitAnimation();
+      }
+    });
   }
 
-  close() {
-    this.show = false;
-    this.showChange.emit(false);
+  close(): void {
+    this.show.set(false);
   }
 
-  open() {
-    this.show = true;
-    this.showChange.emit(true);
+  open(): void {
+    this.show.set(true);
   }
 
-  onClickOutsideComponent() {
-    this.listenForOutsideClick = false;
+  onClickOutsideComponent(): void {
+    this.listenForOutsideClick.set(false);
     this.close();
   }
 
+  private playEntranceAnimation(): void {
+    const { entranceAnimation, duration } = this.customCssAnimation();
+    const animationClass = entranceAnimation || DEFAULT_ENTRANCE_ANIMATION;
+    const animationDuration = duration || DEFAULT_ANIMATION_DURATION;
+
+    clearTimeout(this.exitTimeout);
+    this.isHidden.set(false);
+    this.animationClass.set(animationClass);
+
+    this.entranceTimeout = setTimeout(() => {
+      this.animationClass.set("");
+      this.listenForOutsideClick.set(true);
+    }, animationDuration);
+  }
+
+  private playExitAnimation(): void {
+    const { exitAnimation, duration } = this.customCssAnimation();
+    const animationClass = exitAnimation || DEFAULT_EXIT_ANIMATION;
+    const animationDuration = duration || DEFAULT_ANIMATION_DURATION;
+
+    clearTimeout(this.entranceTimeout);
+    this.listenForOutsideClick.set(false);
+    this.animationClass.set(animationClass);
+
+    this.exitTimeout = setTimeout(() => {
+      this.isHidden.set(true);
+      this.animationClass.set("");
+    }, animationDuration);
+  }
 }

@@ -1,48 +1,56 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ElementRef } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { TextareaComponent } from './textarea.component';
-import { FormsModule } from '@angular/forms';
-import { ElementRef, Renderer2 } from '@angular/core';
+
+function stubTextareaRef(component: TextareaComponent, el: Partial<HTMLDivElement>): void {
+  Object.defineProperty(component, 'textareaRef', {
+    value: () => new ElementRef(el as HTMLDivElement),
+    configurable: true,
+  });
+}
 
 describe('TextareaComponent', () => {
   let component: TextareaComponent;
-  let fixture: ComponentFixture<TextareaComponent>;
-  const renderer = {
-    setProperty: jest.fn(),
-    addClass: jest.fn(),
-    removeClass: jest.fn(),
-  } as unknown as Renderer2;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [TextareaComponent],
-      imports: [
-        FormsModule
-      ]
-    })
-      .compileComponents();
-  }));
+  let fakeEl: { textContent: string; focus: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
-    component = new TextareaComponent(renderer);
-    component.textarea = new ElementRef({ textContent: '' });
+    TestBed.configureTestingModule({});
+    component = TestBed.runInInjectionContext(() => new TextareaComponent());
+    fakeEl = { textContent: '', focus: vi.fn() };
+    stubTextareaRef(component, fakeEl as unknown as HTMLDivElement);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should write to the textarea if value is defined', () => {
-    jest.spyOn(renderer, 'setProperty');
-    let testValue = null;
-    component.writeValue(testValue);
-    expect(renderer.setProperty).not.toHaveBeenCalled();
-    expect(component.value).toEqual(null);
-    expect(component.isPlaceholderVisible).toBe(true);
-    testValue = 'some test text';
-    component.writeValue(testValue);
-    expect(renderer.setProperty).toHaveBeenCalledWith(component.textarea.nativeElement, 'textContent', testValue);
-    expect(component.value).toEqual(testValue);
-    expect(component.isPlaceholderVisible).toBe(false);
+  it('should show the placeholder when the value is empty', () => {
+    expect(component.isPlaceholderVisible()).toBe(true);
+
+    component.value.set('some test text');
+
+    expect(component.isPlaceholderVisible()).toBe(false);
+  });
+
+  it('should sync the DOM textContent when the value changes', () => {
+    component.value.set('some test text');
+    component['syncDomFromValue']();
+
+    expect(fakeEl.textContent).toBe('some test text');
+  });
+
+  it('should update the value when the user types', () => {
+    component.inputChange({ target: { textContent: 'typed text' } } as unknown as Event);
+
+    expect(component.value()).toBe('typed text');
+    expect(component.isPlaceholderVisible()).toBe(false);
+  });
+
+  it('should focus the textarea element', () => {
+    component.focusOnArea();
+
+    expect(fakeEl.focus).toHaveBeenCalled();
   });
 });

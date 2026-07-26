@@ -5,7 +5,7 @@
 > built by developers for developers!
 
 ![angular](https://badge.fury.io/js/angular.svg)
-![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
+![CI](https://github.com/SQ-UI/ng-sq-ui/actions/workflows/main.yml/badge.svg)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d53c1670c301071be452/maintainability)](https://codeclimate.com/github/SQ-UI/ng-sq-ui/maintainability)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
@@ -18,47 +18,39 @@
 ## Docs
 
 You will find a description of the public API for each component.
-The components are grouped by modules. Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
-
-Any types of public interfaces and services are also included.
+Components are standalone and grouped by package. Any properties left out of this documentation are for internal use — do not rely on them.
 
 - [Home Page](http://bit.ly/ng-sq-ui-docs-home)
 - [Installation](http://bit.ly/ng-sq-ui-docs-installation)
-- [FormElementsModule](http://bit.ly/ng-sq-ui-docs-form-elements)
-- [ModalModule](http://bit.ly/ng-sq-ui-docs-modal)
-- [ProgressBarModule](http://bit.ly/ng-sq-ui-docs-progressbar)
-- [DatetimePickerModule](http://bit.ly/ng-sq-ui-docs-datetime-picker)
-- [DatatableModule](http://bit.ly/ng-sq-ui-docs-datatable)
-- [CommonModule](http://bit.ly/ng-sq-ui-docs-common)
+- [Migrating to 3.0](docs/migration-3.md)
+- [Form Elements](http://bit.ly/ng-sq-ui-docs-form-elements)
+- [Modal](http://bit.ly/ng-sq-ui-docs-modal)
+- [Progress Bar](http://bit.ly/ng-sq-ui-docs-progressbar)
+- [Datetime Picker](http://bit.ly/ng-sq-ui-docs-datetime-picker)
+- [Datatable](http://bit.ly/ng-sq-ui-docs-datatable)
+- [Common](http://bit.ly/ng-sq-ui-docs-common)
 - [About us](http://bit.ly/ng-sq-ui-docs-about-us)
 - [Bounty Program](http://bit.ly/bounty-program)
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
-## BREAKING CHANGES:
-The 2.0.1 relases of all packages are compatible with Angular 14+. If you need a backwards-compatible version, please refer to 1.x.y packages, as stated below.
+## BREAKING CHANGES
 
-**Note:**<br>
-For projects that use the View Engine, instead Ivy (Angular 10 ~ Angular 12), please use the following version for each package:
+**3.0.0** requires **Angular 22+** and **Node 22+**. All components are **standalone**. Form controls implement Signal Forms (`FormValueControl` / `FormCheckboxControl`) and bind with `[formField]`. Dates use **Temporal** (`PlainDate` / `PlainTime`) instead of moment. **immutable** is removed. **NgModules** (`NgSqUiModule`, etc.) are removed. Icons require **Font Awesome 6**.
 
-**@sq-ui/ng-sq-ui:** 1.3.3
-<br>
-**@sq-ui/ng-datetime-picker:** 1.1.2
-<br>
-**@sq-ui/ng-sq-common:** 1.1.5
-<br>
-**@sq-ui/ng-modal:** 1.1.2
-<br>
+See [docs/migration-3.md](docs/migration-3.md) for the full list.
+
+**2.x** packages targeted the Angular 14–16 era (Ivy / NgModules / CVA).
+
+**1.x** packages are for older Angular / View Engine:
+
+**@sq-ui/ng-sq-ui:** 1.3.3  
+**@sq-ui/ng-datetime-picker:** 1.1.2  
+**@sq-ui/ng-sq-common:** 1.1.5  
+**@sq-ui/ng-modal:** 1.1.2  
 **@sq-ui/ng-datatable:** 1.1.3
 
-<br>
-For projects that use Angular version < 9, please use the following version for each package:
-
-**@sq-ui/ng-sq-ui:** 1.1.5 <br>
-**@sq-ui/ng-datetime-picker:** 1.1.0 <br>
-**@sq-ui/ng-sq-common:** 1.0.3 <br>
-**@sq-ui/ng-modal:** 1.0.6 <br>
-**@sq-ui/ng-datatable:** 1.0.3<br>
+For Angular &lt; 9, use 1.1.x of the packages above (see older release notes).
 
 ## Installation
 
@@ -76,25 +68,27 @@ yarn add @sq-ui/ng-sq-ui@latest
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+`@sq-ui/ng-sq-ui` re-exports standalone symbols from the leaf packages. There is **no** `NgSqUiModule` — import the components you need (or import them from the leaf packages directly).
 
-```
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+```ts
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
+import { InputComponent, CheckboxComponent } from '@sq-ui/ng-form-elements';
+
+@Component({
+  imports: [FormField, InputComponent, CheckboxComponent],
+  template: `
+    <sq-input [formField]="f.name" />
+    <sq-checkbox [formField]="f.accept" />
+  `,
+})
+export class Example {
+  model = signal({ name: '', accept: false });
+  f = form(this.model);
+}
 ```
 
-and then include it in the `imports` array of your @NgModule() decorator:
-
-```
-@NgModule({
-  declarations: [ //... ],
-  imports: [
-    NgSqUiModule,
-    //...
-  ],
-  //...
-```
-
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
+ng-sq-ui does not ship a specific font. Including the default theme is optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
 
 Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
@@ -104,10 +98,9 @@ Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 "styles": [
   "src/styles.css",
   "./node_modules/@sq-ui/ng-sq-common/sq-ui-theme.scss",
-  "./node_modules/@sq-ui/ng-sq-ui/styles/form-elements.scss",
   "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
-  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
+  "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css"
 ],
 ```
 
@@ -125,9 +118,8 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ## Dependencies
 
-ng-sq-ui depends on:
-
-font-awesome and immutable.js (both will be installed with ng-sq-ui)
+- **@fortawesome/fontawesome-free** 6.x (installed with the kit)
+- **@js-temporal/polyfill** — peer of `@sq-ui/ng-datetime-picker` (needed for browsers without native Temporal, e.g. Safari)
 
 ## Try it out locally
 

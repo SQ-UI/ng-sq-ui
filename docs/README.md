@@ -11,6 +11,10 @@ with almost no additional dependencies. How cool is that?
 
 Even better! We support **custom templates** for form controls. This is an essential feature for all modern UI components.
 
+## 3.0 — Angular 22 + Signal Forms
+
+**@sq-ui/\* 3.0** targets **Angular 22+** with **standalone** components and **Signal Forms** (`[formField]`). Dates use **Temporal**. See [Installation](installation.md) and [Migrating to 3.0](migration-3.md).
+
 ## How do you determine the "most widespread" cases?
 
 When we thought about what an initial version of the UI-kit should have,
@@ -31,7 +35,7 @@ Don't hesitate to create a [feature request!](https://github.com/SQ-UI/ng-sq-ui/
 
 ## Overview
 
-You will find a description of the public API for each component. The components are grouped by modules.
+You will find a description of the public API for each component. Components are standalone and grouped by package.
 Any properties you can see through code inspection that are left out from this documentation are for internal use and you should not rely on them.
 
 Any types of public interfaces and services are also included here.

@@ -1,39 +1,38 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NavItem } from './shared/shared.module';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { AppNavComponent } from "./app-nav/app-nav.component";
+import { NavItem } from "./shared";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [RouterOutlet, AppNavComponent],
 })
-export class AppComponent implements OnInit {
-  navItems: NavItem[] = [
+export class AppComponent {
+  readonly navItems: NavItem[] = [
     {
-      name: 'SQ-UI',
-      routeLink: 'sq-ui'
+      name: "SQ-UI",
+      routeLink: "sq-ui",
     },
     {
-      name: 'Common',
-      routeLink: 'sq-common'
+      name: "Common",
+      routeLink: "sq-common",
     },
     {
-      name: 'Datetime Picker',
-      routeLink: 'datetime-picker'
+      name: "Datetime Picker",
+      routeLink: "datetime-picker",
     },
     {
-      name: 'Datatable',
-      routeLink: 'datatable'
+      name: "Datatable",
+      routeLink: "datatable",
     },
     {
-      name: 'Modal',
-      routeLink: 'modal'
-    }
+      name: "Modal",
+      routeLink: "modal",
+    },
   ];
-
-  constructor() {
-
-  }
-
-  ngOnInit() { }
 }

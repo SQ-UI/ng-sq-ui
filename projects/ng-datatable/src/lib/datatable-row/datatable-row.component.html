@@ -1,7 +1,5 @@
-
-  <td role="gridcell"
-      *ngFor="let column of columns"
-      [attr.data-heading]="column"
-      class="cell">
-    {{rowItem[column]}}
-  </td>
+@for (column of columns(); track column) {
+<td role="gridcell" [attr.data-heading]="column" class="cell">
+  {{ rowItem()[column] }}
+</td>
+}

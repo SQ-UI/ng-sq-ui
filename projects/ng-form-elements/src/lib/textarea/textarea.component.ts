@@ -1,58 +1,59 @@
-import { Component, forwardRef, Input, OnInit,
-         ViewChild, ViewEncapsulation, Renderer2 } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TextareaComponent),
-  multi: true
-};
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewEncapsulation,
+  computed,
+  effect,
+  input,
+  model,
+  viewChild,
+} from '@angular/core';
+import { FormValueControl } from '@angular/forms/signals';
+import { SqInputCore } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-textarea',
   templateUrl: './textarea.component.html',
   styleUrls: ['./textarea.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class TextareaComponent extends InputCoreComponent implements OnInit {
-  @Input() minHeight = 100;
-  @ViewChild('textarea', {static: true}) textarea;
+export class TextareaComponent extends SqInputCore implements FormValueControl<string> {
+  readonly minHeight = input(100);
+  readonly value = model('');
 
-  isPlaceholderVisible = true;
+  private readonly textareaRef = viewChild.required<ElementRef<HTMLDivElement>>('textarea');
 
-  constructor(private renderer: Renderer2) {
+  readonly isPlaceholderVisible = computed(() => !this.value());
+
+  constructor() {
     super();
+
+    effect(() => this.syncDomFromValue());
   }
 
-  ngOnInit() {
-    this.isPlaceholderVisible = !this.value;
+  inputChange(event: Event): void {
+    const text = (event.target as HTMLElement).textContent ?? '';
+    this.value.set(text);
   }
 
-  writeValue(value: any): void {
-    if (value) {
-      this.renderer.setProperty(this.textarea.nativeElement, 'textContent', value);
+  focusOnArea(): void {
+    this.textareaRef().nativeElement.focus();
+  }
+
+  protected syncDomFromValue(): void {
+    const el = this.textareaRef()?.nativeElement;
+
+    if (!el) {
+      return;
     }
 
-    this.value = value;
-    this.isPlaceholderVisible = !this.value;
-  }
+    const value = this.value();
 
-  inputChange($event) {
-    this.value = $event.target.textContent;
-    this._onChange($event.target.textContent);
-    this.isPlaceholderVisible = !$event.target.textContent;
+    if (el.textContent !== value) {
+      el.textContent = value;
+    }
   }
-
-  setDisabledState(isDisabled: boolean): void {
-    const div = this.textarea.nativeElement;
-    const action = isDisabled ? 'addClass' : 'removeClass';
-    this.renderer[action](div, 'disabled');
-  }
-
-  focusOnArea() {
-    this.textarea.nativeElement.focus();
-  }
-
 }

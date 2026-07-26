@@ -39,3 +39,7 @@ coverage/
 # System Files
 .DS_Store
 Thumbs.db
+
+.tools/
+*.tgz
+

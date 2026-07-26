@@ -13,8 +13,9 @@
 
     <div class="sq">
       <p>
-        This module exports common interfaces, base classes, components and services utilized
-        by other modules. Some examples include:
+        This package exports common interfaces, base classes, standalone directives and
+        services utilized by the other <b>@sq-ui/*</b> standalone packages. Some examples
+        include:
       </p>
 
       <ul class="list">
@@ -29,10 +30,11 @@
           used to track if the user has scrolled to the bottom of a specified container.
           Emits an event only if the user has reached the bottom of the container.
         </li>
-        <li>The <b>InputCoreComponent</b> class is
-          used to make all of the <a routerLink="/sq-ui">FormElementsModule</a>
-          components "bindable" to the internal Angular data-binding mechanisms and
-          reactive form approach.
+        <li>The <b>SqInputCore</b> base class is
+          used to give all of the <a routerLink="/sq-ui">ng-form-elements</a>
+          standalone components a shared set of presentational/state inputs so they can
+          implement the Signal Forms <b>FormValueControl</b> / <b>FormCheckboxControl</b>
+          contracts.
         </li>
         <li>
           The <b>sq-paginator</b> component is

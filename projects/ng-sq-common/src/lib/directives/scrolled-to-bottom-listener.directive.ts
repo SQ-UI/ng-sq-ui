@@ -1,20 +1,20 @@
 import {
-  Directive, ElementRef, EventEmitter, Output, Renderer2, OnDestroy
+  Directive, ElementRef, OnDestroy, Renderer2, inject, output
 } from '@angular/core';
 
 @Directive({
-  selector: '[sqScrolledToBottomListener]'
+  selector: '[sqScrolledToBottomListener]',
+  standalone: true,
 })
 export class ScrolledToBottomListenerDirective implements OnDestroy {
-  @Output() scrolledToBottom = new EventEmitter();
+  private readonly elementRef = inject(ElementRef);
+  private readonly renderer = inject(Renderer2);
 
-  private listener;
+  readonly scrolledToBottom = output<void>();
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    this.listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
-      this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
-    });
-  }
+  private readonly unlisten = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
+    this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
+  });
 
   checkIfHasScrolledToBottom(element: HTMLElement) {
     const hasScrolledToBottom = element.scrollTop > 0 ? ((element.scrollHeight - element.scrollTop) === element.clientHeight) : false;
@@ -25,6 +25,6 @@ export class ScrolledToBottomListenerDirective implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.listener();
+    this.unlisten();
   }
 }

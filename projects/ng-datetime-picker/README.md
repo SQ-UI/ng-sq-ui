@@ -33,38 +33,63 @@ Any types of public interfaces and services are also included.
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
 ## BREAKING CHANGES:
-The 2.0.1 relases of all packages are compatible with Angular 14+. If you need a backwards-compatible version, please refer to 1.x.y packages, as stated below.
+
+### 3.0.0
+
+- Requires **Angular 22+** and **Node 22+**.
+- **NgModules removed** — `NgDatetimePickerModule` / `DatetimePickerModule` are gone. Import the standalone components directly.
+- **`moment` → `Temporal`** — public date/time types are now `Temporal.PlainDate` / `Temporal.PlainTime` from `@js-temporal/polyfill`. `format` / `dateObjectType` / `timeObjectType` and the `momentObj` field on `CalendarDay` / `InCalendarPicker` (renamed to `plainDate`) have been removed.
+- **`immutable` removed** — internal collections are plain arrays.
+- **CVA removed** — `DatetimePickerComponent` and `TimePickerComponent` now implement `FormValueControl` from `@angular/forms/signals`. Use them with the `[field]` directive, or read/write their `value` model signal directly.
+- **Time integration on the datetime picker removed** — `isTimepickerEnabled` / `timepickerConfig` are gone; compose `<sq-time-picker>` alongside `<sq-datetime-picker>` if you need both.
+
+Legacy `moment`-based version 2.x remains published for Angular 14–17 consumers.
 
 ## Installation
 
 ```
-npm i @sq-ui/ng-datetime-picker --save
+npm i @sq-ui/ng-datetime-picker @js-temporal/polyfill --save
 ```
 
 -- or --
 
 ```
-yarn add @sq-ui/ng-datetime-picker
+yarn add @sq-ui/ng-datetime-picker @js-temporal/polyfill
 ```
 
 ## Usage
 
-Import the NgDatetimePickerModule in your module:
+Import the standalone components directly wherever you need them:
 
-```
-import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
+```ts
+import { Component, signal } from '@angular/core';
+import { Temporal } from '@js-temporal/polyfill';
+import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime-picker';
+
+@Component({
+  standalone: true,
+  imports: [DatetimePickerComponent, TimePickerComponent],
+  template: `
+    <sq-datetime-picker [(value)]="date" [minDate]="today" />
+    <sq-time-picker [(value)]="time" [isMeridiem]="true" />
+  `,
+})
+export class MyForm {
+  readonly today = Temporal.Now.plainDateISO();
+  readonly date = signal<Temporal.PlainDate | null>(null);
+  readonly time = signal<Temporal.PlainTime | null>(null);
+}
 ```
 
-and then include it in the `imports` array of your @NgModule() decorator:
+With Signal Forms:
 
-```
-@NgModule({
-  declarations: [ //... ],
-  imports: [
-    NgDatetimePickerModule,
-    //...
-  ],
-  //...
+```ts
+import { form } from '@angular/forms/signals';
+
+const trip = form({ start: null as Temporal.PlainDate | null });
+
+// template
+// <sq-datetime-picker [field]="trip.start" />
 ```
 
 ### Apply styling to the components

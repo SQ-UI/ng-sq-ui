@@ -1,6 +1,6 @@
 ![logo](_media/sq-ui-logo.png)
 
-# NG-SQ-UI <small>1.3</small>
+# NG-SQ-UI <small>3.0</small>
 
 > Simple Quality UI kit for Angular
 

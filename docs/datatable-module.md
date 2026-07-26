@@ -1,193 +1,109 @@
-# DatatableModule
+# Datatable
 
 ## sq-datatable
 
+Standalone table built from an array of objects. Import from `@sq-ui/ng-datatable` or `@sq-ui/ng-sq-ui`.
+
 [sq-form-components-example](https://stackblitz.com/edit/ng-sq-datatable?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
+!> Package: [`@sq-ui/ng-datatable`](https://www.npmjs.com/package/@sq-ui/ng-datatable)
 
-sq-datatable is a highly customizable component which builds a table based on array of objects.
+```typescript
+import { DatatableComponent } from '@sq-ui/ng-datatable';
 
-!> Available also as standalone package [`@sq-ui/ng-datatable`](https://www.npmjs.com/package/@sq-ui/ng-datatable)
+@Component({
+  imports: [DatatableComponent],
+  // …
+})
+export class Example {}
+```
 
-### Component properties:
+### Properties
 
-- **`@Input()` items:** `any[]` - A collection of objects. All objects must conform to the same entity interface;
-- **`@Input()` sortByAllColumns:** `boolean` - Enables sorting by all columns. Defaults to `false`;
-- **`@Input()` paginatorConfig:** `PaginatorConfig` - Configuration for the built-in paginator. The paginator works only if `items` is defined;
-- **`@Input()` sortByColumns:** `string[]` - Enable sorting for specific columns. Column names must exist as object properties within the `items` collection;
-- **`@Output()` onSortClicked:** `EventEmitter<SortItem>` - An event emitter activated when sorting has been triggered on a column;
-- **`@Output()` pageChange:** `EventEmitter<{ page: number, firstItemIndex: number }>` - An event emitter triggered on page click.
+- **`items`**: `any[]` — row objects (same shape)
+- **`sortByAllColumns`**: `boolean` — defaults `false`
+- **`sortByColumns`**: `string[]` — sortable property names
+- **`paginatorConfig`**: `PaginatorConfig` — built-in paginator (when `items` is set)
+- **`useCustomSort`**: `boolean` — when `true`, only emits `onSortClicked` (skips built-in sort)
+- **`onSortClicked`**: output `SortItem`
+- **`pageChange`**: output `{ page, firstItemIndex }` (and related page events)
 
-
-### Default setup:
-- A collection of todo items is directly passed to the [items] prop.
-- A [paginatorConfig] object is passed.
-- [sortByColumns] is set to allow sorting only by the "id" and "title" columns.
-- A handler is bound to (pageChange) to load new items on page click.
-              
-In [datatable-docs.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/datatable/datatable-docs/datatable-docs.component.html#L35)
+### Default setup
 
 ```html
-<sq-datatable [items]="datatableItems"
-              [sortByColumns]="sortByColumns"
-              [paginatorConfig]="paginatorConfig"
-              (pageChange)="fetchToDoItems($event)">
+<sq-datatable
+  [items]="datatableItems"
+  [sortByColumns]="sortByColumns"
+  [paginatorConfig]="paginatorConfig"
+  (pageChange)="fetchToDoItems($event)">
 </sq-datatable>
 ```
 
-In [datatable-docs.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/datatable/datatable-docs/datatable-docs.component.ts#L71)
-
 ```typescript
-//...
 paginatorConfig: PaginatorConfig = {
   itemsPerPage: 5,
   currentPage: 1,
   maxDisplayedPages: 2,
-  lastPage: 8
+  lastPage: 8,
 };
-
-//...
-ngOnInit() {
-  this.fetchToDoItems();
-  //...
-}
-
-fetchToDoItems() {
-  // this can be an HTTP request using observable
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => response.json())
-    .then(json => {
-      const next = json.slice(0, 20);
-      this.datatableItems = [...this.datatableItems, ...next];
-    });
-}
-//...
 ```
 
-## sq-datatable-body, sq-datatable-header
-- <b>sq-datatable</b> is used as a container.
-- This example does not use any of the default properties of the datatable.
-- No automatic paganation available, since the presentation depends entirely on the author.
-- The <b>sq-datatable-header</b> and <b>sq-datatable-body</b> directives are used for content projection, respectively for the datatable columns and rows.
+## Custom header / body projection
 
-In [datatable-docs.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/datatable/datatable-docs/datatable-docs.component.html#L68)
+Use `sq-datatable-header` and `sq-datatable-body` for full control (no automatic pagination of projected rows).
+
 ```html
 <sq-datatable>
   <ng-template sq-datatable-header>
     <tr>
-      <th *ngFor="let col of userItemColumns">
-        {{col}}
-      </th>
+      @for (col of userItemColumns; track col) {
+        <th>{{ col }}</th>
+      }
     </tr>
   </ng-template>
 
   <ng-template sq-datatable-body>
-    <tr *ngFor="let item of userItems">
-      <td *ngFor="let prop of userItemColumns"
-          [attr.data-heading]="prop">
-        {{item[prop]}}
-      </td>
-    </tr>
+    @for (item of userItems; track item) {
+      <tr>
+        @for (prop of userItemColumns; track prop) {
+          <td [attr.data-heading]="prop">{{ item[prop] }}</td>
+        }
+      </tr>
+    }
   </ng-template>
 </sq-datatable>
 ```
 
-In [datatable-docs.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/datatable/datatable-docs/datatable-docs.component.ts#L80)
+## sq-datatable-row / sq-datatable-column
 
-```typescript
-//...
-userItems = [];
-userItemColumns = [];
+Column headers and rows as components with sort wiring:
 
-//...
-ngOnInit() {
-  //...
-  this.fetchUserItems();
-  //...
-}
-
-fetchUserItems() {
-  // this can be an HTTP request using observable
-  fetch('https://reqres.in/api/users')
-    .then(response => response.json())
-    .then(json => {
-      const users = json.data.slice(0, 20);
-      this.userItemColumns = Object.keys(users[0]);
-      this.userItems = users;
-    });
-  }
-//...
-```
-
-
-## sq-datatable-row, sq-datatable-column
-- <b>sq-datatable</b> is used as a container.
-- This example does not use any of the default properties of the datatable.
-- No automatic paganation available, since the presentation depends entirely on the author.
-- The <b>sq-datatable-header</b> and <b>sq-datatable-body</b> directives are used for content projection, respectively for the datatable columns and rows.
-- Each column (th) is represented by a <b>sq-datatable-column</b> component which exposes custom properties to bind name, event handlers and information if the row data can be sorted by that column.
-- Each row (tr) is represented by a <b>sq-datatable-row</b> component which exposes custom properties to bind row data.
-
-In [datatable-docs.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/datatable/datatable-docs/datatable-docs.component.html#L123)
 ```html
 <sq-datatable>
   <ng-template sq-datatable-header>
     <tr>
-      <th sq-datatable-column
-          *ngFor="let column of resourceItemColumns"
+      @for (column of resourceItemColumns; track column.name) {
+        <th
+          sq-datatable-column
           [name]="column.name"
           [isSortable]="column.canBeSortedAgainst"
           (onSortClicked)="sortResourceItemsByColumn($event)">
-      </th>
+        </th>
+      }
     </tr>
   </ng-template>
 
   <ng-template sq-datatable-body>
-    <tr sq-datatable-row
-        *ngFor="let rowItem of resourceItems"
-        [rowItem]="rowItem"
-        class="row">
-    </tr>
+    @for (rowItem of resourceItems; track rowItem) {
+      <tr sq-datatable-row [rowItem]="rowItem" class="row"></tr>
+    }
   </ng-template>
 </sq-datatable>
 ```
 
-In [datatable-docs.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/datatable/datatable-docs/datatable-docs.component.ts#L80)
-
-```typescript
-//...
-resourceItems = [];
-resourceItemColumns: DatatableColumn[] = [];
-
-//...
-ngOnInit() {
-  //...
-  this.fetchResourcesItems();
-}
-
- fetchResourcesItems() {
-  fetch('https://reqres.in/api/unknown')
-    .then(response => response.json())
-    .then(json => {
-      const resources = json.data.slice(0, 20);
-      this.resourceItemColumns = Object.keys(resources[0])
-        .map((columnName) => {
-          return {
-            name: columnName,
-            canBeSortedAgainst: columnName === 'id'
-          };
-        });
-
-      this.resourceItems = resources;
-    });
-}
-//...
-```
-
 ## Interfaces
-### DatatableColumn
 
-?> Used for building column data consumed by sq-datatable-column.
+### DatatableColumn
 
 ```typescript
 interface DatatableColumn {
@@ -197,8 +113,6 @@ interface DatatableColumn {
 ```
 
 ### SortItem
-
-?> Object emitted by sq-datatable-column when the sorting functionality has been triggered.
 
 ```typescript
 interface SortItem {
