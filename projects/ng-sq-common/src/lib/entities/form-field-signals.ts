@@ -9,8 +9,8 @@
  * @Component({ standalone: true, ... })
  * export class InputComponent {
  *   // Signal inputs following FormFieldConfig contract
- *   readonly name = input<string>(FORM_FIELD_DEFAULTS.name);
- *   readonly controlId = input<string>(FORM_FIELD_DEFAULTS.controlId);
+ *   readonly name = input<string>(generateFormFieldId());
+ *   readonly controlId = input<string>(generateFormFieldId());
  *   readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
  *   readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
  *   readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
@@ -27,6 +27,10 @@ export interface FormFieldConfig {
   required: boolean;
   pattern: string;
   disabled: boolean;
+}
+
+export function generateFormFieldId(): string {
+  return 'sq-form-control' + new Date().getTime().toString();
 }
 
 export const FORM_FIELD_DEFAULTS: FormFieldConfig = {

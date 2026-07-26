@@ -13,6 +13,6 @@ export { CustomEventBroadcasterService } from './lib/services/custom-event-broad
 export { OSDetectorService } from './lib/services/os-detector.service';
 export { PaginatorConfig } from './lib/interfaces/paginator-config';
 export { ControlValueAccessorEnabler } from './lib/entities/control-value-accessor-enabler';
-export { FormFieldConfig, FORM_FIELD_DEFAULTS } from './lib/entities/form-field-signals';
+export { FormFieldConfig, FORM_FIELD_DEFAULTS, generateFormFieldId } from './lib/entities/form-field-signals';
 export { ScrolledToBottomListenerDirective } from './lib/directives/scrolled-to-bottom-listener.directive';
 
