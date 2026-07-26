@@ -1,14 +1,15 @@
 import {
   Component, ViewEncapsulation,
-  Renderer2, ElementRef, ChangeDetectionStrategy,
-  model, input, viewChild, effect, signal, inject
+  ChangeDetectionStrategy,
+  model, input, effect, signal, computed
 } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-modal',
   standalone: true,
-  imports: [OutsideClickListenerDirective],
+  imports: [OutsideClickListenerDirective, NgClass],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -27,19 +28,17 @@ export class ModalComponent {
     exitAnimation: ''
   });
 
-  private sqModal = viewChild<ElementRef>('sqModal');
-  private sqModalWindow = viewChild<ElementRef>('sqModalWindow');
+  isHidden = signal<boolean>(true);
+  entranceClass = signal<string>('');
+  exitClass = signal<string>('');
+
+  currentAnimationClass = computed(() => this.entranceClass() || this.exitClass());
 
   listenForOutsideClick = signal<boolean>(false);
-
-  private renderer = inject(Renderer2);
 
   constructor() {
     effect(() => {
       const isVisible = this.show();
-      const modalEl = this.sqModal();
-      const windowEl = this.sqModalWindow();
-      if (!modalEl || !windowEl) return;
 
       const animation = this.customCssAnimation();
       const entranceAnimationClass = animation.entranceAnimation || 'fadeInDown';
@@ -47,19 +46,19 @@ export class ModalComponent {
       const animationDuration = animation.duration || 500;
 
       if (isVisible) {
-        this.renderer.removeClass(modalEl.nativeElement, 'display-none');
-        this.renderer.addClass(windowEl.nativeElement, entranceAnimationClass);
+        this.isHidden.set(false);
+        this.entranceClass.set(entranceAnimationClass);
 
         setTimeout(() => {
-          this.renderer.removeClass(windowEl.nativeElement, entranceAnimationClass);
+          this.entranceClass.set('');
           this.listenForOutsideClick.set(true);
         }, animationDuration);
       } else {
-        this.renderer.addClass(windowEl.nativeElement, exitAnimationClass);
+        this.exitClass.set(exitAnimationClass);
 
         setTimeout(() => {
-          this.renderer.addClass(modalEl.nativeElement, 'display-none');
-          this.renderer.removeClass(windowEl.nativeElement, exitAnimationClass);
+          this.isHidden.set(true);
+          this.exitClass.set('');
           this.listenForOutsideClick.set(false);
         }, animationDuration);
       }

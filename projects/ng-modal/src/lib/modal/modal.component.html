@@ -1,6 +1,6 @@
-<div class="modal-cover display-none" #sqModal>
-  <article #sqModalWindow
-           class="modal-window animated"
+<div class="modal-cover" [class.display-none]="isHidden()">
+  <article class="modal-window animated"
+           [ngClass]="currentAnimationClass()"
            sqOutsideClickListener
            [listenForOutsideClick]="listenForOutsideClick()"
            (clickOutside)="onClickOutsideComponent()">
