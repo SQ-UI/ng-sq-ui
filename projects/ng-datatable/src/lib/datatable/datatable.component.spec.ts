@@ -3,9 +3,6 @@ import { Component, signal } from '@angular/core';
 import { DatatableComponent } from './datatable.component';
 import { DatatableColumnComponent } from '../datatable-column/datatable-column.component';
 import { DatatableRowComponent } from '../datatable-row/datatable-row.component';
-import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
-import { DatatableBodyDirective } from '../directives/datatable-body.directive';
-import { PaginatorComponent } from '../../../../ng-sq-common/src/lib/components/paginator/paginator.component';
 
 interface DummyRecord {
   id: number;
