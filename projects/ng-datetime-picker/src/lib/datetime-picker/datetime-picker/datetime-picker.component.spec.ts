@@ -16,7 +16,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 @Component({
   selector: 'sq-time-picker',
   templateUrl: '../time-picker/time-picker.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  standalone: false
 })
 class TimePickerStubComponent extends TimePickerComponent {
   constructor() {

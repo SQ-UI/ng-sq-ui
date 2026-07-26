@@ -24,6 +24,7 @@ export default defineConfig({
       },
     },
     fileParallelism: false,
+    restoreMocks: true,
     alias: {
       '@sq-ui/ng-sq-common/(.*)': './projects/ng-sq-common/src/$1',
       '@sq-ui/ng-sq-common': './projects/ng-sq-common/src/index.ts',
