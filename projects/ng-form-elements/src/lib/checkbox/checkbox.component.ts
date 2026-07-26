@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, signal, contentChild, output
+  input, model, computed, contentChild, output
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
@@ -30,16 +30,15 @@ export class CheckboxComponent {
   readonly value = model<any>(false);
 
   // Checkbox-specific state
-  readonly isSelected = signal<boolean>(false);
+  readonly isSelected = computed(() => !!this.value());
   readonly isSelectedChange = output<boolean>();
 
   // Content child for custom label template
   readonly labelTemplate = contentChild(SqCheckboxLabelTemplateDirective);
 
   toggleCheckboxSelection() {
-    const newValue = !this.isSelected();
-    this.isSelected.set(newValue);
+    const newValue = !this.value();
     this.value.set(newValue);
-    this.isSelectedChange.emit(newValue);
+    this.isSelectedChange.emit(!!newValue);
   }
 }

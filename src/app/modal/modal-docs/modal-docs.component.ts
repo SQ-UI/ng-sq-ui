@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, signal } from '@angular/core';
 import { NavItem } from '../../shared/nav-item';
 import { ModalComponent } from '@sq-ui/ng-modal';
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
@@ -51,7 +51,7 @@ export class ModalDocsComponent {
     }
   ];
 
-  showModal = false;
+  showModal = signal(false);
 
   confirmationBtnHandler() {
     console.log('Confirmation clicked');

@@ -11,7 +11,7 @@
         }
       </tr>
       @if (datatableHeaderTemplate()) {
-        <ng-container *ngTemplateOutlet="datatableHeaderTemplate()"></ng-container>
+        <ng-template [ngTemplateOutlet]="datatableHeaderTemplate()"></ng-template>
       }
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
         </tr>
       }
       @if (datatableBodyTemplate()) {
-        <ng-container *ngTemplateOutlet="datatableBodyTemplate()"></ng-container>
+        <ng-template [ngTemplateOutlet]="datatableBodyTemplate()"></ng-template>
       }
     </tbody>
   </table>

@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
-import { compatForm } from '@angular/forms/signals/compat';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import {
@@ -127,19 +126,6 @@ export class SqUiComponent {
   checkboxValue = signal(false);
   textareaValue = signal('');
 
-  // Aggregate form model as a computed signal, bridged via compatForm()
-  // to demonstrate the Signal Forms compat API
-  formModel = computed(() => ({
-    name: this.nameValue(),
-    dropdown: this.dropdownValue(),
-    dropdownWithTemplates: this.dropdownWithTemplatesValue(),
-    tags: this.tagsValue(),
-    typeaheadWithTemplates: this.typeaheadWithTemplatesValue(),
-    typeahead2: this.typeahead2Value(),
-    checkboxValue: this.checkboxValue(),
-    textareaValue: this.textareaValue(),
-  }));
-  testForm = compatForm(this.formModel);
   searchResults: any[] = [
     {
       myCustomProp: 'option1',
@@ -244,7 +230,15 @@ export class SqUiComponent {
   }
 
   onSubmit() {
-    console.log('Form values (signals):', this.formModel());
-    console.log('Form values (compatForm bridge):', this.testForm.value);
+    console.log('Form values (signals):', {
+      name: this.nameValue(),
+      dropdown: this.dropdownValue(),
+      dropdownWithTemplates: this.dropdownWithTemplatesValue(),
+      tags: this.tagsValue(),
+      typeaheadWithTemplates: this.typeaheadWithTemplatesValue(),
+      typeahead2: this.typeahead2Value(),
+      checkboxValue: this.checkboxValue(),
+      textareaValue: this.textareaValue(),
+    });
   }
 }
