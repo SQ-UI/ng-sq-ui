@@ -1,18 +1,13 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input } from '@angular/core';
 
 @Component({
   selector: 'sq-form-group',
-  standalone: false,
+  standalone: true,
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormGroupComponent implements OnInit {
-  @Input() groupLabel: string = '';
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class FormGroupComponent {
+  groupLabel = input<string>('');
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation, OnChanges } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, computed } from '@angular/core';
 
 export enum ButtonTypes {
   Button = 'button',
@@ -8,26 +8,18 @@ export enum ButtonTypes {
 
 @Component({
   selector: 'sq-button',
-  standalone: false,
+  standalone: true,
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonComponent implements OnInit, OnChanges {
-  @Input() type = ButtonTypes.Button;
-  @Input() disabled = false;
+export class ButtonComponent {
+  type = input<ButtonTypes | string>(ButtonTypes.Button);
+  disabled = input<boolean>(false);
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changesObj) {
-    if (changesObj.hasOwnProperty('type')) {
-      if (!Object.values(ButtonTypes).includes(changesObj.type.currentValue)) {
-        this.type = ButtonTypes.Button;
-      }
-    }
-  }
-
+  validatedType = computed(() => {
+    const t = this.type();
+    return Object.values(ButtonTypes).includes(t as ButtonTypes) ? t : ButtonTypes.Button;
+  });
 }

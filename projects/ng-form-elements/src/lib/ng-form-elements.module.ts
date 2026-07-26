@@ -28,17 +28,17 @@ import { SqCheckboxLabelTemplateDirective } from './checkbox/checkbox.template.d
     ScrolledToBottomListenerDirective,
     PaginatorComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormGroupComponent
   ],
   declarations: [
     InputComponent,
     DropdownComponent,
     TagsInputComponent,
     RadiobuttonComponent,
-    FormGroupComponent,
     TypeaheadComponent,
     CheckboxComponent,
-    ButtonComponent,
     TextareaComponent,
     SqDropdownOptionTemplateDirective,
     SqDropdownChevronTemplateDirective,
