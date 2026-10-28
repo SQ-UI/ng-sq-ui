@@ -13,16 +13,19 @@
     ],
     "paths": {
       "@sq-ui/ng-sq-common": [
-        "./dist/ng-sq-common",
-        "./projects/ng-sq-common/src",
-        "./node_modules/@sq-ui/ng-sq-common"
+        "../../dist/ng-sq-common",
+        "../../projects/ng-sq-common/src",
+        "../../node_modules/@sq-ui/ng-sq-common"
       ],
       "@sq-ui/ng-sq-common/*": [
-        "./dist/ng-sq-common/*",
-        "./projects/ng-sq-common/src/*",
-        "./node_modules/@sq-ui/ng-sq-common/*"
+        "../../dist/ng-sq-common/*",
+        "../../projects/ng-sq-common/src/*",
+        "../../node_modules/@sq-ui/ng-sq-common/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   },
   "exclude": [
     "src/test.ts",

@@ -1,6 +1,6 @@
 import {
   Directive, ElementRef,
-  Renderer2, OnDestroy, input, output
+  Renderer2, OnDestroy, inject, input, output
 } from '@angular/core';
 
 @Directive({
@@ -11,19 +11,18 @@ export class OutsideClickListenerDirective implements OnDestroy {
   clickOutside = output<void>();
   listenForOutsideClick = input<boolean>(false);
 
-  private listener;
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly renderer = inject(Renderer2);
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    this.listener = this.renderer.listen('document', 'click', (event) => {
-      if (this.listenForOutsideClick()) {
-        const clickedInside = this.elementRef.nativeElement.contains(event.target);
+  private readonly listener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
+    if (this.listenForOutsideClick()) {
+      const clickedInside = this.elementRef.nativeElement.contains(event.target as Node);
 
-        if (!clickedInside) {
-          this.clickOutside.emit();
-        }
+      if (!clickedInside) {
+        this.clickOutside.emit();
       }
-    });
-  }
+    }
+  });
 
   ngOnDestroy() {
     this.listener();

@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, signal } from '@angular/core';
 import { DatatableComponent } from './datatable.component';
 import { DatatableColumnComponent } from '../datatable-column/datatable-column.component';
@@ -48,8 +48,8 @@ describe('DatatableComponent', () => {
   let hostFixture: ComponentFixture<TestHostComponent>;
   let datatableComponent: DatatableComponent;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestHostComponent,
         DatatableComponent,
@@ -58,7 +58,7 @@ describe('DatatableComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     hostFixture = TestBed.createComponent(TestHostComponent);

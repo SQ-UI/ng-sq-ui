@@ -15,11 +15,11 @@ import { Page } from '../../interfaces/page';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorComponent {
-  items = input<any[]>([]);
-  itemsPerPage = input<number>(10);
-  currentPage = input<number>(1);
+  items = input<any[] | undefined>([]);
+  itemsPerPage = input<number | undefined>(10);
+  currentPage = input<number | undefined>(1);
   lastPage = input<number | undefined>(undefined);
-  maxDisplayedPages = input<number>(3);
+  maxDisplayedPages = input<number | undefined>(3);
   paginatedCollection = model<any[]>([]);
   pageChange = output<{ page: number, firstItemIndex: number }>();
 
@@ -78,12 +78,16 @@ export class PaginatorComponent {
     });
   }
 
-  onPageClick(page: Page) {
+  onPageClick(page: Page | undefined) {
+    if (!page) {
+      return;
+    }
+
     this.selectPage(page);
     const paginatedColl = this._paginatedCollection();
     this.pageChange.emit({
       page: page.number,
-      firstItemIndex: this.items().indexOf(paginatedColl[0])
+      firstItemIndex: (this.items() ?? []).indexOf(paginatedColl[0])
     });
   }
 
@@ -97,11 +101,23 @@ export class PaginatorComponent {
     this.onPageClick(newPageItem);
   }
 
+  private getItemsPerPage(): number {
+    return this.itemsPerPage() || 10;
+  }
+
+  private getMaxDisplayedPages(): number {
+    return this.maxDisplayedPages() || 3;
+  }
+
+  private getCurrentPage(): number {
+    return this.currentPage() || 1;
+  }
+
   private updatePageCount(lastPage?: number) {
-    const items = this.items();
-    const itemsPerPage = this.itemsPerPage();
-    const maxDisplayedPages = this.maxDisplayedPages();
-    const pageCount = lastPage || Math.ceil(items.length / itemsPerPage);
+    const items = this.items() ?? [];
+    const itemsPerPage = this.getItemsPerPage();
+    const maxDisplayedPages = this.getMaxDisplayedPages();
+    const pageCount = lastPage || Math.ceil(items.length / itemsPerPage) || 0;
     const newPages: Page[] = [];
 
     if (!pageCount || items.length === 0) {
@@ -155,23 +171,16 @@ export class PaginatorComponent {
   }
 
   private generatePaginatedCollection(newPage: number) {
-    const items = this.items();
-    const itemsPerPage = this.itemsPerPage();
-    let newUpperLimit = itemsPerPage * newPage;
-    let lowerLimit = newUpperLimit - itemsPerPage;
+    const items = this.items() ?? [];
+    const itemsPerPage = this.getItemsPerPage();
+    const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+    const page = Math.min(Math.max(newPage, 1), totalPages);
+    const lowerLimit = (page - 1) * itemsPerPage;
+    const newCollection = items.slice(lowerLimit, lowerLimit + itemsPerPage);
 
-    if (!items[lowerLimit]) {
-      newUpperLimit = items.length - 1;
-      lowerLimit = newUpperLimit - itemsPerPage;
-    }
-
-    const newCollection = items.slice(lowerLimit, newUpperLimit);
     this._paginatedCollection.set(newCollection);
-    this.currentPageNumber.set(newPage);
-
-    setTimeout(() => {
-      this.paginatedCollection.set(newCollection);
-    }, 100);
+    this.currentPageNumber.set(page);
+    this.paginatedCollection.set(newCollection);
   }
 
   private toggleControlEnabling(page?: Page) {
@@ -207,14 +216,14 @@ export class PaginatorComponent {
 
   private selectCurrentPageProgramatically() {
     const currentPages = this.pages();
-    const currentPage = this.currentPage();
+    const currentPage = this.getCurrentPage();
     const pageToSelect = currentPages.find((page: Page) => {
       return page.number === currentPage;
     });
 
     if (pageToSelect) {
       this.selectPage(pageToSelect);
-      this.hidePages([...currentPages], this.maxDisplayedPages());
+      this.hidePages([...currentPages], this.getMaxDisplayedPages());
       this.pages.set([...currentPages]);
       this.hasSelectedCurrentPageByAuthor = true;
     }

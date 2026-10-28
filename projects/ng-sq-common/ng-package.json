@@ -4,7 +4,19 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
+  "assets": [
+    {
+      "glob": "*.scss",
+      "input": "src/lib/styles",
+      "output": "styles"
+    },
+    {
+      "glob": "sq-ui-theme.scss",
+      "input": "src/lib",
+      "output": "."
+    }
+  ],
   "allowedNonPeerDependencies": [
-    "."
+    "tslib"
   ]
 }

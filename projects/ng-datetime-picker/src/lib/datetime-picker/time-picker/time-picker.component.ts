@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, signal, output, effect
+  input, model, signal, output, effect, untracked
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
@@ -52,6 +52,9 @@ export class TimePickerComponent {
   // Internal Temporal.PlainTime tracking current time state
   private currentTime = signal<Temporal.PlainTime>(Temporal.Now.plainTimeISO());
 
+  // Guards the two-way `value` binding against redundant emissions.
+  private lastEmittedValue = '';
+
   readonly limits = signal({
     hours: { min: 0, max: 24 },
     minutes: { min: 0, max: 59 },
@@ -68,44 +71,50 @@ export class TimePickerComponent {
       const meridiem = this.isMeridiem();
       const time = this.currentTime();
 
-      if (meridiem) {
-        this.limits.set({
-          hours: { min: 1, max: 12 },
-          minutes: { min: 0, max: 59 },
-        });
-        this.hours.set(this.formatMeridiemHour(time.hour));
-        this.noonRelativity.set(time.hour >= 12 ? 'pm' : 'am');
-      } else {
-        this.limits.set({
-          hours: { min: 0, max: 24 },
-          minutes: { min: 0, max: 59 },
-        });
-        this.hours.set(time.hour.toString().padStart(2, '0'));
-      }
-      this.setValueResult();
+      // The body writes the same signals it would otherwise track (`hours`, `noonRelativity`,
+      // the `value` model, ...); untracking it keeps the effect from re-scheduling itself forever.
+      untracked(() => {
+        if (meridiem) {
+          this.limits.set({
+            hours: { min: 1, max: 12 },
+            minutes: { min: 0, max: 59 },
+          });
+          this.hours.set(this.formatMeridiemHour(time.hour));
+          this.noonRelativity.set(time.hour >= 12 ? 'pm' : 'am');
+        } else {
+          this.limits.set({
+            hours: { min: 0, max: 24 },
+            minutes: { min: 0, max: 59 },
+          });
+          this.hours.set(time.hour.toString().padStart(2, '0'));
+        }
+        this.setValueResult();
+      });
     });
 
     // React to timeObjectType changes
     effect(() => {
       // Read the signal to subscribe to its changes
       this.timeObjectType();
-      this.setValueResult();
+      untracked(() => this.setValueResult());
     });
 
     // React to inputHours changes
     effect(() => {
       const h = this.inputHours();
       if (h !== null && h !== undefined && h > -1) {
-        const time = this.currentTime();
-        const newTime = Temporal.PlainTime.from({ hour: h, minute: time.minute });
-        this.currentTime.set(newTime);
-        if (this.isMeridiem()) {
-          this.hours.set(this.formatMeridiemHour(h));
-          this.noonRelativity.set(h >= 12 ? 'pm' : 'am');
-        } else {
-          this.hours.set(h.toString().padStart(2, '0'));
-        }
-        this.setValueResult();
+        untracked(() => {
+          const time = this.currentTime();
+          const newTime = Temporal.PlainTime.from({ hour: h, minute: time.minute });
+          this.currentTime.set(newTime);
+          if (this.isMeridiem()) {
+            this.hours.set(this.formatMeridiemHour(h));
+            this.noonRelativity.set(h >= 12 ? 'pm' : 'am');
+          } else {
+            this.hours.set(h.toString().padStart(2, '0'));
+          }
+          this.setValueResult();
+        });
       }
     });
 
@@ -113,11 +122,13 @@ export class TimePickerComponent {
     effect(() => {
       const m = this.inputMinutes();
       if (m !== null && m !== undefined && m > -1) {
-        const time = this.currentTime();
-        const newTime = Temporal.PlainTime.from({ hour: time.hour, minute: m });
-        this.currentTime.set(newTime);
-        this.minutes.set(m.toString().padStart(2, '0'));
-        this.setValueResult();
+        untracked(() => {
+          const time = this.currentTime();
+          const newTime = Temporal.PlainTime.from({ hour: time.hour, minute: m });
+          this.currentTime.set(newTime);
+          this.minutes.set(m.toString().padStart(2, '0'));
+          this.setValueResult();
+        });
       }
     });
 
@@ -266,12 +277,21 @@ export class TimePickerComponent {
     let timeString = `${hoursStr}:${minutesStr}`;
     timeString = this.isMeridiem() ? `${timeString} ${this.noonRelativity().toUpperCase()}` : timeString;
 
+    let nextValue: unknown = timeString;
+
     if (this.timeObjectType() === TimeObject.PlainTime || this.timeObjectType() === TimeObject.Moment) {
-      // Return a Temporal.PlainTime instead of moment
       const time = this.currentTime();
-      this.value.set(Temporal.PlainTime.from({ hour: time.hour, minute: time.minute }));
-    } else {
-      this.value.set(timeString);
+      nextValue = Temporal.PlainTime.from({ hour: time.hour, minute: time.minute });
     }
+
+    // Only propagate genuine changes: writing the model on every effect run re-enters the parent
+    // binding (`[value]` + `(valueChange)`) and used to spin the change detection loop forever.
+    const nextKey = String(nextValue);
+    if (nextKey === this.lastEmittedValue) {
+      return;
+    }
+
+    this.lastEmittedValue = nextKey;
+    this.value.set(nextValue);
   }
 }

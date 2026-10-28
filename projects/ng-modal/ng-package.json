@@ -5,6 +5,7 @@
     "entryFile": "src/index.ts"
   },
   "allowedNonPeerDependencies": [
-    "."
+    "@sq-ui/ng-sq-common",
+    "tslib"
   ]
 }

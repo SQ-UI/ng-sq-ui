@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatableRowComponent } from './datatable-row.component';
 
@@ -6,12 +6,12 @@ describe('DatatableRowComponent', () => {
   let component: DatatableRowComponent;
   let fixture: ComponentFixture<DatatableRowComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [DatatableRowComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatatableRowComponent);

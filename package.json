@@ -7,20 +7,22 @@
     "coverage": "vitest run --coverage",
     "build": "ng build",
     "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.spec.json --noEmit",
     "lint": "ng lint",
-    "copy:styles": "copyfiles -f \"./projects/ng-sq-common/src/lib/styles/**/*.scss\" \"./dist/ng-sq-common/styles\" && copyfiles -f \"./projects/ng-sq-common/src/lib/sq-ui-theme.scss\" \"./dist/ng-sq-common/\"",
-    "build:libs": "ng build --configuration production ng-sq-common && ng build --configuration production ng-form-elements && ng build --configuration production ng-progress-bar && ng build --configuration production ng-modal && ng build --configuration production ng-datetime-picker && ng build --configuration production ng-datatable && ng build --configuration production ng-sq-ui && npm run copy:styles",
+    "build:libs": "ng build --configuration production ng-sq-common && ng build --configuration production ng-form-elements && ng build --configuration production ng-progress-bar && ng build --configuration production ng-modal && ng build --configuration production ng-datetime-picker && ng build --configuration production ng-datatable && ng build --configuration production ng-sq-ui",
     "build:app:prod": "npm run build:libs && ng build"
   },
   "private": true,
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
+  },
   "dependencies": {
-    "@angular/animations": "^22.0.0",
     "@angular/common": "^22.0.0",
     "@angular/compiler": "^22.0.0",
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
-    "@angular/platform-browser-dynamic": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@js-temporal/polyfill": "^0.5.1",
     "rxjs": "^7.8.1",
@@ -28,8 +30,7 @@
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^2.6.4",
-    "@analogjs/vitest-angular": "^1.0.0",
-    "@angular-devkit/build-angular": "^22.0.0",
+    "@analogjs/vitest-angular": "^2.9.2",
     "@angular-eslint/builder": "^22.0.0",
     "@angular-eslint/eslint-plugin": "^22.0.0",
     "@angular-eslint/eslint-plugin-template": "^22.0.0",
@@ -39,20 +40,16 @@
     "@angular/cli": "^22.0.0",
     "@angular/compiler-cli": "^22.0.0",
     "@angular/language-service": "^22.0.0",
+    "@eslint/js": "^9.0.0",
     "@fortawesome/fontawesome-free": "^6.0.0",
-    "@types/node": "^15.6.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
+    "@types/node": "^24.0.0",
     "@vitest/coverage-v8": "^3.0.0",
     "angular-eslint": "^22.0.0",
-    "copyfiles": "^2.4.1",
     "eslint": "^9.0.0",
     "jsdom": "^29.1.1",
-    "marked": "^3.0.2",
     "ng-packagr": "^22.0.1",
     "typescript": "~6.0.0",
-    "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^3.0.0",
-    "zone.js": "^0.16.2"
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^3.0.0"
   }
 }

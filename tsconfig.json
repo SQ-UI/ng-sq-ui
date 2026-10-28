@@ -1,9 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
-    "baseUrl": "./",
-    "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,12 +11,8 @@
     "noImplicitAny": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "useDefineForClassFields": false,
     "strict": false,
     "strictPropertyInitialization": false,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "lib": [
       "es2022",
       "dom"
@@ -69,9 +62,9 @@
         "./node_modules/@sq-ui/ng-modal/"
       ],
       "@sq-ui/ng-modal/*": [
-        "dist/ng-modal/*",
-        "projects/ng-modal/src/*",
-        "node_modules/@sq-ui/ng-modal/*"
+        "./dist/ng-modal/*",
+        "./projects/ng-modal/src/*",
+        "./node_modules/@sq-ui/ng-modal/*"
       ],
       "@sq-ui/ng-form-elements": [
         "./dist/ng-form-elements",

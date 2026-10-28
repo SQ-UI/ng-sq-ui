@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { ModuleOverviewComponent } from './module-overview.component';
@@ -7,13 +7,13 @@ describe('ModuleOverviewComponent', () => {
   let component: ModuleOverviewComponent;
   let fixture: ComponentFixture<ModuleOverviewComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [ModuleOverviewComponent],
       providers: [provideRouter([])]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ModuleOverviewComponent);

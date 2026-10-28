@@ -32,6 +32,11 @@
             "production": {
               "budgets": [
                 {
+                  "type": "initial",
+                  "maximumWarning": "600kB",
+                  "maximumError": "1MB"
+                },
+                {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
@@ -39,7 +44,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "namedChunks": false,
               "extractLicenses": true,
               "fileReplacements": [
                 {
@@ -72,6 +76,15 @@
           "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "sq-ui:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -240,6 +253,7 @@
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
+            "tsConfig": "projects/ng-form-elements/tsconfig.lib.json",
             "project": "projects/ng-form-elements/ng-package.json"
           },
           "configurations": {
@@ -251,6 +265,15 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-form-elements/**/*.ts",
+              "projects/ng-form-elements/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -263,6 +286,7 @@
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
+            "tsConfig": "projects/ng-progress-bar/tsconfig.lib.json",
             "project": "projects/ng-progress-bar/ng-package.json"
           },
           "configurations": {
@@ -274,6 +298,15 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-progress-bar/**/*.ts",
+              "projects/ng-progress-bar/**/*.html"
+            ]
+          }
         }
       }
     }

@@ -5,13 +5,25 @@ updates:
   schedule:
     interval: weekly
   open-pull-requests-limit: 5
-  target-branch: develop
+  target-branch: morph-main
   reviewers:
   - samuil4
   assignees:
   - samuil4
   labels:
   - dependency update
+  groups:
+    angular:
+      patterns:
+      - "@angular/*"
+    tooling:
+      patterns:
+      - "eslint*"
+      - "typescript-eslint"
+      - "typescript"
+      - "vitest"
+      - "@vitest/*"
+      - "@analogjs/*"
 ignore:
-  - dependency-name: *
+  - dependency-name: "*"
     update-types: ["version-update:semver-patch", "version-update:semver-minor"]

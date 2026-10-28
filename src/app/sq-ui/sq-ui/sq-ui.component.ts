@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { compatForm } from '@angular/forms/signals/compat';
+import { compatForm, extractValue } from '@angular/forms/signals/compat';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 import {
@@ -200,7 +200,7 @@ export class SqUiComponent {
     });
   }
 
-  searchMethod(query: string) {
+  searchMethod(_query: string) {
     this.searchResults = [
       {
         myCustomProp: 'option1',
@@ -238,7 +238,7 @@ export class SqUiComponent {
     ];
   }
 
-  searchMethodString(query: string) {
+  searchMethodString(_query: string) {
     this.searchResultsStrings = ['option1', 'option2', 'option3', 'option4'];
   }
 
@@ -250,6 +250,6 @@ export class SqUiComponent {
       checkboxValue: this.checkboxValue(),
       textareaValue: this.textareaValue(),
     });
-    console.log('Signal Forms (compatForm) value:', this.testForm.value);
+    console.log('Signal Forms (compatForm) value:', extractValue(this.testForm));
   }
 }

@@ -35,30 +35,23 @@ Any types of public interfaces and services are also included.
 - [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
 - [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
 
-## BREAKING CHANGES:
-The 2.0.1 relases of all packages are compatible with Angular 14+. If you need a backwards-compatible version, please refer to 1.x.y packages, as stated below.
+## Compatibility matrix
 
-**Note:**<br>
-For projects that use the View Engine, instead Ivy (Angular 10 ~ Angular 12), please use the following version for each package:
+| ng-sq-ui | Angular | Notes |
+|---|---|---|
+| **3.x** | **22** | Standalone-only, signal `input()`/`output()`/`model()`, zoneless-ready, Vitest. **Breaking:** NgModules removed, `ControlValueAccessor` removed from the form controls, `pattern` becomes `patterns: RegExp[]` |
+| 2.x | 14 – 21 | NgModule based (`FormElementsModule`, `ModalModule`, …) |
+| 1.3.3 / 1.1.x | 10 – 12 (View Engine) | Use the 1.x packages if you are still on View Engine |
 
-**@sq-ui/ng-sq-ui:** 1.3.3
-<br>
-**@sq-ui/ng-datetime-picker:** 1.1.2
-<br>
-**@sq-ui/ng-sq-common:** 1.1.5
-<br>
-**@sq-ui/ng-modal:** 1.1.2
-<br>
-**@sq-ui/ng-datatable:** 1.1.3
+### Migrating 2.x → 3.x
 
-<br>
-For projects that use Angular version < 9, please use the following version for each package:
-
-**@sq-ui/ng-sq-ui:** 1.1.5 <br>
-**@sq-ui/ng-datetime-picker:** 1.1.0 <br>
-**@sq-ui/ng-sq-common:** 1.0.3 <br>
-**@sq-ui/ng-modal:** 1.0.6 <br>
-**@sq-ui/ng-datatable:** 1.0.3<br>
+```
+NgModules                          → import the standalone components directly
+[(ngModel)] / formControlName      → [(value)] (or [formField] with Angular Signal Forms)
+@Input() name                      → name = input<string>()
+@Output() valueChange = EventEmitter → value = model<T>()  /  output<T>()
+*ngIf / *ngFor                     → @if / @for
+```
 
 ## Installation
 
@@ -76,7 +69,7 @@ yarn add @sq-ui/ng-sq-ui@latest
 
 ## Usage
 
-Import individual components directly in your standalone components or modules:
+Import individual components directly in your standalone components:
 
 ```typescript
 import { InputComponent, DropdownComponent } from '@sq-ui/ng-sq-ui';
@@ -84,9 +77,20 @@ import { InputComponent, DropdownComponent } from '@sq-ui/ng-sq-ui';
 @Component({
   standalone: true,
   imports: [InputComponent, DropdownComponent],
-  //...
+  template: `
+    <sq-input controlLabel="Name" [(value)]="name"></sq-input>
+    <sq-dropdown [options]="options" [(value)]="selected"></sq-dropdown>
+  `,
 })
+export class MyComponent {
+  readonly name = signal('');
+  readonly selected = signal<LabelValuePair | null>(null);
+  readonly options: LabelValuePair[] = [{ label: 'One', value: 1 }];
+}
 ```
+
+Every form control exposes a two-way `value` model, so it can be bound with `[(value)]`, driven from a
+signal, or used with Angular Signal Forms through the `[formField]` directive.
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
 
@@ -98,12 +102,15 @@ Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 "styles": [
   "src/styles.css",
   "./node_modules/@sq-ui/ng-sq-common/sq-ui-theme.scss",
-  "./node_modules/@sq-ui/ng-sq-ui/styles/form-elements.scss",
+  "./node_modules/@sq-ui/ng-form-elements/styles/form-elements.scss",
   "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
 ],
 ```
+
+> `@fortawesome/fontawesome-free` is an optional peer dependency — install it yourself if you want the
+> icon set the components use.
 
 ### Apply styling to the components
 

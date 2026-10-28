@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, signal } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, signal, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
@@ -14,12 +14,12 @@ import { NavItem } from '../shared/nav-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppNavComponent {
+  private readonly router = inject(Router);
+
   readonly navItems = input<NavItem[]>([]);
 
   isNavOpen = signal(false);
   listenForOutsideClick = signal(false);
-
-  constructor(private router: Router) { }
 
   showNav() {
     this.isNavOpen.set(true);

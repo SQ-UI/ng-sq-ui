@@ -187,6 +187,12 @@ export class DatetimePickerComponent implements OnInit {
   }
 
   onTimeChange(newTime: any) {
+    // Ignore the echo of the value this component just emitted; reacting to it re-triggers the
+    // child's effects and spins change detection.
+    if (String(newTime) === String(this.time())) {
+      return;
+    }
+
     this.time.set(newTime);
     this.setValueResult();
     this.dateSelectionChange.emit(this.value());

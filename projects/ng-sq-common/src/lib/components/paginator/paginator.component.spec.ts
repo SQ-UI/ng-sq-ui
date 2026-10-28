@@ -1,6 +1,7 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginatorComponent } from './paginator.component';
+import { Page } from '../../interfaces/page';
 
 interface DummyRecord {
   id: number;
@@ -26,12 +27,40 @@ describe('PaginatorComponent', () => {
     return collection;
   }
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  function setPagination(items: unknown[], itemsPerPage: number, extra: {
+    currentPage?: number;
+    lastPage?: number;
+    maxDisplayedPages?: number;
+  } = {}) {
+    fixture.componentRef.setInput('items', items);
+    fixture.componentRef.setInput('itemsPerPage', itemsPerPage);
+
+    if (extra.currentPage !== undefined) {
+      fixture.componentRef.setInput('currentPage', extra.currentPage);
+    }
+    if (extra.lastPage !== undefined) {
+      fixture.componentRef.setInput('lastPage', extra.lastPage);
+    }
+    if (extra.maxDisplayedPages !== undefined) {
+      fixture.componentRef.setInput('maxDisplayedPages', extra.maxDisplayedPages);
+    }
+
+    fixture.detectChanges();
+  }
+
+  function queryPaginator(selector: string): HTMLElement | null {
+    return (fixture.nativeElement as HTMLElement).querySelector(selector);
+  }
+
+  function queryAllPaginator(selector: string): NodeListOf<HTMLElement> {
+    return (fixture.nativeElement as HTMLElement).querySelectorAll(selector);
+  }
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [PaginatorComponent]
-    })
-      .compileComponents();
-  }));
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PaginatorComponent);
@@ -43,224 +72,170 @@ describe('PaginatorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should split a finite collection of items into a correct number of pages',
-    () => {
-      const recordCount = 238;
-      const recordPerPage = 5;
+  it('should split a finite collection of items into a correct number of pages', () => {
+    const recordCount = 238;
+    const recordPerPage = 5;
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+    setPagination(generateDummyCollection(recordCount), recordPerPage);
 
-      fixture.detectChanges();
+    expect(component.pages()[component.pages().length - 1].number)
+      .toEqual(Math.ceil(recordCount / recordPerPage));
+    expect(component._paginatedCollection().length).toEqual(recordPerPage);
+  });
 
-      expect(component.pages()[component.pages().length - 1].number)
-        .toEqual(Math.ceil(recordCount / recordPerPage), 'the page number is calculated correctly');
-      expect(component._paginatedCollection().length)
-        .toEqual(recordPerPage, 'the number of paginated items is correct');
-    });
+  it('should keep every item when the collection does not fill the last page', () => {
+    const items = generateDummyCollection(12);
 
-  it('should recalculate its pages correctly when the collection is dynamic',
-    (done: DoneFn) => {
-      const recordCount = 20;
-      const recordPerPage = 5;
+    setPagination(items, 5);
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+    component.onPageClick(component.pages()[component.pages().length - 1]);
+    fixture.detectChanges();
 
-      fixture.detectChanges();
+    expect(component._paginatedCollection().length).toEqual(2);
+    expect(component._paginatedCollection()).toEqual(items.slice(10));
+  });
 
-      component.pageChange
-        .subscribe((pageInfo: { page: number, firstItemIndex: number }) => {
-          if (pageInfo.page % (Math.ceil(recordCount / recordPerPage)) === 0) {
-            const newItems = component.items().concat(generateDummyCollection(recordCount * 2, 21));
-            fixture.componentRef.setInput('items', newItems);
+  it('should emit the paginated collection synchronously when the page changes', () => {
+    const items = generateDummyCollection(20);
+    const emitted: unknown[][] = [];
+    const subscription = component.paginatedCollection.subscribe(collection => emitted.push(collection));
 
-            fixture.detectChanges();
+    setPagination(items, 5);
+    component.onPageClick(component.pages()[1]);
+    fixture.detectChanges();
 
-            expect(component.items().length)
-              .toEqual(recordCount * 2, 'the items are changed successfully');
-            expect(component.pages()[component.pages().length - 1].number)
-              .toEqual(Math.ceil(recordCount / recordPerPage) * 2, 'the number of pages has changed');
+    expect(emitted.length).toBeGreaterThan(0);
+    expect(emitted[emitted.length - 1]).toEqual(items.slice(5, 10));
 
-            done();
-          }
-        });
+    subscription.unsubscribe();
+  });
 
-      fixture.detectChanges();
-      component.onPageClick(component.pages()[component.pages().length - 1]);
-      fixture.detectChanges();
-    });
+  it('should fall back to the default page size when [itemsPerPage] is bound to undefined', () => {
+    const items = generateDummyCollection(25);
 
-  it('should disable ("jump to") first and previous buttons and enable ("jump to") next and last buttons on initial render',
-    waitForAsync(() => {
-      const recordCount = 100;
-      const recordPerPage = 5;
+    fixture.componentRef.setInput('items', items);
+    fixture.componentRef.setInput('itemsPerPage', undefined);
+    fixture.detectChanges();
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+    expect(component.pages().length).toEqual(3);
+    expect(component._paginatedCollection().length).toEqual(10);
+  });
 
-      fixture.detectChanges();
+  it('should recalculate its pages correctly when the collection grows', () => {
+    const recordCount = 20;
+    const recordPerPage = 5;
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
-        const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
-        const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
-        const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
+    setPagination(generateDummyCollection(recordCount), recordPerPage);
 
-        expect(prevBtn.disabled).toBe(true);
-        expect(firstBtn.disabled).toBe(true);
-        expect(nextBtn.disabled).toBe(false);
-        expect(lastBtn.disabled).toBe(false);
-      });
-    }));
+    expect(component.pages()[component.pages().length - 1].number).toEqual(4);
 
-  it('should enable ("jump to") first and previous buttons when a page other than the first is clicked',
-    waitForAsync(() => {
-      const recordCount = 100;
-      const recordPerPage = 5;
+    const newItems = (component.items() ?? []).concat(generateDummyCollection(recordCount * 2, 21));
+    fixture.componentRef.setInput('items', newItems);
+    fixture.detectChanges();
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+    expect(component.items().length).toEqual(recordCount * 2);
+    expect(component.pages()[component.pages().length - 1].number)
+      .toEqual(Math.ceil(recordCount / recordPerPage) * 2);
+  });
 
-      fixture.detectChanges();
+  it('should not emit when navigating past the last page', () => {
+    const emitted: { page: number, firstItemIndex: number }[] = [];
+    const subscription = component.pageChange.subscribe(pageInfo => emitted.push(pageInfo));
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const prevBtn = paginatorEl.querySelector('[data-btn-type="prev"]');
-        const firstBtn = paginatorEl.querySelector('[data-btn-type="first"]');
+    setPagination(generateDummyCollection(20), 5);
+    component.navigateToPage(1);      // moves to page 2
+    component.navigateToPage(100);    // out of range → ignored
+    fixture.detectChanges();
 
-        paginatorEl.querySelector('.current + li button').click();
-        fixture.detectChanges();
+    expect(emitted.length).toEqual(1);
+    expect(emitted[0].page).toEqual(2);
 
-        fixture.whenStable().then(() => {
-          expect(prevBtn.disabled).toBe(false);
-          expect(firstBtn.disabled).toBe(false);
-        });
-      });
-    }));
+    subscription.unsubscribe();
+  });
 
-  it('should disable ("jump to") last and next buttons when the user clicks on the last page',
-    (done: DoneFn) => {
-      const recordCount = 100;
-      const recordPerPage = 5;
+  it('should disable ("jump to") first and previous buttons and enable next and last buttons on initial render', () => {
+    setPagination(generateDummyCollection(100), 5);
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+    expect((queryPaginator('[data-btn-type="prev"]') as HTMLButtonElement).disabled).toBe(true);
+    expect((queryPaginator('[data-btn-type="first"]') as HTMLButtonElement).disabled).toBe(true);
+    expect((queryPaginator('[data-btn-type="next"]') as HTMLButtonElement).disabled).toBe(false);
+    expect((queryPaginator('[data-btn-type="last"]') as HTMLButtonElement).disabled).toBe(false);
+  });
 
-      fixture.detectChanges();
+  it('should enable ("jump to") first and previous buttons when a page other than the first is clicked', () => {
+    setPagination(generateDummyCollection(100), 5);
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const nextBtn = paginatorEl.querySelector('[data-btn-type="next"]');
-        const lastBtn = paginatorEl.querySelector('[data-btn-type="last"]');
-        const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated) button');
+    (queryPaginator('.current + li button') as HTMLButtonElement).click();
+    fixture.detectChanges();
 
-        allVisiblePages[allVisiblePages.length - 1].click();
-        fixture.detectChanges();
+    expect((queryPaginator('[data-btn-type="prev"]') as HTMLButtonElement).disabled).toBe(false);
+    expect((queryPaginator('[data-btn-type="first"]') as HTMLButtonElement).disabled).toBe(false);
+  });
 
-        fixture.whenStable().then(() => {
-          expect(nextBtn.disabled).toBe(true);
-          expect(lastBtn.disabled).toBe(true);
-          done();
-        });
-      });
-    });
+  it('should disable ("jump to") last and next buttons when the user clicks on the last page', () => {
+    setPagination(generateDummyCollection(100), 5);
 
-  it('should change the paginated collection correctly when the user clicks another page',
-    waitForAsync(() => {
-      const recordCount = 100;
-      const recordPerPage = 5;
+    const allVisiblePages = queryAllPaginator('[data-btn-type="page-num"]:not(.truncated) button');
+    (allVisiblePages[allVisiblePages.length - 1] as HTMLButtonElement).click();
+    fixture.detectChanges();
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
+    expect((queryPaginator('[data-btn-type="next"]') as HTMLButtonElement).disabled).toBe(true);
+    expect((queryPaginator('[data-btn-type="last"]') as HTMLButtonElement).disabled).toBe(true);
+  });
 
-      fixture.detectChanges();
+  it('should change the paginated collection correctly when the user clicks another page', () => {
+    const recordPerPage = 5;
+    setPagination(generateDummyCollection(100), recordPerPage);
 
-      const expectedPaginatedItemsForFirstPage = component.items().slice(0, recordPerPage);
-      const firstPaginatedCollection = component._paginatedCollection().slice();
+    const items = component.items();
+    expect(component._paginatedCollection()).toEqual(items.slice(0, recordPerPage));
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        paginatorEl.querySelector('.current + li button').click();
-        fixture.detectChanges();
+    (queryPaginator('.current + li button') as HTMLButtonElement).click();
+    fixture.detectChanges();
 
-        fixture.whenStable().then(() => {
-          expect(expectedPaginatedItemsForFirstPage)
-            .toEqual(firstPaginatedCollection, 'first paginated collection is correct');
-          expect(component.items().slice(recordPerPage, recordPerPage * 2))
-            .toEqual(component._paginatedCollection(), 'second paginated collection is correct');
-        });
-      });
-    }));
+    expect(component._paginatedCollection()).toEqual(items.slice(recordPerPage, recordPerPage * 2));
+  });
 
-  it('should automatically select the [currentPage] number when it exists',
-    (done: DoneFn) => {
-      const recordCount = 400;
-      const recordPerPage = 10;
-      const currentPageNumber = 10;
+  it('should automatically select the [currentPage] number when it exists', () => {
+    const currentPageNumber = 10;
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
-      fixture.componentRef.setInput('currentPage', currentPageNumber);
+    setPagination(generateDummyCollection(400), 10, { currentPage: currentPageNumber });
 
-      fixture.detectChanges();
+    const currentPageEl = queryPaginator('.current button') as HTMLButtonElement | null;
+    expect(currentPageEl).toBeTruthy();
+    expect(parseInt(currentPageEl?.textContent ?? '', 10)).toEqual(currentPageNumber);
+  });
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const currentPageEl = paginatorEl.querySelector('.current button');
-        expect(parseInt(currentPageEl.textContent, 10) === currentPageNumber)
-          .toBe(true);
-        done();
-      });
-    });
+  it('should show a maximum of [lastPage] pages when [lastPage] exists', () => {
+    const lastPage = 4;
 
-  it('should show a maximum of [lastPage] pages when [lastPage] exists',
-    (done: DoneFn) => {
-      const recordCount = 50;
-      const recordPerPage = 3;
-      const lastPage = 4;
+    setPagination(generateDummyCollection(50), 3, { lastPage });
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
-      fixture.componentRef.setInput('lastPage', lastPage);
+    const allVisiblePages = queryAllPaginator('[data-btn-type="page-num"]:not(.truncated) button');
+    const lastVisiblePage = allVisiblePages[allVisiblePages.length - 1] as HTMLButtonElement;
 
-      fixture.detectChanges();
+    expect(parseInt(lastVisiblePage.textContent ?? '', 10)).toEqual(lastPage);
+  });
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated) button');
-        const lastVisiblePage = allVisiblePages[allVisiblePages.length - 1];
+  it('should show a maximum of [maxDisplayedPages] if it exists', () => {
+    const maxDisplayedPages = 5;
 
-        expect(parseInt(lastVisiblePage.textContent, 10) === lastPage)
-          .toBe(true);
-        done();
-      });
-    });
+    setPagination(generateDummyCollection(300), 10, { maxDisplayedPages });
 
-  it('should show a maximum of [maxDisplayedPages] if it exists',
-    (done: DoneFn) => {
-      const recordCount = 300;
-      const recordPerPage = 10;
-      const maxDisplayedPages = 5;
+    const allVisiblePages = queryAllPaginator('[data-btn-type="page-num"]:not(.truncated)');
+    const allPages = queryAllPaginator('[data-btn-type="page-num"]');
 
-      fixture.componentRef.setInput('items', generateDummyCollection(recordCount));
-      fixture.componentRef.setInput('itemsPerPage', recordPerPage);
-      fixture.componentRef.setInput('maxDisplayedPages', maxDisplayedPages);
+    expect(allVisiblePages.length).toEqual(maxDisplayedPages * 2);
+    expect(allPages[maxDisplayedPages + 1].classList.contains('truncated')).toBe(true);
+  });
 
-      fixture.detectChanges();
+  it('should expose the selected page with the Page shape', () => {
+    setPagination(generateDummyCollection(30), 10);
 
-      fixture.whenRenderingDone().then(() => {
-        const paginatorEl = fixture.nativeElement.querySelector('.paginator');
-        const allVisiblePages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]:not(.truncated)');
-        const allPages = paginatorEl.querySelectorAll('[data-btn-type="page-num"]');
-
-        expect(allVisiblePages.length === maxDisplayedPages * 2)
-          .toBe(true);
-        expect(allPages[maxDisplayedPages + 1].classList.contains('truncated'))
-          .toBe(true);
-        done();
-      });
-    });
-
+    const page: Page = component.pages()[0];
+    expect(page.number).toEqual(1);
+    expect(typeof page.isSelected).toEqual('boolean');
+    expect(typeof page.isHidden).toEqual('boolean');
+  });
 });
+

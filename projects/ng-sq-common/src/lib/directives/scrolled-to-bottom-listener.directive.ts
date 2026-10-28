@@ -1,5 +1,5 @@
 import {
-  Directive, ElementRef, Renderer2, OnDestroy, output
+  Directive, ElementRef, Renderer2, OnDestroy, inject, output
 } from '@angular/core';
 
 @Directive({
@@ -9,13 +9,12 @@ import {
 export class ScrolledToBottomListenerDirective implements OnDestroy {
   scrolledToBottom = output<void>();
 
-  private listener;
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly renderer = inject(Renderer2);
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    this.listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
-      this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
-    });
-  }
+  private readonly listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
+    this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
+  });
 
   checkIfHasScrolledToBottom(element: HTMLElement) {
     const hasScrolledToBottom = element.scrollTop > 0 ? ((element.scrollHeight - element.scrollTop) === element.clientHeight) : false;

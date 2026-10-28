@@ -19,23 +19,19 @@
     ],
     "paths": {
       "@sq-ui/ng-sq-common": [
-        "./dist/ng-sq-common",
-        "./projects/ng-sq-common/src",
-        "./node_modules/@sq-ui/ng-sq-common"
+        "../../dist/ng-sq-common",
+        "../../projects/ng-sq-common/src",
+        "../../node_modules/@sq-ui/ng-sq-common"
       ],
       "@sq-ui/ng-sq-common/*": [
-        "./dist/ng-sq-common/*",
-        "./projects/ng-sq-common/src/*",
-        "./node_modules/@sq-ui/ng-sq-common/*"
+        "../../dist/ng-sq-common/*",
+        "../../projects/ng-sq-common/src/*",
+        "../../node_modules/@sq-ui/ng-sq-common/*"
       ]
     }
   },
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
-    "enableResourceInlining": true
+    "strictTemplates": true
   },
   "exclude": [
     "src/test.ts",

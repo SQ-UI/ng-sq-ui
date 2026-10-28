@@ -4,8 +4,4 @@ import { Directive } from '@angular/core';
   selector: '[sq-datatable-body]',
   standalone: true,
 })
-export class DatatableBodyDirective {
-
-  constructor() { }
-
-}
+export class DatatableBodyDirective { }

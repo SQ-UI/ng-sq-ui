@@ -4,7 +4,15 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
+  "assets": [
+    {
+      "glob": "*.scss",
+      "input": "src/lib/styles",
+      "output": "styles"
+    }
+  ],
   "allowedNonPeerDependencies": [
-    "."
+    "@sq-ui/ng-sq-common",
+    "tslib"
   ]
 }

@@ -1,11 +1,11 @@
-import { Directive, TemplateRef } from '@angular/core';
+import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
   selector: '[sq-dropdown-option]',
   standalone: true,
 })
 export class SqDropdownOptionTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }
 
 @Directive({
@@ -13,7 +13,7 @@ export class SqDropdownOptionTemplateDirective {
   standalone: true,
 })
 export class SqDropdownChevronTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }
 
 @Directive({
@@ -21,5 +21,5 @@ export class SqDropdownChevronTemplateDirective {
   standalone: true,
 })
 export class SqDropdownSelectedOptionTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }

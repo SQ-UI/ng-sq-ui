@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CollapseContentComponent } from './collapse-content.component';
 
@@ -6,12 +6,12 @@ describe('CollapseContentComponent', () => {
   let component: CollapseContentComponent;
   let fixture: ComponentFixture<CollapseContentComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [CollapseContentComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CollapseContentComponent);
