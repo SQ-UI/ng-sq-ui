@@ -1,18 +1,32 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import angular from '@analogjs/vite-plugin-angular';
+import path from 'path';
 
 export default defineConfig({
-  plugins: [angular()],
+  plugins: [angular({ tsconfig: 'tsconfig.spec.json' })],
+  resolve: {
+    alias: [
+      { find: /^@sq-ui\/ng-sq-common$/, replacement: path.resolve(__dirname, 'projects/ng-sq-common/src/index.ts') },
+      { find: /^@sq-ui\/ng-sq-common\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-sq-common/src/$1') },
+      { find: /^@sq-ui\/ng-form-elements$/, replacement: path.resolve(__dirname, 'projects/ng-form-elements/src/index.ts') },
+      { find: /^@sq-ui\/ng-form-elements\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-form-elements/src/$1') },
+      { find: /^@sq-ui\/ng-datetime-picker$/, replacement: path.resolve(__dirname, 'projects/ng-datetime-picker/src/index.ts') },
+      { find: /^@sq-ui\/ng-datetime-picker\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-datetime-picker/src/$1') },
+      { find: /^@sq-ui\/ng-datatable$/, replacement: path.resolve(__dirname, 'projects/ng-datatable/src/index.ts') },
+      { find: /^@sq-ui\/ng-datatable\/(.*)/, replacement: path.resolve(__dirname, 'projects/ng-datatable/src/$1') },
+    ],
+  },
   test: {
     globals: true,
     environment: 'jsdom',
     include: [
-      'projects/ng-sq-common/src/lib/services/**/*.spec.ts',
-      'projects/ng-sq-common/src/lib/directives/**/*.spec.ts',
-      'projects/ng-sq-common/src/lib/components/**/*.spec.ts',
+      'projects/ng-sq-common/src/**/*.spec.ts',
       'projects/ng-modal/src/**/*.spec.ts',
       'projects/ng-progress-bar/src/**/*.spec.ts',
+      'projects/ng-form-elements/src/**/*.spec.ts',
+      'projects/ng-datetime-picker/src/**/*.spec.ts',
+      'projects/ng-datatable/src/**/*.spec.ts',
     ],
     setupFiles: ['./setup-test.ts'],
     css: false,
@@ -30,9 +44,11 @@ export default defineConfig({
       reporter: ['lcov', 'text'],
       reportsDirectory: 'coverage',
     },
-    alias: {
-      '@sq-ui/ng-sq-common/(.*)': './projects/ng-sq-common/src/$1',
-      '@sq-ui/ng-sq-common': './projects/ng-sq-common/src/index.ts',
-    },
+    alias: [
+      { find: '@sq-ui/ng-sq-common', replacement: path.resolve(__dirname, 'projects/ng-sq-common/src/index.ts') },
+      { find: '@sq-ui/ng-form-elements', replacement: path.resolve(__dirname, 'projects/ng-form-elements/src/index.ts') },
+      { find: '@sq-ui/ng-datetime-picker', replacement: path.resolve(__dirname, 'projects/ng-datetime-picker/src/index.ts') },
+      { find: '@sq-ui/ng-datatable', replacement: path.resolve(__dirname, 'projects/ng-datatable/src/index.ts') },
+    ],
   },
 });

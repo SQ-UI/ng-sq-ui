@@ -2,7 +2,7 @@ import { Directive, TemplateRef } from '@angular/core';
 
 @Directive({
   selector: '[sq-dropdown-option]',
-  standalone: false,
+  standalone: true,
 })
 export class SqDropdownOptionTemplateDirective {
   constructor(public template: TemplateRef<any>) { }
@@ -10,7 +10,7 @@ export class SqDropdownOptionTemplateDirective {
 
 @Directive({
   selector: '[sq-dropdown-chevron]',
-  standalone: false,
+  standalone: true,
 })
 export class SqDropdownChevronTemplateDirective {
   constructor(public template: TemplateRef<any>) { }
@@ -18,7 +18,7 @@ export class SqDropdownChevronTemplateDirective {
 
 @Directive({
   selector: '[sq-dropdown-selected-option]',
-  standalone: false,
+  standalone: true,
 })
 export class SqDropdownSelectedOptionTemplateDirective {
   constructor(public template: TemplateRef<any>) { }

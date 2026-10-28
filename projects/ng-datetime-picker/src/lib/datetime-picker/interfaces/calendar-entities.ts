@@ -1,9 +1,9 @@
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
-import moment from 'moment';
+import { Temporal } from '@js-temporal/polyfill';
 
 export interface CalendarDay {
   displayDate: string;
-  momentObj: moment.Moment;
+  date: Temporal.PlainDate;
   relativityToCurrentMonth: CalendarPeriodRelativityEnum;
   isSelected: boolean;
   isDisabled: boolean;
@@ -11,6 +11,6 @@ export interface CalendarDay {
 
 export interface InCalendarPicker {
   displayName: string;
-  momentObj: moment.Moment;
+  date: Temporal.PlainDate;
   isDisabled: boolean;
 }

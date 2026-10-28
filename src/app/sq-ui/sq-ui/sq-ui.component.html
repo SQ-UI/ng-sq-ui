@@ -16,12 +16,12 @@
     <sq-collapse-content title="FormElementsModule" id="formsModule">
       <div sq-collapse-body>
         <div class="content">
-          The preview is built using the Reactive approach. The final input values are console logged on click on the Submit
-          button.
-          Changes to the standalone timepicker are also console logged.
+          The preview uses signal-based two-way binding via [(value)] on each form component.
+          On submit, a compatForm() bridge from @angular/forms/signals/compat aggregates the signal values.
+          The final input values are console logged on click of the Submit button.
         </div>
 
-        <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="sq">
+        <form (ngSubmit)="onSubmit()" class="sq">
           <sq-collapse-content title="sq-input"
                                id="sq-input"
                                [isSecondary]="true">
@@ -32,7 +32,7 @@
                   <h4>sq-inut</h4>
                 </header>
               
-                <sq-input formControlName="name"
+                <sq-input [(value)]="nameValue"
                           controlLabel="Test Label"
                           controlPlaceholder="Test placeholder"
                           type="text">
@@ -52,7 +52,7 @@
                 </header>
               
                 <sq-textarea controlLabel="Textarea Label"
-                             formControlName="textareaValue"
+                             [(value)]="textareaValue"
                              controlPlaceholder="Type something in..."></sq-textarea>
               </section>
             </div>
@@ -72,13 +72,12 @@
                   <div class="options row">
                     <sq-radiobutton name="group1"
                                     radioValue="value1"
-                                    [isSelected]="true"
-                                    formControlName="radioValue">
+                                    [(value)]="radioGroupValue">
                     </sq-radiobutton>
-              
+
                     <sq-radiobutton name="group1"
                                     radioValue="value2"
-                                    formControlName="radioValue">
+                                    [(value)]="radioGroupValue">
                       <ng-template sq-radio-label
                                     let-isSelected="isSelected">
                         @if (!isSelected) {
@@ -123,7 +122,7 @@
                   <h4>sq-dropdown default</h4>
                 </header>
           
-                <sq-dropdown formControlName="dropdown"
+                <sq-dropdown [(value)]="dropdownValue"
                               [options]="dropdownOptions"
                               controlLabel="Dropdown Example"
                               controlPlaceholder="Select an option">
@@ -135,7 +134,7 @@
                   <h4>sq-dropdown with templates</h4>
                 </header>
           
-                <sq-dropdown formControlName="dropdownWithTemplates"
+                <sq-dropdown [(value)]="dropdownWithTemplatesValue"
                               [options]="dropdownOptions"
                               controlLabel="Dropdown Example With Templates"
                               controlPlaceholder="Select an option">
@@ -201,18 +200,18 @@
                   <h4>sq-tags-input default</h4>
                 </header>
           
-                <sq-tags-input formControlName="tags"
+                <sq-tags-input [(value)]="tagsValue"
                                 controlLabel="Tags"
                                 controlPlaceholder="Type something and press Space">
                 </sq-tags-input>
               </section>
-          
+
               <section id="sqTagsInputWithCustomTemplate">
                 <header>
                   <h4>sq-tags-input with a custom tag template</h4>
                 </header>
-          
-                <sq-tags-input formControlName="tags"
+
+                <sq-tags-input [(value)]="tagsValue"
                                 controlLabel="Tags"
                                 controlPlaceholder="Type something and press Space">
                   <ng-template sq-tag
@@ -254,7 +253,7 @@
                               displayProp="myCustomProp"
                               [hideSearchIcon]="true"
                               [multiple]="true"
-                              formControlName="typeaheadWithTemplates"
+                              [(value)]="typeaheadWithTemplatesValue"
                               [searchResults]="searchResults"
                               (onUserInputEnd)="searchMethod($event)"
                               controlLabel="Typeahead With Templates"
@@ -295,7 +294,7 @@
                 </header>
           
                 <sq-typeahead name="typeahead2"
-                              formControlName="typeahead2"
+                              [(value)]="typeahead2Value"
                               [searchResults]="searchResultsStrings"
                               (onUserInputEnd)="searchMethodString($event)"
                               controlLabel="Typeahead"
@@ -316,7 +315,7 @@
                 </header>
           
                 <sq-checkbox controlLabel="Test checkbox"
-                              formControlName="checkboxValue">
+                              [(value)]="checkboxValue">
                 </sq-checkbox>
               </section>
           
@@ -325,7 +324,7 @@
                   <h4>sq-checkbox with a custom template</h4>
                 </header>
           
-                <sq-checkbox formControlName="checkboxValue">
+                <sq-checkbox [(value)]="checkboxValue">
                   <ng-template sq-checkbox-label
                                 let-isSelected="isSelected">
                     @if (!isSelected) {
@@ -359,7 +358,7 @@
           </sq-collapse-content>
 
 
-          <sq-button [disabled]="testForm.invalid" type="submit">Submit</sq-button>
+          <sq-button type="submit">Submit</sq-button>
         </form>
       </div>
     </sq-collapse-content>

@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 
 @Directive({
   selector: '[sq-datatable-body]',
-  standalone: false,
+  standalone: true,
 })
 export class DatatableBodyDirective {
 

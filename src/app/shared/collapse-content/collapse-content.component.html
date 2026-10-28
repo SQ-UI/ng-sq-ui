@@ -4,9 +4,7 @@
       <h3 (click)="toggleCollapse()" class="header-btn">
         {{title()}}
       </h3>
-    }
-
-    @if (isSecondary()) {
+    } @else {
       <h4 (click)="toggleCollapse()" class="header-btn">
         {{title()}}
       </h4>

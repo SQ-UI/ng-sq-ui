@@ -2,7 +2,7 @@ import { Directive, TemplateRef } from '@angular/core';
 
 @Directive({
   selector: '[sq-typeahead-option]',
-  standalone: false,
+  standalone: true,
 })
 export class SqTypeaheadOptionTemplateDirective {
   constructor(public template: TemplateRef<any>) { }
@@ -10,7 +10,7 @@ export class SqTypeaheadOptionTemplateDirective {
 
 @Directive({
   selector: '[sq-typeahead-selected-option]',
-  standalone: false,
+  standalone: true,
 })
 export class SqTypeaheadSelectedOptionTemplateDirective {
   constructor(public template: TemplateRef<any>) { }

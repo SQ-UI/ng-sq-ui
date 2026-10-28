@@ -1,7 +1,7 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, signal } from '@angular/core';
 import { NavItem } from '../../shared/nav-item';
 import { ModalComponent } from '@sq-ui/ng-modal';
-import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
+import { ButtonComponent } from '@sq-ui/ng-form-elements';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import { environment } from '../../../environments/environment';
@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [
     ModalComponent,
-    NgFormElementsModule,
+    ButtonComponent,
     ModuleOverviewComponent,
     CollapseContentComponent,
   ],
@@ -51,7 +51,7 @@ export class ModalDocsComponent {
     }
   ];
 
-  showModal = false;
+  showModal = signal(false);
 
   confirmationBtnHandler() {
     console.log('Confirmation clicked');

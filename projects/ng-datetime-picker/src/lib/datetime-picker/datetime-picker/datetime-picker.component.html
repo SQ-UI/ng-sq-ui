@@ -1,96 +1,109 @@
 <div class="datetime-picker-wrapper">
   <div class="period-section display-flex"
-       [ngClass]="{'justify-center': isMonthsPickerEnabled,
-                   'space-between': !isMonthsPickerEnabled}">
-    <button type="button"
-            (click)="previous()"
-            class="change-period prev"
-            *ngIf="!isMonthsPickerEnabled">
-      <i class="fas fa-chevron-left"></i>
-    </button>
+       [ngClass]="{'justify-center': isMonthsPickerEnabled(),
+                   'space-between': !isMonthsPickerEnabled()}">
+    @if (!isMonthsPickerEnabled()) {
+      <button type="button"
+              (click)="previous()"
+              class="change-period prev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    }
 
     <div>
-      <button type="button"
-              class="month-name"
-              (click)="showMonthsPicker()"
-              *ngIf="!isMonthsPickerEnabled && !isYearsPickerEnabled">
-        <strong class="period-name">{{ currentMonth.format('MMMM') }}</strong>
-      </button>
+      @if (!isMonthsPickerEnabled() && !isYearsPickerEnabled()) {
+        <button type="button"
+                class="month-name"
+                (click)="showMonthsPicker()">
+          <strong class="period-name">{{ currentMonthName() }}</strong>
+        </button>
+      }
 
-      <button type="button"
-              (click)="showYearsPicker()"
-              *ngIf="!isYearsPickerEnabled">
-        <strong class="period-name">{{ currentMonth.format('YYYY') }}</strong>
-      </button>
-
-      <strong class="period-name" *ngIf="isYearsPickerEnabled">
-        {{ yearsList[0].displayName + ' - ' + yearsList[yearsList.length - 1].displayName }}
-      </strong>
+      @if (!isYearsPickerEnabled()) {
+        <button type="button"
+                (click)="showYearsPicker()">
+          <strong class="period-name">{{ currentMonth().year }}</strong>
+        </button>
+      } @else {
+        <strong class="period-name">
+          {{ yearsList()[0].displayName + ' - ' + yearsList()[yearsList().length - 1].displayName }}
+        </strong>
+      }
     </div>
 
-    <button type="button"
-            (click)="next()"
-            class="change-period next"
-            *ngIf="!isMonthsPickerEnabled">
-      <i class="fas fa-chevron-right"></i>
-    </button>
+    @if (!isMonthsPickerEnabled()) {
+      <button type="button"
+              (click)="next()"
+              class="change-period next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    }
   </div>
 
-  <div class="alt-picker display-flex space-between wrap"
-       *ngIf="isMonthsPickerEnabled || isYearsPickerEnabled">
-    <ng-template [ngIf]="isMonthsPickerEnabled">
-      <button type="button"
-              class="picker-item"
-              *ngFor="let month of months"
-              (click)="selectMonth(month)"
-              [ngClass]="{'disabled': month.isDisabled}">
-        {{ month.displayName }}
-      </button>
-    </ng-template>
+  @if (isMonthsPickerEnabled() || isYearsPickerEnabled()) {
+    <div class="alt-picker display-flex space-between wrap">
+      @if (isMonthsPickerEnabled()) {
+        @for (month of months(); track month.displayName) {
+          <button type="button"
+                  class="picker-item"
+                  (click)="selectMonth(month)"
+                  [ngClass]="{'disabled': month.isDisabled}">
+            {{ month.displayName }}
+          </button>
+        }
+      }
 
-    <ng-template [ngIf]="isYearsPickerEnabled">
-      <button type="button"
-              class="picker-item"
-              *ngFor="let year of yearsList"
-              (click)="selectYear(year)"
-              [ngClass]="{'disabled': year.isDisabled}">
-        {{ year.displayName }}
-      </button>
-    </ng-template>
-  </div>
+      @if (isYearsPickerEnabled()) {
+        @for (year of yearsList(); track year.displayName) {
+          <button type="button"
+                  class="picker-item"
+                  (click)="selectYear(year)"
+                  [ngClass]="{'disabled': year.isDisabled}">
+            {{ year.displayName }}
+          </button>
+        }
+      }
+    </div>
+  } @else {
+    <table class="datetime-picker">
+      <thead>
+        <tr>
+          @for (day of weekdays(); track $index) {
+            <th class="heading">
+              <span class="text">{{ day }}</span>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (dateRow of calendar(); track $index) {
+          <tr class="row">
+            @for (date of dateRow; track $index) {
+              <td class="cell"
+                  (click)="onDateClick(date)"
+                  [ngClass]="{'beyond-current-period': date.relativityToCurrentMonth !== calendarPeriodRelativity.Current,
+                              'selected': date.isSelected,
+                              'disabled': date.isDisabled}">
+                {{ date.displayDate }}
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
-  <table class="datetime-picker" *ngIf="!isMonthsPickerEnabled && !isYearsPickerEnabled">
-    <thead>
-      <tr>
-        <th *ngFor="let day of weekdays" class="heading">
-          <span class="text">{{ day }}</span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let dateRow of calendar" class="row">
-        <td *ngFor="let date of dateRow"
-            class="cell"
-            (click)="onDateClick(date)"
-            [ngClass]="{'beyond-current-period': date.relativityToCurrentMonth !== calendarPeriodRelativity.Current,
-                        'selected': date.isSelected,
-                        'disabled': date.isDisabled}">
-          {{ date.displayDate }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <sq-time-picker *ngIf="isTimepickerEnabled"
-                  [(ngModel)]="time"
-                  (ngModelChange)="onTimeChange()"
-                  [ngModelOptions]="{standalone: true}"
-                  timeObjectType="moment"
-                  [hours]="timepickerConfig.hours"
-                  [minutes]="timepickerConfig.minutes"
-                  [hourStep]="timepickerConfig.hourStep ?? 1"
-                  [minuteStep]="timepickerConfig.minuteStep ?? 1"
-                  [isEditable]="timepickerConfig.isEditable ?? true"
-                  [isMeridiem]="timepickerConfig.isMeridiem ?? false">
-  </sq-time-picker>
+  @if (isTimepickerEnabled()) {
+    <sq-time-picker
+                    [value]="time()"
+                    (valueChange)="onTimeChange($event)"
+                    timeObjectType="plaintime"
+                    [hours]="timepickerConfig()?.hours"
+                    [minutes]="timepickerConfig()?.minutes"
+                    [hourStep]="timepickerConfig()?.hourStep ?? 1"
+                    [minuteStep]="timepickerConfig()?.minuteStep ?? 1"
+                    [isEditable]="timepickerConfig()?.isEditable ?? true"
+                    [isMeridiem]="timepickerConfig()?.isMeridiem ?? false">
+    </sq-time-picker>
+  }
 </div>

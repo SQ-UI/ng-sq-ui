@@ -1,45 +1,41 @@
-import { Component, OnInit, Input,
-         Output, EventEmitter, ViewEncapsulation,
-         OnChanges, SimpleChanges } from '@angular/core';
+import { Component, input, output, signal, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { SortItem } from '../shared/interfaces/sort-item';
 
 @Component({
   selector: '[sq-datatable-column]',
-  standalone: false,
+  standalone: true,
   templateUrl: './datatable-column.component.html',
   styleUrls: ['./datatable-column.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatatableColumnComponent implements OnInit, OnChanges {
-  @Input() name: string;
-  @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter();
-  @Input() isSortable: boolean = false;
-  @Input() width: string;
+export class DatatableColumnComponent {
+  readonly name = input<string>();
+  readonly isSortable = input<boolean>(false);
 
-  isSortedByAscending: boolean;
+  readonly onSortClicked = output<SortItem>();
 
-  constructor() { }
+  readonly sortState = signal<boolean | undefined>(undefined);
 
-  ngOnInit() {
-  }
-
-  ngOnChanges(changesObj: SimpleChanges) {
-
+  get isSortedByAscending(): boolean | undefined {
+    return this.sortState();
   }
 
   sort() {
-    switch (typeof this.isSortedByAscending) {
+    const current = this.sortState();
+
+    switch (typeof current) {
       case 'undefined':
-        this.isSortedByAscending = true;
+        this.sortState.set(true);
         break;
       case 'boolean':
-        this.isSortedByAscending = this.isSortedByAscending ? false : undefined;
+        this.sortState.set(current ? false : undefined);
         break;
     }
 
     this.onSortClicked.emit({
-      name: this.name,
-      isSortedByAscending: this.isSortedByAscending
+      name: this.name(),
+      isSortedByAscending: this.sortState()
     });
   }
 }
