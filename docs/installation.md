@@ -8,33 +8,19 @@
 
 `yarn add @sq-ui/ng-sq-ui@latest`
 
-## Add the appropriate module - either FormsModule or ReactiveFormsModule
+## Import components in your standalone components
 
 ```typescript
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
+import { InputComponent, DropdownComponent } from '@sq-ui/ng-sq-ui';
 
-@NgModule({
-  declarations: [],
-  imports: [ReactiveFormsModule, NgSqUiModule],
+@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, InputComponent, DropdownComponent],
+  //...
 })
-export class AppModule {}
+export class MyComponent {}
 ```
-
--- or --
-
-```typescript
-import { FormsModule } from '@angular/forms';
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
-
-@NgModule({
-  declarations: [],
-  imports: [FormsModule, NgSqUiModule],
-})
-export class AppModule {}
-```
-
-> If you are lazy loading all your modules, you will need to include it in every module you want to use it.
 
 ## Add styles to angular.json
 

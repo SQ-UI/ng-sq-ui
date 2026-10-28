@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import {NavItem} from '../../shared/shared.module';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NavItem } from '../../shared/nav-item';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-common',
+  standalone: true,
+  imports: [RouterLink, ModuleOverviewComponent],
   templateUrl: './sq-common.component.html',
-  styleUrls: ['./sq-common.component.scss']
+  styleUrls: ['./sq-common.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SqCommonComponent implements OnInit {
+export class SqCommonComponent {
   npmPackageName: string = '@sq-ui/ng-sq-common';
   moduleName: string = 'NgSqCommonModule';
 
@@ -45,11 +50,4 @@ export class SqCommonComponent implements OnInit {
       routeLink: `https://ng-sq-ui-common.${environment.livePreview}`
     }
   ];
-
-  constructor() { }
-
-  ngOnInit() {
-
-  }
-
 }

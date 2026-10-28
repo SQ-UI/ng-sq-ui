@@ -2,10 +2,12 @@ import { EventEmitter } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 /**
- * This class should be extended by all SQ UI custom
- * form controls so that they get recognized by Angular forms.
- * Its only purpose is to implement the ControlValueAccessor interface.
- **/
+ * @deprecated This class will be replaced by Angular Signal Forms
+ * (`@angular/forms/signals`) in Milestone 2. Form components will use
+ * signal-backed form fields instead of the ControlValueAccessor pattern.
+ * Use `compatForm` from `@angular/forms/signals/compat` during the
+ * transition to maintain backward compatibility.
+ */
 export class ControlValueAccessorEnabler implements ControlValueAccessor {
   protected _modelToViewChange: EventEmitter<any> = new EventEmitter();
   protected _value: any;

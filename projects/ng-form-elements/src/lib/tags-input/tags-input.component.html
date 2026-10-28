@@ -1,40 +1,44 @@
 <div class="tags-input-wrapper">
-  <div class="input-field" [ngClass]="{'disabled': disabled}">
-    <label class="label"
-           for="{{controlId}}"
-           *ngIf="controlLabel">
-      {{controlLabel}}
-    </label>
+  <div class="input-field" [class.disabled]="disabled()">
+    @if (controlLabel()) {
+      <label class="label"
+             for="{{controlId()}}">
+        {{controlLabel()}}
+      </label>
+    }
 
-    <div class="entered-items" *ngIf="enteredItems.size > 0">
-      <div class="inner display-flex wrap">
-        <ng-container *ngFor="let enteredValue of enteredItems">
-          <ng-template #defaultTagTemplate>
-            <div class="entered-item">
-              {{enteredValue}}
-              <span class="button"
-                    (click)="removeTag(enteredValue)"
-                    *ngIf="!disabled">
-                <i aria-hidden="true"
-                   class="fas fa-times"></i>
-              </span>
-            </div>
-          </ng-template>
+    @if (value().length > 0) {
+      <div class="entered-items">
+        <div class="inner display-flex wrap">
+          @for (enteredValue of value(); track $index) {
+            <ng-template #defaultTagTemplate>
+              <div class="entered-item">
+                {{enteredValue}}
+                @if (!disabled()) {
+                  <span class="button"
+                        (click)="removeTag(enteredValue)">
+                    <i aria-hidden="true"
+                       class="fas fa-times"></i>
+                  </span>
+                }
+              </div>
+            </ng-template>
 
-          <ng-template [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
-                       [ngTemplateOutletContext]="{ tag: enteredValue, remove: removeTag }">
-          </ng-template>
-        </ng-container>
+            <ng-template [ngTemplateOutlet]="tagTemplate() || defaultTagTemplate"
+                         [ngTemplateOutletContext]="{ tag: enteredValue, remove: removeTag }">
+            </ng-template>
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <input #tagsInput
            type="text"
-           id="{{controlId}}"
-           name="{{name}}"
-           [disabled]="disabled"
+           id="{{controlId()}}"
+           name="{{name()}}"
+           [disabled]="disabled()"
            (keyup)="onUserInput($event)"
-           placeholder="{{controlPlaceholder}}"
+           placeholder="{{controlPlaceholder()}}"
            [(ngModel)]="newTagName">
   </div>
 </div>

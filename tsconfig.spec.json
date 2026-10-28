@@ -3,11 +3,11 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "jest",
+      "vitest/globals",
       "node"
     ],
     "esModuleInterop": true,
-    "target": "es2020"
+    "target": "es2022"
   },
   "files": [
     "src/test.ts"

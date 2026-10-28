@@ -1,20 +1,21 @@
 import {
-  Directive, ElementRef, HostListener,
-  EventEmitter, Output, Input, Renderer2, OnDestroy
+  Directive, ElementRef,
+  Renderer2, OnDestroy, input, output
 } from '@angular/core';
 
 @Directive({
-  selector: '[sqOutsideClickListener]'
+  selector: '[sqOutsideClickListener]',
+  standalone: true
 })
 export class OutsideClickListenerDirective implements OnDestroy {
-  @Output() clickOutside = new EventEmitter();
-  @Input() listenForOutsideClick: boolean = false;
+  clickOutside = output<void>();
+  listenForOutsideClick = input<boolean>(false);
 
   private listener;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
     this.listener = this.renderer.listen('document', 'click', (event) => {
-      if (this.listenForOutsideClick) {
+      if (this.listenForOutsideClick()) {
         const clickedInside = this.elementRef.nativeElement.contains(event.target);
 
         if (!clickedInside) {

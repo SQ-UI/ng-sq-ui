@@ -1,12 +1,13 @@
 import {
-  Directive, ElementRef, EventEmitter, Output, Renderer2, OnDestroy
+  Directive, ElementRef, Renderer2, OnDestroy, output
 } from '@angular/core';
 
 @Directive({
-  selector: '[sqScrolledToBottomListener]'
+  selector: '[sqScrolledToBottomListener]',
+  standalone: true
 })
 export class ScrolledToBottomListenerDirective implements OnDestroy {
-  @Output() scrolledToBottom = new EventEmitter();
+  scrolledToBottom = output<void>();
 
   private listener;
 
