@@ -656,18 +656,18 @@ Work executed against this plan, in order, with the verification for each step.
 |---|---|---|
 | **D19** | `TimePickerComponent` effects read *and* wrote the same signals → infinite effect loop; any page binding `[hours]`/`[minutes]`/`[isMeridiem]` hangs (the docs page does) | **fixed** with `untracked()` |
 | **D20** | `CalendarManagerService.generateCalendarForMonth()` — *investigated, **not a bug***: `tableRow.length <= 6` intentionally builds **7-cell (week) rows**, matching the 7 weekday headers. Now pinned by a regression spec (`6 rows × 7 days`) | closed (verified) |
-| **T9** | `@js-temporal/polyfill` + Vite dependency optimizer: a Vitest worker whose module graph is dominated by the polyfill never settles (reproduced with Vitest 3 **and** 4, `forks` and `threads`, `inline`/`external`). `src/app/datetime-picker/**/*.spec.ts` is therefore excluded from the default run — full analysis and the migration path are in **`VITEST_4_MIGRATION_PLAN.md`** | open, documented |
-| **T10** | `@angular/build@22` declares `peerOptional vitest@^4` while the workspace is on Vitest 3; a plain `npm install` fails with `ERESOLVE`, and Vitest 4 hangs with the Angular vite plugin in this environment. The workspace therefore stays on Vitest 3 + `--legacy-peer-deps` until the plugin catches up | open, documented |
+| **T9** | `@js-temporal/polyfill` + Vite dependency optimizer — **resolved (false alarm)**: the "hang" was a **stale `node_modules/.vite` optimizer cache** left behind by interrupted runs, not an upstream bug. After a clean install the polyfill probe runs in 1.7 s and the demo spec executes. The exclusion workaround is gone | closed |
+| **T10** | `@angular/build@22` peers `vitest@^4` — **resolved**: the workspace is now on **Vitest 4.1.12** / `@vitest/coverage-v8@4.1.12`, `npm install` and `npm ci` run **without** `--legacy-peer-deps` | closed |
 
 ### 13.5 Final verification (this branch)
 
 ```text
-npm ci --legacy-peer-deps     OK
+npm ci                        OK  no --legacy-peer-deps, no peer warnings
 npm run typecheck             OK  exit 0
 npm run lint                  OK  exit 0 (0 errors, `any` warnings tracked as TODO)
 npm run build:libs            OK  exit 0 - 7 packages, styles published via assets, no Sass warnings
 npm run build                 OK  exit 0 - 326 kB initial, no browserslist warnings
-npm test                      OK  exit 0 - 32 files / 118 tests, ~8 s
+npm test                      OK  exit 0 - 33 files / 119 tests (Vitest 4.1.12), ~8 s
 ```
 
 ### 13.6 Second batch — backlog fixes (done, same day)
@@ -687,13 +687,22 @@ npm test                      OK  exit 0 - 32 files / 118 tests, ~8 s
 
 Test suite grew **108 → 118 tests**; `typecheck`, `lint`, `build:libs` and `build` all stay green.
 
-### 13.7 Remaining backlog (next PRs)
+### 13.7 Vitest 4 migration (done — see `VITEST_4_MIGRATION_PLAN.md`)
+
+| Item | Change |
+|---|---|
+| Dependencies | `vitest` + `@vitest/coverage-v8` → **4.1.12**; `npm install` / `npm ci` are now `ERESOLVE`-free, `--legacy-peer-deps` removed from the CI workflow |
+| Root cause of the earlier "hang" | A **stale `node_modules/.vite` dependency-optimizer cache** left behind by interrupted (`pkill -9`) runs — *not* an upstream bug and not the polyfill. After a clean install the polyfill probe ran in 1.7 s and every spec completed |
+| Config | `coverage.include`/`exclude` added (`coverage.all` and `coverage.extensions` were removed in v4); explicit `test.exclude` (`node_modules`, `dist`) because v4 no longer ships a long default list; `poolOptions`/`test.alias` were never used |
+| Specs | The `src/app/datetime-picker/**/*.spec.ts` exclusion is gone; that spec now runs and needed `provideRouter([])` (same missing-provider gap as the modal/sq-ui specs) |
+| Result | **33 files / 119 tests** on Vitest 4.1.12, ~8 s, `coverage/lcov.info` produced |
+
+### 13.8 Remaining backlog (next PRs)
 
 1. **C5** Signal Forms opt-in (`FormValueControl`/`FormCheckboxControl`, `touch` output, `pattern` → `patterns: RegExp[]`) — see §4 (the `value`/`model()` shape already matches).
-2. **C6** optional `@js-temporal/polyfill` (injection token or lazy import) — this also unblocks **T9**.
-3. **T9/T10** — full analysis and step-by-step path in **`VITEST_4_MIGRATION_PLAN.md`** (repro, hypotheses, Path A/B, breaking-change table, DoD).
-4. **T2** a real `test` architect target (or formally document `npm test` as the entry point), plus **D15** (radiobutton broadcast) if native radio grouping proves insufficient.
-5. `docs/*.md` (docsify site) still describes the NgModule era and needs regeneration from the current barrels.
+2. **C6** optional `@js-temporal/polyfill` (injection token or lazy import) — still worthwhile for bundle size, no longer urgent for the test runner.
+3. **T2** a real `test` architect target (or formally document `npm test` as the entry point), plus **D15** (radiobutton broadcast) if native radio grouping proves insufficient.
+4. `docs/*.md` (docsify site) still describes the NgModule era and needs regeneration from the current barrels.
 
 ---
 

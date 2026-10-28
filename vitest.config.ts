@@ -36,19 +36,19 @@ export default defineConfig({
     setupFiles: ['./setup-test.ts'],
     css: false,
     restoreMocks: true,
+    // Vitest 4 only excludes `node_modules`/`.git` by default, so the rest is spelled out.
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      // Known tooling limitation (see ANGULAR_22_UPGRADE_PLAN.md §T9): a worker whose module graph
-      // pulls `@js-temporal/polyfill` through the demo page never settles (Vite dependency
-      // optimizer). The library-level `ng-datetime-picker` specs still exercise both pickers;
-      // re-enable this spec once the polyfill becomes optional (plan item C6).
-      'src/app/datetime-picker/**/*.spec.ts',
     ],
     coverage: {
       provider: 'v8',
       reporter: ['lcov', 'text'],
       reportsDirectory: 'coverage',
+      // `coverage.all` was removed in Vitest 4: uncovered files are only reported when they match
+      // this include pattern.
+      include: ['projects/*/src/**/*.ts', 'src/app/**/*.ts'],
+      exclude: ['**/*.spec.ts', '**/*.d.ts'],
     },
   },
 });

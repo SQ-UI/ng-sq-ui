@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { DatatimePickerDocsComponent } from './datatime-picker-docs.component';
 
@@ -10,6 +11,7 @@ describe('DatatimePickerDocsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DatatimePickerDocsComponent],
+      providers: [provideRouter([])],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
