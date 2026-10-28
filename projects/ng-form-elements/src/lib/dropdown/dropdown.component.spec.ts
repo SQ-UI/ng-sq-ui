@@ -60,6 +60,24 @@ describe('DropdownComponent', () => {
     subscription.unsubscribe();
   });
 
+  it('should close the dropdown after an option is selected', () => {
+    fixture.componentRef.setInput('options', testOptions);
+    component.toggleOptionsDropdown();
+    fixture.detectChanges();
+
+    expect(component.isOpen()).toBe(true);
+
+    const optionEls = (fixture.nativeElement as HTMLElement).querySelectorAll('.options .option');
+    expect(optionEls.length).toBe(testOptions.length);
+
+    (optionEls[1] as HTMLElement).click();
+    fixture.detectChanges();
+
+    // Selecting must not re-open the dropdown through the bubbling root click handler.
+    expect(component.isOpen()).toBe(false);
+    expect(component.value()?.value).toEqual(testOptions[1].value);
+  });
+
   it('should toggle the options', () => {
     component.isOpen.set(false);
     component.listenForOutsideClick.set(false);

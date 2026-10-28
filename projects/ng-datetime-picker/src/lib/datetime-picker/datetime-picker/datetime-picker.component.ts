@@ -78,11 +78,72 @@ export class DatetimePickerComponent implements OnInit {
 
   ngOnInit() {
     this.calendarManager.setLocale(this.locale());
-    const now = Temporal.Now.plainDateISO();
-    this.selectedDates.set([now]);
+
+    const selectedDates = this.getInitialSelectedDates();
+    const firstDate = selectedDates[0];
+
     this.weekdays.set(this.calendarManager.getWeekdays());
-    this.calendar.set(this.getMonthCalendar(now));
+    this.selectedDates.set(selectedDates);
+    this.calendar.set(this.getMonthCalendar(firstDate));
     this.setValueResult();
+  }
+
+  /**
+   * Seeds the internal selection from the bound `value` instead of always starting on "today",
+   * so `<sq-datetime-picker [(value)]="date">` opens on the value it was given.
+   */
+  private getInitialSelectedDates(): Temporal.PlainDate[] {
+    const rawValue = this.value();
+    const entries = Array.isArray(rawValue)
+      ? rawValue
+      : (rawValue === null || rawValue === undefined ? [] : [rawValue]);
+
+    const parsed = entries
+      .map((entry: unknown) => this.parsePlainDate(entry))
+      .filter((date): date is Temporal.PlainDate => date !== null);
+
+    if (parsed.length === 0) {
+      return [Temporal.Now.plainDateISO()];
+    }
+
+    return this.isMultipleSelect() ? this.calendarManager.sortDatesAsc(parsed) : [parsed[0]];
+  }
+
+  private parsePlainDate(entry: unknown): Temporal.PlainDate | null {
+    if (entry instanceof Temporal.PlainDate) {
+      return entry;
+    }
+
+    if (entry instanceof Temporal.PlainDateTime) {
+      return entry.toPlainDate();
+    }
+
+    if (entry instanceof Date) {
+      return Temporal.PlainDate.from({
+        year: entry.getFullYear(),
+        month: entry.getMonth() + 1,
+        day: entry.getDate(),
+      });
+    }
+
+    if (typeof entry === 'number' && Number.isFinite(entry)) {
+      const date = new Date(entry);
+      return Temporal.PlainDate.from({
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate(),
+      });
+    }
+
+    if (typeof entry === 'string' && entry.trim() !== '') {
+      try {
+        return Temporal.PlainDate.from(entry);
+      } catch {
+        return null;
+      }
+    }
+
+    return null;
   }
 
   onDateClick(date: CalendarDay) {

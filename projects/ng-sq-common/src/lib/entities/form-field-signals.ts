@@ -29,8 +29,15 @@ export interface FormFieldConfig {
   disabled: boolean;
 }
 
+/**
+ * Monotonic counter so that two controls created in the same millisecond never share an id
+ * (a timestamp-based id produced duplicate `id`/`name` attributes and broke `<label for>`).
+ */
+let formFieldIdCounter = 0;
+
 export function generateFormFieldId(): string {
-  return 'sq-form-control' + new Date().getTime().toString();
+  formFieldIdCounter += 1;
+  return `sq-form-control-${formFieldIdCounter}`;
 }
 
 export const FORM_FIELD_DEFAULTS: FormFieldConfig = {

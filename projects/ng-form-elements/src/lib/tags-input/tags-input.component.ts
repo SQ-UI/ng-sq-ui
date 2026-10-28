@@ -37,16 +37,18 @@ export class TagsInputComponent {
   newTagName: string = '';
 
   onUserInput($event: KeyboardEvent) {
+    const key = $event.key;
+
     if (this.newTagName.trim() !== '') {
       this.isModelEmpty = false;
-      // if the user has pressed Space
-      if ($event.keyCode === 32) {
+      // Space, Enter or Comma commit the current tag.
+      if (key === ' ' || key === 'Enter' || key === ',') {
+        $event.preventDefault();
         this.value.update(tags => [...tags, this.newTagName.trim()]);
         this.newTagName = '';
       }
     } else if (this.isModelEmpty) {
-      // if the user has pressed Backspace
-      if ($event.keyCode === 8 && this.value().length > 0) {
+      if (key === 'Backspace' && this.value().length > 0) {
         this.value.update(tags => tags.slice(0, -1));
       }
     } else {

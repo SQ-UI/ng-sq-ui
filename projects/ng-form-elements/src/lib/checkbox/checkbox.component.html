@@ -1,12 +1,14 @@
 <div class="checkable"
      [class.checked]="isSelected()"
-     [class.disabled]="disabled()"
-     (click)="toggleCheckboxSelection()">
+     [class.disabled]="disabled()">
+  <!-- The native input is stretched over the whole control (see checkbox.component.scss), so it is
+       the single interaction path: no wrapper click handler means no double toggle. -->
   <input type="checkbox"
-          name="{{name()}}"
-          id="{{controlId()}}"
-          [disabled]="disabled()"
-          [ngModel]="isSelected()">
+         [name]="name()"
+         [id]="controlId()"
+         [disabled]="disabled()"
+         [checked]="isSelected()"
+         (change)="toggleCheckboxSelection()">
 
   <ng-template #defaultCheckboxTemplate>
     <div class="checkbox">

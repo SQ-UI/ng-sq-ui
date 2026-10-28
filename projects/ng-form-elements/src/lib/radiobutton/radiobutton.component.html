@@ -1,12 +1,14 @@
 <div class="checkable"
      [class.checked]="isSelected()"
-     [class.disabled]="disabled()"
-     (click)="selectRadio()">
+     [class.disabled]="disabled()">
+  <!-- The native input covers the whole control (see radiobutton.component.scss), so it is the only
+       interaction path; the browser also handles arrow-key navigation inside the group. -->
   <input type="radio"
-         name="{{name()}}"
-         id="{{controlId()}}"
+         [name]="name()"
+         [id]="controlId()"
          [disabled]="disabled()"
-         [ngModel]="radioValue()">
+         [checked]="isSelected()"
+         (change)="selectRadio()">
 
   <ng-template #defaultRadioButtonTemplate>
     <div class="radio">

@@ -47,4 +47,16 @@ describe('CheckboxComponent', () => {
     expect(component.isSelected()).toBe(false);
   });
 
+  it('should toggle exactly once when the native checkbox is clicked', () => {
+    const input = (fixture.nativeElement as HTMLElement).querySelector('input[type="checkbox"]') as HTMLInputElement;
+
+    input.click();
+    fixture.detectChanges();
+    expect(component.value()).toBe(true);
+
+    input.click();
+    fixture.detectChanges();
+    expect(component.value()).toBe(false);
+  });
+
 });

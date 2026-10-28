@@ -166,4 +166,27 @@ describe('DatetimePickerComponent', () => {
     expect(component.months()).toBeTruthy();
   });
 
+  it('should open on the month of the provided [value]', () => {
+    const value = Temporal.PlainDate.from({ year: 2026, month: 2, day: 17 });
+    const valueFixture = TestBed.createComponent(DatetimePickerComponent);
+    valueFixture.componentRef.setInput('isTimepickerEnabled', false);
+    valueFixture.componentRef.setInput('value', value);
+    valueFixture.detectChanges();
+
+    const picker = valueFixture.componentInstance;
+    expect(picker.currentMonth().month).toEqual(2);
+    expect(picker.currentMonth().year).toEqual(2026);
+
+    const selectedDay = picker.calendar()
+      .reduce((acc, week) => acc.concat(week), [])
+      .find(day => day.isSelected);
+    expect(selectedDay?.date.day).toEqual(17);
+    expect(valueFixture.componentInstance.value()).toEqual(value);
+  });
+
+  it('should fall back to today when no [value] is provided', () => {
+    expect(component.currentMonth().month).toEqual(Temporal.Now.plainDateISO().month);
+    expect(component.currentMonth().year).toEqual(Temporal.Now.plainDateISO().year);
+  });
+
 });

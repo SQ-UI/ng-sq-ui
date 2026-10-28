@@ -41,6 +41,21 @@ describe('CalendarManagerService', () => {
     ]
   }));
 
+  it('should build six week rows with seven days each', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
+    const monthStart = Temporal.PlainDate.from({ year: 2026, month: 3, day: 1 });
+
+    const calendar = service.generateCalendarForMonth(
+      monthStart,
+      monthStart,
+      [],
+      { minDate: undefined, maxDate: undefined },
+    );
+
+    expect(calendar.length).toEqual(6);
+    calendar.forEach(week => expect(week.length).toEqual(7));
+  });
+
   it('should be created', () => {
     const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     expect(service).toBeTruthy();

@@ -2,7 +2,6 @@ import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
   input, model, computed, contentChild, output, inject, DestroyRef
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
@@ -15,7 +14,7 @@ import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.dire
   styleUrls: ['./radiobutton.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, NgTemplateOutlet, SqRadiobuttonLabelTemplateDirective],
+  imports: [NgTemplateOutlet],
 })
 export class RadiobuttonComponent {
   private readonly eventBroadcaster = inject(CustomEventBroadcasterService);

@@ -6,13 +6,13 @@ describe('TagsInputComponent', () => {
   let component: TagsInputComponent;
   let fixture: ComponentFixture<TagsInputComponent>;
 
-  function addNewTag(tagName: string) {
-    const mockEventObject = {
-      keyCode: 32 // space keycode
-    } as unknown as KeyboardEvent;
+  function keyEvent(key: string) {
+    return { key, preventDefault: () => { /* noop */ } } as unknown as KeyboardEvent;
+  }
 
+  function addNewTag(tagName: string) {
     component.newTagName = tagName;
-    component.onUserInput(mockEventObject);
+    component.onUserInput(keyEvent(' '));
   }
 
   function addTags(count: number) {
@@ -50,32 +50,41 @@ describe('TagsInputComponent', () => {
     addTags(3);
     addNewTag(testTag);
 
-    const mockEventObject = {
-      keyCode: 8 // backspace keycode
-    } as unknown as KeyboardEvent;
+    const backspaceEvent = keyEvent('Backspace');
 
     component.newTagName = 'asdf';
-    component.onUserInput(mockEventObject);
+    component.onUserInput(backspaceEvent);
 
     expect(component.value().indexOf(testTag) > -1)
       .toBe(true);
 
     // below 2 lines emulate an already empty field
     component.newTagName = '';
-    component.onUserInput(mockEventObject);
+    component.onUserInput(backspaceEvent);
 
     // trigger a backspace on an empty field
-    component.onUserInput(mockEventObject);
+    component.onUserInput(backspaceEvent);
 
     expect(component.value().indexOf(testTag) === -1)
       .toBe(true);
 
     for (let i = 0; i < component.value().length + 2; i++) {
-      component.onUserInput(mockEventObject);
+      component.onUserInput(backspaceEvent);
     }
 
     expect(component.value().length === 0)
       .toBe(true);
+  });
+
+  it('should commit a tag on Enter and on comma as well as on Space', () => {
+    component.newTagName = 'enterTag';
+    component.onUserInput(keyEvent('Enter'));
+
+    component.newTagName = 'commaTag';
+    component.onUserInput(keyEvent(','));
+
+    expect(component.value()).toEqual(['enterTag', 'commaTag']);
+    expect(component.newTagName).toBe('');
   });
 
   it('should remove tags when using the remove button', () => {

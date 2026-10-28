@@ -2,7 +2,6 @@ import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
   input, model, computed, contentChild, output
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { SqCheckboxLabelTemplateDirective } from './checkbox.template.directive';
@@ -14,7 +13,7 @@ import { SqCheckboxLabelTemplateDirective } from './checkbox.template.directive'
   styleUrls: ['./checkbox.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, NgTemplateOutlet],
+  imports: [NgTemplateOutlet],
 })
 export class CheckboxComponent {
   // FormFieldConfig signal inputs

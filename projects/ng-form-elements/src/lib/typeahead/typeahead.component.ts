@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounce, tap } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
 
 import { LabelValuePair, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
@@ -61,16 +61,26 @@ export class TypeaheadComponent {
   private searchSubject = new Subject<string>();
 
   constructor() {
-    // Set up debounced search pipeline
+    // Set up debounced search pipeline. `debounce` with a duration selector re-reads `[delay]`
+    // on every keystroke, so the input can change after construction.
     this.searchSubject.pipe(
       tap(() => {
         this.isLoading.set(true);
         this.hideResults.set(true);
       }),
-      debounceTime(this.delay()),
+      debounce(() => timer(this.delay())),
       takeUntilDestroyed(),
     ).subscribe((query: string) => {
       this.onUserInputEnd.emit(query);
+    });
+
+    // Keep the internal chip list in sync with programmatic writes to `[(value)]`.
+    effect(() => {
+      const incoming = this.value() ?? [];
+      const current = untracked(() => this.selectedItems());
+      if (!this.areSameItems(incoming, current)) {
+        untracked(() => this.selectedItems.set([...incoming]));
+      }
     });
 
     let searchResultsInitialized = false;
@@ -123,7 +133,8 @@ export class TypeaheadComponent {
   }
 
   turnClickOutsideListenerOn() {
-    this.value.set([]);
+    // Only arms the outside-click listener: clearing `value` here used to wipe the bound model
+    // every time the input received focus.
     this.listenForOutsideClick.set(true);
   }
 
@@ -156,6 +167,14 @@ export class TypeaheadComponent {
 
   private copyResults() {
     this.value.set([...this.selectedItems()]);
+  }
+
+  private areSameItems(left: LabelValuePair[], right: LabelValuePair[]): boolean {
+    if (left.length !== right.length) {
+      return false;
+    }
+
+    return left.every((item, index) => item === right[index]);
   }
 
   private transformToLabelValuePairList(resultsList: any[]): LabelValuePair[] {

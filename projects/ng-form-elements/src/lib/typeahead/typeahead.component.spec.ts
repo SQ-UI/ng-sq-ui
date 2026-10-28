@@ -115,6 +115,34 @@ describe('TypeaheadComponent', () => {
     expect(Object.is(items[0], component.value()[0])).toBe(true);
   });
 
+  it('should focus the input without clearing the bound value', () => {
+    const preselected = [testSearchResults[0]];
+    fixture.componentRef.setInput('value', preselected);
+    fixture.detectChanges();
+
+    expect(component.selectedItems().length).toBe(1);
+
+    component.turnClickOutsideListenerOn();
+    fixture.detectChanges();
+
+    expect(component.listenForOutsideClick()).toBe(true);
+    expect(component.value()).toEqual(preselected);
+    expect(component.selectedItems()).toEqual(preselected);
+  });
+
+  it('should mirror a programmatically assigned value into the chip list', () => {
+    fixture.componentRef.setInput('value', [testSearchResults[1], testSearchResults[2]]);
+    fixture.detectChanges();
+
+    expect(component.selectedItems().length).toBe(2);
+    expect(component.selectedItems()[0]).toBe(testSearchResults[1]);
+
+    fixture.componentRef.setInput('value', []);
+    fixture.detectChanges();
+
+    expect(component.selectedItems().length).toBe(0);
+  });
+
   it('should be working with plain strings', () => {
     fixture.componentRef.setInput('displayProp', '');
     fixture.componentRef.setInput('multiple', false);

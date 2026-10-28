@@ -13,7 +13,8 @@ export class CollapseContentComponent {
   readonly title = input<string>('');
   readonly isSecondary = input(false);
 
-  isCollapsed = signal(true);
+  // The content starts expanded (matching the previous rendering) and collapses on demand.
+  isCollapsed = signal(false);
 
   toggleCollapse() {
     this.isCollapsed.update(v => !v);

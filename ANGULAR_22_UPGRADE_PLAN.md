@@ -655,8 +655,8 @@ Work executed against this plan, in order, with the verification for each step.
 | Id | Finding | Status |
 |---|---|---|
 | **D19** | `TimePickerComponent` effects read *and* wrote the same signals → infinite effect loop; any page binding `[hours]`/`[minutes]`/`[isMeridiem]` hangs (the docs page does) | **fixed** with `untracked()` |
-| **D20** | `CalendarManagerService.generateCalendarForMonth()` builds 7-cell weeks (`tableRow.length <= 6` should be `< 6`) | open (tiny fix, needs a spec) |
-| **T9** | `@js-temporal/polyfill` + Vite dependency optimizer: a Vitest worker whose module graph is dominated by the polyfill never settles (reproduced with Vitest 3 **and** 4, `forks` and `threads`, `inline`/`external`). `src/app/datetime-picker/**/*.spec.ts` is therefore excluded from the default run, pointing at plan item **C6** (make the polyfill optional) | open, documented |
+| **D20** | `CalendarManagerService.generateCalendarForMonth()` — *investigated, **not a bug***: `tableRow.length <= 6` intentionally builds **7-cell (week) rows**, matching the 7 weekday headers. Now pinned by a regression spec (`6 rows × 7 days`) | closed (verified) |
+| **T9** | `@js-temporal/polyfill` + Vite dependency optimizer: a Vitest worker whose module graph is dominated by the polyfill never settles (reproduced with Vitest 3 **and** 4, `forks` and `threads`, `inline`/`external`). `src/app/datetime-picker/**/*.spec.ts` is therefore excluded from the default run — full analysis and the migration path are in **`VITEST_4_MIGRATION_PLAN.md`** | open, documented |
 | **T10** | `@angular/build@22` declares `peerOptional vitest@^4` while the workspace is on Vitest 3; a plain `npm install` fails with `ERESOLVE`, and Vitest 4 hangs with the Angular vite plugin in this environment. The workspace therefore stays on Vitest 3 + `--legacy-peer-deps` until the plugin catches up | open, documented |
 
 ### 13.5 Final verification (this branch)
@@ -667,19 +667,33 @@ npm run typecheck             OK  exit 0
 npm run lint                  OK  exit 0 (0 errors, `any` warnings tracked as TODO)
 npm run build:libs            OK  exit 0 - 7 packages, styles published via assets, no Sass warnings
 npm run build                 OK  exit 0 - 326 kB initial, no browserslist warnings
-npm test                      OK  exit 0 - 32 files / 108 tests, ~7 s
+npm test                      OK  exit 0 - 32 files / 118 tests, ~8 s
 ```
 
-### 13.6 Remaining backlog (next PRs)
+### 13.6 Second batch — backlog fixes (done, same day)
 
-1. **D1–D3** typeahead (`value` cleared on focus, `[delay]` only read in the constructor, model not synced into `selectedItems`).
-2. **D8/D9** dropdown close-on-select (`isOpen.set(false)` + `stopPropagation`), checkbox/radio double-toggle + keyboard/ARIA.
-3. **D10** `collapse-content` inverted semantics (content renders only while collapsed).
-4. **D11** `DatetimePickerComponent` should accept an initial `value` (no `ngOnInit` seeding) plus **D20** 7-cell weeks.
-5. **D14** `generateFormFieldId()` (timestamp collisions → duplicate `id`s) and **D16** deprecated `keyCode` in the tags input.
-6. **C5** Signal Forms opt-in (`FormValueControl`/`FormCheckboxControl`, `touch` output, `pattern` → `patterns: RegExp[]`) and **C6** optional `@js-temporal/polyfill` (which also unblocks T9).
-7. **T2** a real `test` architect target (or formally document `npm test` as the entry point); **T9/T10** follow-ups.
-8. `docs/*.md` (docsify site) still describes the NgModule era and needs regeneration from the current barrels.
+| Plan id | Fix | Evidence |
+|---|---|---|
+| **D1** | typeahead: focusing the input no longer clears `[(value)]` (`turnClickOutsideListenerOn` only arms the outside-click listener) | new spec *"should focus the input without clearing the bound value"* |
+| **D2** | typeahead: `[delay]` is honoured after construction — `debounce(() => timer(this.delay()))` reads it per keystroke | existing debounce specs still green |
+| **D3** | typeahead: an effect mirrors programmatic `value` writes into the chip list (reference-compared, no loops) | new spec *"should mirror a programmatically assigned value into the chip list"* |
+| **D8** | dropdown: `selectOption()` sets `isOpen=false` and the option click stops propagation, so closing is explicit instead of relying on bubbling | new spec *"should close the dropdown after an option is selected"* |
+| **D9** | checkbox/radiobutton: the native `<input>` (stretched over the control by CSS) is now the **only** interaction path → single toggle, native keyboard/arrow support, `ngModel` replaced by `[checked]` | new spec *"should toggle exactly once when the native checkbox is clicked"*; radiobutton group specs still green |
+| **D10** | `collapse-content`: expanded by default (same initial look), correct chevron and `aria-expanded`, `[hidden]` instead of `@if` so projected content and its state survive collapsing | 2 new specs (state flip + hidden-but-alive probe input) |
+| **D11** | `datetime-picker`: opens on the bound `[(value)]` (Date / unix ms / ISO string / `PlainDate` / `PlainDateTime`, single and multiple) instead of always "today" | 2 new specs (value month + today fallback) |
+| **D14** | `generateFormFieldId()` uses a monotonic counter instead of a timestamp → no duplicate `id`/`name` within a millisecond | — |
+| **D16** | tags-input: `$event.key` (Space/Enter/Comma commit a tag, Backspace removes the last one) instead of deprecated `keyCode` | new spec for Enter/Comma |
+| **D20** | verified **not a bug** (7-cell week rows) and pinned by a `6 × 7` regression spec | new calendar-manager spec |
+
+Test suite grew **108 → 118 tests**; `typecheck`, `lint`, `build:libs` and `build` all stay green.
+
+### 13.7 Remaining backlog (next PRs)
+
+1. **C5** Signal Forms opt-in (`FormValueControl`/`FormCheckboxControl`, `touch` output, `pattern` → `patterns: RegExp[]`) — see §4 (the `value`/`model()` shape already matches).
+2. **C6** optional `@js-temporal/polyfill` (injection token or lazy import) — this also unblocks **T9**.
+3. **T9/T10** — full analysis and step-by-step path in **`VITEST_4_MIGRATION_PLAN.md`** (repro, hypotheses, Path A/B, breaking-change table, DoD).
+4. **T2** a real `test` architect target (or formally document `npm test` as the entry point), plus **D15** (radiobutton broadcast) if native radio grouping proves insufficient.
+5. `docs/*.md` (docsify site) still describes the NgModule era and needs regeneration from the current barrels.
 
 ---
 
