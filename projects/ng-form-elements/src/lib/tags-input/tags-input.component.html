@@ -38,6 +38,7 @@
            name="{{name()}}"
            [disabled]="disabled()"
            (keyup)="onUserInput($event)"
+           (blur)="touch.emit()"
            placeholder="{{controlPlaceholder()}}"
            [(ngModel)]="newTagName">
   </div>

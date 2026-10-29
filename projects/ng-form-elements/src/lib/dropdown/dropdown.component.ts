@@ -5,6 +5,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 import {
   SqDropdownChevronTemplateDirective,
   SqDropdownOptionTemplateDirective,
@@ -23,15 +24,18 @@ import {
     OutsideClickListenerDirective,
   ],
 })
-export class DropdownComponent {
+export class DropdownComponent implements SqFormValueControl<LabelValuePair | null> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Component-specific inputs
   readonly options = input<LabelValuePair[]>([]);

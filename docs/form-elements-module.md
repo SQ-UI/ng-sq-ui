@@ -1,5 +1,9 @@
 # FormElementsModule
 
+> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
+> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
+> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+
 The properties / methods listed under every component are specific to the UI-kit. All components support both <a href="https://angular.io/guide/reactive-forms">Model-Driven</a> and <a href="https://angular.io/guide/forms#template-driven-forms">Template-Driven</a> form approaches. The properties / methods exposed by either of the approaches are not documented as component-specific and are assumed to be familiar to the developer.
 
 [sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-form-elements?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')

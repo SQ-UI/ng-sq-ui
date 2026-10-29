@@ -9,6 +9,7 @@ import { Subject, timer } from 'rxjs';
 
 import { LabelValuePair, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-typeahead',
@@ -22,15 +23,18 @@ import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDi
     OutsideClickListenerDirective,
   ],
 })
-export class TypeaheadComponent {
+export class TypeaheadComponent implements SqFormValueControl<LabelValuePair[]> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Component-specific inputs
   readonly searchResults = input<any[]>([]);

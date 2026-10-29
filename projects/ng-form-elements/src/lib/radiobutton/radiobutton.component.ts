@@ -6,6 +6,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
 import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.directive';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-radiobutton',
@@ -16,7 +17,7 @@ import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
 })
-export class RadiobuttonComponent {
+export class RadiobuttonComponent implements SqFormValueControl<any> {
   private readonly eventBroadcaster = inject(CustomEventBroadcasterService);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -26,8 +27,11 @@ export class RadiobuttonComponent {
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Two-way binding value
   readonly value = model<any>(null);

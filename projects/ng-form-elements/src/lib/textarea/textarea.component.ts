@@ -1,8 +1,6 @@
-import {
-  Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, computed, viewChild, effect, ElementRef,
-} from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, model, computed, viewChild, effect, ElementRef, output } from '@angular/core';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-textarea',
@@ -13,15 +11,18 @@ import { generateFormFieldId } from '@sq-ui/ng-sq-common';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextareaComponent {
+export class TextareaComponent implements SqFormValueControl<string> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Component-specific inputs
   readonly minHeight = input<number>(100);

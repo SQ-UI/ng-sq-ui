@@ -1,5 +1,9 @@
 # DatatableModule
 
+> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
+> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
+> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+
 This module exports common interfaces, base classes, components and services utilized by other modules.
 
 !> Available as standalone package [`@sq-ui/ng-sq-common`](https://www.npmjs.com/package/@sq-ui/ng-sq-common)

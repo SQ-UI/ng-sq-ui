@@ -5,6 +5,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { SqCheckboxLabelTemplateDirective } from './checkbox.template.directive';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-checkbox',
@@ -15,15 +16,18 @@ import { SqCheckboxLabelTemplateDirective } from './checkbox.template.directive'
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
 })
-export class CheckboxComponent {
+export class CheckboxComponent implements SqFormValueControl<boolean> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Two-way binding value
   readonly value = model<any>(false);

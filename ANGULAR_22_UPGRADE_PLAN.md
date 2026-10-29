@@ -663,11 +663,11 @@ Work executed against this plan, in order, with the verification for each step.
 
 ```text
 npm ci                        OK  no --legacy-peer-deps, no peer warnings
-npm run typecheck             OK  exit 0
-npm run lint                  OK  exit 0 (0 errors, `any` warnings tracked as TODO)
 npm run build:libs            OK  exit 0 - 7 packages, styles published via assets, no Sass warnings
+npm run typecheck             OK  exit 0 (needs a fresh dist/, hence the order)
+npm run lint                  OK  exit 0 (0 errors, `any` warnings tracked as TODO)
 npm run build                 OK  exit 0 - 326 kB initial, no browserslist warnings
-npm test                      OK  exit 0 - 33 files / 119 tests (Vitest 4.1.12), ~8 s
+npm test                      OK  exit 0 - 34 files / 124 tests (Vitest 4.1.12), ~8 s
 ```
 
 ### 13.6 Second batch — backlog fixes (done, same day)
@@ -697,12 +697,22 @@ Test suite grew **108 → 118 tests**; `typecheck`, `lint`, `build:libs` and `bu
 | Specs | The `src/app/datetime-picker/**/*.spec.ts` exclusion is gone; that spec now runs and needed `provideRouter([])` (same missing-provider gap as the modal/sq-ui specs) |
 | Result | **33 files / 119 tests** on Vitest 4.1.12, ~8 s, `coverage/lcov.info` produced |
 
-### 13.8 Remaining backlog (next PRs)
+### 13.8 Signal Forms opt-in — C5 (done)
 
-1. **C5** Signal Forms opt-in (`FormValueControl`/`FormCheckboxControl`, `touch` output, `pattern` → `patterns: RegExp[]`) — see §4 (the `value`/`model()` shape already matches).
-2. **C6** optional `@js-temporal/polyfill` (injection token or lazy import) — still worthwhile for bundle size, no longer urgent for the test runner.
-3. **T2** a real `test` architect target (or formally document `npm test` as the entry point), plus **D15** (radiobutton broadcast) if native radio grouping proves insufficient.
-4. `docs/*.md` (docsify site) still describes the NgModule era and needs regeneration from the current barrels.
+| Item | Change |
+|---|---|
+| Contract | New `SqFormValueControl<T>`, `SqFormCheckboxControl`, `SqFormUiControl<T>` type aliases in `@sq-ui/ng-sq-common` (re-exported from `@angular/forms/signals`), so consumers do not depend on the exact Angular type names |
+| `pattern` | `pattern` is now `input<readonly RegExp[]>([])` — the exact shape of `FormUiControl.pattern`, so `[formField]` binds the schema patterns automatically. `toPatternAttribute()` serialises it for the native attribute; `sq-input` binds `[pattern]="patternAttribute()"` |
+| `touch` | Every control with a focusable element emits `touch` on blur (`sq-input`, `sq-textarea`, `sq-tags-input`, `sq-typeahead`, `sq-checkbox`, `sq-radiobutton`, `sq-time-picker`) → the directive marks the field as touched |
+| `implements` | All nine form controls now declare `implements SqFormValueControl<T>` (`<string>`, `<string[]>`, `<LabelValuePair[]>`, `<LabelValuePair \| null>`, `<boolean>`, `<any>`) |
+| Proof | New `projects/ng-form-elements/src/lib/signal-forms.integration.spec.ts` — **5 tests**: model→view, view→model (`input` event), checkbox state, `touch` → `field.touched()`, schema `required()` → native `required` |
+| Docs | README gained an *Angular Signal Forms* section + the `pattern` migration row; the docsify module pages got a "documents the 2.x API" banner |
+
+### 13.9 Remaining backlog (next PRs)
+
+1. **C6** optional `@js-temporal/polyfill` (injection token or lazy import) — bundle-size only; the test runner no longer cares.
+2. **T2** a real `test` architect target (or formally document `npm test` as the entry point), plus **D15** (radiobutton broadcast) if native radio grouping proves insufficient.
+3. Full regeneration of `docs/*.md` (the banner only marks them as 2.x material).
 
 ---
 

@@ -8,7 +8,8 @@
          [id]="controlId()"
          [disabled]="disabled()"
          [checked]="isSelected()"
-         (change)="selectRadio()">
+         (change)="selectRadio()"
+         (blur)="touch.emit()">
 
   <ng-template #defaultRadioButtonTemplate>
     <div class="radio">

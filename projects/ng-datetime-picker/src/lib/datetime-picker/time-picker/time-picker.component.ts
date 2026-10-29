@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimeObject } from '../enums/time-object-type.enum';
 import { Temporal } from '@js-temporal/polyfill';
@@ -17,15 +18,18 @@ import { Temporal } from '@js-temporal/polyfill';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule],
 })
-export class TimePickerComponent {
+export class TimePickerComponent implements SqFormValueControl<any> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Two-way binding value
   readonly value = model<any>(null);

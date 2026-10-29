@@ -1,5 +1,9 @@
 # DatetimePickerModule
 
+> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
+> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
+> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+
 This module consists of two standalone components: **sq-datetime-picker** and **sq-time-picker**. Sq-datetime-picker is a regular datepicker component which also has a built-in sq-time-picker. Both components rely on **moment.js** to work, although input/output values for the datepicker can be configured to work with the JavaScript Date object.
 
 [sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-datetime-picker?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')

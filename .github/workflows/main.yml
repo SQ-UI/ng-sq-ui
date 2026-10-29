@@ -34,14 +34,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The libraries must be built first: `tsconfig.json` resolves `@sq-ui/*` from `dist/` when it
+      # exists, so type-checking and the app build need a fresh `dist/`.
+      - name: Build the libraries
+        run: npm run build:libs
+
       - name: Type-check the workspace
         run: npm run typecheck
 
       - name: Lint
         run: npm run lint
-
-      - name: Build the libraries
-        run: npm run build:libs
 
       - name: Build the demo application
         run: npm run build

@@ -1,5 +1,9 @@
 # ModalModule
 
+> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
+> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
+> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+
 ## sq-modal
 
 [sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-modal?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')

@@ -1,11 +1,9 @@
-import {
-  Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, contentChild, TemplateRef,
-} from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, model, contentChild, TemplateRef, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { SqTagTemplateDirective } from './tags-input.template.directive';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-tags-input',
@@ -16,15 +14,18 @@ import { SqTagTemplateDirective } from './tags-input.template.directive';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsInputComponent {
+export class TagsInputComponent implements SqFormValueControl<string[]> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Two-way value binding — the value IS the tags array
   readonly value = model<string[]>([]);

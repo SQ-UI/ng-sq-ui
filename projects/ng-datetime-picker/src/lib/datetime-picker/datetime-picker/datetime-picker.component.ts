@@ -13,6 +13,7 @@ import { TimepickerConfig } from '../interfaces/timepicker-config';
 import { CalendarManagerService } from '../calendar-manager.service';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
+import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 import { Temporal } from '@js-temporal/polyfill';
 
 @Component({
@@ -25,15 +26,18 @@ import { Temporal } from '@js-temporal/polyfill';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CalendarManagerService]
 })
-export class DatetimePickerComponent implements OnInit {
+export class DatetimePickerComponent implements OnInit, SqFormValueControl<any> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
   readonly controlLabel = input<string>('');
   readonly controlPlaceholder = input<string>('');
   readonly required = input<boolean>(false);
-  readonly pattern = input<string>('');
+  readonly pattern = input<readonly RegExp[]>([]);
   readonly disabled = input<boolean>(false);
+
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
   // Component-specific signal inputs
   readonly locale = input<string>('en');

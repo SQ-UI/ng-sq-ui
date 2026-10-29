@@ -2,22 +2,9 @@
  * Interface defining the contract for shared form field properties.
  * Replaces the InputCoreComponent inheritance pattern with composition.
  *
- * In Milestone 2, each form component will declare its own signal inputs
- * following this interface, rather than inheriting from a base class:
- *
- * ```typescript
- * @Component({ standalone: true, ... })
- * export class InputComponent {
- *   // Signal inputs following FormFieldConfig contract
- *   readonly name = input<string>(generateFormFieldId());
- *   readonly controlId = input<string>(generateFormFieldId());
- *   readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
- *   readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
- *   readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
- *   readonly pattern = input<string>(FORM_FIELD_DEFAULTS.pattern);
- *   readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
- * }
- * ```
+ * Every form control declares its own signal inputs following this contract, using
+ * {@link FORM_FIELD_DEFAULTS} for the default values, so that all controls share the same
+ * public API surface.
  */
 export interface FormFieldConfig {
   name: string;
@@ -25,7 +12,11 @@ export interface FormFieldConfig {
   controlLabel: string;
   controlPlaceholder: string;
   required: boolean;
-  pattern: string;
+  /**
+   * Validation patterns. The name matches Angular Signal Forms' `FormUiControl.pattern`
+   * (`InputSignal<readonly RegExp[]>`) so the `[formField]` directive binds them automatically.
+   */
+  pattern: readonly RegExp[];
   disabled: boolean;
 }
 
@@ -46,6 +37,14 @@ export const FORM_FIELD_DEFAULTS: FormFieldConfig = {
   controlLabel: '',
   controlPlaceholder: '',
   required: false,
-  pattern: '',
+  pattern: [],
   disabled: false,
 };
+
+/**
+ * Serialises {@link FormFieldConfig.pattern} into the value understood by the native
+ * `pattern` attribute (a `|`-separated list of regular expressions).
+ */
+export function toPatternAttribute(patterns: readonly RegExp[] | undefined): string {
+  return (patterns ?? []).map(pattern => pattern.source).join('|');
+}

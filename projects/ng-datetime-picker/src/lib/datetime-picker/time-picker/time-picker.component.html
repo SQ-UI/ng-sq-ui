@@ -15,7 +15,7 @@
              minlength="1"
              [disabled]="!isEditable()"
              [ngModelOptions]="{standalone: true}"
-             (blur)="validateInput(timeUnit.Hours)">
+             (blur)="validateInput(timeUnit.Hours); touch.emit()">
     </div>
 
     <button type="button"
@@ -43,7 +43,7 @@
              minlength="1"
              [disabled]="!isEditable()"
              [ngModelOptions]="{standalone: true}"
-             (blur)="validateInput(timeUnit.Minutes)">
+             (blur)="validateInput(timeUnit.Minutes); touch.emit()">
     </div>
 
     <button type="button"

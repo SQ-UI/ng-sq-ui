@@ -39,7 +39,7 @@ Any types of public interfaces and services are also included.
 
 | ng-sq-ui | Angular | Notes |
 |---|---|---|
-| **3.x** | **22** | Standalone-only, signal `input()`/`output()`/`model()`, zoneless-ready, Vitest. **Breaking:** NgModules removed, `ControlValueAccessor` removed from the form controls, `pattern` becomes `patterns: RegExp[]` |
+| **3.x** | **22** | Standalone-only, signal `input()`/`output()`/`model()`, zoneless-ready, Vitest 4, first-class `[formField]` (Signal Forms) support. **Breaking:** NgModules removed, `ControlValueAccessor` removed from the form controls, `pattern` is now `readonly RegExp[]` |
 | 2.x | 14 – 21 | NgModule based (`FormElementsModule`, `ModalModule`, …) |
 | 1.3.3 / 1.1.x | 10 – 12 (View Engine) | Use the 1.x packages if you are still on View Engine |
 
@@ -51,6 +51,7 @@ NgModules                          → import the standalone components directly
 @Input() name                      → name = input<string>()
 @Output() valueChange = EventEmitter → value = model<T>()  /  output<T>()
 *ngIf / *ngFor                     → @if / @for
+pattern="..."                      → [pattern]="[/^\\d+$/]"  (pattern is now readonly RegExp[])
 ```
 
 ## Installation
@@ -111,6 +112,33 @@ Need a grid? [We've got you covered](https://sq-ui.github.io/sq-grid/)!
 
 > `@fortawesome/fontawesome-free` is an optional peer dependency — install it yourself if you want the
 > icon set the components use.
+
+### Angular Signal Forms
+
+Every control exposes exactly what Angular's `[formField]` directive looks for (`value` model +
+`disabled`/`required`/`pattern` inputs + a `touch` output), so a Signal Form binds with no adapter code:
+
+```typescript
+import { FormField, form, required } from '@angular/forms/signals';
+
+@Component({
+  standalone: true,
+  imports: [FormField, InputComponent],
+  template: `
+    <sq-input controlLabel="Name"
+              [formField]="profileForm.name"></sq-input>
+  `,
+})
+export class ProfileComponent {
+  readonly model = signal({ name: '' });
+  readonly profileForm = form(this.model, path => {
+    required(path.name);
+  });
+}
+```
+
+The repository covers this with `projects/ng-form-elements/src/lib/signal-forms.integration.spec.ts`
+(model→view, view→model, checkbox state, `touch` → touched, schema `required` → native `required`).
 
 ### Apply styling to the components
 

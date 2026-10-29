@@ -11,7 +11,8 @@
          id="{{controlId()}}"
          placeholder="{{controlPlaceholder()}}"
          [required]="required()"
-         [pattern]="pattern()"
+         [pattern]="patternAttribute()"
          [disabled]="disabled()"
+         (blur)="touch.emit()"
          [(ngModel)]="value">
 </div>
