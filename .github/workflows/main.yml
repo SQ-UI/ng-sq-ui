@@ -39,6 +39,10 @@ jobs:
       - name: Build the libraries
         run: npm run build:libs
 
+      # Guards the `exports` map / entry points that ng-packagr generates for `dist/**`.
+      - name: Verify the published package layout
+        run: npm run check:exports
+
       - name: Type-check the workspace
         run: npm run typecheck
 

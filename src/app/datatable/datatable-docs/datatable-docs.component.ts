@@ -14,6 +14,51 @@ import { ModuleOverviewComponent } from '../../shared/module-overview/module-ove
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
 import { environment } from '../../../environments/environment';
 
+/** Row shape returned by `https://jsonplaceholder.typicode.com/todos`. */
+interface ToDoItem {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+/** Row shape returned by `https://reqres.in/api/users`. */
+interface ReqResUser {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
+
+/** Row shape returned by `https://reqres.in/api/unknown`. */
+interface ReqResResource {
+  id: number;
+  name: string;
+  year: number;
+  color: string;
+  pantone_value: string;
+}
+
+/** Column names come from the data, so a row is read through a record view. */
+function readColumn<TRow>(row: TRow, columnName: string): string | number {
+  const value = (row as unknown as Record<string, unknown>)[columnName];
+
+  if (typeof value === 'number') {
+    return value;
+  }
+
+  return value === null || value === undefined ? '' : String(value);
+}
+
+function compareValues(left: string | number, right: string | number): number {
+  if (typeof left === 'number' && typeof right === 'number') {
+    return left - right;
+  }
+
+  return String(left).localeCompare(String(right));
+}
+
 @Component({
   selector: 'sq-datatable-docs',
   standalone: true,
@@ -81,10 +126,10 @@ export class DatatableDocsComponent {
   ];
 
   keys: string[] = [];
-  datatableItems = signal<any[]>([]);
-  userItems = signal<any[]>([]);
+  datatableItems = signal<ToDoItem[]>([]);
+  userItems = signal<ReqResUser[]>([]);
   userItemColumns = signal<string[]>([]);
-  resourceItems = signal<any[]>([]);
+  resourceItems = signal<ReqResResource[]>([]);
   resourceItemColumns = signal<DatatableColumn[]>([]);
 
   paginatorConfig: PaginatorConfig = {
@@ -139,21 +184,12 @@ export class DatatableDocsComponent {
 
   sortResourceItemsByColumn($event: SortItem) {
     const columnName = $event.name;
-    const ascending = $event.isSortedByAscending;
+    const direction = $event.isSortedByAscending === false ? -1 : 1;
 
     this.resourceItems.update(items =>
-      [...items].sort((rowItem1, rowItem2) => {
-        if (rowItem1[columnName] > rowItem2[columnName]) {
-          return ascending ? 1 : -1;
-        }
-
-        if (rowItem1[columnName] < rowItem2[columnName]) {
-          return ascending ? -1 : 1;
-        }
-
-        // names must be equal
-        return 0;
-      })
+      [...items].sort((rowItem1, rowItem2) =>
+        direction * compareValues(readColumn(rowItem1, columnName), readColumn(rowItem2, columnName))
+      )
     );
   }
 }

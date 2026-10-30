@@ -74,9 +74,10 @@ describe('DatetimePickerComponent', () => {
 
       const currentValue = component.value();
       const isArray = Array.isArray(currentValue);
-      const addedDate = currentValue.find((selectedDate: Temporal.PlainDate) => {
-        return Temporal.PlainDate.compare(selectedDate, item.date) === 0;
-      });
+      const selectedDates = Array.isArray(currentValue) ? currentValue : [];
+      const addedDate = selectedDates.find((selectedDate) =>
+        selectedDate instanceof Temporal.PlainDate && Temporal.PlainDate.compare(selectedDate, item.date) === 0
+      );
 
       const areValuesSameAndSelected = !!addedDate;
 

@@ -1,581 +1,354 @@
 # FormElementsModule
 
-> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
-> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
-> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+> Applies to **3.x** (Angular 22).
 
-The properties / methods listed under every component are specific to the UI-kit. All components support both <a href="https://angular.io/guide/reactive-forms">Model-Driven</a> and <a href="https://angular.io/guide/forms#template-driven-forms">Template-Driven</a> form approaches. The properties / methods exposed by either of the approaches are not documented as component-specific and are assumed to be familiar to the developer.
+Every control in this page is standalone, has no `ControlValueAccessor`, and is bound with a two-way
+`value` model:
+
+```html
+<sq-input controlLabel="Name" [(value)]="name"></sq-input>
+```
+
+or with Angular Signal Forms through the `[formField]` directive:
+
+```html
+<sq-input controlLabel="Name" [formField]="profileForm.name"></sq-input>
+```
 
 [sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-form-elements?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
-!> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-sq-common](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
+!> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-form-elements](https://www.npmjs.com/package/@sq-ui/ng-form-elements)
+
+## The shared form field contract
+
+All the controls below declare the same inputs (enforced by the `SqFormFieldSignals` interface, see
+CommonModule) and additionally expose a `touch` output that `[formField]` uses to mark the field as
+touched. Only the control-specific properties are repeated in each section.
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `name` | `string` | generated | `sq-form-control-<n>`, unique per instance |
+| `controlId` | `string` | generated | id of the native control; `<label for>` uses it |
+| `controlLabel` | `string` | `''` | label text; hidden when empty |
+| `controlPlaceholder` | `string` | `''` | placeholder of the native control |
+| `required` | `boolean` | `false` | marks the native control as required |
+| `pattern` | `readonly RegExp[]` | `[]` | serialised into the native `pattern` attribute |
+| `disabled` | `boolean` | `false` | disables the native control |
+| `touch` | `output<void>` | — | fires when the user leaves the control |
 
 ## sq-input
 
-sq-input represents a thin wrapper over the native HTML `input` element.
+A thin wrapper over the native `input` element.
 
 ```html
 <sq-input
-    formControlName="name"
-    controlLabel="Test Label*"
-    controlPlaceholder="Test placeholder">
+  controlLabel="Test Label*"
+  controlPlaceholder="Test placeholder"
+  [pattern]="[/^\d+$/]"
+  [(value)]="name">
 </sq-input>
 ```
 
-### Component properties:
+### Control-specific properties
 
-- **`@Input()` name:** `string` - Name of the input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+- **`type`** (`input<string>`): the native input type (`text`, `email`, `password`, …). Defaults to
+  `'text'`.
+- **`value`** (`model<string>`): the two-way value. Defaults to `''`.
 
-- **`@Input()` controlId:** `string` - Id of the input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+## sq-textarea
 
-- **`@Input()` controlLabel:** `string` - Label of the input. Defaults to empty string.
+A content-editable wrapper that keeps its height, so it grows with the content instead of scrolling.
 
-- **`@Input()` controlPlaceholder:** `string` - Placeholder of the input. Defaults to empty string.
+```html
+<sq-textarea
+  controlLabel="Notes"
+  controlPlaceholder="Type something in..."
+  [minHeight]="120"
+  [(value)]="notes">
+</sq-textarea>
+```
 
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the input is required. Defaults to false.
+### Control-specific properties
 
-- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which the input value is validated. Defaults to empty string.
+- **`minHeight`** (`input<number>`): minimum height in pixels. Defaults to `100`.
+- **`value`** (`model<string>`): the two-way value. Defaults to `''`.
 
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
+### Control-specific methods
 
-For template-driven and reactive-driven code examples, please refer to the examples page.
+- **`focusOnArea()`**: focuses the editable area.
 
 ## sq-button
 
-sq-button is thin wrapper over the native HTML `button` element.
+A thin wrapper over the native `button` element.
 
 ```html
-<sq-button
-    [disabled]="testForm.invalid"
-    type="submit">
-    Submit
-</sq-button>
+<sq-button type="submit" [disabled]="!profileForm().valid()">Submit</sq-button>
 ```
 
-### Component properties:
+### Control-specific properties
 
-- **`@Input()` name:** `string` - Name of the input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+- **`type`** (`input<ButtonTypes | string>`): `'button'` (default), `'submit'` or `'reset'`. Anything
+  else falls back to `'button'`.
+- **`disabled`** (`input<boolean>`): disables the button. Defaults to `false`.
 
-- **`@Input()` controlId:** `string` - Id of the input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+`ButtonTypes` is exported for use in code:
 
-- **`@Input()` controlLabel:** `string` - Label of the inputcheckbox. Defaults to empty string.
+```typescript
+enum ButtonTypes {
+  Button = 'button',
+  Submit = 'submit',
+  Reset = 'reset',
+}
+```
 
-- **`@Input()` controlPlaceholder:** `string` - Placeholder of the input. Defaults to empty string.
+## sq-form-group
 
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the input is required. Defaults to false.
+Draws a labelled border around a group of controls — handy for radio groups.
 
-- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which the input value is validated. Defaults to empty string.
+```html
+<sq-form-group groupLabel="Shipping method">
+  <sq-radiobutton name="group1" radioValue="standard" [(value)]="shipping"></sq-radiobutton>
+  <sq-radiobutton name="group1" radioValue="express" [(value)]="shipping"></sq-radiobutton>
+</sq-form-group>
+```
 
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
+### Control-specific properties
 
-For template-driven and reactive-driven code examples, please refer to the examples page.
+- **`groupLabel`** (`input<string>`): the label of the group. Defaults to `''`.
 
 ## sq-checkbox
 
-sq-checkbox is a custom implementation using a wrapper over the native HTML `input[type="checkbox"]` element.
+A wrapper over the native `input[type="checkbox"]`.
 
 ```html
-<sq-checkbox controlLabel="Test checkbox" formControlName="checkboxValue"></sq-checkbox>
+<sq-checkbox controlLabel="Accept the terms" [(value)]="accepted"></sq-checkbox>
 ```
 
-Example using custom templates
+With a custom label template:
 
 ```html
-<sq-checkbox formControlName="checkboxValue">
+<sq-checkbox [(value)]="accepted">
   <ng-template sq-checkbox-label let-isSelected="isSelected">
-    <svg *ngIf="!isSelected">Example not selected</svg>
-    <svg *ngIf="isSelected">Example selected</svg>
-    <span style="padding-left: 5px">Custom Checkbox Label</span>
+    @if (!isSelected) {
+      <span>Not selected</span>
+    } @else {
+      <span>Selected</span>
+    }
   </ng-template>
 </sq-checkbox>
 ```
 
-[sq-checkbox-custom-template](https://stackblitz.com/edit/sq-checkbox-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+### Control-specific properties
 
-### Component properties:
+- **`value`** (`model<boolean>`): the two-way value. Defaults to `false`.
+- **`isSelected`** (`boolean`, read-only): `!!value()`.
 
-- **`@Input()` name:** `string` - Name of the checkbox. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+### Control-specific outputs
 
-- **`@Input()` controlId:** `string` - Id of the checkbox. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+- **`isSelectedChange`** (`output<boolean>`): the new state after a toggle.
 
-- **`@Input()` controlLabel:** `string` - Label of the checkbox. Defaults to empty string.
+### Control-specific methods
 
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the checkbox is required. Defaults to false.
-
-- **`@Input()` isSelected:** `boolean` - Programatically select/deselect the checkbox.
-
-- **`@Output()` isSelectedChange:** `EventEmitter<boolean>` - Callback invoked when the checkbox has been selected/deselected.
-
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
-
-### Custom Templates:
-
-#### **sq-checkbox-label** exposed variables
-
-- **isSelected**: `boolean`
-
-For template-driven and reactive-driven code examples, please refer to the examples page.
-
-## sq-dropdown
-
-sq-dropdown is a custom implementation of a dropdown which emulates the behavior of the regular HTML `select` tag. Its model returns a **copy** of the selected object.
-
-```html
-<sq-dropdown
-    formControlName="dropdown"
-    [options]="dropdownOptions"
-    controlLabel="Dropdown Example*"
-    controlPlaceholder="Select an option">
-</sq-dropdown>
-```
-
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts) import:
-
-```typescript
-import { LabelValuePair } from 'ng-sq-ui';
-```
-
-and then declare options in [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L15)
-:
-
-```typescript
-  //...
-  dropdownOptions: LabelValuePair[] = [
-    {
-      label: 'option1',
-      value: 'someVal1'
-    },
-    {
-      label: 'option2',
-      value: 'someVal2'
-    },
-    {
-      label: 'option3',
-      value: 'someVal3'
-    }
-  ];
-```
-
-Example using custom templates
-
-```html
-<sq-dropdown
-    formControlName="dropdown"
-    [options]="dropdownOptions"
-    controlLabel="Dropdown Example*"
-    controlPlaceholder="Select an option">
-
-    <ng-template sq-dropdown-selected-option let-value="value">
-      <span class="custom tag">
-        {{value.label}}
-      </span>
-    </ng-template>
-
-    <ng-template sq-dropdown-option let-option="option">
-      <div class="custom dropdown-option">
-        {{option.label}}
-      </div>
-    </ng-template>
-
-    <ng-template sq-dropdown-chevron let-isDropdownOpen="isDropdownOpen">
-      <div *ngIf="isDropdownOpen" class="dropdown-icon">
-        <svg class="bi bi-chevron-double-up">---</svg>
-      </div>
-
-      <div *ngIf="!isDropdownOpen" class="dropdown-icon">
-        <svg class="bi bi-chevron-double-down">---</svg>
-      </div>
-    </ng-template>
-</sq-dropdown>
-
-```
-
-
-[sq-dropdown-custom-template](https://stackblitz.com/edit/sq-dropdown-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
-
-### Component properties:
-
-- **`@Input()` name:** `string` - Name of the dropdown. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
-
-- **`@Input()` controlId:** `string` - Id of the dropdown. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
-
-- **`@Input()` controlLabel:** `string` - Label of the dropdown. Defaults to empty string.
-
-- **`@Input()` controlPlaceholder:** `string` - Placeholder of the dropdown. Defaults to empty string.
-
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the dropdown is required. Defaults to false.
-
-- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which the dropdown value is validated. Defaults to empty string.dropdown
-
-- **`@Input()` options:** `LabelValuePair[]` - The options for the dropdown.
-
-- **`@Output()` onSelectItem:** `EventEmitter<LabelValuePair>` - Callback which is invoked when an item has been selected.
-
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
-
-### Custom Templates
-
-#### **sq-dropdown-selected-option** exposed varaibles
-
-- **value**: `string`
-
-#### **sq-dropdown-option** exposed varaibles
-
-- **option**: `LabelValuePair`
-
-#### **sq-dropdown-chevron** exposed varaibles
-
-- **isDropdownOpen**: `boolean`
-
-### Component methods:
-
-- **toggleOptionsDropdown():** `void` - Shows/hides the options dropdown.
-- **selectOption(option: `LabelValuePair`):** `void` - Selects an option from the list.
-
-For template-driven and reactive-driven code examples, please refer to the examples page.
-
-## sq-form-group
-
-sq-form-group is a visual representation of a group of related form elements. Uses content projection via `ng-content`.
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L89)
-
-```html
-<sq-form-group groupLabel="Radiobuttons Form Group example">
-  ...
-</sq-form-group>
-```
-
-### Component properties:
-
-- **`@Input()` groupLabel:** `string` - Title of the group. Defaults to an empty string.
-
-For code snippets, please refer to the examples page.
+- **`toggleCheckboxSelection()`**: flips `value` and emits `isSelectedChange`.
 
 ## sq-radiobutton
 
-
-sq-radiobutton is a custom implementation using a wrapper over the native HTML `input[type="radio"]` element.
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L91)
+A radio button bound to a group through a shared `name`. Only one radio per group stays selected: the
+component broadcasts a `sqRadio:selected` event and its siblings in the same group clear themselves.
 
 ```html
-<sq-radiobutton
-    name="group1"
-    radioValue="value1"
-    [isSelected]="true"
-    formControlName="radioValue">
-</sq-radiobutton>
+<sq-radiobutton name="group1" radioValue="value1" [(value)]="radioGroupValue"></sq-radiobutton>
+<sq-radiobutton name="group1" radioValue="value2" [(value)]="radioGroupValue"></sq-radiobutton>
 ```
-
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L36)
 
 ```typescript
-constructor(private fb: FormBuilder) {
-   this.testForm = this.fb.group({
-        radioValue: ['value1'],
-    });
-}
+readonly radioGroupValue = signal<string>('value1');   // RadiobuttonComponent<string>
 ```
 
-Example using custom templates
+With a custom label template:
 
 ```html
-<sq-radiobutton
-  name="group1"
-  radioValue="value2"
-  [isSelected]="true"
-  formControlName="radioValue">
+<sq-radiobutton name="group1" radioValue="value2" [(value)]="radioGroupValue">
   <ng-template sq-radio-label let-isSelected="isSelected">
-    <svg
-      *ngIf="!isSelected"
-      class="bi bi-check-circle"
-    ></svg>
-
-    <svg
-      *ngIf="isSelected"
-      class="bi bi-check-circle-fill"></svg>
-    <span style="padding-left: 5px">Custom Radio Label</span>
+    <span>Custom Radio Label</span>
   </ng-template>
 </sq-radiobutton>
 ```
 
-[sq-radio-custom-template](https://stackblitz.com/edit/sq-radio-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+### Control-specific properties
 
+- **`value`** (`model<TValue | null>`): the two-way value of the **group**; `TValue` is inferred from
+  the binding. Defaults to `null`.
+- **`radioValue`** (`input<unknown>`): the value this radio represents. Compared with the group value
+  (`Object.is`) to decide the selected state.
+- **`isSelected`** (`boolean`, read-only): `Object.is(value(), radioValue())`.
 
-### Component properties:
+### Control-specific outputs
 
-- **`@Input()` name:** `string` - Name of the radiobutton. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`. If the radiobutton is part of a radiobutton group, all of the related radiobuttons should have the same value for **name**.
+- **`isSelectedChange`** (`output<boolean>`): `true` when this radio got selected, `false` when a
+  sibling took the selection.
 
-- **`@Input()` controlId:** `string` - Id of the radiobutton. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+### Control-specific methods
 
-- **`@Input()` controlLabel:** `string` - Label of the radiobutton. Defaults to empty string.
+- **`selectRadio()`**: selects this radio (sets `value` to `radioValue` and emits the group event).
 
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
+## sq-dropdown
 
-- **`@Input()` radioValue:** `any` - Value of the radiobutton. Defaults to undefined.
+An options list rendered in a popover, with three optional template slots.
 
-- **`@Input()` isSelected:** `boolean` - Programatically select/deselect the radiobutton.
+```html
+<sq-dropdown controlLabel="Country" [options]="countries" [(value)]="country"></sq-dropdown>
+```
 
-- **`@Output()` isSelectedChange:** `EventEmitter<boolean>` - Callback invoked when the radiobutton has been selected/deselected.
+```typescript
+readonly countries: LabelValuePair[] = [
+  { label: 'Bulgaria', value: 'bg' },
+  { label: 'Germany', value: 'de' },
+];
+readonly country = signal<LabelValuePair | null>(null);
+```
 
-For template-driven and reactive-driven code examples, please refer to the examples page.
+With templates:
 
-### Custom Templates
+```html
+<sq-dropdown [options]="countries" [(value)]="country">
+  <ng-template sq-dropdown-selected-option let-option>{{ option?.label }}</ng-template>
+  <ng-template sq-dropdown-option let-option>{{ option.label }}</ng-template>
+  <ng-template sq-dropdown-chevron>
+    <span class="caret">▾</span>
+  </ng-template>
+</sq-dropdown>
+```
 
-#### **sq-radio-label** exposed variables
+### Control-specific properties
 
-- **isSelected**: `boolean`
+- **`options`** (`input<LabelValuePair[]>`): the options. Defaults to `[]`.
+- **`value`** (`model<LabelValuePair | null>`): the selected pair. Defaults to `null`.
+
+### Control-specific outputs
+
+- **`onSelectItem`** (`output<LabelValuePair>`): the newly selected pair.
+
+### Control-specific methods
+
+- **`selectOption(option)`**: selects the given option and closes the list.
 
 ## sq-tags-input
 
-sq-tags-input represents a collection of strings populated by the user through an input. Its model returns a **copy** of the string array.
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L61)
+A chip input: the value **is** the array of tags. Space, <kbd>Enter</kbd> or <kbd>,</kbd> commit the
+current text, <kbd>Backspace</kbd> on an empty field removes the last tag.
 
 ```html
 <sq-tags-input
-    formControlName="tags"
-    controlLabel="Tags*"
-    controlPlaceholder="Type something and press Space">
+  controlLabel="Tags"
+  controlPlaceholder="Type and press Enter"
+  [(value)]="tags">
 </sq-tags-input>
 ```
 
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L34)
-
 ```typescript
-constructor(private fb: FormBuilder) {
-   this.testForm = this.fb.group({
-      tags: [['tag1'], Validators.required],
-    });
-}
+readonly tags = signal<string[]>(['tag1']);
 ```
 
-Example using custom templates
+With a custom tag template:
 
 ```html
-<sq-tags-input formControlName=" tags" controlLabel="Tags" controlPlaceholder="Type something and press Space">
-  <ng-template sq-tag let-tag="tag" let-remove="remove">
-    <div class="custom tag">
-      {{tag}}
-      <span class="button"
-            (click)="remove(tag)">
-        <svg class="bi bi-trash2"></svg>
-      </span>
-    </div>
+<sq-tags-input [(value)]="tags">
+  <ng-template sq-tag let-tag>
+    <strong>#{{ tag }}</strong>
   </ng-template>
 </sq-tags-input>
 ```
 
-[sq-tags-input-custom-template](https://stackblitz.com/edit/sq-tags-input-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+### Control-specific properties
 
+- **`value`** (`model<string[]>`): the tags. Defaults to `[]`.
+- **`newTagName`** (`string`): the text of the tag being typed (plain property, bound with
+  `[(ngModel)]` internally).
 
-### Component properties:
+### Control-specific methods
 
-- **`@Input()` name:** `string` - Name of the tags-input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
-
-- **`@Input()` controlId:** `string` - Id of the tags-input. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
-
-- **`@Input()` controlLabel:** `string` - Label of the tags-input. Defaults to empty string.
-
-- **`@Input()` controlPlaceholder:** `string` - Placeholder of the tags-input. Defaults to empty string.
-
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the tags-input is required. Defaults to false.
-
-- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which the tags-input value is validated. Defaults to empty string.
-
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
-
-For template-driven and reactive-driven code examples, please refer to the examples page.
-
-### Custom templates
-
-#### **sq-tag** exposed variables and functions
-
-- **tag**: `string`
-- **`remove`**: `(tag: string)=>void`
-
-
-### Class properties:
-
-- **newTagName:** `string` - The model for the input where the user types in a new tag.
-
-### Component methods:
-
-- **removeTag(tagIndex: `number`):** `void` - Removes a tag by given index.
+- **`onUserInput($event)`**: keyboard handler that commits/removes tags.
+- **`removeTag(tag)`**: removes a tag from the value.
 
 ## sq-typeahead
 
-sq-typeahead represents a collection of items shown to the user after they have input query. Its model returns an `any[]` items that the user has selected from the result list. The returned array consists of **copies** of the chosen items.
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L70)
-
-```html
-<sq-typeahead name="typeahead"
-  displayProp="displayName"
-  formControlName="typeahead"
-  [searchResults]="searchResults"
-  (onUserInputEnd)="searchMethod($event)"
-  controlLabel="Typeahead*"
-  controlPlaceholder="Type something in">
-</sq-typeahead>
-```
-
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L41)
-
-```typescript
-//...
-export class AppComponent {
-  searchResults: any[];
-  //...
-  constructor(private fb: FormBuilder) {
-    this.testForm = this.fb.group({
-        typeahead: [[], Validators.required],
-    });
-  }
-  //...
-  searchMethod(query) {
-    this.searchResults = [
-      {
-        displayName: 'Search result 1',
-        value: 1
-      },
-  }
-}
-```
-
-> If you wish to pass just an array of string, you must omit the property `displayProp` in the html.
-
-Example using custom templates
+An autocomplete with debounced search, single or multi selection, and two template slots.
 
 ```html
 <sq-typeahead
-    displayProp="myCustomProp"
-    [hideSearchIcon]="true"
-    [multiple]="true"
-    formControlName="typeaheadWithTemplates"
-    [searchResults]="searchResults"
-    (onUserInputEnd)="searchMethod($event)"
-    controlLabel="Typeahead With Templates"
-    controlPlaceholder="Type something in">
-    <ng-template sq-typeahead-option let-option="option">
-      <div class="custom dropdown-option">
-        {{option.label}}
-      </div>
-    </ng-template>
-
-    <ng-template
-      sq-typeahead-selected-option
-      let-item="item"
-      let-remove="remove">
-      <div class="custom tag chosen-item">
-        {{item.label}}
-
-        <span class="button" (click)="remove(item)">
-          <svg class="bi bi-trash2"></svg>
-        </span>
-      </div>
-    </ng-template>
+  controlLabel="Assignee"
+  controlPlaceholder="Search people…"
+  [searchResults]="results()"
+  displayProp="name"
+  [delay]="300"
+  [multiple]="true"
+  [(value)]="selected"
+  (onUserInputEnd)="search($event)">
 </sq-typeahead>
 ```
 
-[sq-typeahead-custom-template](https://stackblitz.com/edit/sq-typeahead-custom-template?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+```typescript
+readonly results = signal<{ name: string }[]>([]);
+readonly selected = signal<LabelValuePair[]>([]);
+```
 
-### Component properties:
+The component does not fetch anything: it emits the debounced query through `onUserInputEnd` and
+renders whatever you put in `[searchResults]`. Strings, numbers and objects are all accepted —
+`displayProp` names the object key used as the label, and without it the objects are expected to
+already look like `{ label, value }` pairs.
 
-- **`@Input()` name:** `string` - Name of the typeahead. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
-
-- **`@Input()` controlId:** `string` - Id of the typeahead. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
-
-- **`@Input()` controlLabel:** `string` - Label of the typeahead. Defaults to empty string.
-
-- **`@Input()` controlPlaceholder:** `string` - Placeholder of the typeahead. Defaults to empty string.
-
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the typeahead is required. Defaults to false.
-
-- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which typeahead value is validated. Defaults to empty string.
-
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
-
-- **`@Output()` onUserInputEnd:** `EventEmitter<string>` - Callback invoked after the user has typed in a search `query`. Every new `query` is invoked with a delay (by default: 500ms).
-
-- **`@Input()` delay:** `number` - The time in milliseconds to delay the **onUserInputEnd** emitter.
-
-- **`@Input()` searchResults:** `any[]` - The list of results shown to the user after the last value which **onUserInputEnd** has emitted.
-
-- **`@Input()` multiple:** `boolean` - Allow the user to choose multiple items from the search results list. Defaults to `false`.
-
-- **`@Input()` displayProp:** `string` - Specify which property of the object to use as display property. If you are just passing an array of strings you must not assign a value to this property.
-
-### Custom templates
-
-#### **sq-typeahead-option** exposed variables
-
-- **option**: `any`
-
-#### **sq-typeahead-selected-option** exposed variables and functions
-
-- **item**: `any`
-- **`remove`**: (item: LabelValuePair)=>void
-
-### Class properties:
-
-- **queryInputControl:** `FormControl` - The model for the input where the user types in a `query`.
-- **isLoading:** `boolean` - A flag to show/hide the loadbar of the typeahead.
-- **hideResults:** `boolean` - A flag to show/hide the search results list.
-
-### Component methods:
-
-- **selectSearchResult(result: `any[]`):** `void` - Selects a result.
-- **removeSearchResult(itemIndex: `number`):** `void` - Remove a search item by given index.
-
-For template-driven and reactive-driven code examples, please refer to the examples page.
-
-## sq-textarea
-
-sq-textarea is an auto-expandable textarea.
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L110)
+With templates:
 
 ```html
-<sq-textarea
-    controlLabel="Textarea Label"
-    formControlName="textareaValue"
-    controlPlaceholder="Type something in...">
-</sq-textarea>
+<sq-typeahead [searchResults]="results()" [(value)]="selected">
+  <ng-template sq-typeahead-option let-option>{{ option.label }}</ng-template>
+  <ng-template sq-typeahead-selected-option let-option>{{ option.label }}</ng-template>
+</sq-typeahead>
 ```
 
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L102)
+### Control-specific properties
 
-```typescript
-//...
-export class AppComponent {
-  //...
-  constructor(private fb: FormBuilder) {
-    this.testForm = this.fb.group({
-      textareaValue: [''],
-    });
-  }
-  //...
-}
-```
+- **`searchResults`** (`input<readonly unknown[]>`): the raw results for the current query. Defaults to
+  `[]`.
+- **`multiple`** (`input<boolean>`): allows more than one selected item. Defaults to `false`.
+- **`delay`** (`input<number>`): debounce in milliseconds before `onUserInputEnd` fires. Defaults to
+  `500`.
+- **`displayProp`** (`input<string>`): object key used as the label. Empty means "the objects are
+  already pairs". Defaults to `''`.
+- **`hideSearchIcon`** (`input<boolean>`): hides the magnifier icon. Defaults to `false`.
+- **`value`** (`model<LabelValuePair[]>`): the selection. Defaults to `[]`.
 
-### Component properties:
+### Control-specific outputs
 
-- **`@Input()` name:** `string` - Name of the textarea. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+- **`onUserInputEnd`** (`output<string>`): the debounced query.
 
-- **`@Input()` controlId:** `string` - Id of the textarea. If not provided, a generic name is generated, using the following pattern: `'sq-form-control' + new Date().getTime().toString()`.
+### Control-specific methods
 
-- **`@Input()` controlLabel:** `string` - Label of the textarea. Defaults to empty `string`.
+- **`selectSearchResult(result)`**: selects an option.
+- **`removeSearchResult(choice)`**: removes a selected chip.
+- **`onSearchInput($event)`**: input handler (updates the query signal and schedules the debounce).
+- **`onClickOutsideComponent()`** / **`turnClickOutsideListenerOn()`**: close the popup / arm the
+  outside-click listener.
 
-- **`@Input()` controlPlaceholder:** `string` - Placeholder of the textarea. Defaults to empty `string`.
+## Template directives
 
-- **`@Input()` required:** `boolean` - When using the template-driven approach, this property determines if the textarea is required. Defaults to `false`.
+| Directive | Selector | Context |
+|---|---|---|
+| `SqCheckboxLabelTemplateDirective` | `[sq-checkbox-label]` | `let-isSelected="isSelected"` |
+| `SqRadiobuttonLabelTemplateDirective` | `[sq-radio-label]` | `let-isSelected="isSelected"` |
+| `SqDropdownOptionTemplateDirective` | `[sq-dropdown-option]` | `let-option` |
+| `SqDropdownSelectedOptionTemplateDirective` | `[sq-dropdown-selected-option]` | `let-option` |
+| `SqDropdownChevronTemplateDirective` | `[sq-dropdown-chevron]` | — |
+| `SqTagTemplateDirective` | `[sq-tag]` | `let-tag` |
+| `SqTypeaheadOptionTemplateDirective` | `[sq-typeahead-option]` | `let-option` |
+| `SqTypeaheadSelectedOptionTemplateDirective` | `[sq-typeahead-selected-option]` | `let-option` |
 
-- **`@Input()` pattern:** `any` - When using the template-driven approach, this property determines the pattern against which textarea value is validated. Defaults to empty `string`.
+## Reactive and Signal Forms
 
-- **`@Input()` disabled:** `boolean` - Enables/disables the component.
-
-- **`@Output()` minHeight:** `number` - The default height of the textarea when it is empty.
-
-For template-driven and reactive-driven code examples, please refer to the examples page.
+- `[(value)]` on a signal (`signal<T>`) is the simplest two-way binding and needs no form module.
+- `[formField]="myForm.field"` from `@angular/forms/signals` binds the same components; the shared
+  contract (`value` model, `disabled`/`required`/`pattern`, `touch`) is what makes it work.
+- `[(ngModel)]` and `formControlName` are **not** supported in 3.x — the controls no longer implement
+  `ControlValueAccessor`. If you are migrating a template-driven or reactive form, see *Migrating
+  2.x → 3.x* in the README.

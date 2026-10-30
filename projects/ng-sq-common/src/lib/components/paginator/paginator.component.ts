@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Page } from '../../interfaces/page';
+import { PageChangeEvent } from '../../interfaces/page-change-event';
 
 @Component({
   selector: 'sq-paginator',
@@ -14,17 +15,17 @@ import { Page } from '../../interfaces/page';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaginatorComponent {
-  items = input<any[] | undefined>([]);
+export class PaginatorComponent<TItem = unknown> {
+  items = input<TItem[] | undefined>([]);
   itemsPerPage = input<number | undefined>(10);
   currentPage = input<number | undefined>(1);
   lastPage = input<number | undefined>(undefined);
   maxDisplayedPages = input<number | undefined>(3);
-  paginatedCollection = model<any[]>([]);
-  pageChange = output<{ page: number, firstItemIndex: number }>();
+  paginatedCollection = model<TItem[]>([]);
+  pageChange = output<PageChangeEvent>();
 
   pages = signal<Page[]>([]);
-  _paginatedCollection = signal<any[]>([]);
+  _paginatedCollection = signal<TItem[]>([]);
   disableNextBtns = signal<boolean>(false);
   disablePrevBtns = signal<boolean>(true);
 

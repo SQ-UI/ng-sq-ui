@@ -26,7 +26,10 @@
               "node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "jsbi"
+            ]
           },
           "configurations": {
             "production": {

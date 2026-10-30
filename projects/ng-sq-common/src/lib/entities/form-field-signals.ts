@@ -1,3 +1,5 @@
+import type { InputSignal, OutputEmitterRef } from '@angular/core';
+
 /**
  * Interface defining the contract for shared form field properties.
  * Replaces the InputCoreComponent inheritance pattern with composition.
@@ -21,6 +23,30 @@ export interface FormFieldConfig {
 }
 
 /**
+ * The signal-input half of the form field contract: the members every SQ-UI form control declares
+ * with these exact types.
+ *
+ * ```ts
+ * export class InputComponent implements SqFormFieldSignals, SqFormValueControl<string> { ... }
+ * ```
+ *
+ * Declaring the interface is what stops the nine controls from drifting apart: a control that
+ * forgets `touch`, or that types `pattern` as `string`, no longer compiles. Angular Signal Forms'
+ * `[formField]` directive relies on exactly these members.
+ */
+export interface SqFormFieldSignals {
+  readonly name: InputSignal<string>;
+  readonly controlId: InputSignal<string>;
+  readonly controlLabel: InputSignal<string>;
+  readonly controlPlaceholder: InputSignal<string>;
+  readonly required: InputSignal<boolean>;
+  readonly pattern: InputSignal<readonly RegExp[]>;
+  readonly disabled: InputSignal<boolean>;
+  /** Fires when the user leaves the control, so `[formField]` can mark the field as touched. */
+  readonly touch: OutputEmitterRef<void>;
+}
+
+/**
  * Monotonic counter so that two controls created in the same millisecond never share an id
  * (a timestamp-based id produced duplicate `id`/`name` attributes and broke `<label for>`).
  */
@@ -31,13 +57,16 @@ export function generateFormFieldId(): string {
   return `sq-form-control-${formFieldIdCounter}`;
 }
 
+/** Shared, frozen default so no control can mutate another's `pattern` value. */
+const NO_PATTERNS: readonly RegExp[] = Object.freeze([]);
+
 export const FORM_FIELD_DEFAULTS: FormFieldConfig = {
   name: '',
   controlId: '',
   controlLabel: '',
   controlPlaceholder: '',
   required: false,
-  pattern: [],
+  pattern: NO_PATTERNS,
   disabled: false,
 };
 

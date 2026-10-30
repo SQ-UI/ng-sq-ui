@@ -7,9 +7,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounce, tap } from 'rxjs/operators';
 import { Subject, timer } from 'rxjs';
 
-import { LabelValuePair, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
+import { LabelValuePair, FORM_FIELD_DEFAULTS, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
-import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-typeahead',
@@ -23,21 +23,21 @@ import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
     OutsideClickListenerDirective,
   ],
 })
-export class TypeaheadComponent implements SqFormValueControl<LabelValuePair[]> {
+export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueControl<LabelValuePair[]> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
-  readonly controlLabel = input<string>('');
-  readonly controlPlaceholder = input<string>('');
-  readonly required = input<boolean>(false);
-  readonly pattern = input<readonly RegExp[]>([]);
-  readonly disabled = input<boolean>(false);
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
   /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
   readonly touch = output<void>();
 
   // Component-specific inputs
-  readonly searchResults = input<any[]>([]);
+  readonly searchResults = input<readonly unknown[]>([]);
   readonly multiple = input<boolean>(false);
   readonly delay = input<number>(500);
   readonly displayProp = input<string>('');
@@ -181,24 +181,38 @@ export class TypeaheadComponent implements SqFormValueControl<LabelValuePair[]> 
     return left.every((item, index) => item === right[index]);
   }
 
-  private transformToLabelValuePairList(resultsList: any[]): LabelValuePair[] {
+  /**
+   * Maps the raw `[searchResults]` to the pair the component renders.
+   *
+   * `resultsList` is deliberately `readonly unknown[]`: the control accepts whatever the caller's
+   * search returns (strings, numbers, arbitrary objects). `displayProp` names the object key used as
+   * the label; without it the objects are expected to already look like `{ label, value }` pairs.
+   */
+  private transformToLabelValuePairList(resultsList: readonly unknown[]): LabelValuePair[] {
     const dp = this.displayProp();
+
     return resultsList.map(item => {
       if (typeof item === 'object') {
+        const record = (item ?? {}) as Record<string, unknown>;
+
         if (dp === '') {
-          return Object.assign({}, item);
-        } else {
-          return {
-            label: item[dp],
-            value: Object.assign({}, item),
-          };
+          // The results already look like `{ label, value }` pairs, but the object is kept whole so
+          // custom option templates can still read extra properties.
+          return { ...record } as unknown as LabelValuePair;
         }
-      } else {
+
+        const label = record[dp];
+
         return {
-          label: item,
-          value: item,
+          label: label === null || label === undefined ? '' : String(label),
+          value: { ...record },
         };
       }
+
+      return {
+        label: String(item),
+        value: item,
+      };
     });
   }
 }

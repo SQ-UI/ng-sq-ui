@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavItem } from '../../shared/nav-item';
 import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime-picker';
+import type { DatetimePickerValue, TimePickerValue } from '@sq-ui/ng-datetime-picker';
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
@@ -81,9 +82,9 @@ export class DatatimePickerDocsComponent {
   };
   isTimepickerEndabled = true;
 
-  standAloneDatepickerValue = signal<any>(Temporal.Now.plainDateISO().add({ days: 1 }));
-  datetimePickerValue = signal<any>(Temporal.Now.plainDateISO().add({ days: 1 }));
-  standAloneTimepickerValue = signal<any>(null);
+  standAloneDatepickerValue = signal<DatetimePickerValue>(Temporal.Now.plainDateISO().add({ days: 1 }));
+  datetimePickerValue = signal<DatetimePickerValue>(Temporal.Now.plainDateISO().add({ days: 1 }));
+  standAloneTimepickerValue = signal<TimePickerValue>(null);
 
   hoursChange($event: number) {
     console.log(`The current chosen hours are: ${$event}`);

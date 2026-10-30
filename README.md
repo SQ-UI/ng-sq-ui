@@ -52,7 +52,15 @@ NgModules                          → import the standalone components directly
 @Output() valueChange = EventEmitter → value = model<T>()  /  output<T>()
 *ngIf / *ngFor                     → @if / @for
 pattern="..."                      → [pattern]="[/^\\d+$/]"  (pattern is now readonly RegExp[])
+LabelValuePair.value: any          → LabelValuePair<TValue = unknown>  (parameterise it to keep the payload typed)
+sq-datatable / sq-paginator items  → generic over the row type: DatatableComponent<T>, PaginatorComponent<T>
+sq-radiobutton [(value)]           → generic over the value: RadiobuttonComponent<T>
+sq-datetime-picker [(value)]       → DatetimePickerValue (single date or array, per [isMultipleSelect])
 ```
+
+Every control also declares `implements SqFormFieldSignals, SqFormValueControl<T>`, so the shared
+`name`/`controlId`/`controlLabel`/`controlPlaceholder`/`required`/`pattern`/`disabled`/`touch` surface
+cannot drift between components.
 
 ## Installation
 
@@ -191,8 +199,9 @@ expose `Temporal`, otherwise the picker throws when it is instantiated.
 | `npm run test:watch` | watch mode |
 | `npm run coverage` | writes `coverage/lcov.info` (uploaded by CI to CodeClimate) |
 | `npm run typecheck` | `tsc -p tsconfig.spec.json --noEmit` — run **after** `npm run build:libs` (`@sq-ui/*` resolves from `dist/`) |
-| `npm run lint` | ESLint for the demo app and all seven libraries |
+| `npm run lint` | ESLint for the demo app and all seven libraries (`no-explicit-any` is an **error**) |
 | `npm run build:libs` / `npm run build` | build the packages / build the demo app |
+| `npm run check:exports` | post-build guard for the generated `exports` map, entry points and published assets — run after `build:libs` (CI does) |
 
 There is deliberately no `ng test` target: the suite runs through Vitest directly, so the same setup
 covers the libraries and the demo application.

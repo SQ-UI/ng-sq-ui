@@ -12,8 +12,9 @@ export { LabelValuePair } from './lib/interfaces/label-value-pair';
 export { CustomEventBroadcasterService } from './lib/services/custom-event-broadcaster.service';
 export { OSDetectorService } from './lib/services/os-detector.service';
 export { PaginatorConfig } from './lib/interfaces/paginator-config';
+export { PageChangeEvent } from './lib/interfaces/page-change-event';
 export { ControlValueAccessorEnabler } from './lib/entities/control-value-accessor-enabler';
-export { FormFieldConfig, FORM_FIELD_DEFAULTS, generateFormFieldId, toPatternAttribute } from './lib/entities/form-field-signals';
+export { FormFieldConfig, SqFormFieldSignals, FORM_FIELD_DEFAULTS, generateFormFieldId, toPatternAttribute } from './lib/entities/form-field-signals';
 export {
   SqFormCheckboxControl,
   SqFormUiControl,

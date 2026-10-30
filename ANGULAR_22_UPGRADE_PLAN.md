@@ -727,14 +727,75 @@ Test suite grew **108 → 118 tests**; `typecheck`, `lint`, `build:libs` and `bu
 | Docs | README's *Temporal & the polyfill* now recommends alias-ing `@sq-ui/ng-datetime-picker/temporal` (one alias removes the polyfill from both bundles) |
 | Tests | `projects/ng-datetime-picker/temporal/src/index.spec.ts` guards the contract (entry point === polyfill implementation, `PlainDate`/`PlainTime`/`Now` present). Whole suite: **35 files / 126 tests green**; `build:libs`, `typecheck`, `lint` (0 errors), `build` all pass |
 
-### 13.11 Remaining backlog (next PRs)
+### 13.11 Type safety — `no-explicit-any` raised to `error` (done)
 
-1. Full regeneration of `docs/*.md` (they only carry a “this documents 2.x” banner today).
-2. Raise `@typescript-eslint/no-explicit-any` from `warn` → `error` once the remaining `any`s in
-   `datetime-picker` / `paginator` / `datatable` are typed.
-3. Concentrate the duplicated "form field contract" inputs (`name`/`controlId`/`controlLabel`/
-   `controlPlaceholder`/`required`/`pattern`/`disabled` + `touch`) behind a single shared type so a new
-   control cannot drift from the contract.
+| Item | Change |
+|---|---|
+| Inventory | 47 explicit `any`s across 18 files (form controls, datatable, paginator, datetime picker, demo app) |
+| Generic payloads | `LabelValuePair<TValue = unknown>`, `CustomEventDetails<TDetails = unknown>`; `CustomEventBroadcasterService.subscribeFor<TDetails>()`/`broadcastEvent<TDetails>()` — subscribers get their payload type without casts (the assertion lives at the event boundary) |
+| Generic components | `PaginatorComponent<TItem = unknown>`, `DatatableComponent<TItem = unknown>`, `RadiobuttonComponent<TValue = unknown>` — inference from the bindings keeps consumer templates typed (`signal<User[]>` → `TItem = User`) |
+| Value unions | New `interfaces/datetime-picker-value.ts`: `DatetimePickerDate`, `DatetimePickerValue` (single **or** array), `TimePickerValue`; exported from the package and used for the two pickers' `value` models and `dateSelectionChange` |
+| Datatable internals | `rowItem: input<unknown>` + a `cells` computed that stringifies once (interpolation of an object used to print `[object Object]`); sorting compares numerically for numbers and with `localeCompare` otherwise, instead of `>`/`<` on mixed `any` |
+| Legacy CVA | `ControlValueAccessorEnabler` uses `unknown` (Angular's own `ControlValueAccessor` is untyped); `InputCoreComponent.pattern` is `string \| RegExp \| readonly RegExp[]` |
+| Lint | `@typescript-eslint/no-explicit-any` → `error`; `npm run lint` reports **0 problems** (was 7 + 15 warnings) |
+| Demo app | Typed too (`ToDoItem`, `ReqResUser`, `ReqResResource`, `TypeaheadDemoResult`) instead of an `src/app/**` override |
+
+### 13.12 Shared form-field contract (done)
+
+| Item | Change |
+|---|---|
+| Interface | New `SqFormFieldSignals` (`name`, `controlId`, `controlLabel`, `controlPlaceholder`, `required`, `pattern`, `disabled`, `touch`) in `form-field-signals.ts`, exported from `@sq-ui/ng-sq-common` |
+| Enforcement | All nine controls declare `implements SqFormFieldSignals, SqFormValueControl<T>` — forgetting `touch` or widening `pattern` no longer compiles |
+| Defaults | The five non-generated defaults come from `FORM_FIELD_DEFAULTS`, and `pattern` shares one frozen `NO_PATTERNS` array, so the documented defaults cannot drift per control |
+| Shared payload | New `PageChangeEvent` interface used by `sq-paginator` **and** `sq-datatable` (instead of `output<any>()`) |
+| Docs | CommonModule documents the contract + the exports table |
+
+### 13.13 `docs/*.md` regenerated for 3.x (done)
+
+| Page | Content |
+|---|---|
+| `README.md` | "3.x in one minute", sample component, package → page table |
+| `installation.md` | Per-package install, peer dependencies, **correct** published style paths (`@sq-ui/ng-sq-common/sq-ui-theme.scss`, `@sq-ui/ng-form-elements/styles/form-elements.scss`), `@use` recipe, repo scripts |
+| `common-module.md` | Was titled *DatatableModule*; rewritten: generic paginator + `PageChangeEvent`, both directives, generic broadcaster, generic interfaces, form field contract, deprecated CVA classes |
+| `form-elements-module.md` | Contract table + all nine controls with signal-input signatures, value types, outputs, methods and all eight template directives |
+| `datatable-module.md` | Generic `<TItem>`, sorting semantics, row/column components, custom header/body |
+| `datetime-picker-module.md` | Temporal instead of moment, `DatetimePickerValue`/`TimePickerValue`, all inputs/enums |
+| `modal-module.md`, `progressbar-module.md` | Signal models/methods; the two color inputs of the progress bar are now actually applied (they were declared but unused) |
+| `troubleshooting.md` | Styles, icons, `ngModel`/`pattern`/`unknown` failures, bundle size alias, `build:libs` before `typecheck`, poisoned `.vite` cache |
+
+### 13.14 `jsbi` CommonJS warning silenced honestly (done)
+
+| Item | Change |
+|---|---|
+| Cause | `@js-temporal/polyfill`'s only ESM build (`dist/index.esm.js`) imports `jsbi` (a CJS BigInt shim); the application builder warned on every build, and no dependency bump can remove it (the polyfill ships no BigInt-native bundle) |
+| Fix | `allowedCommonJsDependencies: ["jsbi"]` in `angular.json` → the interop warning is declared, not hidden: `npm run build` is now warning-free |
+| Alternative kept open | The `@sq-ui/ng-datetime-picker/temporal` alias (§13.10) removes `jsbi` **and** the polyfill entirely for apps with native `Temporal` |
+
+### 13.15 Post-build package layout guard (done)
+
+| Item | Change |
+|---|---|
+| Script | `scripts/check-package-exports.mjs` (+ `npm run check:exports`), dependency-free, compares every `projects/*/package.json` with `dist/*` |
+| Checks | build output exists · published `name`/`version` match the sources · `module`/`typings` targets exist · `.` and `./package.json` are exported · every secondary entry point declared in the sources is exported **and** no extra subpath is exported · every `exports` target file exists · peer dependencies survived · every `assets` glob (theme/styles) was copied |
+| CI | New step *Verify the published package layout* right after `build:libs` |
+| Verified | Passes on the current build; with `dist/ng-datatable/fesm2022/sq-ui-ng-datatable.mjs` and `dist/ng-sq-common/styles` moved away it fails with three precise messages (exit 1) |
+
+### 13.16 Remaining backlog (next PRs)
+
+1. **`SqFormFieldSignals` for the shared elements.** The contract is enforced, but the seven input
+   declarations are still repeated per control; a `withFormFieldSignals()` mixin or an inputs factory
+   would remove the duplication without changing the public API.
+2. **`ng-packagr` entry-point tests.** `check:exports` covers the manifest; a tiny "resolve every export
+   from `dist` with Node's resolver" smoke test would cover the runtime side (especially for the
+   `temporal` subpath).
+3. **Datatable row `width` mode.** `sq-datatable-row` renders nothing when `[width]` is set (the cells
+   are expected from the custom body template) — worth either documenting it in a demo or dropping the
+   input.
+4. **Sorting on `Date`/Temporal columns.** The comparator stringifies non-numbers; a value-type hint per
+   column would sort dates correctly.
+5. **Rename the `on*` outputs** (`onSortClicked`, `onSelectItem`, `onUserInputEnd`) and switch
+   `@angular-eslint/no-output-on-prefix` back on — this is the last disabled rule besides the two
+   documented `no-input-rename`/`no-output-rename` exceptions.
 
 ---
 

@@ -1,51 +1,48 @@
 # ProgressBarModule
 
-> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
-> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
-> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+> Applies to **3.x** (Angular 22).
 
 ## sq-progress-bar
 
 [sq-progress-bar-example](https://stackblitz.com/edit/ng-sq-ui-progress-bar?ctl=1&embed=1&view=preview ':include :type=iframe')
 
-sq-progress-bar is a highly customizable loader module.
+`sq-progress-bar` is a small, styleable loader.
 
-!> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-sq-common](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
-
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L211)
+!> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-progress-bar](https://www.npmjs.com/package/@sq-ui/ng-progress-bar)
 
 ```html
-<sq-progress-bar
-    size="small"
-    [loaded]="progressBarLoaded">
-</sq-progress-bar>
+<sq-progress-bar size="small" [loaded]="progressBarLoaded()"></sq-progress-bar>
+<sq-progress-bar size="large" [infinite]="true"></sq-progress-bar>
 ```
 
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L109)
-
 ```typescript
-//...
-export class AppComponent {
-  //...
-  ngOnInit() {
-    const source = interval(1000);
-    // Source should be unsubscribed on destroy
-    source.subscribe((val) => {
-      this.progressBarLoaded += 20;
+export class ExampleComponent {
+  readonly progressBarLoaded = signal(20);
 
-      if (this.progressBarLoaded > 100) {
-        this.progressBarLoaded = 0;
-      }
-    });
+  constructor() {
+    interval(1000)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.progressBarLoaded.update(v => (v + 20 > 100 ? 0 : v + 20)));
   }
-  //...
 }
 ```
 
-### Component properties:
+### Component properties
 
-- **`@Input()` size:** `string = 'small' | 'medium' | 'large'` - Visual size of the component.
+- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`. Defaults to `'medium'`.
+- **`loaded`** (`input<number>`): the loaded value in %; drives the width of the filled line.
+- **`infinite`** (`input<boolean>`): switches to the cyclic animation and ignores `loaded`. Defaults to
+  `false`.
+- **`backgroundColor`** (`input<string>`): any CSS color for the track. Defaults to the theme color.
+- **`fillColor`** (`input<string>`): any CSS color for the filled line. Defaults to the theme color.
 
-- **`@Input()` loaded:** `number` - Current loaded value in %.
+```html
+<sq-progress-bar
+  size="medium"
+  [loaded]="75"
+  backgroundColor="#f2f2f2"
+  fillColor="#4f6d8c">
+</sq-progress-bar>
+```
 
-- **`@Input()` infinite:** `boolean` - A flag denoting if cyclic animation should be enabled. If set to `true` the `loaded` value is ignored. Defaults to `false`;
+Both colors are applied as inline styles, so they override the theme without touching the stylesheet.

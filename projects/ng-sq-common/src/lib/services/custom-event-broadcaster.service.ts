@@ -21,17 +21,24 @@ export class CustomEventBroadcasterService {
 
   constructor() { }
 
-  subscribeFor(eventName: string,
-               callback: (eventDetails?: CustomEventDetails) => void): Subscription {
+  /**
+   * Subscribes to a named event. `TDetails` is the shape the publisher sends, so the callback body
+   * does not need casts; the assertion is only made here, at the event boundary.
+   */
+  subscribeFor<TDetails = unknown>(eventName: string,
+               callback: (eventDetails?: CustomEventDetails<TDetails>) => void): Subscription {
     return this.broadcasterSubjectAsObservable
       .subscribe((customEvent: {broadcastEvent: string, eventDetails?: CustomEventDetails}) => {
         if (customEvent.broadcastEvent === eventName) {
-          callback(customEvent.eventDetails);
+          callback(customEvent.eventDetails as CustomEventDetails<TDetails> | undefined);
         }
       });
   }
 
-  broadcastEvent(eventName: string, eventDetails?: CustomEventDetails) {
-    this.broadcasterSubject.next({broadcastEvent: eventName, eventDetails: eventDetails});
+  broadcastEvent<TDetails = unknown>(eventName: string, eventDetails?: CustomEventDetails<TDetails>) {
+    this.broadcasterSubject.next({
+      broadcastEvent: eventName,
+      eventDetails: eventDetails as CustomEventDetails | undefined
+    });
   }
 }

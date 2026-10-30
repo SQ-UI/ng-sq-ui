@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimeUnit } from '../enums/time-unit.enum';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 import { TimePickerComponent } from './time-picker.component';
 
 describe('TimePickerComponent', () => {
@@ -139,8 +140,11 @@ describe('TimePickerComponent', () => {
     const val = component.value();
     // Check duck-type for Temporal.PlainTime properties
     expect(val).toBeTruthy();
-    expect(typeof val.hour).toBe('number');
-    expect(typeof val.minute).toBe('number');
+    expect(val instanceof Temporal.PlainTime).toBe(true);
+
+    const plainTime = val as Temporal.PlainTime;
+    expect(typeof plainTime.hour).toBe('number');
+    expect(typeof plainTime.minute).toBe('number');
   });
 
   it('should use meridiem format limits when isMeridiem is true', () => {

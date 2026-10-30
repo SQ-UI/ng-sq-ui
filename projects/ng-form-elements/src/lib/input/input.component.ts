@@ -3,7 +3,7 @@ import {
   input, model, output, computed,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { generateFormFieldId, toPatternAttribute, type SqFormValueControl } from '@sq-ui/ng-sq-common';
+import { FORM_FIELD_DEFAULTS, generateFormFieldId, toPatternAttribute, type SqFormFieldSignals, type SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-input',
@@ -14,15 +14,15 @@ import { generateFormFieldId, toPatternAttribute, type SqFormValueControl } from
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent implements SqFormValueControl<string> {
+export class InputComponent implements SqFormFieldSignals, SqFormValueControl<string> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
-  readonly controlLabel = input<string>('');
-  readonly controlPlaceholder = input<string>('');
-  readonly required = input<boolean>(false);
-  readonly pattern = input<readonly RegExp[]>([]);
-  readonly disabled = input<boolean>(false);
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
   // Component-specific inputs
   readonly type = input<string>('text');

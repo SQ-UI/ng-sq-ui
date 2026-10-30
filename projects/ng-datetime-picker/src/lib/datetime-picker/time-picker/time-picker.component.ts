@@ -3,11 +3,12 @@ import {
   input, model, signal, output, effect, untracked
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { generateFormFieldId } from '@sq-ui/ng-sq-common';
-import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
+import { FORM_FIELD_DEFAULTS, generateFormFieldId } from '@sq-ui/ng-sq-common';
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimeObject } from '../enums/time-object-type.enum';
 import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
+import type { TimePickerValue } from '../interfaces/datetime-picker-value';
 
 @Component({
   selector: 'sq-time-picker',
@@ -18,21 +19,21 @@ import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule],
 })
-export class TimePickerComponent implements SqFormValueControl<any> {
+export class TimePickerComponent implements SqFormFieldSignals, SqFormValueControl<TimePickerValue> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
-  readonly controlLabel = input<string>('');
-  readonly controlPlaceholder = input<string>('');
-  readonly required = input<boolean>(false);
-  readonly pattern = input<readonly RegExp[]>([]);
-  readonly disabled = input<boolean>(false);
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
   /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
   readonly touch = output<void>();
 
   // Two-way binding value
-  readonly value = model<any>(null);
+  readonly value = model<TimePickerValue>(null);
 
   // Component-specific signal inputs
   readonly hourStep = input<number>(1);
@@ -281,7 +282,7 @@ export class TimePickerComponent implements SqFormValueControl<any> {
     let timeString = `${hoursStr}:${minutesStr}`;
     timeString = this.isMeridiem() ? `${timeString} ${this.noonRelativity().toUpperCase()}` : timeString;
 
-    let nextValue: unknown = timeString;
+    let nextValue: TimePickerValue = timeString;
 
     if (this.timeObjectType() === TimeObject.PlainTime || this.timeObjectType() === TimeObject.Moment) {
       const time = this.currentTime();

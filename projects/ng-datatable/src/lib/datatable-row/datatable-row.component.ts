@@ -9,14 +9,28 @@ import { Component, computed, input, ChangeDetectionStrategy, ViewEncapsulation 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatatableRowComponent {
-  readonly rowItem = input<{[key: string]: any}>();
+  /** The row is rendered generically: any object works, the keys come from the object itself. */
+  readonly rowItem = input<unknown>();
   readonly width = input<string>();
 
   readonly columnKeys = computed(() => {
     const item = this.rowItem();
     if (!this.width() && item) {
-      return Object.keys(item);
+      return Object.keys(item as unknown as Record<string, unknown>);
     }
     return [];
+  });
+
+  /** Cell text per column; interpolating an object rendered `[object Object]`, so stringify once. */
+  readonly cells = computed<Record<string, string>>(() => {
+    const item = this.rowItem();
+    if (!item) {
+      return {};
+    }
+
+    return Object.fromEntries(
+      Object.entries(item as unknown as Record<string, unknown>)
+        .map(([key, value]) => [key, value === null || value === undefined ? '' : String(value)])
+    );
   });
 }

@@ -1,22 +1,18 @@
 # ModalModule
 
-> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
-> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
-> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+> Applies to **3.x** (Angular 22).
 
 ## sq-modal
 
 [sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-modal?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
-
-sq-modal is a generic modal window with content projection.
+`sq-modal` is a generic modal window driven by content projection: three slots (`sq-modal-title`,
+`sq-modal-body`, `sq-modal-footer`) and a two-way `show` model.
 
 !> Available also as stand alone package [`@sq-ui/ng-modal`](https://www.npmjs.com/package/@sq-ui/ng-modal)
 
-In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.html#L117)
-
 ```html
-<sq-button (click)="showModal=!showModal">Toggle modal</sq-button>
+<sq-button (click)="showModal.set(!showModal())">Toggle modal</sq-button>
 
 <sq-modal [(show)]="showModal">
   <div sq-modal-title>
@@ -24,68 +20,67 @@ In [app.component.html](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/ap
   </div>
 
   <div sq-modal-body>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi harum natus quidem recusandae voluptatibus. Animi architecto
-    dolor est et in laborum neque, nisi non nulla, sunt totam velit vero voluptatibus.
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   </div>
 
   <div sq-modal-footer>
-    <button type="button">
-      <span class="inner">Yes</span>
-    </button>
-
-    <button type="button">
-      <span class="inner">No</span>
-    </button>
+    <sq-button (click)="showModal.set(false)">Close</sq-button>
   </div>
 </sq-modal>
 ```
 
-In [app.component.ts](https://github.com/SQ-UI/ng-sq-ui/blob/master/src/app/app.component.ts#L12)
-
 ```typescript
-//...
-export class AppComponent {
-  //...
-  showModal = false;
-  //...
+import { signal } from '@angular/core';
+import { ModalComponent } from '@sq-ui/ng-modal';
+
+export class ExampleComponent {
+  readonly showModal = signal(false);
 }
 ```
 
-### Component properties:
+Clicking the overlay outside the window closes the modal (`onClickOutsideComponent()`), as does the
+`×` button in the header.
 
-- **`@Input()` customCssAnimation:** `{ duration: number, entranceAnimation: string, exitAnimation: string }` - A configurational object which determines the CSS animation the modal uses. The duration of the animation is in milliseconds. The default values for each property are:
-  `{ duration: 1000, entranceAnimation: 'flipInX', exitAnimation: flipOutX }`.
+### Component properties
 
-- **`@Input()` show:** `boolean` - Shows/hides the modal window. Defaults to `false`.
+- **`show`** (`model<boolean>`): shows/hides the window. Defaults to `false`. Bind it with `[(show)]`.
 
-- **`@Output()` showChange:** `EventEmitter<boolean>` - Callback invoked whenever the modal is shown/hidden.
+- **`customCssAnimation`** (`input<{ duration: number; entranceAnimation: string; exitAnimation: string }>`):
+  the CSS animation used to show and hide the window; `duration` is in milliseconds. Empty values fall
+  back to `500`, `fadeInDown` and `fadeOutUp`:
 
-!> If you don't want to use the `[(show)]` property binding, you can alternatively use the component methods `open` and `close`.
+  ```typescript
+  readonly modalAnimation = {
+    duration: 1000,
+    entranceAnimation: 'flipInX',
+    exitAnimation: 'flipOutX',
+  };
+  ```
 
-### Component methods:
+  ```html
+  <sq-modal [(show)]="showModal" [customCssAnimation]="modalAnimation">…</sq-modal>
+  ```
 
-- **close():** `void` - Closes the modal.
-- **open():** `void` - Opens the modal.
+### Component methods
 
-?> You can access component methods via template reference.
+- **`open()`**: `void` — shows the modal (same as `show.set(true)`).
+- **`close()`**: `void` — hides the modal (same as `show.set(false)`).
+- **`onClickOutsideComponent()`**: `void` — closes the modal when the overlay is clicked.
+
+If you prefer imperative control, grab the instance with a template reference or `viewChild`:
 
 ```typescript
-import { ModalComponent } from '@sq-ui/ng-sq-ui';
+readonly modal = viewChild.required<ModalComponent>('modal');
 
-@Component({
-  ...
-})
-export class AppComponent {
-  @ViewChild('modal')
-  modalInstance: ModalComponent;
-  
-  show(): void {
-    this.modalInstance.open();
-  }
-
-  hide(): void {
-    this.modalInstance.close();
-  }
+show(): void {
+  this.modal().open();
 }
 
+hide(): void {
+  this.modal().close();
+}
+```
+
+```html
+<sq-modal #modal [(show)]="showModal">…</sq-modal>
 ```

@@ -3,9 +3,9 @@ import {
   input, model, signal, contentChild, output
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
+import { FORM_FIELD_DEFAULTS, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 import {
   SqDropdownChevronTemplateDirective,
   SqDropdownOptionTemplateDirective,
@@ -24,15 +24,15 @@ import {
     OutsideClickListenerDirective,
   ],
 })
-export class DropdownComponent implements SqFormValueControl<LabelValuePair | null> {
+export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl<LabelValuePair | null> {
   // FormFieldConfig signal inputs
   readonly name = input<string>(generateFormFieldId());
   readonly controlId = input<string>(generateFormFieldId());
-  readonly controlLabel = input<string>('');
-  readonly controlPlaceholder = input<string>('');
-  readonly required = input<boolean>(false);
-  readonly pattern = input<readonly RegExp[]>([]);
-  readonly disabled = input<boolean>(false);
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
   /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
   readonly touch = output<void>();

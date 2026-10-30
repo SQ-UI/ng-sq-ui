@@ -183,16 +183,20 @@ export class CalendarManagerService {
     return CalendarPeriodRelativityEnum.Current;
   }
 
-  sortDatesAsc(dates: Temporal.PlainDate[]) {
+  /**
+   * Sorts dates ascending. `Temporal.PlainDateTime` values are compared by their date part, which is
+   * what the picker's `[isMultipleSelect]` output has always been ordered by.
+   */
+  sortDatesAsc<TDate extends Temporal.PlainDate | Temporal.PlainDateTime>(dates: TDate[]): TDate[] {
     return dates.sort((date1, date2) => {
-      return Temporal.PlainDate.compare(date1, date2);
+      return Temporal.PlainDate.compare(this.toPlainDate(date1), this.toPlainDate(date2));
     });
   }
 
   /**
-   * Converts a Date or Temporal.PlainDate to Temporal.PlainDate.
+   * Converts a Date, Temporal.PlainDate or Temporal.PlainDateTime to Temporal.PlainDate.
    */
-  private toPlainDate(date: Temporal.PlainDate | Date): Temporal.PlainDate {
+  private toPlainDate(date: Temporal.PlainDate | Temporal.PlainDateTime | Date): Temporal.PlainDate {
     if (date instanceof Date) {
       return Temporal.PlainDate.from({
         year: date.getFullYear(),
@@ -200,6 +204,11 @@ export class CalendarManagerService {
         day: date.getDate()
       });
     }
+
+    if (date instanceof Temporal.PlainDateTime) {
+      return date.toPlainDate();
+    }
+
     return date;
   }
 }

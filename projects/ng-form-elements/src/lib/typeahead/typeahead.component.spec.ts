@@ -1,12 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import type { LabelValuePair } from '@sq-ui/ng-sq-common';
+
 import { TypeaheadComponent } from './typeahead.component';
 
 describe('TypeaheadComponent', () => {
   let component: TypeaheadComponent;
   let fixture: ComponentFixture<TypeaheadComponent>;
 
-  const testSearchResults = [
+  /**
+   * `[searchResults]` is `readonly unknown[]` by design; the fixture knows what it supplied, so the
+   * tests read the raw results back with the pair type they provided.
+   */
+  const resultAt = (index: number): LabelValuePair => component.searchResults()[index] as LabelValuePair;
+
+  const testSearchResults: LabelValuePair[] = [
     {
       label: 'option1',
       value: { key: 1 },
@@ -49,11 +57,11 @@ describe('TypeaheadComponent', () => {
     fixture.componentRef.setInput('multiple', false);
     fixture.detectChanges();
 
-    const firstChosenItem = component.searchResults()[2];
+    const firstChosenItem = resultAt(2);
 
     component.selectSearchResult(firstChosenItem);
-    component.selectSearchResult(component.searchResults()[0]);
-    component.selectSearchResult(component.searchResults()[1]);
+    component.selectSearchResult(resultAt(0));
+    component.selectSearchResult(resultAt(1));
 
     // the typeahead should return a new array with the copied search items
     expect(
@@ -69,7 +77,7 @@ describe('TypeaheadComponent', () => {
 
     const results = component.searchResults();
     for (let i = 0; i < results.length; i++) {
-      component.selectSearchResult(results[i]);
+      component.selectSearchResult(resultAt(i));
     }
 
     expect(
@@ -94,8 +102,8 @@ describe('TypeaheadComponent', () => {
     fixture.componentRef.setInput('searchResults', testSearchResults);
     fixture.detectChanges();
 
-    component.selectSearchResult(component.searchResults()[0]);
-    component.selectSearchResult(component.searchResults()[component.searchResults().length - 1]);
+    component.selectSearchResult(resultAt(0));
+    component.selectSearchResult(resultAt(component.searchResults().length - 1));
 
     expect(component.selectedItems()).toEqual(
       component.value(),
@@ -107,8 +115,8 @@ describe('TypeaheadComponent', () => {
     fixture.componentRef.setInput('searchResults', testSearchResults);
     fixture.detectChanges();
 
-    component.selectSearchResult(component.searchResults()[0]);
-    component.selectSearchResult(component.searchResults()[component.searchResults().length - 1]);
+    component.selectSearchResult(resultAt(0));
+    component.selectSearchResult(resultAt(component.searchResults().length - 1));
 
     const items = component.selectedItems();
     expect(items.length === 1).toBe(true);

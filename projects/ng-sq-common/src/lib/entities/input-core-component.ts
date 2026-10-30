@@ -22,7 +22,7 @@ export class InputCoreComponent extends ControlValueAccessorEnabler {
   @Input() controlLabel: string = '';
   @Input() controlPlaceholder: string = '';
   @Input() required: boolean = false;
-  @Input() pattern: any = '';
+  @Input() pattern: string | RegExp | readonly RegExp[] = '';
   @Input() disabled: boolean = false;
 
   constructor() {

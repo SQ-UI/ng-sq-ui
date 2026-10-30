@@ -1,10 +1,15 @@
 # DatetimePickerModule
 
-> **Note (3.x)** - this page documents the NgModule-based 2.x API. In 3.x every component is
-> standalone and is bound with `[(value)]` or with Signal Forms (`[formField]`). See the
-> *Compatibility matrix* and *Migrating 2.x -> 3.x* sections of the repository README.
+> Applies to **3.x** (Angular 22).
 
-This module consists of two standalone components: **sq-datetime-picker** and **sq-time-picker**. Sq-datetime-picker is a regular datepicker component which also has a built-in sq-time-picker. Both components rely on **moment.js** to work, although input/output values for the datepicker can be configured to work with the JavaScript Date object.
+This package contains two standalone components: **sq-datetime-picker** and **sq-time-picker**. The
+datetime picker can embed the time picker (`[isTimepickerEnabled]="true"`), which promotes the emitted
+value from `Temporal.PlainDate` to `Temporal.PlainDateTime`.
+
+Both components use [`Temporal`](https://tc39.es/proposal-temporal/) instead of moment.js. The polyfill
+ships as a dependency, and everything goes through the secondary entry point
+`@sq-ui/ng-datetime-picker/temporal` — see *Temporal & the polyfill* in the README for removing it from
+your bundle when the platform provides `Temporal` natively.
 
 [sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-datetime-picker?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
 
@@ -14,61 +19,110 @@ This module consists of two standalone components: **sq-datetime-picker** and **
 
 ```html
 <sq-datetime-picker
-    [maxDate]="maxDate"
-    [minDate]="minDate"
-    format="MM/DD/YYYY"
-    formControlName="standAloneDatepicker"
-    [isMultipleSelect]="isDatepickerMultipleSelect">
+  controlLabel="Pick a date"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  [isMultipleSelect]="true"
+  [(value)]="dates">
 </sq-datetime-picker>
 ```
 
-- **`@Input()` name**: `string` - Name of the `'datetime-picker'`. If not provided, a generic name is generated, using the following pattern: `'sq-form-control'` + `new Date().getTime().toString()`.
-- **`@Input()` controlId**: string - Id of the datetime-picker. If not provided, a generic name is generated, using the following pattern: `'sq-form-control'` + `new Date().getTime().toString()`.
-- **`@Input()` locale**: `string` - Accepts any type of valid locale string, as documented in [moment.js](http://momentjs.com/docs/#/i18n/getting-locale/). Defaults to **'en'** locale.
-- **`@Input()` maxDate**: `momentNs.Moment` | `Date` - The maximum date which can be selected. All dates beyond this date are disabled (this also includes months and years). **Defaults to `null`**.
-- **`@Input()` minDate**: `momentNs.Moment` | `Date` - The minimum date which can be selected. All dates before this date are disabled (this also includes months and years). **Defaults to `null`**.
-- **`@Input()` isMultipleSelect**: `boolean` - Determines if multiple dates to be chosen. In this mode, the **datetime-picker returns an `array`** of selected dates. **Defaults to `false`**.
-  - When set to true, the datetime-picker returns an array of the selected dates in the format, specified by the dateObjectType prop or the format prop.
-  - When set to false, the datetime-picker returns the selected date parsed in the format, specified by the dateObjectType prop or the format prop.
-- **`@Input()` dateObjectType**: `string` - Can have one of the following values: `moment` | `date` | `unix`. This property determines the type of the selected dates. **Defaults to `moment`**.
-  - When set to `moment`, the selected values are **returned as moment.js objects**;
-  - When set to `date`, the selected values are **returned as regular JavaScript Date objects**;
-  - When set to `unix`, the selected values are **returned as unix timestamps in milliseconds**.
-- **`@Input()` format**: `string` - Any valid format string supported by [moment.js](http://momentjs.com/docs/#/displaying/format/). When a format string is set, the return type for dateObjectType is ignored and the datetime-picker will return the selected dates as strings. **Defaults to `null`**.
-- **`@Input()` isTimepickerEnabled**: `boolean` - A flag which shows/hides the timepicker. **Defaults to false;**.
-- **`@Input()` timepickerConfig**: `TimepickerConfig` - A configurational object for the built-in timepicker. See [TimepickerConfig interface](datetime-picker-module.md?id=timepickerconfig).
-- **`@Output()` dateSelectionChange**: `EventEmitter<momentNs.Moment | Date>` - Event emitter triggered every time the user selects a date from the calendar.
+```typescript
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
+import type { DatetimePickerValue } from '@sq-ui/ng-datetime-picker';
+
+readonly minDate = Temporal.Now.plainDateISO();
+readonly maxDate = Temporal.Now.plainDateISO().add({ years: 5 });
+readonly dates = signal<DatetimePickerValue>([]);
+```
+
+### Component properties
+
+- **`name`** (`input<string>`): name of the control. Generated (`sq-form-control-<n>`) when omitted.
+- **`controlId`** (`input<string>`): id of the control. Generated when omitted.
+- **`controlLabel`** (`input<string>`): label. Defaults to `''`.
+- **`controlPlaceholder`** (`input<string>`): placeholder. Defaults to `''`.
+- **`required`** (`input<boolean>`): marks the control as required. Defaults to `false`.
+- **`pattern`** (`input<readonly RegExp[]>`): validation patterns. Defaults to `[]`.
+- **`disabled`** (`input<boolean>`): enables/disables the control. Defaults to `false`.
+- **`locale`** (`input<string>`): any BCP-47 locale understood by `Intl`. Defaults to `'en'`.
+- **`minDate`** / **`maxDate`** (`input<Temporal.PlainDate | Date | undefined>`): the selectable range.
+  Dates (and months/years) outside it are disabled.
+- **`isMultipleSelect`** (`input<boolean>`): when `true` the model holds an **array** of dates instead
+  of a single value. Defaults to `false`.
+- **`dateObjectType`** (`input<string>`): one of `DateObjectType.PlainDate` (`'plaindate'`, default),
+  `DateObjectType.Date` (`'date'`) or `DateObjectType.Unix` (`'unix'`, epoch milliseconds).
+- **`format`** (`input<string | undefined>`): output format built from `YYYY`, `MM`, `DD` and, when a
+  time is selected, `hh`, `mm`, `ss`. When set, `dateObjectType` is ignored and the model holds strings.
+- **`isTimepickerEnabled`** (`input<boolean>`): shows the embedded time picker and emits
+  `Temporal.PlainDateTime` values. Defaults to `false`.
+- **`timepickerConfig`** (`input<TimepickerConfig | undefined>`): configuration forwarded to the
+  embedded time picker.
+- **`value`** (`model<DatetimePickerValue>`): two-way binding for the selection.
+- **`touch`** (`output<void>`): fires when the user leaves the control, so `[formField]` can mark the
+  field as touched.
+- **`dateSelectionChange`** (`output<DatetimePickerValue>`): fires on every selection change.
+
+### Model type
+
+```typescript
+type DatetimePickerDate = Temporal.PlainDate | Temporal.PlainDateTime | Date | number | string;
+
+/** An array when `[isMultipleSelect]="true"`, otherwise a single date. */
+type DatetimePickerValue = DatetimePickerDate | DatetimePickerDate[] | null;
+```
 
 ## sq-time-picker
 
 ```html
-<sq-time-picker formControlName="standAloneTimepicker"
-    (hoursChange)="hoursChange($event)"
-    (minutesChange)="minutesChange($event)"
-    timeObjectType="string"
-    [hours]="standAloneTimepicker.hours"
-    [minutes]="standAloneTimepicker.minutes"
-    [hourStep]="standAloneTimepicker.hourStep"
-    [minuteStep]="standAloneTimepicker.minuteStep"
-    [isEditable]="standAloneTimepicker.isEditable"
-    [isMeridiem]="standAloneTimepicker.isMeridiem">
+<sq-time-picker
+  controlLabel="Pick a time"
+  [(value)]="time"
+  (hoursChange)="hoursChange($event)"
+  (minutesChange)="minutesChange($event)"
+  timeObjectType="string"
+  [hours]="13"
+  [minutes]="20"
+  [hourStep]="1"
+  [minuteStep]="5"
+  [isEditable]="true"
+  [isMeridiem]="false">
 </sq-time-picker>
 ```
 
-- **`@Input()` hourStep**: `number` - Determines the number with which the user can increment/decrement the hours using the spinners. **Defaults to 1**.
-- **`@Input()` minuteStep**: `number` - Determines the number with which the user can increment/decrement the minutes using the spinners. **Defaults to 1**.
-- **`@Input()` isMeridiem**: `boolean` - Determines whether to use the 12-hour or the 24-hour format to display the time. **Defaults to `false`**. - When set to `true`, the time is displayed in **12-hour format**. - When set to `false`, the time is displayed in **24-hour format**.
-- **`@Input()` isEditable**: `boolean` - Determines whether the user can manually type in numbers for hours and minutes. **Defaults to `true`**. - When set to `true`, the user can manually input numbers for hours and minutes. - When set to `false`, the hours and minutes inputs are disabled.
-- **`@Input()` hours**: `number` - Specific hours which the timepicker should display once initialized. **Defaults to `null`**.
-- **`@Input()` minutes**: `number` - Specific minutes which the timepicker should display once initialized. **Defaults to `null`**.
-- **`@Output()` hoursChange**: `EventEmitter<number>` - Event emitter, triggered on every change to the hours property.
-- **`@Output()` minutesChange**: `new EventEmitter<number>()` - Event emitter, triggered on every change to the minutes property.
-- **`@Input()` timeObjectType**: `string` - Can have one of the following values: `string` | `moment`. Determines how the time-picker should return the selected time. - When set to `string`, it converts the time into a `string`, respecting the isMeridiem property. - When set to `moment`, it converts the time into a `moment.js object`.
+```typescript
+import type { TimePickerValue } from '@sq-ui/ng-datetime-picker';
+
+readonly time = signal<TimePickerValue>(null);
+```
+
+### Component properties
+
+- **`name`**, **`controlId`**, **`controlLabel`**, **`controlPlaceholder`**, **`required`**,
+  **`pattern`**, **`disabled`**: the shared form field contract (see CommonModule).
+- **`hourStep`** (`input<number>`): increment/decrement step for the hours spinner. Defaults to `1`.
+- **`minuteStep`** (`input<number>`): increment/decrement step for the minutes spinner. Defaults to `1`.
+- **`isMeridiem`** (`input<boolean>`): displays 12-hour time with an AM/PM toggle. Defaults to `false`
+  (24-hour).
+- **`isEditable`** (`input<boolean>`): allows typing the hours/minutes. Defaults to `true`.
+- **`hours`** / **`minutes`** (`input<number | undefined>`, aliases of `inputHours`/`inputMinutes`):
+  initial values. Default to `undefined`, which starts from the current time.
+- **`timeObjectType`** (`input<string>`): `TimeObject.String` (`'string'`, default),
+  `TimeObject.PlainTime` (`'plaintime'`), or the deprecated `TimeObject.Moment`.
+- **`value`** (`model<TimePickerValue>`): two-way binding; a formatted string or a
+  `Temporal.PlainTime`, depending on `timeObjectType`.
+- **`hoursChange`** / **`minutesChange`** (`output<number>`, aliases of `inputHoursChange` /
+  `inputMinutesChange`): fire when the spinners change the hours/minutes.
+- **`touch`** (`output<void>`): fires when the user leaves the control.
+
+```typescript
+/** A formatted string, a `Temporal.PlainTime`, or nothing. */
+type TimePickerValue = string | Temporal.PlainTime | null;
+```
 
 ## Interfaces
-### TimepickerConfig
 
-?> Used for configuring the datetime component.
+### TimepickerConfig
 
 ```typescript
 interface TimepickerConfig {
@@ -80,3 +134,13 @@ interface TimepickerConfig {
   isEditable?: boolean;
 }
 ```
+
+## Enums
+
+| Enum | Members |
+|---|---|
+| `DateObjectType` | `PlainDate = 'plaindate'`, `Date = 'date'`, `Unix = 'unix'` |
+| `TimeObject` | `String = 'string'`, `PlainTime = 'plaintime'`, `Moment = 'moment'` (deprecated) |
+| `TimeUnit` | `Hours`, `Minutes` |
+| `CalendarPeriodTypeEnum` | `Month`, `Year` |
+| `CalendarPeriodRelativityEnum` | `Before`, `Current`, `After` |

@@ -6,6 +6,11 @@ export { DatetimePickerComponent } from './lib/datetime-picker/datetime-picker/d
 export { TimePickerComponent } from './lib/datetime-picker/time-picker/time-picker.component';
 export { CalendarManagerService } from './lib/datetime-picker/calendar-manager.service';
 export { TimepickerConfig } from './lib/datetime-picker/interfaces/timepicker-config';
+export {
+  DatetimePickerDate,
+  DatetimePickerValue,
+  TimePickerValue,
+} from './lib/datetime-picker/interfaces/datetime-picker-value';
 export { CalendarDay, InCalendarPicker } from './lib/datetime-picker/interfaces/calendar-entities';
 export { DateRange } from './lib/datetime-picker/interfaces/date-range';
 export { DateObjectType } from './lib/datetime-picker/enums/date-object-type.enum';

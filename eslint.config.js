@@ -18,8 +18,9 @@ module.exports = tseslint.config(
       // TODO(3.0.0): `onSortClicked`, `onSelectItem` and `onUserInputEnd` are part of the
       // published API; rename them to drop the `on` prefix and switch this rule back on.
       "@angular-eslint/no-output-on-prefix": "off",
-      // TODO: replace the remaining `any` usages with precise types, then raise to "error".
-      "@typescript-eslint/no-explicit-any": "warn",
+      // 3.0.0 typed every `any`: the pair/payload interfaces are generic, `sq-datatable`,
+      // `sq-paginator` and `sq-radiobutton` are generic over their item/value type.
+      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },

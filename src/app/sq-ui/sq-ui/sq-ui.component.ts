@@ -29,6 +29,19 @@ import { interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../../environments/environment';
 
+/** Shape of the sample result objects `sq-typeahead` receives in the `displayProp` example. */
+interface TypeaheadDemoResult {
+  myCustomProp: string;
+  value: string;
+  prop: number;
+  uid: number;
+  nested: {
+    level2: {
+      prop: string;
+    };
+  };
+}
+
 @Component({
   selector: 'sq-ui',
   standalone: true,
@@ -139,7 +152,7 @@ export class SqUiComponent {
   });
   testForm = compatForm(this.formModel);
 
-  searchResults: any[] = [
+  searchResults: TypeaheadDemoResult[] = [
     {
       myCustomProp: 'option1',
       value: 'someVal1',
