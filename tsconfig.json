@@ -31,6 +31,10 @@
         "./projects/ng-datetime-picker/src",
         "./node_modules/@sq-ui/ng-datetime-picker"
       ],
+      "@sq-ui/ng-datetime-picker/temporal": [
+        "./dist/ng-datetime-picker/temporal",
+        "./projects/ng-datetime-picker/temporal/src"
+      ],
       "@sq-ui/ng-datetime-picker/*": [
         "./dist/ng-datetime-picker/*",
         "./projects/ng-datetime-picker/src/*",

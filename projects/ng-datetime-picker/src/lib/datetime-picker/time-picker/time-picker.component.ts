@@ -7,7 +7,7 @@ import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
 import { TimeUnit } from '../enums/time-unit.enum';
 import { TimeObject } from '../enums/time-object-type.enum';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 @Component({
   selector: 'sq-time-picker',

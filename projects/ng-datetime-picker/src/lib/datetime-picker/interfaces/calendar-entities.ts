@@ -1,5 +1,5 @@
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 export interface CalendarDay {
   displayDate: string;

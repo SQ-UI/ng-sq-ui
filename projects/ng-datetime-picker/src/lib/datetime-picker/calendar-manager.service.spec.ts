@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 import { CalendarManagerService } from './calendar-manager.service';
 

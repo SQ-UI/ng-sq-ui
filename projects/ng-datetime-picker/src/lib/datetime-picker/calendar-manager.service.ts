@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CalendarDay, InCalendarPicker } from './interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from './enums/calendar-period-relativity.enum';
 import { DateRange } from './interfaces/date-range';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 @Injectable()
 export class CalendarManagerService {

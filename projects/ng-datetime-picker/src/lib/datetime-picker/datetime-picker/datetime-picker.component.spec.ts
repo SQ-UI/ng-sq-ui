@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DatetimePickerComponent } from './datetime-picker.component';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { CalendarManagerService } from '../calendar-manager.service';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 describe('DatetimePickerComponent', () => {
   let component: DatetimePickerComponent;

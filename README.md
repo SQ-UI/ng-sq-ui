@@ -152,11 +152,60 @@ To use our styling just add the `class="sq"` on a parent element.
 </body>
 ```
 
+## Temporal & the polyfill
+
+`@sq-ui/ng-datetime-picker` needs [`Temporal`](https://tc39.es/proposal-temporal/). It depends on
+`@js-temporal/polyfill` so it works out of the box, and every internal usage goes through the
+secondary entry point `@sq-ui/ng-datetime-picker/temporal`:
+
+```ts
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
+```
+
+If your target browsers already provide `Temporal` (or you prefer a lighter implementation), alias that
+specifier to a one-line shim and drop ~100 kB from your bundle:
+
+```ts
+// src/temporal-native.ts
+export const Temporal = (globalThis as { Temporal?: unknown }).Temporal;
+```
+
+```jsonc
+// vite / esbuild configuration of your application
+"resolve": { "alias": { "@sq-ui/ng-datetime-picker/temporal": "src/temporal-native.ts" } }
+```
+
+Because the datetime-picker package imports its own `Temporal` through that specifier, one alias
+removes the polyfill from both bundles. The shim must be an ES module and the platform must really
+expose `Temporal`, otherwise the picker throws when it is instantiated.
+
+> Aliasing `@js-temporal/polyfill` directly works too — that is what the entry point re-exports.
+
+## Running the checks
+
+`npm test` is the canonical entry point (Vitest + jsdom + zoneless Angular testing):
+
+| Command | Purpose |
+|---|---|
+| `npm test` | run every spec once — must terminate in well under a minute |
+| `npm run test:watch` | watch mode |
+| `npm run coverage` | writes `coverage/lcov.info` (uploaded by CI to CodeClimate) |
+| `npm run typecheck` | `tsc -p tsconfig.spec.json --noEmit` — run **after** `npm run build:libs` (`@sq-ui/*` resolves from `dist/`) |
+| `npm run lint` | ESLint for the demo app and all seven libraries |
+| `npm run build:libs` / `npm run build` | build the packages / build the demo app |
+
+There is deliberately no `ng test` target: the suite runs through Vitest directly, so the same setup
+covers the libraries and the demo application.
+
 ## Dependencies
 
-ng-sq-ui depends on:
-
-font-awesome and immutable.js (both will be installed with ng-sq-ui)
+| Package | Kind | Notes |
+|---|---|---|
+| `@angular/core`, `@angular/common`, `@angular/forms` | peer (`^22.0.0`) | every package |
+| `@sq-ui/ng-sq-common` | dependency | pulled in by all the other packages |
+| `@fortawesome/fontawesome-free` | **optional** peer | only the icons; add the CSS to `angular.json` if you want them |
+| `@js-temporal/polyfill` | dependency of `@sq-ui/ng-datetime-picker` | can be aliased away when the platform provides `Temporal` — see above |
+| `tslib` | dependency | TypeScript helpers |
 
 ## Try it out locally
 

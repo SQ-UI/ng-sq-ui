@@ -27,6 +27,10 @@
         "../../dist/ng-sq-common/*",
         "../../projects/ng-sq-common/src/*",
         "../../node_modules/@sq-ui/ng-sq-common/*"
+      ],
+      "@sq-ui/ng-datetime-picker/temporal": [
+        "../../dist/ng-datetime-picker/temporal",
+        "./temporal/src"
       ]
     }
   },

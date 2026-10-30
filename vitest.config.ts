@@ -11,6 +11,7 @@ const aliases = [
   { find: /^@sq-ui\/ng-sq-common\/(.*)/, replacement: path.resolve(projectRoot, 'projects/ng-sq-common/src/$1') },
   { find: /^@sq-ui\/ng-form-elements$/, replacement: path.resolve(projectRoot, 'projects/ng-form-elements/src/index.ts') },
   { find: /^@sq-ui\/ng-form-elements\/(.*)/, replacement: path.resolve(projectRoot, 'projects/ng-form-elements/src/$1') },
+  { find: /^@sq-ui\/ng-datetime-picker\/temporal$/, replacement: path.resolve(projectRoot, 'projects/ng-datetime-picker/temporal/src/index.ts') },
   { find: /^@sq-ui\/ng-datetime-picker$/, replacement: path.resolve(projectRoot, 'projects/ng-datetime-picker/src/index.ts') },
   { find: /^@sq-ui\/ng-datetime-picker\/(.*)/, replacement: path.resolve(projectRoot, 'projects/ng-datetime-picker/src/$1') },
   { find: /^@sq-ui\/ng-datatable$/, replacement: path.resolve(projectRoot, 'projects/ng-datatable/src/index.ts') },

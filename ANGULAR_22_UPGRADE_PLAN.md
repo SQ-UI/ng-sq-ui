@@ -708,11 +708,33 @@ Test suite grew **108 → 118 tests**; `typecheck`, `lint`, `build:libs` and `bu
 | Proof | New `projects/ng-form-elements/src/lib/signal-forms.integration.spec.ts` — **5 tests**: model→view, view→model (`input` event), checkbox state, `touch` → `field.touched()`, schema `required()` → native `required` |
 | Docs | README gained an *Angular Signal Forms* section + the `pattern` migration row; the docsify module pages got a "documents the 2.x API" banner |
 
-### 13.9 Remaining backlog (next PRs)
+### 13.9 Temporal indirection & test entry point — C6/T2 (done)
 
-1. **C6** optional `@js-temporal/polyfill` (injection token or lazy import) — bundle-size only; the test runner no longer cares.
-2. **T2** a real `test` architect target (or formally document `npm test` as the entry point), plus **D15** (radiobutton broadcast) if native radio grouping proves insufficient.
-3. Full regeneration of `docs/*.md` (the banner only marks them as 2.x material).
+| Item | Change |
+|---|---|
+| **C6** | Every `Temporal` usage in the datetime picker now goes through the secondary entry point `@sq-ui/ng-datetime-picker/temporal` (see §13.10), which re-exports `@js-temporal/polyfill`. Applications on a platform with native `Temporal` can alias that specifier to a one-line shim and drop ~100 kB — documented in the README (*Temporal & the polyfill*). The dependency stays a real `dependency` because the import is static. |
+| **T2** | `npm test` is documented as the canonical test entry point, together with `test:watch`, `coverage`, `typecheck` (after `build:libs`), `lint`, `build:libs`/`build` — README table + CONTRIBUTING. A second runner (`@angular/build:unit-test`) was deliberately **not** added: it would duplicate the aliases/setup and diverge from the library specs. |
+| **D15** | Left as-is on purpose: the `CustomEventBroadcasterService` grouping is covered by the radiobutton specs and native radio grouping would not sync the `value` models of the sibling controls. |
+
+### 13.10 Secondary entry point `@sq-ui/ng-datetime-picker/temporal` (done)
+
+| Item | Change |
+|---|---|
+| Entry point | New APF secondary entry point under `projects/ng-datetime-picker/temporal/` (`ng-package.json` + `src/index.ts` re-exporting `Temporal` from the polyfill). ng-packagr builds it **before** the primary entry point and adds `"./temporal"` to the package `exports` map |
+| Primary | `calendar-manager.service.ts`, `datetime-picker.component.ts` and `time-picker.component.ts` now import `@sq-ui/ng-datetime-picker/temporal`, so the primary FESM references the specifier instead of inlining the polyfill |
+| Resolution | `tsconfig.json` + `projects/ng-datetime-picker/tsconfig.lib.json` gained an explicit `@sq-ui/ng-datetime-picker/temporal` path (dist first, source second); `vitest.config.ts` got a matching alias ahead of the wildcard |
+| Verified | `dist/ng-datetime-picker/package.json` → `exports["./temporal"]`; `dist/…/temporal/package.json` → `module`/`typings`; temporal FESM is exactly `export { Temporal } from '@js-temporal/polyfill';`; the primary FESM imports `@sq-ui/ng-datetime-picker/temporal` |
+| Docs | README's *Temporal & the polyfill* now recommends alias-ing `@sq-ui/ng-datetime-picker/temporal` (one alias removes the polyfill from both bundles) |
+| Tests | `projects/ng-datetime-picker/temporal/src/index.spec.ts` guards the contract (entry point === polyfill implementation, `PlainDate`/`PlainTime`/`Now` present). Whole suite: **35 files / 126 tests green**; `build:libs`, `typecheck`, `lint` (0 errors), `build` all pass |
+
+### 13.11 Remaining backlog (next PRs)
+
+1. Full regeneration of `docs/*.md` (they only carry a “this documents 2.x” banner today).
+2. Raise `@typescript-eslint/no-explicit-any` from `warn` → `error` once the remaining `any`s in
+   `datetime-picker` / `paginator` / `datatable` are typed.
+3. Concentrate the duplicated "form field contract" inputs (`name`/`controlId`/`controlLabel`/
+   `controlPlaceholder`/`required`/`pattern`/`disabled` + `touch`) behind a single shared type so a new
+   control cannot drift from the contract.
 
 ---
 

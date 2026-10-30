@@ -5,7 +5,7 @@ import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime
 import { ButtonComponent } from '@sq-ui/ng-form-elements';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 import { environment } from '../../../environments/environment';
 
 @Component({

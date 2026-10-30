@@ -14,7 +14,7 @@ import { CalendarManagerService } from '../calendar-manager.service';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
 import { generateFormFieldId } from '@sq-ui/ng-sq-common';
 import type { SqFormValueControl } from '@sq-ui/ng-sq-common';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 @Component({
   selector: 'sq-datetime-picker',
