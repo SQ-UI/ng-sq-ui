@@ -1,36 +1,32 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagsInputComponent } from './tags-input.component';
-import { FormsModule } from '@angular/forms';
 
 describe('TagsInputComponent', () => {
   let component: TagsInputComponent;
   let fixture: ComponentFixture<TagsInputComponent>;
 
-  function addNewTag(tagName) {
-    const mockEventObject = {
-      keyCode: 32 // space keycode
-    };
-
-    component.newTagName = tagName;
-    component.onUserInput(mockEventObject);
+  function keyEvent(key: string) {
+    return { key, preventDefault: () => { /* noop */ } } as unknown as KeyboardEvent;
   }
 
-  function addTags(count) {
+  function addNewTag(tagName: string) {
+    component.newTagName = tagName;
+    component.onUserInput(keyEvent(' '));
+  }
+
+  function addTags(count: number) {
     for (let i = 0; i < count; i++) {
       addNewTag('randomTag ' + new Date().getTime());
     }
   }
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [TagsInputComponent],
-      imports: [
-        FormsModule
-      ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TagsInputComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TagsInputComponent);
@@ -46,9 +42,7 @@ describe('TagsInputComponent', () => {
     const testTag = 'randomTag';
     addNewTag(testTag);
 
-    expect(component.enteredItems.indexOf(testTag) > -1 &&
-      !Object.is(component.enteredItems, component.value))
-      .toBe(true);
+    expect(component.value().indexOf(testTag) > -1).toBe(true);
   });
 
   it('should remove tags correctly when pressing Backspace', () => {
@@ -56,32 +50,41 @@ describe('TagsInputComponent', () => {
     addTags(3);
     addNewTag(testTag);
 
-    const mockEventObject = {
-      keyCode: 8 // backspace keycode
-    };
+    const backspaceEvent = keyEvent('Backspace');
 
     component.newTagName = 'asdf';
-    component.onUserInput(mockEventObject);
+    component.onUserInput(backspaceEvent);
 
-    expect(component.enteredItems.indexOf(testTag) > - 1)
+    expect(component.value().indexOf(testTag) > -1)
       .toBe(true);
 
     // below 2 lines emulate an already empty field
     component.newTagName = '';
-    component.onUserInput(mockEventObject);
+    component.onUserInput(backspaceEvent);
 
     // trigger a backspace on an empty field
-    component.onUserInput(mockEventObject);
+    component.onUserInput(backspaceEvent);
 
-    expect(component.enteredItems.indexOf(testTag) === -1)
+    expect(component.value().indexOf(testTag) === -1)
       .toBe(true);
 
-    for (let i = 0; i < component.enteredItems.size + 2; i++) {
-      component.onUserInput(mockEventObject);
+    for (let i = 0; i < component.value().length + 2; i++) {
+      component.onUserInput(backspaceEvent);
     }
 
-    expect(component.enteredItems.size === 0)
+    expect(component.value().length === 0)
       .toBe(true);
+  });
+
+  it('should commit a tag on Enter and on comma as well as on Space', () => {
+    component.newTagName = 'enterTag';
+    component.onUserInput(keyEvent('Enter'));
+
+    component.newTagName = 'commaTag';
+    component.onUserInput(keyEvent(','));
+
+    expect(component.value()).toEqual(['enterTag', 'commaTag']);
+    expect(component.newTagName).toBe('');
   });
 
   it('should remove tags when using the remove button', () => {
@@ -89,7 +92,7 @@ describe('TagsInputComponent', () => {
     addNewTag(testTag);
 
     component.removeTag(testTag);
-    expect(component.enteredItems.indexOf(testTag) === -1).toBe(true);
+    expect(component.value().indexOf(testTag) === -1).toBe(true);
   });
 
 });

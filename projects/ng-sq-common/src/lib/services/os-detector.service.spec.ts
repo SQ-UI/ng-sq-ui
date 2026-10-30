@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { OSDetectorService } from './os-detector.service';
 
@@ -9,7 +9,8 @@ describe('OsDetectorService', () => {
     });
   });
 
-  it('should be created', inject([OSDetectorService], (service: OSDetectorService) => {
+  it('should be created', () => {
+    const service = TestBed.inject(OSDetectorService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

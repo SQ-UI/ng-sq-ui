@@ -1,8 +1,9 @@
-import { Directive, TemplateRef } from '@angular/core';
+import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-  selector: '[sq-tag]'
+  selector: '[sq-tag]',
+  standalone: true,
 })
 export class SqTagTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }

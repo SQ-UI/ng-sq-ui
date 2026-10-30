@@ -1,45 +1,62 @@
-# This is a basic workflow to help you get started with Actions
-
+# Continuous integration: lint, build the libraries, build the demo app, run the unit tests.
 name: CI
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master, develop ]
+    branches: [ master, main, morph-main ]
   pull_request:
-    branches: [ master, develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Install node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          check-latest: true
-          
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
       - name: Install dependencies
         run: npm ci
-      
+
+      # The libraries must be built first: `tsconfig.json` resolves `@sq-ui/*` from `dist/` when it
+      # exists, so type-checking and the app build need a fresh `dist/`.
+      - name: Build the libraries
+        run: npm run build:libs
+
+      # Guards the `exports` map / entry points that ng-packagr generates for `dist/**`.
+      - name: Verify the published package layout
+        run: npm run check:exports
+
+      - name: Type-check the workspace
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build the demo application
+        run: npm run build
+
       - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@v6.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-         coverageCommand: npm run coverage
-         coverageLocations: |
+          coverageCommand: npm run coverage
+          coverageLocations: |
             ${{github.workspace}}/coverage/lcov.info:lcov

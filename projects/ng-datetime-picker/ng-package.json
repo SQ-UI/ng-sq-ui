@@ -4,7 +4,16 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
+  "assets": [
+    {
+      "glob": "*.scss",
+      "input": "src/lib/styles",
+      "output": "styles"
+    }
+  ],
   "allowedNonPeerDependencies": [
-    "."
+    "@js-temporal/polyfill",
+    "@sq-ui/ng-sq-common",
+    "tslib"
   ]
 }

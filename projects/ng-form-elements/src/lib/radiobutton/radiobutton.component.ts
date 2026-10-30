@@ -1,70 +1,90 @@
 import {
-  Component, OnInit, Input, OnDestroy,
-  Output, EventEmitter, ViewEncapsulation, forwardRef, ContentChild, TemplateRef
+  Component, ViewEncapsulation, ChangeDetectionStrategy,
+  input, model, computed, contentChild, output, inject, DestroyRef
 } from '@angular/core';
-import { CustomEventDetails } from '@sq-ui/ng-sq-common';
+import { NgTemplateOutlet } from '@angular/common';
+import { FORM_FIELD_DEFAULTS, generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { CustomEventBroadcasterService } from '@sq-ui/ng-sq-common';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { SqRadiobuttonLabelTemplateDirective } from './radiobutton.template.directive';
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => RadiobuttonComponent),
-  multi: true
-};
+/** Payload broadcast on `sqRadio:selected` so only one radio per group stays selected. */
+interface SqRadioSelectedDetails<TValue> {
+  group: string;
+  sqRadio: { radioValue: TValue | null };
+}
 
 @Component({
   selector: 'sq-radiobutton',
+  standalone: true,
   templateUrl: './radiobutton.component.html',
   styleUrls: ['./radiobutton.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgTemplateOutlet],
 })
-export class RadiobuttonComponent extends InputCoreComponent implements OnInit, OnDestroy {
-  private eventBroadcasterSubscription: Subscription;
-  @Input() radioValue: any;
-  @Input() controlLabel: string;
+export class RadiobuttonComponent<TValue = unknown> implements SqFormFieldSignals, SqFormValueControl<TValue | null> {
+  private readonly eventBroadcaster = inject(CustomEventBroadcasterService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  @Input() isSelected: boolean;
-  @Output() isSelectedChange = new EventEmitter<boolean>();
+  // FormFieldConfig signal inputs
+  readonly name = input<string>(generateFormFieldId());
+  readonly controlId = input<string>(generateFormFieldId());
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
-  @ContentChild(SqRadiobuttonLabelTemplateDirective, { read: TemplateRef }) radioButtonTemplate: TemplateRef<any>;
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
-  constructor(private eventBroadcaster: CustomEventBroadcasterService) {
-    super();
-  }
+  // Two-way binding value
+  readonly value = model<TValue | null>(null);
 
-  ngOnInit() {
-    this.eventBroadcasterSubscription = this.eventBroadcaster.subscribeFor(
+  // Radio-specific inputs and state
+  /**
+   * The value this radio represents. Opaque here (`unknown`): it is written into `value` as-is, so
+   * the component only has to be generic over `value` to keep the binding typed.
+   */
+  readonly radioValue = input<unknown>(null);
+  readonly isSelected = computed(() => Object.is(this.value(), this.radioValue()));
+  readonly isSelectedChange = output<boolean>();
+
+  // Content child for custom label template
+  readonly labelTemplate = contentChild(SqRadiobuttonLabelTemplateDirective);
+
+  constructor() {
+    const subscription = this.eventBroadcaster.subscribeFor<SqRadioSelectedDetails<TValue>>(
       'sqRadio:selected',
-      (eventDetails: CustomEventDetails) => {
-        if (eventDetails.details.group === this.name &&
-          !Object.is(this.radioValue, eventDetails.details.sqRadio.radioValue)) {
-          this.isSelected = false;
-          this.value = eventDetails.details.sqRadio.radioValue;
+      (eventDetails) => {
+        const details = eventDetails?.details;
+
+        if (details && details.group === this.name() &&
+          !Object.is(this.radioValue(), details.sqRadio.radioValue)) {
+          this.value.set(details.sqRadio.radioValue);
           this.isSelectedChange.emit(false);
         }
-      });
-  }
+      }
+    );
 
-  ngOnDestroy() {
-    this.eventBroadcasterSubscription.unsubscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   selectRadio() {
-    this.eventBroadcaster.broadcastEvent(
+    const radioValue = this.radioValue() as TValue | null;
+    this.value.set(radioValue);
+
+    this.eventBroadcaster.broadcastEvent<SqRadioSelectedDetails<TValue>>(
       'sqRadio:selected',
       {
         details: {
-          group: this.name,
-          sqRadio: this
+          group: this.name(),
+          sqRadio: { radioValue: radioValue }
         }
-      });
+      }
+    );
 
-    this.isSelected = true;
-    this.value = this.radioValue;
     this.isSelectedChange.emit(true);
   }
 }

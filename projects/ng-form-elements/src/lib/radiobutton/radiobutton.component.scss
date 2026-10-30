@@ -1,4 +1,5 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use 'sass:color';
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 
 .sq {
   .radio {
@@ -12,7 +13,7 @@
   }
 
   .disabled .radio {
-    border-color: darken($disabled-color, 50%);
+    border-color: color.adjust($disabled-color, $lightness: -50%);
   }
 }
 

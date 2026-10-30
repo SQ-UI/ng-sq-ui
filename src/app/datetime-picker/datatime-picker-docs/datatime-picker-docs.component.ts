@@ -1,19 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { NavItem } from '../../shared/shared.module';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import moment from 'moment';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NavItem } from '../../shared/nav-item';
+import { DatetimePickerComponent, TimePickerComponent } from '@sq-ui/ng-datetime-picker';
+import type { DatetimePickerValue, TimePickerValue } from '@sq-ui/ng-datetime-picker';
+import { ButtonComponent } from '@sq-ui/ng-form-elements';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { CollapseContentComponent } from '../../shared/collapse-content/collapse-content.component';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-datatime-picker-docs',
+  standalone: true,
+  imports: [
+    FormsModule,
+    DatetimePickerComponent,
+    TimePickerComponent,
+    ButtonComponent,
+    ModuleOverviewComponent,
+    CollapseContentComponent,
+  ],
   templateUrl: './datatime-picker-docs.component.html',
-  styleUrls: ['./datatime-picker-docs.component.scss']
+  styleUrls: ['./datatime-picker-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatatimePickerDocsComponent {
 
-  testForm: UntypedFormGroup;
   npmPackageName: string = '@sq-ui/ng-datetime-picker';
-  moduleName: string = 'NgDatetimePickerModule';
+  moduleName: string = 'ng-datetime-picker';
   dependsOn: NavItem[] = [
     {
       name: 'NgSqCommonModule',
@@ -35,7 +49,7 @@ export class DatatimePickerDocsComponent {
 
   docs: NavItem[] = [
     {
-      name: 'DatetimePickerModule',
+      name: 'ng-datetime-picker',
       routeLink: `${environment.docs}/datetime-picker-module`
     }
   ];
@@ -48,8 +62,8 @@ export class DatatimePickerDocsComponent {
   ];
 
   isDatepickerMultipleSelect = true;
-  minDate = moment();
-  maxDate = moment().add(5, 'years');
+  minDate = Temporal.Now.plainDateISO();
+  maxDate = Temporal.Now.plainDateISO().add({ years: 5 });
   inlineTimepickerConfig = {
     hourStep: 2,
     minuteStep: 15,
@@ -68,24 +82,23 @@ export class DatatimePickerDocsComponent {
   };
   isTimepickerEndabled = true;
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.testForm = this.fb.group({
-      standAloneDatepicker: [moment().add(1, 'day')],
-      datetimePicker: [moment().add(1, 'day')],
-      standAloneTimepicker: []
-    });
-  }
+  standAloneDatepickerValue = signal<DatetimePickerValue>(Temporal.Now.plainDateISO().add({ days: 1 }));
+  datetimePickerValue = signal<DatetimePickerValue>(Temporal.Now.plainDateISO().add({ days: 1 }));
+  standAloneTimepickerValue = signal<TimePickerValue>(null);
 
-  hoursChange($event) {
+  hoursChange($event: number) {
     console.log(`The current chosen hours are: ${$event}`);
   }
 
-  minutesChange($event) {
+  minutesChange($event: number) {
     console.log(`The current chosen minutes are: ${$event}`);
   }
 
   onSubmit() {
-    console.log(this.testForm.value);
+    console.log({
+      standAloneDatepicker: this.standAloneDatepickerValue(),
+      datetimePicker: this.datetimePickerValue(),
+      standAloneTimepicker: this.standAloneTimepickerValue(),
+    });
   }
-
 }

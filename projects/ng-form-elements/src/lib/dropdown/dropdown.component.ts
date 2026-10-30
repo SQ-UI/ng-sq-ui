@@ -1,55 +1,74 @@
 import {
-  Component, OnInit, Input, Output, forwardRef,
-  ViewEncapsulation, EventEmitter, TemplateRef, ContentChild
+  Component, ViewEncapsulation, ChangeDetectionStrategy,
+  input, model, signal, contentChild, output
 } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
+import { NgTemplateOutlet } from '@angular/common';
+import { FORM_FIELD_DEFAULTS, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SqDropdownChevronTemplateDirective, SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './dropdown.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DropdownComponent),
-  multi: true
-};
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
+import {
+  SqDropdownChevronTemplateDirective,
+  SqDropdownOptionTemplateDirective,
+  SqDropdownSelectedOptionTemplateDirective
+} from './dropdown.template.directive';
 
 @Component({
   selector: 'sq-dropdown',
+  standalone: true,
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgTemplateOutlet,
+    OutsideClickListenerDirective,
+  ],
 })
-export class DropdownComponent extends InputCoreComponent implements OnInit {
-  @Input() options: LabelValuePair[];
-  @Output() onSelectItem: EventEmitter<LabelValuePair> = new EventEmitter<LabelValuePair>();
+export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl<LabelValuePair | null> {
+  // FormFieldConfig signal inputs
+  readonly name = input<string>(generateFormFieldId());
+  readonly controlId = input<string>(generateFormFieldId());
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
-  @ContentChild(SqDropdownOptionTemplateDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any>;
-  @ContentChild(SqDropdownChevronTemplateDirective, { read: TemplateRef }) chevronTemplate: TemplateRef<any>;
-  @ContentChild(SqDropdownSelectedOptionTemplateDirective, { read: TemplateRef }) selectedItemTemplate: TemplateRef<any>;
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
-  isOpen: boolean = false;
-  listenForOutsideClick: boolean = false;
+  // Component-specific inputs
+  readonly options = input<LabelValuePair[]>([]);
 
-  constructor() {
-    super();
-  }
+  // Two-way binding value
+  readonly value = model<LabelValuePair | null>(null);
 
-  ngOnInit() { }
+  // Event output
+  readonly onSelectItem = output<LabelValuePair>();
+
+  // Content children for custom templates
+  readonly optionTemplate = contentChild(SqDropdownOptionTemplateDirective);
+  readonly chevronTemplate = contentChild(SqDropdownChevronTemplateDirective);
+  readonly selectedOptionTemplate = contentChild(SqDropdownSelectedOptionTemplateDirective);
+
+  // Internal state
+  readonly isOpen = signal<boolean>(false);
+  readonly listenForOutsideClick = signal<boolean>(false);
 
   toggleOptionsDropdown() {
-    this.listenForOutsideClick = true;
-    this.isOpen = !this.isOpen;
+    this.listenForOutsideClick.set(true);
+    this.isOpen.update(open => !open);
   }
 
   onClickOutsideComponent() {
-    this.isOpen = false;
-    this.listenForOutsideClick = false;
+    this.isOpen.set(false);
+    this.listenForOutsideClick.set(false);
   }
 
   selectOption(option: LabelValuePair) {
-    this.value = Object.assign({}, option);
-    this.listenForOutsideClick = false;
+    this.value.set({ ...option });
+    this.listenForOutsideClick.set(false);
+    this.isOpen.set(false);
     this.onSelectItem.emit(option);
   }
 }

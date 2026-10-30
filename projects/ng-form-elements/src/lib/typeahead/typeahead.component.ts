@@ -1,121 +1,112 @@
-import { Component, OnInit, Input, OnDestroy,
-  forwardRef, ViewEncapsulation, OnChanges, Output,
-  EventEmitter,
-  SimpleChanges,
-  ContentChild,
-  TemplateRef
+import {
+  Component, ViewEncapsulation, ChangeDetectionStrategy,
+  input, model, signal, contentChild, output, effect, untracked, TemplateRef,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounce, tap } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
 
-import { NG_VALUE_ACCESSOR, UntypedFormControl } from '@angular/forms';
-import { LabelValuePair } from '@sq-ui/ng-sq-common';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
-
-import { List } from 'immutable';
+import { LabelValuePair, FORM_FIELD_DEFAULTS, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TypeaheadComponent),
-  multi: true,
-};
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-typeahead',
+  standalone: true,
   templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgTemplateOutlet,
+    OutsideClickListenerDirective,
+  ],
 })
-export class TypeaheadComponent extends InputCoreComponent
-  implements OnInit, OnDestroy, OnChanges {
-  @Input() searchResults: any[] = [];
-  @Input() multiple = false;
-  @Input() delay = 500;
-  @Input() displayProp = '';
-  @Input() hideSearchIcon: boolean = false;
-  @Output() onUserInputEnd = new EventEmitter<string>();
+export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueControl<LabelValuePair[]> {
+  // FormFieldConfig signal inputs
+  readonly name = input<string>(generateFormFieldId());
+  readonly controlId = input<string>(generateFormFieldId());
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
-  @ContentChild(SqTypeaheadOptionTemplateDirective, { read: TemplateRef }) optionTemplate: TemplateRef<any>;
-  @ContentChild(SqTypeaheadSelectedOptionTemplateDirective, { read: TemplateRef }) selectedOptionTemplate: TemplateRef<any>;
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
-  private onInputValueChangeSubscription: Subscription;
-  private onQueryInputControlSubscription: Subscription;
-  private valueChangedSubscription: Subscription;
+  // Component-specific inputs
+  readonly searchResults = input<readonly unknown[]>([]);
+  readonly multiple = input<boolean>(false);
+  readonly delay = input<number>(500);
+  readonly displayProp = input<string>('');
+  readonly hideSearchIcon = input<boolean>(false);
 
-  selectedItems: List<LabelValuePair> = List<LabelValuePair>();
-  options: List<LabelValuePair> = List<LabelValuePair>();
+  // Two-way binding for selected items
+  readonly value = model<LabelValuePair[]>([]);
+
+  // Component-specific output
+  readonly onUserInputEnd = output<string>();
+
+  // Content children for custom templates
+  readonly optionTemplate = contentChild(SqTypeaheadOptionTemplateDirective, { read: TemplateRef });
+  readonly selectedOptionTemplate = contentChild(SqTypeaheadSelectedOptionTemplateDirective, { read: TemplateRef });
+
+  // Internal state signals
+  readonly selectedItems = signal<LabelValuePair[]>([]);
+  readonly options = signal<LabelValuePair[]>([]);
+  readonly isLoading = signal<boolean>(false);
+  readonly listenForOutsideClick = signal<boolean>(false);
+  readonly hideResults = signal<boolean>(true);
+  readonly searchText = signal<string>('');
+
+  // Debounced search via RxJS Subject
+  private searchSubject = new Subject<string>();
 
   constructor() {
-    super();
+    // Set up debounced search pipeline. `debounce` with a duration selector re-reads `[delay]`
+    // on every keystroke, so the input can change after construction.
+    this.searchSubject.pipe(
+      tap(() => {
+        this.isLoading.set(true);
+        this.hideResults.set(true);
+      }),
+      debounce(() => timer(this.delay())),
+      takeUntilDestroyed(),
+    ).subscribe((query: string) => {
+      this.onUserInputEnd.emit(query);
+    });
+
+    // Keep the internal chip list in sync with programmatic writes to `[(value)]`.
+    effect(() => {
+      const incoming = this.value() ?? [];
+      const current = untracked(() => this.selectedItems());
+      if (!this.areSameItems(incoming, current)) {
+        untracked(() => this.selectedItems.set([...incoming]));
+      }
+    });
+
+    let searchResultsInitialized = false;
+    effect(() => {
+      const results = this.searchResults();
+      if (!searchResultsInitialized) {
+        searchResultsInitialized = true;
+        return;
+      }
+      if (results) {
+        const parsedResults = untracked(() => this.transformToLabelValuePairList(results));
+        this.options.set(parsedResults);
+        this.isLoading.set(false);
+        this.hideResults.set(results.length > 0 ? false : true);
+      }
+    });
   }
 
-  queryInputControl = new UntypedFormControl();
-  isLoading = false;
-  listenForOutsideClick = false;
-  hideResults = true;
-  onInputValueChange = new Subject();
-
-  ngOnInit() {
-    this.value = [];
-
-    this.onInputValueChangeSubscription = this.onInputValueChange
-      .pipe(
-        tap(() => {
-          this.isLoading = true;
-          this.hideResults = true;
-        }),
-        debounceTime(this.delay),
-      )
-      .subscribe((query: string) => {
-        this.onUserInputEnd.emit(query);
-      });
-
-    this.onQueryInputControlSubscription = this.queryInputControl.valueChanges.subscribe(
-      (newValue) => {
-        if (newValue !== null) {
-          this.onInputValueChange.next(newValue);
-        }
-      },
-    );
-
-    this.valueChangedSubscription = this._modelToViewChange.subscribe(
-      (predefinedEnteredItems) => {
-        if (this.selectedItems.size === 0 && predefinedEnteredItems && predefinedEnteredItems.length > 0) {
-          this.transformToLabelValuePairList(predefinedEnteredItems).forEach((item) => {
-            this.selectItem(item, false, true);
-          });
-        }
-
-        this.valueChangedSubscription.unsubscribe();
-      },
-    );
-  }
-
-  ngOnChanges(changesObj: SimpleChanges) {
-    if (changesObj.searchResults && changesObj.searchResults.currentValue) {
-      const parsedResults = this.transformToLabelValuePairList(this.searchResults);
-      this.options = List(parsedResults);
-
-      this.isLoading = false;
-      this.hideResults = false;
-    }
-
-    if (changesObj.disabled) {
-      this.queryInputControl.disable();
-    }
-  }
-
-  ngOnDestroy() {
-    this.listenForOutsideClick = false;
-    this.onQueryInputControlSubscription.unsubscribe();
-    this.onInputValueChangeSubscription.unsubscribe();
-
-    if (!this.valueChangedSubscription.closed) {
-      this.valueChangedSubscription.unsubscribe();
-    }
+  onSearchInput(event: Event) {
+    const text = (event.target as HTMLInputElement).value || '';
+    this.searchText.set(text);
+    this.searchSubject.next(text);
   }
 
   selectSearchResult(result: LabelValuePair) {
@@ -123,82 +114,105 @@ export class TypeaheadComponent extends InputCoreComponent
   }
 
   removeSearchResult = (choice: LabelValuePair) => {
-    const itemIndex = this.selectedItems.indexOf(choice);
+    const items = this.selectedItems();
+    const itemIndex = items.indexOf(choice);
 
-    if (itemIndex < 0 || itemIndex > this.selectedItems.size) {
+    if (itemIndex < 0 || itemIndex >= items.length) {
       return;
     }
 
-    this.selectedItems = this.selectedItems.remove(itemIndex);
+    this.selectedItems.update(list => list.filter((_, i) => i !== itemIndex));
 
-    if (this.selectedItems.size > 0) {
+    if (this.selectedItems().length > 0) {
       this.copyResults();
     } else {
-      this.value = [];
+      this.value.set([]);
     }
   }
 
   onClickOutsideComponent() {
-    this.listenForOutsideClick = false;
-    this.hideResults = true;
-    this.searchResults = [];
+    this.options.set([]);
+    this.listenForOutsideClick.set(false);
+    this.hideResults.set(true);
   }
 
   turnClickOutsideListenerOn() {
-    this.listenForOutsideClick = true;
-    this.value = [];
+    // Only arms the outside-click listener: clearing `value` here used to wipe the bound model
+    // every time the input received focus.
+    this.listenForOutsideClick.set(true);
   }
 
-  private selectItem(result: LabelValuePair, copyResults: boolean = true, isInitialSelection: boolean = false) {
-    this.queryInputControl.setValue(null);
+  showInput(): boolean {
+    const isMulti = this.multiple();
+    const itemCount = this.selectedItems().length;
+    return isMulti || itemCount === 0;
+  }
 
-    if (!this.multiple && this.selectedItems.size === 1) {
+  private selectItem(result: LabelValuePair, copyResults: boolean = true) {
+    this.searchText.set('');
+
+    if (!this.multiple() && this.selectedItems().length === 1) {
       return;
     }
 
-    if (this.selectedItems.indexOf(result) === -1) {
-      this.selectedItems = this.selectedItems.push(result);
+    const items = this.selectedItems();
+    if (items.indexOf(result) === -1) {
+      this.selectedItems.update(list => [...list, result]);
     }
 
     if (copyResults) {
       this.copyResults();
     }
 
-    if (!this.multiple || isInitialSelection) {
-      this.hideResults = true;
+    if (!this.multiple()) {
+      this.hideResults.set(true);
     }
   }
 
   private copyResults() {
-      this.value = this.selectedItems.toArray();
+    this.value.set([...this.selectedItems()]);
   }
 
-  private transformToLabelValuePairList(resultsList: any): Array<LabelValuePair> {
-    const newList = resultsList.map(item => {
-      let searchResult: LabelValuePair | any;
+  private areSameItems(left: LabelValuePair[], right: LabelValuePair[]): boolean {
+    if (left.length !== right.length) {
+      return false;
+    }
 
+    return left.every((item, index) => item === right[index]);
+  }
+
+  /**
+   * Maps the raw `[searchResults]` to the pair the component renders.
+   *
+   * `resultsList` is deliberately `readonly unknown[]`: the control accepts whatever the caller's
+   * search returns (strings, numbers, arbitrary objects). `displayProp` names the object key used as
+   * the label; without it the objects are expected to already look like `{ label, value }` pairs.
+   */
+  private transformToLabelValuePairList(resultsList: readonly unknown[]): LabelValuePair[] {
+    const dp = this.displayProp();
+
+    return resultsList.map(item => {
       if (typeof item === 'object') {
-        // if displayProp is an empty string,
-        // it assumes that the author passes LabelValuePair items
-        if (this.displayProp === '') {
-          searchResult = Object.assign({}, item);
-        } else {
-          // in case the author wants a specific display property
-          searchResult = {
-            label: item[this.displayProp],
-            value: Object.assign({}, item),
-          };
+        const record = (item ?? {}) as Record<string, unknown>;
+
+        if (dp === '') {
+          // The results already look like `{ label, value }` pairs, but the object is kept whole so
+          // custom option templates can still read extra properties.
+          return { ...record } as unknown as LabelValuePair;
         }
-      } else {
-        searchResult = {
-          label: item,
-          value: item,
+
+        const label = record[dp];
+
+        return {
+          label: label === null || label === undefined ? '' : String(label),
+          value: { ...record },
         };
       }
 
-      return searchResult;
+      return {
+        label: String(item),
+        value: item,
+      };
     });
-
-    return newList;
   }
 }

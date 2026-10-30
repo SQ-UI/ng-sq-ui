@@ -3,13 +3,12 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
     "types": [
-      "jasmine",
+      "vitest/globals",
       "node"
-    ]
+    ],
+    "esModuleInterop": true,
+    "target": "es2022"
   },
-  "files": [
-    "src/test.ts"
-  ],
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"

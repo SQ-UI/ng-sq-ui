@@ -9,23 +9,23 @@
     "types": [],
     "lib": [
       "dom",
-      "es2018"
+      "es2022"
     ],
     "paths": {
-      "@angular/*": [
-        "./node_modules/@angular/*"
-      ],
       "@sq-ui/ng-sq-common": [
-        "./dist/ng-sq-common",
-        "./projects/ng-sq-common/src",
-        "./node_modules/@sq-ui/ng-sq-common"
+        "../../dist/ng-sq-common",
+        "../../projects/ng-sq-common/src",
+        "../../node_modules/@sq-ui/ng-sq-common"
       ],
       "@sq-ui/ng-sq-common/*": [
-        "./dist/ng-sq-common/*",
-        "./projects/ng-sq-common/src/*",
-        "./node_modules/@sq-ui/ng-sq-common/*"
+        "../../dist/ng-sq-common/*",
+        "../../projects/ng-sq-common/src/*",
+        "../../node_modules/@sq-ui/ng-sq-common/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   },
   "exclude": [
     "src/test.ts",

@@ -1,7 +1,7 @@
-import moment from 'moment';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 
 
 export interface DateRange {
-  minDate: moment.Moment | Date;
-  maxDate: moment.Moment | Date;
+  minDate: Temporal.PlainDate | Date | undefined;
+  maxDate: Temporal.PlainDate | Date | undefined;
 }

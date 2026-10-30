@@ -1,30 +1,23 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "module": "es2022",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "target": "ES2022",
     "noImplicitAny": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "strict": false,
+    "strictPropertyInitialization": false,
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ],
     "paths": {
-      "@angular/*": [
-        "./node_modules/@angular/*"
-      ],
       "@sq-ui/ng-sq-ui": [
         "./dist/ng-sq-ui",
         "./projects/ng-sq-ui/src"
@@ -37,6 +30,10 @@
         "./dist/ng-datetime-picker",
         "./projects/ng-datetime-picker/src",
         "./node_modules/@sq-ui/ng-datetime-picker"
+      ],
+      "@sq-ui/ng-datetime-picker/temporal": [
+        "./dist/ng-datetime-picker/temporal",
+        "./projects/ng-datetime-picker/temporal/src"
       ],
       "@sq-ui/ng-datetime-picker/*": [
         "./dist/ng-datetime-picker/*",
@@ -69,9 +66,9 @@
         "./node_modules/@sq-ui/ng-modal/"
       ],
       "@sq-ui/ng-modal/*": [
-        "dist/ng-modal/*",
-        "projects/ng-modal/src/*",
-        "node_modules/@sq-ui/ng-modal/*"
+        "./dist/ng-modal/*",
+        "./projects/ng-modal/src/*",
+        "./node_modules/@sq-ui/ng-modal/*"
       ],
       "@sq-ui/ng-form-elements": [
         "./dist/ng-form-elements",
@@ -93,7 +90,6 @@
         "./projects/ng-progress-bar/src/*",
         "./node_modules/@sq-ui/ng-progress-bar/*"
       ]
-    },
-    "useDefineForClassFields": false
+    }
   }
 }

@@ -1,8 +1,6 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropdownComponent } from './dropdown.component';
-import { FormsModule } from '@angular/forms';
-import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
 
 describe('DropdownComponent', () => {
@@ -23,18 +21,14 @@ describe('DropdownComponent', () => {
     }
   ];
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        DropdownComponent,
-        OutsideClickListenerDirective
-      ],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
-        FormsModule
+        DropdownComponent
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DropdownComponent);
@@ -51,36 +45,54 @@ describe('DropdownComponent', () => {
 
     const subscription = component.onSelectItem.subscribe((chosenOption) => {
       expect(Object.is(chosenOption, selectedItem))
-        .toBe(true, 'emitted option is the chosen one');
+        .toBe(true);
     });
 
-    expect(component.value).toBe(undefined);
+    expect(component.value()).toBe(null);
 
     component.selectOption(selectedItem);
 
-    expect(!Object.is(component.value, selectedItem))
-      .toBe(true, 'populated after choosing an item');
+    expect(!Object.is(component.value(), selectedItem))
+      .toBe(true);
 
-    expect(component.isOpen).toBe(false);
+    expect(component.isOpen()).toBe(false);
 
     subscription.unsubscribe();
   });
 
+  it('should close the dropdown after an option is selected', () => {
+    fixture.componentRef.setInput('options', testOptions);
+    component.toggleOptionsDropdown();
+    fixture.detectChanges();
+
+    expect(component.isOpen()).toBe(true);
+
+    const optionEls = (fixture.nativeElement as HTMLElement).querySelectorAll('.options .option');
+    expect(optionEls.length).toBe(testOptions.length);
+
+    (optionEls[1] as HTMLElement).click();
+    fixture.detectChanges();
+
+    // Selecting must not re-open the dropdown through the bubbling root click handler.
+    expect(component.isOpen()).toBe(false);
+    expect(component.value()?.value).toEqual(testOptions[1].value);
+  });
+
   it('should toggle the options', () => {
-    component.isOpen = false;
-    component.listenForOutsideClick = false;
+    component.isOpen.set(false);
+    component.listenForOutsideClick.set(false);
 
     component.toggleOptionsDropdown();
-    expect(component.isOpen).toBe(true);
-    expect(component.listenForOutsideClick).toBe(true);
+    expect(component.isOpen()).toBe(true);
+    expect(component.listenForOutsideClick()).toBe(true);
   });
 
   it('should close the dropdown onClickOutsideComponent', () => {
-    component.isOpen = true;
-    component.listenForOutsideClick = true;
+    component.isOpen.set(true);
+    component.listenForOutsideClick.set(true);
 
     component.onClickOutsideComponent();
-    expect(component.isOpen).toBe(false);
-    expect(component.listenForOutsideClick).toBe(false);
+    expect(component.isOpen()).toBe(false);
+    expect(component.listenForOutsideClick()).toBe(false);
   });
 });

@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@use '../../styles/colors' as *;
 
 .sq {
   .datetime-picker-wrapper {

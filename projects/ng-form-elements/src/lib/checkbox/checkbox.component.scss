@@ -1,4 +1,5 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use 'sass:color';
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 
 .sq {
   .checkbox {
@@ -13,6 +14,6 @@
     }
   }
   .disabled .checkbox {
-    border-color: darken($disabled-color, 30%);
+    border-color: color.adjust($disabled-color, $lightness: -30%);
   }
 }

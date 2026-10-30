@@ -1,83 +1,157 @@
 import {
-  Component, forwardRef, OnInit, ViewEncapsulation,
-  Input, Output, EventEmitter, AfterViewInit,
-  OnChanges
+  Component, OnInit, ViewEncapsulation,
+  ChangeDetectionStrategy, input, model, output, signal, computed,
+  inject
 } from '@angular/core';
-import { InputCoreComponent } from '@sq-ui/ng-sq-common';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgClass } from '@angular/common';
 import { CalendarDay, InCalendarPicker } from '../interfaces/calendar-entities';
 import { CalendarPeriodRelativityEnum } from '../enums/calendar-period-relativity.enum';
 import { DateRange } from '../interfaces/date-range';
 import { CalendarPeriodTypeEnum } from '../enums/calendar-period-type.enum';
 import { DateObjectType } from '../enums/date-object-type.enum';
 import { TimepickerConfig } from '../interfaces/timepicker-config';
-import { List } from 'immutable';
 import { CalendarManagerService } from '../calendar-manager.service';
-import moment from 'moment';
+import { TimePickerComponent } from '../time-picker/time-picker.component';
+import { FORM_FIELD_DEFAULTS, generateFormFieldId } from '@sq-ui/ng-sq-common';
+import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
+import type { DatetimePickerDate, DatetimePickerValue, TimePickerValue } from '../interfaces/datetime-picker-value';
 
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DatetimePickerComponent),
-  multi: true
-};
+/** The date shapes the picker tracks internally before converting to the configured output type. */
+type TemporalCalendarDate = Temporal.PlainDate | Temporal.PlainDateTime;
 
 @Component({
   selector: 'sq-datetime-picker',
+  standalone: true,
+  imports: [NgClass, TimePickerComponent],
   templateUrl: './datetime-picker.component.html',
   styleUrls: ['./datetime-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CalendarManagerService]
 })
-export class DatetimePickerComponent extends InputCoreComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() locale = 'en';
-  @Input() maxDate: moment.Moment | Date;
-  @Input() minDate: moment.Moment | Date;
-  @Input() isMultipleSelect = false;
-  @Input() format: string;
-  @Input() isTimepickerEnabled = false;
-  @Input() dateObjectType: string = DateObjectType.Moment;
-  @Input() timepickerConfig: TimepickerConfig;
+export class DatetimePickerComponent implements OnInit, SqFormFieldSignals, SqFormValueControl<DatetimePickerValue> {
+  // FormFieldConfig signal inputs
+  readonly name = input<string>(generateFormFieldId());
+  readonly controlId = input<string>(generateFormFieldId());
+  readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);
+  readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);
+  readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
+  readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
+  readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
 
-  @Output() dateSelectionChange: EventEmitter<moment.Moment | Date> = new EventEmitter<moment.Moment | Date>();
+  /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
+  readonly touch = output<void>();
 
-  weekdays: string[];
-  months: InCalendarPicker[];
-  yearsList: InCalendarPicker[];
-  calendar: Array<CalendarDay[]>;
-  currentMonth: moment.Moment;
-  isMonthsPickerEnabled = false;
-  isYearsPickerEnabled = false;
-  time: moment.Moment;
-  calendarPeriodRelativity = CalendarPeriodRelativityEnum;
-  period: CalendarPeriodTypeEnum = CalendarPeriodTypeEnum.Month;
+  // Component-specific signal inputs
+  readonly locale = input<string>('en');
+  readonly maxDate = input<Temporal.PlainDate | Date | undefined>(undefined);
+  readonly minDate = input<Temporal.PlainDate | Date | undefined>(undefined);
+  readonly isMultipleSelect = input<boolean>(false);
+  readonly format = input<string | undefined>(undefined);
+  readonly isTimepickerEnabled = input<boolean>(false);
+  readonly dateObjectType = input<string>(DateObjectType.PlainDate);
+  readonly timepickerConfig = input<TimepickerConfig | undefined>(undefined);
 
-  private selectedDates: List<moment.Moment> = List<moment.Moment>();
-  private parsedSelectedDates: any;
+  // Two-way binding model
+  readonly value = model<DatetimePickerValue>(null);
 
-  constructor(private calendarManager: CalendarManagerService) {
-    super();
-  }
+  // Output
+  readonly dateSelectionChange = output<DatetimePickerValue>();
+
+  // Internal state
+  readonly weekdays = signal<string[]>([]);
+  readonly months = signal<InCalendarPicker[]>([]);
+  readonly yearsList = signal<InCalendarPicker[]>([]);
+  readonly calendar = signal<Array<CalendarDay[]>>([]);
+  readonly currentMonth = signal<Temporal.PlainDate>(Temporal.Now.plainDateISO());
+  readonly isMonthsPickerEnabled = signal<boolean>(false);
+  readonly isYearsPickerEnabled = signal<boolean>(false);
+  readonly time = signal<TimePickerValue>(null);
+  readonly period = signal<CalendarPeriodTypeEnum>(CalendarPeriodTypeEnum.Month);
+
+  readonly calendarPeriodRelativity = CalendarPeriodRelativityEnum;
+
+  readonly currentMonthName = computed(() => {
+    const month = this.currentMonth();
+    if (!month) {
+      return '';
+    }
+    return month.toLocaleString(this.locale(), { month: 'long' });
+  });
+
+  private selectedDates = signal<Temporal.PlainDate[]>([]);
+
+  private readonly calendarManager = inject(CalendarManagerService);
 
   ngOnInit() {
-    moment.locale(this.locale);
-    this.calendarManager.setLocale(this.locale);
-    const now = moment().hours(0).minutes(0).locale(this.locale);
-    this.selectedDates = List([now.clone()]);
-    this.weekdays = this.calendarManager.getWeekdays();
-    this.calendar = this.getMonthCalendar(now.clone());
-    this.initializeAuthorValuesIfAny();
+    this.calendarManager.setLocale(this.locale());
+
+    const selectedDates = this.getInitialSelectedDates();
+    const firstDate = selectedDates[0];
+
+    this.weekdays.set(this.calendarManager.getWeekdays());
+    this.selectedDates.set(selectedDates);
+    this.calendar.set(this.getMonthCalendar(firstDate));
+    this.setValueResult();
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.setValueResult();
-    });
-  }
+  /**
+   * Seeds the internal selection from the bound `value` instead of always starting on "today",
+   * so `<sq-datetime-picker [(value)]="date">` opens on the value it was given.
+   */
+  private getInitialSelectedDates(): Temporal.PlainDate[] {
+    const rawValue = this.value();
+    const entries = Array.isArray(rawValue)
+      ? rawValue
+      : (rawValue === null || rawValue === undefined ? [] : [rawValue]);
 
-  ngOnChanges(changesObj) {
-    if (changesObj.timepickerConfig && changesObj.timepickerConfig.currentValue) {
-      this.setValueResult();
+    const parsed = entries
+      .map((entry: unknown) => this.parsePlainDate(entry))
+      .filter((date): date is Temporal.PlainDate => date !== null);
+
+    if (parsed.length === 0) {
+      return [Temporal.Now.plainDateISO()];
     }
+
+    return this.isMultipleSelect() ? this.calendarManager.sortDatesAsc(parsed) : [parsed[0]];
+  }
+
+  private parsePlainDate(entry: unknown): Temporal.PlainDate | null {
+    if (entry instanceof Temporal.PlainDate) {
+      return entry;
+    }
+
+    if (entry instanceof Temporal.PlainDateTime) {
+      return entry.toPlainDate();
+    }
+
+    if (entry instanceof Date) {
+      return Temporal.PlainDate.from({
+        year: entry.getFullYear(),
+        month: entry.getMonth() + 1,
+        day: entry.getDate(),
+      });
+    }
+
+    if (typeof entry === 'number' && Number.isFinite(entry)) {
+      const date = new Date(entry);
+      return Temporal.PlainDate.from({
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate(),
+      });
+    }
+
+    if (typeof entry === 'string' && entry.trim() !== '') {
+      try {
+        return Temporal.PlainDate.from(entry);
+      } catch {
+        return null;
+      }
+    }
+
+    return null;
   }
 
   onDateClick(date: CalendarDay) {
@@ -97,148 +171,127 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   }
 
   select(date: CalendarDay) {
-    const month = this.currentMonth.clone();
-
-    if (date.relativityToCurrentMonth === CalendarPeriodRelativityEnum.Before) {
-      month.subtract(1, 'month');
-    }
-
-    if (date.relativityToCurrentMonth === CalendarPeriodRelativityEnum.After) {
-      month.add(1, 'month');
-    }
-
     this.markDateAsSelected(date);
-    this.dateSelectionChange.emit(this.value);
+    this.dateSelectionChange.emit(this.value());
   }
 
   next() {
-    if (this.period === CalendarPeriodTypeEnum.Month) {
-      const nextMonth = this.currentMonth.add(1, 'month');
-      this.calendar = this.getMonthCalendar(nextMonth);
+    if (this.period() === CalendarPeriodTypeEnum.Month) {
+      const nextMonth = this.currentMonth().add({ months: 1 });
+      this.calendar.set(this.getMonthCalendar(nextMonth));
     }
 
-    if (this.period === CalendarPeriodTypeEnum.Year) {
-      const dateRange = {
-        minDate: moment(this.minDate),
-        maxDate: moment(this.maxDate)
+    if (this.period() === CalendarPeriodTypeEnum.Year) {
+      const dateRange: DateRange = {
+        minDate: this.minDate(),
+        maxDate: this.maxDate()
       };
 
-      this.yearsList = this.calendarManager.generateYearPickerCollection(null, 19, dateRange);
+      this.yearsList.set(this.calendarManager.generateYearPickerCollection(null, 19, dateRange));
     }
   }
 
   previous() {
-    if (this.period === CalendarPeriodTypeEnum.Month) {
-      const previousMonth = this.currentMonth.subtract(1, 'month');
-      this.calendar = this.getMonthCalendar(previousMonth);
+    if (this.period() === CalendarPeriodTypeEnum.Month) {
+      const previousMonth = this.currentMonth().subtract({ months: 1 });
+      this.calendar.set(this.getMonthCalendar(previousMonth));
     }
 
-    if (this.period === CalendarPeriodTypeEnum.Year) {
-      const dateRange = {
-        minDate: moment(this.minDate),
-        maxDate: moment(this.maxDate)
+    if (this.period() === CalendarPeriodTypeEnum.Year) {
+      const dateRange: DateRange = {
+        minDate: this.minDate(),
+        maxDate: this.maxDate()
       };
 
-      this.yearsList = this.calendarManager.generateYearPickerCollection(null, -19, dateRange);
+      this.yearsList.set(this.calendarManager.generateYearPickerCollection(null, -19, dateRange));
     }
   }
 
-  getMonthCalendar(startPeriod: moment.Moment): Array<CalendarDay[]> {
-    const selectedDates = this.selectedDates.toArray();
+  getMonthCalendar(startPeriod: Temporal.PlainDate): Array<CalendarDay[]> {
+    const selectedDates = this.selectedDates();
     const dateRange: DateRange = {
-      minDate: this.minDate,
-      maxDate: this.maxDate
+      minDate: this.minDate(),
+      maxDate: this.maxDate()
     };
 
-    this.currentMonth = startPeriod.clone();
+    this.currentMonth.set(startPeriod);
 
-    return this.calendarManager.generateCalendarForMonth(startPeriod, this.currentMonth, selectedDates, dateRange);
+    return this.calendarManager.generateCalendarForMonth(startPeriod, this.currentMonth(), selectedDates, dateRange);
   }
 
-  showMonthsPicker(year: number = this.currentMonth.year()) {
+  showMonthsPicker(year: number = this.currentMonth().year) {
     this.deselectAll();
-    this.isYearsPickerEnabled = false;
-    this.isMonthsPickerEnabled = true;
-    this.currentMonth.year(year);
-    const dateRange = {
-      minDate: this.minDate,
-      maxDate: this.maxDate
+    this.isYearsPickerEnabled.set(false);
+    this.isMonthsPickerEnabled.set(true);
+    this.currentMonth.update(m => m.with({ year: year }));
+    const dateRange: DateRange = {
+      minDate: this.minDate(),
+      maxDate: this.maxDate()
     };
 
-    this.period = CalendarPeriodTypeEnum.Month;
-    this.months = this.calendarManager.generateMonthPickerCollection(year, dateRange);
+    this.period.set(CalendarPeriodTypeEnum.Month);
+    this.months.set(this.calendarManager.generateMonthPickerCollection(year, dateRange));
   }
 
   showYearsPicker() {
     this.deselectAll();
-    this.isMonthsPickerEnabled = false;
-    this.isYearsPickerEnabled = true;
-    const dateRange = {
-      minDate: this.minDate,
-      maxDate: this.maxDate
+    this.isMonthsPickerEnabled.set(false);
+    this.isYearsPickerEnabled.set(true);
+    const dateRange: DateRange = {
+      minDate: this.minDate(),
+      maxDate: this.maxDate()
     };
 
-    this.period = CalendarPeriodTypeEnum.Year;
-    this.yearsList = this.calendarManager.generateYearPickerCollection(this.currentMonth, 19, dateRange);
+    this.period.set(CalendarPeriodTypeEnum.Year);
+    this.yearsList.set(this.calendarManager.generateYearPickerCollection(this.currentMonth(), 19, dateRange));
   }
 
-  selectMonth(month) {
-    this.calendar = this.getMonthCalendar(month.momentObj);
-    this.isMonthsPickerEnabled = false;
+  selectMonth(month: InCalendarPicker) {
+    this.calendar.set(this.getMonthCalendar(month.date));
+    this.isMonthsPickerEnabled.set(false);
   }
 
-  selectYear(year) {
-    this.showMonthsPicker(year.momentObj.year());
+  selectYear(year: InCalendarPicker) {
+    this.showMonthsPicker(year.date.year);
   }
 
-  onTimeChange() {
+  onTimeChange(newTime: TimePickerValue) {
+    // Ignore the echo of the value this component just emitted; reacting to it re-triggers the
+    // child's effects and spins change detection.
+    if (String(newTime) === String(this.time())) {
+      return;
+    }
+
+    this.time.set(newTime);
     this.setValueResult();
-    this.dateSelectionChange.emit(this.value);
-  }
-
-  private initializeAuthorValuesIfAny() {
-    const subscription = this._modelToViewChange.subscribe((newValue) => {
-      if (this.selectedDates.size === 1 && this.selectedDates.get(0).isSame(moment(), 'day')) {
-        if (newValue) {
-          this.deselectAll();
-
-          if (Array.isArray(newValue)) {
-            newValue.forEach((date) => {
-              const convertedDate = this.calendarManager.findADateFromCalendar(moment(date), this.calendar);
-              this.markDateAsSelected(convertedDate);
-            });
-          } else {
-            const calendarDay = this.calendarManager.findADateFromCalendar(moment(newValue), this.calendar);
-            this.markDateAsSelected(calendarDay);
-          }
-        }
-      }
-
-      subscription.unsubscribe();
-    });
+    this.dateSelectionChange.emit(this.value());
   }
 
   private markDateAsSelected(date: CalendarDay) {
-    const selectedMomentObj = moment(date.momentObj);
-    const selectedIndex = this.calendarManager.getSelectedItemIndex(selectedMomentObj, this.selectedDates.toArray());
+    const selectedDate = date.date;
+    const currentSelected = this.selectedDates();
+    const selectedIndex = this.calendarManager.getSelectedItemIndex(selectedDate, currentSelected);
 
-    if (this.isMultipleSelect) {
+    if (this.isMultipleSelect()) {
       if (selectedIndex > -1) {
         date.isSelected = false;
-        this.selectedDates = this.selectedDates.remove(selectedIndex);
+        this.selectedDates.update(dates => {
+          const copy = [...dates];
+          copy.splice(selectedIndex, 1);
+          return copy;
+        });
       } else {
-        this.selectedDates = this.selectedDates.push(selectedMomentObj);
+        this.selectedDates.update(dates => [...dates, selectedDate]);
         date.isSelected = true;
       }
 
     } else {
-      const previousDate = this.calendarManager.findADateFromCalendar(this.selectedDates.get(0), this.calendar);
+      const previousDate = this.calendarManager.findADateFromCalendar(currentSelected[0], this.calendar());
       if (previousDate) {
         previousDate.isSelected = false;
       }
 
-      this.selectedDates = this.selectedDates.clear();
-      this.selectedDates = this.selectedDates.push(selectedMomentObj);
+      this.selectedDates.set([selectedDate]);
       date.isSelected = true;
     }
 
@@ -246,8 +299,10 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
   }
 
   private deselectAll() {
-    this.selectedDates.toArray().forEach((selectedDate) => {
-      const calendarDay = this.calendarManager.findADateFromCalendar(selectedDate, this.calendar);
+    const currentSelected = this.selectedDates();
+    const currentCalendar = this.calendar();
+    currentSelected.forEach((selectedDate) => {
+      const calendarDay = this.calendarManager.findADateFromCalendar(selectedDate, currentCalendar);
 
       // this handles the case when we have a selected date
       // from the previous month but we haven't selected anything
@@ -257,68 +312,100 @@ export class DatetimePickerComponent extends InputCoreComponent implements OnIni
       }
     });
 
-    this.selectedDates = List([]);
+    this.selectedDates.set([]);
     this.setValueResult();
   }
 
   private setValueResult() {
-    this.parsedSelectedDates = this.selectedDates.toArray();
+    let selectedDates: TemporalCalendarDate[] = [...this.selectedDates()];
 
-    if (this.parsedSelectedDates.length > 0) {
-      this.setValueTimeIfNeeded();
-      this.sortValueIfNeeded();
-      this.toValueDateObjectTypeIfNeeded();
-      this.toValueFormatIfNeeded();
+    if (selectedDates.length > 0) {
+      selectedDates = this.setValueTimeIfNeeded(selectedDates);
+      selectedDates = this.sortValueIfNeeded(selectedDates);
     }
 
-    if (this.isMultipleSelect) {
-      this.value = this.parsedSelectedDates;
-    } else {
-      this.value = this.parsedSelectedDates[0];
-    }
+    const converted = this.toValueDateObjectTypeIfNeeded(selectedDates);
+    const result = this.toValueFormatIfNeeded(converted);
+
+    // `isMultipleSelect` decides whether the model carries the whole selection or a single date.
+    this.value.set(this.isMultipleSelect() ? result : (result[0] ?? null));
   }
 
-  private toValueDateObjectTypeIfNeeded() {
-    if (!this.format) {
-      switch (this.dateObjectType) {
-        case DateObjectType.Date:
-          this.parsedSelectedDates = this.parsedSelectedDates.map((momentObj) => {
-            return momentObj.toDate();
-          });
-          break;
-        case DateObjectType.Unix:
-          this.parsedSelectedDates = this.parsedSelectedDates.map((momentObj) => {
-            return momentObj.toDate().getTime();
-          });
-          break;
+  private toValueDateObjectTypeIfNeeded(dates: TemporalCalendarDate[]): DatetimePickerDate[] {
+    const objectType = this.dateObjectType();
+
+    if (this.format() || objectType === DateObjectType.PlainDate) {
+      return dates;
+    }
+
+    return dates.map(date => {
+      const asDate = date instanceof Temporal.PlainDateTime
+        ? new Date(date.year, date.month - 1, date.day, date.hour, date.minute, date.second)
+        : new Date(date.year, date.month - 1, date.day);
+
+      return objectType === DateObjectType.Unix ? asDate.getTime() : asDate;
+    });
+  }
+
+  private toValueFormatIfNeeded(dates: DatetimePickerDate[]): DatetimePickerDate[] {
+    const fmt = this.format();
+
+    if (!fmt) {
+      return dates;
+    }
+
+    return dates.map(date => {
+      if (!(date instanceof Temporal.PlainDate) && !(date instanceof Temporal.PlainDateTime)) {
+        return date;
       }
-    }
+
+      let result = fmt
+        .replace('YYYY', String(date.year))
+        .replace('DD', String(date.day).padStart(2, '0'));
+
+      if (date instanceof Temporal.PlainDateTime) {
+        result = result
+          .replace('hh', String(date.hour).padStart(2, '0'))
+          .replace('mm', String(date.minute).padStart(2, '0'))
+          .replace('ss', String(date.second).padStart(2, '0'));
+      }
+
+      return result.replace('MM', String(date.month).padStart(2, '0'));
+    });
   }
 
-  private toValueFormatIfNeeded() {
-    if (this.format) {
-      const formattedDates = this.parsedSelectedDates.map((date) => {
-        return moment(date).format(this.format);
-      });
+  private setValueTimeIfNeeded(dates: TemporalCalendarDate[]): TemporalCalendarDate[] {
+    const currentTime = this.time();
 
-      this.parsedSelectedDates = formattedDates;
+    if (!this.isTimepickerEnabled() || !currentTime) {
+      return dates;
     }
+
+    // PlainDate does not carry time info, so the selection is promoted to PlainDateTime.
+    // The time picker provides a Temporal.PlainTime or a string.
+    return dates.map(date => {
+      const plainDate = date instanceof Temporal.PlainDateTime ? date.toPlainDate() : date;
+      let hours = 0;
+      let minutes = 0;
+
+      if (currentTime instanceof Temporal.PlainTime) {
+        hours = currentTime.hour;
+        minutes = currentTime.minute;
+      } else if (typeof currentTime === 'string') {
+        hours = parseInt(currentTime.split(':')[0], 10);
+        minutes = parseInt(currentTime.split(':')[1], 10);
+      }
+
+      return plainDate.toPlainDateTime({ hour: hours, minute: minutes });
+    });
   }
 
-  private setValueTimeIfNeeded() {
-    if (this.isTimepickerEnabled && this.time) {
-      const datesWithTime = this.parsedSelectedDates.map((momentObj) => {
-        return momentObj.hours(this.time.hours()).minutes(this.time.minutes());
-      });
-
-      this.parsedSelectedDates = datesWithTime;
+  private sortValueIfNeeded(dates: TemporalCalendarDate[]): TemporalCalendarDate[] {
+    if (this.isMultipleSelect()) {
+      return this.calendarManager.sortDatesAsc(dates);
     }
+
+    return dates;
   }
 
-  private sortValueIfNeeded() {
-    if (this.isMultipleSelect) {
-      const sortedDates = this.calendarManager.sortDatesAsc(this.parsedSelectedDates);
-      this.parsedSelectedDates = sortedDates;
-    }
-  }
 }
