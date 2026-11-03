@@ -1,0 +1,19 @@
+export default function TechFieldTitleInfo({ className }: { className?: string }) {
+  return (
+    <div className={className || "content-stretch flex flex-col items-start relative"} data-node-id="69:850" data-name="_Tech / Field Title Info">
+      <div className="[word-break:break-word] flex flex-col font-['IBM_Plex_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#202020] text-[12px] w-[240px]" data-node-id="69:842" style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[20px]">Title</p>
+      </div>
+      <div className="border border-[#dcdcdc] border-solid content-stretch flex gap-[10px] items-start px-[8px] py-[4px] relative rounded-[4px] shrink-0 w-full" data-node-id="69:843" data-name="_Tech / Field">
+        <div className="[word-break:break-word] flex flex-col font-['IBM_Plex_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#202020] text-[12px] whitespace-nowrap" data-node-id="I69:843;69:272" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[20px]">Text</p>
+        </div>
+      </div>
+      <div className="[word-break:break-word] flex flex-col font-['IBM_Plex_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#ff3815] text-[10px] w-[240px]" data-node-id="69:844" style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[16px]">Error</p>
+      </div>
+    </div>
+  );
+}
+Node ids have been added to the code as data attributes, e.g. `data-node-id="1:2"`.
+These styles are contained in the design: Main/SQ Black: #202020, Text 1 — IBM Plex Sans - Regular/Text1 XS 12-20 IBM Plex Sans: Font(family: "IBM Plex Sans", style: Regular, size: 12, weight: 400, lineHeight: 20, letterSpacing: 0), Gray/SQ Gray 3: #DCDCDC, Status/SQ Critical: #FF3815, Text 1 — IBM Plex Sans - Regular/Text1 XXS 10-16 IBM Plex Sans: Font(family: "IBM Plex Sans", style: Regular, size: 10, weight: 400, lineHeight: 16, letterSpacing: 0).

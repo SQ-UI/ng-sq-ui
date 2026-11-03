@@ -1,4 +1,4 @@
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 .sq {
   .input-field.textarea {
     display: block;
@@ -8,11 +8,10 @@
     }
     [contenteditable] {
       position: relative;
-      outline: none;
       padding: 10px 0 5px 0;
       &::before {
         position: absolute;
-        color: $input-placeholder-color;
+        color: sq.value('color-placeholder');
         content: attr(data-placeholder);
       }
       &.hide-placeholder::before {
@@ -20,7 +19,7 @@
       }
     }
     .placeholder {
-      color: $input-placeholder-color;
+      color: sq.value('color-placeholder');
     }
   }
 }

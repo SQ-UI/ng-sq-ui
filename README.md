@@ -149,6 +149,8 @@ The repository covers this with `projects/ng-form-elements/src/lib/signal-forms.
 
 ### Apply styling to the components
 
+See the [theme and token guide](docs/style-migration/phase-2-foundations.md) for font setup, scoped resets, runtime CSS overrides, Sass configuration, and package imports.
+
 To use our styling just add the `class="sq"` on a parent element.
 
 ```html
@@ -210,6 +212,7 @@ expose `Temporal`, otherwise the picker throws when it is instantiated.
 | `npm run lint` | ESLint for the demo app and all seven libraries (`no-explicit-any` is an **error**) |
 | `npm run build:libs` / `npm run build` | build the packages / build the demo app |
 | `npm run check:exports` | post-build guard for the generated `exports` map, entry points and published assets — run after `build:libs` (CI does) |
+| `npm run check:styles` | compile published Sass in an isolated consumer; requires `build:libs` |
 
 There is deliberately no `ng test` target: the suite runs through Vitest directly, so the same setup
 covers the libraries and the demo application.

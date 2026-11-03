@@ -1,4 +1,4 @@
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq .tags-input-wrapper {
   .input-field {
@@ -11,7 +11,7 @@
       display: inline-block;
     }
     &.disabled .entered-item {
-      background-color: $disabled-color;
+      background-color: sq.value('color-disabled');
     }
     .entered-item .button {
       cursor: pointer;

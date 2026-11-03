@@ -1,3 +1,5 @@
+@use '../../styles/tokens' as sq;
+
 .sq ol.paginator {
   list-style: none;
   margin: 0;
@@ -11,7 +13,7 @@
     transition: all 400ms ease-in;
     &.current {
       font-weight: bold;
-      background-color: #b7d8d1;
+      background-color: sq.value('color-selection');
     }
     &.truncated {
       display: none;
@@ -36,7 +38,7 @@
       &[disabled] {
         cursor: default;
         .fas {
-          color: #aba9a9;
+          color: sq.value('color-calendar-disabled');
         }
       }
     }

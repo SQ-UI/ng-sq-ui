@@ -1,8 +1,10 @@
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
+
 .sq {
   .datatable-wrapper {
     .paginator {
       justify-content: center;
-      border-top: 1px solid rgba(46,159,134,.69);
+      border-top: 1px solid sq.value('color-brand');
       padding-top: 10px;
     }
   }
@@ -20,7 +22,7 @@
       button {
         font-weight: bold;
       }
-      background-color: rgba(18, 125, 104, 0.3);
+      background-color: sq.value('color-selection-muted');
       text-transform: uppercase;
       padding: 10px 20px;
       &:last-child {
@@ -32,7 +34,7 @@
     }
     tr {
       &:nth-child(2n) td  {
-        background-color: rgba(18, 125, 104, 0.12);
+        background-color: sq.value('color-stripe');
       }
       td:last-child {
         border-right: none;
@@ -72,7 +74,7 @@
         content: attr(data-heading)": ";
       }
       tr:nth-child(2n)::after {
-        background-color: rgba(18, 125, 104, 0.12);
+        background-color: sq.value('color-stripe');
       }
     }
   }

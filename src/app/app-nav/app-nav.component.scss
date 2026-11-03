@@ -1,5 +1,4 @@
-$primary-theme-color: rgba(46, 159, 134, 0.69);
-$secondary-theme-color: rgba(18, 125, 104, 0.21);
+@use '../../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
 
 .app-nav, .mobile-nav {
   left: 0;
@@ -64,7 +63,7 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
       color: #250202;
       &::after {
         color: #250202;
-        background-color: $primary-theme-color;
+        background-color: sq.value('color-brand');
       }
     }
   }

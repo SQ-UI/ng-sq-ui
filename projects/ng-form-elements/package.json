@@ -9,6 +9,10 @@
     "url": "https://github.com/SQ-UI/ng-sq-ui.git"
   },
   "sideEffects": false,
+  "exports": {
+    "./styles/form-elements": { "sass": "./styles/form-elements.scss" },
+    "./styles/form-elements.scss": { "sass": "./styles/form-elements.scss" }
+  },
   "publishConfig": {
     "directory": "../../dist/ng-form-elements"
   },

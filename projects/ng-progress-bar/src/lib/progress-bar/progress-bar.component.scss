@@ -1,4 +1,4 @@
-@use '../../../../ng-sq-common/src/lib/styles/colors.scss' as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq .progress {
   width: 100%;
@@ -23,14 +23,14 @@
     top: 0;
     bottom: 0;
     width: 100%;
-    background: $progress-backogrund-color;
+    background: sq.value('color-secondary');
   }
 
   .loading-line {
     position: absolute;
     top: 0;
     bottom: 0;
-    background: $progress-line-color;
+    background: sq.value('color-brand');
     transition: 0.2s;
   }
 

@@ -1,2 +1,13 @@
 @use '../projects/ng-sq-common/src/lib/sq-ui-theme';
 @use '../projects/ng-form-elements/src/lib/styles/form-elements';
+@use '../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+
+// Application layout only; the library reset deliberately does not touch body.
+body {
+  margin: 0;
+}
+
+// The demo opts into the Figma font. Libraries continue to inherit consumer fonts.
+.sq-app {
+  --sq-font-family: #{sq.fallback('font-family-sans')};
+}

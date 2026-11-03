@@ -1,4 +1,4 @@
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq .typeahead-wrapper {
   position: relative;
@@ -6,7 +6,7 @@
     height: 3px;
     width: 100%;
     position: absolute;
-    background: linear-gradient(-45deg, rgba(76, 76, 76, 0.62), rgba(27, 163, 156, 0.5), rgba(18, 125, 104, 0.21), #fff) 0 0% / 200% 200%;
+    background: linear-gradient(-45deg, sq.value('color-placeholder'), sq.value('color-loader-accent'), sq.value('color-secondary'), sq.value('color-surface')) 0 0% / 200% 200%;
     animation: typeahead-loader 1.8s ease infinite;
   }
 }
@@ -36,7 +36,7 @@
     padding: 5px 10px;
     &:hover {
       cursor: pointer;
-      background-color: $box-shadow-color;
+      background-color: sq.value('color-secondary');
     }
   }
   .dropdown-icon {
@@ -45,7 +45,7 @@
     top: 11px;
   }
   &.disabled .entered-item {
-    background-color: $disabled-color;
+    background-color: sq.value('color-disabled');
   }
   .entered-items {
     display: inline-block;

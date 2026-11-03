@@ -1,0 +1,1265 @@
+{
+  "sourceCommit": "2ff11a9e43bc447bc87a1019da1f86372e6d3db0",
+  "capturedDate": "2026-11-03",
+  "method": "TypeScript AST for signal declarations; source inspection for selectors, template slots/events, and stylesheet dependencies. Internal template queries are not public inputs.",
+  "components": [
+    {
+      "selector": "[sq-datatable-column]",
+      "file": "projects/ng-datatable/src/lib/datatable-column/datatable-column.component.ts",
+      "template": "projects/ng-datatable/src/lib/datatable-column/datatable-column.component.html",
+      "stylesheet": "projects/ng-datatable/src/lib/datatable-column/datatable-column.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input.required",
+          "declaration": "readonly name = input.required<string>();",
+          "line": 15
+        },
+        {
+          "name": "isSortable",
+          "kind": "input",
+          "declaration": "readonly isSortable = input<boolean>(false);",
+          "line": 16
+        },
+        {
+          "name": "activeSortColumn",
+          "kind": "input",
+          "declaration": "readonly activeSortColumn = input<string | null | undefined>(undefined);",
+          "line": 21
+        },
+        {
+          "name": "onSortClicked",
+          "kind": "output",
+          "declaration": "readonly onSortClicked = output<SortItem>();",
+          "line": 23
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "click"
+      ],
+      "styleImports": [],
+      "mediaQueries": []
+    },
+    {
+      "selector": "[sq-datatable-row]",
+      "file": "projects/ng-datatable/src/lib/datatable-row/datatable-row.component.ts",
+      "template": "projects/ng-datatable/src/lib/datatable-row/datatable-row.component.html",
+      "stylesheet": "projects/ng-datatable/src/lib/datatable-row/datatable-row.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "rowItem",
+          "kind": "input",
+          "declaration": "readonly rowItem = input<unknown>();",
+          "line": 13
+        },
+        {
+          "name": "columns",
+          "kind": "input",
+          "declaration": "readonly columns = input<readonly string[] | undefined>(undefined);",
+          "line": 18
+        },
+        {
+          "name": "width",
+          "kind": "input",
+          "declaration": "readonly width = input<string>();",
+          "line": 20
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [],
+      "styleImports": [],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-datatable",
+      "file": "projects/ng-datatable/src/lib/datatable/datatable.component.ts",
+      "template": "projects/ng-datatable/src/lib/datatable/datatable.component.html",
+      "stylesheet": "projects/ng-datatable/src/lib/datatable/datatable.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "items",
+          "kind": "input",
+          "declaration": "items = input<TItem[]>([]);",
+          "line": 39
+        },
+        {
+          "name": "sortByAllColumns",
+          "kind": "input",
+          "declaration": "sortByAllColumns = input<boolean>(false);",
+          "line": 40
+        },
+        {
+          "name": "paginatorConfig",
+          "kind": "input",
+          "declaration": "paginatorConfig = input<PaginatorConfig>({});",
+          "line": 41
+        },
+        {
+          "name": "sortByColumns",
+          "kind": "input",
+          "declaration": "sortByColumns = input<string[]>([]);",
+          "line": 42
+        },
+        {
+          "name": "onSortClicked",
+          "kind": "output",
+          "declaration": "onSortClicked = output<SortItem>();",
+          "line": 44
+        },
+        {
+          "name": "pageChange",
+          "kind": "output",
+          "declaration": "pageChange = output<PageChangeEvent>();",
+          "line": 45
+        },
+        {
+          "name": "datatableHeaderTemplate",
+          "kind": "contentChild",
+          "declaration": "datatableHeaderTemplate = contentChild(DatatableHeaderDirective, { read: TemplateRef });",
+          "line": 47
+        },
+        {
+          "name": "datatableBodyTemplate",
+          "kind": "contentChild",
+          "declaration": "datatableBodyTemplate = contentChild(DatatableBodyDirective, { read: TemplateRef });",
+          "line": 48
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "onSortClicked",
+        "pageChange",
+        "paginatedCollectionChange"
+      ],
+      "styleImports": [],
+      "mediaQueries": [
+        "@media (max-width: 860px)"
+      ]
+    },
+    {
+      "selector": "sq-datetime-picker",
+      "file": "projects/ng-datetime-picker/src/lib/datetime-picker/datetime-picker/datetime-picker.component.ts",
+      "template": "projects/ng-datetime-picker/src/lib/datetime-picker/datetime-picker/datetime-picker.component.html",
+      "stylesheet": "projects/ng-datetime-picker/src/lib/datetime-picker/datetime-picker/datetime-picker.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 38
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 39
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 40
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 41
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 42
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 43
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 44
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 47
+        },
+        {
+          "name": "locale",
+          "kind": "input",
+          "declaration": "readonly locale = input<string>('en');",
+          "line": 50
+        },
+        {
+          "name": "maxDate",
+          "kind": "input",
+          "declaration": "readonly maxDate = input<Temporal.PlainDate | Date | undefined>(undefined);",
+          "line": 51
+        },
+        {
+          "name": "minDate",
+          "kind": "input",
+          "declaration": "readonly minDate = input<Temporal.PlainDate | Date | undefined>(undefined);",
+          "line": 52
+        },
+        {
+          "name": "isMultipleSelect",
+          "kind": "input",
+          "declaration": "readonly isMultipleSelect = input<boolean>(false);",
+          "line": 53
+        },
+        {
+          "name": "format",
+          "kind": "input",
+          "declaration": "readonly format = input<string | undefined>(undefined);",
+          "line": 54
+        },
+        {
+          "name": "isTimepickerEnabled",
+          "kind": "input",
+          "declaration": "readonly isTimepickerEnabled = input<boolean>(false);",
+          "line": 55
+        },
+        {
+          "name": "dateObjectType",
+          "kind": "input",
+          "declaration": "readonly dateObjectType = input<string>(DateObjectType.PlainDate);",
+          "line": 56
+        },
+        {
+          "name": "timepickerConfig",
+          "kind": "input",
+          "declaration": "readonly timepickerConfig = input<TimepickerConfig | undefined>(undefined);",
+          "line": 57
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<DatetimePickerValue>(null);",
+          "line": 60
+        },
+        {
+          "name": "dateSelectionChange",
+          "kind": "output",
+          "declaration": "readonly dateSelectionChange = output<DatetimePickerValue>();",
+          "line": 63
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "focusout",
+        "click",
+        "pointerleave",
+        "pointerenter",
+        "valueChange"
+      ],
+      "styleImports": [
+        "../../styles/colors"
+      ],
+      "mediaQueries": [
+        "@media (max-width: 450px)"
+      ]
+    },
+    {
+      "selector": "sq-time-picker",
+      "file": "projects/ng-datetime-picker/src/lib/datetime-picker/time-picker/time-picker.component.ts",
+      "template": "projects/ng-datetime-picker/src/lib/datetime-picker/time-picker/time-picker.component.html",
+      "stylesheet": "projects/ng-datetime-picker/src/lib/datetime-picker/time-picker/time-picker.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 24
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 25
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 26
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 27
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 28
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 29
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 30
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 33
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<TimePickerValue>(null);",
+          "line": 36
+        },
+        {
+          "name": "hourStep",
+          "kind": "input",
+          "declaration": "readonly hourStep = input<number>(1);",
+          "line": 39
+        },
+        {
+          "name": "minuteStep",
+          "kind": "input",
+          "declaration": "readonly minuteStep = input<number>(1);",
+          "line": 40
+        },
+        {
+          "name": "isMeridiem",
+          "kind": "input",
+          "declaration": "readonly isMeridiem = input<boolean>(false);",
+          "line": 41
+        },
+        {
+          "name": "isEditable",
+          "kind": "input",
+          "declaration": "readonly isEditable = input<boolean>(true);",
+          "line": 42
+        },
+        {
+          "name": "inputHours",
+          "kind": "input",
+          "declaration": "readonly inputHours = input<number | undefined>(undefined, { alias: 'hours' });",
+          "line": 43
+        },
+        {
+          "name": "inputMinutes",
+          "kind": "input",
+          "declaration": "readonly inputMinutes = input<number | undefined>(undefined, { alias: 'minutes' });",
+          "line": 44
+        },
+        {
+          "name": "timeObjectType",
+          "kind": "input",
+          "declaration": "readonly timeObjectType = input<string>(TimeObject.String);",
+          "line": 45
+        },
+        {
+          "name": "inputHoursChange",
+          "kind": "output",
+          "declaration": "readonly inputHoursChange = output<number>({ alias: 'hoursChange' });",
+          "line": 48
+        },
+        {
+          "name": "inputMinutesChange",
+          "kind": "output",
+          "declaration": "readonly inputMinutesChange = output<number>({ alias: 'minutesChange' });",
+          "line": 49
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "click",
+        "ngModelChange",
+        "blur"
+      ],
+      "styleImports": [],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-button",
+      "file": "projects/ng-form-elements/src/lib/button/button.component.ts",
+      "template": "projects/ng-form-elements/src/lib/button/button.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/button/button.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "type",
+          "kind": "input",
+          "declaration": "type = input<ButtonTypes | string>(ButtonTypes.Button);",
+          "line": 18
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "disabled = input<boolean>(false);",
+          "line": 19
+        }
+      ],
+      "projectedSlots": [
+        "*"
+      ],
+      "templateContexts": [],
+      "eventBindings": [],
+      "styleImports": [
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-checkbox",
+      "file": "projects/ng-form-elements/src/lib/checkbox/checkbox.component.ts",
+      "template": "projects/ng-form-elements/src/lib/checkbox/checkbox.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/checkbox/checkbox.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 21
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 22
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 23
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 24
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 25
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 26
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 27
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 30
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<boolean>(false);",
+          "line": 33
+        },
+        {
+          "name": "isSelectedChange",
+          "kind": "output",
+          "declaration": "readonly isSelectedChange = output<boolean>();",
+          "line": 37
+        },
+        {
+          "name": "labelTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly labelTemplate = contentChild(SqCheckboxLabelTemplateDirective);",
+          "line": 40
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [
+        "{ isSelected: isSelected() }",
+        "{ isSelected: isSelected() }"
+      ],
+      "eventBindings": [
+        "change",
+        "blur"
+      ],
+      "styleImports": [
+        "sass:color",
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-dropdown",
+      "file": "projects/ng-form-elements/src/lib/dropdown/dropdown.component.ts",
+      "template": "projects/ng-form-elements/src/lib/dropdown/dropdown.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/dropdown/dropdown.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 29
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 30
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 31
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 32
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 33
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 34
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 35
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 38
+        },
+        {
+          "name": "options",
+          "kind": "input",
+          "declaration": "readonly options = input<LabelValuePair[]>([]);",
+          "line": 41
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<LabelValuePair | null>(null);",
+          "line": 44
+        },
+        {
+          "name": "onSelectItem",
+          "kind": "output",
+          "declaration": "readonly onSelectItem = output<LabelValuePair>();",
+          "line": 47
+        },
+        {
+          "name": "optionTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly optionTemplate = contentChild(SqDropdownOptionTemplateDirective);",
+          "line": 50
+        },
+        {
+          "name": "chevronTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly chevronTemplate = contentChild(SqDropdownChevronTemplateDirective);",
+          "line": 51
+        },
+        {
+          "name": "selectedOptionTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly selectedOptionTemplate = contentChild(SqDropdownSelectedOptionTemplateDirective);",
+          "line": 52
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [
+        "{ value: value() }",
+        "{ value: value() }",
+        "{ isDropdownOpen: isOpen() }",
+        "{ isDropdownOpen: isOpen() }",
+        "{ option: option }",
+        "{ option: option }"
+      ],
+      "eventBindings": [
+        "clickOutside",
+        "keydown",
+        "focusout",
+        "click"
+      ],
+      "styleImports": [
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": [
+        "@media (max-width: 450px)"
+      ]
+    },
+    {
+      "selector": "sq-form-group",
+      "file": "projects/ng-form-elements/src/lib/form-group/form-group.component.ts",
+      "template": "projects/ng-form-elements/src/lib/form-group/form-group.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/form-group/form-group.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "groupLabel",
+          "kind": "input",
+          "declaration": "groupLabel = input<string>('');",
+          "line": 12
+        }
+      ],
+      "projectedSlots": [
+        "*"
+      ],
+      "templateContexts": [],
+      "eventBindings": [],
+      "styleImports": [],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-input",
+      "file": "projects/ng-form-elements/src/lib/input/input.component.ts",
+      "template": "projects/ng-form-elements/src/lib/input/input.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/input/input.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 19
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 20
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 21
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 22
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 23
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 24
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 25
+        },
+        {
+          "name": "type",
+          "kind": "input",
+          "declaration": "readonly type = input<string>('text');",
+          "line": 28
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<string>('');",
+          "line": 31
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 34
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "blur"
+      ],
+      "styleImports": [],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-radiobutton",
+      "file": "projects/ng-form-elements/src/lib/radiobutton/radiobutton.component.ts",
+      "template": "projects/ng-form-elements/src/lib/radiobutton/radiobutton.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/radiobutton/radiobutton.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 31
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 32
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 33
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 34
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 35
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 36
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 37
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 40
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<TValue | null>(null);",
+          "line": 43
+        },
+        {
+          "name": "radioValue",
+          "kind": "input",
+          "declaration": "readonly radioValue = input<unknown>(null);",
+          "line": 50
+        },
+        {
+          "name": "isSelectedChange",
+          "kind": "output",
+          "declaration": "readonly isSelectedChange = output<boolean>();",
+          "line": 52
+        },
+        {
+          "name": "labelTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly labelTemplate = contentChild(SqRadiobuttonLabelTemplateDirective);",
+          "line": 55
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [
+        "{ value: radioValue(), isSelected: isSelected() }",
+        "{ value: radioValue(), isSelected: isSelected() }"
+      ],
+      "eventBindings": [
+        "change",
+        "blur"
+      ],
+      "styleImports": [
+        "sass:color",
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-tags-input",
+      "file": "projects/ng-form-elements/src/lib/tags-input/tags-input.component.ts",
+      "template": "projects/ng-form-elements/src/lib/tags-input/tags-input.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/tags-input/tags-input.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 19
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 20
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 21
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 22
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 23
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 24
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 25
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 28
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<string[]>([]);",
+          "line": 31
+        },
+        {
+          "name": "tagTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly tagTemplate = contentChild(SqTagTemplateDirective, { read: TemplateRef });",
+          "line": 34
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [
+        "{ tag: enteredValue, remove: removeTag }"
+      ],
+      "eventBindings": [
+        "click",
+        "keydown",
+        "blur"
+      ],
+      "styleImports": [
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": [
+        "@media (max-width: 450px)"
+      ]
+    },
+    {
+      "selector": "sq-textarea",
+      "file": "projects/ng-form-elements/src/lib/textarea/textarea.component.ts",
+      "template": "projects/ng-form-elements/src/lib/textarea/textarea.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/textarea/textarea.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 31
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 32
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 33
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 34
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 35
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 36
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 37
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 40
+        },
+        {
+          "name": "minHeight",
+          "kind": "input",
+          "declaration": "readonly minHeight = input<number>(100);",
+          "line": 43
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<string>('');",
+          "line": 46
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "click",
+        "input",
+        "blur"
+      ],
+      "styleImports": [
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-typeahead",
+      "file": "projects/ng-form-elements/src/lib/typeahead/typeahead.component.ts",
+      "template": "projects/ng-form-elements/src/lib/typeahead/typeahead.component.html",
+      "stylesheet": "projects/ng-form-elements/src/lib/typeahead/typeahead.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "name",
+          "kind": "input",
+          "declaration": "readonly name = input<string>(generateFormFieldId());",
+          "line": 28
+        },
+        {
+          "name": "controlId",
+          "kind": "input",
+          "declaration": "readonly controlId = input<string>(generateFormFieldId());",
+          "line": 29
+        },
+        {
+          "name": "controlLabel",
+          "kind": "input",
+          "declaration": "readonly controlLabel = input<string>(FORM_FIELD_DEFAULTS.controlLabel);",
+          "line": 30
+        },
+        {
+          "name": "controlPlaceholder",
+          "kind": "input",
+          "declaration": "readonly controlPlaceholder = input<string>(FORM_FIELD_DEFAULTS.controlPlaceholder);",
+          "line": 31
+        },
+        {
+          "name": "required",
+          "kind": "input",
+          "declaration": "readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);",
+          "line": 32
+        },
+        {
+          "name": "pattern",
+          "kind": "input",
+          "declaration": "readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);",
+          "line": 33
+        },
+        {
+          "name": "disabled",
+          "kind": "input",
+          "declaration": "readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);",
+          "line": 34
+        },
+        {
+          "name": "touch",
+          "kind": "output",
+          "declaration": "readonly touch = output<void>();",
+          "line": 37
+        },
+        {
+          "name": "searchResults",
+          "kind": "input",
+          "declaration": "readonly searchResults = input<readonly unknown[]>([]);",
+          "line": 45
+        },
+        {
+          "name": "multiple",
+          "kind": "input",
+          "declaration": "readonly multiple = input<boolean>(false);",
+          "line": 46
+        },
+        {
+          "name": "delay",
+          "kind": "input",
+          "declaration": "readonly delay = input<number>(500);",
+          "line": 47
+        },
+        {
+          "name": "displayProp",
+          "kind": "input",
+          "declaration": "readonly displayProp = input<string>('');",
+          "line": 48
+        },
+        {
+          "name": "hideSearchIcon",
+          "kind": "input",
+          "declaration": "readonly hideSearchIcon = input<boolean>(false);",
+          "line": 49
+        },
+        {
+          "name": "value",
+          "kind": "model",
+          "declaration": "readonly value = model<LabelValuePair[]>([]);",
+          "line": 52
+        },
+        {
+          "name": "onUserInputEnd",
+          "kind": "output",
+          "declaration": "readonly onUserInputEnd = output<string>();",
+          "line": 55
+        },
+        {
+          "name": "optionTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly optionTemplate = contentChild(SqTypeaheadOptionTemplateDirective, { read: TemplateRef });",
+          "line": 58
+        },
+        {
+          "name": "selectedOptionTemplate",
+          "kind": "contentChild",
+          "declaration": "readonly selectedOptionTemplate = contentChild(SqTypeaheadSelectedOptionTemplateDirective, { read: TemplateRef });",
+          "line": 59
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [
+        "{ item: selectedItem, remove: removeSearchResult }",
+        "{ option: result }"
+      ],
+      "eventBindings": [
+        "clickOutside",
+        "click",
+        "input",
+        "focus",
+        "blur"
+      ],
+      "styleImports": [
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": [
+        "@media (max-width: 450px)"
+      ]
+    },
+    {
+      "selector": "sq-modal",
+      "file": "projects/ng-modal/src/lib/modal/modal.component.ts",
+      "template": "projects/ng-modal/src/lib/modal/modal.component.html",
+      "stylesheet": "projects/ng-modal/src/lib/modal/modal.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "show",
+          "kind": "model",
+          "declaration": "show = model<boolean>(false);",
+          "line": 22
+        },
+        {
+          "name": "customCssAnimation",
+          "kind": "input",
+          "declaration": "customCssAnimation = input<{\n    duration: number,\n    entranceAnimation: string,\n    exitAnimation: string\n  }>({\n    duration: 0,\n    entranceAnimation: '',\n    exitAnimation: ''\n  });",
+          "line": 24
+        }
+      ],
+      "projectedSlots": [
+        "[sq-modal-title]",
+        "[sq-modal-body]",
+        "[sq-modal-footer]"
+      ],
+      "templateContexts": [],
+      "eventBindings": [
+        "clickOutside",
+        "click"
+      ],
+      "styleImports": [],
+      "mediaQueries": [
+        "@media (min-width: 1301px)",
+        "@media (max-width: 1300px)",
+        "@media (max-width: 900px)"
+      ]
+    },
+    {
+      "selector": "sq-progress-bar",
+      "file": "projects/ng-progress-bar/src/lib/progress-bar/progress-bar.component.ts",
+      "template": "projects/ng-progress-bar/src/lib/progress-bar/progress-bar.component.html",
+      "stylesheet": "projects/ng-progress-bar/src/lib/progress-bar/progress-bar.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "size",
+          "kind": "input",
+          "declaration": "size = input<Size>('medium');",
+          "line": 15
+        },
+        {
+          "name": "loaded",
+          "kind": "input",
+          "declaration": "loaded = input<number>();",
+          "line": 16
+        },
+        {
+          "name": "infinite",
+          "kind": "input",
+          "declaration": "infinite = input<boolean>(false);",
+          "line": 17
+        },
+        {
+          "name": "backgroundColor",
+          "kind": "input",
+          "declaration": "backgroundColor = input<string>('');",
+          "line": 18
+        },
+        {
+          "name": "fillColor",
+          "kind": "input",
+          "declaration": "fillColor = input<string>('');",
+          "line": 19
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [],
+      "styleImports": [
+        "../../../../ng-sq-common/src/lib/styles/colors.scss"
+      ],
+      "mediaQueries": []
+    },
+    {
+      "selector": "sq-paginator",
+      "file": "projects/ng-sq-common/src/lib/components/paginator/paginator.component.ts",
+      "template": "projects/ng-sq-common/src/lib/components/paginator/paginator.component.html",
+      "stylesheet": "projects/ng-sq-common/src/lib/components/paginator/paginator.component.scss",
+      "encapsulation": "ViewEncapsulation.None",
+      "signals": [
+        {
+          "name": "items",
+          "kind": "input",
+          "declaration": "items = input<TItem[] | undefined>([]);",
+          "line": 19
+        },
+        {
+          "name": "itemsPerPage",
+          "kind": "input",
+          "declaration": "itemsPerPage = input<number | undefined>(10);",
+          "line": 20
+        },
+        {
+          "name": "currentPage",
+          "kind": "input",
+          "declaration": "currentPage = input<number | undefined>(1);",
+          "line": 21
+        },
+        {
+          "name": "lastPage",
+          "kind": "input",
+          "declaration": "lastPage = input<number | undefined>(undefined);",
+          "line": 22
+        },
+        {
+          "name": "maxDisplayedPages",
+          "kind": "input",
+          "declaration": "maxDisplayedPages = input<number | undefined>(3);",
+          "line": 23
+        },
+        {
+          "name": "paginatedCollection",
+          "kind": "model",
+          "declaration": "paginatedCollection = model<TItem[]>([]);",
+          "line": 24
+        },
+        {
+          "name": "pageChange",
+          "kind": "output",
+          "declaration": "pageChange = output<PageChangeEvent>();",
+          "line": 25
+        }
+      ],
+      "projectedSlots": [],
+      "templateContexts": [],
+      "eventBindings": [
+        "click"
+      ],
+      "styleImports": [],
+      "mediaQueries": []
+    }
+  ]
+}

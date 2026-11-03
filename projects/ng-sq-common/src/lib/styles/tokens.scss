@@ -1,0 +1,3 @@
+// Public facade: relative forwarding gives the values one canonical file URL,
+// including on Windows where pkg: imports normalize path casing differently.
+@forward './token-values';

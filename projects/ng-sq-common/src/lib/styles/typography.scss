@@ -1,0 +1,27 @@
+@use './tokens' as sq;
+
+@mixin body {
+  font-family: sq.value('font-family');
+  color: sq.value('color-text');
+}
+
+@mixin field-small {
+  font-size: sq.value('font-size-field-small');
+  line-height: sq.value('line-height-field-small');
+  font-weight: sq.value('font-weight-regular');
+  letter-spacing: sq.value('letter-spacing');
+}
+
+@mixin assistive {
+  font-size: sq.value('font-size-assistive');
+  line-height: sq.value('line-height-assistive');
+  font-weight: sq.value('font-weight-regular');
+  letter-spacing: sq.value('letter-spacing');
+}
+
+@mixin button-medium {
+  font-size: sq.value('font-size-button-medium');
+  line-height: sq.value('line-height-button-medium');
+  font-weight: sq.value('font-weight-medium');
+  letter-spacing: sq.value('letter-spacing');
+}

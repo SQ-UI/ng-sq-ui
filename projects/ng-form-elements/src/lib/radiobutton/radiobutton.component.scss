@@ -1,9 +1,8 @@
-@use 'sass:color';
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 // Same layering as `sq-checkbox`: the native input is the only interaction path, so it covers the
 // whole control above the `position: relative` circle (otherwise a click on the circle is lost).
-.checkable {
+sq-radiobutton .checkable {
   position: relative;
 
   > input[type="radio"] {
@@ -23,8 +22,8 @@
 
   // The input is invisible, so keyboard focus is shown on the circle instead.
   > input[type="radio"]:focus-visible ~ .radio {
-    outline: 2px solid $base-form-element-color;
-    outline-offset: 2px;
+    outline: sq.value('focus-width') solid sq.value('color-focus');
+    outline-offset: sq.value('focus-offset');
   }
 }
 
@@ -34,16 +33,16 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 1px solid $base-form-element-color;
+    border: 1px solid sq.value('color-brand');
     padding: 3px;
     margin-right: 5px;
   }
 
   .disabled .radio {
-    border-color: color.adjust($disabled-color, $lightness: -50%);
+    border-color: sq.value('color-disabled-radio-border');
   }
 }
 
-.checkable.checked .radio .inner {
+.sq sq-radiobutton .checkable.checked .radio .inner {
   border-radius: 50%;
 }

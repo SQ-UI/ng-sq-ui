@@ -1,0 +1,77 @@
+@use 'sass:map';
+
+// Configure before loading the theme: @use '.../tokens' with ($overrides: (...)).
+$overrides: () !default;
+$tokens: map.merge((
+  // Verified Figma context: 31:44, 31:33 and 69:850. See docs/style-migration/.
+  'color-brand': #00c474,
+  'color-text': #202020,
+  'color-surface': #ffffff,
+  'color-surface-subtle': #fafafa,
+  'color-border': #dcdcdc,
+  'color-critical': #ff3815,
+  'font-family-sans': ('IBM Plex Sans', Arial, sans-serif),
+  'font-family-mono': ('IBM Plex Mono', monospace),
+  // Fonts remain opt-in: the library never loads a font or replaces the host font.
+  'font-family': inherit,
+  'font-size-field-small': 12px,
+  'line-height-field-small': 20px,
+  'font-size-assistive': 10px,
+  'line-height-assistive': 16px,
+  'font-size-button-medium': 14px,
+  'line-height-button-medium': 24px,
+  'font-weight-regular': 400,
+  'font-weight-medium': 500,
+  'letter-spacing': 0,
+  'space-1': 4px,
+  'space-2': 8px,
+  'space-4': 16px,
+  'border-width': 1px,
+  'radius-control': 4px,
+
+  // Transitional source values, NOT confirmed Figma tokens. Keep until the
+  // corresponding detailed design can be read; do not invent a missing palette.
+  'color-secondary': rgba(18, 125, 104, 0.21),
+  'color-label': rgba(76, 76, 76, 0.72),
+  'color-placeholder': rgba(76, 76, 76, 0.62),
+  'color-disabled': rgba(76, 76, 76, 0.12),
+  'color-disabled-border': rgba(0, 0, 0, 0.12),
+  'color-disabled-radio-border': rgba(0, 0, 0, 0.12),
+  'color-error-border': rgba(163, 52, 27, 0.5),
+  'color-overlay': rgba(0, 0, 0, 0.38823529411764707),
+  'color-selection': #b7d8d1,
+  'color-selection-muted': rgba(18, 125, 104, 0.3),
+  'color-stripe': rgba(18, 125, 104, 0.12),
+  'color-calendar-heading-border': rgba(46, 159, 134, 0.69),
+  'color-calendar-option': rgb(226, 239, 237),
+  'color-calendar-outside': #2e9f86,
+  'color-calendar-disabled': #aba9a9,
+  'color-range-edge': #8fc4b8,
+  'color-range-preview': rgba(183, 216, 209, 0.55),
+  'color-loader-accent': rgba(27, 163, 156, 0.5),
+  'shadow-field': (3px 2px 7px rgba(18, 125, 104, 0.21)),
+  'shadow-modal': (7px 8px 0 0 rgba(18, 125, 104, 0.3)),
+  // Accessibility implementation choices; Figma focus specifications are pending.
+  'color-focus': #202020,
+  'focus-width': 2px,
+  'focus-offset': 2px,
+), $overrides);
+
+@function fallback($name) {
+  @if not map.has-key($tokens, $name) {
+    @error 'Unknown SQ-UI token: #{$name}';
+  }
+  @return map.get($tokens, $name);
+}
+
+// Fallbacks avoid resetting a consumer's inherited overrides on nested .sq nodes.
+@function value($name) {
+  @return var(--sq-#{$name}, #{fallback($name)});
+}
+
+// Optional: expose concrete defaults under a selector chosen by the consumer.
+@mixin custom-properties {
+  @each $name, $value in $tokens {
+    --sq-#{$name}: #{$value};
+  }
+}

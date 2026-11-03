@@ -1,13 +1,13 @@
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq {
   .action-button {
     position: relative;
     padding: 5px 5px;
-    border: 1px solid $base-form-element-color;
+    border: 1px solid sq.value('color-brand');
     font-weight: 500;
     text-transform: uppercase;
-    background-color: #fff;
+    background-color: sq.value('color-surface');
     .inner {
       display: inline-block;
       padding: 10px 10px;
@@ -15,16 +15,16 @@
     }
     &:not(:disabled) .inner {
       &:active, &:hover {
-        color: #fff;
+        color: sq.value('color-surface');
         transition: 200ms all ease-in-out;
-        background-color: $base-form-element-color;
+        background-color: sq.value('color-brand');
       }
     }
   }
   .action-button:disabled {
     cursor: not-allowed;
     pointer-events: none;
-    border-color: $disabled-color;
-    background-color: $disabled-color;
+    border-color: sq.value('color-disabled');
+    background-color: sq.value('color-disabled');
   }
 }

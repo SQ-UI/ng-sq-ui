@@ -1,29 +1,19 @@
-//General
-$base-font-color: #4c4c4c;
-$error-message-color: rgba(163, 52, 27, 1);
-$overlay-color: rgba(0, 0, 0, 0.38823529411764707);
-$primary-theme-color: rgba(46, 159, 134, 0.69);
-$secondary-theme-color: rgba(18, 125, 104, 0.21);
-$menu-item: rgba(111, 189, 171, 0.61);
+@use '../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq-app {
-  font-family: 'Open Sans', sans-serif;
+  font-family: sq.value('font-family');
   position: relative;
 
   .section {
     padding-bottom: 50px;
     &.primary > header {
-      border-bottom: 2px solid rgba(46, 159, 134, 0.69);
+      border-bottom: 2px solid sq.value('color-brand');
       margin-bottom: 20px;
     }
   }
 
   form > section {
     padding-top: 15px;
-  }
-
-  .sq .datetime-picker {
-    font-family: 'Nunito', sans-serif;
   }
 
   .display-flex {
@@ -77,7 +67,7 @@ $menu-item: rgba(111, 189, 171, 0.61);
 
   .emphasis {
     display: inline-block;
-    background-color: $secondary-theme-color;
+    background-color: sq.value('color-secondary');
     padding: 5px;
     font-weight: bold;
   }

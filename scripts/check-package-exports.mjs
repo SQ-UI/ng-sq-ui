@@ -135,11 +135,14 @@ for (const lib of libraries) {
 
   // Secondary entry points: whatever the sources declare must be exported, and nothing else.
   const secondaryEntryPoints = readSecondaryEntryPoints(libDir);
-  const expectedSubpaths = new Set(secondaryEntryPoints.map((entry) => `./${entry}`));
+  const expectedSubpaths = new Set([
+    ...secondaryEntryPoints.map((entry) => `./${entry}`),
+    ...Object.keys(sourcePackage.exports ?? {}),
+  ]);
 
   for (const subpath of expectedSubpaths) {
     if (!exportsMap[subpath]) {
-      fail(lib, `secondary entry point "${subpath}" is not exported by the built package`);
+      fail(lib, `declared entry point "${subpath}" is not exported by the built package`);
     }
   }
 
@@ -148,7 +151,15 @@ for (const lib of libraries) {
       continue;
     }
     if (!expectedSubpaths.has(subpath)) {
-      fail(lib, `built package exports "${subpath}" but no source entry point declares it`);
+      fail(lib, `built package exports "${subpath}" but no source entry point or asset export declares it`);
+    }
+  }
+
+  for (const [subpath, conditions] of Object.entries(sourcePackage.exports ?? {})) {
+    for (const [condition, target] of Object.entries(conditions)) {
+      if (exportsMap[subpath]?.[condition] !== target) {
+        fail(lib, `exports["${subpath}"].${condition} differs from the declared asset export`);
+      }
     }
   }
 

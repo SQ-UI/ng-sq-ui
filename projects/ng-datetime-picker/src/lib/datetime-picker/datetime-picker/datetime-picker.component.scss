@@ -1,4 +1,4 @@
-@use '../../styles/colors' as *;
+@use '../../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq {
   .datetime-picker-wrapper {
@@ -10,7 +10,7 @@
     }
     .picker-item {
       font-size: 19px;
-      background-color: $datetime-active-picker-items;
+      background-color: sq.value('color-calendar-option');
       padding: 5px 12px;
       text-transform: uppercase;
       cursor: pointer;
@@ -20,7 +20,7 @@
       min-width: 80px;
       text-align: center;
       &.disabled {
-        background-color: $disabled-color;
+        background-color: sq.value('color-disabled');
         pointer-events: none;
       }
     }
@@ -30,7 +30,7 @@
     align-items: center;
     padding-bottom: 12px;
     text-transform: uppercase;
-    border-bottom: 1px solid $datetime-heading-border;
+    border-bottom: 1px solid sq.value('color-calendar-heading-border');
   }
 
   .period-name {
@@ -65,9 +65,9 @@
     .heading {
       width: 14%;
       padding: 10px 17px;
-      background-color: $datetime-heading;
+      background-color: sq.value('color-selection-muted');
       text-transform: uppercase;
-      border-bottom: 1px solid $datetime-heading-border;
+      border-bottom: 1px solid sq.value('color-calendar-heading-border');
 
       &:last-child {
         border-right: none;
@@ -78,28 +78,28 @@
       padding: 6px 20px;
       transition: 100ms background-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
       &.beyond-current-period {
-        color: $datetime-beyond-current-month-dates;
+        color: sq.value('color-calendar-outside');
       }
       &.selected {
         font-weight: bold;
-        background-color: $datetime-selected;
+        background-color: sq.value('color-selection');
       }
       &.disabled {
         pointer-events: none;
-        color: $datetime-disabled-date;
+        color: sq.value('color-calendar-disabled');
       }
       // Range selection (`[isMultipleSelect]`)
       &.range-start,
       &.range-end {
         font-weight: bold;
-        background-color: $datetime-range-edge;
+        background-color: sq.value('color-range-edge');
       }
       &.range-preview {
-        background-color: $datetime-range-preview;
+        background-color: sq.value('color-range-preview');
       }
       &.before-range-start {
         cursor: not-allowed;
-        color: $datetime-disabled-date;
+        color: sq.value('color-calendar-disabled');
       }
     }
     &.range-pending .cell:not(.disabled):not(.before-range-start) {
@@ -107,17 +107,17 @@
     }
     .row {
       &:nth-child(2n) .cell {
-        background-color: $datetime-even-row;
+        background-color: sq.value('color-stripe');
       }
       &:nth-child(2n) .cell.selected {
-        background-color: $datetime-selected;
+        background-color: sq.value('color-selection');
       }
       &:nth-child(2n) .cell.range-preview {
-        background-color: $datetime-range-preview;
+        background-color: sq.value('color-range-preview');
       }
       &:nth-child(2n) .cell.range-start,
       &:nth-child(2n) .cell.range-end {
-        background-color: $datetime-range-edge;
+        background-color: sq.value('color-range-edge');
       }
     }
   }

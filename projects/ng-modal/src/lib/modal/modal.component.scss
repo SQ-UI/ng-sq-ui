@@ -1,8 +1,4 @@
-$modal-box-shadow-color: rgba(18, 125, 104, 0.3);
-$modal-background-color: #ffffff;
-$overlay-color: rgba(0, 0, 0, 0.38823529411764707);
-$primary-theme-color: rgba(46, 159, 134, 0.69);
-$secondary-theme-color: rgba(18, 125, 104, 0.21);
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .animated {
   -webkit-animation-duration: 500ms;
@@ -83,7 +79,7 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: $overlay-color;
+  background-color: sq.value('color-overlay');
   z-index: 1000;
 }
 
@@ -94,14 +90,14 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
 .sq .modal-window {
   position: relative;
   min-height: 500px;
-  background-color: $modal-background-color;
+  background-color: sq.value('color-surface');
   display: flex;
   flex-direction: column;
   padding: 15px;
-  box-shadow: 7px 8px 0 0 $modal-box-shadow-color;
+  box-shadow: sq.value('shadow-modal');
   .modal-header-wrapper {
-    background-color: $secondary-theme-color;
-    border-bottom: 1px solid $primary-theme-color;
+    background-color: sq.value('color-secondary');
+    border-bottom: 1px solid sq.value('color-brand');
   }
   .modal-title {
     font-size: 22px;
@@ -121,8 +117,8 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
     padding-top: 10px;
     padding-left: 15px;
     padding-bottom: 10px;
-    border-top: 1px solid $primary-theme-color;
-    background-color: $secondary-theme-color;
+    border-top: 1px solid sq.value('color-brand');
+    background-color: sq.value('color-secondary');
   }
   button {
     margin-right: 10px;
