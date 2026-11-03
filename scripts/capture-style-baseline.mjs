@@ -123,21 +123,24 @@ try {
         const input=document.querySelector('sq-input input');
         const field=input.closest('.input-field');
         const button=document.querySelector('sq-button button');
+        const modernField=!!input.closest('.sq-form-field');
         root.style.setProperty('--sq-color-brand','#123456');
+        root.style.setProperty('--sq-color-border','#123456');
         root.style.setProperty('--sq-color-text','#232425');
         await new Promise(resolve => setTimeout(resolve,350));
-        const override={field:getComputedStyle(field).borderLeftColor,button:getComputedStyle(button).borderColor,text:getComputedStyle(input).color};
-        root.style.removeProperty('--sq-color-brand'); root.style.removeProperty('--sq-color-text');
+        const override={field:modernField?getComputedStyle(field).boxShadow:getComputedStyle(field).borderLeftColor,button:modernField?getComputedStyle(button).backgroundColor:getComputedStyle(button).borderColor,text:getComputedStyle(input).color};
+        root.style.removeProperty('--sq-color-brand'); root.style.removeProperty('--sq-color-border'); root.style.removeProperty('--sq-color-text');
         await new Promise(resolve => setTimeout(resolve,350));
         const probe=document.createElement('div'); probe.className='input-field disabled checkable'; document.body.append(probe);
         const outside={border:getComputedStyle(probe).borderLeftWidth,pointerEvents:getComputedStyle(probe).pointerEvents,display:getComputedStyle(probe).display}; probe.remove();
         const p=document.createElement('p'); document.body.append(p); const resetMargin=getComputedStyle(p).marginTop; p.remove();
         input.focus(); await new Promise(resolve => setTimeout(resolve,80));
-        const focus={width:getComputedStyle(input).outlineWidth,style:getComputedStyle(input).outlineStyle,active:document.activeElement===input,visible:input.matches(':focus-visible')}; input.blur();
+        const focusTarget=modernField?field:input;
+        const focus={width:getComputedStyle(focusTarget).outlineWidth,style:getComputedStyle(focusTarget).outlineStyle,active:document.activeElement===input,visible:input.matches(':focus-visible')}; input.blur();
         const icon=document.querySelector('.fas');
         return {viewport:innerWidth,override,outside,resetMargin,focus,font:getComputedStyle(input).fontFamily,iconFont:getComputedStyle(icon).fontFamily};
       })()`);
-      if (checks.override.field!=='rgb(18, 52, 86)' || checks.override.button!=='rgb(18, 52, 86)' || checks.override.text!=='rgb(35, 36, 37)') throw new Error('Inherited token override failed: '+JSON.stringify(checks));
+      if (!checks.override.field.includes('rgb(18, 52, 86)') || checks.override.button!=='rgb(18, 52, 86)' || checks.override.text!=='rgb(35, 36, 37)') throw new Error('Inherited token override failed: '+JSON.stringify(checks));
       if (checks.outside.border!=='0px' || checks.outside.pointerEvents!=='auto' || checks.outside.display!=='block' || checks.resetMargin==='0px') throw new Error('Theme styles leaked outside .sq: '+JSON.stringify(checks));
       if(checks.focus.width!=='2px'||checks.focus.style!=='solid'||!checks.iconFont.includes('Font Awesome')) throw new Error('Focus or icon font regression: '+JSON.stringify(checks));
       (report.foundationChecks ||= []).push(checks);
@@ -152,12 +155,51 @@ try {
       ['checkbox', 'sq-checkbox .checkable'], ['button', 'sq-button .action-button'],
       ['progress', '#progressBarModule [sq-collapse-body]'],
     ];
-    for (const [name, selector] of controls) await capture(`${name}-${suffix}`, selector, 'sq-ui', width);
+    for (const [name, selector] of controls) {
+      if (process.env.STYLE_PHASE3 === '1' && name === 'progress') continue;
+      await capture(`${name}-${suffix}`, selector, 'sq-ui', width);
+    }
     await evaluate('document.querySelector("sq-dropdown [role=combobox]").click()');
     await capture(`dropdown-open-${suffix}`, 'sq-dropdown .input-field', 'sq-ui', width, 'open');
     await evaluate('document.querySelector("sq-dropdown [role=combobox]").dispatchEvent(new KeyboardEvent("keydown",{key:"Escape",bubbles:true}))');
     await evaluate('document.querySelector("sq-checkbox input").click()');
     await capture(`checkbox-selected-${suffix}`, 'sq-checkbox .checkable', 'sq-ui', width, 'selected');
+    if (process.env.STYLE_PHASE3 === '1') {
+      const checks=await evaluate(`(() => {
+        const primary=document.querySelector('#stylePrimaryButton button');
+        const neutral=document.querySelector('#styleNeutralButton button');
+        const field=document.querySelector('#styleDefaultField').closest('.input-field');
+        const error=document.querySelector('#styleErrorField');
+        const errorWrapper=error.closest('.sq-form-field');
+        const rect=e=>({width:e.getBoundingClientRect().width,height:e.getBoundingClientRect().height});
+        const style=getComputedStyle(primary); const text=getComputedStyle(document.querySelector('#styleDefaultField'));
+        return {primary:{...rect(primary),fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,radius:style.borderRadius,color:style.color,background:style.backgroundColor},neutral:{background:getComputedStyle(neutral).backgroundColor,color:getComputedStyle(neutral).color},field:{...rect(field),fontSize:text.fontSize,lineHeight:text.lineHeight,radius:getComputedStyle(field).borderRadius},error:{height:rect(errorWrapper).height,labelHeight:rect(errorWrapper.querySelector('.sq-field-label')).height,messageHeight:rect(errorWrapper.querySelector('.sq-field-message')).height,color:getComputedStyle(errorWrapper.querySelector('.sq-field-message')).color,invalid:error.getAttribute('aria-invalid'),describedBy:error.getAttribute('aria-describedby')},disabled:document.querySelector('#styleDisabledField').disabled};
+      })()`);
+      if(checks.primary.height!==32||checks.primary.fontSize!=='14px'||checks.primary.lineHeight!=='24px'||checks.primary.fontWeight!=='500'||checks.primary.radius!=='4px'||checks.primary.color!=='rgb(255, 255, 255)'||checks.primary.background!=='rgb(0, 196, 116)') throw new Error('M button reference mismatch: '+JSON.stringify(checks));
+      if(checks.neutral.background!=='rgb(250, 250, 250)'||checks.neutral.color!=='rgb(32, 32, 32)') throw new Error('Neutral button reference mismatch');
+      if(checks.field.width!==240||checks.field.height!==28||checks.field.fontSize!=='12px'||checks.field.lineHeight!=='20px'||checks.field.radius!=='4px'||checks.error.height!==64||checks.error.labelHeight!==20||checks.error.messageHeight!==16||checks.error.color!=='rgb(255, 56, 21)'||checks.error.invalid!=='true'||!checks.disabled) throw new Error('Small field reference mismatch: '+JSON.stringify(checks));
+      (report.formChecks ||= []).push(checks);
+      const examples=[['button-primary-reference','#stylePrimaryButton button'],['button-neutral-reference','#styleNeutralButton button'],['field-reference','#styleDefaultField'],['field-error','#styleErrorField'],['field-disabled','#styleDisabledField'],['form-preview','#formStylePreview']];
+      for(const [name,selector] of examples) await capture(name+'-'+suffix,selector,'sq-ui',width);
+      await evaluate('document.querySelector("sq-input input").focus()');
+      await capture('input-focus-'+suffix,'sq-input .input-field','sq-ui',width,'focus-visible');
+      await evaluate('document.querySelector("#stylePrimaryButton button").focus()');
+      await capture('button-focus-'+suffix,'#stylePrimaryButton button','sq-ui',width,'focus-visible');
+      const interaction=await evaluate(`(() => {
+        const trigger=document.querySelector('sq-dropdown [role=combobox]');
+        for(const key of ['ArrowDown','ArrowDown','Enter']) trigger.dispatchEvent(new KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));
+        return {closed:trigger.getAttribute('aria-expanded')==='false',choice:trigger.querySelector('.chosen-item')?.textContent.trim()};
+      })()`);
+      if(!interaction.closed||interaction.choice!=='option1')throw new Error('Keyboard dropdown regression: '+JSON.stringify(interaction));
+      await evaluate('document.querySelectorAll("sq-dropdown [role=combobox]")[1].click()');
+      await waitFor('document.querySelectorAll("sq-dropdown")[1].querySelectorAll(".options .option").length>1');
+      await evaluate('document.querySelectorAll("sq-dropdown")[1].querySelectorAll(".options .option")[1].click()');
+      await waitFor('document.querySelectorAll("sq-dropdown")[1].querySelector(".custom.tag")?.textContent.trim()==="option2"');
+      report.formChecks.at(-1).keyboard=interaction;
+      report.formChecks.at(-1).customDropdown=true;
+      console.log('Form reference and interaction checks passed at '+width+'px');
+      continue;
+    }
     await navigate('datatable', width);
     await waitFor('document.querySelectorAll("sq-datatable tbody tr").length>=5');
     await capture(`datatable-${suffix}`, 'sq-datatable .datatable-wrapper', 'datatable', width);

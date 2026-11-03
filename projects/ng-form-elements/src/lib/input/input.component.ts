@@ -26,6 +26,8 @@ export class InputComponent implements SqFormFieldSignals, SqFormValueControl<st
 
   // Component-specific inputs
   readonly type = input<string>('text');
+  readonly helpText = input<string>('');
+  readonly errorText = input<string>('');
 
   // Two-way value binding via model()
   readonly value = model<string>('');

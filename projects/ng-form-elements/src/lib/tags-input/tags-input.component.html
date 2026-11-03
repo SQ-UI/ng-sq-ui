@@ -1,11 +1,12 @@
-<div class="tags-input-wrapper">
+<div class="tags-input-wrapper sq-form-field">
+  @if (controlLabel()) {
+    <label class="label sq-field-label"
+           for="{{controlId()}}">
+      {{controlLabel()}}
+    </label>
+  }
   <div class="input-field" [class.disabled]="disabled()">
-    @if (controlLabel()) {
-      <label class="label"
-             for="{{controlId()}}">
-        {{controlLabel()}}
-      </label>
-    }
+
 
     @if (value().length > 0) {
       <div class="entered-items">
@@ -39,9 +40,15 @@
            id="{{controlId()}}"
            name="{{name()}}"
            [disabled]="disabled()"
+           [attr.aria-invalid]="errorText() ? 'true' : null"
+           [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
            (keydown)="onUserInput($event)"
            (blur)="touch.emit()"
            placeholder="{{controlPlaceholder()}}"
            [(ngModel)]="newTagName">
   </div>
+  @if (errorText() || helpText()) {
+    <div class="sq-field-message" [class.sq-field-error]="!!errorText()"
+         [id]="controlId() + '-message'" [attr.role]="errorText() ? 'alert' : null">{{errorText() || helpText()}}</div>
+  }
 </div>

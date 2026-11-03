@@ -1,6 +1,12 @@
+<div class="sq-form-field">
+  @if (controlLabel()) {
+    <div class="label sq-field-label" [id]="controlId() + '-label'">{{controlLabel()}}</div>
+  }
 <div class="input-field dropdown"
      [class.disabled]="disabled()"
      role="combobox"
+     [attr.aria-invalid]="errorText() ? 'true' : null"
+     [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
      aria-haspopup="listbox"
      [attr.id]="controlId()"
      [attr.tabindex]="disabled() ? -1 : 0"
@@ -16,7 +22,6 @@
      (focusout)="onFocusOut($event)"
      (click)="toggleOptionsDropdown();">
 
-  <div class="label" [attr.id]="controlId() + '-label'">{{controlLabel()}}</div>
 
   <ng-template #defaultSelectedItemTemplate>
     <div class="chosen-item">{{value()?.label}}</div>
@@ -77,5 +82,10 @@
         </div>
       }
     </div>
+  }
+</div>
+  @if (errorText() || helpText()) {
+    <div class="sq-field-message" [class.sq-field-error]="!!errorText()"
+         [id]="controlId() + '-message'" [attr.role]="errorText() ? 'alert' : null">{{errorText() || helpText()}}</div>
   }
 </div>

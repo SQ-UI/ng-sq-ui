@@ -1,4 +1,5 @@
-<button type="{{validatedType()}}" [disabled]="disabled()" class="action-button">
+<button type="{{validatedType()}}" [disabled]="disabled()" class="action-button"
+        [class.sq-button-neutral]="appearance() === 'neutral'">
   <span class="inner">
     <ng-content></ng-content>
   </span>

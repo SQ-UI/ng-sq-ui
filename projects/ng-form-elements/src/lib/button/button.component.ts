@@ -6,6 +6,9 @@ export enum ButtonTypes {
   Reset = 'reset'
 }
 
+/** Verified M button appearances; additional Figma variants are still pending. */
+export type ButtonAppearance = 'primary' | 'neutral';
+
 @Component({
   selector: 'sq-button',
   standalone: true,
@@ -17,6 +20,7 @@ export enum ButtonTypes {
 export class ButtonComponent {
   type = input<ButtonTypes | string>(ButtonTypes.Button);
   disabled = input<boolean>(false);
+  appearance = input<ButtonAppearance>('primary');
 
   validatedType = computed(() => {
     const t = this.type();

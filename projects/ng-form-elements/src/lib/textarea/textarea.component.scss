@@ -1,25 +1,18 @@
 @use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
-.sq {
-  .input-field.textarea {
-    display: block;
-    label {
-      padding-bottom: 10px;
-      display: block;
-    }
-    [contenteditable] {
-      position: relative;
-      padding: 10px 0 5px 0;
-      &::before {
-        position: absolute;
-        color: sq.value('color-placeholder');
-        content: attr(data-placeholder);
-      }
-      &.hide-placeholder::before {
-        display: none;
-      }
-    }
-    .placeholder {
+.sq sq-textarea .input-field.textarea {
+  display: block;
+  [contenteditable] {
+    position: relative;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    &:focus-visible { outline: none; }
+    &::before {
+      position: absolute;
       color: sq.value('color-placeholder');
+      content: attr(data-placeholder);
+      pointer-events: none;
     }
+    &.hide-placeholder::before { display: none; }
   }
 }

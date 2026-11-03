@@ -25,15 +25,10 @@
   }
   .dropdown-icon {
     position: absolute;
-    right: 11px;
-    top: 11px;
+    right: sq.value('space-2');
+    top: sq.value('space-1');
   }
 }
 
-@media (max-width: 450px) {
-  .sq .input-field.dropdown {
-    .chosen-item {
-      margin-top: 10px;
-    }
-  }
-}
+
+.sq .input-field.dropdown { padding-right: 28px; }

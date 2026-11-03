@@ -1,12 +1,13 @@
-<div class="input-field textarea" [class.disabled]="disabled()">
+<div class="sq-form-field">
   @if (controlLabel() !== '') {
-    <div class="label"
+    <div class="label sq-field-label"
          [attr.id]="controlId() + '-label'"
          (click)="focusOnArea()">
       {{controlLabel()}}
     </div>
   }
 
+  <div class="input-field textarea" [class.disabled]="disabled()">
   <div #textarea
        [attr.id]="controlId()"
        [attr.contenteditable]="disabled() ? 'false' : 'true'"
@@ -22,7 +23,13 @@
        [attr.aria-labelledby]="controlLabel() ? controlId() + '-label' : null"
        [attr.aria-placeholder]="controlPlaceholder() || null"
        [attr.aria-required]="required()"
-       [attr.aria-disabled]="disabled()">
+       [attr.aria-disabled]="disabled()"
+       [attr.aria-invalid]="errorText() ? 'true' : null"
+       [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null">
   </div>
-
+  </div>
+  @if (errorText() || helpText()) {
+    <div class="sq-field-message" [class.sq-field-error]="!!errorText()"
+         [id]="controlId() + '-message'" [attr.role]="errorText() ? 'alert' : null">{{errorText() || helpText()}}</div>
+  }
 </div>

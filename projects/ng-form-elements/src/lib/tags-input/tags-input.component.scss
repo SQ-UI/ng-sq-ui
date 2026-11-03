@@ -2,13 +2,16 @@
 
 .sq .tags-input-wrapper {
   .input-field {
-    display: block;
+    display: flex;
+    gap: sq.value('space-1');
     input {
-      min-width: 250px;
+      min-width: 0;
+      flex: 1 1 8ch;
     }
     input, .entered-items {
       width: auto;
       display: inline-block;
+      max-width: 100%;
     }
     &.disabled .entered-item {
       background-color: sq.value('color-disabled');
@@ -20,19 +23,6 @@
       background: none;
       color: inherit;
       font: inherit;
-    }
-  }
-}
-
-@media (max-width: 450px) {
-  .sq .tags-input-wrapper {
-    .input-field input, .entered-items {
-      margin-top: 10px;
-    }
-
-    .input-field .entered-items {
-      display: block;
-      width: 100%;
     }
   }
 }

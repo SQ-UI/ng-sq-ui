@@ -6,13 +6,15 @@
     height: 3px;
     width: 100%;
     position: absolute;
+    bottom: 0;
     background: linear-gradient(-45deg, sq.value('color-placeholder'), sq.value('color-loader-accent'), sq.value('color-secondary'), sq.value('color-surface')) 0 0% / 200% 200%;
     animation: typeahead-loader 1.8s ease infinite;
   }
 }
 
 .sq .input-field.typeahead {
-  display: block;
+  display: flex;
+  gap: sq.value('space-1');
   position: relative;
   input, .chosen-item, .content, .remove {
     display: inline-block;
@@ -49,21 +51,8 @@
   }
   .entered-items {
     display: inline-block;
+    max-width: 100%;
   }
-}
-
-@media (max-width: 450px) {
-  .sq .typeahead-wrapper {
-    .input-field input, .entered-items {
-      margin-top: 10px;
-    }
-
-    .entered-items {
-      display: block;
-      width: 100%;
-    }
-  }
-
 }
 
 @keyframes typeahead-loader {

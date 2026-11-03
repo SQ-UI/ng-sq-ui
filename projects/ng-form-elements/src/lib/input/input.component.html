@@ -1,11 +1,12 @@
-<div class="input-field" [class.disabled]="disabled()">
+<div class="sq-form-field">
   @if (controlLabel() !== '') {
-    <label class="label"
+    <label class="label sq-field-label"
            for="{{controlId()}}">
       {{controlLabel()}}
     </label>
   }
 
+  <div class="input-field" [class.disabled]="disabled()">
   <input type="{{type()}}"
          name="{{name()}}"
          id="{{controlId()}}"
@@ -13,6 +14,13 @@
          [required]="required()"
          [pattern]="patternAttribute()"
          [disabled]="disabled()"
+         [attr.aria-invalid]="errorText() ? 'true' : null"
+         [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
          (blur)="touch.emit()"
          [(ngModel)]="value">
+  </div>
+  @if (errorText() || helpText()) {
+    <div class="sq-field-message" [class.sq-field-error]="!!errorText()"
+         [id]="controlId() + '-message'" [attr.role]="errorText() ? 'alert' : null">{{errorText() || helpText()}}</div>
+  }
 </div>

@@ -33,6 +33,8 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
   readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
   readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
   readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
+  readonly helpText = input<string>('');
+  readonly errorText = input<string>('');
 
   /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
   readonly touch = output<void>();
