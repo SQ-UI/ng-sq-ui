@@ -26,7 +26,9 @@
   .dropdown-icon {
     position: absolute;
     right: sq.value('space-2');
-    top: sq.value('space-1');
+    // Center on the trigger's text row, which stays in place when options open.
+    top: calc(#{sq.value('space-1')} + var(--sq-field-line-height, #{sq.value('line-height-field-small')}) / 2);
+    transform: translateY(-50%);
   }
 }
 
