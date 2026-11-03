@@ -52,17 +52,15 @@ describe('TagsInputComponent', () => {
 
     const backspaceEvent = keyEvent('Backspace');
 
+    // Backspace while the field still has text only edits the text.
     component.newTagName = 'asdf';
     component.onUserInput(backspaceEvent);
 
     expect(component.value().indexOf(testTag) > -1)
       .toBe(true);
 
-    // below 2 lines emulate an already empty field
+    // Backspace on an empty field removes the last tag.
     component.newTagName = '';
-    component.onUserInput(backspaceEvent);
-
-    // trigger a backspace on an empty field
     component.onUserInput(backspaceEvent);
 
     expect(component.value().indexOf(testTag) === -1)
@@ -85,6 +83,22 @@ describe('TagsInputComponent', () => {
 
     expect(component.value()).toEqual(['enterTag', 'commaTag']);
     expect(component.newTagName).toBe('');
+  });
+
+  it('should not include the comma in a tag typed into the field', async () => {
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    input.value = 'foo';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    const comma = new KeyboardEvent('keydown', { key: ',', cancelable: true });
+    input.dispatchEvent(comma);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.value()).toEqual(['foo']);
+    expect(comma.defaultPrevented).toBe(true);
+    expect(input.value).toBe('');
   });
 
   it('should remove tags when using the remove button', () => {

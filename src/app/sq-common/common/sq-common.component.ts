@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 })
 export class SqCommonComponent {
   npmPackageName: string = '@sq-ui/ng-sq-common';
-  moduleName: string = 'NgSqCommonModule';
+  moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
     {
@@ -23,23 +23,31 @@ export class SqCommonComponent {
     },
     {
       name: 'sq-paginator',
-      fragment: '/datatable'
+      routeLink: '/datatable'
     },
+    { name: 'sqScrolledToBottomListener' },
+    { name: 'FormFieldConfig (interface)' },
+    { name: 'SqFormFieldSignals (interface)' },
+    { name: 'FORM_FIELD_DEFAULTS (constant)' },
+    { name: 'generateFormFieldId (function)' },
+    { name: 'toPatternAttribute (function)' },
+    { name: 'SqFormValueControl / SqFormCheckboxControl / SqFormUiControl (types)' },
     { name: 'DeviceOS (enum)' },
-    { name: 'InputCoreComponent (class)' },
-    { name: 'Size (interface)' },
+    { name: 'Size (type)' },
     { name: 'ProgressBarSize (interface)' },
     { name: 'CustomEventDetails (interface)' },
     { name: 'LabelValuePair (interface)' },
     { name: 'CustomEventBroadcasterService' },
     { name: 'OSDetectorService' },
     { name: 'PaginatorConfig (interface)' },
-    { name: 'ScrolledToBottomListenerDirective' }
+    { name: 'PageChangeEvent (interface)' },
+    { name: 'InputCoreComponent (deprecated class)' },
+    { name: 'ControlValueAccessorEnabler (deprecated class)' }
   ];
 
   docs: NavItem[] = [
     {
-      name: 'CommonModule',
+      name: 'ng-sq-common',
       routeLink: `${environment.docs}/common-module`
     }
   ];

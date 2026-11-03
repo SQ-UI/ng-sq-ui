@@ -20,6 +20,9 @@
       background-color: $box-shadow-color;
     }
   }
+  .options .active .option {
+    background-color: $box-shadow-color;
+  }
   .dropdown-icon {
     position: absolute;
     right: 11px;

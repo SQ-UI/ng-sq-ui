@@ -13,7 +13,6 @@
   ],
   "allowedNonPeerDependencies": [
     "@js-temporal/polyfill",
-    "@sq-ui/ng-sq-common",
     "tslib"
   ]
 }

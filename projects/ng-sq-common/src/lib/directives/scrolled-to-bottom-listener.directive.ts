@@ -17,7 +17,10 @@ export class ScrolledToBottomListenerDirective implements OnDestroy {
   });
 
   checkIfHasScrolledToBottom(element: HTMLElement) {
-    const hasScrolledToBottom = element.scrollTop > 0 ? ((element.scrollHeight - element.scrollTop) === element.clientHeight) : false;
+    // `scrollTop` is fractional on zoomed / high-DPI screens, so an exact comparison can never hit
+    // the bottom; allow a one-pixel tolerance.
+    const distanceToBottom = element.scrollHeight - element.scrollTop - element.clientHeight;
+    const hasScrolledToBottom = element.scrollTop > 0 && Math.abs(distanceToBottom) <= 1;
 
     if (hasScrolledToBottom) {
       this.scrolledToBottom.emit();

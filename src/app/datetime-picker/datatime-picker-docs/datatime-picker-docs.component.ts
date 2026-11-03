@@ -30,7 +30,7 @@ export class DatatimePickerDocsComponent {
   moduleName: string = 'ng-datetime-picker';
   dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
+      name: 'ng-sq-common',
       routeLink: '/sq-common'
     }
   ];
@@ -44,7 +44,11 @@ export class DatatimePickerDocsComponent {
       name: 'sq-time-picker',
       fragment: 'timepicker'
     },
-    { name: 'TimepickerConfig (interface)' }
+    { name: 'TimepickerConfig (interface)' },
+    { name: 'DatetimePickerValue / DatetimePickerDate / TimePickerValue (types)' },
+    { name: 'DateObjectType / TimeObject (enums)' },
+    { name: 'CalendarManagerService' },
+    { name: 'Temporal (from @sq-ui/ng-datetime-picker/temporal)' }
   ];
 
   docs: NavItem[] = [
@@ -80,7 +84,7 @@ export class DatatimePickerDocsComponent {
     isMeridiem: false,
     isEditable: false,
   };
-  isTimepickerEndabled = true;
+  isTimepickerEnabled = true;
 
   standAloneDatepickerValue = signal<DatetimePickerValue>(Temporal.Now.plainDateISO().add({ days: 1 }));
   datetimePickerValue = signal<DatetimePickerValue>(Temporal.Now.plainDateISO().add({ days: 1 }));

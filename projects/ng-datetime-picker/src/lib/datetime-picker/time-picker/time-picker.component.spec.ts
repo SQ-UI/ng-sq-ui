@@ -168,4 +168,64 @@ describe('TimePickerComponent', () => {
     const val = component.value() as string;
     expect(val).toMatch(/(AM|PM)$/);
   });
+
+  it('should not throw on non-numeric hour or minute input', () => {
+    component.hours.set('ab');
+    expect(() => component.validateInput(TimeUnit.Hours)).not.toThrow();
+    expect(component.hours()).toBe('00');
+
+    component.minutes.set('x');
+    expect(() => component.validateInput(TimeUnit.Minutes)).not.toThrow();
+    expect(component.minutes()).toBe('00');
+  });
+
+  it('should keep the tracked hour when another field is blurred with unparsed text', () => {
+    component.hours.set('14');
+    component.minutes.set('30');
+    component.validateInput(TimeUnit.Hours);
+
+    component.hours.set('zz');
+    component.minutes.set('45');
+    expect(() => component.validateInput(TimeUnit.Minutes)).not.toThrow();
+    expect(component.value()).toBe('zz:45');
+  });
+
+  it('should show a time written to the value model', () => {
+    component.value.set('09:05');
+    fixture.detectChanges();
+
+    expect(component.hours()).toBe('09');
+    expect(component.minutes()).toBe('05');
+  });
+
+  it('should seed the display from a bound PlainTime value', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('timeObjectType', 'plaintime');
+    fixture.componentRef.setInput('value', Temporal.PlainTime.from({ hour: 7, minute: 15 }));
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    expect(component.hours()).toBe('07');
+    expect(component.minutes()).toBe('15');
+    expect(String(component.value())).toBe('07:15:00');
+  });
+
+  it('should parse a meridiem string into the 24-hour time it represents', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('timeObjectType', 'plaintime');
+    fixture.componentRef.setInput('value', '02:30 PM');
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    expect(String(component.value())).toBe('14:30:00');
+  });
+
+  it('should replace a null value with the time on display', () => {
+    fixture = TestBed.createComponent(TimePickerComponent);
+    fixture.componentRef.setInput('value', null);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    expect(component.value()).toBe(`${component.hours()}:${component.minutes()}`);
+  });
 });

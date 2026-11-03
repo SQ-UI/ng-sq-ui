@@ -133,7 +133,7 @@ describe('PaginatorComponent', () => {
     fixture.componentRef.setInput('items', newItems);
     fixture.detectChanges();
 
-    expect(component.items().length).toEqual(recordCount * 2);
+    expect((component.items() ?? []).length).toEqual(recordCount * 2);
     expect(component.pages()[component.pages().length - 1].number)
       .toEqual(Math.ceil(recordCount / recordPerPage) * 2);
   });
@@ -187,7 +187,7 @@ describe('PaginatorComponent', () => {
     const recordPerPage = 5;
     setPagination(generateDummyCollection(100), recordPerPage);
 
-    const items = component.items();
+    const items = component.items() ?? [];
     expect(component._paginatedCollection()).toEqual(items.slice(0, recordPerPage));
 
     (queryPaginator('.current + li button') as HTMLButtonElement).click();
@@ -227,6 +227,36 @@ describe('PaginatorComponent', () => {
 
     expect(allVisiblePages.length).toEqual(maxDisplayedPages * 2);
     expect(allPages[maxDisplayedPages + 1].classList.contains('truncated')).toBe(true);
+  });
+
+  it('should move the visible window when the user clicks a page', () => {
+    setPagination(generateDummyCollection(200), 10, { maxDisplayedPages: 3 });
+
+    component.onPageClick(component.pages()[2]);
+    fixture.detectChanges();
+    component.onPageClick(component.pages()[4]);
+    fixture.detectChanges();
+
+    const visible = component.pages().filter(page => !page.isHidden).map(page => page.number);
+    // first page, the window from the selected page 5, and the last three pages
+    expect(visible).toEqual([1, 5, 6, 7, 18, 19, 20]);
+    expect(component.pages().filter(page => page.isSelected).map(page => page.number)).toEqual([5]);
+  });
+
+  it('should stay on a [lastPage] page beyond the loaded items until they arrive', () => {
+    const items = generateDummyCollection(10);
+    setPagination(items, 5, { lastPage: 8 });
+
+    component.onPageClick(component.pages()[5]);
+    fixture.detectChanges();
+    expect(component._paginatedCollection()).toEqual([]);
+
+    const loaded = generateDummyCollection(30);
+    fixture.componentRef.setInput('items', loaded);
+    fixture.detectChanges();
+
+    expect(component.pages().find(page => page.isSelected)?.number).toBe(6);
+    expect(component._paginatedCollection()).toEqual(loaded.slice(25, 30));
   });
 
   it('should expose the selected page with the Page shape', () => {

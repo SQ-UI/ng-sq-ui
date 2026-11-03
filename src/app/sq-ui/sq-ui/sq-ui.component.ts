@@ -42,6 +42,45 @@ interface TypeaheadDemoResult {
   };
 }
 
+/** Sample `[searchResults]` for the `displayProp` example; a fresh array per search. */
+function createSampleResults(): TypeaheadDemoResult[] {
+  return [
+    {
+      myCustomProp: 'option1',
+      value: 'someVal1',
+      prop: 1,
+      uid: 12,
+      nested: {
+        level2: {
+          prop: '1',
+        },
+      },
+    },
+    {
+      myCustomProp: 'option2',
+      value: 'someVal2',
+      prop: 2,
+      uid: 22,
+      nested: {
+        level2: {
+          prop: '2',
+        },
+      },
+    },
+    {
+      myCustomProp: 'option3',
+      value: 'someVal3',
+      prop: 3,
+      uid: 32,
+      nested: {
+        level2: {
+          prop: '1',
+        },
+      },
+    },
+  ];
+}
+
 @Component({
   selector: 'sq-ui',
   standalone: true,
@@ -77,17 +116,17 @@ export class SqUiComponent {
   moduleName: string = 'ng-sq-ui (barrel re-exports)';
   internallyDeclared: NavItem[] = [
     {
-      name: 'FormElementsModule',
+      name: 'ng-form-elements',
       fragment: 'formsModule'
     },
     {
-      name: 'ProgressBarModule',
+      name: 'ng-progress-bar',
       fragment: 'progressBarModule'
     },
   ];
   dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
+      name: 'ng-sq-common',
       routeLink: '/sq-common'
     },
     {
@@ -95,22 +134,22 @@ export class SqUiComponent {
       routeLink: '/datetime-picker'
     },
     {
-      name: 'NgDatatable',
+      name: 'ng-datatable',
       routeLink: '/datatable'
     },
     {
-      name: 'NgModalModule',
+      name: 'ng-modal',
       routeLink: '/modal'
     }
   ];
   exports: NavItem[] = [];
   docs: NavItem[] =  [
     {
-      name: 'FormElementsModule',
+      name: 'ng-form-elements',
       routeLink: `${environment.docs}/form-elements-module`
     },
     {
-      name: 'ProgressBarModule',
+      name: 'ng-progress-bar',
       routeLink: `${environment.docs}/progressbar-module`
     },
   ];
@@ -126,7 +165,8 @@ export class SqUiComponent {
     }
   ];
 
-  searchResultsStrings: string[];
+  /** New arrays are passed on every search: `sq-typeahead` reacts to a change of reference. */
+  readonly searchResultsStrings = signal<string[]>([]);
   radioGroupValue = signal<string>('value1');
   progressBarLoadedSmall = signal(20);
   progressBarLoadedMedium = signal(40);
@@ -152,41 +192,7 @@ export class SqUiComponent {
   });
   testForm = compatForm(this.formModel);
 
-  searchResults: TypeaheadDemoResult[] = [
-    {
-      myCustomProp: 'option1',
-      value: 'someVal1',
-      prop: 1,
-      uid: 12,
-      nested: {
-        level2: {
-          prop: '1',
-        },
-      },
-    },
-    {
-      myCustomProp: 'option2',
-      value: 'someVal2',
-      prop: 2,
-      uid: 22,
-      nested: {
-        level2: {
-          prop: '2',
-        },
-      },
-    },
-    {
-      myCustomProp: 'option3',
-      value: 'someVal3',
-      prop: 3,
-      uid: 32,
-      nested: {
-        level2: {
-          prop: '1',
-        },
-      },
-    },
-  ];
+  readonly searchResults = signal<TypeaheadDemoResult[]>(createSampleResults());
 
   dropdownOptions: LabelValuePair[] = [
     {
@@ -214,45 +220,11 @@ export class SqUiComponent {
   }
 
   searchMethod(_query: string) {
-    this.searchResults = [
-      {
-        myCustomProp: 'option1',
-        value: 'someVal1',
-        prop: 1,
-        uid: 12,
-        nested: {
-          level2: {
-            prop: '1',
-          },
-        },
-      },
-      {
-        myCustomProp: 'option2',
-        value: 'someVal2',
-        prop: 2,
-        uid: 22,
-        nested: {
-          level2: {
-            prop: '2',
-          },
-        },
-      },
-      {
-        myCustomProp: 'option3',
-        value: 'someVal3',
-        prop: 3,
-        uid: 32,
-        nested: {
-          level2: {
-            prop: '1',
-          },
-        },
-      },
-    ];
+    this.searchResults.set(createSampleResults());
   }
 
   searchMethodString(_query: string) {
-    this.searchResultsStrings = ['option1', 'option2', 'option3', 'option4'];
+    this.searchResultsStrings.set(['option1', 'option2', 'option3', 'option4']);
   }
 
   onSubmit() {

@@ -47,6 +47,29 @@ describe('RadiobuttonComponent', () => {
     expect(radio2.isSelected()).toBe(true);
   });
 
+  it('should report a deselection only from the radio that was selected', () => {
+    const makeRadio = (radioValue: string) => {
+      const radioFixture = TestBed.createComponent(RadiobuttonComponent);
+      radioFixture.componentRef.setInput('radioValue', radioValue);
+      radioFixture.componentRef.setInput('name', groupName);
+      radioFixture.detectChanges();
+      const changes: boolean[] = [];
+      radioFixture.componentInstance.isSelectedChange.subscribe(change => changes.push(change));
+      return { radio: radioFixture.componentInstance, changes };
+    };
+
+    const a = makeRadio('a');
+    const b = makeRadio('b');
+    const c = makeRadio('c');
+
+    a.radio.selectRadio();
+    b.radio.selectRadio();
+
+    expect(a.changes).toEqual([true, false]);
+    expect(b.changes).toEqual([true]);
+    expect(c.changes).toEqual([]);
+  });
+
   it('should update value model when selected', () => {
     fixture.componentRef.setInput('radioValue', 'testValue');
     fixture.componentRef.setInput('name', groupName);

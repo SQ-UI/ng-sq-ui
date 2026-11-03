@@ -1,4 +1,7 @@
-<div class="datetime-picker-wrapper">
+<div class="datetime-picker-wrapper"
+     [class.disabled]="disabled()"
+     [attr.aria-disabled]="disabled()"
+     (focusout)="onFocusOut($event)">
   <div class="period-section display-flex"
        [ngClass]="{'justify-center': isMonthsPickerEnabled(),
                    'space-between': !isMonthsPickerEnabled()}">
@@ -98,6 +101,7 @@
                     [value]="time()"
                     (valueChange)="onTimeChange($event)"
                     timeObjectType="plaintime"
+                    [disabled]="disabled()"
                     [hours]="timepickerConfig()?.hours"
                     [minutes]="timepickerConfig()?.minutes"
                     [hourStep]="timepickerConfig()?.hourStep ?? 1"

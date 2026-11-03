@@ -1,5 +1,5 @@
 import {
-  Component, input, output, effect, signal, untracked,
+  Component, input, output, signal, computed,
   contentChild, TemplateRef,
   ChangeDetectionStrategy, ViewEncapsulation
 } from '@angular/core';
@@ -33,8 +33,6 @@ function asRowRecord<TItem>(item: TItem): Record<string, unknown> {
     PaginatorComponent,
     DatatableRowComponent,
     DatatableColumnComponent,
-    DatatableHeaderDirective,
-    DatatableBodyDirective
   ]
 })
 export class DatatableComponent<TItem = unknown> {
@@ -49,22 +47,52 @@ export class DatatableComponent<TItem = unknown> {
   datatableHeaderTemplate = contentChild(DatatableHeaderDirective, { read: TemplateRef });
   datatableBodyTemplate = contentChild(DatatableBodyDirective, { read: TemplateRef });
 
-  columnNames = signal<DatatableColumn[]>([]);
+  /** The active sort. `null` (or an `undefined` direction) means "original order". */
+  readonly sortState = signal<SortItem | null>(null);
+
+  readonly columnNames = computed<DatatableColumn[]>(() => {
+    const firstItem = this.items()?.[0];
+
+    if (!firstItem) {
+      return [];
+    }
+
+    const sortByAll = this.sortByAllColumns();
+    const sortByCols = this.sortByColumns() ?? [];
+
+    return Object.keys(asRowRecord(firstItem)).map((columnName) => ({
+      name: columnName,
+      canBeSortedAgainst: sortByAll || sortByCols.includes(columnName),
+    }));
+  });
+
+  /** Column order shared by the header and every row, so rows with other keys stay aligned. */
+  readonly columnKeys = computed(() => this.columnNames().map(column => column.name));
+
+  /** The whole collection in display order: sorting applies across pages, not to the visible page. */
+  readonly sortedItems = computed<TItem[]>(() => {
+    const items = this.items() ?? [];
+    const sort = this.sortState();
+
+    if (!sort || sort.isSortedByAscending === undefined) {
+      return items;
+    }
+
+    const direction = sort.isSortedByAscending ? 1 : -1;
+
+    return [...items].sort((rowItem1, rowItem2) => direction * this.compareColumnValues(
+      this.readColumn(rowItem1, sort.name),
+      this.readColumn(rowItem2, sort.name)
+    ));
+  });
+
+  /** Name of the column the table is sorted by, so the other columns reset their sort icon. */
+  readonly activeSortColumn = computed(() => {
+    const sort = this.sortState();
+    return sort && sort.isSortedByAscending !== undefined ? sort.name : null;
+  });
+
   paginatedCollection = signal<TItem[]>([]);
-
-  constructor() {
-    effect(() => {
-      const currentItems = this.items();
-      const sortByAll = this.sortByAllColumns();
-      const sortByCols = this.sortByColumns();
-
-      untracked(() => {
-        if (currentItems && currentItems.length > 0) {
-          this.generateColumns(currentItems[0], sortByAll, sortByCols);
-        }
-      });
-    });
-  }
 
   onPageChange($event: PageChangeEvent) {
     this.pageChange.emit($event);
@@ -75,21 +103,8 @@ export class DatatableComponent<TItem = unknown> {
   }
 
   sortByField(column: SortItem) {
+    this.sortState.set(column);
     this.onSortClicked.emit(column);
-    this.sortItems(column.name, column.isSortedByAscending);
-  }
-
-  private sortItems(columnName: string, ascending: boolean | undefined) {
-    const direction = ascending === false ? -1 : 1;
-
-    this.paginatedCollection.update(collection => [...collection].sort((rowItem1, rowItem2) => {
-      const comparison = this.compareColumnValues(
-        this.readColumn(rowItem1, columnName),
-        this.readColumn(rowItem2, columnName)
-      );
-
-      return comparison * direction;
-    }));
   }
 
   /** Reads a cell as a comparable scalar: numbers stay numeric so `10` sorts after `9`. */
@@ -109,22 +124,5 @@ export class DatatableComponent<TItem = unknown> {
     }
 
     return String(left).localeCompare(String(right));
-  }
-
-  private generateColumns(item: TItem, sortByAll: boolean, sortByCols: string[]) {
-    if (!item) {
-      return;
-    }
-
-    this.columnNames.set(Object.keys(asRowRecord(item))
-      .map((columnName) => {
-        const canBeSortedAgainst = sortByAll ||
-          (sortByCols && sortByCols.indexOf(columnName) > -1);
-
-        return {
-          name: columnName,
-          canBeSortedAgainst: canBeSortedAgainst
-        };
-      }));
   }
 }

@@ -13,7 +13,10 @@ import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown.escape)': 'onEscape()',
+  },
 })
 export class ModalComponent {
   show = model<boolean>(false);
@@ -49,6 +52,14 @@ export class ModalComponent {
 
       if (!this.initialized) {
         this.initialized = true;
+
+        // A modal bound as initially open (`[(show)]="true"`) is shown straight away, without
+        // the entrance animation.
+        if (isVisible) {
+          this.isHidden.set(false);
+          this.listenForOutsideClick.set(true);
+        }
+
         return;
       }
 
@@ -82,6 +93,12 @@ export class ModalComponent {
 
   open() {
     this.show.set(true);
+  }
+
+  onEscape() {
+    if (this.show()) {
+      this.close();
+    }
   }
 
   onClickOutsideComponent() {

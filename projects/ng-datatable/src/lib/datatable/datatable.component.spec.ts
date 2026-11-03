@@ -94,7 +94,7 @@ describe('DatatableComponent', () => {
 
     hostFixture.detectChanges();
 
-    expect(Object.keys(datatableComponent.items()[0]).length === datatableComponent.columnNames().length)
+    expect(Object.keys(datatableComponent.items()[0] as object).length === datatableComponent.columnNames().length)
       .toBe(true);
   });
 
@@ -122,5 +122,52 @@ describe('DatatableComponent', () => {
       .toBe(true);
     expect(areAllOtherColumnsUnsortable)
       .toBe(true);
+  });
+
+  describe('sorting', () => {
+    const renderedIds = (): number[] =>
+      datatableComponent.paginatedCollection().map(item => (item as DummyRecord).id);
+
+    beforeEach(async () => {
+      hostComponent.items.set(generateDummyCollection(10));
+      hostComponent.paginatorConfig.set({ itemsPerPage: 5 });
+      hostComponent.sortByColumns.set(['id']);
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+    });
+
+    it('should sort the whole collection, not only the visible page', async () => {
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: false });
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      expect(renderedIds()).toEqual([10, 9, 8, 7, 6]);
+    });
+
+    it('should keep the sort when the page changes', async () => {
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: false });
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      const pageButtons: HTMLButtonElement[] = Array.from(
+        hostFixture.nativeElement.querySelectorAll('[data-btn-type="page-num"] button')
+      );
+      pageButtons[1].click();
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      expect(renderedIds()).toEqual([5, 4, 3, 2, 1]);
+    });
+
+    it('should restore the original order when the sort direction is cleared', async () => {
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: false });
+      hostFixture.detectChanges();
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: undefined });
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      expect(renderedIds()).toEqual([1, 2, 3, 4, 5]);
+      expect(datatableComponent.activeSortColumn()).toBeNull();
+    });
   });
 });

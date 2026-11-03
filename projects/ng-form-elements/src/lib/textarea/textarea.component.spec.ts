@@ -46,4 +46,26 @@ describe('TextareaComponent', () => {
     expect(component.value()).toBe('typed text');
     expect(component.isPlaceholderVisible()).toBe(false);
   });
+
+  it('should not be editable or focusable while disabled', () => {
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    const textareaEl = fixture.nativeElement.querySelector('[role="textbox"]') as HTMLElement;
+    expect(textareaEl.getAttribute('contenteditable')).toBe('false');
+    expect(textareaEl.getAttribute('tabindex')).toBe('-1');
+    expect(textareaEl.getAttribute('aria-disabled')).toBe('true');
+  });
+
+  it('should expose a valid multi-line textbox role labelled by its label', () => {
+    fixture.componentRef.setInput('controlId', 'notes');
+    fixture.componentRef.setInput('controlLabel', 'Notes');
+    fixture.detectChanges();
+
+    const textareaEl = fixture.nativeElement.querySelector('[role="textbox"]') as HTMLElement;
+    expect(textareaEl.getAttribute('aria-multiline')).toBe('true');
+    expect(textareaEl.getAttribute('contenteditable')).toBe('true');
+    expect(textareaEl.id).toBe('notes');
+    expect(textareaEl.getAttribute('aria-labelledby')).toBe('notes-label');
+  });
 });

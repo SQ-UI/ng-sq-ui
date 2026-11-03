@@ -2,6 +2,7 @@
   <div class="time-unit display-flex column align-items-center">
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="increment(timeUnit.Hours)">
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
@@ -13,13 +14,14 @@
              (ngModelChange)="hours.set($event)"
              maxlength="2"
              minlength="1"
-             [disabled]="!isEditable()"
+             [disabled]="!isEditable() || disabled()"
              [ngModelOptions]="{standalone: true}"
              (blur)="validateInput(timeUnit.Hours); touch.emit()">
     </div>
 
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="decrement(timeUnit.Hours)">
       <i class="fas fa-chevron-down" aria-hidden="true"></i>
     </button>
@@ -30,6 +32,7 @@
   <div class="time-unit display-flex column align-items-center">
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="increment(timeUnit.Minutes)">
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
@@ -41,13 +44,14 @@
              (ngModelChange)="minutes.set($event)"
              maxlength="2"
              minlength="1"
-             [disabled]="!isEditable()"
+             [disabled]="!isEditable() || disabled()"
              [ngModelOptions]="{standalone: true}"
              (blur)="validateInput(timeUnit.Minutes); touch.emit()">
     </div>
 
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="decrement(timeUnit.Minutes)">
       <i class="fas fa-chevron-down" aria-hidden="true"></i>
     </button>
@@ -57,6 +61,7 @@
     <div class="time-unit">
       <button type="button"
               class="display-flex justify-center align-items-center"
+              [disabled]="disabled()"
               (click)="changeNoonRelativity()">
         <span class="meridiem">
           {{noonRelativity().toUpperCase()}}

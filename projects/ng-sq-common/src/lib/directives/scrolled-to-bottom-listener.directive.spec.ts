@@ -58,6 +58,20 @@ describe('ScrolledToBottomListenerDirective', () => {
     expect(directive.scrolledToBottom.emit).not.toHaveBeenCalled();
   });
 
+  it('should emit when a fractional scrollTop leaves the container a sub-pixel short of the bottom', () => {
+    const directive = component.directive;
+    const mockHtmlEl = {
+      scrollTop: 1399.6,
+      scrollHeight: 2400,
+      clientHeight: 1000
+    };
+
+    vi.spyOn(directive.scrolledToBottom, 'emit');
+    directive.checkIfHasScrolledToBottom(mockHtmlEl as HTMLElement);
+
+    expect(directive.scrolledToBottom.emit).toHaveBeenCalled();
+  });
+
   it('should not emit an event when the user remains at the bottom of the container', () => {
     const directive = component.directive;
     const mockHtmlEl = {

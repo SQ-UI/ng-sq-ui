@@ -21,9 +21,12 @@
             <div class="entered-item chosen-item">
               <div class="content">{{ selectedItem.label }}</div>
               @if (!disabled()) {
-                <div class="remove" (click)="removeSearchResult(selectedItem)">
+                <button type="button"
+                        class="remove"
+                        [attr.aria-label]="'Remove ' + selectedItem.label"
+                        (click)="removeSearchResult(selectedItem)">
                   <i class="fas fa-times" aria-hidden="true"></i>
-                </div>
+                </button>
               }
             </div>
           </ng-template>

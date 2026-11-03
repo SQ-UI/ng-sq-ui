@@ -210,8 +210,9 @@ covers the libraries and the demo application.
 
 | Package | Kind | Notes |
 |---|---|---|
-| `@angular/core`, `@angular/common`, `@angular/forms` | peer (`^22.0.0`) | every package |
-| `@sq-ui/ng-sq-common` | dependency | pulled in by all the other packages |
+| `@angular/core`, `@angular/common` | peer (`^22.0.0`) | every package |
+| `@angular/forms` | peer (`^22.0.0`) | `ng-sq-common`, `ng-form-elements` and the `ng-sq-ui` umbrella |
+| `@sq-ui/ng-sq-common` | peer of the individual packages, dependency of `@sq-ui/ng-sq-ui` | a single copy keeps its root services (e.g. the radio-group event bus) shared; install it next to an individual package |
 | `@fortawesome/fontawesome-free` | **optional** peer | only the icons; add the CSS to `angular.json` if you want them |
 | `@js-temporal/polyfill` | dependency of `@sq-ui/ng-datetime-picker` | can be aliased away when the platform provides `Temporal` — see above |
 | `tslib` | dependency | TypeScript helpers |

@@ -102,7 +102,7 @@ describe('CalendarManagerService', () => {
     const calendar = service.generateCalendarForMonth(now, now, [], { minDate: null, maxDate: null });
     const searchResult = service.findADateFromCalendar(now, calendar);
 
-    expect(Temporal.PlainDate.compare(searchResult.date, now) === 0)
+    expect(Temporal.PlainDate.compare(searchResult!.date, now) === 0)
       .toBe(true);
   });
 
@@ -116,7 +116,7 @@ describe('CalendarManagerService', () => {
     const dayBeforeMin = service.findADateFromCalendar(minDate.subtract({ days: 1 }), calendar);
     const dayAfterMax = service.findADateFromCalendar(maxDate.add({ days: 1 }), calendar);
 
-    expect(dayBeforeMin.isDisabled && dayAfterMax.isDisabled)
+    expect(dayBeforeMin?.isDisabled && dayAfterMax?.isDisabled)
       .toBe(true);
   });
 
@@ -143,7 +143,7 @@ describe('CalendarManagerService', () => {
     const preselectedDate1 = service.findADateFromCalendar(preselectedDates[0], calendar);
     const preselectedDate2 = service.findADateFromCalendar(preselectedDates[1], calendar);
 
-    expect(preselectedDate1.isSelected && preselectedDate2.isSelected)
+    expect(preselectedDate1?.isSelected && preselectedDate2?.isSelected)
       .toBe(true);
   });
 

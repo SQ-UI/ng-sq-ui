@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { PaginatorConfig } from '@sq-ui/ng-sq-common';
+import { PaginatorConfig, PageChangeEvent } from '@sq-ui/ng-sq-common';
 import {
   SortItem,
   DatatableColumn,
@@ -51,6 +51,38 @@ function readColumn<TRow>(row: TRow, columnName: string): string | number {
   return value === null || value === undefined ? '' : String(value);
 }
 
+/**
+ * The demo APIs are public and can fail (reqres.in now asks for an API key): a failed request falls
+ * back to `fallback` instead of an unhandled rejection.
+ */
+async function fetchJson<T>(url: string, fallback: T): Promise<T> {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
+
+    return await response.json() as T;
+  } catch (error) {
+    console.warn(`Could not load ${url}; using the bundled sample data.`, error);
+    return fallback;
+  }
+}
+
+/** Shown when reqres.in is unavailable. */
+const FALLBACK_USERS: ReqResUser[] = [
+  { id: 1, email: 'george.bluth@example.com', first_name: 'George', last_name: 'Bluth', avatar: '' },
+  { id: 2, email: 'janet.weaver@example.com', first_name: 'Janet', last_name: 'Weaver', avatar: '' },
+  { id: 3, email: 'emma.wong@example.com', first_name: 'Emma', last_name: 'Wong', avatar: '' },
+];
+
+const FALLBACK_RESOURCES: ReqResResource[] = [
+  { id: 1, name: 'cerulean', year: 2000, color: '#98B2D1', pantone_value: '15-4020' },
+  { id: 2, name: 'fuchsia rose', year: 2001, color: '#C74375', pantone_value: '17-2031' },
+  { id: 3, name: 'true red', year: 2002, color: '#BF1932', pantone_value: '19-1664' },
+];
+
 function compareValues(left: string | number, right: string | number): number {
   if (typeof left === 'number' && typeof right === 'number') {
     return left - right;
@@ -77,11 +109,11 @@ function compareValues(left: string | number, right: string | number): number {
 })
 export class DatatableDocsComponent {
   npmPackageName: string = '@sq-ui/ng-datatable';
-  moduleName: string = 'NgDatatable';
+  moduleName: string = 'ng-datatable';
 
   dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
+      name: 'ng-sq-common',
       routeLink: '/sq-common'
     }
   ];
@@ -113,7 +145,7 @@ export class DatatableDocsComponent {
 
   docs: NavItem[] = [
     {
-      name: 'DatatableModule',
+      name: 'ng-datatable',
       routeLink: `${environment.docs}/datatable-module`
     }
   ];
@@ -125,13 +157,16 @@ export class DatatableDocsComponent {
     }
   ];
 
-  keys: string[] = [];
   datatableItems = signal<ToDoItem[]>([]);
   userItems = signal<ReqResUser[]>([]);
-  userItemColumns = signal<string[]>([]);
+  userItemColumns = signal<(keyof ReqResUser)[]>([]);
   resourceItems = signal<ReqResResource[]>([]);
   resourceItemColumns = signal<DatatableColumn[]>([]);
 
+  /**
+   * Simulates server-side paging: `lastPage` announces 8 pages (40 todos) while only the first
+   * chunk is loaded; the next chunk is fetched when a page beyond the loaded items is requested.
+   */
   paginatorConfig: PaginatorConfig = {
     itemsPerPage: 5,
     currentPage: 1,
@@ -141,36 +176,54 @@ export class DatatableDocsComponent {
 
   sortByColumns = ['id', 'title'];
 
+  /** The resources in the order they were loaded, restored when a sort is cleared. */
+  private originalResourceItems: ReqResResource[] = [];
+  private readonly toDoChunkSize = 20;
+  private isLoadingToDoItems = false;
+
   constructor() {
     this.fetchToDoItems();
     this.fetchUserItems();
     this.fetchResourcesItems();
   }
 
+  onToDoPageChange($event: PageChangeEvent) {
+    const lastNeededIndex = $event.firstItemIndex + (this.paginatorConfig.itemsPerPage ?? 5);
+
+    if (lastNeededIndex > this.datatableItems().length) {
+      this.fetchToDoItems();
+    }
+  }
+
   fetchToDoItems() {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => response.json())
-      .then(json => {
-        const next = json.slice(0, 20);
+    if (this.isLoadingToDoItems) {
+      return;
+    }
+
+    this.isLoadingToDoItems = true;
+    const offset = this.datatableItems().length;
+
+    fetchJson<ToDoItem[]>('https://jsonplaceholder.typicode.com/todos', [])
+      .then(todos => {
+        const next = todos.slice(offset, offset + this.toDoChunkSize);
         this.datatableItems.update(items => [...items, ...next]);
-      });
+      })
+      .finally(() => this.isLoadingToDoItems = false);
   }
 
   fetchUserItems() {
-    fetch('https://reqres.in/api/users')
-      .then(response => response.json())
+    fetchJson<{ data?: ReqResUser[] }>('https://reqres.in/api/users', {})
       .then(json => {
-        const users = json.data.slice(0, 20);
-        this.userItemColumns.set(Object.keys(users[0]));
+        const users = (json.data?.length ? json.data : FALLBACK_USERS).slice(0, 20);
+        this.userItemColumns.set(Object.keys(users[0]) as (keyof ReqResUser)[]);
         this.userItems.set(users);
       });
   }
 
   fetchResourcesItems() {
-    fetch('https://reqres.in/api/unknown')
-      .then(response => response.json())
+    fetchJson<{ data?: ReqResResource[] }>('https://reqres.in/api/unknown', {})
       .then(json => {
-        const resources = json.data.slice(0, 20);
+        const resources = (json.data?.length ? json.data : FALLBACK_RESOURCES).slice(0, 20);
         this.resourceItemColumns.set(
           Object.keys(resources[0]).map((columnName) => ({
             name: columnName,
@@ -178,16 +231,24 @@ export class DatatableDocsComponent {
           }))
         );
 
+        this.originalResourceItems = resources;
         this.resourceItems.set(resources);
       });
   }
 
+  /** `sq-datatable-column` cycles ascending -> descending -> `undefined` (original order). */
   sortResourceItemsByColumn($event: SortItem) {
     const columnName = $event.name;
-    const direction = $event.isSortedByAscending === false ? -1 : 1;
 
-    this.resourceItems.update(items =>
-      [...items].sort((rowItem1, rowItem2) =>
+    if ($event.isSortedByAscending === undefined) {
+      this.resourceItems.set(this.originalResourceItems);
+      return;
+    }
+
+    const direction = $event.isSortedByAscending ? 1 : -1;
+
+    this.resourceItems.set(
+      [...this.originalResourceItems].sort((rowItem1, rowItem2) =>
         direction * compareValues(readColumn(rowItem1, columnName), readColumn(rowItem2, columnName))
       )
     );

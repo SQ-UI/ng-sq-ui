@@ -10,7 +10,8 @@ export class CalendarManagerService {
   constructor() { }
 
   private locale = 'en';
-  private previouslySelectedYear: Temporal.PlainDate = Temporal.Now.plainDateISO();
+  /** First year of the year page last returned by {@link getYearList}. */
+  private yearPageStart: number = Temporal.Now.plainDateISO().year;
 
   setLocale(locale: string) {
     this.locale = locale;
@@ -34,9 +35,7 @@ export class CalendarManagerService {
     let newDate: CalendarDay;
 
     if (!isStartOfChosenMonthTheFirstDayOfTable) {
-      let daysToGoBack = startDayOfWeek;
-      daysToGoBack = (daysToGoBack === 0) ? 1 : daysToGoBack;
-      dateIterator = dateIterator.subtract({ days: daysToGoBack });
+      dateIterator = dateIterator.subtract({ days: startDayOfWeek });
     }
 
     // add dates until the calendar has 6 week rows
@@ -91,7 +90,7 @@ export class CalendarManagerService {
     });
   }
 
-  getWeekdays(short: boolean = true) {
+  getWeekdays(short: boolean = true, locale: string = this.locale) {
     // Generate locale-aware weekday names starting from Sunday (to match original moment behavior)
     const format: Intl.DateTimeFormatOptions = short ? { weekday: 'short' } : { weekday: 'long' };
     const weekdays: string[] = [];
@@ -99,7 +98,7 @@ export class CalendarManagerService {
     const referenceSunday = Temporal.PlainDate.from('2023-01-01');
     for (let i = 0; i < 7; i++) {
       const day = referenceSunday.add({ days: i });
-      weekdays.push(day.toLocaleString(this.locale, format));
+      weekdays.push(day.toLocaleString(locale, format));
     }
     return weekdays;
   }
@@ -114,35 +113,33 @@ export class CalendarManagerService {
     return months;
   }
 
+  /**
+   * Returns a page of `|margin| + 1` consecutive years.
+   *
+   * - With `start`: the page begins at `start.year`.
+   * - Without `start`, positive margin: the page right after the previous one.
+   * - Without `start`, negative margin: the page right before the previous one.
+   *
+   * Consecutive pages tile exactly (no year is repeated across pages).
+   */
   getYearList(start: Temporal.PlainDate | null, margin: number = 19): number[] {
-    let yearIterator: Temporal.PlainDate;
-    let endYear: Temporal.PlainDate;
+    const pageSize = Math.abs(margin) + 1;
+    let firstYear: number;
 
     if (start) {
-      this.previouslySelectedYear = start;
-    }
-
-    if (margin < 0) {
-      endYear = this.previouslySelectedYear.add({ years: margin });
-      yearIterator = endYear.add({ years: margin });
+      firstYear = start.year;
+    } else if (margin < 0) {
+      firstYear = this.yearPageStart - pageSize;
     } else {
-      yearIterator = this.previouslySelectedYear;
-      endYear = yearIterator.add({ years: margin });
+      firstYear = this.yearPageStart + pageSize;
     }
 
-    const yearList: number[] = [];
+    this.yearPageStart = firstYear;
 
-    while (Temporal.PlainDate.compare(yearIterator, endYear) <= 0) {
-      yearList.push(yearIterator.year);
-      yearIterator = yearIterator.add({ years: 1 });
-    }
-
-    this.previouslySelectedYear = yearIterator.subtract({ years: 1 });
-
-    return yearList;
+    return Array.from({ length: pageSize }, (_, index) => firstYear + index);
   }
 
-  findADateFromCalendar(date: Temporal.PlainDate | Date, calendarTable: Array<CalendarDay[]>): CalendarDay {
+  findADateFromCalendar(date: Temporal.PlainDate | Date, calendarTable: Array<CalendarDay[]>): CalendarDay | undefined {
     const dateToFind = this.toPlainDate(date);
 
     const flatCalendarTable = calendarTable.reduce((acc, val) => acc.concat(val), []);
@@ -159,13 +156,13 @@ export class CalendarManagerService {
   }
 
   determineIfDateIsDisabled(currentDate: Temporal.PlainDate | Date,
-    minDate: Temporal.PlainDate | Date | undefined,
-    maxDate: Temporal.PlainDate | Date | undefined): boolean {
+    minDate: Temporal.PlainDate | Date | null | undefined,
+    maxDate: Temporal.PlainDate | Date | null | undefined): boolean {
     const current = this.toPlainDate(currentDate);
-    const isAfterMaxDate = maxDate && Temporal.PlainDate.compare(current, this.toPlainDate(maxDate)) > 0;
-    const isBeforeMinDate = minDate && Temporal.PlainDate.compare(current, this.toPlainDate(minDate)) < 0;
+    const isAfterMaxDate = !!maxDate && Temporal.PlainDate.compare(current, this.toPlainDate(maxDate)) > 0;
+    const isBeforeMinDate = !!minDate && Temporal.PlainDate.compare(current, this.toPlainDate(minDate)) < 0;
 
-    return <boolean>(isAfterMaxDate || isBeforeMinDate);
+    return isAfterMaxDate || isBeforeMinDate;
   }
 
   determineDateRelativityToCurrentMonth(date: Temporal.PlainDate, currentMonth: Temporal.PlainDate): CalendarPeriodRelativityEnum {
@@ -188,7 +185,8 @@ export class CalendarManagerService {
    * what the picker's `[isMultipleSelect]` output has always been ordered by.
    */
   sortDatesAsc<TDate extends Temporal.PlainDate | Temporal.PlainDateTime>(dates: TDate[]): TDate[] {
-    return dates.sort((date1, date2) => {
+    // Sorts a copy: callers pass signal state that must not be mutated in place.
+    return [...dates].sort((date1, date2) => {
       return Temporal.PlainDate.compare(this.toPlainDate(date1), this.toPlainDate(date2));
     });
   }

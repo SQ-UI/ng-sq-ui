@@ -24,17 +24,26 @@
               This example consumes data from <b>jsonplaceholder.typicode.com/todos</b>
             </p>
             <ul class="list">
-              <li>A collection of todo items is directly passed to the [items] prop.</li>
-              <li>A [paginatorConfig] object is passed.</li>
-              <li>[sortByColumns] is set to allow sorting only by the "id" and "title" columns.</li>
-              <li>A handler is bound to (pageChange) to load new items on page click.</li>
+              <li>A collection of todo items is directly passed to the [items] prop. The columns are generated from the keys of the first item.</li>
+              <li>
+                A [paginatorConfig] object is passed (<b>itemsPerPage</b>, <b>currentPage</b>, <b>maxDisplayedPages</b>,
+                <b>lastPage</b>). Here <b>lastPage: 8</b> announces 40 items while only the first 20 are loaded,
+                to simulate server-side paging: a page that is not loaded yet stays empty until its items arrive.
+              </li>
+              <li>
+                [sortByColumns] is set to allow sorting only by the "id" and "title" columns ([sortByAllColumns]
+                enables every column). Clicking a sortable column cycles ascending &rarr; descending &rarr; original
+                order; the sort applies to the whole collection, survives page changes, and resets the other
+                columns. (onSortClicked) reports each change.
+              </li>
+              <li>A handler is bound to (pageChange) to load the next chunk of items when a page beyond the loaded ones is requested.</li>
             </ul>
           </div>
 
           <sq-datatable [items]="datatableItems()"
                         [sortByColumns]="sortByColumns"
                         [paginatorConfig]="paginatorConfig"
-                        (pageChange)="fetchToDoItems()">
+                        (pageChange)="onToDoPageChange($event)">
           </sq-datatable>
         </section>
       </div>
@@ -49,14 +58,15 @@
 
           <div class="mg-b20">
             <p>
-              This example consumes data from <b>reqres.in/api/users</b>
+              This example consumes data from <b>reqres.in/api/users</b> (with bundled sample data as a fallback
+              when the API is unavailable).
             </p>
             <ul class="list">
               <li>
                 <b>sq-datatable</b> is used as a container.
               </li>
               <li>This example does not use any of the default properties of the datatable.</li>
-              <li>No automatic paganation available, since the presentation depends entirely on the author.</li>
+              <li>No automatic pagination available, since the presentation depends entirely on the author.</li>
               <li>
                 The <b>sq-datatable-header</b> and <b>sq-datatable-body</b> directives are used for content projection,
                 respectively for the datatable columns and rows.
@@ -100,26 +110,29 @@
 
           <div class="mg-b20">
             <p>
-              This example consumes data from <b>reqres.in/api/unknown</b>
+              This example consumes data from <b>reqres.in/api/unknown</b> (with bundled sample data as a fallback
+              when the API is unavailable).
             </p>
             <ul class="list">
               <li>
                 <b>sq-datatable</b> is used as a container.
               </li>
               <li>This example does not use any of the default properties of the datatable.</li>
-              <li>No automatic paganation available, since the presentation depends entirely on the author.</li>
+              <li>No automatic pagination available, since the presentation depends entirely on the author.</li>
               <li>
                 The <b>sq-datatable-header</b> and <b>sq-datatable-body</b> directives are used for content projection,
                 respectively for the datatable columns and rows.
               </li>
               <li>
-                Each column (th) is represented by a <b>sq-datatable-column</b> component which
-                exposes custom properties to bind name, event handlers and information if the row data can be
-                sorted by that column.
+                Each column (th) is represented by a <b>sq-datatable-column</b> component. It requires <b>[name]</b>,
+                takes <b>[isSortable]</b>, and emits <b>(onSortClicked)</b> with the column name and the direction
+                (<b>true</b> ascending, <b>false</b> descending, <b>undefined</b> original order). Sorting the rows is
+                up to the author, as in the handler of this example. Bind <b>[activeSortColumn]</b> to the name of the
+                sorted column if the other columns should reset their sort icon.
               </li>
               <li>
-                Each row (tr) is represented by a <b>sq-datatable-row</b> component which
-                exposes custom properties to bind row data.
+                Each row (tr) is represented by a <b>sq-datatable-row</b> component which renders the
+                <b>[rowItem]</b> object; pass <b>[columns]</b> to set the column order (by default the row's own keys).
               </li>
             </ul>
           </div>

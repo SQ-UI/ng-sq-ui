@@ -10,15 +10,20 @@
 
   <section class="section primary">
     <header>
-      <h2>Exported Modules Preview:</h2>
+      <h2>Exported Packages Preview:</h2>
     </header>
 
-    <sq-collapse-content title="FormElementsModule" id="formsModule">
+    <sq-collapse-content title="ng-form-elements" id="formsModule">
       <div sq-collapse-body>
         <div class="content">
           The preview uses signal-based two-way binding via [(value)] on each form component.
-          On submit, a compatForm() bridge from @angular/forms/signals/compat aggregates the signal values.
+          On submit, a compatForm() bridge from &#64;angular/forms/signals/compat aggregates the signal values.
           The final input values are console logged on click of the Submit button.
+          <br><br>
+          Every control is standalone and shares the same inputs: <b>name</b>, <b>controlId</b>, <b>controlLabel</b>,
+          <b>controlPlaceholder</b>, <b>required</b>, <b>pattern</b> (an array of <b>RegExp</b>) and <b>disabled</b>, plus a
+          <b>(touch)</b> output when the user leaves the control. That is exactly what the Angular Signal Forms
+          <b>[formField]</b> directive binds, so each control also works with <b>[formField]</b> instead of <b>[(value)]</b>.
         </div>
 
         <form (ngSubmit)="onSubmit()" class="sq">
@@ -29,8 +34,13 @@
                  class="sq">
               <section id="sqInput">
                 <header>
-                  <h4>sq-inut</h4>
+                  <h4>sq-input</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li><b>[(value)]</b> is a string; <b>[type]</b> sets the native input type (default <b>text</b>).</li>
+                  <li><b>[required]</b> and <b>[pattern]</b> are applied to the native input as validation attributes.</li>
+                </ul>
               
                 <sq-input [(value)]="nameValue"
                           controlLabel="Test Label"
@@ -50,6 +60,11 @@
                 <header>
                   <h4>sq-textarea</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li>An auto-growing, content-editable text area: <b>[(value)]</b> is a string and keeps line breaks.</li>
+                  <li><b>[minHeight]</b> sets the minimum height in pixels (default 100). When <b>[disabled]</b> it can be neither edited nor focused.</li>
+                </ul>
               
                 <sq-textarea controlLabel="Textarea Label"
                              [(value)]="textareaValue"
@@ -67,6 +82,12 @@
                 <header>
                   <h4>sq-radiobutton + sq-form-group</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li>Radio buttons with the same <b>name</b> form a group; each one represents its <b>[radioValue]</b>. Bind the same signal to every radio of the group with <b>[(value)]</b>: it holds the value of the selected radio.</li>
+                  <li><b>(isSelectedChange)</b> reports the selection and the deselection of a radio. A custom label is an <b>ng-template sq-radio-label</b> with the <b>isSelected</b> and <b>value</b> context.</li>
+                  <li><b>sq-form-group</b> is a labelled container (<b>[groupLabel]</b>) for related controls.</li>
+                </ul>
               
                 <sq-form-group groupLabel="Radiobuttons Form Group example">
                   <div class="options row">
@@ -121,6 +142,11 @@
                 <header>
                   <h4>sq-dropdown default</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li><b>[options]</b> is a <b>LabelValuePair[]</b>; <b>[(value)]</b> holds a copy of the selected option (or <b>null</b>), and <b>(onSelectItem)</b> emits the option itself.</li>
+                  <li>Keyboard: focus the control with Tab, open it with Arrow Down, Enter or Space, move with the arrow keys, select with Enter or Space and close with Escape.</li>
+                </ul>
           
                 <sq-dropdown [(value)]="dropdownValue"
                               [options]="dropdownOptions"
@@ -133,6 +159,10 @@
                 <header>
                   <h4>sq-dropdown with templates</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li>Custom templates: <b>sq-dropdown-selected-option</b> (context <b>value</b>), <b>sq-dropdown-option</b> (context <b>option</b>) and <b>sq-dropdown-chevron</b> (context <b>isDropdownOpen</b>).</li>
+                </ul>
           
                 <sq-dropdown [(value)]="dropdownWithTemplatesValue"
                               [options]="dropdownOptions"
@@ -199,6 +229,10 @@
                 <header>
                   <h4>sq-tags-input default</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li><b>[(value)]</b> is a <b>string[]</b>. Space, Enter or a comma adds the typed text as a tag; Backspace in the empty field removes the last tag.</li>
+                </ul>
           
                 <sq-tags-input [(value)]="tagsValue"
                                 controlLabel="Tags"
@@ -211,6 +245,10 @@
                   <h4>sq-tags-input with a custom tag template</h4>
                 </header>
 
+                <ul class="list mg-b20">
+                  <li>The <b>sq-tag</b> template receives the <b>tag</b> and a <b>remove</b> function to call with it.</li>
+                </ul>
+
                 <sq-tags-input [(value)]="tagsValue"
                                 controlLabel="Tags"
                                 controlPlaceholder="Type something and press Space">
@@ -220,8 +258,10 @@
                     <div class="custom tag">
                       {{tag}}
           
-                      <span class="button"
-                            (click)="remove(tag)">
+                      <button type="button"
+                              class="button"
+                              [attr.aria-label]="'Remove ' + tag"
+                              (click)="remove(tag)">
                         <svg xmlns="http://www.w3.org/2000/svg"
                               width="16"
                               height="16"
@@ -231,7 +271,7 @@
                           <path
                                 d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z" />
                         </svg>
-                      </span>
+                      </button>
                     </div>
                   </ng-template>
                 </sq-tags-input>
@@ -248,13 +288,20 @@
                 <header>
                   <h4>sq-typeahead multiple choice with custom templates</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li><b>(onUserInputEnd)</b> emits the typed text once the user stops typing for <b>[delay]</b> ms (default 500). Answer it with a <b>new array</b> in <b>[searchResults]</b>, even an empty one: that is what hides the loader.</li>
+                  <li>Results can be strings, numbers or objects: <b>[displayProp]</b> names the object property used as the label; without it the objects must already be <b>{{ '{' }} label, value {{ '}' }}</b> pairs.</li>
+                  <li><b>[(value)]</b> is a <b>LabelValuePair[]</b>; <b>[multiple]</b> allows more than one selection and <b>[hideSearchIcon]</b> hides the icon.</li>
+                  <li>Custom templates: <b>sq-typeahead-option</b> (context <b>option</b>) and <b>sq-typeahead-selected-option</b> (context <b>item</b> and a <b>remove</b> function).</li>
+                </ul>
           
                 <sq-typeahead name="typeaheadWithTemplates"
                               displayProp="myCustomProp"
                               [hideSearchIcon]="true"
                               [multiple]="true"
                               [(value)]="typeaheadWithTemplatesValue"
-                              [searchResults]="searchResults"
+                              [searchResults]="searchResults()"
                               (onUserInputEnd)="searchMethod($event)"
                               controlLabel="Typeahead With Templates"
                               controlPlaceholder="Type something in">
@@ -271,8 +318,10 @@
                     <div class="custom tag chosen-item">
                       {{item.label}}
           
-                      <span class="button"
-                            (click)="remove(item)">
+                      <button type="button"
+                              class="button"
+                              [attr.aria-label]="'Remove ' + item.label"
+                              (click)="remove(item)">
                         <svg xmlns="http://www.w3.org/2000/svg"
                               width="16"
                               height="16"
@@ -282,7 +331,7 @@
                           <path
                                 d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z" />
                         </svg>
-                      </span>
+                      </button>
                     </div>
                   </ng-template>
                 </sq-typeahead>
@@ -295,7 +344,7 @@
           
                 <sq-typeahead name="typeahead2"
                               [(value)]="typeahead2Value"
-                              [searchResults]="searchResultsStrings"
+                              [searchResults]="searchResultsStrings()"
                               (onUserInputEnd)="searchMethodString($event)"
                               controlLabel="Typeahead"
                               controlPlaceholder="Type something in">
@@ -311,8 +360,12 @@
                   class="sq">
               <section id="sqCheckbox">
                 <header>
-                  <h4>sq-checkbox defualt</h4>
+                  <h4>sq-checkbox default</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li><b>[(value)]</b> is a boolean; <b>(isSelectedChange)</b> emits on every toggle.</li>
+                </ul>
           
                 <sq-checkbox controlLabel="Test checkbox"
                               [(value)]="checkboxValue">
@@ -323,6 +376,10 @@
                 <header>
                   <h4>sq-checkbox with a custom template</h4>
                 </header>
+
+                <ul class="list mg-b20">
+                  <li>A custom label is an <b>ng-template sq-checkbox-label</b> with the <b>isSelected</b> context.</li>
+                </ul>
           
                 <sq-checkbox [(value)]="checkboxValue">
                   <ng-template sq-checkbox-label
@@ -363,8 +420,13 @@
       </div>
     </sq-collapse-content>
 
-    <sq-collapse-content title="ProgressBarModule" id="progressBarModule">
+    <sq-collapse-content title="ng-progress-bar" id="progressBarModule">
       <div sq-collapse-body class="sq">
+        <ul class="list mg-b20">
+          <li><b>[size]</b> is <b>'small'</b>, <b>'medium'</b> (default) or <b>'large'</b>; <b>[loaded]</b> is the progress in percent.</li>
+          <li><b>[infinite]</b> shows an indeterminate animation instead; <b>[backgroundColor]</b> and <b>[fillColor]</b> override the colors.</li>
+        </ul>
+
         <section class="mg-b20">
           <header>
             <h4>Small</h4>

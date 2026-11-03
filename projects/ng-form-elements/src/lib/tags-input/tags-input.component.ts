@@ -33,27 +33,33 @@ export class TagsInputComponent implements SqFormFieldSignals, SqFormValueContro
   // Signal-based queries
   readonly tagTemplate = contentChild(SqTagTemplateDirective, { read: TemplateRef });
 
-  private isModelEmpty: boolean = false;
-
   newTagName: string = '';
 
+  /**
+   * Bound to `keydown`, so the pressed key has not reached the input yet: the separator is never
+   * part of the tag, `preventDefault()` keeps it out of the field, and `newTagName` still holds the
+   * text from before the key press.
+   */
   onUserInput($event: KeyboardEvent) {
     const key = $event.key;
+    const pendingTag = this.newTagName.trim();
 
-    if (this.newTagName.trim() !== '') {
-      this.isModelEmpty = false;
-      // Space, Enter or Comma commit the current tag.
-      if (key === ' ' || key === 'Enter' || key === ',') {
+    // Space, Enter or Comma commit the current tag.
+    if (key === ' ' || key === 'Enter' || key === ',') {
+      if (pendingTag !== '') {
         $event.preventDefault();
-        this.value.update(tags => [...tags, this.newTagName.trim()]);
+        this.value.update(tags => [...tags, pendingTag]);
         this.newTagName = '';
+      } else if (key !== 'Enter') {
+        // Don't let a leading separator into the empty field; Enter keeps its default (submit).
+        $event.preventDefault();
       }
-    } else if (this.isModelEmpty) {
-      if (key === 'Backspace' && this.value().length > 0) {
-        this.value.update(tags => tags.slice(0, -1));
-      }
-    } else {
-      this.isModelEmpty = true;
+      return;
+    }
+
+    // Backspace in an already empty field removes the last tag.
+    if (key === 'Backspace' && this.newTagName === '' && this.value().length > 0) {
+      this.value.update(tags => tags.slice(0, -1));
     }
   }
 

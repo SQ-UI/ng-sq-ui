@@ -4,6 +4,10 @@
   .datetime-picker-wrapper {
     max-width: 410px;
     font-size: 14px;
+    &.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
     .picker-item {
       font-size: 19px;
       background-color: $datetime-active-picker-items;

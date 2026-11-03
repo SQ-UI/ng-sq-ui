@@ -1,5 +1,7 @@
 <div class="modal-cover" [class.display-none]="isHidden()">
   <article class="modal-window animated"
+           role="dialog"
+           aria-modal="true"
            [ngClass]="currentAnimationClass()"
            sqOutsideClickListener
            [listenForOutsideClick]="listenForOutsideClick()"
@@ -9,9 +11,9 @@
         <ng-content select="[sq-modal-title]"></ng-content>
       </div>
 
-      <span class="close" (click)="close()">
-          <i class="fas fa-times" aria-hidden="true"></i>
-      </span>
+      <button type="button" class="close" aria-label="Close" (click)="close()">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
     </header>
 
     <div class="content">

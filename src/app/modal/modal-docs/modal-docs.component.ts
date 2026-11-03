@@ -22,10 +22,10 @@ import { environment } from '../../../environments/environment';
 })
 export class ModalDocsComponent {
   npmPackageName: string = '@sq-ui/ng-modal';
-  moduleName: string = 'NgModalModule';
+  moduleName: string = 'ng-modal';
   dependsOn: NavItem[] = [
     {
-      name: 'NgSqCommonModule',
+      name: 'ng-sq-common',
       routeLink: '/sq-common'
     }
   ];
@@ -39,7 +39,7 @@ export class ModalDocsComponent {
 
   docs: NavItem[] = [
     {
-      name: 'ModalModule',
+      name: 'ng-modal',
       routeLink: `${environment.docs}/modal-module`
     }
   ];

@@ -20,7 +20,9 @@ export class ModuleOverviewComponent {
   readonly docs = input<NavItem[]>([]);
   readonly liveExamples = input<NavItem[]>([]);
 
-  scrollTo(fragment: string) {
-    document.getElementById(fragment)?.scrollIntoView();
+  scrollTo(fragment: string | undefined) {
+    if (fragment) {
+      document.getElementById(fragment)?.scrollIntoView();
+    }
   }
 }

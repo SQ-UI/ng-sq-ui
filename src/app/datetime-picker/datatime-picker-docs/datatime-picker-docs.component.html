@@ -14,8 +14,13 @@
 
     <form class="sq" (ngSubmit)="onSubmit()">
       <p>
-        The preview uses signal-based two-way binding via [(value)].
-        The final input values are console logged on click of the Submit button.
+        The preview uses signal-based two-way binding via [(value)]; both pickers also work with the Angular
+        Signal Forms <b>[formField]</b> directive. A value written from outside (for example a form reset) is
+        reflected by the picker. The final input values are console logged on click of the Submit button.
+      </p>
+      <p>
+        Dates are <b>Temporal</b> objects, imported from the <b>&#64;sq-ui/ng-datetime-picker/temporal</b> entry point
+        (the <b>&#64;js-temporal/polyfill</b> by default; see the README to alias it to a native implementation).
       </p>
 
       <sq-collapse-content title="sq-datetime-picker" id="datepicker">
@@ -24,6 +29,27 @@
             <header>
               <h4>Standalone Datepicker (multiple select enabled)</h4>
             </header>
+
+            <ul class="list mg-b20">
+              <li>
+                <b>[(value)]</b> holds a <b>Temporal.PlainDate</b> by default; <b>[dateObjectType]</b> switches it to a
+                <b>'date'</b> (<b>Date</b>) or <b>'unix'</b> (epoch milliseconds). With <b>[isMultipleSelect]</b> the value is
+                an array sorted ascending, and clicking a selected date deselects it.
+              </li>
+              <li>
+                <b>[format]</b> turns the value into a string; the tokens are <b>YYYY</b>, <b>MM</b>, <b>DD</b> and, with the
+                time picker, <b>hh</b> (24-hour), <b>mm</b> and <b>ss</b>. Every occurrence of a token is replaced.
+              </li>
+              <li>
+                <b>[minDate]</b> / <b>[maxDate]</b> (<b>Temporal.PlainDate</b> or <b>Date</b>) disable the dates, months and years
+                outside the range. Browsing months and years keeps the current selection.
+              </li>
+              <li>
+                Other inputs: <b>[locale]</b> (weekday and month names, default <b>'en'</b>) and <b>[disabled]</b>.
+                Outputs: <b>(dateSelectionChange)</b> on every selection and <b>(touch)</b> when focus leaves the picker.
+                Without a value, the picker starts with today selected.
+              </li>
+            </ul>
 
             <sq-datetime-picker [maxDate]="maxDate"
                                 [minDate]="minDate"
@@ -38,9 +64,22 @@
               <h4>Datepicker (multiple select disabled) + Timepicker (meridiem enabled)</h4>
             </header>
 
+            <ul class="list mg-b20">
+              <li>
+                <b>[isTimepickerEnabled]</b> adds a time picker; the selected date then becomes a
+                <b>Temporal.PlainDateTime</b> (or is formatted with the time tokens).
+              </li>
+              <li>
+                <b>[timepickerConfig]</b> (<b>TimepickerConfig</b>) sets the initial <b>hours</b> / <b>minutes</b>, the
+                <b>hourStep</b> / <b>minuteStep</b> of the arrows, <b>isMeridiem</b> (12-hour display with AM/PM) and
+                <b>isEditable</b> (typing into the fields). The meridiem setting only changes the display: <b>hh</b> in
+                <b>[format]</b> is always 24-hour.
+              </li>
+            </ul>
+
             <sq-datetime-picker format="DD-MM-YYYY hh:mm"
                                 [(value)]="datetimePickerValue"
-                                [isTimepickerEnabled]="isTimepickerEndabled"
+                                [isTimepickerEnabled]="isTimepickerEnabled"
                                 [timepickerConfig]="inlineTimepickerConfig">
             </sq-datetime-picker>
           </section>
@@ -53,6 +92,22 @@
             <header>
               <h4>Standalone Timepicker (meridiem disabled)</h4>
             </header>
+
+            <ul class="list mg-b20">
+              <li>
+                <b>[(value)]</b> is a string (<b>HH:mm</b>, or <b>hh:mm AM</b> with <b>[isMeridiem]</b>) or, with
+                <b>timeObjectType="plaintime"</b>, a <b>Temporal.PlainTime</b>. Both forms are accepted when written from
+                outside; a <b>null</b> value is replaced by the time on display.
+              </li>
+              <li>
+                <b>[hours]</b> / <b>[minutes]</b> set the time, <b>[hourStep]</b> / <b>[minuteStep]</b> the arrow steps, and
+                <b>(hoursChange)</b> / <b>(minutesChange)</b> report arrow changes.
+              </li>
+              <li>
+                <b>[isEditable]="false"</b> (as here) only blocks typing: the arrows still work. <b>[disabled]</b> blocks
+                both. Invalid typed values are corrected when the field loses focus.
+              </li>
+            </ul>
 
             <div style="max-width: 410px;">
               <sq-time-picker [(value)]="standAloneTimepickerValue"

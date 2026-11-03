@@ -71,6 +71,13 @@ export class TimePickerComponent implements SqFormFieldSignals, SqFormValueContr
     this.hours.set(now.hour.toString().padStart(2, '0'));
     this.minutes.set(now.minute.toString().padStart(2, '0'));
 
+    // Sync programmatic writes to `[(value)]` / `[formField]` into the displayed time. Registered
+    // first so a bound initial value is applied before the effects below emit the current time.
+    effect(() => {
+      const incoming = this.value();
+      untracked(() => this.applyIncomingValue(incoming));
+    });
+
     // React to isMeridiem changes
     effect(() => {
       const meridiem = this.isMeridiem();
@@ -220,25 +227,83 @@ export class TimePickerComponent implements SqFormFieldSignals, SqFormValueContr
     unit: TimeUnit,
     currentLimits: { hours: { min: number; max: number }; minutes: { min: number; max: number } }
   ): string {
-    if (!value) {
-      value = '00';
-    }
-
     const unitLimits = unit === TimeUnit.Hours ? currentLimits.hours : currentLimits.minutes;
+    let parsed = parseInt(value, 10);
 
-    if (parseInt(value, 10) >= unitLimits.max) {
-      value = unitLimits.max.toString();
-
-      if (unit === TimeUnit.Hours && !this.isMeridiem()) {
-        value = '00';
-      }
+    // Empty or non-numeric input (e.g. "ab") falls back to the lowest valid value; letting NaN
+    // through made `Temporal.PlainTime.from()` throw a RangeError.
+    if (Number.isNaN(parsed)) {
+      parsed = unitLimits.min;
     }
 
-    if (parseInt(value, 10) < unitLimits.min) {
-      value = unitLimits.min.toString();
+    if (parsed >= unitLimits.max) {
+      parsed = unit === TimeUnit.Hours && !this.isMeridiem() ? 0 : unitLimits.max;
     }
 
-    return value;
+    if (parsed < unitLimits.min) {
+      parsed = unitLimits.min;
+    }
+
+    return parsed.toString().padStart(2, '0');
+  }
+
+  /**
+   * Applies a value written from outside (a `Temporal.PlainTime`, or a `HH:mm` / `hh:mm AM` string).
+   * The component's own echo is ignored, and `null` is replaced by the time on display, because the
+   * picker always shows a time.
+   */
+  private applyIncomingValue(incoming: TimePickerValue) {
+    if (incoming === null || incoming === undefined) {
+      this.lastEmittedValue = '';
+      this.setValueResult();
+      return;
+    }
+
+    if (String(incoming) === this.lastEmittedValue) {
+      return;
+    }
+
+    const parsed = this.parseTimeValue(incoming);
+    if (!parsed) {
+      return;
+    }
+
+    this.currentTime.set(parsed);
+    this.updateHoursDisplay(parsed);
+    this.minutes.set(parsed.minute.toString().padStart(2, '0'));
+    this.lastEmittedValue = String(incoming);
+    // Re-emits only if the configured output type/format differs from what was written.
+    this.setValueResult();
+  }
+
+  private parseTimeValue(value: TimePickerValue): Temporal.PlainTime | null {
+    if (value instanceof Temporal.PlainTime) {
+      return value;
+    }
+
+    const match = typeof value === 'string'
+      ? /^\s*(\d{1,2}):(\d{2})(?::\d{2})?\s*(am|pm)?\s*$/i.exec(value)
+      : null;
+
+    if (!match) {
+      return null;
+    }
+
+    let hour = parseInt(match[1], 10);
+    const minute = parseInt(match[2], 10);
+    const meridiem = match[3]?.toLowerCase();
+
+    if (meridiem === 'pm' && hour < 12) {
+      hour += 12;
+    } else if (meridiem === 'am' && hour === 12) {
+      hour = 0;
+    }
+
+    if (hour > 23 || minute > 59) {
+      return null;
+    }
+
+    return Temporal.PlainTime.from({ hour, minute });
   }
 
   private updateHoursDisplay(time: Temporal.PlainTime) {
@@ -257,10 +322,15 @@ export class TimePickerComponent implements SqFormFieldSignals, SqFormValueContr
   }
 
   private syncCurrentTimeFromDisplay() {
-    let hour = parseInt(this.hours(), 10);
-    const minute = parseInt(this.minutes(), 10);
+    const fallback = this.currentTime();
+    const parsedHour = parseInt(this.hours(), 10);
+    const parsedMinute = parseInt(this.minutes(), 10);
+    // A field that was never normalised can still hold non-numeric text: keep the tracked value.
+    let hour = Number.isNaN(parsedHour) ? fallback.hour : parsedHour;
+    const minute = Number.isNaN(parsedMinute) ? fallback.minute : parsedMinute;
 
-    if (this.isMeridiem()) {
+    // The fallback is already 24-hour; only a parsed 12-hour display needs converting.
+    if (this.isMeridiem() && !Number.isNaN(parsedHour)) {
       // Convert 12-hour display to 24-hour for internal tracking
       if (this.noonRelativity() === 'pm' && hour !== 12) {
         hour += 12;

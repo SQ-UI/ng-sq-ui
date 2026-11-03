@@ -15,6 +15,28 @@
     <sq-collapse-content title="sq-modal" id="modal">
       <div sq-collapse-body class="sq">
         <section class="mg-b20">
+          <div class="mg-b20">
+            <ul class="list">
+              <li>
+                Visibility is a two-way <b>[(show)]</b> binding: set the bound signal to <b>true</b> to open the
+                modal. A modal whose binding starts as <b>true</b> is shown straight away.
+              </li>
+              <li>
+                Content is projected into three slots: <b>[sq-modal-title]</b>, <b>[sq-modal-body]</b> and
+                <b>[sq-modal-footer]</b>.
+              </li>
+              <li>
+                The modal closes (and writes <b>false</b> back to the binding) from its close button, a click
+                outside the window or the <b>Escape</b> key.
+              </li>
+              <li>
+                <b>[customCssAnimation]</b> takes <b>{{ '{' }} duration, entranceAnimation, exitAnimation {{ '}' }}</b>;
+                the defaults are 500 ms, <b>fadeInDown</b> and <b>fadeOutUp</b> (bundled with the modal styles).
+                Custom animation names are CSS classes your application provides.
+              </li>
+            </ul>
+          </div>
+
           <sq-button (click)="showModal.set(!showModal())">Show modal</sq-button>
 
           <sq-modal [(show)]="showModal">

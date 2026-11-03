@@ -12,7 +12,6 @@
     }
   ],
   "allowedNonPeerDependencies": [
-    "@sq-ui/ng-sq-common",
     "tslib"
   ]
 }

@@ -13,31 +13,50 @@
 
     <div class="sq">
       <p>
-        This module exports common interfaces, base classes, components and services utilized
-        by other modules. Some examples include:
+        This package exports the common interfaces, contracts, components, directives and services used
+        by the other SQ-UI packages. Every component and directive is standalone: import it directly into
+        your component's <b>imports</b>. Some examples include:
       </p>
 
       <ul class="list">
         <li>
           The <b>sqOutsideClickListener</b> directive is
           used to track if the user has clicked outside a specific element.
+          Set <b>[listenForOutsideClick]</b> to <b>true</b> to arm it and handle <b>(clickOutside)</b>.
           It has been applied to the <a routerLink="/modal">sq-modal</a> component,
           as well as <a routerLink="/sq-ui">sq-dropdown</a> and <a routerLink="/sq-ui">sq-typeahead</a>.
         </li>
         <li>
           The <b>sqScrolledToBottomListener</b> directive is
           used to track if the user has scrolled to the bottom of a specified container.
-          Emits an event only if the user has reached the bottom of the container.
+          It emits <b>(scrolledToBottom)</b> only once the user has reached the bottom of the container
+          (with a one-pixel tolerance, so it also works on zoomed and high-DPI screens).
         </li>
-        <li>The <b>InputCoreComponent</b> class is
-          used to make all of the <a routerLink="/sq-ui">FormElementsModule</a>
-          components "bindable" to the internal Angular data-binding mechanisms and
-          reactive form approach.
+        <li>
+          The <b>FormFieldConfig</b> / <b>SqFormFieldSignals</b> contract and the <b>FORM_FIELD_DEFAULTS</b>
+          values define the inputs every <a routerLink="/sq-ui">ng-form-elements</a> control shares
+          (<b>name</b>, <b>controlId</b>, <b>controlLabel</b>, <b>controlPlaceholder</b>, <b>required</b>,
+          <b>pattern</b>, <b>disabled</b> and the <b>(touch)</b> output). Together with the
+          <b>SqFormValueControl</b> / <b>SqFormCheckboxControl</b> / <b>SqFormUiControl</b> aliases they let each
+          control be bound with <b>[(value)]</b> or with the Angular Signal Forms <b>[formField]</b> directive.
+        </li>
+        <li>
+          The <b>InputCoreComponent</b> and <b>ControlValueAccessorEnabler</b> classes are <b>deprecated</b>:
+          they are kept only for backward compatibility with code that still extends them. The form
+          controls no longer use them.
         </li>
         <li>
           The <b>sq-paginator</b> component is
           used to control the view collection of the
-          <a routerLink="/datatable">sq-datatable</a> component.
+          <a routerLink="/datatable">sq-datatable</a> component. It takes <b>[items]</b>,
+          <b>[itemsPerPage]</b>, <b>[currentPage]</b>, <b>[lastPage]</b> and <b>[maxDisplayedPages]</b>, exposes the
+          visible page through <b>[(paginatedCollection)]</b> and emits <b>(pageChange)</b> with the page number
+          and the index of its first item.
+        </li>
+        <li>
+          The <b>CustomEventBroadcasterService</b> is a root-provided event bus for named events between unrelated
+          components (for example, it keeps only one <b>sq-radiobutton</b> per group selected). Install a
+          single copy of <b>&#64;sq-ui/ng-sq-common</b> next to the other SQ-UI packages so they all share it.
         </li>
       </ul>
 

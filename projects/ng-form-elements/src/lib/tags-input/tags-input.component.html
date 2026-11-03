@@ -15,11 +15,13 @@
               <div class="entered-item">
                 {{enteredValue}}
                 @if (!disabled()) {
-                  <span class="button"
-                        (click)="removeTag(enteredValue)">
+                  <button type="button"
+                          class="button"
+                          [attr.aria-label]="'Remove ' + enteredValue"
+                          (click)="removeTag(enteredValue)">
                     <i aria-hidden="true"
                        class="fas fa-times"></i>
-                  </span>
+                  </button>
                 }
               </div>
             </ng-template>
@@ -37,7 +39,7 @@
            id="{{controlId()}}"
            name="{{name()}}"
            [disabled]="disabled()"
-           (keyup)="onUserInput($event)"
+           (keydown)="onUserInput($event)"
            (blur)="touch.emit()"
            placeholder="{{controlPlaceholder()}}"
            [(ngModel)]="newTagName">

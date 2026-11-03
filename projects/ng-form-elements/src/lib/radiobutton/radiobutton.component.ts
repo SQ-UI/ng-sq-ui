@@ -62,8 +62,13 @@ export class RadiobuttonComponent<TValue = unknown> implements SqFormFieldSignal
 
         if (details && details.group === this.name() &&
           !Object.is(this.radioValue(), details.sqRadio.radioValue)) {
+          // Only a radio that was actually selected reports the deselection.
+          const wasSelected = this.isSelected();
           this.value.set(details.sqRadio.radioValue);
-          this.isSelectedChange.emit(false);
+
+          if (wasSelected) {
+            this.isSelectedChange.emit(false);
+          }
         }
       }
     );

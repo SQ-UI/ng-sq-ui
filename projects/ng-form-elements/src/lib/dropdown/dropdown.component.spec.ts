@@ -87,6 +87,69 @@ describe('DropdownComponent', () => {
     expect(component.listenForOutsideClick()).toBe(true);
   });
 
+  it('should ignore toggling and selection while disabled', () => {
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    component.toggleOptionsDropdown();
+    component.selectOption(testOptions[0]);
+
+    expect(component.isOpen()).toBe(false);
+    expect(component.value()).toBeNull();
+    expect(fixture.nativeElement.querySelector('.dropdown').getAttribute('tabindex')).toBe('-1');
+  });
+
+  it('should be focusable and emit touch when focus leaves it', () => {
+    const touched = vi.fn();
+    component.touch.subscribe(touched);
+    const host: HTMLElement = fixture.nativeElement.querySelector('.dropdown');
+
+    expect(host.getAttribute('tabindex')).toBe('0');
+    expect(host.getAttribute('role')).toBe('combobox');
+
+    host.dispatchEvent(new FocusEvent('focusout', { relatedTarget: document.body }));
+    expect(touched).toHaveBeenCalledTimes(1);
+  });
+
+  it('should emit touch when an open dropdown is closed by an outside click', () => {
+    const touched = vi.fn();
+    component.touch.subscribe(touched);
+
+    component.toggleOptionsDropdown();
+    component.onClickOutsideComponent();
+    component.onClickOutsideComponent();
+
+    expect(touched).toHaveBeenCalledTimes(1);
+  });
+
+  it('should support keyboard navigation and selection', () => {
+    fixture.componentRef.setInput('options', testOptions);
+    fixture.detectChanges();
+    const host: HTMLElement = fixture.nativeElement.querySelector('.dropdown');
+    const press = (key: string) => {
+      host.dispatchEvent(new KeyboardEvent('keydown', { key, cancelable: true }));
+      fixture.detectChanges();
+    };
+
+    press('ArrowDown');
+    expect(component.isOpen()).toBe(true);
+
+    press('ArrowDown');
+    press('ArrowDown');
+    expect(component.activeIndex()).toBe(1);
+
+    press('Enter');
+    expect(component.value()?.value).toBe(2);
+    expect(component.isOpen()).toBe(false);
+
+    press(' ');
+    expect(component.isOpen()).toBe(true);
+    expect(component.activeIndex()).toBe(1);
+
+    press('Escape');
+    expect(component.isOpen()).toBe(false);
+  });
+
   it('should close the dropdown onClickOutsideComponent', () => {
     component.isOpen.set(true);
     component.listenForOutsideClick.set(true);

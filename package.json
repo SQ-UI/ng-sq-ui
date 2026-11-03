@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "scripts": {
     "ng": "ng",
+    "prestart": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
     "start": "ng serve --open",
     "coverage": "vitest run --coverage",
     "build": "ng build",

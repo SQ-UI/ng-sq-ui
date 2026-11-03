@@ -53,7 +53,6 @@
   ],
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1",
-    "@sq-ui/ng-sq-common": "^3.0.0",
     "tslib": "^2.0.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues",
@@ -64,7 +63,8 @@
   "peerDependencies": {
     "@angular/core": "^22.0.0",
     "@angular/common": "^22.0.0",
-    "@fortawesome/fontawesome-free": "^6.0.0"
+    "@fortawesome/fontawesome-free": "^6.0.0",
+    "@sq-ui/ng-sq-common": "^3.0.0"
   },
   "peerDependenciesMeta": {
     "@fortawesome/fontawesome-free": {

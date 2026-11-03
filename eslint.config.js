@@ -4,6 +4,10 @@ const angular = require("angular-eslint");
 
 module.exports = tseslint.config(
   {
+    // Generated output (coverage reports, built packages) is never linted.
+    ignores: ["**/coverage/**", "dist/**", "out-tsc/**"],
+  },
+  {
     files: ["**/*.ts"],
     extends: [
       eslint.configs.recommended,

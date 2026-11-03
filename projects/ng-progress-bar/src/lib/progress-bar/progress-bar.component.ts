@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, input } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Size } from '@sq-ui/ng-sq-common';
+import type { Size } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-progress-bar',

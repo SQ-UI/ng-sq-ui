@@ -37,6 +37,11 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
   readonly touch = output<void>();
 
   // Component-specific inputs
+  /**
+   * Results for the last `(onUserInputEnd)` query. Pass a **new array** for every search (even an
+   * empty one): the loader is cleared when this input changes, and re-binding the same array
+   * instance is not a change.
+   */
   readonly searchResults = input<readonly unknown[]>([]);
   readonly multiple = input<boolean>(false);
   readonly delay = input<number>(500);
@@ -75,6 +80,12 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
       debounce(() => timer(this.delay())),
       takeUntilDestroyed(),
     ).subscribe((query: string) => {
+      // An empty query is not searched by the parent, so nothing would ever clear the loader.
+      if (query.trim() === '') {
+        this.isLoading.set(false);
+        this.hideResults.set(true);
+      }
+
       this.onUserInputEnd.emit(query);
     });
 

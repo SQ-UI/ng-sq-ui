@@ -2,6 +2,21 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, input, model, co
 import { FORM_FIELD_DEFAULTS, generateFormFieldId } from '@sq-ui/ng-sq-common';
 import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 
+/** `innerText` keeps the line breaks a contenteditable inserts (`<div>`/`<br>`); `textContent` drops them. */
+const supportsInnerText = typeof HTMLElement !== 'undefined' && 'innerText' in HTMLElement.prototype;
+
+function readText(element: HTMLElement): string {
+  return (supportsInnerText ? element.innerText : element.textContent) ?? '';
+}
+
+function writeText(element: HTMLElement, text: string) {
+  if (supportsInnerText) {
+    element.innerText = text;
+  } else {
+    element.textContent = text;
+  }
+}
+
 @Component({
   selector: 'sq-textarea',
   standalone: true,
@@ -31,7 +46,7 @@ export class TextareaComponent implements SqFormFieldSignals, SqFormValueControl
   readonly value = model<string>('');
 
   // ViewChild for contentEditable div
-  readonly textarea = viewChild<ElementRef>('textarea');
+  readonly textarea = viewChild<ElementRef<HTMLElement>>('textarea');
 
   // Computed placeholder visibility
   readonly isPlaceholderVisible = computed(() => !this.value());
@@ -40,19 +55,20 @@ export class TextareaComponent implements SqFormFieldSignals, SqFormValueControl
     // Sync programmatic value changes to the contentEditable DOM element
     effect(() => {
       const el = this.textarea()?.nativeElement;
-      const val = this.value();
-      if (el && el.textContent !== val) {
-        el.textContent = val;
+      const val = this.value() ?? '';
+      if (el && readText(el) !== val) {
+        writeText(el, val);
       }
     });
   }
 
   onInput(event: Event) {
-    const text = (event.target as HTMLElement).textContent || '';
-    this.value.set(text);
+    this.value.set(readText(event.target as HTMLElement));
   }
 
   focusOnArea() {
-    this.textarea()?.nativeElement.focus();
+    if (!this.disabled()) {
+      this.textarea()?.nativeElement.focus();
+    }
   }
 }

@@ -35,8 +35,11 @@ export class AppNavComponent {
     }, 300);
   }
 
-  navigateTo($event: Event, routeLink: string) {
+  navigateTo($event: Event, routeLink: string | undefined) {
     $event.preventDefault();
+    if (routeLink === undefined) {
+      return;
+    }
     if (this.isNavOpen()) {
       this.onClickOutsideComponent();
     }

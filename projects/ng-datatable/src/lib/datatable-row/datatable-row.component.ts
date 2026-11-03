@@ -11,14 +11,22 @@ import { Component, computed, input, ChangeDetectionStrategy, ViewEncapsulation 
 export class DatatableRowComponent {
   /** The row is rendered generically: any object works, the keys come from the object itself. */
   readonly rowItem = input<unknown>();
+  /**
+   * Column order to render. `sq-datatable` passes the header's columns so every row lines up with
+   * them; when unbound, the row's own keys are used.
+   */
+  readonly columns = input<readonly string[] | undefined>(undefined);
+  /** @deprecated Has no effect; it used to hide every cell when set. */
   readonly width = input<string>();
 
-  readonly columnKeys = computed(() => {
-    const item = this.rowItem();
-    if (!this.width() && item) {
-      return Object.keys(item as unknown as Record<string, unknown>);
+  readonly columnKeys = computed<readonly string[]>(() => {
+    const columns = this.columns();
+    if (columns) {
+      return columns;
     }
-    return [];
+
+    const item = this.rowItem();
+    return item ? Object.keys(item as Record<string, unknown>) : [];
   });
 
   /** Cell text per column; interpolating an object rendered `[object Object]`, so stringify once. */
@@ -29,7 +37,7 @@ export class DatatableRowComponent {
     }
 
     return Object.fromEntries(
-      Object.entries(item as unknown as Record<string, unknown>)
+      Object.entries(item as Record<string, unknown>)
         .map(([key, value]) => [key, value === null || value === undefined ? '' : String(value)])
     );
   });

@@ -1,4 +1,6 @@
-import { Component, input, output, signal, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  Component, input, output, linkedSignal, ChangeDetectionStrategy, ViewEncapsulation
+} from '@angular/core';
 import { SortItem } from '../shared/interfaces/sort-item';
 
 @Component({
@@ -10,32 +12,32 @@ import { SortItem } from '../shared/interfaces/sort-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatatableColumnComponent {
-  readonly name = input<string>();
+  readonly name = input.required<string>();
   readonly isSortable = input<boolean>(false);
+  /**
+   * Name of the column the table is currently sorted by. When another column becomes active this
+   * column drops back to "unsorted". Leave it unbound to manage each column's state independently.
+   */
+  readonly activeSortColumn = input<string | null | undefined>(undefined);
 
   readonly onSortClicked = output<SortItem>();
 
-  readonly sortState = signal<boolean | undefined>(undefined);
-
-  get isSortedByAscending(): boolean | undefined {
-    return this.sortState();
-  }
+  /** `true` = ascending, `false` = descending, `undefined` = original order. */
+  readonly sortState = linkedSignal<string | null | undefined, boolean | undefined>({
+    source: this.activeSortColumn,
+    computation: (activeColumn, previous) =>
+      activeColumn !== undefined && activeColumn !== this.name() ? undefined : previous?.value,
+  });
 
   sort() {
     const current = this.sortState();
+    // Cycles ascending -> descending -> original order.
+    const next = current === undefined ? true : (current ? false : undefined);
 
-    switch (typeof current) {
-      case 'undefined':
-        this.sortState.set(true);
-        break;
-      case 'boolean':
-        this.sortState.set(current ? false : undefined);
-        break;
-    }
-
+    this.sortState.set(next);
     this.onSortClicked.emit({
       name: this.name(),
-      isSortedByAscending: this.sortState()
+      isSortedByAscending: next
     });
   }
 }

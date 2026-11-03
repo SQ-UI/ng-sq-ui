@@ -54,21 +54,107 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
   // Internal state
   readonly isOpen = signal<boolean>(false);
   readonly listenForOutsideClick = signal<boolean>(false);
+  /** Option highlighted with the arrow keys (`-1` = none). */
+  readonly activeIndex = signal<number>(-1);
 
   toggleOptionsDropdown() {
-    this.listenForOutsideClick.set(true);
-    this.isOpen.update(open => !open);
+    if (this.disabled()) {
+      return;
+    }
+
+    const willOpen = !this.isOpen();
+    this.isOpen.set(willOpen);
+    this.listenForOutsideClick.set(willOpen);
+    this.activeIndex.set(willOpen ? this.selectedIndex() : -1);
   }
 
   onClickOutsideComponent() {
-    this.isOpen.set(false);
-    this.listenForOutsideClick.set(false);
+    const wasOpen = this.isOpen();
+    this.close();
+
+    if (wasOpen) {
+      this.touch.emit();
+    }
   }
 
   selectOption(option: LabelValuePair) {
+    if (this.disabled()) {
+      return;
+    }
+
+    // A copy is stored on purpose, so the caller's option object is never shared with the model.
     this.value.set({ ...option });
-    this.listenForOutsideClick.set(false);
-    this.isOpen.set(false);
+    this.close();
     this.onSelectItem.emit(option);
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    if (this.disabled()) {
+      return;
+    }
+
+    const optionCount = this.options()?.length ?? 0;
+
+    switch (event.key) {
+      case 'Enter':
+      case ' ': {
+        event.preventDefault();
+        const active = this.options()?.[this.activeIndex()];
+        if (this.isOpen() && active) {
+          this.selectOption(active);
+        } else {
+          this.toggleOptionsDropdown();
+        }
+        break;
+      }
+      case 'ArrowDown':
+        event.preventDefault();
+        if (!this.isOpen()) {
+          this.toggleOptionsDropdown();
+        } else if (optionCount > 0) {
+          this.activeIndex.update(index => Math.min(index + 1, optionCount - 1));
+        }
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        if (this.isOpen() && optionCount > 0) {
+          this.activeIndex.update(index => Math.max(index - 1, 0));
+        }
+        break;
+      case 'Escape':
+        if (this.isOpen()) {
+          event.preventDefault();
+          this.close();
+        }
+        break;
+      case 'Tab':
+        this.close();
+        break;
+    }
+  }
+
+  /** Marks the field touched once focus leaves the control (not when moving inside it). */
+  onFocusOut(event: FocusEvent) {
+    const host = event.currentTarget as HTMLElement | null;
+    const next = event.relatedTarget as Node | null;
+
+    if (!host || !next || !host.contains(next)) {
+      this.touch.emit();
+    }
+  }
+
+  private close() {
+    this.isOpen.set(false);
+    this.listenForOutsideClick.set(false);
+    this.activeIndex.set(-1);
+  }
+
+  private selectedIndex(): number {
+    const current = this.value();
+    if (!current) {
+      return -1;
+    }
+
+    return (this.options() ?? []).findIndex(option => Object.is(option.value, current.value));
   }
 }

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import type { LabelValuePair } from '@sq-ui/ng-sq-common';
 
@@ -50,6 +51,27 @@ describe('TypeaheadComponent', () => {
     fixture.detectChanges();
 
     expect(component.searchResults().length > 0).toBe(true);
+  });
+
+  it('should stop the loader when the debounced query is empty', () => {
+    vi.useFakeTimers();
+    try {
+      fixture.componentRef.setInput('delay', 100);
+      const emitted: string[] = [];
+      component.onUserInputEnd.subscribe(query => emitted.push(query));
+
+      component.onSearchInput({ target: { value: 'ab' } } as unknown as Event);
+      component.onSearchInput({ target: { value: '' } } as unknown as Event);
+      expect(component.isLoading()).toBe(true);
+
+      vi.advanceTimersByTime(100);
+
+      expect(emitted).toEqual(['']);
+      expect(component.isLoading()).toBe(false);
+      expect(component.hideResults()).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('should choose one item when [multiple] = false', () => {
