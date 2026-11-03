@@ -8,7 +8,7 @@ const base = process.env.STYLE_BASELINE_URL || 'http://127.0.0.1:4201';
 const phase = ['5', '6'].includes(process.env.STYLE_PREVIEW_PHASE) ? process.env.STYLE_PREVIEW_PHASE : '4';
 const phase5 = Number(phase) >= 5;
 const phase6 = phase === '6';
-const output = resolve(`docs/style-migration/phase-${phase}/screenshots`);
+const output = resolve(process.env.STYLE_PREVIEW_OUTPUT || `docs/style-migration/phase-${phase}/screenshots`);
 const profile = resolve('tmp', `component-preview-chrome-${Date.now()}`);
 await mkdir(output, { recursive: true }); await mkdir(profile, { recursive: true });
 const browser = spawn(process.env.STYLE_BASELINE_BROWSER || 'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -314,6 +314,61 @@ try {
       assert.equal(state.header, width === 860 ? 'none' : 'table-header-group'); assert.equal(state.overflow, false);
       report.tableBreakpoints.push({width,...state});
       await capture('table-breakpoint', '[data-table-size=medium]');
+    }
+  }
+  if (process.env.STYLE_SHOWCASE_REFRESH === '1') {
+    report.showcase = [];
+    await cdp('Page.addScriptToEvaluateOnNewDocument', { source: `
+      const demoFetch=window.fetch.bind(window);
+      window.fetch=(input,init)=>{
+        const url=String(input?.url||input);
+        if(url.includes('jsonplaceholder.typicode.com/todos')) return Promise.resolve(new Response(JSON.stringify(Array.from({length:12},(_,i)=>({userId:1,id:i+1,title:'Example task '+(i+1),completed:i%2===0}))),{headers:{'Content-Type':'application/json'}}));
+        if(url.includes('reqres.in/api/')) return Promise.resolve(new Response('{}',{headers:{'Content-Type':'application/json'}}));
+        return demoFetch(input,init);
+      };
+    ` });
+    for (width of [1440, 960, 390, 320]) {
+      height = 1000;
+      await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
+      await cdp('Page.navigate', { url: 'about:blank' }); await cdp('Page.navigate', { url: `${base}/#/about` });
+      await waitFor('!!document.querySelector(".home-hero")'); await evaluate('document.fonts.ready.then(()=>true)');
+      const shell = await evaluate(`(() => {const e=document.querySelector('.scrollable');const header=document.querySelector('.demo-topbar');const logo=document.querySelector('.demo-logo');const r=logo.getBoundingClientRect();return {width:innerWidth,overflow:e.scrollWidth>e.clientWidth+1,headerOverflow:header.scrollWidth>header.clientWidth+1,sidebar:getComputedStyle(document.querySelector('.app-nav')).display,logoLoaded:logo.complete&&logo.naturalWidth>0,logo:{src:logo.getAttribute('src'),naturalWidth:logo.naturalWidth,naturalHeight:logo.naturalHeight,width:r.width,height:r.height},background:getComputedStyle(document.querySelector('.sq-app')).backgroundColor};})()`);
+      assert.equal(shell.overflow, false); assert.equal(shell.logoLoaded, true); assert.equal(shell.background, 'rgb(250, 250, 250)');
+      assert.equal(shell.sidebar, width > 960 ? 'flex' : 'none');
+      assert.equal(shell.headerOverflow, false);
+      assert.equal(shell.logo.src, 'assets/logo.svg');
+      assert.equal(shell.logo.naturalWidth, 896); assert.equal(shell.logo.naturalHeight, 576);
+      assert(Math.abs(shell.logo.width/shell.logo.height-shell.logo.naturalWidth/shell.logo.naturalHeight)<0.001);
+      await capture('demo-home', '.home-hero');
+      await evaluate('document.querySelector(".hero-preview-actions sq-button button").click()');
+      await waitFor('document.querySelector(".hero-save-status").textContent.includes("saved")');
+      await evaluate('document.querySelectorAll(".hero-preview-actions sq-button button")[1].click()');
+      await waitFor('document.querySelector(".hero-save-status").textContent.includes("Try the components")');
+      if (width <= 960) {
+        await evaluate('document.querySelector(".demo-menu-button").click()');
+        await waitFor('document.querySelector(".demo-menu-button").getAttribute("aria-expanded")==="true"');
+        await capture('demo-navigation', '.app-nav');
+        await key('Escape');
+        assert.equal(await evaluate('document.activeElement===document.querySelector(".demo-menu-button")'), true);
+        assert.equal(await evaluate('getComputedStyle(document.querySelector(".app-nav")).display'), 'none');
+        await evaluate('document.querySelector(".demo-menu-button").click()');
+        await evaluate(`document.querySelector('.app-nav a[href="#/preview"]').click()`);
+        await waitFor('!!document.querySelector("#componentPreview")');
+        assert.equal(await evaluate('getComputedStyle(document.querySelector(".app-nav")).display'), 'none');
+        shell.mobileNavigation = true;
+      }
+      shell.routes = [];
+      for (const route of (width === 1440 || width === 390 ? ['preview','sq-ui','sq-common','datatable','datetime-picker','modal'] : ['preview'])) {
+        await cdp('Page.navigate', { url: `${base}/#/${route}` });
+        await waitFor(`location.hash==='#/${route}'&&!!document.querySelector('router-outlet')?.nextElementSibling`);
+        await delay(250);
+        const routeState = await evaluate(`(() => {const e=document.querySelector('.scrollable');return {hash:location.hash,overflow:e.scrollWidth>e.clientWidth+1,active:document.querySelector('.app-nav [aria-current=page]')?.getAttribute('href')};})()`);
+        assert.equal(routeState.overflow, false, route); assert.equal(routeState.active, '#/'+route);
+        shell.routes.push(routeState);
+        await capture('demo-'+route, '.scrollable > :not(router-outlet)');
+      }
+      report.showcase.push(shell);
+      console.log('Demo shell, navigation and routes passed at '+width+'px');
     }
   }
   assert.equal(report.runtimeErrors.length, 0); report.success = true;

@@ -1,31 +1,8 @@
-.btn-collapse {
-  background: none;
-  border: none;
-  cursor: pointer;
-  .fas {
-    position: relative;
-    top: -2px;
-  }
-}
-
-.header-btn {
-  display: inline-block;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.collapsed-content {
-  margin-bottom: 30px;
-  padding-left: 15px;
-}
-
-h4 {
-  font-size: 1.35rem;
-}
-
-header {
-  width: 100%;
-  background-color: #cde3df;
-  padding: 10px 10px 0 11px;
-  margin-bottom: 17px;
-}
+:host { display: block; margin-bottom: 20px; }
+.content-wrapper { border: 1px solid var(--demo-border, #dcdcdc); border-radius: 10px; background: var(--demo-surface, white); }
+.content-wrapper > header { display: flex; align-items: center; gap: 12px; padding: 20px 24px; }
+.content-wrapper .header-btn { flex: 1; min-width: 0; margin: 0; font-size: 18px; line-height: 1.4; font-weight: 500; letter-spacing: -.3px; cursor: pointer; }
+.content-wrapper h4.header-btn { font-size: 15px; }
+.btn-collapse { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 28px; height: 28px; padding: 0; border: 1px solid var(--demo-border, #dcdcdc); border-radius: 6px; background: var(--demo-canvas, #fafafa); font-size: 10px; cursor: pointer; }
+.collapsed-content { min-width: 0; padding: 4px 24px 24px; }
+@media (max-width: 540px) { .content-wrapper > header { padding: 16px; } .collapsed-content { padding: 0 16px 16px; } }

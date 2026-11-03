@@ -1,54 +1,35 @@
-<section>
-  <section class="section primary">
-    <header>
-      <h2>Introduction:</h2>
-    </header>
-
-    <section class="mg-b50">
-      <header>
-        <h3>Another UI-kit? How is it different?</h3>
-
-        <p>
-          You've guessed right, folks - ng-sq-ui IS yet another UI-kit. The intention behind it is to help Angular developers with their day-to-day work by trying to offer a solution to the most widespread use-cases they have to handle. Without being too opinionated on looks and without containing dozen of just "fancy" features. This, with almost no additional dependencies. How cool is that?
-        </p>
-      </header>
-    </section>
-
-    <section class="mg-b50">
-      <header>
-        <h3>How do you determine the "most widespread" cases?</h3>
-
-        <p>
-          When we thought about what an initial version of the UI-kit should have, we decided to simply ask other developers. We handed out a Google form to different groups (Facebook groups and colleagues, included) and asked them what they mostly look for when dealing with UI development. The most voted answer was "form elements", and right after that - "modal dialogs". And these two types of components are included in our first version of the kit.
-
-          We intend to keep the original idea of the UI-kit. We would like to ask the developers what they need most for our next release! Don't hesitate to create a feature request!
-        </p>
-      </header>
-    </section>
-
-    <section class="mg-b50">
-      <header>
-        <h3>How do I navigate the live examples?</h3>
-
-        <p>
-          All of the live examples are separated into different routes. Each of the links
-          in the navigation denotes an npm package with all of the items it exports. Every component
-          and directive is standalone, so you import it directly into your component's <b>imports</b>;
-          there are no NgModules to register.
-        </p>
-      </header>
-    </section>
-
-    <section class="mg-b50">
-      <header>
-        <h3>Contribution</h3>
-
-        <p>
-          Want to file a <a href="http://bit.ly/ng-sq-ui-bug-report" target="_blank">bug</a> / <a href="http://bit.ly/ng-sq-ui-request-feature" target="_blank">request feature</a>, 
-          contribute some code, or improve documentation? Read up on our <a href="https://github.com/SQ-UI/ng-sq-ui/blob/master/CONTRIBUTING.md" target="_blank">Contributing Guide</a> 
-          before making a pull request.
-        </p>
-      </header>
-    </section>
+<div class="home-page">
+  <section class="home-hero">
+    <div class="home-hero-copy">
+      <span class="demo-eyebrow">SIMPLE QUALITY UI / ANGULAR</span>
+      <h1>Simple components.<br><span>Thoughtful interfaces.</span></h1>
+      <p>A small, considered UI kit for your next Angular project. Flexible components, consistent details and room to make it yours.</p>
+      <div class="home-actions"><a class="demo-action primary" routerLink="/preview">Explore components <span aria-hidden="true">↗</span></a><a class="demo-action" href="https://github.com/sq-ui/ng-sq-ui" target="_blank" rel="noreferrer">View on GitHub</a></div>
+      <div class="home-meta"><span><i class="fas fa-check" aria-hidden="true"></i>Standalone components</span><span><i class="fas fa-check" aria-hidden="true"></i>Signal Forms ready</span></div>
+    </div>
+    <article class="hero-playground">
+      <div class="hero-playground-top"><span><span aria-hidden="true"></span>Built with SQ UI</span><span>01 / PREVIEW</span></div>
+      <h2>Your next great interface<br>starts with the details.</h2>
+      <sq-input controlLabel="Project name" [(value)]="projectName" (valueChange)="saved.set(false)"></sq-input>
+      <div class="hero-progress-label"><span>Setup progress</span><span>62%</span></div>
+      <sq-progress-bar [loaded]="62" size="small" label="Project setup"></sq-progress-bar>
+      <div class="hero-preview-actions"><sq-button (click)="saved.set(true)">{{saved() ? 'Saved' : 'Save changes'}}</sq-button><sq-button appearance="neutral" (click)="resetPreview()">Reset</sq-button></div>
+      <span class="hero-save-status" role="status">{{saved() ? 'Your preview changes are saved for this session.' : 'Try the components. This is a live preview.'}}</span>
+    </article>
   </section>
-</section>
+
+  <section class="home-library">
+    <header><div><span class="demo-eyebrow">BUILDING BLOCKS</span><h2>Less setup. More building.</h2></div><a routerLink="/preview">Browse all components <span aria-hidden="true">→</span></a></header>
+    <div class="home-feature-grid">
+      <a class="home-feature" routerLink="/sq-ui"><span class="home-feature-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span><h3>Form controls</h3><p>Inputs, buttons, selections and search. The everyday essentials, working together.</p><span class="home-feature-link">Explore forms <span aria-hidden="true">↗</span></span></a>
+      <a class="home-feature" routerLink="/datatable"><span class="home-feature-icon"><i class="fas fa-table" aria-hidden="true"></i></span><h3>Data & navigation</h3><p>Readable tables, flexible templates and pagination that keeps things moving.</p><span class="home-feature-link">Explore tables <span aria-hidden="true">↗</span></span></a>
+      <a class="home-feature" routerLink="/datetime-picker"><span class="home-feature-icon"><i class="fas fa-calendar-days" aria-hidden="true"></i></span><h3>Date & time</h3><p>Single dates, ranges and time controls for the moments your application needs.</p><span class="home-feature-link">Explore pickers <span aria-hidden="true">↗</span></span></a>
+    </div>
+  </section>
+
+  <section class="home-foundation">
+    <div><span class="demo-eyebrow">A SHARED FOUNDATION</span><h2>One palette. A consistent feel.</h2><p>Clear surfaces, confident contrast and a little green. Shared tokens keep the details connected.</p></div>
+    <div class="home-swatches" aria-label="Design system colors"><div><span style="background:#00c474"></span><strong>Brand</strong><small>#00C474</small></div><div><span style="background:#202020"></span><strong>Ink</strong><small>#202020</small></div><div><span style="background:#fafafa"></span><strong>Surface</strong><small>#FAFAFA</small></div><div><span style="background:#dcdcdc"></span><strong>Border</strong><small>#DCDCDC</small></div></div>
+  </section>
+  <footer class="home-footer"><span>Simple Quality UI. Built by developers, for developers.</span><a href="https://github.com/SQ-UI/ng-sq-ui/blob/master/CONTRIBUTING.md" target="_blank" rel="noreferrer">Help shape what comes next <span aria-hidden="true">↗</span></a></footer>
+</div>

@@ -14,26 +14,32 @@ import { AppNavComponent } from './app-nav/app-nav.component';
 })
 export class AppComponent {
   navItems: NavItem[] = [
-    { name: 'Preview', routeLink: 'preview' },
+    { name: 'Overview', routeLink: 'about', icon: 'fa-house' },
+    { name: 'All components', routeLink: 'preview', icon: 'fa-grip' },
     {
-      name: 'SQ-UI',
-      routeLink: 'sq-ui'
+      name: 'Form controls',
+      routeLink: 'sq-ui',
+      icon: 'fa-sliders'
     },
     {
-      name: 'Common',
-      routeLink: 'sq-common'
+      name: 'Utilities',
+      routeLink: 'sq-common',
+      icon: 'fa-layer-group'
     },
     {
-      name: 'Datetime Picker',
-      routeLink: 'datetime-picker'
+      name: 'Date & time',
+      routeLink: 'datetime-picker',
+      icon: 'fa-calendar-days'
     },
     {
-      name: 'Datatable',
-      routeLink: 'datatable'
+      name: 'Data tables',
+      routeLink: 'datatable',
+      icon: 'fa-table'
     },
     {
-      name: 'Modal',
-      routeLink: 'modal'
+      name: 'Dialogs',
+      routeLink: 'modal',
+      icon: 'fa-window-maximize'
     }
   ];
 }

@@ -1,35 +1,12 @@
-.module-overview {
-  ul li {
-    display: flex;
-    align-items: center;
-  }
-
-  .link-list-item {
-    display: inline-block;
-    margin-left: 10px;
-  }
-
-  .fa-external-link-square-alt {
-    font-size: 15px;
-    position: relative;
-    top: -4px;
-    left: 4px;
-  }
-
-  @media (max-width: 1100px) {
-    .emphasis {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    ul li {
-      display: block;
-      padding-bottom: 25px;
-    }
-
-    .link-list-item {
-      margin-left: 0;
-      margin-right: 10px;
-    }
-  }
-}
+.module-overview { padding: 24px; margin-bottom: 24px; border: 1px solid var(--demo-border, #dcdcdc); border-radius: 10px; background: white; }
+.module-overview > header { padding: 0 0 16px; margin-bottom: 0; }
+.module-overview > header h2 { font-size: 22px; margin: 0; }
+.module-overview ul { margin: 0; padding: 0; list-style: none; }
+.module-overview ul li { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--demo-border, #dcdcdc); font-size: 12px; }
+.module-overview ul li:last-child { padding-bottom: 0; border-bottom: 0; }
+.module-overview .emphasis { padding: 4px 0; background: none; font-size: 11px; color: var(--demo-muted, #656565); font-weight: 400; }
+.module-overview .link-list-item { display: inline-block; padding: 4px 0; margin-right: 10px; overflow-wrap: anywhere; }
+.module-overview a.link-list-item { text-decoration-color: var(--demo-border, #dcdcdc); }
+.module-overview a.link-list-item:hover { text-decoration-color: var(--demo-ink, #202020); }
+.module-overview .fa-external-link-square-alt { font-size: 9px; margin-left: 3px; }
+@media (max-width: 640px) { .module-overview { padding: 16px; } .module-overview ul li { grid-template-columns: minmax(0, 1fr); gap: 0; } }

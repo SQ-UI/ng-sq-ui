@@ -1,64 +1,35 @@
-<div>
-  <div class="mobile-nav">
-    <div class="display-flex space-between nav-items">
-      <button type="button" class="hamburger" (click)="showNav()">
-        <i class="fas fa-bars" aria-hidden="true"></i>
-      </button>
-
-      <div class="github">
-        <span class="gh-btn">
-            <a class="github-button" href="https://github.com/sq-ui/ng-sq-ui" data-size="large" data-show-count="true" aria-label="Star sq-ui/ng-sq-ui on GitHub">Star</a>
-          </span>
-        <span class="gh-btn">
-            <a class="github-button" href="https://github.com/sq-ui/ng-sq-ui/issues" data-size="large" data-show-count="true" aria-label="Issue sq-ui/ng-sq-ui on GitHub">Issue</a>
-          </span>
-        <span class="gh-btn">
-            <a class="github-button" href="https://github.com/sq-ui/ng-sq-ui/subscription" data-size="large" data-show-count="true" aria-label="Watch sq-ui/ng-sq-ui on GitHub">Watch</a>
-        </span>
-      </div>
-    </div>
+<button class="demo-skip" type="button" (click)="focusMain()">Skip to content</button>
+<header class="demo-topbar">
+  <button #menuButton type="button" class="demo-menu-button" [attr.aria-label]="isNavOpen() ? 'Close navigation' : 'Open navigation'" aria-controls="demo-sidebar"
+          [attr.aria-expanded]="isNavOpen()" (click)="isNavOpen() ? closeFromKeyboard() : showNav($event)">
+    <i class="fas fa-bars" aria-hidden="true"></i>
+  </button>
+  <a routerLink="/about" class="demo-brand" aria-label="SQ UI home" (click)="onClickOutsideComponent()">
+    <img src="assets/logo.svg" alt="" class="demo-logo" width="56" height="36">
+    <span class="demo-brand-copy"><strong>SQ UI</strong><span>Simple Quality UI</span></span>
+  </a>
+  <span class="demo-topbar-caption">Component library <span> / </span> Angular</span>
+  <div class="demo-topbar-actions">
+    <a class="demo-design-link" href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=28-10" target="_blank" rel="noreferrer">Design system <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+    <a class="demo-github-link" href="https://github.com/sq-ui/ng-sq-ui" target="_blank" rel="noreferrer"><i class="fas fa-code" aria-hidden="true"></i><span>GitHub</span></a>
   </div>
+</header>
 
-  <div class="tint" [ngClass]="{'display-none': !isNavOpen() }"></div>
-
-  <nav class="app-nav"
-       [class.show]="isNavOpen()"
-       sqOutsideClickListener
-       [listenForOutsideClick]="listenForOutsideClick()"
-       (clickOutside)="onClickOutsideComponent()">
-    <button type="button" class="close-btn" (click)="onClickOutsideComponent()">
-      <i class="fas fa-times" aria-hidden="true"></i>
-    </button>
-
-    <a routerLink="/about"
-       (click)="navigateTo($event, '/about')"
-       class="nav-item info">
-      <img src="assets/logo-alt.png" alt="Simple Quality UI" class="logo">
-    </a>
-
-    <div class="display-flex space-between nav-items">
-      <div>
-        @for (navItem of navItems(); track navItem.routeLink) {
-          <a class="nav-item"
-             routerLinkActive="active"
-             routerLink="{{navItem.routeLink}}"
-             (click)="navigateTo($event, navItem.routeLink)">
-            {{navItem.name}}
-          </a>
-        }
-      </div>
-
-      <div class="github">
-        <span class="gh-btn">
-          <a class="github-button" href="https://github.com/sq-ui/ng-sq-ui" data-size="large" data-show-count="true" aria-label="Star sq-ui/ng-sq-ui on GitHub">Star</a>
-        </span>
-        <span class="gh-btn">
-          <a class="github-button" href="https://github.com/sq-ui/ng-sq-ui/issues" data-size="large" data-show-count="true" aria-label="Issue sq-ui/ng-sq-ui on GitHub">Issue</a>
-        </span>
-        <span class="gh-btn">
-          <a class="github-button" href="https://github.com/sq-ui/ng-sq-ui/subscription" data-size="large" data-show-count="true" aria-label="Watch sq-ui/ng-sq-ui on GitHub">Watch</a>
-        </span>
-      </div>
-    </div>
+@if (isNavOpen()) { <button type="button" class="tint" aria-label="Close navigation" (click)="onClickOutsideComponent()"></button> }
+<aside class="app-nav" id="demo-sidebar" [class.show]="isNavOpen()" aria-label="Showcase navigation"
+       sqOutsideClickListener [listenForOutsideClick]="listenForOutsideClick()" (clickOutside)="onClickOutsideComponent()">
+  <div class="demo-sidebar-heading"><span>WORKSPACE</span><button type="button" class="close-btn" aria-label="Close navigation" (click)="closeFromKeyboard()"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>
+  <nav aria-label="Components">
+    @for (navItem of navItems(); track navItem.routeLink) {
+      <a class="nav-item" routerLinkActive="active" ariaCurrentWhenActive="page" [routerLink]="'/' + navItem.routeLink" (click)="onClickOutsideComponent()">
+        <i class="fas {{navItem.icon}}" aria-hidden="true"></i><span>{{navItem.name}}</span>
+        @if (navItem.routeLink === 'preview') { <span class="demo-nav-count">17</span> }
+      </a>
+    }
   </nav>
-</div>
+  <div class="demo-sidebar-footer">
+    <span class="demo-version"><span aria-hidden="true"></span>Version 3.0</span>
+    <p>Made for the way<br>you build.</p>
+    <a href="https://github.com/SQ-UI/ng-sq-ui/blob/master/CONTRIBUTING.md" target="_blank" rel="noreferrer">Contribute to SQ UI <span aria-hidden="true">↗</span></a>
+  </div>
+</aside>

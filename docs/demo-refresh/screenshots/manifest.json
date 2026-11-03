@@ -1,0 +1,1515 @@
+{
+  "capturedAt": "2026-11-03T21:18:15.603Z",
+  "sourceCommit": "32d7c93e713a7add52b218b44d68386ed8cfd7ba",
+  "phase": "5",
+  "route": "/#/preview",
+  "success": true,
+  "captures": [
+    {
+      "file": "overview-1440.png",
+      "selector": "#componentPreview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 5631.75
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "buttons-1440.png",
+      "selector": "#previewButtons",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 204.25,
+        "width": 1077.8125,
+        "height": 494
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "fields-1440.png",
+      "selector": "#previewFields",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 204.25,
+        "width": 1077.8125,
+        "height": 1244
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "extra-fields-1440.png",
+      "selector": "#previewFields .preview-grid:nth-of-type(3)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 204.25,
+        "width": 1027.8125,
+        "height": 238
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "progress-1440.png",
+      "selector": "#previewProgress",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 204.25,
+        "width": 1077.8125,
+        "height": 327
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-small-1440.png",
+      "selector": "[data-table-size=small]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 204.25,
+        "width": 505.90625,
+        "height": 275.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-medium-1440.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 836.5,
+        "y": 204.25,
+        "width": 505.90625,
+        "height": 275.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-large-1440.png",
+      "selector": "[data-table-size=large]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 203.75,
+        "width": 505.90625,
+        "height": 291.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "empty-table-1440.png",
+      "selector": "#previewEmptyTable",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 836.5,
+        "y": 203.75,
+        "width": 505.90625,
+        "height": 291.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-1440.png",
+      "selector": "#previewPaginator",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 204.25,
+        "width": 1027.8125,
+        "height": 128
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "calendar-1440.png",
+      "selector": "#previewSingleCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 204.25,
+        "width": 331.9375,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-1440.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 662.53125,
+        "y": 204.25,
+        "width": 331.9375,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "time-1440.png",
+      "selector": "#previewTime",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 204.25,
+        "width": 331.9375,
+        "height": 134
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-preview-1440.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 662.53125,
+        "y": 204.25,
+        "width": 331.9375,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-selected-1440.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 662.53125,
+        "y": 204.25,
+        "width": 331.9375,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "validation-error-1440.png",
+      "selector": "#previewValidation",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 204.25,
+        "width": 1077.8125,
+        "height": 292
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-templates-1440.png",
+      "selector": "#previewTemplates",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 204.25,
+        "width": 1077.8125,
+        "height": 740.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-table-1440.png",
+      "selector": "#previewCustomTable",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 380.25,
+        "width": 1027.8125,
+        "height": 234.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "theme-overrides-1440.png",
+      "selector": "#previewTheme",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 663.75,
+        "width": 1077.8125,
+        "height": 372
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-small-1440.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 1440,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 540,
+        "y": 16,
+        "width": 360,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-medium-1440.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 1440,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 520,
+        "y": 16,
+        "width": 400,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-large-1440.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 1440,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 500,
+        "y": 16,
+        "width": 440,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "overview-390.png",
+      "selector": "#componentPreview",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 9863.84375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "buttons-390.png",
+      "selector": "#previewButtons",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 195.84375,
+        "width": 343,
+        "height": 761
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "fields-390.png",
+      "selector": "#previewFields",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 195.84375,
+        "width": 343,
+        "height": 2788
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "extra-fields-390.png",
+      "selector": "#previewFields .preview-grid:nth-of-type(3)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 546
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "progress-390.png",
+      "selector": "#previewProgress",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 195.84375,
+        "width": 343,
+        "height": 330
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-small-390.png",
+      "selector": "[data-table-size=small]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 410
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-medium-390.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 410
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-large-390.png",
+      "selector": "[data-table-size=large]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 410
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "empty-table-390.png",
+      "selector": "#previewEmptyTable",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 118
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-390.png",
+      "selector": "#previewPaginator",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 156
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "calendar-390.png",
+      "selector": "#previewSingleCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-390.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "time-390.png",
+      "selector": "#previewTime",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 126
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-preview-390.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-selected-390.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "validation-error-390.png",
+      "selector": "#previewValidation",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 195.84375,
+        "width": 343,
+        "height": 287
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-templates-390.png",
+      "selector": "#previewTemplates",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 195.84375,
+        "width": 343,
+        "height": 1078
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-table-390.png",
+      "selector": "#previewCustomTable",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.84375,
+        "width": 309,
+        "height": 285
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "theme-overrides-390.png",
+      "selector": "#previewTheme",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 505.84375,
+        "width": 343,
+        "height": 554
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-small-390.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 390,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 358,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-medium-390.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 390,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 358,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-large-390.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 390,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 358,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-home-1440.png",
+      "selector": ".home-hero",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 453.59375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-preview-1440.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 5631.75
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-sq-ui-1440.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 9998.203125
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-sq-common-1440.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 1142.265625
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-datatable-1440.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 2545.171875
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-datetime-picker-1440.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 2535.671875
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-modal-1440.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 112,
+        "width": 1077.8125,
+        "height": 958.328125
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-home-960.png",
+      "selector": ".home-hero",
+      "viewport": {
+        "width": 960,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 24,
+        "y": 92,
+        "width": 760,
+        "height": 797.375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-navigation-960.png",
+      "selector": ".app-nav",
+      "viewport": {
+        "width": 960,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 0,
+        "y": 64,
+        "width": 280,
+        "height": 936
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-preview-960.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 960,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 24,
+        "y": 92,
+        "width": 897,
+        "height": 6681.75
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-home-390.png",
+      "selector": ".home-hero",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 747.25
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-navigation-390.png",
+      "selector": ".app-nav",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 0,
+        "y": 64,
+        "width": 280,
+        "height": 936
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-preview-390.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 9863.84375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-sq-ui-390.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 15635.328125
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-sq-common-390.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 2356.859375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-datatable-390.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 4826.359375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-datetime-picker-390.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 3898.578125
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-modal-390.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 343,
+        "height": 1373.78125
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-home-320.png",
+      "selector": ".home-hero",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 273,
+        "height": 929.328125
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-navigation-320.png",
+      "selector": ".app-nav",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 0,
+        "y": 64,
+        "width": 280,
+        "height": 936
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "demo-preview-320.png",
+      "selector": ".scrollable > :not(router-outlet)",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 88,
+        "width": 273,
+        "height": 10200.4375
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    {
+      "width": 1440,
+      "sizes": {
+        "buttons": [
+          {
+            "size": "S",
+            "height": 24
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          },
+          {
+            "size": "XL",
+            "height": 48
+          }
+        ],
+        "fields": [
+          {
+            "size": "S",
+            "height": 28
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          }
+        ],
+        "progress": [
+          {
+            "size": "small",
+            "height": 4,
+            "value": "62"
+          },
+          {
+            "size": "medium",
+            "height": 8,
+            "value": "62"
+          },
+          {
+            "size": "large",
+            "height": 12,
+            "value": "62"
+          }
+        ],
+        "rows": [
+          {
+            "size": "small",
+            "height": 36
+          },
+          {
+            "size": "medium",
+            "height": 40
+          },
+          {
+            "size": "large",
+            "height": 44
+          }
+        ],
+        "calendar": 320,
+        "time": 56,
+        "overflow": false,
+        "fonts": [
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free"
+        ]
+      },
+      "pagination": true,
+      "sortCycle": true,
+      "rangeSelection": true,
+      "timeSpinner": true,
+      "messageRecovery": true,
+      "customTemplates": true,
+      "themeOverrides": {
+        "nested": "rgb(55, 89, 199)",
+        "normal": "rgb(0, 196, 116)",
+        "inheritedProgress": "rgb(55, 89, 199)",
+        "inlineProgress": "rgb(55, 89, 199)",
+        "inlineTrack": "rgb(238, 238, 238)",
+        "overflow": false
+      },
+      "referenceLinks": true,
+      "modals": [
+        {
+          "size": "small",
+          "width": 360,
+          "height": 608,
+          "left": 540,
+          "right": 900,
+          "screenWidth": 1440,
+          "scrollable": true
+        },
+        {
+          "size": "medium",
+          "width": 400,
+          "height": 608,
+          "left": 520,
+          "right": 920,
+          "screenWidth": 1440,
+          "scrollable": true
+        },
+        {
+          "size": "large",
+          "width": 440,
+          "height": 608,
+          "left": 500,
+          "right": 940,
+          "screenWidth": 1440,
+          "scrollable": true
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "sizes": {
+        "buttons": [
+          {
+            "size": "S",
+            "height": 24
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          },
+          {
+            "size": "XL",
+            "height": 48
+          }
+        ],
+        "fields": [
+          {
+            "size": "S",
+            "height": 28
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          }
+        ],
+        "progress": [
+          {
+            "size": "small",
+            "height": 4,
+            "value": "62"
+          },
+          {
+            "size": "medium",
+            "height": 8,
+            "value": "62"
+          },
+          {
+            "size": "large",
+            "height": 12,
+            "value": "62"
+          }
+        ],
+        "rows": [
+          {
+            "size": "small",
+            "height": 101
+          },
+          {
+            "size": "medium",
+            "height": 101
+          },
+          {
+            "size": "large",
+            "height": 101
+          }
+        ],
+        "calendar": 320,
+        "time": 56,
+        "overflow": false,
+        "fonts": [
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free"
+        ]
+      },
+      "pagination": true,
+      "mobileCards": true,
+      "rangeSelection": true,
+      "timeSpinner": true,
+      "messageRecovery": true,
+      "customTemplates": true,
+      "themeOverrides": {
+        "nested": "rgb(55, 89, 199)",
+        "normal": "rgb(0, 196, 116)",
+        "inheritedProgress": "rgb(55, 89, 199)",
+        "inlineProgress": "rgb(55, 89, 199)",
+        "inlineTrack": "rgb(238, 238, 238)",
+        "overflow": false
+      },
+      "referenceLinks": true,
+      "modals": [
+        {
+          "size": "small",
+          "width": 358,
+          "height": 608,
+          "left": 16,
+          "right": 374,
+          "screenWidth": 390,
+          "scrollable": true
+        },
+        {
+          "size": "medium",
+          "width": 358,
+          "height": 608,
+          "left": 16,
+          "right": 374,
+          "screenWidth": 390,
+          "scrollable": true
+        },
+        {
+          "size": "large",
+          "width": 358,
+          "height": 608,
+          "left": 16,
+          "right": 374,
+          "screenWidth": 390,
+          "scrollable": true
+        }
+      ]
+    }
+  ],
+  "runtimeErrors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  },
+  "showcase": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "headerOverflow": false,
+      "sidebar": "flex",
+      "logoLoaded": true,
+      "logo": {
+        "src": "assets/logo.svg",
+        "naturalWidth": 896,
+        "naturalHeight": 576,
+        "width": 56,
+        "height": 36
+      },
+      "background": "rgb(250, 250, 250)",
+      "routes": [
+        {
+          "hash": "#/preview",
+          "overflow": false,
+          "active": "#/preview"
+        },
+        {
+          "hash": "#/sq-ui",
+          "overflow": false,
+          "active": "#/sq-ui"
+        },
+        {
+          "hash": "#/sq-common",
+          "overflow": false,
+          "active": "#/sq-common"
+        },
+        {
+          "hash": "#/datatable",
+          "overflow": false,
+          "active": "#/datatable"
+        },
+        {
+          "hash": "#/datetime-picker",
+          "overflow": false,
+          "active": "#/datetime-picker"
+        },
+        {
+          "hash": "#/modal",
+          "overflow": false,
+          "active": "#/modal"
+        }
+      ]
+    },
+    {
+      "width": 960,
+      "overflow": false,
+      "headerOverflow": false,
+      "sidebar": "none",
+      "logoLoaded": true,
+      "logo": {
+        "src": "assets/logo.svg",
+        "naturalWidth": 896,
+        "naturalHeight": 576,
+        "width": 56,
+        "height": 36
+      },
+      "background": "rgb(250, 250, 250)",
+      "mobileNavigation": true,
+      "routes": [
+        {
+          "hash": "#/preview",
+          "overflow": false,
+          "active": "#/preview"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "headerOverflow": false,
+      "sidebar": "none",
+      "logoLoaded": true,
+      "logo": {
+        "src": "assets/logo.svg",
+        "naturalWidth": 896,
+        "naturalHeight": 576,
+        "width": 42,
+        "height": 27
+      },
+      "background": "rgb(250, 250, 250)",
+      "mobileNavigation": true,
+      "routes": [
+        {
+          "hash": "#/preview",
+          "overflow": false,
+          "active": "#/preview"
+        },
+        {
+          "hash": "#/sq-ui",
+          "overflow": false,
+          "active": "#/sq-ui"
+        },
+        {
+          "hash": "#/sq-common",
+          "overflow": false,
+          "active": "#/sq-common"
+        },
+        {
+          "hash": "#/datatable",
+          "overflow": false,
+          "active": "#/datatable"
+        },
+        {
+          "hash": "#/datetime-picker",
+          "overflow": false,
+          "active": "#/datetime-picker"
+        },
+        {
+          "hash": "#/modal",
+          "overflow": false,
+          "active": "#/modal"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "headerOverflow": false,
+      "sidebar": "none",
+      "logoLoaded": true,
+      "logo": {
+        "src": "assets/logo.svg",
+        "naturalWidth": 896,
+        "naturalHeight": 576,
+        "width": 42,
+        "height": 27
+      },
+      "background": "rgb(250, 250, 250)",
+      "mobileNavigation": true,
+      "routes": [
+        {
+          "hash": "#/preview",
+          "overflow": false,
+          "active": "#/preview"
+        }
+      ]
+    }
+  ]
+}

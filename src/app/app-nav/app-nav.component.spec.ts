@@ -24,4 +24,18 @@ describe('AppNavComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('announces navigation expansion and returns focus to the opener on Escape', () => {
+    const opener = fixture.nativeElement.querySelector('.demo-menu-button') as HTMLButtonElement;
+    opener.click();
+    fixture.detectChanges();
+    expect(opener.getAttribute('aria-expanded')).toBe('true');
+    expect(fixture.nativeElement.querySelector('#demo-sidebar').classList.contains('show')).toBe(true);
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(opener.getAttribute('aria-expanded')).toBe('false');
+    expect(fixture.nativeElement.querySelector('#demo-sidebar').classList.contains('show')).toBe(false);
+    expect(document.activeElement).toBe(opener);
+  });
 });
