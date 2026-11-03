@@ -34,3 +34,7 @@ Updated 2026-11-03. Review the repository demo at `/#/preview`; its source is [C
 - [ ] Perform final visual comparison at matching dimensions after fonts load. The browser screenshots establish implementation behavior and geometry, not full Figma fidelity.
 
 No Figma edits, package publication or unsupported-component implementation is part of this checklist. The [styling guide](../styling.md) describes consumer setup; phase reports retain validation evidence and remaining gaps.
+
+## Phase 6 local validation
+
+The [final validation report](phase-6-validation.md) records production-browser checks at 1440/390/320px plus 860/861px table breakpoints, native keyboard/focus and label checks, and the cached M-button/small-field style assertions. Default checkbox/radio labels, custom checkable focus and dialog naming were corrected. These local checks pass; the two source-comparison checklist items above remain open because both detailed-context and screenshot calls still return the Figma Starter-plan quota error.

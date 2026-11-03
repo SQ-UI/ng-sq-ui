@@ -165,6 +165,8 @@ export class TopicsComponent {
 
 Custom markup owns its labels and buttons: give remove actions accessible names, use `type="button"`, and preserve disabled behavior if the consumer exposes a disabled variant. Custom checkbox/radio templates can associate a native label using `for` and the supplied `controlId`. The gallery includes these contexts with working selection/remove callbacks. Its custom decorations are consumer examples, not additional Figma designs.
 
+Default checkbox/radio labels are now native labels linked to their inputs. If a custom template omits the standard square/circle, keyboard focus falls back to an outline around the checkable wrapper. Dialogs link their accessible name to the projected title container; supply meaningful `[sq-modal-title]` content. These accessibility changes do not add automatic focus trapping/restoration.
+
 Table templates are inserted once, without per-row context, after automatic header/body rows. A fully custom body should iterate its caller-owned data and leave `items` empty to avoid duplicate automatic rows. The caller then owns sorting/pagination; `data-heading` on custom cells supplies mobile labels. See the corrected [datatable example](datatable-module.md). Modal content still uses `[sq-modal-title]`, `[sq-modal-body]` and `[sq-modal-footer]` projection.
 
 ## Migration review
@@ -182,3 +184,5 @@ Table templates are inserted once, without per-row context, after automatic head
 Build libraries with `npm run build:libs`, then run `npx ng serve` and open **Preview** (`/#/preview`). Avoid `npm start` after that build: its existing `prestart` cleanup removes `dist/`. The gallery is also embedded at the end of `/#/sq-ui`, where the earlier custom-template examples remain available.
 
 The [reference checklist](style-migration/preview-reference-checklist.md) maps each example family and table subcomponent to exact known Figma nodes, with evidence levels and gaps. The [Phase 5 report](style-migration/phase-5-examples-and-docs.md) records the examples and validation. Final screenshot-to-Figma comparison belongs to Phase 6 after the remaining source references become available.
+
+The [Phase 6 report](style-migration/phase-6-validation.md) records the final production checks, 320px layout and keyboard coverage, accessibility corrections and remaining source/interaction limits. To inspect a built production app without installing a server, run `node scripts/serve-built-preview.mjs` after building libraries and the app; it serves only on localhost at port 4201 (override with `STYLE_PREVIEW_PORT`).

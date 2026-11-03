@@ -28,6 +28,12 @@ sq-checkbox .checkable {
     outline: sq.value('focus-width') solid sq.value('color-focus');
     outline-offset: sq.value('focus-offset');
   }
+
+  // A custom label may omit the default square; keep its invisible input's focus visible.
+  &:has(> input[type="checkbox"]:focus-visible):not(:has(> .checkbox)) {
+    outline: sq.value('focus-width') solid sq.value('color-focus');
+    outline-offset: sq.value('focus-offset');
+  }
 }
 
 .sq {

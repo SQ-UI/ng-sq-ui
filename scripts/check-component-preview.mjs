@@ -5,8 +5,10 @@ import { resolve, join } from 'node:path';
 import assert from 'node:assert/strict';
 
 const base = process.env.STYLE_BASELINE_URL || 'http://127.0.0.1:4201';
-const phase5 = process.env.STYLE_PREVIEW_PHASE === '5';
-const output = resolve(`docs/style-migration/phase-${phase5 ? '5' : '4'}/screenshots`);
+const phase = ['5', '6'].includes(process.env.STYLE_PREVIEW_PHASE) ? process.env.STYLE_PREVIEW_PHASE : '4';
+const phase5 = Number(phase) >= 5;
+const phase6 = phase === '6';
+const output = resolve(`docs/style-migration/phase-${phase}/screenshots`);
 const profile = resolve('tmp', `component-preview-chrome-${Date.now()}`);
 await mkdir(output, { recursive: true }); await mkdir(profile, { recursive: true });
 const browser = spawn(process.env.STYLE_BASELINE_BROWSER || 'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -14,7 +16,7 @@ const browser = spawn(process.env.STYLE_BASELINE_BROWSER || 'C:/Program Files/Go
   { windowsHide: true, stdio: 'ignore' });
 let socket; let id = 0; const pending = new Map();
 const delay = ms => new Promise(resolveDelay => setTimeout(resolveDelay, ms));
-const report = { capturedAt: new Date().toISOString(), sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), route: '/#/preview', success: false, captures: [], checks: [], runtimeErrors: [] };
+const report = { capturedAt: new Date().toISOString(), sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), phase, route: '/#/preview', success: false, captures: [], checks: [], runtimeErrors: [] };
 function cdp(method, params = {}) {
   return new Promise((resolveCall, rejectCall) => {
     const callId = ++id;
@@ -32,8 +34,24 @@ async function waitFor(expression) {
   for (let attempt = 0; attempt < 80; attempt++) { if (await evaluate(expression)) return; await delay(250); }
   throw new Error(`Preview did not become ready: ${expression}`);
 }
+async function key(keyName, shift = false) {
+  const codes = { Tab: 9, Enter: 13, ' ': 32, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Escape: 27 };
+  const event = { key: keyName, windowsVirtualKeyCode: codes[keyName], modifiers: shift ? 8 : 0 };
+  await cdp('Input.dispatchKeyEvent', { type: 'keyDown', ...event });
+  await cdp('Input.dispatchKeyEvent', { type: 'keyUp', ...event });
+  await delay(60);
+}
+async function focus(selector) {
+  await evaluate(`document.querySelector(${JSON.stringify(selector)}).focus()`);
+}
+async function visibleFocus(selector) {
+  const result = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(selector)});const s=getComputedStyle(e);return {style:s.outlineStyle,width:s.outlineWidth};})()`);
+  assert.equal(result.style, 'solid', selector);
+  assert.equal(result.width, '2px', selector);
+  return result;
+}
 let width; let height = 1000;
-async function capture(name, selector) {
+async function capture(name, selector, crop = false) {
   await evaluate(`(() => {
     const e=document.querySelector(${JSON.stringify(selector)}); if(!e)throw new Error('Missing capture target');
     e.scrollIntoView({block:'start',inline:'nearest'});
@@ -43,10 +61,11 @@ async function capture(name, selector) {
   })()`);
   await delay(150);
   const measurement = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(selector)});const r=e.getBoundingClientRect();const s=getComputedStyle(e);return {bounds:{x:r.x,y:r.y,width:r.width,height:r.height},font:s.fontFamily,overflow:document.documentElement.scrollWidth>innerWidth};})()`);
-  const png = await cdp('Page.captureScreenshot', { format: 'png', fromSurface: true, captureBeyondViewport: false });
+  const clip = crop ? { ...measurement.bounds, scale: 1 } : undefined;
+  const png = await cdp('Page.captureScreenshot', { format: 'png', fromSurface: true, captureBeyondViewport: false, ...(clip ? { clip } : {}) });
   const file = `${name}-${width}.png`;
   await writeFile(join(output, file), Buffer.from(png.data, 'base64'));
-  report.captures.push({ file, selector, viewport: { width, height }, ...measurement });
+  report.captures.push({ file, selector, viewport: { width, height }, cropped: crop, ...measurement });
   console.log(`Captured ${file}`);
 }
 try {
@@ -69,7 +88,7 @@ try {
   await cdp('Emulation.setFocusEmulationEnabled', { enabled: true });
   await cdp('Network.setBlockedURLs', { urls: ['*googletagmanager.com*', '*google-analytics.com*', '*buttons.github.io*'] });
   report.browser = await cdp('Browser.getVersion');
-  for (width of [1440, 390]) {
+  for (width of (phase6 ? [1440, 390, 320] : [1440, 390])) {
     height = 1000;
     await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
     await cdp('Page.navigate', { url: 'about:blank' }); await cdp('Page.navigate', { url: `${base}/#/preview` });
@@ -180,6 +199,86 @@ try {
       assert.equal(await evaluate(`document.querySelectorAll('.preview-section a[href^="https://www.figma.com/design/"]').length`), 7);
       checks.referenceLinks = true;
     }
+    if (phase6) {
+      await focus('#stylePrimaryButton button');
+      await key('Tab');
+      assert.equal(await evaluate('document.activeElement===document.querySelector("#styleNeutralButton button")'), true);
+      await visibleFocus('#styleNeutralButton button');
+      await capture('button-focus', '#styleNeutralButton button');
+      await key('Tab');
+      assert.equal(await evaluate('document.activeElement.closest("[data-button-size]")?.dataset.buttonSize'), 'L');
+      checks.disabledButtonSkipped = true;
+
+      await focus('#styleDefaultField'); await key('Tab'); await key('Tab', true);
+      await visibleFocus('#formStylePreview sq-input:first-child .input-field');
+      await capture('input-focus', '#formStylePreview sq-input:first-child');
+      await evaluate('document.querySelector("label[for=styleDefaultField]").click()');
+      assert.equal(await evaluate('document.activeElement.id'), 'styleDefaultField');
+      await focus('#styleErrorField'); await key('Tab');
+      assert.notEqual(await evaluate('document.activeElement.id'), 'styleDisabledField');
+      checks.fieldLabelAndDisabledTab = true;
+
+      const trigger = '[data-field-size=S] [role=combobox]';
+      await focus(trigger); await key('ArrowDown'); await key('ArrowDown'); await key('ArrowDown');
+      await visibleFocus(trigger);
+      const menu = await evaluate(`(() => {const e=document.querySelector('[data-field-size=S] [role=listbox]');e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect();return {left:r.left,right:r.right,screenWidth:document.documentElement.clientWidth,maxHeight:getComputedStyle(e).maxHeight};})()`);
+      assert(menu.left >= 0 && menu.right <= menu.screenWidth && menu.maxHeight === '200px');
+      await capture('dropdown-keyboard', '[data-field-size=S]');
+      await key('Enter');
+      await waitFor('document.querySelector("[data-field-size=S] .chosen-item")?.textContent==="Development"');
+      await key('ArrowDown'); await key('Escape');
+      assert.equal(await evaluate('document.querySelector("[data-field-size=S] [role=combobox]").getAttribute("aria-expanded")'), 'false');
+      await key('ArrowDown'); await key('Tab');
+      assert.equal(await evaluate('document.querySelector("[data-field-size=S] [role=combobox]").getAttribute("aria-expanded")'), 'false');
+      checks.dropdownKeyboard = menu;
+
+      const checkbox = '#previewFields sq-checkbox input';
+      await focus(checkbox);
+      const before = await evaluate('document.querySelector("#previewFields sq-checkbox input").checked');
+      await key(' ');
+      assert.equal(await evaluate('document.querySelector("#previewFields sq-checkbox input").checked'), !before);
+      await visibleFocus('#previewFields sq-checkbox .checkbox');
+      await capture('checkbox-focus', '#previewFields sq-checkbox');
+      await focus('#previewFields sq-radiobutton input'); await key('ArrowRight');
+      assert.equal(await evaluate('document.querySelectorAll("#previewFields sq-radiobutton input")[1].checked'), true);
+      await visibleFocus('#previewFields sq-radiobutton:nth-of-type(2) .radio');
+      await capture('radio-focus', '#previewFields sq-radiobutton:nth-of-type(2)');
+      await focus('#previewCustomCheckbox'); await key(' ');
+      await visibleFocus('#previewCustomChecks sq-checkbox .checkable');
+      await capture('custom-checkbox-focus', '#previewCustomChecks sq-checkbox');
+      await focus('#previewCustomWeekly'); await key('ArrowLeft');
+      assert.equal(await evaluate('document.querySelector("#previewCustomDaily").checked'), true);
+      await visibleFocus('#previewCustomChecks sq-radiobutton .checkable');
+      await capture('custom-radio-focus', '#previewCustomChecks sq-radiobutton');
+      checks.nativeKeyboardAndFocus = true;
+
+      const labels = await evaluate(`(() => {
+        const root=document.querySelector('#componentPreview');const ids=[...root.querySelectorAll('[id]')].map(e=>e.id);
+        return {duplicates:ids.filter((id,index)=>ids.indexOf(id)!==index),missingTargets:[...root.querySelectorAll('label[for]')].filter(e=>!document.getElementById(e.htmlFor)).map(e=>e.htmlFor),
+          checkableNames:[...root.querySelectorAll('input[type=checkbox],input[type=radio]')].map(e=>[...e.labels].map(l=>l.textContent.trim()).join(' '))};
+      })()`);
+      assert.equal(labels.duplicates.length, 0); assert.equal(labels.missingTargets.length, 0);
+      assert(labels.checkableNames.every(Boolean));
+      checks.labelAssociations = labels;
+      const reference = await evaluate(`(() => {
+        const b=getComputedStyle(document.querySelector('#styleNeutralButton button'));const f=getComputedStyle(document.querySelector('#formStylePreview sq-input:nth-child(2) .input-field'));
+        const e=getComputedStyle(document.querySelector('#formStylePreview sq-input:nth-child(2) .sq-field-message'));
+        const p=getComputedStyle(document.querySelector('#stylePrimaryButton button'));
+        return {button:{fontSize:b.fontSize,lineHeight:b.lineHeight,weight:b.fontWeight,radius:b.borderRadius,background:b.backgroundColor,text:b.color},
+          primary:{background:p.backgroundColor,text:p.color},
+          field:{radius:f.borderRadius,stroke:f.boxShadow,fontSize:f.fontSize,lineHeight:f.lineHeight,padding:f.padding,groupHeight:document.querySelector('#formStylePreview sq-input:nth-child(2) .sq-form-field').getBoundingClientRect().height},
+          error:{fontSize:e.fontSize,lineHeight:e.lineHeight,color:e.color},fonts:[400,500,700].map(w=>document.fonts.check(w+' 14px "IBM Plex Sans"'))};
+      })()`);
+      assert.deepEqual(reference.button, {fontSize:'14px',lineHeight:'24px',weight:'500',radius:'4px',background:'rgb(250, 250, 250)',text:'rgb(32, 32, 32)'});
+      assert.equal(reference.field.radius, '4px'); assert(reference.field.stroke.includes('rgb(220, 220, 220)'));
+      assert.equal(reference.field.fontSize, '12px'); assert.equal(reference.field.lineHeight, '20px');
+      assert.equal(reference.field.padding, '4px 8px'); assert.equal(reference.field.groupHeight, 64);
+      assert.deepEqual(reference.primary, {background:'rgb(0, 196, 116)',text:'rgb(255, 255, 255)'});
+      assert.deepEqual(reference.error, {fontSize:'10px',lineHeight:'16px',color:'rgb(255, 56, 21)'});
+      assert(reference.fonts.every(Boolean)); checks.savedReferenceProperties = reference;
+      await capture('reference-neutral-m', '#styleNeutralButton button', true);
+      await capture('reference-small-field-error', '#formStylePreview sq-input:nth-child(2) .sq-form-field', true);
+    }
     height = 640; await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
     await cdp('Animation.setPlaybackRate', { playbackRate: 1 });
     checks.modals = [];
@@ -190,12 +289,32 @@ try {
       assert.equal(modal.width, Math.min(expectedWidth, modal.screenWidth-32));
       assert(modal.height <= 608 && modal.left >= 15 && modal.right <= modal.screenWidth-15 && modal.scrollable);
       checks.modals.push({ size, ...modal }); await capture('modal-'+size,'.modal-window');
+      if (phase6) {
+        const ax = await cdp('Accessibility.getFullAXTree');
+        const dialog = ax.nodes.find(node => node.role?.value === 'dialog' && !node.ignored);
+        assert(dialog?.name?.value.includes('Example dialog'));
+        checks.dialogAccessibleName = dialog.name.value;
+      }
       if (size === 'small') await evaluate('document.querySelector(".modal-window .close").click()');
       else if (size === 'medium') await evaluate('document.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape",bubbles:true}))');
       else await evaluate('document.querySelector(".modal-cover").click()');
       await waitFor('!!document.querySelector(".modal-cover.display-none")');
     }
-    console.log(`Preview geometry and Phase ${phase5 ? '5' : '4'} interactions passed at ${width}px`);
+    console.log(`Preview geometry and Phase ${phase} interactions passed at ${width}px`);
+  }
+  if (phase6) {
+    report.tableBreakpoints = [];
+    for (width of [861, 860]) {
+      height = 1000;
+      await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
+      await cdp('Page.navigate', { url: 'about:blank' }); await cdp('Page.navigate', { url: `${base}/#/preview` });
+      await waitFor('!!document.querySelector("[data-table-size=medium] tbody tr")');
+      await evaluate('document.fonts.ready.then(()=>true)');
+      const state = await evaluate('({header:getComputedStyle(document.querySelector("[data-table-size=medium] thead")).display,overflow:document.documentElement.scrollWidth>innerWidth})');
+      assert.equal(state.header, width === 860 ? 'none' : 'table-header-group'); assert.equal(state.overflow, false);
+      report.tableBreakpoints.push({width,...state});
+      await capture('table-breakpoint', '[data-table-size=medium]');
+    }
   }
   assert.equal(report.runtimeErrors.length, 0); report.success = true;
 } finally {

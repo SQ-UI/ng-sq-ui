@@ -25,6 +25,12 @@ sq-radiobutton .checkable {
     outline: sq.value('focus-width') solid sq.value('color-focus');
     outline-offset: sq.value('focus-offset');
   }
+
+  // Custom templates without the default circle still need a visible keyboard target.
+  &:has(> input[type="radio"]:focus-visible):not(:has(> .radio)) {
+    outline: sq.value('focus-width') solid sq.value('color-focus');
+    outline-offset: sq.value('focus-offset');
+  }
 }
 
 .sq {

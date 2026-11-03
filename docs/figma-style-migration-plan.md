@@ -14,6 +14,8 @@ Phase 4 progress (2026-11-03): [remaining packages and expanded preview](style-m
 
 Phase 5 progress (2026-11-03): [examples and consumer documentation](style-migration/phase-5-examples-and-docs.md). The gallery now includes interactive template contexts, helper/error recovery, local theme inheritance and direct source links. A [consumer styling/migration guide](styling.md) and [reference checklist](style-migration/preview-reference-checklist.md) cover setup, overrides, presentation options and exact known node IDs with evidence levels. Unread Figma variants remain explicitly pending for final comparison; Phase 5 does not close those source gaps.
 
+Phase 6 progress (2026-11-03): [final local validation and remaining source gaps](style-migration/phase-6-validation.md). All seven production library builds, production app, 194 tests, lint, TypeScript, package exports and isolated Sass checks passed. Production-browser validation covers 1440/390/320px, 860/861px table breakpoints, real keyboard interaction/focus, labels, saved reference properties and previous custom-template/theme scenarios. Default checkbox/radio label associations, custom checkable focus and dialog title naming were corrected. **Local validation is complete; full Figma sign-off remains blocked** by the rechecked Starter MCP quota. Existing interaction limits and unread source variants are listed in the report.
+
 1. **Phase 1: Establish the component and state inventory**
 
    1. Read each relevant Figma component's detailed design context and capture its reference screenshot. The supplied node `28:10` is the `_Tech` page; use the dedicated component pages for final colors, sizes, and states, and `_Tech` for the underlying structure.

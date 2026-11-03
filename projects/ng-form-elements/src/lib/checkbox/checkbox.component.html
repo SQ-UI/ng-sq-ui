@@ -16,7 +16,7 @@
     <div class="checkbox">
       <div class="inner"></div>
     </div>
-    <div class="label">{{controlLabel()}}</div>
+    <label class="label" [for]="controlId()">{{controlLabel()}}</label>
   </ng-template>
 
   @if (labelTemplate(); as tmpl) {

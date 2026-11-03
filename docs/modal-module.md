@@ -9,6 +9,8 @@
 `sq-modal` is a generic modal window driven by content projection: three slots (`sq-modal-title`,
 `sq-modal-body`, `sq-modal-footer`) and a two-way `show` model.
 
+Provide meaningful title content: the dialog's accessible name references its unique projected-title container. Existing focus trapping/restoration limits are recorded in the [validation report](style-migration/phase-6-validation.md).
+
 !> Available also as stand alone package [`@sq-ui/ng-modal`](https://www.npmjs.com/package/@sq-ui/ng-modal)
 
 ```html

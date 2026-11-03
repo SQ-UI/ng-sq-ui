@@ -21,6 +21,15 @@ describe('ModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('links each dialog to its own projected-title container', () => {
+    const second = TestBed.createComponent(ModalComponent);
+    second.detectChanges();
+    const article = fixture.nativeElement.querySelector('[role="dialog"]') as HTMLElement;
+    const title = fixture.nativeElement.querySelector('.modal-title') as HTMLElement;
+    expect(article.getAttribute('aria-labelledby')).toBe(title.id);
+    expect(second.nativeElement.querySelector('.modal-title').id).not.toBe(title.id);
+  });
+
   it('should start hidden when show is false', () => {
     expect(component.isHidden()).toBe(true);
   });

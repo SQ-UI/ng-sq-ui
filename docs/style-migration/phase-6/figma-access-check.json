@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-11-03T20:30:57.816Z",
+  "fileKey": "jeP0qbpUUGZbbxaWnvFr6i",
+  "nodeId": "111:1954",
+  "operations": [
+    "get_design_context (screenshot included by default)",
+    "get_screenshot"
+  ],
+  "status": "quota_blocked",
+  "message": "You've reached the Figma MCP tool call limit on the Starter plan.",
+  "figmaModified": false,
+  "newDetailedContextAvailable": false,
+  "newSourceScreenshotAvailable": false,
+  "cachedReferences": [
+    "references/button-detail.txt",
+    "references/button-detail.png",
+    "references/field-detail.txt",
+    "references/field-detail.png"
+  ]
+}

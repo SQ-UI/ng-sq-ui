@@ -3,12 +3,13 @@
            role="dialog"
            [attr.data-size]="size()"
            aria-modal="true"
+           [attr.aria-labelledby]="titleId"
            [ngClass]="currentAnimationClass()"
            sqOutsideClickListener
            [listenForOutsideClick]="listenForOutsideClick()"
            (clickOutside)="onClickOutsideComponent()">
     <header class="modal-header-wrapper display-flex space-between align-items-center">
-      <div class="modal-title">
+      <div class="modal-title" [id]="titleId">
         <ng-content select="[sq-modal-title]"></ng-content>
       </div>
 
