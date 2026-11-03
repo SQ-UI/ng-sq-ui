@@ -137,7 +137,7 @@ Angular 22 ships `@angular/build:unit-test`, which runs Vitest 4 with Angular's 
 }
 ```
 
-Work items: keep `vitest.config.ts` only for aliases (or move aliases into `tsconfig.spec.json` `paths`), replace `npm test` with `ng test --watch=false`, keep `coverage/lcov.info` for CodeClimate, and drop `@analogjs/*` from `devDependencies`.
+Work items: keep `vitest.config.ts` only for aliases (or move aliases into `tsconfig.spec.json` `paths`), replace `npm test` with `ng test --watch=false`, and drop `@analogjs/*` from `devDependencies`.
 
 Decision rule: **Path B** if Phase 1 produces no workaround that survives three consecutive CI runs; **Path A** otherwise.
 
@@ -176,7 +176,7 @@ Verified against the official *Migrating to Vitest 4.0* guide and the v4 config 
 | `workspace` | deprecated | replaced by **`projects`** | not used |
 | Default `exclude` | long list (`dist`, `cypress`, config files, …) | **only `node_modules` and `.git`** — everything else must be listed | keep our explicit `exclude` (`**/dist/**`, polyfill workaround) |
 | Coverage | `coverage.all`, `coverage.extensions` | **removed** — only covered files are reported unless `coverage.include` is set | add `coverage.include: ['projects/*/src/**/*.ts', 'src/app/**/*.ts']` plus `exclude` |
-| Coverage internals | `v8-to-istanbul`, `coverage.ignoreEmptyLines`, `coverage.experimentalAstAwareRemapping` | AST-aware remapping by default; those options are **removed** | expect different percentages; re-baseline CodeClimate |
+| Coverage internals | `v8-to-istanbul`, `coverage.ignoreEmptyLines`, `coverage.experimentalAstAwareRemapping` | AST-aware remapping by default; those options are **removed** | expect different percentages |
 | Reporters | `basic` (deprecated in 3.x, prints a warning) | `basic` **removed** | not used (default reporter) |
 | `deps.optimizer` / `server.deps` | available | available | the polyfill workaround may need `server.deps.inline` or `deps.optimizer.web.include` |
 | `environment: 'jsdom'` | jsdom | unchanged | keep `jsdom` + `jsdom@29` in devDependencies |
@@ -190,7 +190,6 @@ Not affected here: snapshot format, fake timers and `vi.spyOn`/`vi.fn` semantics
 | Risk | Impact | Mitigation |
 |---|---|---|
 | The polyfill hang turns out to be an upstream Vite bug | migration blocked for weeks | Path B (Angular builder) as fallback; or make `@js-temporal/polyfill` optional (**C6**) so the test graph never loads it |
-| Coverage numbers shift (AST-aware remapping) | CodeClimate gate flips | re-baseline in the migration PR itself |
 | Parallel workers expose shared state between specs | flaky suite | each spec builds its own `TestBed`; if it shows up, set `sequence.concurrent: false` for the affected files |
 | `@analogjs` releases lag behind Vitest 4 | Path A stalls | Path B removes the dependency entirely |
 | Losing the zoneless test bootstrap | zoneless regressions slip through | the bootstrap (`BrowserTestingModule` + `provideZonelessChangeDetection`) is runner-independent; port it to whichever path wins |

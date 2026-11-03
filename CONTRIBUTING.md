@@ -38,7 +38,7 @@ for example:
 
 - `npm test` runs the whole suite with Vitest (jsdom, zoneless Angular testing) — it must terminate
   in well under a minute.
-- `npm run coverage` writes `coverage/lcov.info`, which CI uploads to CodeClimate.
+- `npm run coverage` writes a coverage report to `coverage/` (`lcov.info` plus a text summary).
 - **If a run appears to hang**, delete the Vite dependency-optimizer cache (`rm -rf node_modules/.vite`)
   and retry. Never stop a run with `kill -9` while Vite is optimizing dependencies: it leaves the cache
   in a state where every later run waits forever (see `VITEST_4_MIGRATION_PLAN.md` §0).
