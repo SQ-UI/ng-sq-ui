@@ -149,6 +149,17 @@ export class CalendarManagerService {
     });
   }
 
+  /** Every date from `start` to `end`, both included, in ascending order (empty when `end < start`). */
+  getDatesBetween(start: Temporal.PlainDate, end: Temporal.PlainDate): Temporal.PlainDate[] {
+    const dates: Temporal.PlainDate[] = [];
+
+    for (let date = start; Temporal.PlainDate.compare(date, end) <= 0; date = date.add({ days: 1 })) {
+      dates.push(date);
+    }
+
+    return dates;
+  }
+
   getSelectedItemIndex(date: Temporal.PlainDate, selectedDates: Temporal.PlainDate[]): number {
     return selectedDates.findIndex((selectedDate) => {
       return Temporal.PlainDate.compare(selectedDate, date) === 0;

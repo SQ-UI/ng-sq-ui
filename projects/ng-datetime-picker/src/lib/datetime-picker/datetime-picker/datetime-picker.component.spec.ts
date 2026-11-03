@@ -89,17 +89,139 @@ describe('DatetimePickerComponent', () => {
     expect(component.select).toHaveBeenCalledTimes(expectedItems.length);
   });
 
-  it('should deselect a date clicked twice when [isMultipleSelect]=true', () => {
-    const now = Temporal.Now.plainDateISO();
-    fixture.componentRef.setInput('isMultipleSelect', true);
-    component.getMonthCalendar(now);
-    const target = now.add({ days: 2 });
+  describe('range selection ([isMultipleSelect]=true)', () => {
+    const march = (day: number) => Temporal.PlainDate.from({ year: 2026, month: 3, day });
+    const valueDays = () => (component.value() as Temporal.PlainDate[]).map(date => date.toString());
 
-    component.select(dayOf(target)!);
-    component.select(dayOf(target)!);
-    fixture.detectChanges();
+    beforeEach(() => {
+      fixture.componentRef.setInput('isMultipleSelect', true);
+      fixture.detectChanges();
+      component.getMonthCalendar(march(1));
+      fixture.detectChanges();
+    });
 
-    expect(dayOf(target)?.isSelected).toBe(false);
+    it('should start a range on the first click and fill it in on the second', () => {
+      const emitted: unknown[] = [];
+      component.dateSelectionChange.subscribe(value => emitted.push(value));
+
+      component.onDateClick(dayOf(march(10))!);
+      expect(component.pendingRangeStart()?.toString()).toBe('2026-03-10');
+      expect(valueDays()).toEqual(['2026-03-10']);
+      expect(dayOf(march(10))?.isRangeStart).toBe(true);
+
+      component.onDateClick(dayOf(march(13))!);
+      fixture.detectChanges();
+
+      expect(component.pendingRangeStart()).toBeNull();
+      expect(valueDays()).toEqual(['2026-03-10', '2026-03-11', '2026-03-12', '2026-03-13']);
+      expect([10, 11, 12, 13].every(day => dayOf(march(day))?.isSelected)).toBe(true);
+      expect(dayOf(march(9))?.isSelected).toBe(false);
+      expect(dayOf(march(14))?.isSelected).toBe(false);
+      expect(dayOf(march(10))?.isRangeStart).toBe(true);
+      expect(dayOf(march(13))?.isRangeEnd).toBe(true);
+      expect(emitted.length).toBe(2);
+    });
+
+    it('should not accept an end date before the start date', () => {
+      const emitted: unknown[] = [];
+      component.onDateClick(dayOf(march(10))!);
+      component.dateSelectionChange.subscribe(value => emitted.push(value));
+
+      expect(dayOf(march(9))?.isBeforeRangeStart).toBe(true);
+      expect(component.select(dayOf(march(9))!)).toBe(false);
+      component.onDateClick(dayOf(march(5))!);
+
+      expect(valueDays()).toEqual(['2026-03-10']);
+      expect(component.pendingRangeStart()?.toString()).toBe('2026-03-10');
+      expect(emitted).toEqual([]);
+    });
+
+    it('should not change the month when a rejected end date belongs to the previous month', () => {
+      // April 2026 starts on a Wednesday, so its first row shows the end of March.
+      component.getMonthCalendar(Temporal.PlainDate.from('2026-04-01'));
+      component.onDateClick(dayOf(Temporal.PlainDate.from('2026-04-10'))!);
+      const previousMonthDay = component.calendar()[0][0];
+      expect(previousMonthDay.date.month).toBe(3);
+
+      component.onDateClick(previousMonthDay);
+
+      expect(component.currentMonth().month).toBe(4);
+      expect(valueDays()).toEqual(['2026-04-10']);
+    });
+
+    it('should keep the pending start date while changing the month', () => {
+      component.onDateClick(dayOf(march(30))!);
+
+      component.next();
+      component.previous();
+      component.next();
+      component.showMonthsPicker();
+      component.selectMonth(component.months()[3]); // April
+      fixture.detectChanges();
+
+      expect(component.pendingRangeStart()?.toString()).toBe('2026-03-30');
+
+      component.onDateClick(dayOf(Temporal.PlainDate.from('2026-04-02'))!);
+
+      expect(valueDays()).toEqual(['2026-03-30', '2026-03-31', '2026-04-01', '2026-04-02']);
+    });
+
+    it('should preview the range while the mouse moves over the days', () => {
+      component.onDateClick(dayOf(march(10))!);
+      const mouse = { pointerType: 'mouse' } as PointerEvent;
+
+      component.onDateHover(dayOf(march(12))!, mouse);
+      fixture.detectChanges();
+
+      expect([11, 12].every(day => dayOf(march(day))?.isInRangePreview)).toBe(true);
+      expect(dayOf(march(12))?.isRangeEnd).toBe(true);
+      expect(dayOf(march(13))?.isInRangePreview).toBe(false);
+      expect(fixture.nativeElement.querySelectorAll('.cell.range-preview').length).toBe(2);
+
+      // Hovering before the start previews nothing.
+      component.onDateHover(dayOf(march(8))!, mouse);
+      expect(component.calendar().flat().some(day => day.isInRangePreview)).toBe(false);
+
+      component.onDateHover(dayOf(march(12))!, mouse);
+      component.onCalendarLeave();
+      expect(component.calendar().flat().some(day => day.isInRangePreview)).toBe(false);
+    });
+
+    it('should ignore touch input for the hover preview', () => {
+      component.onDateClick(dayOf(march(10))!);
+
+      component.onDateHover(dayOf(march(12))!, { pointerType: 'touch' } as PointerEvent);
+
+      expect(component.calendar().flat().some(day => day.isInRangePreview)).toBe(false);
+    });
+
+    it('should select a single day when the start date is clicked again', () => {
+      component.onDateClick(dayOf(march(10))!);
+      component.onDateClick(dayOf(march(10))!);
+
+      expect(valueDays()).toEqual(['2026-03-10']);
+      expect(component.pendingRangeStart()).toBeNull();
+    });
+
+    it('should start a new range after a completed one', () => {
+      component.onDateClick(dayOf(march(10))!);
+      component.onDateClick(dayOf(march(12))!);
+      component.onDateClick(dayOf(march(3))!);
+
+      expect(valueDays()).toEqual(['2026-03-03']);
+      expect(component.pendingRangeStart()?.toString()).toBe('2026-03-03');
+    });
+
+    it('should drop the pending start when a value is written from outside', () => {
+      component.onDateClick(dayOf(march(10))!);
+
+      component.value.set([march(20), march(21)]);
+      fixture.detectChanges();
+
+      expect(component.pendingRangeStart()).toBeNull();
+      expect(dayOf(march(20))?.isRangeStart).toBe(true);
+      expect(dayOf(march(21))?.isRangeEnd).toBe(true);
+    });
   });
 
   it('should jump to previous month when a date before current month is selected', () => {

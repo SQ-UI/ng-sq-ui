@@ -162,16 +162,25 @@ To use our styling just add the `class="sq"` on a parent element.
 
 ## Temporal & the polyfill
 
-`@sq-ui/ng-datetime-picker` needs [`Temporal`](https://tc39.es/proposal-temporal/). It depends on
-`@js-temporal/polyfill` so it works out of the box, and every internal usage goes through the
+`@sq-ui/ng-datetime-picker` needs [`Temporal`](https://tc39.es/proposal-temporal/). Native support
+is still uneven, notably in Safari and iOS Safari, so the package depends on `@js-temporal/polyfill` and **always
+uses it by default**. It never reads a global `Temporal`. Every internal usage goes through the
 secondary entry point `@sq-ui/ng-datetime-picker/temporal`:
 
 ```ts
 import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 ```
 
-If your target browsers already provide `Temporal` (or you prefer a lighter implementation), alias that
-specifier to a one-line shim and drop ~100 kB from your bundle:
+The polyfill (`^0.5.1`) runs on desktop Safari and iOS Safari 17, 18 and 26 (same JavaScriptCore
+engine) and on every other browser in Angular's support matrix: it does its BigInt arithmetic through
+`jsbi` (no native `BigInt` needed), its newest syntax is `?.` / `??`, and it only patches
+`Intl.DurationFormat` when that exists. The demo application targets `last 2 Safari major versions`
+and `last 3 iOS major versions` in `.browserslistrc`.
+
+If **every** browser you target provides `Temporal` natively (or you prefer a lighter implementation),
+alias that specifier to a one-line shim and drop ~100 kB from your bundle. Don't do this while you still
+support iOS (or other) versions without native `Temporal`: check [caniuse](https://caniuse.com/temporal)
+against your own browserslist first.
 
 ```ts
 // src/temporal-native.ts

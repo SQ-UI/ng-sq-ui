@@ -88,6 +88,22 @@
         pointer-events: none;
         color: $datetime-disabled-date;
       }
+      // Range selection (`[isMultipleSelect]`)
+      &.range-start,
+      &.range-end {
+        font-weight: bold;
+        background-color: $datetime-range-edge;
+      }
+      &.range-preview {
+        background-color: $datetime-range-preview;
+      }
+      &.before-range-start {
+        cursor: not-allowed;
+        color: $datetime-disabled-date;
+      }
+    }
+    &.range-pending .cell:not(.disabled):not(.before-range-start) {
+      cursor: pointer;
     }
     .row {
       &:nth-child(2n) .cell {
@@ -95,6 +111,13 @@
       }
       &:nth-child(2n) .cell.selected {
         background-color: $datetime-selected;
+      }
+      &:nth-child(2n) .cell.range-preview {
+        background-color: $datetime-range-preview;
+      }
+      &:nth-child(2n) .cell.range-start,
+      &:nth-child(2n) .cell.range-end {
+        background-color: $datetime-range-edge;
       }
     }
   }

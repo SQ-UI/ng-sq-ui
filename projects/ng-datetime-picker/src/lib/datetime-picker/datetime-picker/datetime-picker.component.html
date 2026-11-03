@@ -68,7 +68,9 @@
       }
     </div>
   } @else {
-    <table class="datetime-picker">
+    <table class="datetime-picker"
+           [class.range-pending]="!!pendingRangeStart()"
+           (pointerleave)="onCalendarLeave()">
       <thead>
         <tr>
           @for (day of weekdays(); track $index) {
@@ -84,9 +86,16 @@
             @for (date of dateRow; track $index) {
               <td class="cell"
                   (click)="onDateClick(date)"
+                  (pointerenter)="onDateHover(date, $event)"
+                  [attr.aria-selected]="date.isSelected"
+                  [attr.aria-disabled]="date.isDisabled || date.isBeforeRangeStart || null"
                   [ngClass]="{'beyond-current-period': date.relativityToCurrentMonth !== calendarPeriodRelativity.Current,
                               'selected': date.isSelected,
-                              'disabled': date.isDisabled}">
+                              'disabled': date.isDisabled,
+                              'range-start': date.isRangeStart,
+                              'range-end': date.isRangeEnd,
+                              'range-preview': date.isInRangePreview,
+                              'before-range-start': date.isBeforeRangeStart}">
                 {{ date.displayDate }}
               </td>
             }

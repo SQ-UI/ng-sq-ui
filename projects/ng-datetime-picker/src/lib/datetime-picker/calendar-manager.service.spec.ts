@@ -95,6 +95,16 @@ describe('CalendarManagerService', () => {
       .toBe(true);
   });
 
+  it('should list every date between two dates, both included', () => {
+    const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
+    const start = Temporal.PlainDate.from('2026-02-27');
+
+    expect(service.getDatesBetween(start, Temporal.PlainDate.from('2026-03-02')).map(date => date.toString()))
+      .toEqual(['2026-02-27', '2026-02-28', '2026-03-01', '2026-03-02']);
+    expect(service.getDatesBetween(start, start).length).toBe(1);
+    expect(service.getDatesBetween(start, start.subtract({ days: 1 }))).toEqual([]);
+  });
+
   it('should find a date from month calendar correctly', () => {
     const service: CalendarManagerService = TestBed.inject(CalendarManagerService);
     const now = Temporal.Now.plainDateISO();

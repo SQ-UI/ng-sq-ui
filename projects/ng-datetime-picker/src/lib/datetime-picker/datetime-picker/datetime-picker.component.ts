@@ -84,10 +84,58 @@ export class DatetimePickerComponent implements SqFormFieldSignals, SqFormValueC
 
   readonly weekdays = computed(() => this.calendarManager.getWeekdays(true, this.locale()));
 
+  /**
+   * Range selection (`[isMultipleSelect]`): the start date picked by the first click, while the user
+   * has not picked the end date yet. Independent of the visible month, so navigating keeps it.
+   */
+  readonly pendingRangeStart = signal<Temporal.PlainDate | null>(null);
+
+  /** Range selection: the day under the mouse, used to preview the range before the second click. */
+  private readonly hoveredDate = signal<Temporal.PlainDate | null>(null);
+
   /** Derived from the visible month, the selection and the range, so it is never mutated in place. */
   readonly calendar = computed<Array<CalendarDay[]>>(() => {
     const month = this.currentMonth();
-    return this.calendarManager.generateCalendarForMonth(month, month, this.selectedDates(), this.dateRange());
+    const selectedDates = this.selectedDates();
+    const calendar = this.calendarManager.generateCalendarForMonth(month, month, selectedDates, this.dateRange());
+
+    if (!this.isMultipleSelect()) {
+      return calendar;
+    }
+
+    const compare = Temporal.PlainDate.compare;
+    const pendingStart = this.pendingRangeStart();
+
+    if (pendingStart) {
+      const hovered = this.hoveredDate();
+      const previewEnd = hovered && compare(hovered, pendingStart) > 0 ? hovered : null;
+
+      return calendar.map(week => week.map(day => {
+        const toStart = compare(day.date, pendingStart);
+        const toPreviewEnd = previewEnd ? compare(day.date, previewEnd) : 1;
+
+        return {
+          ...day,
+          isRangeStart: toStart === 0,
+          isRangeEnd: toPreviewEnd === 0,
+          isInRangePreview: toStart > 0 && toPreviewEnd <= 0,
+          isBeforeRangeStart: toStart < 0,
+        };
+      }));
+    }
+
+    const rangeStart = selectedDates[0];
+    const rangeEnd = selectedDates[selectedDates.length - 1];
+
+    if (!rangeStart) {
+      return calendar;
+    }
+
+    return calendar.map(week => week.map(day => ({
+      ...day,
+      isRangeStart: compare(day.date, rangeStart) === 0,
+      isRangeEnd: compare(day.date, rangeEnd) === 0,
+    })));
   });
 
   readonly currentMonthName = computed(() => {
@@ -143,6 +191,9 @@ export class DatetimePickerComponent implements SqFormFieldSignals, SqFormValueC
 
     const selected = this.isMultipleSelect() ? this.calendarManager.sortDatesAsc(parsed) : parsed.slice(0, 1);
 
+    // A value written from outside replaces any range the user was in the middle of picking.
+    this.pendingRangeStart.set(null);
+    this.hoveredDate.set(null);
     this.selectedDates.set(selected);
     if (selected[0]) {
       this.currentMonth.set(selected[0]);
@@ -193,7 +244,9 @@ export class DatetimePickerComponent implements SqFormFieldSignals, SqFormValueC
       return;
     }
 
-    this.select(date);
+    if (!this.select(date)) {
+      return;
+    }
 
     switch (date.relativityToCurrentMonth) {
       case CalendarPeriodRelativityEnum.After:
@@ -205,9 +258,38 @@ export class DatetimePickerComponent implements SqFormFieldSignals, SqFormValueC
     }
   }
 
-  select(date: CalendarDay) {
-    this.markDateAsSelected(date);
+  /**
+   * Selects `date`. Returns `false` (and changes nothing) when it is rejected: with
+   * `[isMultipleSelect]`, a date before the pending range start cannot become the end date.
+   */
+  select(date: CalendarDay): boolean {
+    if (!this.markDateAsSelected(date)) {
+      return false;
+    }
+
     this.dateSelectionChange.emit(this.value());
+    return true;
+  }
+
+  /**
+   * Range selection: previews the range while the mouse moves over the days. Touch input is
+   * ignored, so a tap never leaves a stale preview behind.
+   */
+  onDateHover(date: CalendarDay, event?: PointerEvent) {
+    if (!this.isMultipleSelect() || !this.pendingRangeStart() || this.disabled()) {
+      return;
+    }
+
+    if (event && event.pointerType !== 'mouse') {
+      return;
+    }
+
+    this.hoveredDate.set(date.isDisabled ? null : date.date);
+  }
+
+  /** Range selection: clears the hover preview when the mouse leaves the calendar. */
+  onCalendarLeave() {
+    this.hoveredDate.set(null);
   }
 
   next() {
@@ -309,20 +391,33 @@ export class DatetimePickerComponent implements SqFormFieldSignals, SqFormValueC
     }
   }
 
-  private markDateAsSelected(date: CalendarDay) {
+  /** Returns `false` when the date is rejected (an end date before the pending range start). */
+  private markDateAsSelected(date: CalendarDay): boolean {
     const selectedDate = date.date;
-    const currentSelected = this.selectedDates();
-    const selectedIndex = this.calendarManager.getSelectedItemIndex(selectedDate, currentSelected);
 
     if (this.isMultipleSelect()) {
-      this.selectedDates.set(selectedIndex > -1
-        ? currentSelected.filter((_, index) => index !== selectedIndex)
-        : [...currentSelected, selectedDate]);
+      const pendingStart = this.pendingRangeStart();
+
+      if (!pendingStart) {
+        // First click: starts a new range. The value already reports the start date.
+        this.pendingRangeStart.set(selectedDate);
+        this.selectedDates.set([selectedDate]);
+      } else {
+        // Second click: completes the range, which can never end before it starts.
+        if (Temporal.PlainDate.compare(selectedDate, pendingStart) < 0) {
+          return false;
+        }
+
+        this.selectedDates.set(this.calendarManager.getDatesBetween(pendingStart, selectedDate));
+        this.pendingRangeStart.set(null);
+        this.hoveredDate.set(null);
+      }
     } else {
       this.selectedDates.set([selectedDate]);
     }
 
     this.setValueResult();
+    return true;
   }
 
   private setValueResult() {

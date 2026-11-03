@@ -48,8 +48,16 @@ readonly dates = signal<DatetimePickerValue>([]);
 - **`locale`** (`input<string>`): any BCP-47 locale understood by `Intl`. Defaults to `'en'`.
 - **`minDate`** / **`maxDate`** (`input<Temporal.PlainDate | Date | undefined>`): the selectable range.
   Dates (and months/years) outside it are disabled.
-- **`isMultipleSelect`** (`input<boolean>`): when `true` the model holds an **array** of dates instead
-  of a single value. Defaults to `false`.
+- **`isMultipleSelect`** (`input<boolean>`): when `true` the picker selects a **period** and the model
+  holds an **array** with every date of it (sorted ascending) instead of a single value. Defaults to `false`.
+  - The first click sets the start date (the model is `[start]`); the second click sets the end date and
+    the model becomes every date from start to end, both included.
+  - While only the start is set, hovering the days with a mouse previews the period, dates before the
+    start cannot be chosen as the end (they get the `before-range-start` class), and navigating to
+    another month or year keeps the start date. Clicking the start again selects that single day.
+  - After a complete period, the next click starts a new one. Writing the model from outside replaces
+    the selection (and any pending start).
+  - The cells carry `range-start`, `range-end` and `range-preview` classes for styling.
 - **`dateObjectType`** (`input<string>`): one of `DateObjectType.PlainDate` (`'plaindate'`, default),
   `DateObjectType.Date` (`'date'`) or `DateObjectType.Unix` (`'unix'`, epoch milliseconds).
 - **`format`** (`input<string | undefined>`): output format built from `YYYY`, `MM`, `DD` and, when a

@@ -64,7 +64,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options": {},
+          "options": {
+            "allowedHosts": [
+              "bwxazii1qax8.shares.zrok.io"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "sq-ui:build:production"

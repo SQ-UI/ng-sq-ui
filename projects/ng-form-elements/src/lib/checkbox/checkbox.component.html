@@ -1,8 +1,9 @@
 <div class="checkable"
      [class.checked]="isSelected()"
      [class.disabled]="disabled()">
-  <!-- The native input is stretched over the whole control (see checkbox.component.scss), so it is
-       the single interaction path: no wrapper click handler means no double toggle. -->
+  <!-- The native input is stretched over the whole control and layered above the square (see
+       checkbox.component.scss), so it is the single interaction path: no wrapper click handler means
+       no double toggle. -->
   <input type="checkbox"
          [name]="name()"
          [id]="controlId()"

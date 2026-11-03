@@ -33,8 +33,14 @@
             <ul class="list mg-b20">
               <li>
                 <b>[(value)]</b> holds a <b>Temporal.PlainDate</b> by default; <b>[dateObjectType]</b> switches it to a
-                <b>'date'</b> (<b>Date</b>) or <b>'unix'</b> (epoch milliseconds). With <b>[isMultipleSelect]</b> the value is
-                an array sorted ascending, and clicking a selected date deselects it.
+                <b>'date'</b> (<b>Date</b>) or <b>'unix'</b> (epoch milliseconds).
+              </li>
+              <li>
+                <b>[isMultipleSelect]</b> selects a period: click a start date, then an end date, and every date in
+                between is selected. The value is the array of all those dates, sorted ascending. While only the start is
+                picked, moving the mouse over the calendar previews the period, the dates before the start cannot be
+                picked as the end, and changing the month or year keeps the start date. Clicking the start date again
+                selects that single day; the next click after a complete period starts a new one.
               </li>
               <li>
                 <b>[format]</b> turns the value into a string; the tokens are <b>YYYY</b>, <b>MM</b>, <b>DD</b> and, with the
