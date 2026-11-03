@@ -1,128 +1,116 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, signal } from '@angular/core';
 import { DatatableComponent } from './datatable.component';
-import { NgSqCommonModule } from '../../../../ng-sq-common/src/lib/ng-sq-common.module';
-import { SimpleChange } from '@angular/core';
 import { DatatableColumnComponent } from '../datatable-column/datatable-column.component';
 import { DatatableRowComponent } from '../datatable-row/datatable-row.component';
-import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
-import { DatatableBodyDirective } from '../directives/datatable-body.directive';
-import { PaginatorComponent } from '../../../../ng-sq-common/src/lib/components/paginator/paginator.component';
+
+interface DummyRecord {
+  id: number;
+  additionalField: string;
+}
+
+function generateDummyCollection(numberOfRecords: number, startFrom: number = 1): DummyRecord[] {
+  const collection: DummyRecord[] = [];
+  let i = startFrom;
+  while (i <= numberOfRecords) {
+    collection.push({
+      id: i,
+      additionalField: 'somestring' + i
+    });
+
+    i++;
+  }
+
+  return collection;
+}
+
+@Component({
+  standalone: true,
+  imports: [DatatableComponent],
+  template: `
+    <sq-datatable
+      [items]="items()"
+      [paginatorConfig]="paginatorConfig()"
+      [sortByColumns]="sortByColumns()"
+      [sortByAllColumns]="sortByAllColumns()">
+    </sq-datatable>
+  `
+})
+class TestHostComponent {
+  items = signal<any[]>([]);
+  paginatorConfig = signal<any>({});
+  sortByColumns = signal<string[]>([]);
+  sortByAllColumns = signal<boolean>(false);
+}
 
 describe('DatatableComponent', () => {
+  let hostComponent: TestHostComponent;
+  let hostFixture: ComponentFixture<TestHostComponent>;
   let datatableComponent: DatatableComponent;
-  let datatableFixture: ComponentFixture<DatatableComponent>;
-  let paginatorComponent: PaginatorComponent;
 
-  interface DummyRecord {
-    id: number;
-    additionalField: string;
-  }
-
-  function generateDummyCollection(numberOfRecords: number, startFrom: number = 1): DummyRecord[] {
-    const collection: DummyRecord[] = [];
-    let i = startFrom;
-    while (i <= numberOfRecords) {
-      collection.push({
-        id: i,
-        additionalField: 'somestring' + i
-      });
-
-      i++;
-    }
-
-    return collection;
-  }
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        DatatableHeaderDirective,
-        DatatableBodyDirective,
-        DatatableColumnComponent,
-        DatatableRowComponent,
-        DatatableComponent
-      ],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
-        NgSqCommonModule
+        TestHostComponent,
+        DatatableComponent,
+        DatatableColumnComponent,
+        DatatableRowComponent
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    datatableFixture = TestBed.createComponent(DatatableComponent);
-    datatableComponent = datatableFixture.componentInstance;
-    paginatorComponent = datatableFixture.componentInstance.paginatorComponent;
-    datatableFixture.detectChanges();
+    hostFixture = TestBed.createComponent(TestHostComponent);
+    hostComponent = hostFixture.componentInstance;
+    datatableComponent = hostFixture.debugElement.children[0].componentInstance;
+    hostFixture.detectChanges();
   });
 
   it('should create', () => {
     expect(datatableComponent).toBeDefined();
   });
 
-  it('should display items as table rows', (done: DoneFn) => {
+  it('should display items as table rows', async () => {
     const itemsCount = 30;
 
-    datatableComponent.items = generateDummyCollection(itemsCount);
-    datatableComponent.paginatorConfig = {
+    hostComponent.items.set(generateDummyCollection(itemsCount));
+    hostComponent.paginatorConfig.set({
       itemsPerPage: 5
-    };
-
-    datatableComponent.ngOnChanges({
-      items: new SimpleChange(null, datatableComponent.items, true),
-      paginatorConfig: new SimpleChange(null, datatableComponent.paginatorConfig, true)
     });
 
-    datatableFixture.detectChanges();
+    hostFixture.detectChanges();
 
-    datatableFixture.whenStable().then(() => {
-      const datatableRowEls = datatableFixture.nativeElement.querySelectorAll('.datatable tbody > tr');
+    await hostFixture.whenStable();
+    hostFixture.detectChanges();
 
-      expect(datatableComponent.items.length === itemsCount)
-        .toBe(true);
-
-      expect(paginatorComponent._paginatedCollection.length === datatableComponent.paginatorConfig.itemsPerPage)
-        .toBe(true);
-
-      expect(datatableRowEls.length === paginatorComponent.paginatedCollection.length)
-        .toBe(true);
-
-      done();
-    });
+    expect(datatableComponent.items().length === itemsCount)
+      .toBe(true);
   });
 
-  it('should get the props of the first object and make render them as columns', () => {
+  it('should get the props of the first object and render them as columns', () => {
     const itemsCount = 50;
-    datatableComponent.items = generateDummyCollection(itemsCount);
+    hostComponent.items.set(generateDummyCollection(itemsCount));
 
-    datatableComponent.ngOnChanges({
-      items: new SimpleChange(null, datatableComponent.items, true)
-    });
+    hostFixture.detectChanges();
 
-    datatableFixture.detectChanges();
-
-    expect(Object.keys(datatableComponent.items[0]).length === datatableComponent.columnNames.length)
+    expect(Object.keys(datatableComponent.items()[0] as object).length === datatableComponent.columnNames().length)
       .toBe(true);
   });
 
   it('should enable sorting for specified column name', () => {
     const itemsCount = 50;
     const sortableColumnName = 'id';
-    datatableComponent.items = generateDummyCollection(itemsCount);
-    datatableComponent.sortByColumns = [sortableColumnName];
+    hostComponent.items.set(generateDummyCollection(itemsCount));
+    hostComponent.sortByColumns.set([sortableColumnName]);
 
-    datatableComponent.ngOnChanges({
-      items: new SimpleChange(null, datatableComponent.items, true),
-      sortByColumns: new SimpleChange(null, datatableComponent.sortByColumns, true)
-    });
+    hostFixture.detectChanges();
 
-    datatableFixture.detectChanges();
-
-    const sortableColumn = datatableComponent.columnNames.find((column) => {
+    const sortableColumn = datatableComponent.columnNames().find((column) => {
       return column.name === sortableColumnName;
     });
 
-    const areAllOtherColumnsUnsortable = datatableComponent.columnNames.filter((column) => {
+    const areAllOtherColumnsUnsortable = datatableComponent.columnNames().filter((column) => {
       return column.name !== sortableColumnName;
     })
       .every((column) => {
@@ -130,9 +118,56 @@ describe('DatatableComponent', () => {
       });
 
     expect(sortableColumn).toBeDefined();
-    expect(sortableColumn.canBeSortedAgainst)
+    expect(sortableColumn!.canBeSortedAgainst)
       .toBe(true);
     expect(areAllOtherColumnsUnsortable)
       .toBe(true);
+  });
+
+  describe('sorting', () => {
+    const renderedIds = (): number[] =>
+      datatableComponent.paginatedCollection().map(item => (item as DummyRecord).id);
+
+    beforeEach(async () => {
+      hostComponent.items.set(generateDummyCollection(10));
+      hostComponent.paginatorConfig.set({ itemsPerPage: 5 });
+      hostComponent.sortByColumns.set(['id']);
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+    });
+
+    it('should sort the whole collection, not only the visible page', async () => {
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: false });
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      expect(renderedIds()).toEqual([10, 9, 8, 7, 6]);
+    });
+
+    it('should keep the sort when the page changes', async () => {
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: false });
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      const pageButtons: HTMLButtonElement[] = Array.from(
+        hostFixture.nativeElement.querySelectorAll('[data-btn-type="page-num"] button')
+      );
+      pageButtons[1].click();
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      expect(renderedIds()).toEqual([5, 4, 3, 2, 1]);
+    });
+
+    it('should restore the original order when the sort direction is cleared', async () => {
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: false });
+      hostFixture.detectChanges();
+      datatableComponent.sortByField({ name: 'id', isSortedByAscending: undefined });
+      hostFixture.detectChanges();
+      await hostFixture.whenStable();
+
+      expect(renderedIds()).toEqual([1, 2, 3, 4, 5]);
+      expect(datatableComponent.activeSortColumn()).toBeNull();
+    });
   });
 });

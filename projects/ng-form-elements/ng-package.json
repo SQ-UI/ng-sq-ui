@@ -4,7 +4,14 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
+  "assets": [
+    {
+      "glob": "*.scss",
+      "input": "src/lib/styles",
+      "output": "styles"
+    }
+  ],
   "allowedNonPeerDependencies": [
-    "."
+    "tslib"
   ]
 }

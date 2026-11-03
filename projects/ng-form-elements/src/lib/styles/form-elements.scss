@@ -1,4 +1,5 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use 'sass:color';
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 
 ::-webkit-input-placeholder, .input-placeholder {
   color: $input-placeholder-color;
@@ -109,7 +110,7 @@
     background-color: $base-form-element-color;
   }
   &.disabled .inner {
-    background-color: darken($disabled-color, 30%);
+    background-color: color.adjust($disabled-color, $lightness: -30%);
   }
 }
 

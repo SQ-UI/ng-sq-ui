@@ -1,4 +1,4 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 
 .sq .input-field.dropdown  {
   position: relative;
@@ -19,6 +19,9 @@
       cursor: pointer;
       background-color: $box-shadow-color;
     }
+  }
+  .options .active .option {
+    background-color: $box-shadow-color;
   }
   .dropdown-icon {
     position: absolute;

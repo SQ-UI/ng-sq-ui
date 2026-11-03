@@ -2,24 +2,43 @@ import { Injectable } from '@angular/core';
 import { CustomEventDetails } from '../interfaces/custom-event-details';
 import { Subject, Subscription } from 'rxjs';
 
-@Injectable()
+/**
+ * Cross-component event bus using RxJS Subject.
+ *
+ * Evaluated for signal-based replacement in Milestone 1. Decision: retain
+ * the RxJS Subject pattern. Rationale: Angular signals are pull-based
+ * (computed/effect) and designed for component-level state. This service
+ * implements push-based pub/sub for named events across unrelated components
+ * (e.g., RadiobuttonComponent group exclusivity via 'sqRadio:selected').
+ * RxJS Subject is the correct primitive for this pattern — signals cannot
+ * replicate named-event multicasting. Subscribers update component-level
+ * signals in their callbacks to trigger change detection under zoneless mode.
+ */
+@Injectable({ providedIn: 'root' })
 export class CustomEventBroadcasterService {
-  private broadcasterSubject = new Subject();
+  private broadcasterSubject = new Subject<{broadcastEvent: string, eventDetails?: CustomEventDetails}>();
   private broadcasterSubjectAsObservable = this.broadcasterSubject.asObservable();
 
   constructor() { }
 
-  subscribeFor(eventName: string,
-               callback: (eventDetails?: CustomEventDetails) => void): Subscription {
+  /**
+   * Subscribes to a named event. `TDetails` is the shape the publisher sends, so the callback body
+   * does not need casts; the assertion is only made here, at the event boundary.
+   */
+  subscribeFor<TDetails = unknown>(eventName: string,
+               callback: (eventDetails?: CustomEventDetails<TDetails>) => void): Subscription {
     return this.broadcasterSubjectAsObservable
       .subscribe((customEvent: {broadcastEvent: string, eventDetails?: CustomEventDetails}) => {
         if (customEvent.broadcastEvent === eventName) {
-          callback(customEvent.eventDetails);
+          callback(customEvent.eventDetails as CustomEventDetails<TDetails> | undefined);
         }
       });
   }
 
-  broadcastEvent(eventName: string, eventDetails?: CustomEventDetails) {
-    this.broadcasterSubject.next({broadcastEvent: eventName, eventDetails: eventDetails});
+  broadcastEvent<TDetails = unknown>(eventName: string, eventDetails?: CustomEventDetails<TDetails>) {
+    this.broadcasterSubject.next({
+      broadcastEvent: eventName,
+      eventDetails: eventDetails as CustomEventDetails | undefined
+    });
   }
 }

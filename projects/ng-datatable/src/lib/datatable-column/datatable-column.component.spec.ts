@@ -1,26 +1,23 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatableColumnComponent } from './datatable-column.component';
-import { NgSqCommonModule } from '../../../../ng-sq-common/src/lib/ng-sq-common.module';
+import { SortItem } from '../shared/interfaces/sort-item';
 
 describe('DatatableColumnComponent', () => {
   let component: DatatableColumnComponent;
   let fixture: ComponentFixture<DatatableColumnComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DatatableColumnComponent],
-      imports: [
-        NgSqCommonModule
-      ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DatatableColumnComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatatableColumnComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('name', 'columnName');
     fixture.detectChanges();
   });
 
@@ -28,28 +25,43 @@ describe('DatatableColumnComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit information that the parent should sort by column name', (done: DoneFn) => {
-    component.name = 'columnName';
-    component.isSortable = true;
-
-    component.ngOnChanges({
-      name: new SimpleChange(null, component.name, true),
-      isSortable: new SimpleChange(null, component.isSortable, true)
-    });
-
+  it('should cycle ascending -> descending -> original order and emit each state', async () => {
+    const emitted: SortItem[] = [];
+    component.onSortClicked.subscribe(item => emitted.push(item));
+    fixture.componentRef.setInput('isSortable', true);
     fixture.detectChanges();
 
-    fixture.whenRenderingDone().then(() => {
-      const sortingBtn = fixture.nativeElement.querySelector('button');
-      sortingBtn.click();
-      fixture.detectChanges();
-      expect(component.isSortedByAscending)
-        .toEqual(true, 'first time clicking triggers sort by asc');
-      sortingBtn.click();
-      fixture.detectChanges();
-      expect(component.isSortedByAscending)
-        .toEqual(false, 'second time clicking triggers sort by desc');
-      done();
-    });
+    await fixture.whenRenderingDone();
+
+    const sortingBtn = fixture.nativeElement.querySelector('button');
+    sortingBtn.click();
+    fixture.detectChanges();
+    expect(component.sortState()).toBe(true);
+
+    sortingBtn.click();
+    fixture.detectChanges();
+    expect(component.sortState()).toBe(false);
+
+    sortingBtn.click();
+    fixture.detectChanges();
+    expect(component.sortState()).toBeUndefined();
+
+    expect(emitted.map(item => item.isSortedByAscending)).toEqual([true, false, undefined]);
+    expect(emitted.every(item => item.name === 'columnName')).toBe(true);
+  });
+
+  it('should reset its sort state when another column becomes the active sort column', () => {
+    fixture.componentRef.setInput('isSortable', true);
+    fixture.componentRef.setInput('activeSortColumn', null);
+    fixture.detectChanges();
+
+    component.sort();
+    fixture.componentRef.setInput('activeSortColumn', 'columnName');
+    fixture.detectChanges();
+    expect(component.sortState()).toBe(true);
+
+    fixture.componentRef.setInput('activeSortColumn', 'otherColumn');
+    fixture.detectChanges();
+    expect(component.sortState()).toBeUndefined();
   });
 });

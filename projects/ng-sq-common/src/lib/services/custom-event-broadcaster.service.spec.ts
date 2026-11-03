@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { CustomEventBroadcasterService } from './custom-event-broadcaster.service';
 
@@ -9,7 +9,8 @@ describe('CustomEventBroadcasterService', () => {
     });
   });
 
-  it('should be created', inject([CustomEventBroadcasterService], (service: CustomEventBroadcasterService) => {
+  it('should be created', () => {
+    const service = TestBed.inject(CustomEventBroadcasterService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

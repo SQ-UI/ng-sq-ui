@@ -7,7 +7,6 @@
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d53c1670c301071be452/maintainability)](https://codeclimate.com/github/SQ-UI/ng-sq-ui/maintainability)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
@@ -49,19 +48,19 @@ yarn add @sq-ui/ng-sq-common
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import standalone components in your component:
 
 ```
-import { NgSqCommonModule } from '@sq-ui/ng-sq-common';
+import { PaginatorComponent } from '@sq-ui/ng-sq-common';
 ```
 
-and then include it in the `imports` array of your @NgModule() decorator:
+and then include them in the `imports` array of your standalone component:
 
 ```
-@NgModule({
-  declarations: [ //... ],
+@Component({
+  standalone: true,
   imports: [
-    NgSqCommonModule,
+    PaginatorComponent,
     //...
   ],
   //...

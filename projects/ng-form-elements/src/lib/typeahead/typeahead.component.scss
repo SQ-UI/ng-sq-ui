@@ -1,4 +1,4 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 
 .sq .typeahead-wrapper {
   position: relative;
@@ -20,7 +20,11 @@
   }
   .remove {
     cursor: pointer;
-    padding-left: 6px;
+    padding: 0 0 0 6px;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
   }
   .options {
     width: 100%;

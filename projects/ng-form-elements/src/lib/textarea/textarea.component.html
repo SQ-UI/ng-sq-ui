@@ -1,19 +1,28 @@
-<div class="input-field textarea" [ngClass]="{'disabled': disabled}">
-  <div class="label"
-       (click)="focusOnArea()"
-       *ngIf="controlLabel !== ''">
-    {{controlLabel}}
-  </div>
+<div class="input-field textarea" [class.disabled]="disabled()">
+  @if (controlLabel() !== '') {
+    <div class="label"
+         [attr.id]="controlId() + '-label'"
+         (click)="focusOnArea()">
+      {{controlLabel()}}
+    </div>
+  }
 
-  <div contenteditable="true"
-       #textarea
-       tabindex="0"
+  <div #textarea
+       [attr.id]="controlId()"
+       [attr.contenteditable]="disabled() ? 'false' : 'true'"
+       [attr.tabindex]="disabled() ? -1 : 0"
        (click)="focusOnArea()"
-       (input)="inputChange($event)"
-       [ngStyle]="{'min-height.px': minHeight}"
-       [attr.data-placeholder]="controlPlaceholder"
-       [ngClass]="{'hide-placeholder': !isPlaceholderVisible}"
-       role="textarea">
+       (input)="onInput($event)"
+       (blur)="touch.emit()"
+       [style.min-height.px]="minHeight()"
+       [attr.data-placeholder]="controlPlaceholder()"
+       [class.hide-placeholder]="!isPlaceholderVisible()"
+       role="textbox"
+       aria-multiline="true"
+       [attr.aria-labelledby]="controlLabel() ? controlId() + '-label' : null"
+       [attr.aria-placeholder]="controlPlaceholder() || null"
+       [attr.aria-required]="required()"
+       [attr.aria-disabled]="disabled()">
   </div>
 
 </div>

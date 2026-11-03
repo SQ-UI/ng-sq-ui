@@ -1,8 +1,9 @@
-import { Directive, TemplateRef } from '@angular/core';
+import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-  selector: '[sq-checkbox-label]'
+  selector: '[sq-checkbox-label]',
+  standalone: true,
 })
 export class SqCheckboxLabelTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }

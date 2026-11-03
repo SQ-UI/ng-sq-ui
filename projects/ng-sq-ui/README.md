@@ -7,7 +7,6 @@
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d53c1670c301071be452/maintainability)](https://codeclimate.com/github/SQ-UI/ng-sq-ui/maintainability)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
@@ -46,22 +45,16 @@ yarn add @sq-ui/ng-sq-ui
 
 ## Usage
 
-Import the NgSqUiModule in your module:
+Import individual components directly in your standalone components or modules:
 
-```
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
-```
+```typescript
+import { InputComponent, DropdownComponent } from '@sq-ui/ng-sq-ui';
 
-and then include it in the `imports` array of your @NgModule() decorator:
-
-```
-@NgModule({
-  declarations: [ //... ],
-  imports: [
-    NgSqUiModule,
-    //...
-  ],
+@Component({
+  standalone: true,
+  imports: [InputComponent, DropdownComponent],
   //...
+})
 ```
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).

@@ -1,26 +1,21 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { SqUiComponent } from './sq-ui.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgSqUiModule } from '@sq-ui/ng-sq-ui';
 
 describe('SqUiComponent', () => {
   let component: SqUiComponent;
   let fixture: ComponentFixture<SqUiComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SqUiComponent],
-      imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgSqUiModule
-      ],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SqUiComponent],
+      providers: [provideRouter([])],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SqUiComponent);

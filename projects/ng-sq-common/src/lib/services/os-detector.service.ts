@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { DeviceOS } from '../enums/device-os.enum';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OSDetectorService {
 
   constructor() { }
 
   static getDeviceOS(): DeviceOS {
-    const userAgent = navigator.userAgent || navigator.vendor;
+    // No `navigator` during server-side rendering / prerendering: report a desktop.
+    if (typeof navigator === 'undefined') {
+      return DeviceOS.Desktop;
+    }
+
+    const userAgent = navigator.userAgent || navigator.vendor || '';
     let agent: DeviceOS = DeviceOS.Desktop;
 
     if (/android/i.test(userAgent)) {

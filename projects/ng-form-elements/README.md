@@ -7,7 +7,6 @@
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d53c1670c301071be452/maintainability)](https://codeclimate.com/github/SQ-UI/ng-sq-ui/maintainability)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
@@ -50,22 +49,21 @@ yarn add @sq-ui/ng-progress-bar
 
 ## Usage
 
-Import the NgProgressBarModule in your module:
+All form element components are standalone. Import them directly in your component:
 
-```
-import { NgFormElementsModule } from '@sq-ui/ng-form-elements';
-```
+```typescript
+import { InputComponent, DropdownComponent, ButtonComponent } from '@sq-ui/ng-form-elements';
 
-and then include it in the `imports` array of your @NgModule() decorator:
-
-```
-@NgModule({
-  declarations: [ //... ],
+@Component({
+  standalone: true,
   imports: [
-    NgFormElementsModule,
+    InputComponent,
+    DropdownComponent,
+    ButtonComponent,
     //...
   ],
   //...
+})
 ```
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).

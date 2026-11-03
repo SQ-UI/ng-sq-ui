@@ -3,27 +3,27 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: 'about',
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    loadComponent: () => import('./home/home/home.component').then(m => m.HomeComponent)
   },
   {
     path: 'sq-ui',
-    loadChildren: () => import('./sq-ui/sq-ui.module').then(m => m.SqUiModule)
+    loadComponent: () => import('./sq-ui/sq-ui/sq-ui.component').then(m => m.SqUiComponent)
   },
   {
     path: 'sq-common',
-    loadChildren: () => import('./sq-common/sq-common.module').then(m => m.SqCommonModule)
+    loadComponent: () => import('./sq-common/common/sq-common.component').then(m => m.SqCommonComponent)
   },
   {
     path: 'datetime-picker',
-    loadChildren: () => import('./datetime-picker/datetime-picker.module').then(m => m.DatetimePickerModule)
+    loadComponent: () => import('./datetime-picker/datatime-picker-docs/datatime-picker-docs.component').then(m => m.DatatimePickerDocsComponent)
   },
   {
     path: 'modal',
-    loadChildren: () => import('./modal/modal.module').then(m => m.ModalModule)
+    loadComponent: () => import('./modal/modal-docs/modal-docs.component').then(m => m.ModalDocsComponent)
   },
   {
     path: 'datatable',
-    loadChildren: () => import('./datatable/datatable.module').then(m => m.DatatableModule)
+    loadComponent: () => import('./datatable/datatable-docs/datatable-docs.component').then(m => m.DatatableDocsComponent)
   },
   {
     path: '',

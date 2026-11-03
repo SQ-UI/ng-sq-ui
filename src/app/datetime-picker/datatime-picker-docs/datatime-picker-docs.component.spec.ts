@@ -1,31 +1,21 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { DatatimePickerDocsComponent } from './datatime-picker-docs.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DatatimePickerDocsComponent', () => {
   let component: DatatimePickerDocsComponent;
   let fixture: ComponentFixture<DatatimePickerDocsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DatatimePickerDocsComponent],
-      imports: [
-        CommonModule,
-        SharedModule,
-        ReactiveFormsModule,
-        NgDatetimePickerModule,
-        RouterTestingModule
-      ],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DatatimePickerDocsComponent],
+      providers: [provideRouter([])],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatatimePickerDocsComponent);

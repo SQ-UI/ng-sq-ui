@@ -1,9 +1,17 @@
-# This file is currently used by autoprefixer to adjust CSS to support the below specified browsers
-# For additional information regarding the format and rule options, please see:
-# https://github.com/browserslist/browserslist#queries
-# For IE 9-11 support, please uncomment the last line of the file and adjust as needed
-> 0.5%
-last 2 versions
+# Browserslist configuration, also used by Angular's build to decide the emitted JS/CSS.
+# Based on Angular 22's supported browser matrix
+# (https://angular.dev/reference/versions#browser-support), widened for iOS.
+last 2 Chrome versions
+last 2 ChromeAndroid versions
+last 2 Firefox versions
+last 2 FirefoxAndroid versions
+last 2 Edge versions
+# Safari and iOS Safari are counted in *major* releases: `last 2 Safari versions` would only mean the
+# last two minor releases (e.g. 26.3 and 26.4). Neither ships `Temporal` natively in every listed
+# version, so `sq-datetime-picker` relies on `@js-temporal/polyfill` (see the README).
+# Desktop Safari: every 26.x and 18.x release.
+last 2 Safari major versions
+# iOS Safari: every 26.x, 18.x and 17.x release.
+last 3 iOS major versions
 Firefox ESR
 not dead
-# IE 9-11

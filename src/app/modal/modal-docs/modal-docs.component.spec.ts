@@ -1,19 +1,21 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { ModalDocsComponent } from './modal-docs.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ModalDocsComponent', () => {
   let component: ModalDocsComponent;
   let fixture: ComponentFixture<ModalDocsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ModalDocsComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ModalDocsComponent],
+      providers: [provideRouter([])],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ModalDocsComponent);
@@ -23,5 +25,11 @@ describe('ModalDocsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should start with the modal closed and toggle it through the handlers', () => {
+    expect(component.showModal()).toBe(false);
+    component.confirmationBtnHandler();
+    component.rejectionBtnHandler();
   });
 });

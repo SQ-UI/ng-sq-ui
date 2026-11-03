@@ -1,0 +1,84 @@
+{
+  // Resolves `@sq-ui/*` from the built packages in `dist/` first (as a consumer would install them),
+  // falling back to the sources when a package has not been built.
+  //
+  // Only the configs that should check the app against the built packages extend this file:
+  // `src/tsconfig.app.json` (ng build / ng serve) and `tsconfig.spec.json` (npm run typecheck).
+  // `tsconfig.json` itself maps to the sources, so the editor never reads a stale `dist/`.
+  "compilerOptions": {
+    "paths": {
+      "@sq-ui/ng-sq-ui": [
+        "./dist/ng-sq-ui",
+        "./projects/ng-sq-ui/src"
+      ],
+      "@sq-ui/ng-sq-ui/*": [
+        "./dist/ng-sq-ui/*",
+        "./projects/ng-sq-ui/src/*"
+      ],
+      "@sq-ui/ng-datetime-picker": [
+        "./dist/ng-datetime-picker",
+        "./projects/ng-datetime-picker/src",
+        "./node_modules/@sq-ui/ng-datetime-picker"
+      ],
+      "@sq-ui/ng-datetime-picker/temporal": [
+        "./dist/ng-datetime-picker/temporal",
+        "./projects/ng-datetime-picker/temporal/src"
+      ],
+      "@sq-ui/ng-datetime-picker/*": [
+        "./dist/ng-datetime-picker/*",
+        "./projects/ng-datetime-picker/src/*",
+        "./node_modules/@sq-ui/ng-datetime-picker/*"
+      ],
+      "@sq-ui/ng-datatable": [
+        "./dist/ng-datatable",
+        "./projects/ng-datatable/src",
+        "./node_modules/@sq-ui/ng-datatable"
+      ],
+      "@sq-ui/ng-datatable/*": [
+        "./dist/ng-datatable/*",
+        "./projects/ng-datatable/src/*",
+        "./node_modules/@sq-ui/ng-datatable/*"
+      ],
+      "@sq-ui/ng-sq-common": [
+        "./dist/ng-sq-common",
+        "./projects/ng-sq-common/src",
+        "./node_modules/@sq-ui/ng-sq-common"
+      ],
+      "@sq-ui/ng-sq-common/*": [
+        "./dist/ng-sq-common/*",
+        "./projects/ng-sq-common/src/*",
+        "./node_modules/@sq-ui/ng-sq-common/*"
+      ],
+      "@sq-ui/ng-modal": [
+        "./dist/ng-modal",
+        "./projects/ng-modal/src",
+        "./node_modules/@sq-ui/ng-modal/"
+      ],
+      "@sq-ui/ng-modal/*": [
+        "./dist/ng-modal/*",
+        "./projects/ng-modal/src/*",
+        "./node_modules/@sq-ui/ng-modal/*"
+      ],
+      "@sq-ui/ng-form-elements": [
+        "./dist/ng-form-elements",
+        "./projects/ng-form-elements/src",
+        "./node_modules/@sq-ui/ng-form-elements"
+      ],
+      "@sq-ui/ng-form-elements/*": [
+        "./dist/ng-form-elements/*",
+        "./projects/ng-form-elements/src/*",
+        "./node_modules/@sq-ui/ng-form-elements/*"
+      ],
+      "@sq-ui/ng-progress-bar": [
+        "./dist/ng-progress-bar",
+        "./projects/ng-progress-bar/src",
+        "./node_modules/@sq-ui/ng-progress-bar"
+      ],
+      "@sq-ui/ng-progress-bar/*": [
+        "./dist/ng-progress-bar/*",
+        "./projects/ng-progress-bar/src/*",
+        "./node_modules/@sq-ui/ng-progress-bar/*"
+      ]
+    }
+  }
+}

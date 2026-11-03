@@ -2,23 +2,28 @@ import { EventEmitter } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 /**
- * This class should be extended by all SQ UI custom
- * form controls so that they get recognized by Angular forms.
- * Its only purpose is to implement the ControlValueAccessor interface.
- **/
+ * @deprecated This class will be replaced by Angular Signal Forms
+ * (`@angular/forms/signals`) in Milestone 2. Form components will use
+ * signal-backed form fields instead of the ControlValueAccessor pattern.
+ * Use `compatForm` from `@angular/forms/signals/compat` during the
+ * transition to maintain backward compatibility.
+ *
+ * The value type is `unknown`: the legacy contract is untyped (Angular's `ControlValueAccessor`
+ * declares it as `any`), so consumers must narrow a read or parameterise a subclass.
+ */
 export class ControlValueAccessorEnabler implements ControlValueAccessor {
-  protected _modelToViewChange: EventEmitter<any> = new EventEmitter();
-  protected _value: any;
-  protected _onChange: any = () => {};
-  protected _onTouched: any = () => {};
+  protected _modelToViewChange = new EventEmitter<unknown>();
+  protected _value: unknown;
+  protected _onChange: (value: unknown) => void = () => {};
+  protected _onTouched: () => void = () => {};
 
   constructor() {}
 
-  get value(): any {
+  get value(): unknown {
     return this._value;
   }
 
-  set value(newValue: any) {
+  set value(newValue: unknown) {
     if (newValue !== this._value) {
       this._value = newValue;
       this._onChange(newValue);
@@ -29,18 +34,18 @@ export class ControlValueAccessorEnabler implements ControlValueAccessor {
     this._onTouched();
   }
 
-  writeValue(newValue: any): void {
+  writeValue(newValue: unknown): void {
     if (newValue !== this._value) {
       this._value = newValue;
       this._modelToViewChange.emit(newValue);
     }
   }
 
-  registerOnChange(fn: (_: any) => void): void {
+  registerOnChange(fn: (value: unknown) => void): void {
     this._onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this._onTouched = fn;
   }
 }

@@ -1,21 +1,17 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxComponent } from './checkbox.component';
-import { FormsModule } from '@angular/forms';
 
 describe('CheckboxComponent', () => {
   let component: CheckboxComponent;
   let fixture: ComponentFixture<CheckboxComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [CheckboxComponent],
-      imports: [
-        FormsModule
-      ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CheckboxComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckboxComponent);
@@ -28,18 +24,39 @@ describe('CheckboxComponent', () => {
   });
 
   it('should toggle its values when clicked', () => {
-    expect(component.isSelected).toBe(false);
+    expect(component.isSelected()).toBe(false);
     component.toggleCheckboxSelection();
-    expect(component.isSelected).toBe(true);
+    expect(component.isSelected()).toBe(true);
     component.toggleCheckboxSelection();
-    expect(component.isSelected).toBe(false);
+    expect(component.isSelected()).toBe(false);
   });
 
-  it('should automatically change isSelected on onWrite(...)', () => {
-    component.writeValue(true);
-    expect(component.isSelected).toEqual(true);
-    component.writeValue(false);
-    expect(component.isSelected).toEqual(false);
+  it('should update value model when toggled', () => {
+    expect(component.value()).toBe(false);
+    component.toggleCheckboxSelection();
+    expect(component.value()).toBe(true);
+    component.toggleCheckboxSelection();
+    expect(component.value()).toBe(false);
+  });
+
+  it('should reflect externally set value in isSelected', () => {
+    expect(component.isSelected()).toBe(false);
+    fixture.componentRef.setInput('value', true);
+    expect(component.isSelected()).toBe(true);
+    fixture.componentRef.setInput('value', false);
+    expect(component.isSelected()).toBe(false);
+  });
+
+  it('should toggle exactly once when the native checkbox is clicked', () => {
+    const input = (fixture.nativeElement as HTMLElement).querySelector('input[type="checkbox"]') as HTMLInputElement;
+
+    input.click();
+    fixture.detectChanges();
+    expect(component.value()).toBe(true);
+
+    input.click();
+    fixture.detectChanges();
+    expect(component.value()).toBe(false);
   });
 
 });

@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import {NavItem} from '../../shared/shared.module';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NavItem } from '../../shared/nav-item';
+import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-common',
+  standalone: true,
+  imports: [RouterLink, ModuleOverviewComponent],
   templateUrl: './sq-common.component.html',
-  styleUrls: ['./sq-common.component.scss']
+  styleUrls: ['./sq-common.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SqCommonComponent implements OnInit {
+export class SqCommonComponent {
   npmPackageName: string = '@sq-ui/ng-sq-common';
-  moduleName: string = 'NgSqCommonModule';
+  moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
     {
@@ -18,23 +23,31 @@ export class SqCommonComponent implements OnInit {
     },
     {
       name: 'sq-paginator',
-      fragment: '/datatable'
+      routeLink: '/datatable'
     },
+    { name: 'sqScrolledToBottomListener' },
+    { name: 'FormFieldConfig (interface)' },
+    { name: 'SqFormFieldSignals (interface)' },
+    { name: 'FORM_FIELD_DEFAULTS (constant)' },
+    { name: 'generateFormFieldId (function)' },
+    { name: 'toPatternAttribute (function)' },
+    { name: 'SqFormValueControl / SqFormCheckboxControl / SqFormUiControl (types)' },
     { name: 'DeviceOS (enum)' },
-    { name: 'InputCoreComponent (class)' },
-    { name: 'Size (interface)' },
+    { name: 'Size (type)' },
     { name: 'ProgressBarSize (interface)' },
     { name: 'CustomEventDetails (interface)' },
     { name: 'LabelValuePair (interface)' },
     { name: 'CustomEventBroadcasterService' },
     { name: 'OSDetectorService' },
     { name: 'PaginatorConfig (interface)' },
-    { name: 'ScrolledToBottomListenerDirective' }
+    { name: 'PageChangeEvent (interface)' },
+    { name: 'InputCoreComponent (deprecated class)' },
+    { name: 'ControlValueAccessorEnabler (deprecated class)' }
   ];
 
   docs: NavItem[] = [
     {
-      name: 'CommonModule',
+      name: 'ng-sq-common',
       routeLink: `${environment.docs}/common-module`
     }
   ];
@@ -45,11 +58,4 @@ export class SqCommonComponent implements OnInit {
       routeLink: `https://ng-sq-ui-common.${environment.livePreview}`
     }
   ];
-
-  constructor() { }
-
-  ngOnInit() {
-
-  }
-
 }

@@ -1,44 +1,43 @@
-import { Component, OnInit, Input,
-         Output, EventEmitter, ViewEncapsulation,
-         OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, input, output, linkedSignal, ChangeDetectionStrategy, ViewEncapsulation
+} from '@angular/core';
 import { SortItem } from '../shared/interfaces/sort-item';
 
 @Component({
   selector: '[sq-datatable-column]',
+  standalone: true,
   templateUrl: './datatable-column.component.html',
   styleUrls: ['./datatable-column.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatatableColumnComponent implements OnInit, OnChanges {
-  @Input() name: string;
-  @Output() onSortClicked: EventEmitter<SortItem> = new EventEmitter();
-  @Input() isSortable: boolean = false;
-  @Input() width: string;
+export class DatatableColumnComponent {
+  readonly name = input.required<string>();
+  readonly isSortable = input<boolean>(false);
+  /**
+   * Name of the column the table is currently sorted by. When another column becomes active this
+   * column drops back to "unsorted". Leave it unbound to manage each column's state independently.
+   */
+  readonly activeSortColumn = input<string | null | undefined>(undefined);
 
-  isSortedByAscending: boolean;
+  readonly onSortClicked = output<SortItem>();
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changesObj: SimpleChanges) {
-
-  }
+  /** `true` = ascending, `false` = descending, `undefined` = original order. */
+  readonly sortState = linkedSignal<string | null | undefined, boolean | undefined>({
+    source: this.activeSortColumn,
+    computation: (activeColumn, previous) =>
+      activeColumn !== undefined && activeColumn !== this.name() ? undefined : previous?.value,
+  });
 
   sort() {
-    switch (typeof this.isSortedByAscending) {
-      case 'undefined':
-        this.isSortedByAscending = true;
-        break;
-      case 'boolean':
-        this.isSortedByAscending = this.isSortedByAscending ? false : undefined;
-        break;
-    }
+    const current = this.sortState();
+    // Cycles ascending -> descending -> original order.
+    const next = current === undefined ? true : (current ? false : undefined);
 
+    this.sortState.set(next);
     this.onSortClicked.emit({
-      name: this.name,
-      isSortedByAscending: this.isSortedByAscending
+      name: this.name(),
+      isSortedByAscending: next
     });
   }
 }

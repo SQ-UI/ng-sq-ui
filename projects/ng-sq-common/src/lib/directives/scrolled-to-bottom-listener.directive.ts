@@ -1,23 +1,26 @@
 import {
-  Directive, ElementRef, EventEmitter, Output, Renderer2, OnDestroy
+  Directive, ElementRef, Renderer2, OnDestroy, inject, output
 } from '@angular/core';
 
 @Directive({
-  selector: '[sqScrolledToBottomListener]'
+  selector: '[sqScrolledToBottomListener]',
+  standalone: true
 })
 export class ScrolledToBottomListenerDirective implements OnDestroy {
-  @Output() scrolledToBottom = new EventEmitter();
+  scrolledToBottom = output<void>();
 
-  private listener;
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly renderer = inject(Renderer2);
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    this.listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
-      this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
-    });
-  }
+  private readonly listener = this.renderer.listen(this.elementRef.nativeElement, 'scroll', () => {
+    this.checkIfHasScrolledToBottom(this.elementRef.nativeElement);
+  });
 
   checkIfHasScrolledToBottom(element: HTMLElement) {
-    const hasScrolledToBottom = element.scrollTop > 0 ? ((element.scrollHeight - element.scrollTop) === element.clientHeight) : false;
+    // `scrollTop` is fractional on zoomed / high-DPI screens, so an exact comparison can never hit
+    // the bottom; allow a one-pixel tolerance.
+    const distanceToBottom = element.scrollHeight - element.scrollTop - element.clientHeight;
+    const hasScrolledToBottom = element.scrollTop > 0 && Math.abs(distanceToBottom) <= 1;
 
     if (hasScrolledToBottom) {
       this.scrolledToBottom.emit();

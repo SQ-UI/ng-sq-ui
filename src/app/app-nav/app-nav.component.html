@@ -19,12 +19,12 @@
     </div>
   </div>
 
-  <div class="tint" [ngClass]="{'display-none': !isNavOpen }"></div>
+  <div class="tint" [ngClass]="{'display-none': !isNavOpen() }"></div>
 
   <nav class="app-nav"
-       #nav
+       [class.show]="isNavOpen()"
        sqOutsideClickListener
-       [listenForOutsideClick]="listenForOutsideClick"
+       [listenForOutsideClick]="listenForOutsideClick()"
        (clickOutside)="onClickOutsideComponent()">
     <button type="button" class="close-btn" (click)="onClickOutsideComponent()">
       <i class="fas fa-times" aria-hidden="true"></i>
@@ -38,13 +38,14 @@
 
     <div class="display-flex space-between nav-items">
       <div>
-        <a class="nav-item"
-           *ngFor="let navItem of navItems"
-           routerLinkActive="active"
-           routerLink="{{navItem.routeLink}}"
-           (click)="navigateTo($event, navItem.routeLink)">
-          {{navItem.name}}
-        </a>
+        @for (navItem of navItems(); track navItem.routeLink) {
+          <a class="nav-item"
+             routerLinkActive="active"
+             routerLink="{{navItem.routeLink}}"
+             (click)="navigateTo($event, navItem.routeLink)">
+            {{navItem.name}}
+          </a>
+        }
       </div>
 
       <div class="github">

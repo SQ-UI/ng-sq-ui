@@ -1,4 +1,4 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 
 .sq .tags-input-wrapper {
   .input-field {
@@ -12,6 +12,14 @@
     }
     &.disabled .entered-item {
       background-color: $disabled-color;
+    }
+    .entered-item .button {
+      cursor: pointer;
+      padding: 0 0 0 6px;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
     }
   }
 }

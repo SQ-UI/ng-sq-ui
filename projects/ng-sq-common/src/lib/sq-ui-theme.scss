@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import './styles/colors';
-@import './styles/reset';
+@use './styles/colors' as *;
+@use './styles/reset' as sq-reset;
+@use './styles/base' as sq-base;
+@use './styles/utilities' as sq-utilities;
+
+@include sq-reset.sq-reset;
 
 .sq {
   //Base styles
-  @import './styles/base';
+  @include sq-base.sq-base;
 
   //Overwrites - should always be last
-  @import './styles/utilities';
+  @include sq-utilities.sq-utilities;
 }

@@ -2,6 +2,7 @@
   <div class="time-unit display-flex column align-items-center">
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="increment(timeUnit.Hours)">
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
@@ -9,16 +10,18 @@
     <div class="time display-flex column align-items-center">
       <input type="text"
              name="time"
-             [(ngModel)]="hours"
+             [ngModel]="hours()"
+             (ngModelChange)="hours.set($event)"
              maxlength="2"
              minlength="1"
-             [disabled]="!isEditable"
+             [disabled]="!isEditable() || disabled()"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="validateInput(timeUnit.Hours)">
+             (blur)="validateInput(timeUnit.Hours); touch.emit()">
     </div>
 
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="decrement(timeUnit.Hours)">
       <i class="fas fa-chevron-down" aria-hidden="true"></i>
     </button>
@@ -29,6 +32,7 @@
   <div class="time-unit display-flex column align-items-center">
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="increment(timeUnit.Minutes)">
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
@@ -36,30 +40,34 @@
     <div class="time">
       <input type="text"
              name="minutes"
-             [(ngModel)]="minutes"
+             [ngModel]="minutes()"
+             (ngModelChange)="minutes.set($event)"
              maxlength="2"
              minlength="1"
-             [disabled]="!isEditable"
+             [disabled]="!isEditable() || disabled()"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="validateInput(timeUnit.Minutes)">
+             (blur)="validateInput(timeUnit.Minutes); touch.emit()">
     </div>
 
     <button type="button"
             class="spinner display-flex justify-center align-items-center"
+            [disabled]="disabled()"
             (click)="decrement(timeUnit.Minutes)">
       <i class="fas fa-chevron-down" aria-hidden="true"></i>
     </button>
   </div>
 
-  <div *ngIf="isMeridiem"
-        class="time-unit">
-    <button type="button"
-            class="display-flex justify-center align-items-center"
-            (click)="changeNoonRelativity()">
-      <span class="meridiem">
-        {{noonRelativity.toUpperCase()}}
-      </span>
-      <i class="far fa-clock meridiem-icon" aria-hidden="true"></i>
-    </button>
-  </div>
+  @if (isMeridiem()) {
+    <div class="time-unit">
+      <button type="button"
+              class="display-flex justify-center align-items-center"
+              [disabled]="disabled()"
+              (click)="changeNoonRelativity()">
+        <span class="meridiem">
+          {{noonRelativity().toUpperCase()}}
+        </span>
+        <i class="far fa-clock meridiem-icon" aria-hidden="true"></i>
+      </button>
+    </div>
+  }
 </div>

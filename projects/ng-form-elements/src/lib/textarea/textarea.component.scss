@@ -1,4 +1,4 @@
-@import "../../../../ng-sq-common/src/lib/styles/colors.scss";
+@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
 .sq {
   .input-field.textarea {
     display: block;

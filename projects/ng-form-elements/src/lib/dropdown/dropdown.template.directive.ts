@@ -1,22 +1,25 @@
-import { Directive, TemplateRef } from '@angular/core';
+import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-  selector: '[sq-dropdown-option]'
+  selector: '[sq-dropdown-option]',
+  standalone: true,
 })
 export class SqDropdownOptionTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }
 
 @Directive({
-  selector: '[sq-dropdown-chevron]'
+  selector: '[sq-dropdown-chevron]',
+  standalone: true,
 })
 export class SqDropdownChevronTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }
 
 @Directive({
-  selector: '[sq-dropdown-selected-option]'
+  selector: '[sq-dropdown-selected-option]',
+  standalone: true,
 })
 export class SqDropdownSelectedOptionTemplateDirective {
-  constructor(public template: TemplateRef<any>) { }
+  readonly template = inject(TemplateRef);
 }

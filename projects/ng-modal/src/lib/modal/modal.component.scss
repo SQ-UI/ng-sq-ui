@@ -128,6 +128,9 @@ $secondary-theme-color: rgba(18, 125, 104, 0.21);
     margin-right: 10px;
   }
   .close {
+    border: 0;
+    background: none;
+    color: inherit;
     font-size: 22px;
     cursor: pointer;
     padding: 10px;
