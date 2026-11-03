@@ -7,17 +7,17 @@
   }
 
   <div class="input-field" [class.disabled]="disabled()">
-  <input type="{{type()}}"
-         name="{{name()}}"
-         id="{{controlId()}}"
-         placeholder="{{controlPlaceholder()}}"
-         [required]="required()"
-         [pattern]="patternAttribute()"
-         [disabled]="disabled()"
-         [attr.aria-invalid]="errorText() ? 'true' : null"
-         [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
-         (blur)="touch.emit()"
-         [(ngModel)]="value">
+    <input type="{{type()}}"
+           name="{{name()}}"
+           id="{{controlId()}}"
+           placeholder="{{controlPlaceholder()}}"
+           [required]="required()"
+           [pattern]="patternAttribute()"
+           [disabled]="disabled()"
+           [attr.aria-invalid]="errorText() ? 'true' : null"
+           [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
+           (blur)="touch.emit()"
+           [(ngModel)]="value">
   </div>
   @if (errorText() || helpText()) {
     <div class="sq-field-message" [class.sq-field-error]="!!errorText()"

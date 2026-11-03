@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
+import type { Size } from '@sq-ui/ng-sq-common';
 
 @Component({
   selector: 'sq-modal',
@@ -20,6 +21,7 @@ import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 })
 export class ModalComponent {
   show = model<boolean>(false);
+  size = input<Size>('medium');
 
   customCssAnimation = input<{
     duration: number,

@@ -1,46 +1,32 @@
 @use '../../styles/tokens' as sq;
-
 .sq ol.paginator {
   list-style: none;
   margin: 0;
+  padding: 0;
+  gap: sq.value('space-1');
   li {
     position: relative;
-    padding: 5px 8px;
-    min-width: 35px;
+    min-width: 32px;
     height: 32px;
+    padding: 0;
     text-align: center;
-    margin-right: 10px;
-    transition: all 400ms ease-in;
-    &.current {
-      font-weight: bold;
-      background-color: sq.value('color-selection');
-    }
-    &.truncated {
-      display: none;
-    }
+    border-radius: sq.value('radius-control');
+    background: sq.value('color-surface-subtle');
+    color: sq.value('color-text');
+    font-size: sq.value('font-size-field-small');
+    line-height: sq.value('line-height-button-medium');
+    &.current { background: sq.value('color-brand'); color: sq.value('color-surface'); font-weight: sq.value('font-weight-medium'); }
+    &.truncated { display: none; }
     &:not(.truncated) + .truncated {
       pointer-events: none;
       display: block;
       font-size: 0;
-      &::before {
-        content: "...";
-        pointer-events: none;
-        font-size: 1.1rem;
-      }
+      &::before { content: '…'; font-size: 12px; line-height: 32px; }
     }
     button {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      &[disabled] {
-        cursor: default;
-        .fas {
-          color: sq.value('color-calendar-disabled');
-        }
-      }
+      width: 100%; height: 100%; padding: 4px 8px;
+      color: inherit; border-radius: inherit;
+      &:disabled { cursor: default; color: sq.value('color-placeholder'); }
     }
   }
 }

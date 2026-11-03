@@ -43,6 +43,8 @@ loadNextPage($event: PageChangeEvent) {
 
 ### Component properties
 
+- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`, default `'medium'`. Desktop header and data rows have minimum heights of 36px, 40px and 44px; wrapped content may grow. The existing mobile card layout remains content-driven.
+- **`emptyText`** (`input<string>`): optional empty message, default `''`. Renders a status message when `items` is empty and no custom body template is supplied. Existing custom bodies retain control of their empty presentation.
 - **`items`** (`input<TItem[]>`): the rows. Defaults to `[]`. Columns are derived from `items[0]`.
 - **`sortByColumns`** (`input<string[]>`): the column names the user may sort by. Defaults to `[]`
   (nothing is sortable unless `sortByAllColumns` is `true`).

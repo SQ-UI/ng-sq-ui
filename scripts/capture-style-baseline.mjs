@@ -49,6 +49,8 @@ async function waitFor(expression) {
 }
 async function navigate(route, width) {
   await cdp('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+  // Navigating to the same hash can retain Angular state between viewport runs.
+  await cdp('Page.navigate', { url: 'about:blank' });
   await cdp('Page.navigate', { url: `${baseUrl}/#/${route}` });
   await waitFor('!!document.querySelector("router-outlet")?.nextElementSibling');
   await evaluate('document.fonts.ready.then(() => true)');
@@ -185,18 +187,33 @@ try {
       await capture('input-focus-'+suffix,'sq-input .input-field','sq-ui',width,'focus-visible');
       await evaluate('document.querySelector("#stylePrimaryButton button").focus()');
       await capture('button-focus-'+suffix,'#stylePrimaryButton button','sq-ui',width,'focus-visible');
-      const interaction=await evaluate(`(() => {
+      await evaluate(`(() => {
         const trigger=document.querySelector('sq-dropdown [role=combobox]');
         for(const key of ['ArrowDown','ArrowDown','Enter']) trigger.dispatchEvent(new KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));
+        return true;
+      })()`);
+      await waitFor('document.querySelector("sq-dropdown .chosen-item")?.textContent.trim()==="option1"');
+      const interaction=await evaluate(`(() => {
+        const trigger=document.querySelector('sq-dropdown [role=combobox]');
         return {closed:trigger.getAttribute('aria-expanded')==='false',choice:trigger.querySelector('.chosen-item')?.textContent.trim()};
       })()`);
       if(!interaction.closed||interaction.choice!=='option1')throw new Error('Keyboard dropdown regression: '+JSON.stringify(interaction));
       await evaluate('document.querySelectorAll("sq-dropdown [role=combobox]")[1].click()');
-      await waitFor('document.querySelectorAll("sq-dropdown")[1].querySelectorAll(".options .option").length>1');
-      await evaluate('document.querySelectorAll("sq-dropdown")[1].querySelectorAll(".options .option")[1].click()');
+      await waitFor('document.querySelectorAll("sq-dropdown")[1].querySelectorAll("[role=option]").length>1');
+      await evaluate('document.querySelectorAll("sq-dropdown")[1].querySelectorAll("[role=option]")[1].click()');
       await waitFor('document.querySelectorAll("sq-dropdown")[1].querySelector(".custom.tag")?.textContent.trim()==="option2"');
       report.formChecks.at(-1).keyboard=interaction;
       report.formChecks.at(-1).customDropdown=true;
+      await evaluate('document.querySelector("#sqTagsInputWithCustomTemplate .custom.tag button").click()');
+      await waitFor('!document.querySelector("#sqTagsInputWithCustomTemplate .custom.tag")');
+      report.formChecks.at(-1).customTags=true;
+      await evaluate(`(() => {const input=document.querySelector('#sqTypeaheadWithTemplates input');input.value='option';input.dispatchEvent(new Event('input',{bubbles:true}));return true;})()`);
+      await waitFor('document.querySelector("#sqTypeaheadWithTemplates .options:not(.display-none) .custom.dropdown-option")');
+      await evaluate('document.querySelector("#sqTypeaheadWithTemplates .options > div").click()');
+      await waitFor('!!document.querySelector("#sqTypeaheadWithTemplates .custom.chosen-item button")');
+      await evaluate('document.querySelector("#sqTypeaheadWithTemplates .custom.chosen-item button").click()');
+      await waitFor('!document.querySelector("#sqTypeaheadWithTemplates .custom.chosen-item")');
+      report.formChecks.at(-1).customTypeahead=true;
       console.log('Form reference and interaction checks passed at '+width+'px');
       continue;
     }

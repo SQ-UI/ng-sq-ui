@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ComponentPreviewComponent } from '../../shared/component-preview/component-preview.component';
 import { compatForm, extractValue } from '@angular/forms/signals/compat';
 import { NavItem } from '../../shared/nav-item';
 import { LabelValuePair } from '@sq-ui/ng-sq-common';
@@ -85,6 +86,7 @@ function createSampleResults(): TypeaheadDemoResult[] {
   selector: 'sq-ui',
   standalone: true,
   imports: [
+    ComponentPreviewComponent,
     InputComponent,
     DropdownComponent,
     TagsInputComponent,

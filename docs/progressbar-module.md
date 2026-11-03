@@ -29,7 +29,8 @@ export class ExampleComponent {
 
 ### Component properties
 
-- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`. Defaults to `'medium'`.
+- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`. Defaults to `'medium'`; heights are 4px, 8px and 12px.
+- **`label`** (`input<string>`): accessible name for the progressbar, default `'Progress'`. Use a task-specific label such as `label="Uploading documents"`. Determinate bars expose `loaded` as `aria-valuenow`; infinite bars omit that value.
 - **`loaded`** (`input<number>`): the loaded value in %; drives the width of the filled line.
 - **`infinite`** (`input<boolean>`): switches to the cyclic animation and ignores `loaded`. Defaults to
   `false`.

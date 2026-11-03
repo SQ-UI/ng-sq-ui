@@ -13,6 +13,7 @@ import type { Size } from '@sq-ui/ng-sq-common';
 })
 export class ProgressBarComponent {
   size = input<Size>('medium');
+  label = input<string>('Progress');
   loaded = input<number>();
   infinite = input<boolean>(false);
   backgroundColor = input<string>('');

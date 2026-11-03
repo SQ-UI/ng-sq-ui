@@ -8,7 +8,7 @@
     @if (!isMonthsPickerEnabled()) {
       <button type="button"
               (click)="previous()"
-              class="change-period prev">
+              class="change-period prev" aria-label="Previous period">
         <i class="fas fa-chevron-left"></i>
       </button>
     }
@@ -37,7 +37,7 @@
     @if (!isMonthsPickerEnabled()) {
       <button type="button"
               (click)="next()"
-              class="change-period next">
+              class="change-period next" aria-label="Next period">
         <i class="fas fa-chevron-right"></i>
       </button>
     }

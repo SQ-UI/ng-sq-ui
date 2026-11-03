@@ -3,7 +3,7 @@
   {{name()}}
 
   @if (isSortable()) {
-    <button type="button" (click)="sort()">
+    <button type="button" [attr.aria-label]="'Sort by ' + name()" (click)="sort()">
       <i class="fas"
          aria-hidden="true"
          [class.fa-sort]="sortState() === undefined"

@@ -34,9 +34,3 @@
 .content {
   padding-bottom: 20px;
 }
-.form-style-preview {
-  margin-top: 32px;
-  .button-examples { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
-  .sample-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 240px)); gap: 24px; }
-  .sample-fields > * { min-width: 0; }
-}

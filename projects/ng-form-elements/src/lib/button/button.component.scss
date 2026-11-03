@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: sq.value('space-1') sq.value('space-4');
+  padding: var(--sq-button-padding-block, #{sq.value('space-1')}) sq.value('space-4');
   border: 0;
   border-radius: sq.value('radius-control');
   background: sq.value('color-brand');

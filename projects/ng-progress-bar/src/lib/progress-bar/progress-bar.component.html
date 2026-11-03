@@ -1,4 +1,5 @@
-<div class="progress linear" [ngClass]="{
+<div class="progress linear" role="progressbar" [attr.aria-label]="label()"
+     aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="infinite() ? null : loaded()" [ngClass]="{
     small: size() === 'small',
     medium: size() === 'medium',
     large: size() === 'large',

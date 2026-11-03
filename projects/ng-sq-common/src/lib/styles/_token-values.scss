@@ -29,6 +29,19 @@ $tokens: map.merge((
   'border-width': 1px,
   'radius-control': 4px,
 
+  // Dimensions observed in page metadata; final component typography remains pending.
+  'table-row-small': 36px,
+  'table-row-medium': 40px,
+  'table-row-large': 44px,
+  'calendar-width': 280px,
+  'calendar-cell': 40px,
+  'modal-width-small': 360px,
+  'modal-width-medium': 400px,
+  'modal-width-large': 440px,
+  'progress-height-small': 4px,
+  'progress-height-medium': 8px,
+  'progress-height-large': 12px,
+
   // Transitional source values, NOT confirmed Figma tokens. Keep until the
   // corresponding detailed design can be read; do not invent a missing palette.
   'color-secondary': rgba(18, 125, 104, 0.21),

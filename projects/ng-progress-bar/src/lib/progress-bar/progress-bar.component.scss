@@ -5,17 +5,18 @@
   position: relative;
   background: transparent;
   overflow: hidden;
+  border-radius: sq.value('radius-control');
 
   &.small {
-    height: 2px;
+    height: sq.value('progress-height-small');
   }
 
   &.medium {
-    height: 4px;
+    height: sq.value('progress-height-medium');
   }
 
   &.large {
-    height: 7px;
+    height: sq.value('progress-height-large');
   }
 
   .background {

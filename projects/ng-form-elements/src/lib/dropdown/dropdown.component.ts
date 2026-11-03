@@ -59,6 +59,15 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
   /** Option highlighted with the arrow keys (`-1` = none). */
   readonly activeIndex = signal<number>(-1);
 
+  onLabelClick(event: MouseEvent, control: HTMLElement) {
+    // The label moved outside the trigger; its click must not count as outside.
+    event.stopPropagation();
+    if (!this.disabled()) {
+      control.focus();
+      this.toggleOptionsDropdown();
+    }
+  }
+
   toggleOptionsDropdown() {
     if (this.disabled()) {
       return;

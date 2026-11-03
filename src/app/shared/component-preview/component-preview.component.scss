@@ -1,0 +1,17 @@
+:host { display: block; min-width: 0; }
+.component-preview { max-width: 1440px; margin: 0 auto; }
+.preview-section { margin-top: 32px; min-width: 0; }
+.preview-note { max-width: 80ch; font-size: 12px; line-height: 20px; }
+.size-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 16px 0; }
+.size-label { flex: 0 0 80px; font-size: 12px; }
+.preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; margin: 16px 0; }
+.reference-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 240px)); gap: 16px; }
+.table-grid { grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); }
+.preview-card { min-width: 0; padding: 16px; border: 1px solid var(--sq-color-border, #dcdcdc); border-radius: 4px; }
+.preview-card h4 { font-size: 14px; line-height: 24px; margin-bottom: 16px; }
+.progress-example { display: grid; gap: 8px; margin: 16px 0; font-size: 12px; }
+.modal-buttons, .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.dialog-subtitle { display: block; font-size: 12px; font-weight: 400; line-height: 20px; }
+.dialog-paragraph { margin-bottom: 12px; font-size: 12px; line-height: 20px; }
+.page-summary { margin-top: 8px; font-size: 12px; }
+@media (max-width: 450px) { .preview-card { padding: 12px; } .size-label { flex-basis: 100%; } }

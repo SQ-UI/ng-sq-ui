@@ -72,6 +72,15 @@ describe('PaginatorComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('names navigation controls and moves the current-page announcement on navigation', () => {
+    setPagination(generateDummyCollection(8), 2);
+    expect(queryPaginator('[data-btn-type="next"]')?.getAttribute('aria-label')).toBe('Next page');
+    expect(queryPaginator('[aria-current="page"]')?.textContent?.trim()).toBe('1');
+    queryPaginator('[data-btn-type="next"]')?.click();
+    fixture.detectChanges();
+    expect(queryPaginator('[aria-current="page"]')?.textContent?.trim()).toBe('2');
+  });
+
   it('should split a finite collection of items into a correct number of pages', () => {
     const recordCount = 238;
     const recordPerPage = 5;

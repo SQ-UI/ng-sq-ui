@@ -457,23 +457,6 @@
       </div>
     </sq-collapse-content>
 
-    <section id="formStylePreview" class="sq form-style-preview">
-      <h3>Component styles</h3>
-      <h4>Button / M</h4>
-      <div class="button-examples">
-        <sq-button id="stylePrimaryButton">Button M</sq-button>
-        <sq-button id="styleNeutralButton" appearance="neutral">Button M</sq-button>
-        <sq-button [disabled]="true">Button M</sq-button>
-      </div>
-      <h4>Input / S</h4>
-      <div class="sample-fields">
-        <sq-input controlId="styleDefaultField" controlLabel="Title" value="Text"></sq-input>
-        <sq-input controlId="styleErrorField" controlLabel="Title" value="Text" errorText="Error"></sq-input>
-        <sq-input controlId="styleHelpField" controlLabel="Title" value="Text" helpText="Assistive text"></sq-input>
-        <sq-input controlId="styleDisabledField" controlLabel="Title" value="Text" [disabled]="true"></sq-input>
-        <sq-textarea controlId="styleTextarea" controlLabel="Notes" controlPlaceholder="Write a note"
-                     helpText="Keep line breaks" [minHeight]="100"></sq-textarea>
-      </div>
-    </section>
+    <sq-component-preview></sq-component-preview>
   </section>
 </section>

@@ -1,0 +1,92 @@
+<section class="sq component-preview" id="componentPreview">
+  <header>
+    <h2>Component preview</h2>
+    <p class="preview-note">Interactive sizes and states. S/L/XL button sizes, larger fields and Phase 4 components use shared styles; their final Figma comparison is pending.</p>
+  </header>
+
+  <section id="previewButtons" class="preview-section">
+    <h3>Buttons</h3>
+    <p class="preview-note">Reference heights, with the shared M typography.</p>
+    @for (size of buttonSizes; track size.name) {
+      <div class="size-row" [attr.data-button-size]="size.name" [style.--sq-button-padding-block]="size.padding">
+        <span class="size-label">{{size.name}} · {{size.height}}px</span>
+        <sq-button [attr.id]="size.name === 'M' ? 'stylePrimaryButton' : null">Button {{size.name}}</sq-button>
+        <sq-button [attr.id]="size.name === 'M' ? 'styleNeutralButton' : null" appearance="neutral">Button {{size.name}}</sq-button>
+        <sq-button [disabled]="true">Disabled</sq-button>
+      </div>
+    }
+  </section>
+
+  <section id="previewFields" class="preview-section">
+    <h3>Fields</h3>
+    <div id="formStylePreview" class="reference-fields">
+      <sq-input controlId="styleDefaultField" controlLabel="Title" value="Text"></sq-input>
+      <sq-input controlId="styleErrorField" controlLabel="Title" value="Text" errorText="Error"></sq-input>
+      <sq-input controlId="styleDisabledField" controlLabel="Title" value="Text" [disabled]="true"></sq-input>
+    </div>
+    <div class="preview-grid">
+      @for (size of fieldSizes; track size.name) {
+        <article class="preview-card" [attr.data-field-size]="size.name" [style.--sq-field-line-height]="size.lineHeight">
+          <h4>{{size.name}} · {{size.height}}px</h4>
+          <sq-input controlLabel="Name" controlPlaceholder="Your name"></sq-input>
+          <sq-input controlLabel="Email" value="hello@example.com" helpText="We use this to contact you"></sq-input>
+          <sq-input controlLabel="Required field" errorText="Please enter a value"></sq-input>
+          <sq-input controlLabel="Disabled" value="Read only" [disabled]="true"></sq-input>
+          <sq-dropdown controlLabel="Team" controlPlaceholder="Choose a team" [options]="options" [(value)]="selected"></sq-dropdown>
+        </article>
+      }
+    </div>
+    <div class="preview-grid">
+      <article class="preview-card"><h4>Multiline</h4><sq-textarea controlLabel="Notes" controlPlaceholder="Write a note" helpText="Line breaks are preserved"></sq-textarea></article>
+      <article class="preview-card"><h4>Tags</h4><sq-tags-input controlLabel="Topics" controlPlaceholder="Add a topic" [(value)]="tags"></sq-tags-input></article>
+      <article class="preview-card"><h4>Typeahead</h4><sq-typeahead controlLabel="Search teams" controlPlaceholder="Type Design" [multiple]="true" [searchResults]="suggestions()" (onUserInputEnd)="search($event)" [(value)]="searchSelection"></sq-typeahead></article>
+    </div>
+    <div class="preview-grid">
+      <article class="preview-card"><h4>Checkboxes</h4><sq-checkbox controlLabel="Selected" [(value)]="checked"></sq-checkbox><sq-checkbox controlLabel="Unselected"></sq-checkbox><sq-checkbox controlLabel="Disabled selected" [value]="true" [disabled]="true"></sq-checkbox></article>
+      <article class="preview-card"><h4>Radio group</h4><sq-form-group groupLabel="Delivery"><sq-radiobutton name="previewDelivery" controlLabel="Standard" radioValue="standard" [(value)]="radio"></sq-radiobutton><sq-radiobutton name="previewDelivery" controlLabel="Express" radioValue="express" [(value)]="radio"></sq-radiobutton><sq-radiobutton controlLabel="Disabled" [disabled]="true"></sq-radiobutton></sq-form-group></article>
+    </div>
+  </section>
+
+  <section id="previewProgress" class="preview-section">
+    <h3>Progress</h3>
+    @for (size of sizes; track size.value) {
+      <div class="progress-example" [attr.data-progress-size]="size.value"><span>{{size.label}} · 62%</span><sq-progress-bar [size]="size.value" [loaded]="62" [label]="'Progress ' + size.label"></sq-progress-bar></div>
+    }
+    <div class="progress-example"><span>Indeterminate</span><sq-progress-bar [infinite]="true" label="Loading"></sq-progress-bar></div>
+  </section>
+
+  <section id="previewTables" class="preview-section">
+    <h3>Tables and pagination</h3>
+    <div class="preview-grid table-grid">
+      @for (size of sizes; track size.value) {
+        <article class="preview-card" [attr.data-table-size]="size.value"><h4>Table {{size.label}}</h4><sq-datatable [size]="size.value" [items]="rows" [sortByAllColumns]="true" [paginatorConfig]="pagination"></sq-datatable></article>
+      }
+      <article class="preview-card" id="previewEmptyTable"><h4>Empty state</h4><sq-datatable emptyText="No records to display"></sq-datatable></article>
+    </div>
+    <article class="preview-card" id="previewPaginator"><h4>Standalone paginator</h4><sq-paginator [items]="rows" [itemsPerPage]="2" [(paginatedCollection)]="visibleRows"></sq-paginator><div class="page-summary">{{visibleRows().length}} items on this page</div></article>
+  </section>
+
+  <section id="previewCalendar" class="preview-section">
+    <h3>Date and time</h3>
+    <div class="preview-grid">
+      <article class="preview-card" id="previewSingleCalendar"><h4>Single date</h4><sq-datetime-picker [(value)]="singleDate" [minDate]="minDate" [maxDate]="maxDate"></sq-datetime-picker></article>
+      <article class="preview-card" id="previewRangeCalendar"><h4>Date range</h4><sq-datetime-picker [(value)]="range" [isMultipleSelect]="true" [minDate]="minDate" [maxDate]="maxDate"></sq-datetime-picker></article>
+      <article class="preview-card"><h4>Disabled calendar</h4><sq-datetime-picker [value]="date" [disabled]="true"></sq-datetime-picker></article>
+      <article class="preview-card" id="previewTime"><h4>Editable time · AM/PM</h4><sq-time-picker [hours]="12" [minutes]="25" [isMeridiem]="true"></sq-time-picker></article>
+      <article class="preview-card"><h4>Spinner only</h4><sq-time-picker [hours]="13" [minutes]="20" [isEditable]="false"></sq-time-picker></article>
+      <article class="preview-card"><h4>Disabled time</h4><sq-time-picker [hours]="13" [minutes]="20" [disabled]="true"></sq-time-picker></article>
+    </div>
+  </section>
+
+  <section id="previewModals" class="preview-section">
+    <h3>Dialogs</h3>
+    <div class="modal-buttons">
+      @for (size of sizes; track size.value) { <sq-button [attr.data-modal-size]="size.value" (click)="openModal(size.value)">Open {{size.label}}</sq-button> }
+    </div>
+    <sq-modal [size]="modalSize()" [(show)]="modalVisible">
+      <div sq-modal-title>Example dialog <span class="dialog-subtitle">{{modalSize()}} · scrollable content</span></div>
+      <div sq-modal-body>@for (paragraph of modalParagraphs; track $index) { <p class="dialog-paragraph">{{paragraph}}</p> }</div>
+      <div sq-modal-footer class="dialog-actions"><sq-button appearance="neutral" (click)="modalVisible.set(false)">Cancel</sq-button><sq-button (click)="modalVisible.set(false)">Confirm</sq-button></div>
+    </sq-modal>
+  </section>
+</section>

@@ -36,6 +36,16 @@ touched. Only the control-specific properties are repeated in each section.
 | `disabled` | `boolean` | `false` | disables the native control |
 | `touch` | `output<void>` | — | fires when the user leaves the control |
 
+## Field presentation
+
+`sq-input`, `sq-textarea`, `sq-dropdown`, `sq-tags-input` and `sq-typeahead` also accept
+optional `helpText` and `errorText` strings (default `''`). A nonempty error replaces the helper,
+sets `aria-invalid`, and is linked through `aria-describedby`. Clearing it restores the helper.
+Messages are supplied by the caller; they are not inferred automatically from validation state.
+
+See the [form style migration guide](style-migration/phase-3-form-controls.md) for supported
+appearances, examples, compatibility notes and remaining design variants.
+
 ## sq-input
 
 A thin wrapper over the native `input` element.
@@ -90,6 +100,9 @@ A thin wrapper over the native `button` element.
 - **`type`** (`input<ButtonTypes | string>`): `'button'` (default), `'submit'` or `'reset'`. Anything
   else falls back to `'button'`.
 - **`disabled`** (`input<boolean>`): disables the button. Defaults to `false`.
+- **`appearance`** (`input<ButtonAppearance>`): `'primary'` (default) or `'neutral'`. Both use the
+  verified M geometry. `ButtonAppearance` is exported as a TypeScript type; `type` above still
+  controls native button/submit/reset behavior.
 
 `ButtonTypes` is exported for use in code:
 
@@ -103,7 +116,7 @@ enum ButtonTypes {
 
 ## sq-form-group
 
-Draws a labelled border around a group of controls — handy for radio groups.
+A labelled container for related controls, such as a radio group. Its label sits above the projected controls.
 
 ```html
 <sq-form-group groupLabel="Shipping method">

@@ -87,6 +87,19 @@ describe('DropdownComponent', () => {
     expect(component.listenForOutsideClick()).toBe(true);
   });
 
+  it('keeps label-click opening and ignores the label while disabled', () => {
+    fixture.componentRef.setInput('controlLabel', 'Choose an option');
+    fixture.detectChanges();
+    (fixture.nativeElement.querySelector('.sq-field-label') as HTMLElement).click();
+    fixture.detectChanges();
+    expect(component.isOpen()).toBe(true);
+    component.onClickOutsideComponent();
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+    (fixture.nativeElement.querySelector('.sq-field-label') as HTMLElement).click();
+    expect(component.isOpen()).toBe(false);
+  });
+
   it('should ignore toggling and selection while disabled', () => {
     fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();

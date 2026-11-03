@@ -1,0 +1,71 @@
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { PaginatorComponent, type LabelValuePair, type Size } from '@sq-ui/ng-sq-common';
+import { ButtonComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
+  TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent } from '@sq-ui/ng-form-elements';
+import { DatatableComponent } from '@sq-ui/ng-datatable';
+import { DatetimePickerComponent, TimePickerComponent, type DatetimePickerValue } from '@sq-ui/ng-datetime-picker';
+import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
+import { ModalComponent } from '@sq-ui/ng-modal';
+import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
+
+@Component({
+  selector: 'sq-component-preview',
+  standalone: true,
+  imports: [ButtonComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
+    TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent, PaginatorComponent,
+    DatatableComponent, DatetimePickerComponent, TimePickerComponent, ModalComponent, ProgressBarComponent],
+  templateUrl: './component-preview.component.html',
+  styleUrls: ['./component-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ComponentPreviewComponent {
+  readonly buttonSizes = [
+    { name: 'S', height: 24, padding: '0px' }, { name: 'M', height: 32, padding: '4px' },
+    { name: 'L', height: 40, padding: '8px' }, { name: 'XL', height: 48, padding: '12px' },
+  ];
+  readonly fieldSizes = [
+    { name: 'S', height: 28, lineHeight: '20px' }, { name: 'M', height: 32, lineHeight: '24px' },
+    { name: 'L', height: 40, lineHeight: '32px' },
+  ];
+  readonly sizes: { label: string; value: Size }[] = [
+    { label: 'S', value: 'small' }, { label: 'M', value: 'medium' }, { label: 'L', value: 'large' },
+  ];
+  readonly options: LabelValuePair[] = [
+    { label: 'Design', value: 'design' }, { label: 'Development', value: 'development' },
+    { label: 'Documentation', value: 'documentation' },
+  ];
+  readonly selected = signal<LabelValuePair | null>(null);
+  readonly tags = signal(['Angular', 'Design']);
+  readonly suggestions = signal<LabelValuePair[]>([]);
+  readonly searchSelection = signal<LabelValuePair[]>([]);
+  readonly checked = signal(true);
+  readonly radio = signal('standard');
+  readonly rows = [
+    { name: 'Design tokens', owner: 'Ada', status: 'Ready' },
+    { name: 'Form controls', owner: 'Lin', status: 'Review' },
+    { name: 'Documentation', owner: 'Sam', status: 'Draft' },
+    { name: 'Calendar', owner: 'Ada', status: 'Ready' },
+    { name: 'Data table', owner: 'Lin', status: 'Review' },
+    { name: 'Modal', owner: 'Sam', status: 'Ready' },
+    { name: 'Pagination', owner: 'Ada', status: 'Ready' },
+  ];
+  readonly pagination = { itemsPerPage: 3, maxDisplayedPages: 3 };
+  readonly visibleRows = signal<typeof this.rows>([]);
+  readonly date = Temporal.PlainDate.from('2026-11-19');
+  readonly minDate = Temporal.PlainDate.from('2026-11-01');
+  readonly maxDate = Temporal.PlainDate.from('2026-12-31');
+  readonly singleDate = signal<DatetimePickerValue>(this.date);
+  readonly range = signal<DatetimePickerValue>(Array.from({ length: 5 }, (_, index) => this.minDate.add({ days: 11 + index })));
+  readonly modalVisible = signal(false);
+  readonly modalSize = signal<Size>('medium');
+  readonly modalParagraphs = Array.from({ length: 8 }, (_, index) => `Section ${index + 1}. This dialog keeps its title and actions visible while longer content scrolls. Projected content and close interactions remain available at every size.`);
+
+  search(query: string) {
+    this.suggestions.set(this.options.filter(option => option.label.toLowerCase().includes(query.toLowerCase())));
+  }
+
+  openModal(size: Size) {
+    this.modalSize.set(size);
+    this.modalVisible.set(true);
+  }
+}

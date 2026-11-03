@@ -1,6 +1,7 @@
 <div class="modal-cover" [class.display-none]="isHidden()">
   <article class="modal-window animated"
            role="dialog"
+           [attr.data-size]="size()"
            aria-modal="true"
            [ngClass]="currentAnimationClass()"
            sqOutsideClickListener

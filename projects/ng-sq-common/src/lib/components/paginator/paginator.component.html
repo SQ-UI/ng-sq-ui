@@ -4,6 +4,7 @@
       <button type="button"
               [disabled]="disablePrevBtns()"
               data-btn-type="first"
+              aria-label="First page"
               (click)="onPageClick(pages()[0])">
         <i class="fas fa-angle-double-left" aria-hidden="true"></i>
       </button>
@@ -12,6 +13,7 @@
       <button type="button"
               [disabled]="disablePrevBtns()"
               data-btn-type="prev"
+              aria-label="Previous page"
               (click)="navigateToPage(-1)">
         <i class="fas fa-angle-left" aria-hidden="true"></i>
       </button>
@@ -24,6 +26,8 @@
             'truncated': page.isHidden
           }">
         <button type="button"
+                [attr.aria-label]="'Page ' + page.number"
+                [attr.aria-current]="page.isSelected ? 'page' : null"
                 (click)="onPageClick(page)">
           {{page.number}}
         </button>
@@ -33,6 +37,7 @@
       <button type="button"
               [disabled]="disableNextBtns()"
               data-btn-type="next"
+              aria-label="Next page"
               (click)="navigateToPage(1)">
         <i class="fas fa-angle-right" aria-hidden="true"></i>
       </button>
@@ -41,6 +46,7 @@
       <button type="button"
               [disabled]="disableNextBtns()"
               data-btn-type="last"
+              aria-label="Last page"
               (click)="onPageClick(pages()[pages().length - 1])">
         <i class="fas fa-angle-double-right" aria-hidden="true"></i>
       </button>

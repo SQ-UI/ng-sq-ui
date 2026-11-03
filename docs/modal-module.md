@@ -43,6 +43,7 @@ Clicking the overlay outside the window closes the modal (`onClickOutsideCompone
 
 ### Component properties
 
+- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`, default `'medium'`. Widths are 360px, 400px and 440px, constrained by the viewport with 16px outer spacing. Long body content scrolls while the title and footer remain visible. This replaces the previous viewport-relative default width.
 - **`show`** (`model<boolean>`): shows/hides the window. Defaults to `false`. Bind it with `[(show)]`.
 
 - **`customCssAnimation`** (`input<{ duration: number; entranceAnimation: string; exitAnimation: string }>`):

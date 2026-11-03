@@ -14,6 +14,7 @@ import { AppNavComponent } from './app-nav/app-nav.component';
 })
 export class AppComponent {
   navItems: NavItem[] = [
+    { name: 'Preview', routeLink: 'preview' },
     {
       name: 'SQ-UI',
       routeLink: 'sq-ui'

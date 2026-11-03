@@ -7,7 +7,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { DatatableHeaderDirective } from '../directives/datatable-header.directive';
 import { DatatableBodyDirective } from '../directives/datatable-body.directive';
 import { SortItem } from '../shared/interfaces/sort-item';
-import { PaginatorConfig, PageChangeEvent } from '@sq-ui/ng-sq-common';
+import { PaginatorConfig, PageChangeEvent, type Size } from '@sq-ui/ng-sq-common';
 import { PaginatorComponent } from '@sq-ui/ng-sq-common';
 import { DatatableColumn } from '../shared/interfaces/datatable-column';
 import { DatatableRowComponent } from '../datatable-row/datatable-row.component';
@@ -37,6 +37,9 @@ function asRowRecord<TItem>(item: TItem): Record<string, unknown> {
 })
 export class DatatableComponent<TItem = unknown> {
   items = input<TItem[]>([]);
+  size = input<Size>('medium');
+  /** Optional empty presentation; custom body templates retain complete control. */
+  emptyText = input<string>('');
   sortByAllColumns = input<boolean>(false);
   paginatorConfig = input<PaginatorConfig>({});
   sortByColumns = input<string[]>([]);
