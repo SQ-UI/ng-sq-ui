@@ -7,6 +7,7 @@
   <section id="previewButtons" class="preview-section">
     <h3>Buttons</h3>
     <p class="preview-note">Reference heights, with the shared M typography.</p>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=31-44" target="_blank" rel="noreferrer">Figma: Primary M</a> · M styles verified; other sizes use metadata heights.</p>
     @for (size of buttonSizes; track size.name) {
       <div class="size-row" [attr.data-button-size]="size.name" [style.--sq-button-padding-block]="size.padding">
         <span class="size-label">{{size.name}} · {{size.height}}px</span>
@@ -19,6 +20,7 @@
 
   <section id="previewFields" class="preview-section">
     <h3>Fields</h3>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=69-850" target="_blank" rel="noreferrer">Figma: small field, label and error</a> · Related controls adapt this field frame; their detailed states remain pending.</p>
     <div id="formStylePreview" class="reference-fields">
       <sq-input controlId="styleDefaultField" controlLabel="Title" value="Text"></sq-input>
       <sq-input controlId="styleErrorField" controlLabel="Title" value="Text" errorText="Error"></sq-input>
@@ -49,6 +51,7 @@
 
   <section id="previewProgress" class="preview-section">
     <h3>Progress</h3>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=92-1576" target="_blank" rel="noreferrer">Figma: Progress Bar</a> · Metadata heights; shared styles pending final comparison.</p>
     @for (size of sizes; track size.value) {
       <div class="progress-example" [attr.data-progress-size]="size.value"><span>{{size.label}} · 62%</span><sq-progress-bar [size]="size.value" [loaded]="62" [label]="'Progress ' + size.label"></sq-progress-bar></div>
     }
@@ -57,6 +60,7 @@
 
   <section id="previewTables" class="preview-section">
     <h3>Tables and pagination</h3>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=8-5" target="_blank" rel="noreferrer">Figma: Table</a> · Metadata densities. <a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=106-766" target="_blank" rel="noreferrer">Figma: Paginator</a> · Detailed states pending.</p>
     <div class="preview-grid table-grid">
       @for (size of sizes; track size.value) {
         <article class="preview-card" [attr.data-table-size]="size.value"><h4>Table {{size.label}}</h4><sq-datatable [size]="size.value" [items]="rows" [sortByAllColumns]="true" [paginatorConfig]="pagination"></sq-datatable></article>
@@ -68,6 +72,7 @@
 
   <section id="previewCalendar" class="preview-section">
     <h3>Date and time</h3>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=8-6" target="_blank" rel="noreferrer">Figma: Datepickers</a> · Metadata geometry; range, time and disabled visuals pending comparison.</p>
     <div class="preview-grid">
       <article class="preview-card" id="previewSingleCalendar"><h4>Single date</h4><sq-datetime-picker [(value)]="singleDate" [minDate]="minDate" [maxDate]="maxDate"></sq-datetime-picker></article>
       <article class="preview-card" id="previewRangeCalendar"><h4>Date range</h4><sq-datetime-picker [(value)]="range" [isMultipleSelect]="true" [minDate]="minDate" [maxDate]="maxDate"></sq-datetime-picker></article>
@@ -80,6 +85,7 @@
 
   <section id="previewModals" class="preview-section">
     <h3>Dialogs</h3>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=221-2766" target="_blank" rel="noreferrer">Figma: Modal</a> · Metadata widths with viewport constraints; detailed styling pending.</p>
     <div class="modal-buttons">
       @for (size of sizes; track size.value) { <sq-button [attr.data-modal-size]="size.value" (click)="openModal(size.value)">Open {{size.label}}</sq-button> }
     </div>
@@ -88,5 +94,92 @@
       <div sq-modal-body>@for (paragraph of modalParagraphs; track $index) { <p class="dialog-paragraph">{{paragraph}}</p> }</div>
       <div sq-modal-footer class="dialog-actions"><sq-button appearance="neutral" (click)="modalVisible.set(false)">Cancel</sq-button><sq-button (click)="modalVisible.set(false)">Confirm</sq-button></div>
     </sq-modal>
+  </section>
+
+  <section id="previewValidation" class="preview-section">
+    <h3>Caller-controlled messages</h3>
+    <p class="preview-note">The caller supplies error text. Showing an error replaces the helper; clearing it restores the helper and removes the invalid state.</p>
+    <article class="preview-card">
+      <sq-input controlId="previewValidatedName" controlLabel="Display name" [(value)]="validatedName"
+                helpText="Choose a name for your profile" [errorText]="showError() ? 'Please check your display name' : ''"></sq-input>
+      <sq-button id="previewToggleError" appearance="neutral" (click)="showError.set(!showError())">{{showError() ? 'Clear error' : 'Show error'}}</sq-button>
+    </article>
+  </section>
+
+  <section id="previewTemplates" class="preview-section">
+    <h3>Custom templates</h3>
+    <p class="preview-note">Consumer-defined examples using the existing template contexts. These decorations are examples, with no exact Figma counterpart.</p>
+    <div class="preview-grid">
+      <article class="preview-card" id="previewCustomDropdown">
+        <h4>Dropdown selection, option and chevron</h4>
+        <sq-dropdown controlLabel="Custom team" controlPlaceholder="Choose a team" [options]="options" [(value)]="customSelected">
+          <ng-template sq-dropdown-selected-option let-value="value"><strong class="template-selected">{{value.label}}</strong></ng-template>
+          <ng-template sq-dropdown-option let-option="option"><span class="template-option">Team: {{option.label}}</span></ng-template>
+          <ng-template sq-dropdown-chevron let-isOpen="isDropdownOpen"><span class="dropdown-icon template-chevron" aria-hidden="true">{{isOpen ? '−' : '+'}}</span></ng-template>
+        </sq-dropdown>
+      </article>
+      <article class="preview-card" id="previewCustomTags">
+        <h4>Tag with remove callback</h4>
+        <sq-tags-input controlLabel="Custom topics" controlPlaceholder="Add a topic" [(value)]="customTags">
+          <ng-template sq-tag let-tag="tag" let-remove="remove">
+            <span class="template-chip">{{tag}}<button type="button" [attr.aria-label]="'Remove ' + tag" (click)="remove(tag)">×</button></span>
+          </ng-template>
+        </sq-tags-input>
+      </article>
+      <article class="preview-card" id="previewCustomTypeahead">
+        <h4>Search result and selected item</h4>
+        <sq-typeahead controlLabel="Custom search" controlPlaceholder="Type Design" [multiple]="true"
+                      [searchResults]="customSuggestions()" (onUserInputEnd)="searchCustom($event)" [(value)]="customSearchSelection">
+          <ng-template sq-typeahead-option let-option="option"><span class="template-option">Result: {{option.label}}</span></ng-template>
+          <ng-template sq-typeahead-selected-option let-item="item" let-remove="remove">
+            <span class="template-chip">{{item.label}}<button type="button" [attr.aria-label]="'Remove ' + item.label" (click)="remove(item)">×</button></span>
+          </ng-template>
+        </sq-typeahead>
+      </article>
+      <article class="preview-card" id="previewCustomChecks">
+        <h4>Checkbox and radio contexts</h4>
+        <sq-checkbox controlId="previewCustomCheckbox" [(value)]="customChecked">
+          <ng-template sq-checkbox-label let-isSelected="isSelected"><label for="previewCustomCheckbox">Updates: {{isSelected ? 'enabled' : 'disabled'}}</label></ng-template>
+        </sq-checkbox>
+        <sq-radiobutton controlId="previewCustomDaily" name="previewCustomSchedule" radioValue="daily" [(value)]="customRadio">
+          <ng-template sq-radio-label let-value="value" let-isSelected="isSelected"><label for="previewCustomDaily">{{value}}: {{isSelected ? 'selected' : 'unselected'}}</label></ng-template>
+        </sq-radiobutton>
+        <sq-radiobutton controlId="previewCustomWeekly" name="previewCustomSchedule" radioValue="weekly" [(value)]="customRadio">
+          <ng-template sq-radio-label let-value="value" let-isSelected="isSelected"><label for="previewCustomWeekly">{{value}}: {{isSelected ? 'selected' : 'unselected'}}</label></ng-template>
+        </sq-radiobutton>
+      </article>
+    </div>
+    <article class="preview-card" id="previewCustomTable">
+      <h4>Table with a caller-managed body</h4>
+      <sq-datatable emptyText="This message is suppressed by the custom body">
+        <ng-template sq-datatable-header><tr><th>Component</th><th>Status</th></tr></ng-template>
+        <ng-template sq-datatable-body>
+          @for (row of rows.slice(0, 3); track row.name) {
+            <tr><td data-heading="Component">{{row.name}}</td><td data-heading="Status"><strong>{{row.status}}</strong></td></tr>
+          }
+        </ng-template>
+      </sq-datatable>
+    </article>
+  </section>
+
+  <section id="previewTheme" class="preview-section">
+    <h3>Local theme overrides</h3>
+    <p class="preview-note">The inner theme inherits brand and border overrides. Progress colors supplied directly to the component take precedence.</p>
+    <div class="preview-grid">
+      <article class="preview-card preview-custom-theme">
+        <h4>Custom brand</h4>
+        <section class="sq" id="previewNestedTheme">
+          <sq-button>Custom brand</sq-button>
+          <sq-input controlLabel="Inherited border" value="Local theme"></sq-input>
+          <sq-progress-bar [loaded]="62" label="Inherited brand"></sq-progress-bar>
+        </section>
+      </article>
+      <article class="preview-card" id="previewDefaultTheme">
+        <h4>Default brand</h4>
+        <sq-button>Default brand</sq-button>
+        <sq-input controlLabel="Default border" value="Default theme"></sq-input>
+        <sq-progress-bar [loaded]="62" label="Explicit color override" backgroundColor="#eeeeee" fillColor="#3759c7"></sq-progress-bar>
+      </article>
+    </div>
   </section>
 </section>

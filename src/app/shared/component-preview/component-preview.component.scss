@@ -14,4 +14,20 @@
 .dialog-subtitle { display: block; font-size: 12px; font-weight: 400; line-height: 20px; }
 .dialog-paragraph { margin-bottom: 12px; font-size: 12px; line-height: 20px; }
 .page-summary { margin-top: 8px; font-size: 12px; }
+.template-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  margin: 2px 4px 2px 0;
+  border: 1px solid var(--sq-color-border, #dcdcdc);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 24px;
+}
+.template-chip button { padding: 0 4px; color: inherit; }
+.template-option { display: block; padding: 4px 8px; }
+.template-chevron { font-size: 16px; line-height: 20px; }
+.preview-custom-theme { --sq-color-brand: #3759c7; --sq-color-border: #8b9bd9; }
+#previewTheme sq-button { display: inline-block; margin-bottom: 16px; }
 @media (max-width: 450px) { .preview-card { padding: 12px; } .size-label { flex-basis: 100%; } }

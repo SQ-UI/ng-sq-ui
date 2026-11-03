@@ -12,6 +12,8 @@ Phase 3 progress (2026-11-03): [buttons and form controls](style-migration/phase
 
 Phase 4 progress (2026-11-03): [remaining packages and expanded preview](style-migration/phase-4-components.md). Paginator, table densities/optional empty message, calendar/time controls, responsive modal sizes and progress heights now use the shared foundations. The `/#/preview` gallery includes all size examples and interactive states. 191 tests and browser checks at 1440px/390px pass. Geometry from the available Figma metadata is implemented; detailed visual fidelity remains pending because the Figma Starter MCP quota still blocks the remaining references. These adaptations do not close the source-design gaps in Phases 1 and 3.
 
+Phase 5 progress (2026-11-03): [examples and consumer documentation](style-migration/phase-5-examples-and-docs.md). The gallery now includes interactive template contexts, helper/error recovery, local theme inheritance and direct source links. A [consumer styling/migration guide](styling.md) and [reference checklist](style-migration/preview-reference-checklist.md) cover setup, overrides, presentation options and exact known node IDs with evidence levels. Unread Figma variants remain explicitly pending for final comparison; Phase 5 does not close those source gaps.
+
 1. **Phase 1: Establish the component and state inventory**
 
    1. Read each relevant Figma component's detailed design context and capture its reference screenshot. The supplied node `28:10` is the `_Tech` page; use the dedicated component pages for final colors, sizes, and states, and `_Tech` for the underlying structure.

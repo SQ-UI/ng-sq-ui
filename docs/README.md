@@ -13,6 +13,8 @@ Even better! We support **custom templates** for form controls. This is an essen
 
 ## 3.x in one minute
 
+For the component style migration, see [Styling and migration](styling.md): global imports, font setup, runtime overrides, supported sizes and custom templates. The repository demo includes a **Preview** gallery at `/#/preview`; exact Figma comparison for the remaining variants is still pending.
+
 - **Standalone only.** There are no NgModules to import; every component goes straight into the
   `imports` array of your own standalone component.
 - **Signals everywhere.** Inputs are `input()`, outputs are `output()`, and the value of a form control

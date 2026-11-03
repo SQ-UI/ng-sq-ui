@@ -1,12 +1,13 @@
-/** Browser verification for the expanded preview and Phase 4. No dependencies installed. */
+/** Browser verification for the expanded preview. No dependencies installed. */
 import { spawn, execFileSync } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import assert from 'node:assert/strict';
 
 const base = process.env.STYLE_BASELINE_URL || 'http://127.0.0.1:4201';
-const output = resolve('docs/style-migration/phase-4/screenshots');
-const profile = resolve('tmp', `phase-4-chrome-${Date.now()}`);
+const phase5 = process.env.STYLE_PREVIEW_PHASE === '5';
+const output = resolve(`docs/style-migration/phase-${phase5 ? '5' : '4'}/screenshots`);
+const profile = resolve('tmp', `component-preview-chrome-${Date.now()}`);
 await mkdir(output, { recursive: true }); await mkdir(profile, { recursive: true });
 const browser = spawn(process.env.STYLE_BASELINE_BROWSER || 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   ['--headless', '--disable-gpu', '--no-first-run', '--no-default-browser-check', '--remote-debugging-port=0', '--remote-debugging-address=127.0.0.1', `--user-data-dir=${profile}`, 'about:blank'],
@@ -124,6 +125,61 @@ try {
     await evaluate('document.querySelector("#previewTime .spinner").click()');
     await waitFor(`document.querySelector('#previewTime input[aria-label=Hours]').value!==${JSON.stringify(hours)}`);
     checks.timeSpinner = true;
+    if (phase5) {
+      await evaluate('document.querySelector("#previewToggleError button").click()');
+      await waitFor('document.querySelector("#previewValidatedName")?.getAttribute("aria-invalid")==="true"');
+      assert.equal(await evaluate('document.querySelector("#previewValidatedName").getAttribute("aria-describedby")'), 'previewValidatedName-message');
+      assert.equal(await evaluate('document.querySelector("#previewValidatedName-message").getAttribute("role")'), 'alert');
+      await capture('validation-error', '#previewValidation');
+      await evaluate('document.querySelector("#previewToggleError button").click()');
+      await waitFor('!document.querySelector("#previewValidatedName")?.hasAttribute("aria-invalid")');
+      assert.equal(await evaluate('document.querySelector("#previewValidatedName-message").textContent.trim()'), 'Choose a name for your profile');
+      assert.equal(await evaluate('document.querySelector("#previewValidatedName-message").hasAttribute("role")'), false);
+      checks.messageRecovery = true;
+
+      await evaluate('document.querySelector("#previewCustomDropdown [role=combobox]").click()');
+      await waitFor('document.querySelector("#previewCustomDropdown [role=option]")?.textContent.includes("Team: Design")');
+      assert.equal(await evaluate('document.querySelector("#previewCustomDropdown .template-chevron").textContent'), '−');
+      await evaluate('document.querySelector("#previewCustomDropdown [role=option]").click()');
+      await waitFor('document.querySelector("#previewCustomDropdown .template-selected")?.textContent==="Design"');
+      assert.equal(await evaluate('document.querySelector("#previewCustomDropdown .template-chevron").textContent'), '+');
+      await evaluate(`document.querySelector('#previewCustomTags button[aria-label="Remove Design"]').click()`);
+      await waitFor('document.querySelectorAll("#previewCustomTags .template-chip").length===1');
+      assert.equal(await evaluate('document.querySelector("#previewCustomTags .template-chip").textContent.trim()'), 'Angular×');
+      await evaluate(`(() => {const e=document.querySelector('#previewCustomTypeahead input');e.focus();e.value='Design';e.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+      await waitFor('document.querySelector("#previewCustomTypeahead .template-option")?.textContent==="Result: Design"');
+      await evaluate('document.querySelector("#previewCustomTypeahead .template-option").click()');
+      await waitFor('!!document.querySelector("#previewCustomTypeahead .template-chip")');
+      await evaluate(`document.querySelector('#previewCustomTypeahead button[aria-label="Remove Design"]').click()`);
+      await waitFor('!document.querySelector("#previewCustomTypeahead .template-chip")');
+      await evaluate('document.querySelector("#previewCustomCheckbox").click()');
+      await waitFor('document.querySelector("#previewCustomChecks label[for=previewCustomCheckbox]").textContent.includes("disabled")');
+      await evaluate('document.querySelector("#previewCustomWeekly").click()');
+      await waitFor('document.querySelector("#previewCustomChecks label[for=previewCustomWeekly]").textContent==="weekly: selected"');
+      assert.equal(await evaluate('document.querySelector("#previewCustomChecks label[for=previewCustomDaily]").textContent'), 'daily: unselected');
+      assert.equal(await evaluate('document.querySelectorAll("#previewCustomTable tbody tr").length'), 3);
+      assert.equal(await evaluate('!!document.querySelector("#previewCustomTable .datatable-empty")'), false);
+      checks.customTemplates = true;
+      await capture('custom-templates', '#previewTemplates');
+      await capture('custom-table', '#previewCustomTable');
+
+      const theme = await evaluate(`(() => {
+        const color = selector => getComputedStyle(document.querySelector(selector)).backgroundColor;
+        return {nested:color('#previewNestedTheme button'),normal:color('#previewDefaultTheme button'),
+          inheritedProgress:color('#previewNestedTheme .loading-line'),inlineProgress:color('#previewDefaultTheme .loading-line'),
+          inlineTrack:color('#previewDefaultTheme .background'),overflow:document.documentElement.scrollWidth>innerWidth};
+      })()`);
+      assert.equal(theme.nested, 'rgb(55, 89, 199)');
+      assert.equal(theme.normal, 'rgb(0, 196, 116)');
+      assert.equal(theme.inheritedProgress, theme.nested);
+      assert.equal(theme.inlineProgress, theme.nested);
+      assert.equal(theme.inlineTrack, 'rgb(238, 238, 238)');
+      assert.equal(theme.overflow, false);
+      checks.themeOverrides = theme;
+      await capture('theme-overrides', '#previewTheme');
+      assert.equal(await evaluate(`document.querySelectorAll('.preview-section a[href^="https://www.figma.com/design/"]').length`), 7);
+      checks.referenceLinks = true;
+    }
     height = 640; await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
     await cdp('Animation.setPlaybackRate', { playbackRate: 1 });
     checks.modals = [];
@@ -139,7 +195,7 @@ try {
       else await evaluate('document.querySelector(".modal-cover").click()');
       await waitFor('!!document.querySelector(".modal-cover.display-none")');
     }
-    console.log(`Preview geometry and Phase 4 interactions passed at ${width}px`);
+    console.log(`Preview geometry and Phase ${phase5 ? '5' : '4'} interactions passed at ${width}px`);
   }
   assert.equal(report.runtimeErrors.length, 0); report.success = true;
 } finally {

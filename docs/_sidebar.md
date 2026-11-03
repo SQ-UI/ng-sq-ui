@@ -1,4 +1,5 @@
 - [Installation](installation.md)
+- [Styling and migration](styling.md)
 - [FormElementsModule](form-elements-module.md)
 - [ModalModule](modal-module.md)
 - [ProgressBarModule](progressbar-module.md)

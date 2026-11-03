@@ -1,8 +1,12 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { PaginatorComponent, type LabelValuePair, type Size } from '@sq-ui/ng-sq-common';
 import { ButtonComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
-  TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent } from '@sq-ui/ng-form-elements';
-import { DatatableComponent } from '@sq-ui/ng-datatable';
+  TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent,
+  SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective,
+  SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
+  SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective,
+  SqCheckboxLabelTemplateDirective, SqRadiobuttonLabelTemplateDirective } from '@sq-ui/ng-form-elements';
+import { DatatableComponent, DatatableHeaderDirective, DatatableBodyDirective } from '@sq-ui/ng-datatable';
 import { DatetimePickerComponent, TimePickerComponent, type DatetimePickerValue } from '@sq-ui/ng-datetime-picker';
 import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 import { ModalComponent } from '@sq-ui/ng-modal';
@@ -13,7 +17,12 @@ import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
   standalone: true,
   imports: [ButtonComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
     TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent, PaginatorComponent,
-    DatatableComponent, DatetimePickerComponent, TimePickerComponent, ModalComponent, ProgressBarComponent],
+    DatatableComponent, DatetimePickerComponent, TimePickerComponent, ModalComponent, ProgressBarComponent,
+    SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective,
+    SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
+    SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective,
+    SqCheckboxLabelTemplateDirective, SqRadiobuttonLabelTemplateDirective,
+    DatatableHeaderDirective, DatatableBodyDirective],
   templateUrl: './component-preview.component.html',
   styleUrls: ['./component-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,6 +49,14 @@ export class ComponentPreviewComponent {
   readonly searchSelection = signal<LabelValuePair[]>([]);
   readonly checked = signal(true);
   readonly radio = signal('standard');
+  readonly customSelected = signal<LabelValuePair | null>(null);
+  readonly customTags = signal(['Design', 'Angular']);
+  readonly customSuggestions = signal<LabelValuePair[]>([]);
+  readonly customSearchSelection = signal<LabelValuePair[]>([]);
+  readonly customChecked = signal(true);
+  readonly customRadio = signal('daily');
+  readonly showError = signal(false);
+  readonly validatedName = signal('');
   readonly rows = [
     { name: 'Design tokens', owner: 'Ada', status: 'Ready' },
     { name: 'Form controls', owner: 'Lin', status: 'Review' },
@@ -62,6 +79,10 @@ export class ComponentPreviewComponent {
 
   search(query: string) {
     this.suggestions.set(this.options.filter(option => option.label.toLowerCase().includes(query.toLowerCase())));
+  }
+
+  searchCustom(query: string) {
+    this.customSuggestions.set(this.options.filter(option => option.label.toLowerCase().includes(query.toLowerCase())));
   }
 
   openModal(size: Size) {

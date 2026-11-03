@@ -1,5 +1,7 @@
 # FormElementsModule
 
+For global stylesheet imports, font setup, size customization and migration effects, see [Styling and migration](styling.md). The repository gallery at `/#/preview` includes default and custom-template controls, helper/error recovery and inherited theme examples.
+
 > Applies to **3.x** (Angular 22).
 
 Every control in this page is standalone, has no `ControlValueAccessor`, and is bound with a two-way
