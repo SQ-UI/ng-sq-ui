@@ -33,22 +33,60 @@ sq-radiobutton .checkable {
   }
 }
 
-.sq {
-  .radio {
+.sq sq-radiobutton .checkable {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 24px;
+  font-family: sq.value('font-family-sans');
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: sq.value('font-weight-regular');
+  color: sq.value('color-text');
+
+  > .radio {
     position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 1px solid sq.value('color-brand');
-    padding: 3px;
-    margin-right: 5px;
+    border: sq.value('border-width') solid sq.value('color-brand');
+    padding: 0;
+    margin: 0;
+    background: sq.value('color-white');
+
+    > .inner {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0;
+      background: sq.value('color-white');
+    }
   }
 
-  .disabled .radio {
-    border-color: sq.value('color-disabled-radio-border');
+  > .label { color: var(--sq-radio-label-color, #{sq.value('color-text')}); }
+  &.checked > .radio {
+    background: sq.value('color-brand');
+    > .inner { opacity: 1; }
   }
-}
-
-.sq sq-radiobutton .checkable.checked .radio .inner {
-  border-radius: 50%;
+  @media (hover: hover) {
+    &:not(.disabled):hover > .label { color: sq.value('color-brand'); }
+  }
+  &.disabled {
+    color: sq.value('color-disabled');
+    > .label { color: sq.value('color-disabled'); }
+    > .radio {
+      border-color: sq.value('color-disabled-radio-border');
+      background: sq.value('color-disabled-surface');
+      > .inner { background: sq.value('color-disabled'); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    > .radio > .inner { transition: none; }
+  }
 }

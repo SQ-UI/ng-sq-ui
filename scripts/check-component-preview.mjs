@@ -217,8 +217,61 @@ async function checkCheckboxStyles() {
   assert.equal(inherited,'rgb(18, 52, 86)');
   await evaluate(`document.querySelector('#previewCheckboxes').style.removeProperty('--sq-color-brand')`);
   const radio=await evaluate(`(()=>{const r=document.querySelector('#previewFields .radio'),s=getComputedStyle(r),b=r.getBoundingClientRect();return {width:b.width,height:b.height,radius:s.borderRadius,padding:s.padding,border:s.borderTopColor}})()`);
-  assert.deepEqual(radio,{width:20,height:20,radius:'50%',padding:'3px',border:'rgb(0, 196, 116)'});
+  assert.deepEqual(radio,{width:20,height:20,radius:'50%',padding:'0px',border:'rgb(0, 196, 116)'});
   return {states,focusRing,customFocus,inherited,radio,squareAndLabelToggle:true,disabledSkipped:true};
+}
+async function checkRadioStyles() {
+  const states=await evaluate(`Array.from(document.querySelectorAll('[data-radio-state]')).map(e=>{
+    const input=e.querySelector('input'),circle=e.querySelector('.radio'),label=e.querySelector('label'),dot=e.querySelector('.inner'),cs=getComputedStyle(circle),ls=getComputedStyle(label),ds=getComputedStyle(dot),r=circle.getBoundingClientRect(),lr=label.getBoundingClientRect(),dr=dot.getBoundingClientRect();
+    return {name:e.dataset.radioState,checked:input.checked,disabled:input.disabled,label:ls.color,fontSize:ls.fontSize,lineHeight:ls.lineHeight,weight:ls.fontWeight,font:ls.fontFamily,
+      width:r.width,height:r.height,gap:lr.x-r.right,radius:cs.borderRadius,border:cs.borderTopColor,stroke:cs.borderTopWidth,background:cs.backgroundColor,dotWidth:dr.width,dotHeight:dr.height,dotRadius:ds.borderRadius,dotOpacity:ds.opacity,dotColor:ds.backgroundColor,decorative:circle.getAttribute('aria-hidden'),centerDelta:Math.abs(r.x+r.width/2-dr.x-dr.width/2)+Math.abs(r.y+r.height/2-dr.y-dr.height/2)};
+  })`);
+  assert.equal(states.length,4);
+  for(const s of states){
+    const disabled=s.name==='disabled',selected=s.name==='selected';
+    assert.equal(s.width,20);assert.equal(s.height,20);assert.equal(s.gap,10);assert.equal(s.radius,'50%');assert.equal(s.stroke,'1px');
+    assert.equal(s.fontSize,'14px');assert.equal(s.lineHeight,'24px');assert.equal(s.weight,'400');assert(s.font.includes('Space Grotesk'));
+    assert.equal(s.checked,selected);assert.equal(s.disabled,disabled);
+    assert.equal(s.border,disabled?'rgb(170, 170, 170)':'rgb(0, 196, 116)');
+    assert.equal(s.background,disabled?'rgb(235, 235, 235)':selected?'rgb(0, 196, 116)':'rgb(255, 255, 255)');
+    assert.equal(s.label,disabled?'rgb(170, 170, 170)':s.name==='hover'?'rgb(0, 196, 116)':'rgb(32, 32, 32)');
+    assert.equal(s.dotWidth,8);assert.equal(s.dotHeight,8);assert.equal(s.dotRadius,'50%');assert(s.centerDelta<1);
+    assert.equal(s.dotOpacity,selected?'1':'0');assert.equal(s.dotColor,disabled?'rgb(170, 170, 170)':'rgb(255, 255, 255)');assert.equal(s.decorative,'true');
+  }
+  const click=async selector=>{
+    await evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center'})`);
+    const p=await evaluate(`(()=>{const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()`);
+    await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',...p});
+    await cdp('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',buttons:1,clickCount:1,...p});
+    await cdp('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',buttons:0,clickCount:1,...p});
+  };
+  await click('[data-radio-state=default] .radio');
+  assert.equal(await evaluate('document.querySelector("#previewRadioDefault").checked'),true);
+  assert.equal(await evaluate('document.querySelectorAll("input[name=previewRadioStates]:checked").length'),1);
+  assert.equal(await evaluate('getComputedStyle(document.querySelector("label[for=previewRadioDefault]")).color'),'rgb(0, 196, 116)');
+  await click('label[for=previewRadioSelected]');
+  assert.equal(await evaluate('document.querySelector("#previewRadioSelected").checked'),true);
+  assert.equal(await evaluate('document.querySelector("#previewRadioDefault").checked'),false);
+  await click('[data-radio-state=disabled] .radio');
+  assert.equal(await evaluate('document.querySelector("#previewRadioDisabled").checked'),false);
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});
+  await focus('#previewRadioDefault');await key(' ');
+  assert.equal(await evaluate('document.querySelector("#previewRadioDefault").checked'),true);
+  await key('ArrowRight');assert.equal(await evaluate('document.activeElement.id'),'previewRadioHover');
+  await key('ArrowRight');assert.equal(await evaluate('document.activeElement.id'),'previewRadioSelected');
+  const focusRing=await visibleFocus('[data-radio-state=selected] .radio');
+  await key('ArrowRight');assert.equal(await evaluate('document.activeElement.id'),'previewRadioDefault');
+  await key('ArrowLeft');assert.equal(await evaluate('document.activeElement.id'),'previewRadioSelected');
+  assert.equal(await evaluate('document.querySelectorAll("input[name=previewRadioStates]:checked").length'),1);
+  assert.equal(await evaluate('document.querySelector("#previewRadioGroup .checkable.checked label").textContent'),'Standard');
+  await key('Tab');assert.notEqual(await evaluate('document.activeElement.id'),'previewRadioDisabled');
+  await focus('#previewCustomWeekly');await key('ArrowLeft');
+  assert.equal(await evaluate('document.querySelector("#previewCustomDaily").checked'),true);
+  const customFocus=await visibleFocus('#previewCustomChecks sq-radiobutton .checkable:has(:focus-visible)');
+  await evaluate(`document.querySelector('#previewRadios').style.setProperty('--sq-color-brand','#123456')`);
+  const inherited=await evaluate(`getComputedStyle(document.querySelector('[data-radio-state=selected] .radio')).backgroundColor`);assert.equal(inherited,'rgb(18, 52, 86)');
+  await evaluate(`document.querySelector('#previewRadios').style.removeProperty('--sq-color-brand')`);
+  return {states,focusRing,customFocus,inherited,singleSelection:true,groupIsolation:true,circleAndLabelSelect:true,disabledSkipped:true};
 }
 try {
   let port;
@@ -263,9 +316,9 @@ try {
     assert(sizes.progress.every(x => x.value === '62'));
     if (width === 1440) assert.deepEqual(sizes.rows.map(x => x.height), [36,40,44]);
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
-    const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles(), checkboxes: await checkCheckboxStyles() }; report.checks.push(checks);
+    const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles(), checkboxes: await checkCheckboxStyles(), radios: await checkRadioStyles() }; report.checks.push(checks);
     const targets = [
-      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],
+      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],['radios','#previewRadios'],
       ['extra-fields','#previewFields .preview-grid:nth-of-type(3)'],['progress','#previewProgress'],
       ['table-small','[data-table-size=small]'],['table-medium','[data-table-size=medium]'],['table-large','[data-table-size=large]'],
       ['empty-table','#previewEmptyTable'],['paginator','#previewPaginator'],['calendar','#previewSingleCalendar'],['range','#previewRangeCalendar'],['time','#previewTime'],

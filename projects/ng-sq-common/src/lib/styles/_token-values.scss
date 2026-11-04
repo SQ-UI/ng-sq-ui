@@ -77,7 +77,7 @@ $tokens: map.merge(map.merge($_palette, (
   'color-disabled-surface': map.get($_palette, 'color-gray-2'),
   'color-disabled-border': map.get($_palette, 'color-gray-4'),
   'color-disabled-checkbox-border': map.get($_palette, 'color-unknown'),
-  'color-disabled-radio-border': map.get($_palette, 'color-gray-4'),
+  'color-disabled-radio-border': map.get($_palette, 'color-unknown'),
   'color-error-border': map.get($_palette, 'color-critical'),
   'color-selection': map.get($_palette, 'color-brand-light'),
   'color-selection-muted': map.get($_palette, 'color-brand-light'),

@@ -12,7 +12,7 @@
          (blur)="touch.emit()">
 
   <ng-template #defaultRadioButtonTemplate>
-    <div class="radio">
+    <div class="radio" aria-hidden="true">
       <div class="inner"></div>
     </div>
     <label class="label" [for]="controlId()">{{controlLabel() ? controlLabel() : radioValue()}}</label>

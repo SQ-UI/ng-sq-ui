@@ -70,6 +70,7 @@ export class ComponentPreviewComponent {
   readonly searchSelection = signal<LabelValuePair[]>([]);
   readonly checked = signal(true);
   readonly radio = signal('standard');
+  readonly radioState = signal('selected');
   readonly customSelected = signal<LabelValuePair | null>(null);
   readonly customTags = signal(['Design', 'Angular']);
   readonly customSuggestions = signal<LabelValuePair[]>([]);
