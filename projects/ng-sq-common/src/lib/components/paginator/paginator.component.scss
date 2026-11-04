@@ -1,32 +1,46 @@
 @use '../../styles/tokens' as sq;
 .sq ol.paginator {
+  --_sq-page-size: 24px;
+  --_sq-page-font: 14px;
+  --_sq-page-gap: 28px;
+  --_sq-page-icon: 14px;
+  &[data-size='medium'] { --_sq-page-size: 30px; --_sq-page-font: 16px; --_sq-page-gap: 40px; --_sq-page-icon: 18px; }
+  &[data-size='large'] { --_sq-page-size: 36px; --_sq-page-font: 20px; --_sq-page-gap: 48px; --_sq-page-icon: 22px; }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: sq.value('space-1');
+  gap: 8px var(--sq-paginator-gap, var(--_sq-page-gap));
+  font-family: sq.value('font-family-sans');
+  font-size: var(--_sq-page-font);
+  line-height: var(--_sq-page-size);
+  font-weight: sq.value('font-weight-regular');
   li {
     position: relative;
-    min-width: 32px;
-    height: 32px;
+    flex: 0 0 auto;
+    min-width: var(--_sq-page-size);
+    height: var(--_sq-page-size);
     padding: 0;
     text-align: center;
     border-radius: sq.value('radius-control');
-    background: sq.value('color-surface-subtle');
+    background: transparent;
     color: sq.value('color-text');
-    font-size: sq.value('font-size-field-small');
-    line-height: sq.value('line-height-button-medium');
-    &.current { background: sq.value('color-brand'); color: sq.value('color-surface'); font-weight: sq.value('font-weight-medium'); }
+    &.current { background: sq.value('color-brand'); color: sq.value('color-white'); }
     &.truncated { display: none; }
-    &:not(.truncated) + .truncated {
-      pointer-events: none;
-      display: block;
-      font-size: 0;
-      &::before { content: '…'; font-size: 12px; line-height: 32px; }
-    }
+    &.gap { display: flex; align-items: center; justify-content: center; }
     button {
-      width: 100%; height: 100%; padding: 4px 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%; min-width: var(--_sq-page-size); height: 100%; padding: 0 4px;
+      font: inherit; background: transparent;
       color: inherit; border-radius: inherit;
       &:disabled { cursor: default; color: sq.value('color-disabled'); }
+      .fas { display: block; font-size: var(--_sq-page-icon); line-height: 1; }
+    }
+    @media (hover: hover) {
+      &:not(.current) button:not(:disabled):hover { color: sq.value('color-brand'); }
     }
   }
+  @media (max-width: 640px) { column-gap: var(--sq-paginator-gap, 8px); }
 }

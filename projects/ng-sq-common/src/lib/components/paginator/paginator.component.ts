@@ -5,6 +5,7 @@ import {
 import { NgClass } from '@angular/common';
 import { Page } from '../../interfaces/page';
 import { PageChangeEvent } from '../../interfaces/page-change-event';
+import type { Size } from '../../interfaces/sizes';
 
 @Component({
   selector: 'sq-paginator',
@@ -16,6 +17,8 @@ import { PageChangeEvent } from '../../interfaces/page-change-event';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorComponent<TItem = unknown> {
+  size = input<Size>('small');
+  label = input<string>('Pagination');
   items = input<TItem[] | undefined>([]);
   itemsPerPage = input<number | undefined>(10);
   currentPage = input<number | undefined>(1);

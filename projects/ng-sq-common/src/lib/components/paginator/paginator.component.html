@@ -1,5 +1,5 @@
 @if (pages().length > 0) {
-  <ol class="paginator display-flex wrap">
+  <ol class="paginator display-flex wrap" [attr.data-size]="size()" [attr.aria-label]="label()">
     <li>
       <button type="button"
               [disabled]="disablePrevBtns()"
@@ -19,18 +19,24 @@
       </button>
     </li>
     @for (page of pages(); track page.number) {
-      <li [hidden]="page.isHidden"
+      <li [hidden]="page.isHidden && !!pages()[$index - 1]?.isHidden"
+          [class.gap]="page.isHidden && !pages()[$index - 1]?.isHidden"
+          [attr.aria-hidden]="page.isHidden ? 'true' : null"
           data-btn-type="page-num"
           [ngClass]="{
             'current': page.isSelected,
             'truncated': page.isHidden
           }">
+        @if (!page.isHidden) {
         <button type="button"
                 [attr.aria-label]="'Page ' + page.number"
                 [attr.aria-current]="page.isSelected ? 'page' : null"
                 (click)="onPageClick(page)">
           {{page.number}}
         </button>
+        } @else {
+          <span class="paginator-ellipsis">…</span>
+        }
       </li>
     }
     <li>

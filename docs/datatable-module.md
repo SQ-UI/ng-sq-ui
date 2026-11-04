@@ -50,6 +50,7 @@ loadNextPage($event: PageChangeEvent) {
   (nothing is sortable unless `sortByAllColumns` is `true`).
 - **`sortByAllColumns`** (`input<boolean>`): makes every column sortable. Defaults to `false`.
 - **`paginatorConfig`** (`input<PaginatorConfig>`): forwarded to the inner `sq-paginator`.
+  Optional `paginatorConfig.size` overrides the paginator size; otherwise it follows the table size.
 - **`columnNames`** (`signal<DatatableColumn[]>`): the computed column list (read-only).
 - **`paginatedCollection`** (`signal<TItem[]>`): the rows of the current page (read-only).
 - **`onSortClicked`** (`output<SortItem>`): fires when a sortable column header is clicked.

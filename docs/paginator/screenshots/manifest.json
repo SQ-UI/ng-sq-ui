@@ -1,0 +1,553 @@
+{
+  "capturedAt": "2026-11-04T19:05:24.545Z",
+  "sourceCommit": "e759ce6a231f1e93b6082f0cc9c93c86a0c69fdf",
+  "phase": "4",
+  "route": "/#/preview",
+  "success": true,
+  "captures": [
+    {
+      "file": "paginator-small-1440.png",
+      "selector": "[data-paginator-reference=small]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 203.75,
+        "width": 1027.8125,
+        "height": 60
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-medium-1440.png",
+      "selector": "[data-paginator-reference=medium]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 203.75,
+        "width": 1027.8125,
+        "height": 66
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-large-1440.png",
+      "selector": "[data-paginator-reference=large]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 203.75,
+        "width": 1027.8125,
+        "height": 72
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-small-390.png",
+      "selector": "[data-paginator-reference=small]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 196.21875,
+        "width": 309,
+        "height": 92
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-medium-390.png",
+      "selector": "[data-paginator-reference=medium]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 196.21875,
+        "width": 309,
+        "height": 104
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-large-390.png",
+      "selector": "[data-paginator-reference=large]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 196.21875,
+        "width": 309,
+        "height": 116
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-small-320.png",
+      "selector": "[data-paginator-reference=small]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.78125,
+        "width": 239,
+        "height": 92
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-medium-320.png",
+      "selector": "[data-paginator-reference=medium]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.78125,
+        "width": 239,
+        "height": 104
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-large-320.png",
+      "selector": "[data-paginator-reference=large]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 195.78125,
+        "width": 239,
+        "height": 160
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    {
+      "width": 1440,
+      "sizes": [
+        {
+          "size": "small",
+          "state": {
+            "size": "small",
+            "width": 24,
+            "height": 24,
+            "fontSize": "14px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "28px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        },
+        {
+          "size": "medium",
+          "state": {
+            "size": "medium",
+            "width": 30,
+            "height": 30,
+            "fontSize": "16px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "40px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        },
+        {
+          "size": "large",
+          "state": {
+            "size": "large",
+            "width": 36,
+            "height": 36,
+            "fontSize": "20px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "48px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        }
+      ],
+      "tableSizes": [
+        {
+          "table": "small",
+          "paginator": "small"
+        },
+        {
+          "table": "medium",
+          "paginator": "medium"
+        },
+        {
+          "table": "large",
+          "paginator": "large"
+        }
+      ],
+      "dataSlice": true,
+      "override": "rgb(18, 52, 86)",
+      "overflow": {
+        "horizontal": false,
+        "document": false
+      }
+    },
+    {
+      "width": 390,
+      "sizes": [
+        {
+          "size": "small",
+          "state": {
+            "size": "small",
+            "width": 24,
+            "height": 24,
+            "fontSize": "14px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "8px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        },
+        {
+          "size": "medium",
+          "state": {
+            "size": "medium",
+            "width": 30,
+            "height": 30,
+            "fontSize": "16px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "8px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        },
+        {
+          "size": "large",
+          "state": {
+            "size": "large",
+            "width": 36,
+            "height": 36,
+            "fontSize": "20px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "8px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        }
+      ],
+      "tableSizes": [
+        {
+          "table": "small",
+          "paginator": "small"
+        },
+        {
+          "table": "medium",
+          "paginator": "medium"
+        },
+        {
+          "table": "large",
+          "paginator": "large"
+        }
+      ],
+      "dataSlice": true,
+      "override": "rgb(18, 52, 86)",
+      "overflow": {
+        "horizontal": false,
+        "document": false
+      }
+    },
+    {
+      "width": 320,
+      "sizes": [
+        {
+          "size": "small",
+          "state": {
+            "size": "small",
+            "width": 24,
+            "height": 24,
+            "fontSize": "14px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "8px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        },
+        {
+          "size": "medium",
+          "state": {
+            "size": "medium",
+            "width": 30,
+            "height": 30,
+            "fontSize": "16px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "8px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        },
+        {
+          "size": "large",
+          "state": {
+            "size": "large",
+            "width": 36,
+            "height": 36,
+            "fontSize": "20px",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "4px",
+            "gap": "8px",
+            "inactive": "rgba(0, 0, 0, 0)",
+            "hoverColor": "rgb(0, 196, 116)",
+            "labels": [
+              "1",
+              "2",
+              "3",
+              "9",
+              "10",
+              "11"
+            ],
+            "gapCount": 1,
+            "gapButtons": 0,
+            "firstDisabled": true,
+            "lastDisabled": false
+          },
+          "focusRing": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "keyboardSkipsGap": true,
+          "navigation": true
+        }
+      ],
+      "tableSizes": [
+        {
+          "table": "small",
+          "paginator": "small"
+        },
+        {
+          "table": "medium",
+          "paginator": "medium"
+        },
+        {
+          "table": "large",
+          "paginator": "large"
+        }
+      ],
+      "dataSlice": true,
+      "override": "rgb(18, 52, 86)",
+      "overflow": {
+        "horizontal": false,
+        "document": false
+      }
+    }
+  ],
+  "runtimeErrors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  }
+}

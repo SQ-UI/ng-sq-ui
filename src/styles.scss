@@ -35,6 +35,9 @@ body {
 }
 
 // Demo-only palette lookup stays global to keep the scoped preview style bundle small.
+// The paginator reference shows page 3's hover color without forcing a pointer state.
+.sq-app sq-paginator-preview .paginator li:not(.current) button[aria-label='Page 3'] { color: sq.value('color-brand'); }
+
 @each $color in ('black', 'white', 'brand', 'brand-light', 'critical', 'ok', 'warning', 'unknown', 'gray-1', 'gray-2', 'gray-3', 'gray-4', 'gray-5', 'gray-6') {
   .sq-app .palette-swatch[data-color='#{$color}'] { background: sq.value('color-#{$color}'); }
 }

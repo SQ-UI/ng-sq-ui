@@ -34,6 +34,10 @@ readonly page = signal<User[]>([]);   // inferred: PaginatorComponent<User>
 
 #### Component properties
 
+- **`size`** (`input<Size>`): `'small'` (default), `'medium'` or `'large'`; item heights 24/30/36px,
+  text sizes 14/16/20px. The active page is brand green with white text; inactive pages are transparent
+  with black text and turn green on hover. Enabled navigation icons share the hover state.
+- **`label`** (`input<string>`): accessible name for the paginator list, default `'Pagination'`.
 - **`items`** (`input<TItem[] | undefined>`): the collection to paginate. Defaults to `[]`.
 - **`itemsPerPage`** (`input<number | undefined>`): how many items a page holds. Defaults to `10`.
 - **`currentPage`** (`input<number | undefined>`): the page selected on first render. Defaults to `1`.
@@ -55,6 +59,26 @@ interface PageChangeEvent {
 
 `firstItemIndex` is the index of the first visible item inside the original `items` collection — handy
 for server-side pagination.
+
+Desktop spacing follows the supplied S/M/L reference: horizontal gaps of 28/40/48px, 4px active-page
+corners and centered first/previous/next/last icons. Controls wrap when space is limited. At viewport
+widths up to 640px, gaps reduce to 8px. Override `--sq-paginator-gap` to use a different gap.
+The first/previous buttons stay disabled on page 1; next/last stay disabled on the final page.
+Disabled buttons use the theme's gray foreground. Keyboard focus uses the existing visible outline.
+
+Ellipses are noninteractive and hidden from assistive technology. Collapsed page numbers do not
+render buttons, so Tab skips those gaps. Paging, page-change events and collection slicing retain
+their existing behavior. The **Pagination** preview compares all three sizes with 11 pages and a
+static page-3 hover specimen; choosing page 3 still shows the normal active style.
+
+Validated with 28 paginator/datatable tests, common/datatable and demo production builds, lint,
+TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px verify S/M/L geometry, gaps,
+font and state colors, real hover, first/last navigation, native keyboard focus, skipped ellipses,
+collection slicing, table size propagation, runtime brand overrides and no page overflow.
+Captures: [S](paginator/screenshots/paginator-small-1440.png),
+[M](paginator/screenshots/paginator-medium-1440.png), [L](paginator/screenshots/paginator-large-1440.png),
+[small mobile](paginator/screenshots/paginator-large-320.png).
+The [browser manifest](paginator/screenshots/manifest.json) records measured values.
 
 ## Directives
 
@@ -167,12 +191,16 @@ Used by `sq-datatable` to configure its inner paginator.
 
 ```typescript
 interface PaginatorConfig {
+  size?: Size;
   itemsPerPage?: number;
   currentPage?: number;
   lastPage?: number;
   maxDisplayedPages?: number;
 }
 ```
+
+The table forwards `PaginatorConfig.size` when supplied; otherwise its paginator follows the table's
+own `size`. A standalone paginator defaults to small.
 
 ## The form field contract
 

@@ -276,5 +276,17 @@ describe('PaginatorComponent', () => {
     expect(typeof page.isSelected).toEqual('boolean');
     expect(typeof page.isHidden).toEqual('boolean');
   });
+
+  it('renders noninteractive ellipses without hidden page buttons in the tab order', () => {
+    setPagination(generateDummyCollection(110), 10);
+    const gaps = queryAllPaginator('.gap');
+    expect(gaps.length).toBe(1);
+    expect(gaps[0].hidden).toBe(false);
+    expect(gaps[0].getAttribute('aria-hidden')).toBe('true');
+    expect(gaps[0].textContent?.trim()).toBe('…');
+    expect(queryAllPaginator('.truncated button').length).toBe(0);
+    expect(Array.from(queryAllPaginator('[data-btn-type="page-num"] button')).map(button => button.textContent?.trim()))
+      .toEqual(['1', '2', '3', '9', '10', '11']);
+  });
 });
 

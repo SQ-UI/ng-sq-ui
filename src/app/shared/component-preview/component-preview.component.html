@@ -116,9 +116,14 @@
     <div class="progress-example"><span>Indeterminate</span><sq-progress-bar [infinite]="true" label="Loading"></sq-progress-bar></div>
   </section>
 
+  <section id="previewPagination" class="preview-section">
+    <h3>Pagination</h3>
+    <sq-paginator-preview></sq-paginator-preview>
+  </section>
+
   <section id="previewTables" class="preview-section">
     <h3>Tables and pagination</h3>
-    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=8-5" target="_blank" rel="noreferrer">Figma: Table</a> · Metadata densities. <a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=106-766" target="_blank" rel="noreferrer">Figma: Paginator</a> · Detailed states pending.</p>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=8-5" target="_blank" rel="noreferrer">Figma: Table</a> · Metadata densities. <a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=106-766" target="_blank" rel="noreferrer">Figma: Paginator</a> · Updated S/M/L paginator styles; table details remain pending.</p>
     <div class="preview-grid table-grid">
       @for (size of sizes; track size.value) {
         <article class="preview-card" [attr.data-table-size]="size.value"><h4>Table {{size.label}}</h4><sq-datatable [size]="size.value" [items]="rows" [sortByAllColumns]="true" [paginatorConfig]="pagination"></sq-datatable></article>
