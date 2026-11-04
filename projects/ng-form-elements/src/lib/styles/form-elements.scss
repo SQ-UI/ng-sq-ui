@@ -81,7 +81,7 @@
     .options { width: 100%; margin-top: 15px; &.row { display: flex; flex-wrap: wrap; } }
   }
 
-  // Preserve checkable geometry while sharing the theme's indicator/status colors.
+  // Shared checkable layout; each control owns its square/circle appearance.
   .checkable {
     position: relative;
     cursor: pointer;

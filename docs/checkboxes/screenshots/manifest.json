@@ -1,0 +1,514 @@
+{
+  "capturedAt": "2026-11-04T15:28:44.854Z",
+  "sourceCommit": "f649ff75d84949c85a9f664671630afb41158442",
+  "phase": "4",
+  "route": "/#/preview",
+  "success": true,
+  "captures": [
+    {
+      "file": "checkboxes-1440.png",
+      "selector": "#previewCheckboxes",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 99.75,
+        "width": 498.40625,
+        "height": 354
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkbox-focus-1440.png",
+      "selector": "#previewCheckboxes",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 99.75,
+        "width": 498.40625,
+        "height": 354
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkboxes-390.png",
+      "selector": "#previewCheckboxes",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 346
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkbox-focus-390.png",
+      "selector": "#previewCheckboxes",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 346
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkboxes-320.png",
+      "selector": "#previewCheckboxes",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 370
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkbox-focus-320.png",
+      "selector": "#previewCheckboxes",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 370
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    {
+      "width": 1440,
+      "checkboxes": {
+        "states": [
+          {
+            "name": "default",
+            "checked": false,
+            "disabled": false,
+            "label": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(255, 255, 255)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "hover",
+            "checked": false,
+            "disabled": false,
+            "label": "rgb(0, 196, 116)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(255, 255, 255)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "selected",
+            "checked": true,
+            "disabled": false,
+            "label": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(0, 196, 116)",
+            "tickOpacity": "1",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "disabled",
+            "checked": false,
+            "disabled": true,
+            "label": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(170, 170, 170)",
+            "stroke": "1px",
+            "background": "rgb(235, 235, 235)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(170, 170, 170)",
+            "decorative": "true"
+          },
+          {
+            "name": "disabled-selected",
+            "checked": true,
+            "disabled": true,
+            "label": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(170, 170, 170)",
+            "stroke": "1px",
+            "background": "rgb(235, 235, 235)",
+            "tickOpacity": "1",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(170, 170, 170)",
+            "decorative": "true"
+          }
+        ],
+        "focusRing": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "customFocus": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "inherited": "rgb(18, 52, 86)",
+        "radio": {
+          "width": 20,
+          "height": 20,
+          "radius": "50%",
+          "padding": "3px",
+          "border": "rgb(0, 196, 116)"
+        },
+        "squareAndLabelToggle": true,
+        "disabledSkipped": true
+      },
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "checkboxes": {
+        "states": [
+          {
+            "name": "default",
+            "checked": false,
+            "disabled": false,
+            "label": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(255, 255, 255)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "hover",
+            "checked": false,
+            "disabled": false,
+            "label": "rgb(0, 196, 116)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(255, 255, 255)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "selected",
+            "checked": true,
+            "disabled": false,
+            "label": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(0, 196, 116)",
+            "tickOpacity": "1",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "disabled",
+            "checked": false,
+            "disabled": true,
+            "label": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(170, 170, 170)",
+            "stroke": "1px",
+            "background": "rgb(235, 235, 235)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(170, 170, 170)",
+            "decorative": "true"
+          },
+          {
+            "name": "disabled-selected",
+            "checked": true,
+            "disabled": true,
+            "label": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(170, 170, 170)",
+            "stroke": "1px",
+            "background": "rgb(235, 235, 235)",
+            "tickOpacity": "1",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(170, 170, 170)",
+            "decorative": "true"
+          }
+        ],
+        "focusRing": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "customFocus": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "inherited": "rgb(18, 52, 86)",
+        "radio": {
+          "width": 20,
+          "height": 20,
+          "radius": "50%",
+          "padding": "3px",
+          "border": "rgb(0, 196, 116)"
+        },
+        "squareAndLabelToggle": true,
+        "disabledSkipped": true
+      },
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "checkboxes": {
+        "states": [
+          {
+            "name": "default",
+            "checked": false,
+            "disabled": false,
+            "label": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(255, 255, 255)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "hover",
+            "checked": false,
+            "disabled": false,
+            "label": "rgb(0, 196, 116)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(255, 255, 255)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "selected",
+            "checked": true,
+            "disabled": false,
+            "label": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(0, 196, 116)",
+            "stroke": "1px",
+            "background": "rgb(0, 196, 116)",
+            "tickOpacity": "1",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(255, 255, 255)",
+            "decorative": "true"
+          },
+          {
+            "name": "disabled",
+            "checked": false,
+            "disabled": true,
+            "label": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(170, 170, 170)",
+            "stroke": "1px",
+            "background": "rgb(235, 235, 235)",
+            "tickOpacity": "0",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(170, 170, 170)",
+            "decorative": "true"
+          },
+          {
+            "name": "disabled-selected",
+            "checked": true,
+            "disabled": true,
+            "label": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "lineHeight": "24px",
+            "weight": "400",
+            "font": "\"Space Grotesk\", Arial, sans-serif",
+            "width": 20,
+            "height": 20,
+            "gap": 10,
+            "radius": "4px",
+            "border": "rgb(170, 170, 170)",
+            "stroke": "1px",
+            "background": "rgb(235, 235, 235)",
+            "tickOpacity": "1",
+            "tickBackground": "rgba(0, 0, 0, 0)",
+            "tickColor": "rgb(170, 170, 170)",
+            "decorative": "true"
+          }
+        ],
+        "focusRing": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "customFocus": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "inherited": "rgb(18, 52, 86)",
+        "radio": {
+          "width": 20,
+          "height": 20,
+          "radius": "50%",
+          "padding": "3px",
+          "border": "rgb(0, 196, 116)"
+        },
+        "squareAndLabelToggle": true,
+        "disabledSkipped": true
+      },
+      "overflow": false
+    }
+  ],
+  "runtimeErrors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  }
+}

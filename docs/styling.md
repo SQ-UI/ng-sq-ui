@@ -162,6 +162,16 @@ Verified in Chrome at 1440/390/320px: default/hover/current/disabled colors and 
 
 Icon anchors additionally verify matching icon/label colors, vertical alignment, decorative SVG semantics, label-only underlining, pointer interaction over the icon, keyboard focus and disabled tab skipping. Captures: [desktop anchors](links/screenshots/anchors-1440.png), [mobile anchors](links/screenshots/anchors-390.png), [small mobile anchors](links/screenshots/anchors-320.png).
 
+## Checkboxes
+
+Checkboxes follow the supplied screenshot: a 20px square, 1px brand border, 4px corners, white resting surface and a 10px gap before the 14/24 Space Grotesk regular label. Hover changes the enabled label to brand green. Selected controls fill the square with brand green and show a white SVG checkmark. Disabled controls use the gray label/border on a Gray 2 surface. The additional disabled-selected example retains its checkmark in gray so its stored value remains visible.
+
+The native input remains the sole interaction target; clicking the square or label toggles once, Space works by keyboard, and disabled controls are skipped by Tab. Focus is outlined on the square, with a wrapper outline for custom templates without a square. The checkmark is decorative. Radio styles remain separate.
+
+`--sq-color-brand`, `--sq-color-text`, `--sq-color-white`, `--sq-color-disabled`, `--sq-color-disabled-checkbox-border` and `--sq-color-disabled-surface` customize the state colors. `--sq-checkbox-label-color` optionally changes an enabled resting label (used for the preview's static hover sample). The preview includes default, hover, selected, disabled and disabled-selected states.
+
+Validated with 11 existing checkbox/radio tests, common/form package builds, the production demo build, lint, TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px verify geometry, state colors, SVG checkmark visibility, real square/label clicks, keyboard toggling and focus, disabled behavior, custom-template focus, runtime brand inheritance and unchanged radio geometry. Captures: [desktop](checkboxes/screenshots/checkboxes-1440.png), [mobile](checkboxes/screenshots/checkboxes-390.png), [small mobile](checkboxes/screenshots/checkboxes-320.png), [keyboard focus](checkboxes/screenshots/checkbox-focus-320.png). The [browser manifest](checkboxes/screenshots/manifest.json) records measured values.
+
 ## Helpers and errors
 
 ```html

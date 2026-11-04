@@ -170,6 +170,56 @@ async function checkLinkStyles() {
   await key('Tab');assert.notEqual(await evaluate('document.activeElement.dataset.anchorState'),'disabled');
   return {states,hover,pressed,focusRing,inline,inherited,outside,anchors,iconHover,iconPressed,anchorFocus,disabledSkipped:true};
 }
+async function checkCheckboxStyles() {
+  const states=await evaluate(`Array.from(document.querySelectorAll('[data-checkbox-state]')).map(e=>{
+    const input=e.querySelector('input'),box=e.querySelector('.checkbox'),label=e.querySelector('label'),tick=e.querySelector('svg'),bs=getComputedStyle(box),ls=getComputedStyle(label),ts=getComputedStyle(tick),r=box.getBoundingClientRect(),lr=label.getBoundingClientRect();
+    return {name:e.dataset.checkboxState,checked:input.checked,disabled:input.disabled,label:ls.color,fontSize:ls.fontSize,lineHeight:ls.lineHeight,weight:ls.fontWeight,font:ls.fontFamily,
+      width:r.width,height:r.height,gap:lr.x-r.right,radius:bs.borderRadius,border:bs.borderTopColor,stroke:bs.borderTopWidth,background:bs.backgroundColor,tickOpacity:ts.opacity,tickBackground:ts.backgroundColor,tickColor:getComputedStyle(tick.querySelector('path')).stroke,decorative:tick.getAttribute('aria-hidden')};
+  })`);
+  assert.equal(states.length,5);
+  for(const s of states){
+    const disabled=s.name.startsWith('disabled'),selected=s.name==='selected'||s.name==='disabled-selected';
+    assert.equal(s.width,20);assert.equal(s.height,20);assert.equal(s.gap,10);assert.equal(s.radius,'4px');assert.equal(s.stroke,'1px');
+    assert.equal(s.fontSize,'14px');assert.equal(s.lineHeight,'24px');assert.equal(s.weight,'400');assert(s.font.includes('Space Grotesk'));
+    assert.equal(s.checked,selected);assert.equal(s.disabled,disabled);
+    assert.equal(s.border,disabled?'rgb(170, 170, 170)':'rgb(0, 196, 116)');
+    assert.equal(s.background,disabled?'rgb(235, 235, 235)':selected?'rgb(0, 196, 116)':'rgb(255, 255, 255)');
+    assert.equal(s.label,disabled?'rgb(170, 170, 170)':s.name==='hover'?'rgb(0, 196, 116)':'rgb(32, 32, 32)');
+    assert.equal(s.tickOpacity,selected?'1':'0');assert.equal(s.tickBackground,'rgba(0, 0, 0, 0)');
+    assert.equal(s.tickColor,disabled?'rgb(170, 170, 170)':'rgb(255, 255, 255)');assert.equal(s.decorative,'true');
+  }
+  const click=async selector=>{
+    await evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center'})`);
+    const p=await evaluate(`(()=>{const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()`);
+    await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',...p});
+    await cdp('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',buttons:1,clickCount:1,...p});
+    await cdp('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',buttons:0,clickCount:1,...p});
+  };
+  await click('[data-checkbox-state=default] .checkbox');
+  assert.equal(await evaluate('document.querySelector("#previewCheckboxDefault").checked'),true);
+  assert.equal(await evaluate('getComputedStyle(document.querySelector("label[for=previewCheckboxDefault]")).color'),'rgb(0, 196, 116)');
+  await click('label[for=previewCheckboxDefault]');
+  assert.equal(await evaluate('document.querySelector("#previewCheckboxDefault").checked'),false);
+  await click('[data-checkbox-state=disabled] .checkbox');
+  assert.equal(await evaluate('document.querySelector("#previewCheckboxDisabled").checked'),false);
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});
+  await focus('#previewCheckboxDefault');await key(' ');
+  assert.equal(await evaluate('document.querySelector("#previewCheckboxDefault").checked'),true);
+  const focusRing=await visibleFocus('[data-checkbox-state=default] .checkbox');
+  await key(' ');assert.equal(await evaluate('document.querySelector("#previewCheckboxDefault").checked'),false);
+  await focus('#previewCheckboxSelected');await key('Tab');
+  assert.equal(await evaluate('document.activeElement.tagName'), 'INPUT');
+  assert.notEqual(await evaluate('document.activeElement.type'),'checkbox');
+  await focus('#previewCustomCheckbox');await key('Tab');await key('Tab',true);
+  const customFocus=await visibleFocus('#previewCustomChecks sq-checkbox .checkable');
+  await evaluate(`document.querySelector('#previewCheckboxes').style.setProperty('--sq-color-brand','#123456')`);
+  const inherited=await evaluate(`getComputedStyle(document.querySelector('[data-checkbox-state=selected] .checkbox')).backgroundColor`);
+  assert.equal(inherited,'rgb(18, 52, 86)');
+  await evaluate(`document.querySelector('#previewCheckboxes').style.removeProperty('--sq-color-brand')`);
+  const radio=await evaluate(`(()=>{const r=document.querySelector('#previewFields .radio'),s=getComputedStyle(r),b=r.getBoundingClientRect();return {width:b.width,height:b.height,radius:s.borderRadius,padding:s.padding,border:s.borderTopColor}})()`);
+  assert.deepEqual(radio,{width:20,height:20,radius:'50%',padding:'3px',border:'rgb(0, 196, 116)'});
+  return {states,focusRing,customFocus,inherited,radio,squareAndLabelToggle:true,disabledSkipped:true};
+}
 try {
   let port;
   for (let attempt = 0; attempt < 80; attempt++) {
@@ -213,9 +263,9 @@ try {
     assert(sizes.progress.every(x => x.value === '62'));
     if (width === 1440) assert.deepEqual(sizes.rows.map(x => x.height), [36,40,44]);
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
-    const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles() }; report.checks.push(checks);
+    const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles(), checkboxes: await checkCheckboxStyles() }; report.checks.push(checks);
     const targets = [
-      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],
+      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],
       ['extra-fields','#previewFields .preview-grid:nth-of-type(3)'],['progress','#previewProgress'],
       ['table-small','[data-table-size=small]'],['table-medium','[data-table-size=medium]'],['table-large','[data-table-size=large]'],
       ['empty-table','#previewEmptyTable'],['paginator','#previewPaginator'],['calendar','#previewSingleCalendar'],['range','#previewRangeCalendar'],['time','#previewTime'],

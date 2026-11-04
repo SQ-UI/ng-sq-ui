@@ -30,6 +30,7 @@
 .template-option { display: block; padding: 4px 8px; }
 .template-chevron { font-size: 16px; line-height: 20px; }
 .preview-custom-theme { --sq-color-brand: #3759c7; --sq-color-border: #8b9bd9; }
+.checkbox-hover-preview { --sq-checkbox-label-color: #{sq.value('color-brand')}; }
 #previewTheme sq-button { display: inline-block; margin-bottom: 16px; }
 @media (max-width: 450px) { .preview-card { padding: 12px; } }
 
