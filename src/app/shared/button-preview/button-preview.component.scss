@@ -12,7 +12,8 @@ h4 { margin: 20px 0 12px; font-size: 12px; line-height: 20px; }
   margin: 16px 0 24px;
 }
 .variant-table h4 { margin: 0; }
-.variant-table sq-button { display: grid; }
+// Keep absolutely positioned screen-reader labels inside the content scroller.
+.variant-table sq-button { display: grid; position: relative; }
 .variant-label, .size-label { font-size: 11px; color: var(--demo-muted); }
 .hover-sample { --sq-button-color: #{sq.value('color-black')}; }
 .button-size-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0; padding: 16px; border: 1px solid var(--demo-border); border-radius: 7px; }
