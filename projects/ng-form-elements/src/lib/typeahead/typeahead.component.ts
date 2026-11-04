@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, signal, contentChild, output, effect, untracked, TemplateRef,
+  input, model, signal, contentChild, output, effect, untracked, TemplateRef, viewChild, ElementRef, afterRenderEffect,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -10,6 +10,11 @@ import { Subject, timer } from 'rxjs';
 import { LabelValuePair, FORM_FIELD_DEFAULTS, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective } from './typeahead.template.directive';
 import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
+
+export type TypeaheadSize = 's' | 'm' | 'l';
+export interface TypeaheadOption<TValue = unknown> extends LabelValuePair<TValue> {
+  disabled?: boolean;
+}
 
 @Component({
   selector: 'sq-typeahead',
@@ -46,6 +51,7 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
    */
   readonly searchResults = input<readonly unknown[]>([]);
   readonly multiple = input<boolean>(false);
+  readonly size = input<TypeaheadSize>('s');
   readonly delay = input<number>(500);
   readonly displayProp = input<string>('');
   readonly hideSearchIcon = input<boolean>(false);
@@ -62,16 +68,29 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
 
   // Internal state signals
   readonly selectedItems = signal<LabelValuePair[]>([]);
-  readonly options = signal<LabelValuePair[]>([]);
+  readonly options = signal<TypeaheadOption[]>([]);
   readonly isLoading = signal<boolean>(false);
   readonly listenForOutsideClick = signal<boolean>(false);
   readonly hideResults = signal<boolean>(true);
   readonly searchText = signal<string>('');
+  readonly activeIndex = signal(-1);
+  private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
+  private readonly optionsList = viewChild<ElementRef<HTMLElement>>('optionsList');
 
   // Debounced search via RxJS Subject
   private searchSubject = new Subject<string>();
 
   constructor() {
+    afterRenderEffect(() => {
+      const index = this.activeIndex();
+      const list = this.optionsList()?.nativeElement;
+      const option = list?.children.item(index) as HTMLElement | null | undefined;
+      if (this.hideResults() || !list || !option) return;
+      if (option.offsetTop < list.scrollTop) list.scrollTop = option.offsetTop;
+      else if (option.offsetTop + option.offsetHeight > list.scrollTop + list.clientHeight) {
+        list.scrollTop = option.offsetTop + option.offsetHeight - list.clientHeight;
+      }
+    });
     // Set up debounced search pipeline. `debounce` with a duration selector re-reads `[delay]`
     // on every keystroke, so the input can change after construction.
     this.searchSubject.pipe(
@@ -112,23 +131,83 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
         this.options.set(parsedResults);
         this.isLoading.set(false);
         this.hideResults.set(results.length > 0 ? false : true);
+        this.activeIndex.set(-1);
       }
     });
   }
 
   onSearchInput(event: Event) {
+    if (this.disabled()) return;
     const text = (event.target as HTMLInputElement).value || '';
     this.searchText.set(text);
+    this.activeIndex.set(-1);
     this.searchSubject.next(text);
   }
 
-  selectSearchResult(result: LabelValuePair) {
+  selectSearchResult(result: TypeaheadOption) {
+    if (this.disabled() || result.disabled) return;
+    if (this.multiple() && this.isOptionSelected(result)) {
+      this.removeSearchResult(result);
+      return;
+    }
     this.selectItem(result);
   }
 
+  isOptionSelected(result: LabelValuePair): boolean {
+    return this.selectedItems().some(item => Object.is(item.value, result.value));
+  }
+
+  onFieldClick(event: MouseEvent) {
+    if (!this.multiple() || this.disabled() || (event.target as HTMLElement).closest('button')) return;
+    this.searchInput()?.nativeElement.focus();
+    if (this.hideResults()) this.openResults();
+  }
+
+  toggleResults() {
+    if (this.disabled()) return;
+    this.searchInput()?.nativeElement.focus();
+    if (this.hideResults()) this.openResults();
+    else this.closeResults();
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    if (this.disabled()) return;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (this.hideResults()) this.openResults();
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      const from = this.activeIndex() < 0 && direction < 0 ? this.options().length : this.activeIndex();
+      for (let index = from + direction; index >= 0 && index < this.options().length; index += direction) {
+        if (!this.options()[index].disabled) { this.activeIndex.set(index); break; }
+      }
+    } else if (event.key === 'Enter' && !this.hideResults() && this.activeIndex() >= 0) {
+      event.preventDefault();
+      const option = this.options()[this.activeIndex()];
+      if (option) this.selectSearchResult(option);
+    } else if (event.key === 'Escape') {
+      if (!this.hideResults()) event.preventDefault();
+      this.closeResults();
+    } else if (event.key === 'Tab') this.closeResults();
+  }
+
+  private openResults() {
+    const options = this.transformToLabelValuePairList(this.searchResults());
+    this.options.set(options);
+    this.activeIndex.set(-1);
+    this.listenForOutsideClick.set(true);
+    if (options.length) this.hideResults.set(false);
+    else this.searchSubject.next(this.searchText());
+  }
+
+  private closeResults() {
+    this.hideResults.set(true);
+    this.activeIndex.set(-1);
+  }
+
   removeSearchResult = (choice: LabelValuePair) => {
+    if (this.disabled()) return;
     const items = this.selectedItems();
-    const itemIndex = items.indexOf(choice);
+    const itemIndex = items.findIndex(item => item === choice || Object.is(item.value, choice.value));
 
     if (itemIndex < 0 || itemIndex >= items.length) {
       return;
@@ -146,13 +225,13 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
   onClickOutsideComponent() {
     this.options.set([]);
     this.listenForOutsideClick.set(false);
-    this.hideResults.set(true);
+    this.closeResults();
   }
 
   turnClickOutsideListenerOn() {
     // Only arms the outside-click listener: clearing `value` here used to wipe the bound model
     // every time the input received focus.
-    this.listenForOutsideClick.set(true);
+    if (!this.disabled()) this.listenForOutsideClick.set(true);
   }
 
   showInput(): boolean {
@@ -169,7 +248,7 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
     }
 
     const items = this.selectedItems();
-    if (items.indexOf(result) === -1) {
+    if (!items.some(item => Object.is(item.value, result.value))) {
       this.selectedItems.update(list => [...list, result]);
     }
 
@@ -201,7 +280,7 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
    * search returns (strings, numbers, arbitrary objects). `displayProp` names the object key used as
    * the label; without it the objects are expected to already look like `{ label, value }` pairs.
    */
-  private transformToLabelValuePairList(resultsList: readonly unknown[]): LabelValuePair[] {
+  private transformToLabelValuePairList(resultsList: readonly unknown[]): TypeaheadOption[] {
     const dp = this.displayProp();
 
     return resultsList.map(item => {
@@ -219,6 +298,7 @@ export class TypeaheadComponent implements SqFormFieldSignals, SqFormValueContro
         return {
           label: label === null || label === undefined ? '' : String(label),
           value: { ...record },
+          ...(record['disabled'] === true ? { disabled: true } : {}),
         };
       }
 

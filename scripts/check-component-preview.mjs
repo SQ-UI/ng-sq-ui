@@ -319,7 +319,7 @@ try {
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
     const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles(), checkboxes: await checkCheckboxStyles(), radios: await checkRadioStyles() }; report.checks.push(checks);
     const targets = [
-      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],['radios','#previewRadios'],['tags','#previewTags'],
+      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],['radios','#previewRadios'],['tags','#previewTags'],['multiselect','#previewMultiselect'],
       ['extra-fields','#previewFields .preview-grid:nth-of-type(3)'],['progress','#previewProgress'],
       ['table-small','[data-table-size=small]'],['table-medium','[data-table-size=medium]'],['table-large','[data-table-size=large]'],
       ['empty-table','#previewEmptyTable'],['paginator','#previewPaginator'],['calendar','#previewSingleCalendar'],['range','#previewRangeCalendar'],['time','#previewTime'],

@@ -88,7 +88,8 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 | Component | Current option | Default / dimensions |
 | --- | --- | --- |
 | Button | `appearance="primary\|secondary\|neutral"`, `tone="brand\|ok\|warning\|critical"`, `size="s\|m\|l\|xl"` | Primary brand M; heights 24/32/40/56px; native `type` remains separate |
-| Input/textarea/typeahead | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
+| Input/textarea | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
+| Typeahead | `multiple`, `size="s\|m\|l"`, optional `helpText` and `errorText` | Single search retains 28px; multiselect S/M/L minimum heights 32/40/48px |
 | Tags input | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; minimum heights 32/40/48px, green pill chips 24/32/40px |
 | Dropdown | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; trigger heights 32/40/48px and text sizes 14/16/24px |
 | Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 36/40/44px; empty message opt-in |
@@ -111,7 +112,7 @@ The demo uses S buttons (24px high) for actions and color/state examples; the Si
 
 Button validation: the form library and production demo build successfully; all four button behavior tests, lint, TypeScript and package/style checks pass. Chrome checks at 1440/390/320px verify all 12 S samples, real hover on enabled/disabled buttons, runtime brand overrides, keyboard focus and disabled tab skipping, matching heights across appearances, and no horizontal overflow. Captures: [desktop variants](buttons/screenshots/variants-1440.png), [mobile variants](buttons/screenshots/variants-top-390.png), [mobile disabled/hover](buttons/screenshots/variants-bottom-320.png). The [browser manifest](buttons/screenshots/manifest.json) records the measured values.
 
-Input, textarea and typeahead retain scoped CSS hooks for metadata-derived heights:
+Input, textarea and single-select typeahead retain scoped CSS hooks for metadata-derived heights:
 
 ```scss
 .field-s { --sq-field-line-height: 20px; } // 28px single-line frame
@@ -166,6 +167,23 @@ The supplied screenshot is interpreted as S/M/L minimum field heights of **32/40
 The value remains a `string[]`; Enter, Space and comma commit a tag, Backspace in an empty field removes the last tag, and `sq-tag` templates keep their `tag`/`remove` context. Untitled fields use the placeholder as their accessible name. Typeahead keeps its own chip styling. The **Tags** preview shows untitled/titled placeholders, editable typed text and a selected chip in all three sizes.
 
 Validated with six existing tags tests, common/form package builds, the production demo build, lint, TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px verify field/chip geometry and colors, draft text, all three tag separators, Backspace, pointer and keyboard removal, field/button focus, long-label truncation, custom templates, runtime brand overrides and unchanged typeahead field sizing. Captures: [S](tags/screenshots/tags-s-1440.png), [M](tags/screenshots/tags-m-1440.png), [L](tags/screenshots/tags-l-1440.png), [small mobile](tags/screenshots/tags-l-320.png), [long label](tags/screenshots/long-tag-l-320.png). The [browser manifest](tags/screenshots/manifest.json) records measured values.
+
+## Multiselect
+
+`sq-typeahead [multiple]="true"` implements the multiselect reference. S/M/L minimum trigger heights are **32/40/48px**, text sizes **14/16/24px**, and green pill heights **24/32/40px**. Labels stay 14/24. The default is S. `TypeaheadSize` is the exported size union; the single-select search presentation retains its existing sizing. In multiple mode, a centered gray chevron replaces the magnifier and points upward while the menu is open.
+
+The white popup aligns 4px below the trigger, with 40/48/60px rows, separators, a shadow and scrolling after four rows. Each default row has a decorative 20px checkbox. Selected rows show a green square with a white tick; their text stays black. Disabled rows use gray text and a gray square on Gray 2. Hover and keyboard highlight use Brand Light. Clicking a selected row deselects it; chip removal updates the checkbox state too. Selection is compared with `Object.is` on each pair's `value`, so stable scalar values are useful when refreshing results.
+
+Arrow keys skip disabled items, Enter toggles the active choice, and Escape/Tab close the popup. The search input owns combobox focus and an active-descendant relationship to the listbox; checkbox visuals do not add nested keyboard targets. Custom option/selected-item templates retain their existing contexts. Disabled controls block selection and removal.
+
+```html
+<sq-typeahead [multiple]="true" size="m" controlLabel="Teams"
+              [searchResults]="teamOptions" [(value)]="selectedTeams"></sq-typeahead>
+```
+
+`TypeaheadOption<TValue>` extends `LabelValuePair<TValue>` with optional `disabled`. Raw results and `displayProp` remain supported; a raw object's `disabled` flag is also respected when `displayProp` is used. The component still delegates filtering/fetching to `(onUserInputEnd)`; return a new result array for each query, including empty results. Opening an empty option list requests the current query through the same debounced search pipeline. The **Multiselect** preview compares untitled, typed, selected-chip and option states at all three sizes.
+
+Validated with 21 typeahead/field-accessibility tests, common/form package builds, the production demo build, lint, TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px verify trigger/chip sizes, centered chevrons, menu geometry, checkbox selected/disabled states, pointer/keyboard toggling and removal, search, custom templates and page overflow. Captures: [S](multiselect/screenshots/multiselect-s-1440.png), [M](multiselect/screenshots/multiselect-m-1440.png), [L](multiselect/screenshots/multiselect-l-1440.png), [small mobile](multiselect/screenshots/multiselect-l-320.png). The [browser manifest](multiselect/screenshots/manifest.json) records measured values.
 
 ## Links
 

@@ -1,0 +1,12 @@
+<p class="multiselect-note">Select several options, toggle their checkboxes, or remove selected chips. Compare S, M and L.</p>
+<div class="multiselect-sizes">
+  @for (size of sizes; track size.value) {
+    <article [attr.data-multiselect-reference]="size.value">
+      <h4>Multiselect / {{size.label}}</h4>
+      <div data-multiselect-example="placeholder"><span class="multiselect-note">Without a title</span><sq-typeahead [multiple]="true" [size]="size.value" controlPlaceholder="Placeholder" [searchResults]="options"></sq-typeahead></div>
+      <div data-multiselect-example="typing"><span class="multiselect-note">With a title</span><sq-typeahead #typingExample [multiple]="true" [size]="size.value" controlLabel="Title" [delay]="0" [searchResults]="typingResults[size.value]()" (onUserInputEnd)="search($event, size.value)"></sq-typeahead></div>
+      <div data-multiselect-example="chip"><span class="multiselect-note">Selected chip</span><sq-typeahead [multiple]="true" [size]="size.value" controlLabel="Title" [searchResults]="options" [value]="[{label: 'Chips Selected ' + size.label, value: 'selected'}]"></sq-typeahead></div>
+      <div data-multiselect-example="options" class="menu-example"><span class="multiselect-note">Options</span><sq-typeahead [multiple]="true" [size]="size.value" controlLabel="Title" [searchResults]="options" [value]="[{label: 'Chips Selected ' + size.label, value: 'selected'}]"></sq-typeahead></div>
+    </article>
+  }
+</div>

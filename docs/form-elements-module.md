@@ -336,8 +336,8 @@ With templates:
 
 ```html
 <sq-typeahead [searchResults]="results()" [(value)]="selected">
-  <ng-template sq-typeahead-option let-option>{{ option.label }}</ng-template>
-  <ng-template sq-typeahead-selected-option let-option>{{ option.label }}</ng-template>
+  <ng-template sq-typeahead-option let-option="option">{{ option.label }}</ng-template>
+  <ng-template sq-typeahead-selected-option let-option="item">{{ option.label }}</ng-template>
 </sq-typeahead>
 ```
 
@@ -346,6 +346,10 @@ With templates:
 - **`searchResults`** (`input<readonly unknown[]>`): the raw results for the current query. Defaults to
   `[]`.
 - **`multiple`** (`input<boolean>`): allows more than one selected item. Defaults to `false`.
+- **`size`** (`input<TypeaheadSize>`): multiselect presentation `'s'` (default), `'m'` or `'l'`;
+  minimum heights 32/40/48px, text 14/16/24px and pills 24/32/40px. Single search keeps its legacy sizing.
+- **`TypeaheadOption<TValue>`**: exported pair type with optional `disabled`; menu choices can be
+  toggled by checkbox, except disabled rows. Selected values retain the `LabelValuePair[]` model.
 - **`delay`** (`input<number>`): debounce in milliseconds before `onUserInputEnd` fires. Defaults to
   `500`.
 - **`displayProp`** (`input<string>`): object key used as the label. Empty means "the objects are
@@ -359,7 +363,8 @@ With templates:
 
 ### Control-specific methods
 
-- **`selectSearchResult(result)`**: selects an option.
+- **`selectSearchResult(result)`**: selects an enabled option; multiple mode toggles an already
+  selected option by its value. Arrow keys skip disabled rows and Enter selects/toggles.
 - **`removeSearchResult(choice)`**: removes a selected chip.
 - **`onSearchInput($event)`**: input handler (updates the query signal and schedules the debounce).
 - **`onClickOutsideComponent()`** / **`turnClickOutsideListenerOn()`**: close the popup / arm the

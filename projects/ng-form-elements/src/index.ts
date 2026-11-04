@@ -10,6 +10,7 @@ export type { TagsInputSize } from './lib/tags-input/tags-input.component';
 export { RadiobuttonComponent } from './lib/radiobutton/radiobutton.component';
 export { FormGroupComponent } from './lib/form-group/form-group.component';
 export { TypeaheadComponent } from './lib/typeahead/typeahead.component';
+export type { TypeaheadSize, TypeaheadOption } from './lib/typeahead/typeahead.component';
 export { CheckboxComponent } from './lib/checkbox/checkbox.component';
 export { ButtonComponent, ButtonTypes } from './lib/button/button.component';
 export type { ButtonAppearance, ButtonTone, ButtonSize } from './lib/button/button.component';
