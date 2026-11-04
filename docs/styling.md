@@ -92,7 +92,7 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 | Typeahead | `multiple`, `size="s\|m\|l"`, optional `helpText` and `errorText` | Single search retains 28px; multiselect S/M/L minimum heights 32/40/48px |
 | Tags input | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; minimum heights 32/40/48px, green pill chips 24/32/40px |
 | Dropdown | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; trigger heights 32/40/48px and text sizes 14/16/24px |
-| Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 36/40/44px; empty message opt-in |
+| Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 44/48/52px; dark header, striped rows, brand-light hover; empty message opt-in |
 | Modal | `size="small\|medium\|large"` | Medium; widths 360/400/440px, viewport-clamped |
 | Progress | `size="small\|medium\|large"`, `variant="linear\|segmented\|steps"`, accessible `label` | Medium; tracks 4/8/12px; gray background with brand fill |
 | Paginator | `size="small\|medium\|large"`, accessible `label` | Small; items 24/30/36px with text 14/16/20px |
