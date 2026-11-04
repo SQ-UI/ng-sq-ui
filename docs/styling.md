@@ -94,7 +94,7 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 | Dropdown | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; trigger heights 32/40/48px and text sizes 14/16/24px |
 | Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 36/40/44px; empty message opt-in |
 | Modal | `size="small\|medium\|large"` | Medium; widths 360/400/440px, viewport-clamped |
-| Progress | Existing `size="small\|medium\|large"`, accessible `label` | Medium; heights 4/8/12px; label defaults to `Progress` |
+| Progress | `size="small\|medium\|large"`, `variant="linear\|segmented\|steps"`, accessible `label` | Medium; tracks 4/8/12px; gray background with brand fill |
 
 Each `size` value is one string, for example `size="small"`; the table lists alternatives. Table and modal use the exported `Size` union. Wrapped table content, multiline fields and selected chips may grow vertically. Mobile table cards have content-driven height.
 

@@ -71,6 +71,7 @@ $tokens: map.merge(map.merge($_palette, (
   // every component state. In particular, a disabled surface stays distinct
   // from the status/foreground color so text does not disappear into its fill.
   'color-secondary': map.get($_palette, 'color-brand-light'),
+  'color-progress-track': map.get($_palette, 'color-gray-3'),
   'color-label': map.get($_palette, 'color-black'),
   'color-placeholder': map.get($_palette, 'color-gray-6'),
   'color-disabled': map.get($_palette, 'color-unknown'),

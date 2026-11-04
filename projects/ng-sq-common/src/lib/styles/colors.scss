@@ -13,7 +13,7 @@ $label-color: sq.fallback('color-label') !default;
 $error-field-element-color: sq.fallback('color-error-border') !default;
 $input-placeholder-color: sq.fallback('color-placeholder') !default;
 $disabled-color: sq.fallback('color-disabled') !default;
-$progress-backogrund-color: $secondary-theme-color !default;
+$progress-backogrund-color: sq.fallback('color-progress-track') !default;
 $progress-line-color: $primary-theme-color !default;
 $datetime-selected: sq.fallback('color-selection') !default;
 $datetime-heading: sq.fallback('color-selection-muted') !default;

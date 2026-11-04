@@ -106,7 +106,10 @@
 
   <section id="previewProgress" class="preview-section">
     <h3>Progress</h3>
-    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=92-1576" target="_blank" rel="noreferrer">Figma: Progress Bar</a> · Metadata heights; shared styles pending final comparison.</p>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=92-1576" target="_blank" rel="noreferrer">Figma: Progress Bar</a> · Brand-green fill on a gray track, with continuous, segmented and labeled-step variants.</p>
+    <div class="progress-example" data-progress-reference="linear"><span>S · Continuous · 25%</span><sq-progress-bar size="small" [loaded]="25" label="Continuous reference"></sq-progress-bar></div>
+    <div class="progress-example" data-progress-reference="segmented"><span>S · Four segments · 25%</span><sq-progress-bar size="small" variant="segmented" [segments]="4" [loaded]="25" label="Segmented reference"></sq-progress-bar></div>
+    <div class="progress-example" data-progress-reference="steps"><span>S · Labeled steps</span><sq-progress-bar size="small" variant="steps" [steps]="['Done', 'Current', 'Next', 'Next', 'Next']" [currentStep]="1" label="Step reference"></sq-progress-bar></div>
     @for (size of sizes; track size.value) {
       <div class="progress-example" [attr.data-progress-size]="size.value"><span>{{size.label}} · 62%</span><sq-progress-bar [size]="size.value" [loaded]="62" [label]="'Progress ' + size.label"></sq-progress-bar></div>
     }

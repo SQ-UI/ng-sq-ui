@@ -1,17 +1,45 @@
-<div class="progress linear" role="progressbar" [attr.aria-label]="label()"
-     aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="infinite() ? null : loaded()" [ngClass]="{
+@if (variant() === 'steps' && !infinite()) {
+  <div class="progress-steps" role="group" [attr.aria-label]="label()"
+       [style.--sq-progress-track]="backgroundColor()" [style.--sq-progress-fill]="fillColor()"
+       [style.--sq-progress-step-count]="steps().length" [ngClass]="size()">
+    @if (steps().length > 1) {
+      <div class="step-track" aria-hidden="true"><div class="step-fill" [style.width.%]="stepPercentage()"></div></div>
+    }
+    <ol class="step-list" [class.single-step]="steps().length === 1">
+      @for (step of steps(); track $index) {
+        <li class="step" [class.done]="$index < activeStep()" [class.current]="$index === activeStep()"
+            [attr.aria-current]="$index === activeStep() ? 'step' : null"
+            [attr.aria-label]="step + ', ' + ($index < activeStep() ? 'completed' : $index === activeStep() ? 'current' : 'upcoming')">
+          <span class="step-marker" aria-hidden="true"></span>
+          <span class="step-label">{{step}}</span>
+        </li>
+      }
+    </ol>
+  </div>
+} @else {
+<div class="progress" role="progressbar" [attr.aria-label]="label()"
+     [class.segmented]="variant() === 'segmented' && !infinite()" [class.linear]="variant() !== 'segmented' || infinite()"
+     [style.--sq-progress-track]="backgroundColor()" [style.--sq-progress-fill]="fillColor()"
+     aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="infinite() ? null : percentage()" [ngClass]="{
     small: size() === 'small',
     medium: size() === 'medium',
     large: size() === 'large',
     infinite: infinite()
   }">
+  @if (variant() === 'segmented' && !infinite()) {
+    @for (fill of segmentFills(); track $index) {
+      <div class="segment"><div class="background"></div><div class="loading-line" [style.width.%]="fill"></div></div>
+    }
+  } @else {
   <div class="background" [style.background]="backgroundColor()"></div>
   <div class="progress-bar">
     @if (!infinite()) {
-      <div class="loading-line" [style.background]="fillColor()" [style.width.%]="loaded()"></div>
+      <div class="loading-line" [style.background]="fillColor()" [style.width.%]="percentage()"></div>
     } @else {
       <div class="loading-line infinite-line-1" [style.background]="fillColor()"></div>
       <div class="loading-line infinite-line-2" [style.background]="fillColor()"></div>
     }
   </div>
+  }
 </div>
+}
