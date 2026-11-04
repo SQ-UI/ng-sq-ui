@@ -88,7 +88,8 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 | Component | Current option | Default / dimensions |
 | --- | --- | --- |
 | Button | `appearance="primary\|secondary\|neutral"`, `tone="brand\|ok\|warning\|critical"`, `size="s\|m\|l\|xl"` | Primary brand M; heights 24/32/40/56px; native `type` remains separate |
-| Input/textarea/tags/typeahead | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
+| Input/textarea/typeahead | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
+| Tags input | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; minimum heights 32/40/48px, green pill chips 24/32/40px |
 | Dropdown | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; trigger heights 32/40/48px and text sizes 14/16/24px |
 | Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 36/40/44px; empty message opt-in |
 | Modal | `size="small\|medium\|large"` | Medium; widths 360/400/440px, viewport-clamped |
@@ -110,7 +111,7 @@ The demo uses S buttons (24px high) for actions and color/state examples; the Si
 
 Button validation: the form library and production demo build successfully; all four button behavior tests, lint, TypeScript and package/style checks pass. Chrome checks at 1440/390/320px verify all 12 S samples, real hover on enabled/disabled buttons, runtime brand overrides, keyboard focus and disabled tab skipping, matching heights across appearances, and no horizontal overflow. Captures: [desktop variants](buttons/screenshots/variants-1440.png), [mobile variants](buttons/screenshots/variants-top-390.png), [mobile disabled/hover](buttons/screenshots/variants-bottom-320.png). The [browser manifest](buttons/screenshots/manifest.json) records the measured values.
 
-Input, textarea, tags and typeahead retain scoped CSS hooks for metadata-derived heights:
+Input, textarea and typeahead retain scoped CSS hooks for metadata-derived heights:
 
 ```scss
 .field-s { --sq-field-line-height: 20px; } // 28px single-line frame
@@ -150,6 +151,21 @@ readonly teams: DropdownOption[] = [
 Existing `LabelValuePair[]` arrays remain assignable to `options`; the optional `disabled` flag belongs to the new `DropdownOption<TValue>` type. It does not imply disabled-item handling in typeahead or other controls. Popup menus use absolute positioning, so containers with clipping overflow must allow room for them. The **Dropdowns** preview compares untitled/titled triggers, short menus and long menus in all three sizes.
 
 Verified with 14 dropdown tests, production common/form/demo builds, lint, TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px measure closed/open heights, font sizes, chevron centering, menu alignment and rows; exercise disabled options, keyboard selection/scrolling, Escape/Tab, custom templates and runtime brand overrides; and check horizontal overflow. Captures: [S menu](dropdowns/screenshots/options-s-1440.png), [M menu](dropdowns/screenshots/options-m-1440.png), [L menu](dropdowns/screenshots/options-l-1440.png), [small mobile](dropdowns/screenshots/options-l-320.png), [scrolling](dropdowns/screenshots/scroll-s-390.png). The [browser manifest](dropdowns/screenshots/manifest.json) records the measurements.
+
+## Tags input
+
+The supplied screenshot is interpreted as S/M/L minimum field heights of **32/40/48px**, with **14/16/24px** Space Grotesk regular text. Labels stay 14/24. Empty and typed fields share the same geometry. Selected tags are brand-green pills with white text and a white remove cross; chip heights are **24/32/40px**. Each field has a neutral inside border, 4px corners and a Gray 3 placeholder. Chip spacing is 4px and chip contents have an 8px gap before the remove button.
+
+`size="s"` is the default; `TagsInputSize` is the exported union. This supersedes the old 28px tags field and its use of `--sq-field-line-height`. Use `--sq-tags-line-height` for custom field geometry. Multiple chips wrap as needed. Long default chip labels truncate while keeping the remove button visible and retaining the full tag in its accessible name. Native input focus highlights the field, and the remove button remains keyboard accessible. Disabled controls retain the existing disabled surface, show gray chips and hide removal buttons; those colors are an adaptation because the screenshot has no disabled variant.
+
+```html
+<sq-tags-input size="m" controlLabel="Topics" controlPlaceholder="Placeholder"
+               [(value)]="topics"></sq-tags-input>
+```
+
+The value remains a `string[]`; Enter, Space and comma commit a tag, Backspace in an empty field removes the last tag, and `sq-tag` templates keep their `tag`/`remove` context. Untitled fields use the placeholder as their accessible name. Typeahead keeps its own chip styling. The **Tags** preview shows untitled/titled placeholders, editable typed text and a selected chip in all three sizes.
+
+Validated with six existing tags tests, common/form package builds, the production demo build, lint, TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px verify field/chip geometry and colors, draft text, all three tag separators, Backspace, pointer and keyboard removal, field/button focus, long-label truncation, custom templates, runtime brand overrides and unchanged typeahead field sizing. Captures: [S](tags/screenshots/tags-s-1440.png), [M](tags/screenshots/tags-m-1440.png), [L](tags/screenshots/tags-l-1440.png), [small mobile](tags/screenshots/tags-l-320.png), [long label](tags/screenshots/long-tag-l-320.png). The [browser manifest](tags/screenshots/manifest.json) records measured values.
 
 ## Links
 

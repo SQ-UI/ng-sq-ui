@@ -65,7 +65,7 @@
     &.sq-field-error { color: sq.value('color-critical'); }
   }
 
-  // Preserve the existing custom-template chip appearance until Chips/Tags can be read.
+  // Legacy chip fallback for typeahead and consumer templates; tags supply pill styles.
   .entered-item {
     background: sq.value('color-selection-muted');
     padding: 5px 9px;

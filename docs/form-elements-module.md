@@ -286,7 +286,7 @@ With a custom tag template:
 
 ```html
 <sq-tags-input [(value)]="tags">
-  <ng-template sq-tag let-tag>
+  <ng-template sq-tag let-tag="tag">
     <strong>#{{ tag }}</strong>
   </ng-template>
 </sq-tags-input>
@@ -295,6 +295,8 @@ With a custom tag template:
 ### Control-specific properties
 
 - **`value`** (`model<string[]>`): the tags. Defaults to `[]`.
+- **`size`** (`input<TagsInputSize>`): `'s'` (default), `'m'` or `'l'`; minimum field heights
+  32/40/48px and pill heights 24/32/40px. `TagsInputSize` is exported as a type.
 - **`newTagName`** (`string`): the text of the tag being typed (plain property, bound with
   `[(ngModel)]` internally).
 

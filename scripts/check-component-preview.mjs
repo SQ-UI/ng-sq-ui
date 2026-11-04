@@ -36,7 +36,8 @@ async function waitFor(expression) {
 }
 async function key(keyName, shift = false) {
   const codes = { Tab: 9, Enter: 13, ' ': 32, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Escape: 27 };
-  const event = { key: keyName, windowsVirtualKeyCode: codes[keyName], modifiers: shift ? 8 : 0 };
+  const event = { key: keyName, windowsVirtualKeyCode: codes[keyName], modifiers: shift ? 8 : 0,
+    ...(keyName === 'Enter' ? { text: '\r', unmodifiedText: '\r' } : {}) };
   await cdp('Input.dispatchKeyEvent', { type: 'keyDown', ...event });
   await cdp('Input.dispatchKeyEvent', { type: 'keyUp', ...event });
   await delay(60);
@@ -318,7 +319,7 @@ try {
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
     const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles(), checkboxes: await checkCheckboxStyles(), radios: await checkRadioStyles() }; report.checks.push(checks);
     const targets = [
-      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],['radios','#previewRadios'],
+      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],['checkboxes','#previewCheckboxes'],['radios','#previewRadios'],['tags','#previewTags'],
       ['extra-fields','#previewFields .preview-grid:nth-of-type(3)'],['progress','#previewProgress'],
       ['table-small','[data-table-size=small]'],['table-medium','[data-table-size=medium]'],['table-large','[data-table-size=large]'],
       ['empty-table','#previewEmptyTable'],['paginator','#previewPaginator'],['calendar','#previewSingleCalendar'],['range','#previewRangeCalendar'],['time','#previewTime'],

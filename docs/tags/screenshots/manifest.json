@@ -1,0 +1,1054 @@
+{
+  "capturedAt": "2026-11-04T17:27:51.628Z",
+  "sourceCommit": "3ae8f79c3ea74af265bf676184a1f46442ce2019",
+  "phase": "4",
+  "route": "/#/preview",
+  "success": true,
+  "captures": [
+    {
+      "file": "tags-s-1440.png",
+      "selector": "[data-tags-reference=s]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 99.75,
+        "width": 321.59375,
+        "height": 468
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-s-1440.png",
+      "selector": "[data-tags-reference=s] [data-tags-example=title]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 99.75,
+        "width": 321.59375,
+        "height": 78
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-m-1440.png",
+      "selector": "[data-tags-reference=m]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 660.1875,
+        "y": 99.75,
+        "width": 321.609375,
+        "height": 468
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-m-1440.png",
+      "selector": "[data-tags-reference=m] [data-tags-example=title]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 660.1875,
+        "y": 99.75,
+        "width": 321.609375,
+        "height": 86
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-l-1440.png",
+      "selector": "[data-tags-reference=l]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 1005.796875,
+        "y": 99.75,
+        "width": 321.59375,
+        "height": 468
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-l-1440.png",
+      "selector": "[data-tags-reference=l] [data-tags-example=title]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 1005.796875,
+        "y": 99.75,
+        "width": 321.59375,
+        "height": 94
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-s-390.png",
+      "selector": "[data-tags-reference=s]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 404
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-s-390.png",
+      "selector": "[data-tags-reference=s] [data-tags-example=title]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 78
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-m-390.png",
+      "selector": "[data-tags-reference=m]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 436
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-m-390.png",
+      "selector": "[data-tags-reference=m] [data-tags-example=title]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 86
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-l-390.png",
+      "selector": "[data-tags-reference=l]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 468
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-l-390.png",
+      "selector": "[data-tags-reference=l] [data-tags-example=title]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 294,
+        "height": 94
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-s-320.png",
+      "selector": "[data-tags-reference=s]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 404
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-s-320.png",
+      "selector": "[data-tags-reference=s] [data-tags-example=title]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 78
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-m-320.png",
+      "selector": "[data-tags-reference=m]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 436
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-m-320.png",
+      "selector": "[data-tags-reference=m] [data-tags-example=title]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 86
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "tags-l-320.png",
+      "selector": "[data-tags-reference=l]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 468
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "long-tag-l-320.png",
+      "selector": "[data-tags-reference=l] [data-tags-example=title]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.96875,
+        "width": 224,
+        "height": 94
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    {
+      "width": 1440,
+      "sizes": [
+        {
+          "size": "s",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 24,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected S",
+            "remove": "Remove Chips Selected S",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "10px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        },
+        {
+          "size": "m",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 32,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected M",
+            "remove": "Remove Chips Selected M",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "12px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        },
+        {
+          "size": "l",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 40,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected L",
+            "remove": "Remove Chips Selected L",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "14px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        }
+      ],
+      "customTemplate": true,
+      "override": "rgb(18, 52, 86)",
+      "typeahead": {
+        "height": 28,
+        "fontSize": "12px"
+      },
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "sizes": [
+        {
+          "size": "s",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 24,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected S",
+            "remove": "Remove Chips Selected S",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "10px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        },
+        {
+          "size": "m",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 32,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected M",
+            "remove": "Remove Chips Selected M",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "12px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        },
+        {
+          "size": "l",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 40,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected L",
+            "remove": "Remove Chips Selected L",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "14px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        }
+      ],
+      "customTemplate": true,
+      "override": "rgb(18, 52, 86)",
+      "typeahead": {
+        "height": 28,
+        "fontSize": "12px"
+      },
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "sizes": [
+        {
+          "size": "s",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 32,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "14px",
+              "lineHeight": "24px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 24,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected S",
+            "remove": "Remove Chips Selected S",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "10px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        },
+        {
+          "size": "m",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 40,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "16px",
+              "lineHeight": "32px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 32,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected M",
+            "remove": "Remove Chips Selected M",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "12px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        },
+        {
+          "size": "l",
+          "geometry": [
+            {
+              "example": "placeholder",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": "Placeholder",
+              "labelSize": null
+            },
+            {
+              "example": "title",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "typing",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "Text Activ",
+              "name": null,
+              "labelSize": "14px"
+            },
+            {
+              "example": "chip",
+              "height": 48,
+              "font": "\"Space Grotesk\", Arial, sans-serif",
+              "fontSize": "24px",
+              "lineHeight": "40px",
+              "placeholder": "rgb(220, 220, 220)",
+              "radius": "4px",
+              "value": "",
+              "name": null,
+              "labelSize": "14px"
+            }
+          ],
+          "chip": {
+            "height": 40,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(0, 196, 116)",
+            "radius": "999px",
+            "label": "Chips Selected L",
+            "remove": "Remove Chips Selected L",
+            "iconColor": "rgb(255, 255, 255)",
+            "iconSize": "14px",
+            "buttonWithinChip": true
+          },
+          "removeFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "inputFocus": {
+            "style": "solid",
+            "width": "2px"
+          },
+          "longTag": {
+            "inside": true,
+            "overflow": false,
+            "remove": "Remove LongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabelLongTagLabel"
+          }
+        }
+      ],
+      "customTemplate": true,
+      "override": "rgb(18, 52, 86)",
+      "typeahead": {
+        "height": 28,
+        "fontSize": "12px"
+      },
+      "overflow": false
+    }
+  ],
+  "runtimeErrors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  }
+}
