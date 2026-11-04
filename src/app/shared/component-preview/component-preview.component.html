@@ -4,7 +4,7 @@
     <h2>Component playground<span class="preview-live-badge"><span aria-hidden="true"></span>Live examples</span></h2>
     <p class="preview-intro">Small details. A consistent experience. Explore the building blocks, compare sizes and make them your own.</p>
     <div class="preview-summary"><span>17 components</span><span>7 packages</span><span>Angular 22</span></div>
-    <details class="preview-reference-note"><summary>Design reference coverage</summary><p class="preview-note">S/L/XL button sizes, larger fields and Phase 4 components use shared styles; their final Figma comparison is pending.</p></details>
+    <details class="preview-reference-note"><summary>Design reference coverage</summary><p class="preview-note">Button colors, appearances and XL typography follow the supplied screenshots. Larger fields and Phase 4 components use shared styles; their final Figma comparison is pending.</p></details>
   </header>
 
   <section id="previewPalette" class="preview-section">
@@ -31,16 +31,7 @@
 
   <section id="previewButtons" class="preview-section">
     <h3>Buttons</h3>
-    <p class="preview-note">Reference heights, with the shared M typography.</p>
-    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=31-44" target="_blank" rel="noreferrer">Figma: Primary M</a> · M styles verified; other sizes use metadata heights.</p>
-    @for (size of buttonSizes; track size.name) {
-      <div class="size-row" [attr.data-button-size]="size.name" [style.--sq-button-padding-block]="size.padding">
-        <span class="size-label">{{size.name}} · {{size.height}}px</span>
-        <sq-button [attr.id]="size.name === 'M' ? 'stylePrimaryButton' : null">Button {{size.name}}</sq-button>
-        <sq-button [attr.id]="size.name === 'M' ? 'styleNeutralButton' : null" appearance="neutral">Button {{size.name}}</sq-button>
-        <sq-button [disabled]="true">Disabled</sq-button>
-      </div>
-    }
+    <sq-button-preview></sq-button-preview>
   </section>
 
   <section id="previewFields" class="preview-section">
@@ -112,12 +103,12 @@
     <h3>Dialogs</h3>
     <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=221-2766" target="_blank" rel="noreferrer">Figma: Modal</a> · Metadata widths with viewport constraints; detailed styling pending.</p>
     <div class="modal-buttons">
-      @for (size of sizes; track size.value) { <sq-button [attr.data-modal-size]="size.value" (click)="openModal(size.value)">Open {{size.label}}</sq-button> }
+      @for (size of sizes; track size.value) { <sq-button size="s" [attr.data-modal-size]="size.value" (click)="openModal(size.value)">Open {{size.label}}</sq-button> }
     </div>
     <sq-modal [size]="modalSize()" [(show)]="modalVisible">
       <div sq-modal-title>Example dialog <span class="dialog-subtitle">{{modalSize()}} · scrollable content</span></div>
       <div sq-modal-body>@for (paragraph of modalParagraphs; track $index) { <p class="dialog-paragraph">{{paragraph}}</p> }</div>
-      <div sq-modal-footer class="dialog-actions"><sq-button appearance="neutral" (click)="modalVisible.set(false)">Cancel</sq-button><sq-button (click)="modalVisible.set(false)">Confirm</sq-button></div>
+      <div sq-modal-footer class="dialog-actions"><sq-button size="s" appearance="neutral" (click)="modalVisible.set(false)">Cancel</sq-button><sq-button size="s" (click)="modalVisible.set(false)">Confirm</sq-button></div>
     </sq-modal>
   </section>
 
@@ -127,7 +118,7 @@
     <article class="preview-card">
       <sq-input controlId="previewValidatedName" controlLabel="Display name" [(value)]="validatedName"
                 helpText="Choose a name for your profile" [errorText]="showError() ? 'Please check your display name' : ''"></sq-input>
-      <sq-button id="previewToggleError" appearance="neutral" (click)="showError.set(!showError())">{{showError() ? 'Clear error' : 'Show error'}}</sq-button>
+      <sq-button size="s" id="previewToggleError" appearance="neutral" (click)="showError.set(!showError())">{{showError() ? 'Clear error' : 'Show error'}}</sq-button>
     </article>
   </section>
 
@@ -194,14 +185,14 @@
       <article class="preview-card preview-custom-theme">
         <h4>Custom brand</h4>
         <section class="sq" id="previewNestedTheme">
-          <sq-button>Custom brand</sq-button>
+          <sq-button size="s">Custom brand</sq-button>
           <sq-input controlLabel="Inherited border" value="Local theme"></sq-input>
           <sq-progress-bar [loaded]="62" label="Inherited brand"></sq-progress-bar>
         </section>
       </article>
       <article class="preview-card" id="previewDefaultTheme">
         <h4>Default brand</h4>
-        <sq-button>Default brand</sq-button>
+        <sq-button size="s">Default brand</sq-button>
         <sq-input controlLabel="Default border" value="Default theme"></sq-input>
         <sq-progress-bar [loaded]="62" label="Explicit color override" backgroundColor="#eeeeee" fillColor="#3759c7"></sq-progress-bar>
       </article>

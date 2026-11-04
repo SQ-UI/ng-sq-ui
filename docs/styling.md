@@ -87,7 +87,7 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 
 | Component | Current option | Default / dimensions |
 | --- | --- | --- |
-| Button | `appearance="primary"` or `"neutral"` | Primary, M height 32px; native `type` remains separate |
+| Button | `appearance="primary\|secondary\|neutral"`, `tone="brand\|ok\|warning\|critical"`, `size="s\|m\|l\|xl"` | Primary brand M; heights 24/32/40/56px; native `type` remains separate |
 | Input/textarea/dropdown/tags/typeahead | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
 | Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 36/40/44px; empty message opt-in |
 | Modal | `size="small\|medium\|large"` | Medium; widths 360/400/440px, viewport-clamped |
@@ -95,24 +95,34 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 
 Each `size` value is one string, for example `size="small"`; the table lists alternatives. Table and modal use the exported `Size` union. Wrapped table content, multiline fields and selected chips may grow vertically. Mobile table cards have content-driven height.
 
-Buttons and fields have **no new public `size` input**. The preview demonstrates metadata-derived heights through scoped CSS hooks, while retaining verified M-button and small-field typography:
+Buttons support a public `size` input. S/M/L retain the compact 14/24 typography; XL uses the supplied Space Grotesk semibold 24/40 style with 8px vertical padding. All appearances keep the same dimensions. Primary is filled with white text; secondary is white with a 1px inset outline and text in the selected tone. Enabled buttons turn black on hover (secondary keeps its white surface). Disabled primary uses `color-disabled` with white text; disabled secondary uses the same gray for its outline/text on `color-surface-subtle`. Legacy `neutral` retains its subtle fill while adopting the shared hover and disabled states.
+
+```html
+<sq-button size="xl" tone="brand">Continue</sq-button>
+<sq-button size="xl" appearance="secondary" tone="critical">Reject</sq-button>
+<sq-button appearance="secondary" [disabled]="true">Unavailable</sq-button>
+```
+
+The exported `ButtonAppearance`, `ButtonTone` and `ButtonSize` types describe these inputs. `--sq-button-color` can override the resting fill/outline color; `--sq-button-padding-block` and `--sq-button-padding-inline` remain available for custom geometry. The preview contains the four tones, hover/disabled examples and all four sizes.
+
+The demo uses S buttons (24px high) for actions and color/state examples; the Sizes comparison retains S/M/L/XL.
+
+Button validation: the form library and production demo build successfully; all four button behavior tests, lint, TypeScript and package/style checks pass. Chrome checks at 1440/390/320px verify all 12 S samples, real hover on enabled/disabled buttons, runtime brand overrides, keyboard focus and disabled tab skipping, matching heights across appearances, and no horizontal overflow. Captures: [desktop variants](buttons/screenshots/variants-1440.png), [mobile variants](buttons/screenshots/variants-top-390.png), [mobile disabled/hover](buttons/screenshots/variants-bottom-320.png). The [browser manifest](buttons/screenshots/manifest.json) records the measured values.
+
+Fields retain scoped CSS hooks for metadata-derived heights:
 
 ```scss
-.button-s  { --sq-button-padding-block: 0px; }  // 24px height
-.button-m  { --sq-button-padding-block: 4px; }  // 32px (default)
-.button-l  { --sq-button-padding-block: 8px; }  // 40px
-.button-xl { --sq-button-padding-block: 12px; } // 48px
 .field-s { --sq-field-line-height: 20px; } // 28px single-line frame
 .field-m { --sq-field-line-height: 24px; } // 32px
 .field-l { --sq-field-line-height: 32px; } // 40px
 ```
 
 ```html
-<div class="button-l"><sq-button>Large geometry</sq-button></div>
+<sq-button size="l">Large geometry</sq-button>
 <div class="field-m"><sq-input controlLabel="Name"></sq-input></div>
 ```
 
-These larger-size examples establish geometry only. Their final typography and variant states await detailed Figma references. The neutral button is the verified Tech M building block; it is not a claim that Figma's final secondary appearance has been inspected.
+The larger field examples establish geometry only; their final typography awaits detailed references. Button variants and XL typography follow the supplied screenshots; smaller button sizes retain their existing metrics.
 
 ## Helpers and errors
 

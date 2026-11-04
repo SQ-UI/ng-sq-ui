@@ -13,7 +13,7 @@
       <sq-input controlLabel="Project name" [(value)]="projectName" (valueChange)="saved.set(false)"></sq-input>
       <div class="hero-progress-label"><span>Setup progress</span><span>62%</span></div>
       <sq-progress-bar [loaded]="62" size="small" label="Project setup"></sq-progress-bar>
-      <div class="hero-preview-actions"><sq-button (click)="saved.set(true)">{{saved() ? 'Saved' : 'Save changes'}}</sq-button><sq-button appearance="neutral" (click)="resetPreview()">Reset</sq-button></div>
+      <div class="hero-preview-actions"><sq-button size="s" (click)="saved.set(true)">{{saved() ? 'Saved' : 'Save changes'}}</sq-button><sq-button size="s" appearance="neutral" (click)="resetPreview()">Reset</sq-button></div>
       <span class="hero-save-status" role="status">{{saved() ? 'Your preview changes are saved for this session.' : 'Try the components. This is a live preview.'}}</span>
     </article>
   </section>

@@ -68,6 +68,45 @@ async function capture(name, selector, crop = false) {
   report.captures.push({ file, selector, viewport: { width, height }, cropped: crop, ...measurement });
   console.log(`Captured ${file}`);
 }
+async function checkButtonVariants() {
+  const variants = await evaluate(`Array.from(document.querySelectorAll('[data-button-variant]')).map(host => {
+    const b=host.querySelector('button'),s=getComputedStyle(b);
+    return {name:host.dataset.buttonVariant,secondary:b.classList.contains('sq-button-secondary'),
+      background:s.backgroundColor,color:s.color,outline:s.boxShadow,disabled:b.disabled,
+      height:b.getBoundingClientRect().height,font:s.fontFamily,size:s.fontSize,lineHeight:s.lineHeight,weight:s.fontWeight,radius:s.borderRadius};
+  })`);
+  assert.equal(variants.length, 12);
+  const colors = {Brand:'rgb(0, 196, 116)',OK:'rgb(0, 210, 20)',Warning:'rgb(255, 184, 0)',Critical:'rgb(255, 56, 21)',Hover:'rgb(32, 32, 32)',Disabled:'rgb(170, 170, 170)'};
+  for (const v of variants) {
+    assert.equal(v.height,24); assert.equal(v.size,'14px'); assert.equal(v.lineHeight,'24px');
+    assert.equal(v.weight,'600'); assert.equal(v.radius,'4px'); assert(v.font.includes('Space Grotesk'));
+    assert.equal(v.disabled,v.name==='Disabled');
+    assert.equal(v.background,v.secondary?(v.disabled?'rgb(250, 250, 250)':'rgb(255, 255, 255)'):colors[v.name]);
+    assert.equal(v.color,v.secondary?colors[v.name]:'rgb(255, 255, 255)');
+    if(v.secondary) { assert(v.outline.includes(colors[v.name])); assert(v.outline.includes('inset')); }
+  }
+  const hover = [];
+  for (const name of ['Brand','OK','Warning','Critical','Disabled']) {
+    for (const secondary of [false,true]) {
+      const selector = '[data-button-variant="'+name+'"] button'+(secondary?'.sq-button-secondary':':not(.sq-button-secondary)');
+      await evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center'})`);
+      const r = await evaluate(`(()=>{const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+      await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',...r});
+      const s=await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),s=getComputedStyle(e);return {hover:e.matches(':hover'),background:s.backgroundColor,color:s.color};})()`);
+      assert(s.hover);
+      assert.equal(s.background,secondary?(name==='Disabled'?'rgb(250, 250, 250)':'rgb(255, 255, 255)'):(name==='Disabled'?colors.Disabled:colors.Hover));
+      assert.equal(s.color,secondary?(name==='Disabled'?colors.Disabled:colors.Hover):'rgb(255, 255, 255)');
+      hover.push({name,secondary,...s});
+    }
+  }
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});
+  // The color hook must continue to inherit at runtime for both appearances.
+  await evaluate(`document.querySelector('sq-button-preview').style.setProperty('--sq-color-brand','#123456')`);
+  const inherited=await evaluate(`Array.from(document.querySelectorAll('[data-button-variant="Brand"] button')).map(b=>{const s=getComputedStyle(b);return [s.backgroundColor,s.color];})`);
+  assert.deepEqual(inherited,[['rgb(18, 52, 86)','rgb(255, 255, 255)'],['rgb(255, 255, 255)','rgb(18, 52, 86)']]);
+  await evaluate(`document.querySelector('sq-button-preview').style.removeProperty('--sq-color-brand')`);
+  return {variants,hover,inherited};
+}
 try {
   let port;
   for (let attempt = 0; attempt < 80; attempt++) {
@@ -105,13 +144,13 @@ try {
       overflow:document.documentElement.scrollWidth>innerWidth,
       fonts:[...document.fonts].filter(f=>f.status==='loaded').map(f=>f.family)
     }))()`);
-    assert.deepEqual(sizes.buttons.map(x => x.height), [24,32,40,48]);
+    assert.deepEqual(sizes.buttons.map(x => x.height), [24,32,40,56]);
     assert.deepEqual(sizes.fields.map(x => x.height), [28,32,40]);
     assert.deepEqual(sizes.progress.map(x => x.height), [4,8,12]);
     assert(sizes.progress.every(x => x.value === '62'));
     if (width === 1440) assert.deepEqual(sizes.rows.map(x => x.height), [36,40,44]);
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
-    const checks = { width, sizes }; report.checks.push(checks);
+    const checks = { width, sizes, buttonVariants: await checkButtonVariants() }; report.checks.push(checks);
     const targets = [
       ['overview','#componentPreview'],['buttons','#previewButtons'],['fields','#previewFields'],
       ['extra-fields','#previewFields .preview-grid:nth-of-type(3)'],['progress','#previewProgress'],
@@ -201,6 +240,9 @@ try {
     }
     if (phase6) {
       await focus('#stylePrimaryButton button');
+      await key('Tab');
+      assert.equal(await evaluate('document.activeElement.classList.contains("sq-button-secondary")'), true);
+      await visibleFocus('[data-button-size=M] .sq-button-secondary');
       await key('Tab');
       assert.equal(await evaluate('document.activeElement===document.querySelector("#styleNeutralButton button")'), true);
       await visibleFocus('#styleNeutralButton button');

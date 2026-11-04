@@ -102,9 +102,21 @@ A thin wrapper over the native `button` element.
 - **`type`** (`input<ButtonTypes | string>`): `'button'` (default), `'submit'` or `'reset'`. Anything
   else falls back to `'button'`.
 - **`disabled`** (`input<boolean>`): disables the button. Defaults to `false`.
-- **`appearance`** (`input<ButtonAppearance>`): `'primary'` (default) or `'neutral'`. Both use the
-  verified M geometry. `ButtonAppearance` is exported as a TypeScript type; `type` above still
+- **`appearance`** (`input<ButtonAppearance>`): `'primary'` (default), `'secondary'` (outlined) or
+  legacy `'neutral'` (subtle fill). `ButtonAppearance` is exported as a TypeScript type; `type` above still
   controls native button/submit/reset behavior.
+- **`tone`** (`input<ButtonTone>`): `'brand'` (default), `'ok'`, `'warning'` or `'critical'`.
+- **`size`** (`input<ButtonSize>`): `'s'`, `'m'` (default), `'l'` or `'xl'`; heights 24/32/40/56px.
+  XL uses Space Grotesk semibold 24/40. `ButtonTone` and `ButtonSize` are exported types.
+
+```html
+<sq-button size="xl" tone="ok">Confirm</sq-button>
+<sq-button size="xl" appearance="secondary" tone="critical">Reject</sq-button>
+```
+
+Enabled buttons use the black hover state. Disabled primary has gray fill and white text;
+disabled secondary has gray text/outline on a subtle surface. See [Styling](styling.md)
+for tokens, custom padding and the compatibility appearance.
 
 `ButtonTypes` is exported for use in code:
 

@@ -12,6 +12,7 @@ import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 import { ModalComponent } from '@sq-ui/ng-modal';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { TypographyPreviewComponent } from '../typography-preview/typography-preview.component';
+import { ButtonPreviewComponent } from '../button-preview/button-preview.component';
 
 @Component({
   selector: 'sq-component-preview',
@@ -23,7 +24,7 @@ import { TypographyPreviewComponent } from '../typography-preview/typography-pre
     SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
     SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective,
     SqCheckboxLabelTemplateDirective, SqRadiobuttonLabelTemplateDirective,
-    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent],
+    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent, ButtonPreviewComponent],
   templateUrl: './component-preview.component.html',
   styleUrls: ['./component-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,10 +51,6 @@ export class ComponentPreviewComponent {
       { name: 'Gray 5', token: 'gray-5', hex: '#BEBEBE' },
       { name: 'Gray 6', token: 'gray-6', hex: '#AFAFAF' },
     ] },
-  ];
-  readonly buttonSizes = [
-    { name: 'S', height: 24, padding: '0px' }, { name: 'M', height: 32, padding: '4px' },
-    { name: 'L', height: 40, padding: '8px' }, { name: 'XL', height: 48, padding: '12px' },
   ];
   readonly fieldSizes = [
     { name: 'S', height: 28, lineHeight: '20px' }, { name: 'M', height: 32, lineHeight: '24px' },

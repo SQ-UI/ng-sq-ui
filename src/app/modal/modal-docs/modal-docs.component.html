@@ -37,7 +37,7 @@
             </ul>
           </div>
 
-          <sq-button (click)="showModal.set(!showModal())">Show modal</sq-button>
+          <sq-button size="s" (click)="showModal.set(!showModal())">Show modal</sq-button>
 
           <sq-modal [(show)]="showModal">
             <div sq-modal-title>
@@ -51,11 +51,11 @@
             </div>
 
             <div sq-modal-footer class="modal-demo-actions">
-              <sq-button appearance="primary" (click)="confirmationBtnHandler()">
+              <sq-button size="s" appearance="primary" (click)="confirmationBtnHandler()">
                 Confirm
               </sq-button>
 
-              <sq-button appearance="neutral" (click)="rejectionBtnHandler()">
+              <sq-button size="s" appearance="neutral" (click)="rejectionBtnHandler()">
                 Reject
               </sq-button>
             </div>

@@ -5,8 +5,6 @@
 .component-preview { max-width: 1440px; margin: 0 auto; }
 .preview-section { margin-top: 32px; min-width: 0; }
 .preview-note { max-width: 80ch; font-size: 12px; line-height: 20px; }
-.size-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 16px 0; }
-.size-label { flex: 0 0 80px; font-size: 12px; }
 .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; margin: 16px 0; }
 .reference-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 240px)); gap: 16px; }
 .table-grid { grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); }
@@ -33,7 +31,7 @@
 .template-chevron { font-size: 16px; line-height: 20px; }
 .preview-custom-theme { --sq-color-brand: #3759c7; --sq-color-border: #8b9bd9; }
 #previewTheme sq-button { display: inline-block; margin-bottom: 16px; }
-@media (max-width: 450px) { .preview-card { padding: 12px; } .size-label { flex-basis: 100%; } }
+@media (max-width: 450px) { .preview-card { padding: 12px; } }
 
 .component-preview { counter-reset: showcase-section; }
 .preview-hero { padding: 4px 0 8px; }
@@ -54,8 +52,6 @@
 .component-preview .preview-note a:hover { text-decoration-color: var(--demo-ink); }
 .component-preview .preview-card { border-radius: 7px; background: var(--demo-canvas, #fafafa); }
 .component-preview .preview-card h4 { font-size: 12px; font-weight: 500; margin-bottom: 16px; }
-.component-preview .size-row { padding: 16px; border: 1px solid var(--demo-border); border-radius: 7px; margin: 12px 0; }
-.component-preview .size-label { font-size: 11px; color: var(--demo-muted); }
 .component-preview .reference-fields { padding-top: 16px; }
 .component-preview .page-summary { font-size: 11px; color: var(--demo-muted); }
 .palette-group-title { margin-top: 20px; font-size: 12px; }
@@ -69,5 +65,4 @@
   .preview-hero > h2 { @include type.heading(2, 'm'); gap: 12px; }
   .component-preview .preview-section { padding: 16px; margin-top: 16px; }
   .component-preview .preview-section > h3 { @include type.heading(3, 'xs'); }
-  .component-preview .size-row { padding: 12px; }
 }

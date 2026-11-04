@@ -10,7 +10,7 @@ export { FormGroupComponent } from './lib/form-group/form-group.component';
 export { TypeaheadComponent } from './lib/typeahead/typeahead.component';
 export { CheckboxComponent } from './lib/checkbox/checkbox.component';
 export { ButtonComponent, ButtonTypes } from './lib/button/button.component';
-export type { ButtonAppearance } from './lib/button/button.component';
+export type { ButtonAppearance, ButtonTone, ButtonSize } from './lib/button/button.component';
 export { TextareaComponent } from './lib/textarea/textarea.component';
 export { SqCheckboxLabelTemplateDirective } from './lib/checkbox/checkbox.template.directive';
 export { SqDropdownOptionTemplateDirective, SqDropdownChevronTemplateDirective, SqDropdownSelectedOptionTemplateDirective } from './lib/dropdown/dropdown.template.directive';

@@ -37,7 +37,7 @@ Text 1, Text 2 and button text share the three visible pairs:
 | XL | 24 / 40 |
 | L | 20 / 32 |
 
-The image is cropped below L. Smaller variants are not invented. Existing compact field text remains 12/20, assistive text 10/16 and M-button text 14/24. Buttons now use the requested Grotesk semibold 600 weight. These text roles do not add new button size inputs or change control padding/heights.
+The image is cropped below L. Smaller variants are not invented. Existing compact field text remains 12/20, assistive text 10/16 and M-button text 14/24. Buttons use the requested Grotesk semibold 600 weight. The text role utilities do not change control geometry; the subsequent button screenshot is implemented through the component's `size="xl"` input (24/40 text, 56px total height). See [button presentation options](styling.md#presentation-options-and-dimensions).
 
 ## Consumer usage
 

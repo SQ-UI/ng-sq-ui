@@ -6,24 +6,52 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--sq-button-padding-block, #{sq.value('space-1')}) sq.value('space-4');
+  padding: var(--sq-button-padding-block, #{sq.value('space-1')}) var(--sq-button-padding-inline, #{sq.value('space-4')});
   border: 0;
   border-radius: sq.value('radius-control');
-  background: sq.value('color-brand');
-  color: sq.value('color-surface');
+  background: var(--sq-button-color, var(--sq-button-tone, #{sq.value('color-brand')}));
+  color: sq.value('color-white');
   text-transform: none;
   vertical-align: middle;
   cursor: pointer;
 
   .inner { display: inline-flex; align-items: center; justify-content: center; }
+  @each $tone in ('ok', 'warning', 'critical') {
+    &[data-tone='#{$tone}'] { --sq-button-tone: #{sq.value('color-#{$tone}')}; }
+  }
+  &[data-size='s'] { padding-block: var(--sq-button-padding-block, 0px); }
+  &[data-size='l'] { padding-block: var(--sq-button-padding-block, 8px); }
+  &[data-size='xl'] {
+    @include type.button-text('xl');
+    padding: var(--sq-button-padding-block, 8px) var(--sq-button-padding-inline, 32px);
+  }
+  &.sq-button-secondary {
+    background: sq.value('color-white');
+    color: var(--sq-button-color, var(--sq-button-tone, #{sq.value('color-brand')}));
+    // An inset outline preserves identical dimensions across appearances/sizes.
+    box-shadow: inset 0 0 0 #{sq.value('border-width')} currentColor;
+  }
   &.sq-button-neutral {
     background: sq.value('color-surface-subtle');
     color: sq.value('color-text');
   }
-  // Disabled surface/text use the supplied palette; detailed state geometry is unchanged.
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      background: sq.value('color-black');
+      color: sq.value('color-white');
+    }
+    &.sq-button-secondary:hover:not(:disabled) {
+      background: sq.value('color-white');
+      color: sq.value('color-black');
+    }
+  }
   &:disabled {
-    background: sq.value('color-disabled-surface');
-    color: sq.value('color-disabled');
+    background: sq.value('color-disabled');
+    color: sq.value('color-white');
     cursor: not-allowed;
+    &.sq-button-secondary {
+      background: sq.value('color-surface-subtle');
+      color: sq.value('color-disabled');
+    }
   }
 }
