@@ -1,18 +1,12 @@
 @use './tokens' as sq;
+@use './typography' as type;
 
 @mixin sq-base {
-  $heading-size: 2.8rem;
-  $heading-bottom-margin: 40px;
-
-  @for $i from 1 through 4 {
-    $heading-size: $heading-size - 0.4;
-    $heading-bottom-margin: $heading-bottom-margin - 10;
-
-    h#{$i} {
-      font-size: $heading-size;
-      margin-bottom: $heading-bottom-margin;
-    }
-  }
+  h1 { @include type.heading(1); margin-bottom: 24px; }
+  h2 { @include type.heading(2); margin-bottom: 20px; }
+  h3 { @include type.heading(3); margin-bottom: 16px; }
+  // No H4 reference is visible; retain the existing compact H4 dimensions.
+  h4 { font-size: 1.2rem; margin-bottom: 0; }
 
   input, textarea {
     width: 100%;

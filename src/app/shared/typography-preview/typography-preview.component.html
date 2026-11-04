@@ -1,0 +1,21 @@
+<p class="type-note">Each sample uses the exact size / line-height pair shown in the reference. Text and button columns include the three sizes visible in the supplied image.</p>
+<div class="type-grid">
+  @for (group of groups; track group.prefix) {
+    <article class="type-family" [attr.data-type-family]="group.prefix">
+      <h4>{{group.name}}</h4>
+      <p class="type-family-name">{{group.family}}</p>
+      @if (group.display) {
+        <p class="type-font-note">Requires a licensed Institut webfont. Space Grotesk is the fallback shown until it is supplied.</p>
+      }
+      @for (sample of group.sizes; track sample.size) {
+        <div class="type-entry">
+          <span class="type-size-label">{{sample.size.toUpperCase()}} · {{sample.fontSize}} / {{sample.lineHeight}}</span>
+          <div [class]="'type-specimen ' + group.prefix + '-' + sample.size"
+               [attr.data-type-style]="group.prefix + '-' + sample.size"
+               [attr.data-font-size]="sample.fontSize" [attr.data-line-height]="sample.lineHeight"
+               tabindex="0" [attr.aria-label]="group.name + ' ' + sample.size + ' sample'">{{group.sample}}</div>
+        </div>
+      }
+    </article>
+  }
+</div>

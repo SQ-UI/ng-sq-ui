@@ -1,4 +1,54 @@
 @use './tokens' as sq;
+@use 'sass:list';
+
+@mixin heading($level: 2, $size: 'm') {
+  @if not list.index((1, 2, 3), $level) { @error 'Heading level must be 1, 2 or 3.'; }
+  @if $level == 1 {
+    font-family: sq.value('font-family-display');
+    font-weight: sq.value('font-weight-display');
+  } @else if $level == 3 {
+    font-family: sq.value('font-family-mono');
+    font-weight: sq.value('font-weight-bold');
+  } @else {
+    font-family: sq.value('font-family-sans');
+    font-weight: sq.value('font-weight-bold');
+  }
+  font-size: sq.value('font-size-heading-#{$level}-#{$size}');
+  line-height: sq.value('line-height-heading-#{$level}-#{$size}');
+  letter-spacing: sq.value('letter-spacing');
+}
+
+@mixin text($kind: 1, $size: 'l') {
+  @if not list.index((1, 2), $kind) { @error 'Text kind must be 1 or 2.'; }
+  @if $kind == 2 { font-family: sq.value('font-family-mono'); }
+  @else { font-family: sq.value('font-family-sans'); }
+  font-size: sq.value('font-size-text-#{$kind}-#{$size}');
+  line-height: sq.value('line-height-text-#{$kind}-#{$size}');
+  font-weight: sq.value('font-weight-regular');
+  letter-spacing: sq.value('letter-spacing');
+}
+
+@mixin button-text($size: 'l') {
+  font-family: sq.value('font-family-sans');
+  font-size: sq.value('font-size-button-#{$size}');
+  line-height: sq.value('line-height-button-#{$size}');
+  font-weight: sq.value('font-weight-semibold');
+  letter-spacing: sq.value('letter-spacing');
+}
+
+@mixin scale-classes {
+  @each $size in ('xxl', 'xl', 'l', 'm', 's', 'xs', 'xxs') {
+    @for $level from 1 through 3 {
+      .sq-h#{$level}-#{$size} { @include heading($level, $size); }
+    }
+  }
+  @each $size in ('xxl', 'xl', 'l') {
+    @for $kind from 1 through 2 {
+      .sq-text#{$kind}-#{$size} { @include text($kind, $size); }
+    }
+    .sq-button-text-#{$size} { @include button-text($size); }
+  }
+}
 
 @mixin body {
   font-family: sq.value('font-family');
@@ -20,8 +70,9 @@
 }
 
 @mixin button-medium {
+  font-family: sq.value('font-family-sans');
   font-size: sq.value('font-size-button-medium');
   line-height: sq.value('line-height-button-medium');
-  font-weight: sq.value('font-weight-medium');
+  font-weight: sq.value('font-weight-semibold');
   letter-spacing: sq.value('letter-spacing');
 }

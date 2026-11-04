@@ -1,6 +1,8 @@
+@use '../../../../projects/ng-sq-common/src/lib/styles/typography' as type;
+
 .module-overview { padding: 24px; margin-bottom: 24px; border: 1px solid var(--demo-border, #dcdcdc); border-radius: 10px; background: white; }
 .module-overview > header { padding: 0 0 16px; margin-bottom: 0; }
-.module-overview > header h2 { font-size: 22px; margin: 0; }
+.module-overview > header h2 { @include type.heading(2, 'm'); margin: 0; }
 .module-overview ul { margin: 0; padding: 0; list-style: none; }
 .module-overview ul li { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--demo-border, #dcdcdc); font-size: 12px; }
 .module-overview ul li:last-child { padding-bottom: 0; border-bottom: 0; }

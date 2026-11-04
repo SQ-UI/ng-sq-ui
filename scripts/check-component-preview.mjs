@@ -267,9 +267,9 @@ try {
         return {button:{fontSize:b.fontSize,lineHeight:b.lineHeight,weight:b.fontWeight,radius:b.borderRadius,background:b.backgroundColor,text:b.color},
           primary:{background:p.backgroundColor,text:p.color},
           field:{radius:f.borderRadius,stroke:f.boxShadow,fontSize:f.fontSize,lineHeight:f.lineHeight,padding:f.padding,groupHeight:document.querySelector('#formStylePreview sq-input:nth-child(2) .sq-form-field').getBoundingClientRect().height},
-          error:{fontSize:e.fontSize,lineHeight:e.lineHeight,color:e.color},fonts:[400,500,700].map(w=>document.fonts.check(w+' 14px "IBM Plex Sans"'))};
+          error:{fontSize:e.fontSize,lineHeight:e.lineHeight,color:e.color},fonts:[400,600,700].map(w=>document.fonts.check(w+' 14px "Space Grotesk"'))};
       })()`);
-      assert.deepEqual(reference.button, {fontSize:'14px',lineHeight:'24px',weight:'500',radius:'4px',background:'rgb(250, 250, 250)',text:'rgb(32, 32, 32)'});
+      assert.deepEqual(reference.button, {fontSize:'14px',lineHeight:'24px',weight:'600',radius:'4px',background:'rgb(250, 250, 250)',text:'rgb(32, 32, 32)'});
       assert.equal(reference.field.radius, '4px'); assert(reference.field.stroke.includes('rgb(220, 220, 220)'));
       assert.equal(reference.field.fontSize, '12px'); assert.equal(reference.field.lineHeight, '20px');
       assert.equal(reference.field.padding, '4px 8px'); assert.equal(reference.field.groupHeight, 64);

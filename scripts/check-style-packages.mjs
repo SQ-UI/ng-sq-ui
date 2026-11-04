@@ -36,11 +36,17 @@ const css = compile(`
     @include type.field-small;
   }
   .consumer-theme { @include sq.custom-properties; }
+  .consumer-heading { @include type.heading(3, 'xs'); }
+  .consumer-text { @include type.text(2, 'l'); }
+  .consumer-button-text { @include type.button-text('xl'); }
 `);
 assert.match(css, /\.sq \.input-field\s*\{/);
 assert.match(css, /var\(--sq-color-brand, #123456\)/);
 assert.match(css, /color: #123456;/);
 assert.match(css, /font-size: var\(--sq-font-size-field-small, 12px\)/);
+assert.match(css, /font-size: var\(--sq-font-size-heading-3-xs, 16px\)/);
+assert.match(css, /line-height: var\(--sq-line-height-text-2-l, 32px\)/);
+assert.match(css, /font-weight: var\(--sq-font-weight-semibold, 600\)/);
 assert.match(css, /:where\(\.sq\) \*/);
 assert.doesNotMatch(css, /^\.input-field\s*\{|^\.disabled\s*\{|^\*\s*\{/m);
 assert.match(css, /\.consumer-theme\s*\{[^}]*--sq-color-brand: #123456;/);

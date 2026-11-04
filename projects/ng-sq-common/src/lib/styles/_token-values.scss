@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:list';
 
 // Configure before loading the theme: @use '.../tokens' with ($overrides: (...)).
 $overrides: () !default;
@@ -28,8 +29,11 @@ $tokens: map.merge(map.merge($_palette, (
   'color-surface': map.get($_palette, 'color-white'),
   'color-surface-subtle': map.get($_palette, 'color-gray-1'),
   'color-border': map.get($_palette, 'color-gray-3'),
-  'font-family-sans': ('IBM Plex Sans', Arial, sans-serif),
-  'font-family-mono': ('IBM Plex Mono', monospace),
+  // Typography reference supplied on 2026-11-04. Institut's regular face is
+  // the display font; consumers supply its licensed webfont separately.
+  'font-family-display': ('Institut', 'Space Grotesk', Arial, sans-serif),
+  'font-family-sans': ('Space Grotesk', Arial, sans-serif),
+  'font-family-mono': ('Space Mono', monospace),
   // Fonts remain opt-in: the library never loads a font or replaces the host font.
   'font-family': inherit,
   'font-size-field-small': 12px,
@@ -40,6 +44,9 @@ $tokens: map.merge(map.merge($_palette, (
   'line-height-button-medium': 24px,
   'font-weight-regular': 400,
   'font-weight-medium': 500,
+  'font-weight-semibold': 600,
+  'font-weight-bold': 700,
+  'font-weight-display': 400,
   'letter-spacing': 0,
   'space-1': 4px,
   'space-2': 8px,
@@ -90,6 +97,28 @@ $tokens: map.merge(map.merge($_palette, (
   'focus-width': 2px,
   'focus-offset': 2px,
 )), $overrides);
+
+// Size / line-height pairs visible in the supplied screenshot. The text/button
+// columns are cropped below L, so no smaller reference sizes are inferred.
+$_heading-common: ('xxl': (48px, 64px), 'xl': (40px, 56px), 'l': (32px, 48px), 'm': (24px, 40px), 's': (20px, 32px), 'xs': (16px, 28px), 'xxs': (12px, 20px));
+$_text-common: ('xxl': (32px, 48px), 'xl': (24px, 40px), 'l': (20px, 32px));
+$_type-scales: (
+  'heading-1': ('xxl': (80px, 96px), 'xl': (64px, 80px), 'l': (48px, 64px), 'm': (40px, 56px), 's': (32px, 48px), 'xs': (24px, 40px), 'xxs': (20px, 32px)),
+  'heading-2': $_heading-common,
+  'heading-3': $_heading-common,
+  'text-1': $_text-common,
+  'text-2': $_text-common,
+  'button': $_text-common,
+);
+@each $role, $sizes in $_type-scales {
+  @each $size, $metrics in $sizes {
+    // Merge configured tokens last so an explicit size override always wins.
+    $tokens: map.merge((
+      'font-size-#{$role}-#{$size}': list.nth($metrics, 1),
+      'line-height-#{$role}-#{$size}': list.nth($metrics, 2),
+    ), $tokens);
+  }
+}
 
 @function fallback($name) {
   @if not map.has-key($tokens, $name) {

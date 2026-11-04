@@ -1,4 +1,5 @@
 @use '../../../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+@use '../../../../projects/ng-sq-common/src/lib/styles/typography' as type;
 
 :host { display: block; min-width: 0; }
 .component-preview { max-width: 1440px; margin: 0 auto; }
@@ -36,7 +37,7 @@
 
 .component-preview { counter-reset: showcase-section; }
 .preview-hero { padding: 4px 0 8px; }
-.preview-hero > h2 { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 36px; line-height: 1.2; letter-spacing: -1.1px; font-weight: 500; margin-bottom: 16px; }
+.preview-hero > h2 { @include type.heading(2, 'l'); display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
 .preview-hero .preview-intro { max-width: 58ch; font-size: 14px; line-height: 1.8; color: var(--demo-muted); padding-bottom: 0; }
 .preview-live-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; line-height: 18px; letter-spacing: 0; color: var(--demo-muted); padding: 3px 8px; border: 1px solid var(--demo-border); border-radius: 4px; }
 .preview-live-badge > span { width: 5px; height: 5px; border-radius: 50%; background: var(--demo-brand); }
@@ -46,7 +47,7 @@
 .preview-reference-note summary { cursor: pointer; }
 .preview-reference-note .preview-note { margin-top: 8px; }
 .component-preview .preview-section { counter-increment: showcase-section; padding: 24px; margin-top: 24px; border: 1px solid var(--demo-border, #dcdcdc); border-radius: 10px; background: white; }
-.component-preview .preview-section > h3 { display: flex; align-items: center; gap: 10px; font-size: 21px; line-height: 28px; font-weight: 500; letter-spacing: -.4px; margin-bottom: 12px; }
+.component-preview .preview-section > h3 { @include type.heading(3, 's'); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .component-preview .preview-section > h3::before { content: counter(showcase-section, decimal-leading-zero); flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: var(--demo-canvas); color: var(--demo-muted); border: 1px solid var(--demo-border); font-size: 10px; font-weight: 400; letter-spacing: 0; }
 .component-preview .preview-note { color: var(--demo-muted); font-size: 11px; line-height: 19px; }
 .component-preview .preview-note a { color: var(--demo-ink); text-decoration-color: var(--demo-border); }
@@ -64,12 +65,9 @@
 .palette-color strong { font-weight: 500; }
 .palette-color code { color: var(--demo-muted); }
 .palette-swatch { display: block; height: 48px; border: 1px solid var(--demo-border); border-radius: 6px; margin-bottom: 8px; }
-@each $color in ('black', 'white', 'brand', 'brand-light', 'critical', 'ok', 'warning', 'unknown', 'gray-1', 'gray-2', 'gray-3', 'gray-4', 'gray-5', 'gray-6') {
-  .palette-swatch[data-color='#{$color}'] { background: sq.value('color-#{$color}'); }
-}
 @media (max-width: 540px) {
-  .preview-hero > h2 { font-size: 28px; gap: 12px; }
+  .preview-hero > h2 { @include type.heading(2, 'm'); gap: 12px; }
   .component-preview .preview-section { padding: 16px; margin-top: 16px; }
-  .component-preview .preview-section > h3 { font-size: 18px; }
+  .component-preview .preview-section > h3 { @include type.heading(3, 'xs'); }
   .component-preview .size-row { padding: 12px; }
 }

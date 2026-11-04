@@ -11,6 +11,7 @@ import { DatetimePickerComponent, TimePickerComponent, type DatetimePickerValue 
 import { Temporal } from '@sq-ui/ng-datetime-picker/temporal';
 import { ModalComponent } from '@sq-ui/ng-modal';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
+import { TypographyPreviewComponent } from '../typography-preview/typography-preview.component';
 
 @Component({
   selector: 'sq-component-preview',
@@ -22,7 +23,7 @@ import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
     SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
     SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective,
     SqCheckboxLabelTemplateDirective, SqRadiobuttonLabelTemplateDirective,
-    DatatableHeaderDirective, DatatableBodyDirective],
+    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent],
   templateUrl: './component-preview.component.html',
   styleUrls: ['./component-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

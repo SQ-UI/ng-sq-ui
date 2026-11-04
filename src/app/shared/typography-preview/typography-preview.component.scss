@@ -1,0 +1,11 @@
+:host { display: block; min-width: 0; }
+.type-note { max-width: 80ch; font-size: 11px; line-height: 20px; color: var(--demo-muted); }
+.type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 16px; margin-top: 16px; align-items: start; }
+.type-family { min-width: 0; padding: 16px; border: 1px solid var(--demo-border); border-radius: 7px; background: var(--demo-canvas); }
+.type-family h4 { font-family: var(--sq-font-family-sans, 'Space Grotesk', Arial, sans-serif); font-size: 14px; line-height: 24px; font-weight: 700; margin-bottom: 4px; }
+.type-family-name { font-size: 11px; line-height: 20px; color: var(--demo-muted); }
+.type-font-note { font-size: 10px; line-height: 16px; color: var(--demo-muted); }
+.type-entry { min-width: 0; margin-top: 16px; border-top: 1px solid var(--demo-border); padding-top: 12px; }
+.type-size-label { display: block; font-size: 10px; line-height: 16px; color: var(--demo-muted); }
+.type-specimen { max-width: 100%; white-space: nowrap; overflow-x: auto; overflow-y: hidden; font-synthesis: none; }
+.type-specimen:focus-visible { outline: 2px solid var(--demo-ink); outline-offset: 2px; }

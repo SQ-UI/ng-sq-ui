@@ -78,7 +78,7 @@ Use these public Sass entry points. The theme entry emits the scoped reset, base
 | `@sq-ui/ng-sq-common/sq-ui-theme.scss` | Everything below (theme entry point) |
 | `@sq-ui/ng-sq-common/styles/tokens` | Shared token functions, `$overrides` and optional custom-property mixin |
 | `@sq-ui/ng-sq-common/styles/colors.scss` | Compatible legacy Sass color variables; does not emit CSS custom properties |
-| `@sq-ui/ng-sq-common/styles/typography` | Typography mixins; fonts remain inherited unless configured |
+| `@sq-ui/ng-sq-common/styles/typography` | Heading/text/button mixins and scale classes; consumers load their chosen font files |
 | `@sq-ui/ng-form-elements/styles/form-elements.scss` | Styles of the form controls |
 
 Alternatively `@use` the theme from your own stylesheet:

@@ -26,15 +26,15 @@ Keep `.sq` on a parent. Shared reset and form rules are scoped to that theme; th
 
 ## Fonts
 
-Components inherit the consumer's font by default. For the reference typography, load **IBM Plex Sans 400/500/700** through your application's font pipeline and opt in at your application root:
+The current typography reference uses **Space Grotesk** for H2/Text 1/buttons and **Space Mono** for H3/Text 2. Load their regular/bold faces and Grotesk's semibold face through your font pipeline. Base control text still inherits the consumer font; the heading/text role mixins and button style select their reference families. Set the application's base family explicitly:
 
 ```scss
 .application-theme {
-  --sq-font-family: 'IBM Plex Sans', Arial, sans-serif;
+  --sq-font-family: 'Space Grotesk', Arial, sans-serif;
 }
 ```
 
-The demo loads those weights through a Google Fonts stylesheet with `display=swap` in `src/index.html`. Consumers may self-host the font or use their existing font; the library does not fetch or bundle it. Set the family after arranging font loading, and wait for fonts before making visual comparisons. IBM Plex Mono has a family token but is not imposed on an unverified component. Other Figma heading fonts remain unverified.
+The demo self-hosts Space Grotesk 300–700 and Space Mono 400/700 under `src/assets/fonts`, with their license files and `font-display: swap`. Reusable packages do not download or bundle these demo fonts. H1 selects Institut Regular with a Space Grotesk fallback; a licensed Institut webfont is required for its exact face. The downloaded evaluation file remains under ignored `tmp/fonts/`. See [Typography](typography.md) for every visible scale, role mixins/classes, font sources and the H1 limitation. This newer screenshot supersedes the earlier IBM Plex family choices.
 
 ## Override compiled components at runtime
 

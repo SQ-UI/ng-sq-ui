@@ -1,4 +1,5 @@
 @use '../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+@use '../../projects/ng-sq-common/src/lib/styles/typography' as type;
 
 .sq-app {
   --demo-brand: #{sq.fallback('color-brand')};
@@ -13,8 +14,8 @@
   .scrollable { grid-column: 2; grid-row: 2; min-width: 0; min-height: 0; overflow: auto; padding: 40px clamp(24px, 4vw, 64px) 64px; scroll-padding-top: 32px; }
   .scrollable > :not(router-outlet) { display: block; max-width: 1280px; margin-inline: auto; }
   .scrollable:focus { outline: none; }
-  .scrollable :where(h2) { font-size: 30px; line-height: 1.2; font-weight: 500; letter-spacing: -.8px; margin-bottom: 12px; }
-  .scrollable :where(h3) { font-size: 22px; line-height: 1.35; font-weight: 500; letter-spacing: -.4px; margin-bottom: 12px; }
+  .scrollable :where(h2) { @include type.heading(2, 'm'); margin-bottom: 12px; }
+  .scrollable :where(h3) { @include type.heading(3, 's'); margin-bottom: 12px; }
   .scrollable :where(h4) { font-size: 16px; line-height: 1.5; font-weight: 500; margin-bottom: 12px; }
   .scrollable :where(p) { font-size: 14px; line-height: 1.7; padding-bottom: 12px; }
   .scrollable :where(a) { text-underline-offset: 3px; }
@@ -29,7 +30,7 @@
   .mg-b20 { margin-bottom: 20px; }
   .emphasis { display: inline-block; padding: 4px 8px; background: var(--demo-canvas); font-size: 12px; font-weight: 500; border-radius: 4px; }
   .demo-eyebrow { display: block; font-size: 10px; line-height: 20px; font-weight: 500; letter-spacing: 1.8px; color: var(--demo-muted); margin-bottom: 12px; }
-  .demo-action { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 42px; padding: 8px 18px; border: 1px solid var(--demo-border); border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; color: var(--demo-ink); background: white; }
+  .demo-action { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 42px; padding: 8px 18px; border: 1px solid var(--demo-border); border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; color: var(--demo-ink); background: white; }
   .demo-action.primary { background: var(--demo-brand); border-color: var(--demo-brand); color: var(--demo-ink); }
   .demo-action:hover { box-shadow: 0 2px 8px rgb(32 32 32 / 8%); }
   .scrollable :where(h1, h2, h3, h4, p) { overflow-wrap: anywhere; }
@@ -40,7 +41,7 @@
 }
 @media (max-width: 540px) {
   .sq-app .scrollable { padding: 24px 16px 40px; }
-  .sq-app .scrollable :where(h2) { font-size: 26px; }
-  .sq-app .scrollable :where(h3) { font-size: 20px; }
+  .sq-app .scrollable :where(h2) { @include type.heading(2, 's'); }
+  .sq-app .scrollable :where(h3) { @include type.heading(3, 'xs'); }
 }
 @media (prefers-reduced-motion: reduce) { .sq-app { scroll-behavior: auto; } }

@@ -6,6 +6,7 @@
 .sq {
   @include sq-reset.sq-reset;
   @include sq-type.body;
+  @include sq-type.scale-classes;
   //Base styles
   @include sq-base.sq-base;
 
