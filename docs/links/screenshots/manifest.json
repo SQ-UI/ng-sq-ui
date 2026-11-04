@@ -1,0 +1,694 @@
+{
+  "capturedAt": "2026-11-04T15:16:35.138Z",
+  "sourceCommit": "94f7496a4f170fbccd88447718ff800b18ec30b6",
+  "phase": "4",
+  "route": "/#/preview",
+  "success": true,
+  "captures": [
+    {
+      "file": "links-1440.png",
+      "selector": "#previewLinks",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 289.59375,
+        "y": 100.171875,
+        "width": 1062.8125,
+        "height": 443.578125
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "anchors-1440.png",
+      "selector": "#previewLinks .link-states:last-child",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 314.59375,
+        "y": 99.5625,
+        "width": 1012.8125,
+        "height": 78.1875
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "links-390.png",
+      "selector": "#previewLinks",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 100.46875,
+        "width": 328,
+        "height": 718.75
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "anchors-390.png",
+      "selector": "#previewLinks .link-states:last-child",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 99.84375,
+        "width": 294,
+        "height": 180.375
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "links-320.png",
+      "selector": "#previewLinks",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 99.65625,
+        "width": 258,
+        "height": 1162.3125
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "anchors-320.png",
+      "selector": "#previewLinks .link-states:last-child",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100.21875,
+        "width": 224,
+        "height": 384.75
+      },
+      "font": "\"Space Grotesk\", Arial, sans-serif",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    {
+      "width": 1440,
+      "links": {
+        "states": {
+          "brand": {
+            "color": "rgb(0, 196, 116)",
+            "line": "underline",
+            "underline": "rgb(0, 196, 116)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "hover": {
+            "color": "rgb(32, 32, 32)",
+            "line": "underline",
+            "underline": "rgb(32, 32, 32)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "active": {
+            "color": "rgb(32, 32, 32)",
+            "line": "none",
+            "underline": "rgb(32, 32, 32)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "disabled": {
+            "color": "rgb(170, 170, 170)",
+            "line": "underline",
+            "underline": "rgb(170, 170, 170)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": null,
+            "disabled": "true"
+          }
+        },
+        "hover": {
+          "color": "rgb(32, 32, 32)",
+          "line": "underline",
+          "underline": "rgb(32, 32, 32)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "pressed": {
+          "color": "rgb(32, 32, 32)",
+          "line": "none",
+          "underline": "rgb(32, 32, 32)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "focusRing": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "inline": {
+          "color": "rgb(0, 196, 116)",
+          "line": "underline",
+          "underline": "rgb(0, 196, 116)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "inherited": {
+          "color": "rgb(18, 52, 86)",
+          "line": "underline",
+          "underline": "rgb(18, 52, 86)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "outside": {
+          "color": "rgb(0, 0, 238)",
+          "line": "underline",
+          "underline": "rgb(0, 0, 238)",
+          "thickness": "auto",
+          "offset": "auto",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "href": "#",
+          "disabled": null
+        },
+        "anchors": [
+          {
+            "name": "brand",
+            "color": "rgb(0, 196, 116)",
+            "iconColor": "rgb(0, 196, 116)",
+            "line": "underline",
+            "underline": "rgb(0, 196, 116)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "hover",
+            "color": "rgb(32, 32, 32)",
+            "iconColor": "rgb(32, 32, 32)",
+            "line": "underline",
+            "underline": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "active",
+            "color": "rgb(32, 32, 32)",
+            "iconColor": "rgb(32, 32, 32)",
+            "line": "none",
+            "underline": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "disabled",
+            "color": "rgb(170, 170, 170)",
+            "iconColor": "rgb(170, 170, 170)",
+            "line": "underline",
+            "underline": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "href": null,
+            "disabled": "true",
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          }
+        ],
+        "iconHover": {
+          "color": "rgb(32, 32, 32)",
+          "stroke": "rgb(32, 32, 32)",
+          "line": "underline"
+        },
+        "iconPressed": {
+          "color": "rgb(32, 32, 32)",
+          "stroke": "rgb(32, 32, 32)",
+          "line": "none"
+        },
+        "anchorFocus": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "disabledSkipped": true
+      },
+      "overflow": false,
+      "reference": {
+        "color": "rgb(0, 196, 116)",
+        "line": "underline"
+      },
+      "shell": {
+        "overflow": false,
+        "actionLine": "none",
+        "actionColor": "rgb(32, 32, 32)",
+        "featureLine": "none",
+        "footerLine": "underline"
+      }
+    },
+    {
+      "width": 390,
+      "links": {
+        "states": {
+          "brand": {
+            "color": "rgb(0, 196, 116)",
+            "line": "underline",
+            "underline": "rgb(0, 196, 116)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "hover": {
+            "color": "rgb(32, 32, 32)",
+            "line": "underline",
+            "underline": "rgb(32, 32, 32)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "active": {
+            "color": "rgb(32, 32, 32)",
+            "line": "none",
+            "underline": "rgb(32, 32, 32)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "disabled": {
+            "color": "rgb(170, 170, 170)",
+            "line": "underline",
+            "underline": "rgb(170, 170, 170)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": null,
+            "disabled": "true"
+          }
+        },
+        "hover": {
+          "color": "rgb(32, 32, 32)",
+          "line": "underline",
+          "underline": "rgb(32, 32, 32)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "pressed": {
+          "color": "rgb(32, 32, 32)",
+          "line": "none",
+          "underline": "rgb(32, 32, 32)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "focusRing": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "inline": {
+          "color": "rgb(0, 196, 116)",
+          "line": "underline",
+          "underline": "rgb(0, 196, 116)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "inherited": {
+          "color": "rgb(18, 52, 86)",
+          "line": "underline",
+          "underline": "rgb(18, 52, 86)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "outside": {
+          "color": "rgb(0, 0, 238)",
+          "line": "underline",
+          "underline": "rgb(0, 0, 238)",
+          "thickness": "auto",
+          "offset": "auto",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "href": "#",
+          "disabled": null
+        },
+        "anchors": [
+          {
+            "name": "brand",
+            "color": "rgb(0, 196, 116)",
+            "iconColor": "rgb(0, 196, 116)",
+            "line": "underline",
+            "underline": "rgb(0, 196, 116)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "hover",
+            "color": "rgb(32, 32, 32)",
+            "iconColor": "rgb(32, 32, 32)",
+            "line": "underline",
+            "underline": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "active",
+            "color": "rgb(32, 32, 32)",
+            "iconColor": "rgb(32, 32, 32)",
+            "line": "none",
+            "underline": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "disabled",
+            "color": "rgb(170, 170, 170)",
+            "iconColor": "rgb(170, 170, 170)",
+            "line": "underline",
+            "underline": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "href": null,
+            "disabled": "true",
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          }
+        ],
+        "iconHover": {
+          "color": "rgb(32, 32, 32)",
+          "stroke": "rgb(32, 32, 32)",
+          "line": "underline"
+        },
+        "iconPressed": {
+          "color": "rgb(32, 32, 32)",
+          "stroke": "rgb(32, 32, 32)",
+          "line": "none"
+        },
+        "anchorFocus": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "disabledSkipped": true
+      },
+      "overflow": false,
+      "reference": {
+        "color": "rgb(0, 196, 116)",
+        "line": "underline"
+      },
+      "shell": {
+        "overflow": false,
+        "actionLine": "none",
+        "actionColor": "rgb(32, 32, 32)",
+        "featureLine": "none",
+        "footerLine": "underline"
+      }
+    },
+    {
+      "width": 320,
+      "links": {
+        "states": {
+          "brand": {
+            "color": "rgb(0, 196, 116)",
+            "line": "underline",
+            "underline": "rgb(0, 196, 116)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "hover": {
+            "color": "rgb(32, 32, 32)",
+            "line": "underline",
+            "underline": "rgb(32, 32, 32)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "active": {
+            "color": "rgb(32, 32, 32)",
+            "line": "none",
+            "underline": "rgb(32, 32, 32)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": "#/preview",
+            "disabled": null
+          },
+          "disabled": {
+            "color": "rgb(170, 170, 170)",
+            "line": "underline",
+            "underline": "rgb(170, 170, 170)",
+            "thickness": "0.84px",
+            "offset": "5.6px",
+            "fontSize": "14px",
+            "lineHeight": "23.8px",
+            "href": null,
+            "disabled": "true"
+          }
+        },
+        "hover": {
+          "color": "rgb(32, 32, 32)",
+          "line": "underline",
+          "underline": "rgb(32, 32, 32)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "pressed": {
+          "color": "rgb(32, 32, 32)",
+          "line": "none",
+          "underline": "rgb(32, 32, 32)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "focusRing": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "inline": {
+          "color": "rgb(0, 196, 116)",
+          "line": "underline",
+          "underline": "rgb(0, 196, 116)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "inherited": {
+          "color": "rgb(18, 52, 86)",
+          "line": "underline",
+          "underline": "rgb(18, 52, 86)",
+          "thickness": "0.84px",
+          "offset": "5.6px",
+          "fontSize": "14px",
+          "lineHeight": "23.8px",
+          "href": "#/preview",
+          "disabled": null
+        },
+        "outside": {
+          "color": "rgb(0, 0, 238)",
+          "line": "underline",
+          "underline": "rgb(0, 0, 238)",
+          "thickness": "auto",
+          "offset": "auto",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "href": "#",
+          "disabled": null
+        },
+        "anchors": [
+          {
+            "name": "brand",
+            "color": "rgb(0, 196, 116)",
+            "iconColor": "rgb(0, 196, 116)",
+            "line": "underline",
+            "underline": "rgb(0, 196, 116)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "hover",
+            "color": "rgb(32, 32, 32)",
+            "iconColor": "rgb(32, 32, 32)",
+            "line": "underline",
+            "underline": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "active",
+            "color": "rgb(32, 32, 32)",
+            "iconColor": "rgb(32, 32, 32)",
+            "line": "none",
+            "underline": "rgb(32, 32, 32)",
+            "fontSize": "14px",
+            "href": "#/preview",
+            "disabled": null,
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          },
+          {
+            "name": "disabled",
+            "color": "rgb(170, 170, 170)",
+            "iconColor": "rgb(170, 170, 170)",
+            "line": "underline",
+            "underline": "rgb(170, 170, 170)",
+            "fontSize": "14px",
+            "href": null,
+            "disabled": "true",
+            "iconHidden": "true",
+            "iconFocusable": "false",
+            "centerDelta": 0.0078125
+          }
+        ],
+        "iconHover": {
+          "color": "rgb(32, 32, 32)",
+          "stroke": "rgb(32, 32, 32)",
+          "line": "underline"
+        },
+        "iconPressed": {
+          "color": "rgb(32, 32, 32)",
+          "stroke": "rgb(32, 32, 32)",
+          "line": "none"
+        },
+        "anchorFocus": {
+          "style": "solid",
+          "width": "2px"
+        },
+        "disabledSkipped": true
+      },
+      "overflow": false,
+      "reference": {
+        "color": "rgb(0, 196, 116)",
+        "line": "underline"
+      },
+      "shell": {
+        "overflow": false,
+        "actionLine": "none",
+        "actionColor": "rgb(32, 32, 32)",
+        "featureLine": "none",
+        "footerLine": "underline"
+      }
+    }
+  ],
+  "runtimeErrors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  }
+}

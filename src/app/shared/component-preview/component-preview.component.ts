@@ -13,6 +13,7 @@ import { ModalComponent } from '@sq-ui/ng-modal';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { TypographyPreviewComponent } from '../typography-preview/typography-preview.component';
 import { ButtonPreviewComponent } from '../button-preview/button-preview.component';
+import { LinkPreviewComponent } from '../link-preview/link-preview.component';
 
 @Component({
   selector: 'sq-component-preview',
@@ -24,7 +25,7 @@ import { ButtonPreviewComponent } from '../button-preview/button-preview.compone
     SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
     SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective,
     SqCheckboxLabelTemplateDirective, SqRadiobuttonLabelTemplateDirective,
-    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent, ButtonPreviewComponent],
+    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent, ButtonPreviewComponent, LinkPreviewComponent],
   templateUrl: './component-preview.component.html',
   styleUrls: ['./component-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

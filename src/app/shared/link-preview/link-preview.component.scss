@@ -1,0 +1,10 @@
+@use '../../../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+
+:host { display: block; min-width: 0; }
+p { font-size: 12px; line-height: 20px; color: var(--demo-muted); }
+.link-states { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); gap: 24px; margin: 16px 0 24px; }
+article { min-width: 0; }
+h4 { margin-bottom: 12px; font-size: 11px; line-height: 20px; font-weight: 400; color: var(--demo-muted); }
+.hover-example { --sq-link-color: #{sq.value('color-black')}; }
+.inline-example { margin-top: 24px; }
+.anchor-title { margin-top: 24px; }

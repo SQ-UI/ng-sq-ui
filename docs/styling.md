@@ -124,6 +124,44 @@ Fields retain scoped CSS hooks for metadata-derived heights:
 
 The larger field examples establish geometry only; their final typography awaits detailed references. Button variants and XL typography follow the supplied screenshots; smaller button sizes retain their existing metrics.
 
+## Links
+
+The shared `.sq` theme styles ordinary anchors with an `href`. Link font metrics inherit from the surrounding text. The screenshot's state colors use the existing palette:
+
+| State | Text and underline |
+| --- | --- |
+| Default / visited | Brand `#00C474`, underlined |
+| Hover | Black `#202020`, underlined |
+| Active / current | Black `#202020`, no underline |
+| Disabled | Gray `#AAAAAA`, underlined |
+
+The underline follows `currentColor`, with a `0.06em` thickness and `0.4em` offset so it scales with the text. Keyboard focus uses the theme's existing visible outline. Link rules use low specificity so navigation, cards and button-like anchors can retain their own presentation.
+
+```html
+<section class="sq">
+  <a href="/details">Details</a>
+  <a href="/current" aria-current="page">Current page</a>
+  <a class="sq-link" role="link" aria-disabled="true">Unavailable</a>
+</section>
+```
+
+Use `aria-current` for the current destination (`"false"` leaves the normal style). A disabled link must omit `href` and `routerLink`, and should not have a `tabindex`: `aria-disabled` describes its state but does not prevent navigation by itself. `.sq-link` gives a no-`href` anchor the link presentation. Runtime `--sq-color-brand`, `--sq-color-black`, and `--sq-color-disabled` override the state colors; `--sq-link-color` optionally changes only the resting color.
+
+The preview's **Links** section includes all four states, a regular inline example, and thumbs-up anchors, using the demo's default text styles throughout. Add `sq-anchor` to an anchor, with `sq-anchor-icon` and `sq-anchor-label` children, to align an icon and underline only the label. The icon follows the link color and scales to `1.5em`; the gap is `0.5em`. Mark decorative icons `aria-hidden="true"` and SVGs `focusable="false"`.
+
+```html
+<a class="sq-anchor" href="/details">
+  <svg class="sq-anchor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false">
+    <!-- Icon paths use currentColor. -->
+  </svg>
+  <span class="sq-anchor-label">Details</span>
+</a>
+```
+
+Verified in Chrome at 1440/390/320px: default/hover/current/disabled colors and underlines, actual pointer hover and press, keyboard focus, disabled tab skipping, inherited font metrics and runtime brand overrides, theme scoping, and demo layout. Captures: [desktop](links/screenshots/links-1440.png), [mobile](links/screenshots/links-390.png), [small mobile](links/screenshots/links-320.png). The [browser manifest](links/screenshots/manifest.json) records the measured values. The common/form package builds, production demo build, isolated Sass checks, lint and TypeScript check also pass.
+
+Icon anchors additionally verify matching icon/label colors, vertical alignment, decorative SVG semantics, label-only underlining, pointer interaction over the icon, keyboard focus and disabled tab skipping. Captures: [desktop anchors](links/screenshots/anchors-1440.png), [mobile anchors](links/screenshots/anchors-390.png), [small mobile anchors](links/screenshots/anchors-320.png).
+
 ## Helpers and errors
 
 ```html

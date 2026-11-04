@@ -48,8 +48,6 @@
 .component-preview .preview-section > h3 { @include type.heading(3, 's'); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .component-preview .preview-section > h3::before { content: counter(showcase-section, decimal-leading-zero); flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: var(--demo-canvas); color: var(--demo-muted); border: 1px solid var(--demo-border); font-size: 10px; font-weight: 400; letter-spacing: 0; }
 .component-preview .preview-note { color: var(--demo-muted); font-size: 11px; line-height: 19px; }
-.component-preview .preview-note a { color: var(--demo-ink); text-decoration-color: var(--demo-border); }
-.component-preview .preview-note a:hover { text-decoration-color: var(--demo-ink); }
 .component-preview .preview-card { border-radius: 7px; background: var(--demo-canvas, #fafafa); }
 .component-preview .preview-card h4 { font-size: 12px; font-weight: 500; margin-bottom: 16px; }
 .component-preview .reference-fields { padding-top: 16px; }

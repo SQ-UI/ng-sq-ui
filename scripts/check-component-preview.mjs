@@ -107,6 +107,69 @@ async function checkButtonVariants() {
   await evaluate(`document.querySelector('sq-button-preview').style.removeProperty('--sq-color-brand')`);
   return {variants,hover,inherited};
 }
+async function checkLinkStyles() {
+  const read = selector => evaluate(`(()=>{const a=document.querySelector(${JSON.stringify(selector)}),s=getComputedStyle(a);return {color:s.color,line:s.textDecorationLine,underline:s.textDecorationColor,thickness:s.textDecorationThickness,offset:s.textUnderlineOffset,fontSize:s.fontSize,lineHeight:s.lineHeight,href:a.getAttribute('href'),disabled:a.getAttribute('aria-disabled')};})()`);
+  const states = {};
+  for (const state of ['brand','hover','active','disabled']) states[state] = await read('[data-link-state='+state+']');
+  for (const [name,color,line] of [
+    ['brand','rgb(0, 196, 116)','underline'],['hover','rgb(32, 32, 32)','underline'],
+    ['active','rgb(32, 32, 32)','none'],['disabled','rgb(170, 170, 170)','underline'],
+  ]) {
+    assert.equal(states[name].color,color,name); assert.equal(states[name].line,line,name);
+    assert.equal(states[name].underline,color,name);
+  }
+  assert.equal(states.disabled.href,null); assert.equal(states.disabled.disabled,'true');
+  const selector='[data-link-state=brand]';
+  await evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center'})`);
+  const center = await evaluate(`(()=>{const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()`);
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',...center});
+  const hover=await read(selector);assert.equal(hover.color,'rgb(32, 32, 32)');assert.equal(hover.line,'underline');
+  await cdp('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',buttons:1,clickCount:1,...center});
+  const pressed=await read(selector);assert.equal(pressed.color,'rgb(32, 32, 32)');assert.equal(pressed.line,'none');
+  await cdp('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',buttons:0,clickCount:1,...center});
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});
+  await focus(selector);await key('Tab');
+  assert.equal(await evaluate('document.activeElement.dataset.linkState'),'hover');
+  const focusRing=await visibleFocus('[data-link-state=hover]');
+  await key('Tab');assert.equal(await evaluate('document.activeElement.dataset.linkState'),'active');
+  await key('Tab');assert.equal(await evaluate('document.activeElement.id'),'previewInlineLink');
+  const inline=await read('#previewInlineLink');
+  const parent=await evaluate(`(()=>{const s=getComputedStyle(document.querySelector('#previewInlineLink').parentElement);return {fontSize:s.fontSize,lineHeight:s.lineHeight}})()`);
+  assert.equal(inline.fontSize,parent.fontSize);assert.equal(inline.lineHeight,parent.lineHeight);
+  await evaluate(`document.querySelector('sq-link-preview').style.setProperty('--sq-color-brand','#123456')`);
+  const inherited=await read(selector);assert.equal(inherited.color,'rgb(18, 52, 86)');
+  await evaluate(`document.querySelector('sq-link-preview').style.removeProperty('--sq-color-brand')`);
+  await evaluate(`(()=>{const a=document.createElement('a');a.href='#';a.id='outsideLinkProbe';a.textContent='Outside theme';document.body.append(a)})()`);
+  const outside=await read('#outsideLinkProbe');assert.notEqual(outside.color,states.brand.color);
+  await evaluate(`document.getElementById('outsideLinkProbe').remove()`);
+  const anchors=await evaluate(`Array.from(document.querySelectorAll('[data-anchor-state]')).map(a=>{
+    const icon=a.querySelector('svg'),label=a.querySelector('.sq-anchor-label'),s=getComputedStyle(a),ls=getComputedStyle(label),is=getComputedStyle(icon),ir=icon.getBoundingClientRect(),lr=label.getBoundingClientRect();
+    return {name:a.dataset.anchorState,color:s.color,iconColor:is.stroke,line:ls.textDecorationLine,underline:ls.textDecorationColor,
+      fontSize:s.fontSize,href:a.getAttribute('href'),disabled:a.getAttribute('aria-disabled'),iconHidden:icon.getAttribute('aria-hidden'),iconFocusable:icon.getAttribute('focusable'),centerDelta:Math.abs(ir.y+ir.height/2-lr.y-lr.height/2)};
+  })`);
+  assert.equal(anchors.length,4);
+  for(const a of anchors) {
+    assert.equal(a.color,states[a.name].color);assert.equal(a.iconColor,a.color);
+    assert.equal(a.line,states[a.name].line);assert.equal(a.underline,a.color);
+    assert.equal(a.fontSize,inline.fontSize);assert(a.centerDelta<1);
+    assert.equal(a.iconHidden,'true');assert.equal(a.iconFocusable,'false');
+    if(a.name==='disabled'){assert.equal(a.href,null);assert.equal(a.disabled,'true');}
+  }
+  await evaluate(`document.querySelector('[data-anchor-state=brand]').scrollIntoView({block:'center'})`);
+  const iconCenter=await evaluate(`(()=>{const r=document.querySelector('[data-anchor-state=brand] svg').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()`);
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',...iconCenter});
+  const iconState=()=>evaluate(`(()=>{const a=document.querySelector('[data-anchor-state=brand]');return {color:getComputedStyle(a).color,stroke:getComputedStyle(a.querySelector('svg')).stroke,line:getComputedStyle(a.querySelector('.sq-anchor-label')).textDecorationLine}})()`);
+  const iconHover=await iconState();assert.deepEqual(iconHover,{color:'rgb(32, 32, 32)',stroke:'rgb(32, 32, 32)',line:'underline'});
+  await cdp('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',buttons:1,clickCount:1,...iconCenter});
+  const iconPressed=await iconState();assert.equal(iconPressed.line,'none');
+  await cdp('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',buttons:0,clickCount:1,...iconCenter});
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});
+  await focus('#previewInlineLink');await key('Tab');assert.equal(await evaluate('document.activeElement.dataset.anchorState'),'brand');
+  const anchorFocus=await visibleFocus('[data-anchor-state=brand]');
+  await key('Tab');await key('Tab');assert.equal(await evaluate('document.activeElement.dataset.anchorState'),'active');
+  await key('Tab');assert.notEqual(await evaluate('document.activeElement.dataset.anchorState'),'disabled');
+  return {states,hover,pressed,focusRing,inline,inherited,outside,anchors,iconHover,iconPressed,anchorFocus,disabledSkipped:true};
+}
 try {
   let port;
   for (let attempt = 0; attempt < 80; attempt++) {
@@ -150,9 +213,9 @@ try {
     assert(sizes.progress.every(x => x.value === '62'));
     if (width === 1440) assert.deepEqual(sizes.rows.map(x => x.height), [36,40,44]);
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
-    const checks = { width, sizes, buttonVariants: await checkButtonVariants() }; report.checks.push(checks);
+    const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles() }; report.checks.push(checks);
     const targets = [
-      ['overview','#componentPreview'],['buttons','#previewButtons'],['fields','#previewFields'],
+      ['overview','#componentPreview'],['buttons','#previewButtons'],['links','#previewLinks'],['anchors','#previewLinks .link-states:last-child'],['fields','#previewFields'],
       ['extra-fields','#previewFields .preview-grid:nth-of-type(3)'],['progress','#previewProgress'],
       ['table-small','[data-table-size=small]'],['table-medium','[data-table-size=medium]'],['table-large','[data-table-size=large]'],
       ['empty-table','#previewEmptyTable'],['paginator','#previewPaginator'],['calendar','#previewSingleCalendar'],['range','#previewRangeCalendar'],['time','#previewTime'],
