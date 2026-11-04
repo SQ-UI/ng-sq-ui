@@ -34,17 +34,22 @@ describe('DatatableColumnComponent', () => {
     await fixture.whenRenderingDone();
 
     const sortingBtn = fixture.nativeElement.querySelector('button');
+    expect(sortingBtn.textContent).toContain('columnName');
+    expect(fixture.nativeElement.getAttribute('aria-sort')).toBe('none');
     sortingBtn.click();
     fixture.detectChanges();
     expect(component.sortState()).toBe(true);
+    expect(fixture.nativeElement.getAttribute('aria-sort')).toBe('ascending');
 
     sortingBtn.click();
     fixture.detectChanges();
     expect(component.sortState()).toBe(false);
+    expect(fixture.nativeElement.getAttribute('aria-sort')).toBe('descending');
 
     sortingBtn.click();
     fixture.detectChanges();
     expect(component.sortState()).toBeUndefined();
+    expect(fixture.nativeElement.getAttribute('aria-sort')).toBe('none');
 
     expect(emitted.map(item => item.isSortedByAscending)).toEqual([true, false, undefined]);
     expect(emitted.every(item => item.name === 'columnName')).toBe(true);
@@ -63,5 +68,6 @@ describe('DatatableColumnComponent', () => {
     fixture.componentRef.setInput('activeSortColumn', 'otherColumn');
     fixture.detectChanges();
     expect(component.sortState()).toBeUndefined();
+    expect(fixture.nativeElement.getAttribute('aria-sort')).toBe('none');
   });
 });

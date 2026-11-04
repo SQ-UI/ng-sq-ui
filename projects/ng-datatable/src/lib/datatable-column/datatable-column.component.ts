@@ -9,7 +9,10 @@ import { SortItem } from '../shared/interfaces/sort-item';
   templateUrl: './datatable-column.component.html',
   styleUrls: ['./datatable-column.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[attr.aria-sort]': 'isSortable() ? (sortState() === true ? "ascending" : sortState() === false ? "descending" : "none") : null',
+  },
 })
 export class DatatableColumnComponent {
   readonly name = input.required<string>();

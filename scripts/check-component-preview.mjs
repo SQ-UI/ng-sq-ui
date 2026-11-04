@@ -315,7 +315,7 @@ try {
     assert.deepEqual(sizes.fields.map(x => x.height), [28,32,40]);
     assert.deepEqual(sizes.progress.map(x => x.height), [4,8,12]);
     assert(sizes.progress.every(x => x.value === '62'));
-    if (width === 1440) assert.deepEqual(sizes.rows.map(x => x.height), [36,40,44]);
+    if (width === 1440) assert.deepEqual(sizes.rows.map(x => x.height), [44,48,52]);
     assert.equal(sizes.calendar, 320); assert.equal(sizes.time, 56); assert.equal(sizes.overflow, false);
     const checks = { width, sizes, buttonVariants: await checkButtonVariants(), links: await checkLinkStyles(), checkboxes: await checkCheckboxStyles(), radios: await checkRadioStyles() }; report.checks.push(checks);
     const targets = [

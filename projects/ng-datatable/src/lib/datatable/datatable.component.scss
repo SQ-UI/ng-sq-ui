@@ -4,18 +4,18 @@
   &[data-size='small'] { --sq-table-row-height: #{sq.value('table-row-small')}; }
   &[data-size='large'] { --sq-table-row-height: #{sq.value('table-row-large')}; }
   min-width: 0;
-  .paginator { justify-content: center; padding-top: sq.value('space-2'); border-top: 1px solid sq.value('color-border'); }
-  .datatable-empty { padding: sq.value('space-4'); text-align: center; background: sq.value('color-surface-subtle'); font-size: 12px; line-height: 20px; }
+  .paginator { justify-content: center; padding-top: 20px; }
+  .datatable-empty { padding: sq.value('space-4'); text-align: center; background: sq.value('color-surface-subtle'); font-size: 14px; line-height: 24px; }
 }
 .sq table.datatable {
   width: 100%; table-layout: fixed; border-collapse: collapse;
-  font-size: sq.value('font-size-field-small'); line-height: sq.value('line-height-field-small');
+  font-size: 14px; line-height: 24px;
   color: sq.value('color-text');
-  th, td { height: var(--sq-table-row-height); padding: 4px 8px; text-align: left; overflow-wrap: anywhere; border-bottom: 1px solid sq.value('color-border'); }
-  th { background: sq.value('color-surface-subtle'); font-weight: sq.value('font-weight-medium'); text-transform: none; }
-  th button { margin-left: 4px; color: inherit; }
+  th, td { height: var(--sq-table-row-height); padding: 8px 10px; vertical-align: middle; text-align: left; overflow-wrap: anywhere; border-bottom: 1px solid sq.value('color-table-border'); }
+  th { background: sq.value('color-table-heading'); color: sq.value('color-table-heading-text'); font-weight: sq.value('font-weight-medium'); text-transform: none; }
   td { background: sq.value('color-surface'); }
-  tr:nth-child(even) td { background: sq.value('color-surface-subtle'); }
+  tbody tr:nth-child(even) td { background: sq.value('color-stripe'); }
+  tbody tr:hover td { background: sq.value('color-selection'); }
   tfoot td { font-weight: sq.value('font-weight-medium'); }
 }
 @media (max-width: 860px) {
@@ -23,7 +23,7 @@
     display: block;
     thead { display: none; }
     tbody, tr, td { display: block; }
-    tr { padding: 8px 0; border-bottom: 1px solid sq.value('color-border'); }
+    tr { padding: 8px 0; border-bottom: 1px solid sq.value('color-table-border'); }
     td { height: auto; border: 0; }
     td::before { content: attr(data-heading) ': '; font-weight: sq.value('font-weight-medium'); }
   }

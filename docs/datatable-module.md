@@ -43,7 +43,7 @@ loadNextPage($event: PageChangeEvent) {
 
 ### Component properties
 
-- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`, default `'medium'`. Desktop header and data rows have minimum heights of 36px, 40px and 44px; wrapped content may grow. The existing mobile card layout remains content-driven.
+- **`size`** (`input<Size>`): `'small' | 'medium' | 'large'`, default `'medium'`. Desktop header and data rows have minimum heights of 44px, 48px and 52px; wrapped content may grow. S follows the supplied table screenshot; M/L extend its density by 4px per size, pending their own references. The mobile card layout remains content-driven.
 - **`emptyText`** (`input<string>`): optional empty message, default `''`. Renders a status message when `items` is empty and no custom body template is supplied. Existing custom bodies retain control of their empty presentation.
 - **`items`** (`input<TItem[]>`): the rows. Defaults to `[]`. Columns are derived from `items[0]`.
 - **`sortByColumns`** (`input<string[]>`): the column names the user may sort by. Defaults to `[]`
@@ -58,6 +58,19 @@ loadNextPage($event: PageChangeEvent) {
 
 Sorting applies to the full supplied collection before pagination and leaves the caller's array unchanged. Numbers are compared numerically (`10` sorts after `9`),
 everything else through `String.prototype.localeCompare`, so a column does not need a value type hint.
+
+### Appearance
+
+The supplied S reference uses 14px text with a 24px line height, 10px horizontal cell padding,
+a black header with white labels, green sort bars, alternating white/Gray 1 rows and Gray 2
+separators. Hovering a sortable heading turns its label green; hovering a body row fills every
+cell with Brand Light. The paginator sits centered 20px below the table without an extra divider.
+Sortable headings use native buttons and expose `aria-sort` on the header cell.
+
+Override `--sq-color-table-heading`, `--sq-color-table-heading-text`, `--sq-color-table-border`,
+`--sq-color-stripe`, `--sq-color-selection`, `--sq-color-brand` or `--sq-table-row-small/medium/large`
+on an ancestor to customize the table. The showcase includes an eight-column S reference,
+three density examples and the existing custom-template/empty states.
 
 ### Custom header and body
 

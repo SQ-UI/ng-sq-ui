@@ -1,0 +1,34 @@
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
+
+.sq table.datatable th[sq-datatable-column] {
+  button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  button span { min-width: 0; }
+  &:hover button, button:focus-visible { color: sq.value('color-brand'); }
+  button:focus-visible {
+    outline: sq.value('focus-width') solid sq.value('color-brand');
+    outline-offset: 2px;
+  }
+  .datatable-sort-icon {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: sq.value('color-brand');
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+  .datatable-sort-icon.descending { transform: rotate(180deg); }
+}

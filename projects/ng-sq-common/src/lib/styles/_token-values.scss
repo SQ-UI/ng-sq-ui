@@ -54,10 +54,11 @@ $tokens: map.merge(map.merge($_palette, (
   'border-width': 1px,
   'radius-control': 4px,
 
-  // Dimensions observed in page metadata; final component typography remains pending.
-  'table-row-small': 36px,
-  'table-row-medium': 40px,
-  'table-row-large': 44px,
+  // Small table reference: 44px rows. M/L retain a 4px density increment.
+  'table-row-small': 44px,
+  'table-row-medium': 48px,
+  'table-row-large': 52px,
+  // Remaining dimensions observed in page metadata.
   'calendar-width': 280px,
   'calendar-cell': 40px,
   'modal-width-small': 360px,
@@ -83,6 +84,9 @@ $tokens: map.merge(map.merge($_palette, (
   'color-selection': map.get($_palette, 'color-brand-light'),
   'color-selection-muted': map.get($_palette, 'color-brand-light'),
   'color-stripe': map.get($_palette, 'color-gray-1'),
+  'color-table-heading': map.get($_palette, 'color-black'),
+  'color-table-heading-text': map.get($_palette, 'color-white'),
+  'color-table-border': map.get($_palette, 'color-gray-2'),
   'color-calendar-heading-border': map.get($_palette, 'color-gray-3'),
   'color-calendar-option': map.get($_palette, 'color-brand-light'),
   'color-calendar-outside': map.get($_palette, 'color-gray-6'),

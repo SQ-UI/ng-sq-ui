@@ -123,7 +123,8 @@
 
   <section id="previewTables" class="preview-section">
     <h3>Tables and pagination</h3>
-    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=8-5" target="_blank" rel="noreferrer">Figma: Table</a> · Metadata densities. <a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=106-766" target="_blank" rel="noreferrer">Figma: Paginator</a> · Updated S/M/L paginator styles; table details remain pending.</p>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=8-5" target="_blank" rel="noreferrer">Figma: Table</a> · Dark headers, subtle stripes and brand-light row hover. <a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=106-766" target="_blank" rel="noreferrer">Figma: Paginator</a> · Centered pagination follows the table size.</p>
+    <sq-table-preview></sq-table-preview>
     <div class="preview-grid table-grid">
       @for (size of sizes; track size.value) {
         <article class="preview-card" [attr.data-table-size]="size.value"><h4>Table {{size.label}}</h4><sq-datatable [size]="size.value" [items]="rows" [sortByAllColumns]="true" [paginatorConfig]="pagination"></sq-datatable></article>
