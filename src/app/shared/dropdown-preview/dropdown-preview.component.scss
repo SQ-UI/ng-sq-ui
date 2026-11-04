@@ -1,0 +1,7 @@
+:host { display: block; min-width: 0; }
+.dropdown-note { font-size: 12px; line-height: 20px; color: var(--demo-muted); }
+.dropdown-sizes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 24px; }
+article { min-width: 0; }
+h4 { font-size: 14px; line-height: 24px; margin-bottom: 24px; }
+.menu-example:has([aria-expanded='true']) { padding-bottom: calc(var(--preview-row-height) * 3); }
+.long-menu:has([aria-expanded='true']) { padding-bottom: calc(var(--preview-row-height) * 4); }

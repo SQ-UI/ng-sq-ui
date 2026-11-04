@@ -239,8 +239,8 @@ With templates:
 
 ```html
 <sq-dropdown [options]="countries" [(value)]="country">
-  <ng-template sq-dropdown-selected-option let-option>{{ option?.label }}</ng-template>
-  <ng-template sq-dropdown-option let-option>{{ option.label }}</ng-template>
+  <ng-template sq-dropdown-selected-option let-option="value">{{ option?.label }}</ng-template>
+  <ng-template sq-dropdown-option let-option="option">{{ option.label }}</ng-template>
   <ng-template sq-dropdown-chevron>
     <span class="caret">▾</span>
   </ng-template>
@@ -249,7 +249,10 @@ With templates:
 
 ### Control-specific properties
 
-- **`options`** (`input<LabelValuePair[]>`): the options. Defaults to `[]`.
+- **`options`** (`input<DropdownOption[]>`): the options. Defaults to `[]`. `DropdownOption<TValue>`
+  extends `LabelValuePair<TValue>` with optional `disabled`; existing pair arrays remain compatible.
+- **`size`** (`input<DropdownSize>`): `'s'` (default), `'m'` or `'l'`; trigger heights 32/40/48px,
+  text sizes 14/16/24px. `DropdownSize` and `DropdownOption` are exported types.
 - **`value`** (`model<LabelValuePair | null>`): the selected pair. Defaults to `null`.
 
 ### Control-specific outputs
@@ -258,7 +261,9 @@ With templates:
 
 ### Control-specific methods
 
-- **`selectOption(option)`**: selects the given option and closes the list.
+- **`selectOption(option)`**: copies the enabled option into the model, emits the original option and
+  closes the list. Disabled controls/options ignore selection. Keyboard navigation skips disabled items
+  and scrolls the active row into view. See [Dropdown styling](styling.md#dropdowns) for menu states.
 
 ## sq-tags-input
 

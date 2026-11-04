@@ -1,36 +1,86 @@
 @use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
-.sq .input-field.dropdown  {
-  position: relative;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  &:hover {
+.sq sq-dropdown .sq-form-field {
+  --_sq-dropdown-font-size: 14px;
+  --_sq-dropdown-line-height: 24px;
+  --_sq-dropdown-row-height: 40px;
+  font-family: sq.value('font-family-sans');
+  font-size: 14px;
+  line-height: 24px;
+  &[data-dropdown-size='m'] {
+    --_sq-dropdown-font-size: 16px;
+    --_sq-dropdown-line-height: 32px;
+    --_sq-dropdown-row-height: 48px;
+  }
+  &[data-dropdown-size='l'] {
+    --_sq-dropdown-font-size: 24px;
+    --_sq-dropdown-line-height: 40px;
+    --_sq-dropdown-row-height: 60px;
+  }
+  .input-field.dropdown {
+    position: relative;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: sq.value('space-1') 32px sq.value('space-1') 10px;
+    font-size: var(--_sq-dropdown-font-size);
+    line-height: var(--sq-dropdown-line-height, var(--_sq-dropdown-line-height));
     cursor: pointer;
   }
-  .options {
-    width: 100%;
-    margin-top: 5px;
-    max-height: 200px;
-    overflow-y: scroll;
+  .chosen-item, .input-placeholder {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .options .option {
-    padding: 5px 10px;
-    &:hover {
-      cursor: pointer;
-      background-color: sq.value('color-secondary');
-    }
-  }
-  .options .active .option {
-    background-color: sq.value('color-secondary');
-  }
+  .input-placeholder { color: sq.value('color-border'); }
   .dropdown-icon {
     position: absolute;
     right: sq.value('space-2');
-    // Center on the trigger's text row, which stays in place when options open.
-    top: calc(#{sq.value('space-1')} + var(--sq-field-line-height, #{sq.value('line-height-field-small')}) / 2);
+    top: 50%;
     transform: translateY(-50%);
+    font-size: 12px;
+    line-height: 1;
+    color: sq.value('color-gray-4');
+    &.dropdown-icon-open { transform: translateY(-50%) rotate(180deg); }
+  }
+  .options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    margin: 0;
+    max-height: calc(var(--_sq-dropdown-row-height) * 4);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: sq.value('radius-control');
+    background: sq.value('color-white');
+    color: sq.value('color-text');
+    box-shadow: 0 2px 4px rgba(32, 32, 32, 0.2);
+    scrollbar-width: thin;
+    scrollbar-color: #{sq.value('color-gray-4')} transparent;
+    .option {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    [role='option'] {
+      display: flex;
+      align-items: center;
+      min-height: var(--_sq-dropdown-row-height);
+      padding: 8px 10px;
+      line-height: var(--_sq-dropdown-line-height);
+      overflow-wrap: anywhere;
+      & + [role='option'] { box-shadow: inset 0 1px 0 sq.value('color-gray-2'); }
+      &.selected { color: sq.value('color-brand'); }
+      &.active { background: sq.value('color-brand-light'); }
+      &.option-disabled { color: sq.value('color-disabled'); cursor: not-allowed; }
+    }
+    @media (hover: hover) {
+      [role='option']:not(.option-disabled):hover { background: sq.value('color-brand-light'); }
+    }
   }
 }
-
-
-.sq .input-field.dropdown { padding-right: 28px; }

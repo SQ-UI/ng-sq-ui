@@ -88,7 +88,8 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 | Component | Current option | Default / dimensions |
 | --- | --- | --- |
 | Button | `appearance="primary\|secondary\|neutral"`, `tone="brand\|ok\|warning\|critical"`, `size="s\|m\|l\|xl"` | Primary brand M; heights 24/32/40/56px; native `type` remains separate |
-| Input/textarea/dropdown/tags/typeahead | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
+| Input/textarea/tags/typeahead | Optional `helpText` and `errorText` | Empty strings; shared small field frame 28px for a single text line |
+| Dropdown | `size="s\|m\|l"`, optional `helpText` and `errorText` | S; trigger heights 32/40/48px and text sizes 14/16/24px |
 | Datatable | `size="small\|medium\|large"`, optional `emptyText` | Medium; desktop row/header minimum heights 36/40/44px; empty message opt-in |
 | Modal | `size="small\|medium\|large"` | Medium; widths 360/400/440px, viewport-clamped |
 | Progress | Existing `size="small\|medium\|large"`, accessible `label` | Medium; heights 4/8/12px; label defaults to `Progress` |
@@ -109,7 +110,7 @@ The demo uses S buttons (24px high) for actions and color/state examples; the Si
 
 Button validation: the form library and production demo build successfully; all four button behavior tests, lint, TypeScript and package/style checks pass. Chrome checks at 1440/390/320px verify all 12 S samples, real hover on enabled/disabled buttons, runtime brand overrides, keyboard focus and disabled tab skipping, matching heights across appearances, and no horizontal overflow. Captures: [desktop variants](buttons/screenshots/variants-1440.png), [mobile variants](buttons/screenshots/variants-top-390.png), [mobile disabled/hover](buttons/screenshots/variants-bottom-320.png). The [browser manifest](buttons/screenshots/manifest.json) records the measured values.
 
-Fields retain scoped CSS hooks for metadata-derived heights:
+Input, textarea, tags and typeahead retain scoped CSS hooks for metadata-derived heights:
 
 ```scss
 .field-s { --sq-field-line-height: 20px; } // 28px single-line frame
@@ -123,6 +124,32 @@ Fields retain scoped CSS hooks for metadata-derived heights:
 ```
 
 The larger field examples establish geometry only; their final typography awaits detailed references. Button variants and XL typography follow the supplied screenshots; smaller button sizes retain their existing metrics.
+
+## Dropdowns
+
+The screenshot is interpreted as S/M/L trigger heights of **32/40/48px**, with **14/16/24px** Space Grotesk regular text. Labels stay 14/24 across sizes. `DropdownSize` is the exported `'s' | 'm' | 'l'` union; the default is S. This supersedes the previous 28px dropdown frame and the dropdown's use of `--sq-field-line-height`. `--sq-dropdown-line-height` remains available for custom trigger geometry; other field types keep their existing hooks.
+
+The white menu floats 4px below the trigger, aligns to its full width, has rounded corners, row separators and a subtle shadow. Opening it does not resize the trigger or move the centered gray chevron; the chevron points upward while open. Default row heights are 40/48/60px. The viewport fits four rows before scrolling. Long default labels truncate on narrow screens; custom templates can grow their rows.
+
+Selected options use brand-green text on white. Pointer hover and keyboard highlight use Brand Light, while disabled options use gray and cannot be selected. Selection (`aria-selected`) stays separate from keyboard focus (`aria-activedescendant`); arrow keys skip disabled items and scroll the active row into view. Enter/Space select, Escape/Tab close, and outside clicks close the menu. Existing template slots and selection event/copy semantics remain supported.
+
+```typescript
+import type { DropdownOption } from '@sq-ui/ng-form-elements';
+
+readonly teams: DropdownOption[] = [
+  { label: 'Design', value: 'design' },
+  { label: 'Unavailable', value: 'unavailable', disabled: true },
+];
+```
+
+```html
+<sq-dropdown size="m" controlLabel="Team" controlPlaceholder="Please select"
+             [options]="teams" [(value)]="selectedTeam"></sq-dropdown>
+```
+
+Existing `LabelValuePair[]` arrays remain assignable to `options`; the optional `disabled` flag belongs to the new `DropdownOption<TValue>` type. It does not imply disabled-item handling in typeahead or other controls. Popup menus use absolute positioning, so containers with clipping overflow must allow room for them. The **Dropdowns** preview compares untitled/titled triggers, short menus and long menus in all three sizes.
+
+Verified with 14 dropdown tests, production common/form/demo builds, lint, TypeScript and isolated Sass checks. Chrome checks at 1440/390/320px measure closed/open heights, font sizes, chevron centering, menu alignment and rows; exercise disabled options, keyboard selection/scrolling, Escape/Tab, custom templates and runtime brand overrides; and check horizontal overflow. Captures: [S menu](dropdowns/screenshots/options-s-1440.png), [M menu](dropdowns/screenshots/options-m-1440.png), [L menu](dropdowns/screenshots/options-l-1440.png), [small mobile](dropdowns/screenshots/options-l-320.png), [scrolling](dropdowns/screenshots/scroll-s-390.png). The [browser manifest](dropdowns/screenshots/manifest.json) records the measurements.
 
 ## Links
 

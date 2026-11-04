@@ -41,7 +41,7 @@
 
   <section id="previewFields" class="preview-section">
     <h3>Fields</h3>
-    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=69-850" target="_blank" rel="noreferrer">Figma: small field, label and error</a> · Related controls adapt this field frame; their detailed states remain pending.</p>
+    <p class="preview-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=69-850" target="_blank" rel="noreferrer">Figma: small field, label and error</a> · Larger input sizes use the shared field frame. Dropdowns have a separate reference comparison below.</p>
     <div id="formStylePreview" class="reference-fields">
       <sq-input controlId="styleDefaultField" controlLabel="Title" value="Text"></sq-input>
       <sq-input controlId="styleErrorField" controlLabel="Title" value="Text" errorText="Error"></sq-input>
@@ -55,7 +55,7 @@
           <sq-input controlLabel="Email" value="hello@example.com" helpText="We use this to contact you"></sq-input>
           <sq-input controlLabel="Required field" errorText="Please enter a value"></sq-input>
           <sq-input controlLabel="Disabled" value="Read only" [disabled]="true"></sq-input>
-          <sq-dropdown controlLabel="Team" controlPlaceholder="Choose a team" [options]="options" [(value)]="selected"></sq-dropdown>
+          <sq-dropdown [size]="size.name === 'S' ? 's' : size.name === 'M' ? 'm' : 'l'" controlLabel="Team" controlPlaceholder="Choose a team" [options]="options" [(value)]="selected"></sq-dropdown>
         </article>
       }
     </div>
@@ -87,6 +87,11 @@
         <div data-radio-state="disabled"><span class="preview-note">Disabled</span><sq-radiobutton controlId="previewRadioDisabled" name="previewRadioStates" controlLabel="Radiobutton Disabled" radioValue="disabled" [(value)]="radioState" [disabled]="true"></sq-radiobutton></div>
       </article>
     </div>
+  </section>
+
+  <section id="previewDropdowns" class="preview-section">
+    <h3>Dropdowns</h3>
+    <sq-dropdown-preview></sq-dropdown-preview>
   </section>
 
   <section id="previewProgress" class="preview-section">

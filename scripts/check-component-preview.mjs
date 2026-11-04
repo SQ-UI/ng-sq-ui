@@ -430,7 +430,7 @@ try {
       await focus(trigger); await key('ArrowDown'); await key('ArrowDown'); await key('ArrowDown');
       await visibleFocus(trigger);
       const menu = await evaluate(`(() => {const e=document.querySelector('[data-field-size=S] [role=listbox]');e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect();return {left:r.left,right:r.right,screenWidth:document.documentElement.clientWidth,maxHeight:getComputedStyle(e).maxHeight};})()`);
-      assert(menu.left >= 0 && menu.right <= menu.screenWidth && menu.maxHeight === '200px');
+      assert(menu.left >= 0 && menu.right <= menu.screenWidth && menu.maxHeight === '160px');
       await capture('dropdown-keyboard', '[data-field-size=S]');
       await key('Enter');
       await waitFor('document.querySelector("[data-field-size=S] .chosen-item")?.textContent==="Development"');

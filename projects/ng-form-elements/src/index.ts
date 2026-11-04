@@ -4,6 +4,7 @@
 
 export { InputComponent } from './lib/input/input.component';
 export { DropdownComponent } from './lib/dropdown/dropdown.component';
+export type { DropdownSize, DropdownOption } from './lib/dropdown/dropdown.types';
 export { TagsInputComponent } from './lib/tags-input/tags-input.component';
 export { RadiobuttonComponent } from './lib/radiobutton/radiobutton.component';
 export { FormGroupComponent } from './lib/form-group/form-group.component';

@@ -1,6 +1,6 @@
 import {
   Component, ViewEncapsulation, ChangeDetectionStrategy,
-  input, model, signal, contentChild, output
+  input, model, signal, contentChild, output, viewChild, ElementRef, afterRenderEffect
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FORM_FIELD_DEFAULTS, generateFormFieldId, OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
@@ -11,6 +11,7 @@ import {
   SqDropdownOptionTemplateDirective,
   SqDropdownSelectedOptionTemplateDirective
 } from './dropdown.template.directive';
+import type { DropdownSize, DropdownOption } from './dropdown.types';
 
 @Component({
   selector: 'sq-dropdown',
@@ -40,7 +41,8 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
   readonly touch = output<void>();
 
   // Component-specific inputs
-  readonly options = input<LabelValuePair[]>([]);
+  readonly options = input<DropdownOption[]>([]);
+  readonly size = input<DropdownSize>('s');
 
   // Two-way binding value
   readonly value = model<LabelValuePair | null>(null);
@@ -58,6 +60,25 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
   readonly listenForOutsideClick = signal<boolean>(false);
   /** Option highlighted with the arrow keys (`-1` = none). */
   readonly activeIndex = signal<number>(-1);
+  readonly keyboardNavigation = signal(false);
+  private readonly optionsList = viewChild<ElementRef<HTMLElement>>('optionsList');
+
+  constructor() {
+    afterRenderEffect(() => {
+      const index = this.activeIndex();
+      const list = this.optionsList()?.nativeElement;
+      const option = list?.children.item(index) as HTMLElement | null | undefined;
+      if (!list || !option) return;
+      if (option.offsetTop < list.scrollTop) list.scrollTop = option.offsetTop;
+      else if (option.offsetTop + option.offsetHeight > list.scrollTop + list.clientHeight) {
+        list.scrollTop = option.offsetTop + option.offsetHeight - list.clientHeight;
+      }
+    });
+  }
+
+  isOptionSelected(option: LabelValuePair): boolean {
+    return !!this.value() && Object.is(option.value, this.value()?.value);
+  }
 
   onLabelClick(event: MouseEvent, control: HTMLElement) {
     // The label moved outside the trigger; its click must not count as outside.
@@ -77,6 +98,7 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
     this.isOpen.set(willOpen);
     this.listenForOutsideClick.set(willOpen);
     this.activeIndex.set(willOpen ? this.selectedIndex() : -1);
+    this.keyboardNavigation.set(false);
   }
 
   onClickOutsideComponent() {
@@ -88,8 +110,8 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
     }
   }
 
-  selectOption(option: LabelValuePair) {
-    if (this.disabled()) {
+  selectOption(option: DropdownOption) {
+    if (this.disabled() || option.disabled) {
       return;
     }
 
@@ -123,13 +145,13 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
         if (!this.isOpen()) {
           this.toggleOptionsDropdown();
         } else if (optionCount > 0) {
-          this.activeIndex.update(index => Math.min(index + 1, optionCount - 1));
+          this.activeIndex.set(this.nextEnabledIndex(this.activeIndex(), 1));
         }
         break;
       case 'ArrowUp':
         event.preventDefault();
         if (this.isOpen() && optionCount > 0) {
-          this.activeIndex.update(index => Math.max(index - 1, 0));
+          this.activeIndex.set(this.nextEnabledIndex(this.activeIndex() < 0 ? optionCount : this.activeIndex(), -1));
         }
         break;
       case 'Escape':
@@ -141,6 +163,9 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
       case 'Tab':
         this.close();
         break;
+    }
+    if (this.isOpen() && ['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+      this.keyboardNavigation.set(true);
     }
   }
 
@@ -166,6 +191,14 @@ export class DropdownComponent implements SqFormFieldSignals, SqFormValueControl
       return -1;
     }
 
-    return (this.options() ?? []).findIndex(option => Object.is(option.value, current.value));
+    return (this.options() ?? []).findIndex(option => !option.disabled && Object.is(option.value, current.value));
+  }
+
+  private nextEnabledIndex(from: number, direction: 1 | -1): number {
+    const options = this.options();
+    for (let index = from + direction; index >= 0 && index < options.length; index += direction) {
+      if (!options[index].disabled) return index;
+    }
+    return from >= 0 && from < options.length && !options[from].disabled ? from : -1;
   }
 }
