@@ -1,3 +1,5 @@
+@use '../../../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+
 :host { display: block; min-width: 0; }
 .component-preview { max-width: 1440px; margin: 0 auto; }
 .preview-section { margin-top: 32px; min-width: 0; }
@@ -55,6 +57,16 @@
 .component-preview .size-label { font-size: 11px; color: var(--demo-muted); }
 .component-preview .reference-fields { padding-top: 16px; }
 .component-preview .page-summary { font-size: 11px; color: var(--demo-muted); }
+.palette-group-title { margin-top: 20px; font-size: 12px; }
+.palette-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(104px, 100%), 1fr)); gap: 12px; }
+.palette-color { min-width: 0; }
+.palette-color strong, .palette-color code { display: block; font-size: 10px; line-height: 18px; overflow-wrap: anywhere; }
+.palette-color strong { font-weight: 500; }
+.palette-color code { color: var(--demo-muted); }
+.palette-swatch { display: block; height: 48px; border: 1px solid var(--demo-border); border-radius: 6px; margin-bottom: 8px; }
+@each $color in ('black', 'white', 'brand', 'brand-light', 'critical', 'ok', 'warning', 'unknown', 'gray-1', 'gray-2', 'gray-3', 'gray-4', 'gray-5', 'gray-6') {
+  .palette-swatch[data-color='#{$color}'] { background: sq.value('color-#{$color}'); }
+}
 @media (max-width: 540px) {
   .preview-hero > h2 { font-size: 28px; gap: 12px; }
   .component-preview .preview-section { padding: 16px; margin-top: 16px; }

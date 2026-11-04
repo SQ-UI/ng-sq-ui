@@ -43,7 +43,7 @@ assert.match(css, /color: #123456;/);
 assert.match(css, /font-size: var\(--sq-font-size-field-small, 12px\)/);
 assert.match(css, /:where\(\.sq\) \*/);
 assert.doesNotMatch(css, /^\.input-field\s*\{|^\.disabled\s*\{|^\*\s*\{/m);
-assert.match(css, /\.consumer-theme\s*\{\s*--sq-color-brand: #123456;/);
+assert.match(css, /\.consumer-theme\s*\{[^}]*--sq-color-brand: #123456;/);
 assert.doesNotMatch(compile(`@use 'pkg:@sq-ui/ng-sq-common/sq-ui-theme';`), /--sq-color-brand\s*:/, 'Default theme must not shadow inherited overrides.');
 
 // Every declared Sass condition must work through Node's package resolution.

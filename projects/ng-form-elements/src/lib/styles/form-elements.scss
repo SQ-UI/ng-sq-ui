@@ -50,8 +50,8 @@
       outline-offset: sq.value('focus-offset');
     }
     &.disabled {
-      background: sq.value('color-disabled');
-      color: sq.value('color-placeholder');
+      background: sq.value('color-disabled-surface');
+      color: sq.value('color-disabled');
     }
   }
 
@@ -81,7 +81,7 @@
     .options { width: 100%; margin-top: 15px; &.row { display: flex; flex-wrap: wrap; } }
   }
 
-  // Checkbox/radio geometry and selected/disabled appearance are unchanged.
+  // Preserve checkable geometry while sharing the theme's indicator/status colors.
   .checkable {
     position: relative;
     cursor: pointer;
@@ -94,6 +94,7 @@
     input[type='checkbox'], input[type='radio'] { position: absolute; inset: 0; width: 100%; height: 100%; }
     .inner { opacity: 0; position: relative; transition: 200ms all cubic-bezier(0.22, 0.61, 0.36, 1); height: 100%; width: 100%; }
     &.checked .inner { opacity: 1; background: sq.value('color-brand'); }
-    &.disabled .inner { background: sq.value('color-disabled-border'); }
+    &.disabled { color: sq.value('color-disabled'); }
+    &.disabled .inner { background: sq.value('color-disabled'); }
   }
 }

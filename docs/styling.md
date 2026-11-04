@@ -38,6 +38,8 @@ The demo loads those weights through a Google Fonts stylesheet with `display=swa
 
 ## Override compiled components at runtime
 
+The complete [default color palette](theme-colors.md) follows the supplied Figma color screenshots: main/brand colors, four status colors and six grays. The component playground's **Colors** section shows every swatch. Selected/secondary fills now use Brand Light, while disabled foregrounds use the status gray and disabled surfaces use Gray 2.
+
 CSS custom properties inherit through nested `.sq` containers. Put them on a wrapper to customize only a part of your application:
 
 ```scss
@@ -177,7 +179,7 @@ Table templates are inserted once, without per-row context, after automatic head
 - Review table density and wrapping. The existing mobile cards hide the header and its sorting controls; this phase does not add a mobile sort UI.
 - Review modal width overrides: the default is now 400px rather than a fraction of viewport width. Long bodies scroll within 16px viewport margins; title/footer remain visible. Existing focus trapping/restoration and background scrolling limits remain.
 - Keep native input behavior, Signal Forms bindings and projected template contracts. Helper/error text is optional; table empty messages are opt-in and do not override custom bodies.
-- Override semantic tokens deliberately. Some disabled, placeholder, range, menu and shadow values remain transitional pending detailed Figma access; do not treat them as final design-system values.
+- Override semantic tokens deliberately. Their default colors now come from the supplied palette. Component-role assignments and shadow geometry/opacity remain implementation choices until their detailed state/effect references are available; see [Default color palette](theme-colors.md).
 
 ## Review the examples
 

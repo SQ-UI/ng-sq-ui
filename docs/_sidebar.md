@@ -1,5 +1,6 @@
 - [Installation](installation.md)
 - [Styling and migration](styling.md)
+- [Default color palette](theme-colors.md)
 - [FormElementsModule](form-elements-module.md)
 - [ModalModule](modal-module.md)
 - [ProgressBarModule](progressbar-module.md)

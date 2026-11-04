@@ -7,6 +7,23 @@
     <details class="preview-reference-note"><summary>Design reference coverage</summary><p class="preview-note">S/L/XL button sizes, larger fields and Phase 4 components use shared styles; their final Figma comparison is pending.</p></details>
   </header>
 
+  <section id="previewPalette" class="preview-section">
+    <h3>Colors</h3>
+    <p class="preview-note">The default theme palette, using the HEX values from the supplied Figma references.</p>
+    @for (group of paletteGroups; track group.name) {
+      <h4 class="palette-group-title">{{group.name}}</h4>
+      <div class="palette-grid">
+        @for (color of group.colors; track color.token) {
+          <article class="palette-color" [attr.data-color]="color.token">
+            <span class="palette-swatch" [attr.data-color]="color.token" aria-hidden="true"></span>
+            <strong>{{color.name}}</strong>
+            <code>{{color.hex}}</code>
+          </article>
+        }
+      </div>
+    }
+  </section>
+
   <section id="previewButtons" class="preview-section">
     <h3>Buttons</h3>
     <p class="preview-note">Reference heights, with the shared M typography.</p>

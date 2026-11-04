@@ -2,14 +2,32 @@
 
 // Configure before loading the theme: @use '.../tokens' with ($overrides: (...)).
 $overrides: () !default;
-$tokens: map.merge((
-  // Verified Figma context: 31:44, 31:33 and 69:850. See docs/style-migration/.
+// Palette supplied in the Figma color screenshots on 2026-11-04. HEX labels
+// are authoritative (Gray 6's RGB label disagrees with its AFAFAF HEX label).
+$_palette: map.merge((
+  'color-black': #202020,
+  'color-white': #ffffff,
   'color-brand': #00c474,
-  'color-text': #202020,
-  'color-surface': #ffffff,
-  'color-surface-subtle': #fafafa,
-  'color-border': #dcdcdc,
+  'color-brand-light': #e5f9f1,
   'color-critical': #ff3815,
+  'color-ok': #00d214,
+  'color-warning': #ffb800,
+  'color-unknown': #aaaaaa,
+  'color-gray-1': #fafafa,
+  'color-gray-2': #ebebeb,
+  'color-gray-3': #dcdcdc,
+  'color-gray-4': #cdcdcd,
+  'color-gray-5': #bebebe,
+  'color-gray-6': #afafaf,
+), $overrides);
+
+// Semantic defaults map existing component hooks to the supplied palette.
+// Explicit semantic overrides retain precedence over palette defaults.
+$tokens: map.merge(map.merge($_palette, (
+  'color-text': map.get($_palette, 'color-black'),
+  'color-surface': map.get($_palette, 'color-white'),
+  'color-surface-subtle': map.get($_palette, 'color-gray-1'),
+  'color-border': map.get($_palette, 'color-gray-3'),
   'font-family-sans': ('IBM Plex Sans', Arial, sans-serif),
   'font-family-mono': ('IBM Plex Mono', monospace),
   // Fonts remain opt-in: the library never loads a font or replaces the host font.
@@ -42,33 +60,36 @@ $tokens: map.merge((
   'progress-height-medium': 8px,
   'progress-height-large': 12px,
 
-  // Transitional source values, NOT confirmed Figma tokens. Keep until the
-  // corresponding detailed design can be read; do not invent a missing palette.
-  'color-secondary': rgba(18, 125, 104, 0.21),
-  'color-label': rgba(76, 76, 76, 0.72),
-  'color-placeholder': rgba(76, 76, 76, 0.62),
-  'color-disabled': rgba(76, 76, 76, 0.12),
-  'color-disabled-border': rgba(0, 0, 0, 0.12),
-  'color-disabled-radio-border': rgba(0, 0, 0, 0.12),
-  'color-error-border': rgba(163, 52, 27, 0.5),
-  'color-overlay': rgba(0, 0, 0, 0.38823529411764707),
-  'color-selection': #b7d8d1,
-  'color-selection-muted': rgba(18, 125, 104, 0.3),
-  'color-stripe': rgba(18, 125, 104, 0.12),
-  'color-calendar-heading-border': rgba(46, 159, 134, 0.69),
-  'color-calendar-option': rgb(226, 239, 237),
-  'color-calendar-outside': #2e9f86,
-  'color-calendar-disabled': #aba9a9,
-  'color-range-edge': #8fc4b8,
-  'color-range-preview': rgba(183, 216, 209, 0.55),
-  'color-loader-accent': rgba(27, 163, 156, 0.5),
-  'shadow-field': (3px 2px 7px rgba(18, 125, 104, 0.21)),
-  'shadow-modal': (7px 8px 0 0 rgba(18, 125, 104, 0.3)),
+  // Component-role assignments use the palette; the screenshots do not specify
+  // every component state. In particular, a disabled surface stays distinct
+  // from the status/foreground color so text does not disappear into its fill.
+  'color-secondary': map.get($_palette, 'color-brand-light'),
+  'color-label': map.get($_palette, 'color-black'),
+  'color-placeholder': map.get($_palette, 'color-gray-6'),
+  'color-disabled': map.get($_palette, 'color-unknown'),
+  'color-disabled-surface': map.get($_palette, 'color-gray-2'),
+  'color-disabled-border': map.get($_palette, 'color-gray-4'),
+  'color-disabled-radio-border': map.get($_palette, 'color-gray-4'),
+  'color-error-border': map.get($_palette, 'color-critical'),
+  'color-selection': map.get($_palette, 'color-brand-light'),
+  'color-selection-muted': map.get($_palette, 'color-brand-light'),
+  'color-stripe': map.get($_palette, 'color-gray-1'),
+  'color-calendar-heading-border': map.get($_palette, 'color-gray-3'),
+  'color-calendar-option': map.get($_palette, 'color-brand-light'),
+  'color-calendar-outside': map.get($_palette, 'color-gray-6'),
+  'color-calendar-disabled': map.get($_palette, 'color-unknown'),
+  'color-range-edge': map.get($_palette, 'color-brand'),
+  'color-range-preview': map.get($_palette, 'color-brand-light'),
+  'color-loader-accent': map.get($_palette, 'color-brand'),
+  // Existing effect geometry/opacity is retained; the hue now uses palette ink.
+  'color-overlay': rgba(map.get($_palette, 'color-black'), 0.38823529411764707),
+  'shadow-field': (3px 2px 7px rgba(map.get($_palette, 'color-black'), 0.21)),
+  'shadow-modal': (7px 8px 0 0 rgba(map.get($_palette, 'color-black'), 0.3)),
   // Accessibility implementation choices; Figma focus specifications are pending.
-  'color-focus': #202020,
+  'color-focus': map.get($_palette, 'color-black'),
   'focus-width': 2px,
   'focus-offset': 2px,
-), $overrides);
+)), $overrides);
 
 @function fallback($name) {
   @if not map.has-key($tokens, $name) {

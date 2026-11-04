@@ -28,6 +28,28 @@ import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentPreviewComponent {
+  readonly paletteGroups = [
+    { name: 'Main & brand', colors: [
+      { name: 'Black', token: 'black', hex: '#202020' },
+      { name: 'White', token: 'white', hex: '#FFFFFF' },
+      { name: 'Brand', token: 'brand', hex: '#00C474' },
+      { name: 'Brand Light', token: 'brand-light', hex: '#E5F9F1' },
+    ] },
+    { name: 'Status', colors: [
+      { name: 'Critical', token: 'critical', hex: '#FF3815' },
+      { name: 'OK', token: 'ok', hex: '#00D214' },
+      { name: 'Warning', token: 'warning', hex: '#FFB800' },
+      { name: 'Unknown / disabled', token: 'unknown', hex: '#AAAAAA' },
+    ] },
+    { name: 'Gray', colors: [
+      { name: 'Gray 1', token: 'gray-1', hex: '#FAFAFA' },
+      { name: 'Gray 2', token: 'gray-2', hex: '#EBEBEB' },
+      { name: 'Gray 3', token: 'gray-3', hex: '#DCDCDC' },
+      { name: 'Gray 4', token: 'gray-4', hex: '#CDCDCD' },
+      { name: 'Gray 5', token: 'gray-5', hex: '#BEBEBE' },
+      { name: 'Gray 6', token: 'gray-6', hex: '#AFAFAF' },
+    ] },
+  ];
   readonly buttonSizes = [
     { name: 'S', height: 24, padding: '0px' }, { name: 'M', height: 32, padding: '4px' },
     { name: 'L', height: 40, padding: '8px' }, { name: 'XL', height: 48, padding: '12px' },

@@ -20,10 +20,10 @@
     background: sq.value('color-surface-subtle');
     color: sq.value('color-text');
   }
-  // Transitional disabled appearance; detailed Figma disabled variants are pending.
+  // Disabled surface/text use the supplied palette; detailed state geometry is unchanged.
   &:disabled {
-    background: sq.value('color-disabled');
-    color: sq.value('color-placeholder');
+    background: sq.value('color-disabled-surface');
+    color: sq.value('color-disabled');
     cursor: not-allowed;
   }
 }
