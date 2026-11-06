@@ -37,7 +37,7 @@
             </ul>
           </div>
 
-          <sq-button (click)="showModal.set(!showModal())">Show modal</sq-button>
+          <sq-button size="s" (click)="showModal.set(!showModal())">Show modal</sq-button>
 
           <sq-modal [(show)]="showModal">
             <div sq-modal-title>
@@ -50,14 +50,14 @@
               dolor est et in laborum neque, nisi non nulla, sunt totam velit vero voluptatibus.
             </div>
 
-            <div sq-modal-footer>
-              <button type="button" (click)="confirmationBtnHandler()">
-                <span class="inner">Confirm</span>
-              </button>
+            <div sq-modal-footer class="modal-demo-actions">
+              <sq-button size="s" appearance="primary" (click)="confirmationBtnHandler()">
+                Confirm
+              </sq-button>
 
-              <button type="button" (click)="rejectionBtnHandler()">
-                <span class="inner">Reject</span>
-              </button>
+              <sq-button size="s" appearance="neutral" (click)="rejectionBtnHandler()">
+                Reject
+              </sq-button>
             </div>
           </sq-modal>
         </section>

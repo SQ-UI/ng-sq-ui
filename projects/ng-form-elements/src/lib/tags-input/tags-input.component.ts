@@ -5,6 +5,8 @@ import { FORM_FIELD_DEFAULTS, generateFormFieldId } from '@sq-ui/ng-sq-common';
 import { SqTagTemplateDirective } from './tags-input.template.directive';
 import type { SqFormFieldSignals, SqFormValueControl } from '@sq-ui/ng-sq-common';
 
+export type TagsInputSize = 's' | 'm' | 'l';
+
 @Component({
   selector: 'sq-tags-input',
   standalone: true,
@@ -23,6 +25,9 @@ export class TagsInputComponent implements SqFormFieldSignals, SqFormValueContro
   readonly required = input<boolean>(FORM_FIELD_DEFAULTS.required);
   readonly pattern = input<readonly RegExp[]>(FORM_FIELD_DEFAULTS.pattern);
   readonly disabled = input<boolean>(FORM_FIELD_DEFAULTS.disabled);
+  readonly helpText = input<string>('');
+  readonly errorText = input<string>('');
+  readonly size = input<TagsInputSize>('s');
 
   /** Signals that the user left the control, so `[formField]` can mark the field as touched. */
   readonly touch = output<void>();

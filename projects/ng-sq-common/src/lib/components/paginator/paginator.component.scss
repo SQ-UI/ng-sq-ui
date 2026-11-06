@@ -1,44 +1,46 @@
+@use '../../styles/tokens' as sq;
 .sq ol.paginator {
+  --_sq-page-size: 24px;
+  --_sq-page-font: 14px;
+  --_sq-page-gap: 28px;
+  --_sq-page-icon: 14px;
+  &[data-size='medium'] { --_sq-page-size: 30px; --_sq-page-font: 16px; --_sq-page-gap: 40px; --_sq-page-icon: 18px; }
+  &[data-size='large'] { --_sq-page-size: 36px; --_sq-page-font: 20px; --_sq-page-gap: 48px; --_sq-page-icon: 22px; }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   list-style: none;
   margin: 0;
+  padding: 0;
+  gap: 8px var(--sq-paginator-gap, var(--_sq-page-gap));
+  font-family: sq.value('font-family-sans');
+  font-size: var(--_sq-page-font);
+  line-height: var(--_sq-page-size);
+  font-weight: sq.value('font-weight-regular');
   li {
     position: relative;
-    padding: 5px 8px;
-    min-width: 35px;
-    height: 32px;
+    flex: 0 0 auto;
+    min-width: var(--_sq-page-size);
+    height: var(--_sq-page-size);
+    padding: 0;
     text-align: center;
-    margin-right: 10px;
-    transition: all 400ms ease-in;
-    &.current {
-      font-weight: bold;
-      background-color: #b7d8d1;
-    }
-    &.truncated {
-      display: none;
-    }
-    &:not(.truncated) + .truncated {
-      pointer-events: none;
-      display: block;
-      font-size: 0;
-      &::before {
-        content: "...";
-        pointer-events: none;
-        font-size: 1.1rem;
-      }
-    }
+    border-radius: sq.value('radius-control');
+    background: transparent;
+    color: sq.value('color-text');
+    &.current { background: sq.value('color-brand'); color: sq.value('color-white'); }
+    &.truncated { display: none; }
+    &.gap { display: flex; align-items: center; justify-content: center; }
     button {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      &[disabled] {
-        cursor: default;
-        .fas {
-          color: #aba9a9;
-        }
-      }
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%; min-width: var(--_sq-page-size); height: 100%; padding: 0 4px;
+      font: inherit; background: transparent;
+      color: inherit; border-radius: inherit;
+      &:disabled { cursor: default; color: sq.value('color-disabled'); }
+      .fas { display: block; font-size: var(--_sq-page-icon); line-height: 1; }
+    }
+    @media (hover: hover) {
+      &:not(.current) button:not(:disabled):hover { color: sq.value('color-brand'); }
     }
   }
+  @media (max-width: 640px) { column-gap: var(--sq-paginator-gap, 8px); }
 }

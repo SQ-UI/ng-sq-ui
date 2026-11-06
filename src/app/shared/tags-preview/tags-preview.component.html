@@ -1,0 +1,12 @@
+<p class="tags-note">Compare S, M and L tag fields. Type a tag and press Enter, Space or comma to add it; use the cross to remove it.</p>
+<div class="tags-sizes">
+  @for (size of sizes; track size.value) {
+    <article [attr.data-tags-reference]="size.value">
+      <h4>Tags / {{size.label}}</h4>
+      <div data-tags-example="placeholder"><span class="tags-note">Without a title</span><sq-tags-input [size]="size.value" controlPlaceholder="Placeholder"></sq-tags-input></div>
+      <div data-tags-example="title"><span class="tags-note">With a title</span><sq-tags-input [size]="size.value" controlLabel="Title" controlPlaceholder="Placeholder"></sq-tags-input></div>
+      <div data-tags-example="typing"><span class="tags-note">Typed text</span><sq-tags-input #typingExample [size]="size.value" controlLabel="Title"></sq-tags-input></div>
+      <div data-tags-example="chip"><span class="tags-note">Selected chip</span><sq-tags-input [size]="size.value" controlLabel="Title" [value]="['Chips Selected ' + size.label]"></sq-tags-input></div>
+    </article>
+  }
+</div>

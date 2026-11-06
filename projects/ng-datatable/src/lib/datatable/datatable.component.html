@@ -1,4 +1,4 @@
-<div class="datatable-wrapper">
+<div class="datatable-wrapper" [attr.data-size]="size()">
   <table class="datatable">
     <thead>
       <tr>
@@ -29,7 +29,12 @@
     </tbody>
   </table>
 
+  @if (emptyText() && items().length === 0 && !datatableBodyTemplate()) {
+    <div class="datatable-empty" role="status">{{emptyText()}}</div>
+  }
+
   <sq-paginator #paginator
+                [size]="paginatorConfig().size ?? size()"
                 [items]="sortedItems()"
                 [itemsPerPage]="paginatorConfig().itemsPerPage"
                 [lastPage]="paginatorConfig().lastPage"

@@ -1,0 +1,29 @@
+@use '../../../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+
+:host { display: block; min-width: 0; }
+.button-note { font-size: 12px; line-height: 20px; color: var(--demo-muted); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+h4 { margin: 20px 0 12px; font-size: 12px; line-height: 20px; }
+.variant-table {
+  display: grid;
+  grid-template-columns: 64px repeat(2, minmax(0, 120px));
+  align-items: center;
+  gap: 20px 24px;
+  margin: 16px 0 24px;
+}
+.variant-table h4 { margin: 0; }
+// Keep absolutely positioned screen-reader labels inside the content scroller.
+.variant-table sq-button { display: grid; position: relative; }
+.variant-label, .size-label { font-size: 11px; color: var(--demo-muted); }
+.hover-sample { --sq-button-color: #{sq.value('color-black')}; }
+.button-size-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0; padding: 16px; border: 1px solid var(--demo-border); border-radius: 7px; }
+.size-label { flex: 0 0 64px; }
+@media (max-width: 680px) {
+  .variant-table { grid-template-columns: repeat(2, minmax(0, 120px)); gap: 12px; }
+  .variant-table > span:first-child { display: none; }
+  .variant-label { grid-column: 1 / -1; margin-top: 8px; }
+}
+@media (max-width: 450px) {
+  .button-size-row { padding: 12px; }
+  .size-label { flex-basis: 100%; }
+}

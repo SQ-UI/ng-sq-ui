@@ -1,0 +1,2189 @@
+{
+  "capturedAt": "2026-11-03T20:28:37.923Z",
+  "sourceCommit": "0878c0dec010d1a07fbabf5ee16be3b055c5d749",
+  "phase": "6",
+  "route": "/#/preview",
+  "success": true,
+  "captures": [
+    {
+      "file": "overview-1440.png",
+      "selector": "#componentPreview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 104.78125,
+        "width": 1385,
+        "height": 4587
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "buttons-1440.png",
+      "selector": "#previewButtons",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 1385,
+        "height": 310
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "fields-1440.png",
+      "selector": "#previewFields",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 1385,
+        "height": 1162
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "extra-fields-1440.png",
+      "selector": "#previewFields .preview-grid:nth-of-type(3)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 1385,
+        "height": 238
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "progress-1440.png",
+      "selector": "#previewProgress",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 1385,
+        "height": 260
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-small-1440.png",
+      "selector": "[data-table-size=small]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 451,
+        "height": 291.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-medium-1440.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 487,
+        "y": 184.78125,
+        "width": 451,
+        "height": 291.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-large-1440.png",
+      "selector": "[data-table-size=large]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 954,
+        "y": 184.78125,
+        "width": 451,
+        "height": 291.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "empty-table-1440.png",
+      "selector": "#previewEmptyTable",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.28125,
+        "width": 451,
+        "height": 126
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-1440.png",
+      "selector": "#previewPaginator",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.28125,
+        "width": 1385,
+        "height": 129
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "calendar-1440.png",
+      "selector": "#previewSingleCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.28125,
+        "width": 334.25,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-1440.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 370.25,
+        "y": 184.28125,
+        "width": 334.25,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "time-1440.png",
+      "selector": "#previewTime",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 1070.75,
+        "y": 184.28125,
+        "width": 334.25,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-preview-1440.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 370.25,
+        "y": 184.28125,
+        "width": 334.25,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-selected-1440.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 370.25,
+        "y": 184.28125,
+        "width": 334.25,
+        "height": 394
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "validation-error-1440.png",
+      "selector": "#previewValidation",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.28125,
+        "width": 1385,
+        "height": 242
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-templates-1440.png",
+      "selector": "#previewTemplates",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 189.28125,
+        "width": 1385,
+        "height": 522.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-table-1440.png",
+      "selector": "#previewCustomTable",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 477.28125,
+        "width": 1385,
+        "height": 234.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "theme-overrides-1440.png",
+      "selector": "#previewTheme",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 743.78125,
+        "width": 1385,
+        "height": 306
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "button-focus-1440.png",
+      "selector": "#styleNeutralButton button",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 214.125,
+        "y": 184.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "input-focus-1440.png",
+      "selector": "#formStylePreview sq-input:first-child",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 240,
+        "height": 84
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "dropdown-keyboard-1440.png",
+      "selector": "[data-field-size=S]",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 184.78125,
+        "width": 451,
+        "height": 541
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkbox-focus-1440.png",
+      "selector": "#previewFields sq-checkbox",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 37,
+        "y": 184.78125,
+        "width": 650.5,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "radio-focus-1440.png",
+      "selector": "#previewFields sq-radiobutton:nth-of-type(2)",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 737.5,
+        "y": 184.78125,
+        "width": 650.5,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-checkbox-focus-1440.png",
+      "selector": "#previewCustomChecks sq-checkbox",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 1087.75,
+        "y": 354.28125,
+        "width": 300.25,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-radio-focus-1440.png",
+      "selector": "#previewCustomChecks sq-radiobutton",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 1087.75,
+        "y": 384.28125,
+        "width": 300.25,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "reference-neutral-m-1440.png",
+      "selector": "#styleNeutralButton button",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": true,
+      "bounds": {
+        "x": 214.125,
+        "y": 184.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "reference-small-field-error-1440.png",
+      "selector": "#formStylePreview sq-input:nth-child(2) .sq-form-field",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "cropped": true,
+      "bounds": {
+        "x": 276,
+        "y": 184.78125,
+        "width": 240,
+        "height": 64
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-small-1440.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 1440,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 540,
+        "y": 16,
+        "width": 360,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-medium-1440.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 1440,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 520,
+        "y": 16,
+        "width": 400,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-large-1440.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 1440,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 500,
+        "y": 16,
+        "width": 440,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "overview-390.png",
+      "selector": "#componentPreview",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 9082
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "buttons-390.png",
+      "selector": "#previewButtons",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 433
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "fields-390.png",
+      "selector": "#previewFields",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 2717
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "extra-fields-390.png",
+      "selector": "#previewFields .preview-grid:nth-of-type(3)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 546
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "progress-390.png",
+      "selector": "#previewProgress",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 275
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-small-390.png",
+      "selector": "[data-table-size=small]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 410
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-medium-390.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 410
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-large-390.png",
+      "selector": "[data-table-size=large]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 410
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "empty-table-390.png",
+      "selector": "#previewEmptyTable",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 118
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-390.png",
+      "selector": "#previewPaginator",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 121
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "calendar-390.png",
+      "selector": "#previewSingleCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-390.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "time-390.png",
+      "selector": "#previewTime",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 126
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-preview-390.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-selected-390.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "validation-error-390.png",
+      "selector": "#previewValidation",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 249
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-templates-390.png",
+      "selector": "#previewTemplates",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 1040
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-table-390.png",
+      "selector": "#previewCustomTable",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 248,
+        "width": 335,
+        "height": 285
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "theme-overrides-390.png",
+      "selector": "#previewTheme",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 565,
+        "width": 335,
+        "height": 499
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "button-focus-390.png",
+      "selector": "#styleNeutralButton button",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 122.125,
+        "y": 100,
+        "width": 90.125,
+        "height": 32
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "input-focus-390.png",
+      "selector": "#formStylePreview sq-input:first-child",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 240,
+        "height": 68
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "dropdown-keyboard-390.png",
+      "selector": "[data-field-size=S]",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 335,
+        "height": 533
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkbox-focus-390.png",
+      "selector": "#previewFields sq-checkbox",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100,
+        "width": 309,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "radio-focus-390.png",
+      "selector": "#previewFields sq-radiobutton:nth-of-type(2)",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100,
+        "width": 309,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-checkbox-focus-390.png",
+      "selector": "#previewCustomChecks sq-checkbox",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 129,
+        "width": 309,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-radio-focus-390.png",
+      "selector": "#previewCustomChecks sq-radiobutton",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 159,
+        "width": 309,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "reference-neutral-m-390.png",
+      "selector": "#styleNeutralButton button",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": true,
+      "bounds": {
+        "x": 122.125,
+        "y": 100,
+        "width": 90.125,
+        "height": 32
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "reference-small-field-error-390.png",
+      "selector": "#formStylePreview sq-input:nth-child(2) .sq-form-field",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "cropped": true,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 240,
+        "height": 64
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-small-390.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 390,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 343,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-medium-390.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 390,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 343,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-large-390.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 390,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 343,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "overview-320.png",
+      "selector": "#componentPreview",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 9577
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "buttons-320.png",
+      "selector": "#previewButtons",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 645
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "fields-320.png",
+      "selector": "#previewFields",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 2761
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "extra-fields-320.png",
+      "selector": "#previewFields .preview-grid:nth-of-type(3)",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 570
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "progress-320.png",
+      "selector": "#previewProgress",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 275
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-small-320.png",
+      "selector": "[data-table-size=small]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 446
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-medium-320.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 446
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-large-320.png",
+      "selector": "[data-table-size=large]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 446
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "empty-table-320.png",
+      "selector": "#previewEmptyTable",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 118
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "paginator-320.png",
+      "selector": "#previewPaginator",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 157
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "calendar-320.png",
+      "selector": "#previewSingleCalendar",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-320.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "time-320.png",
+      "selector": "#previewTime",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 126
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-preview-320.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "range-selected-320.png",
+      "selector": "#previewRangeCalendar",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 386
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "validation-error-320.png",
+      "selector": "#previewValidation",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 276
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-templates-320.png",
+      "selector": "#previewTemplates",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 1064
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-table-320.png",
+      "selector": "#previewCustomTable",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 228,
+        "width": 265,
+        "height": 285
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "theme-overrides-320.png",
+      "selector": "#previewTheme",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 545,
+        "width": 265,
+        "height": 519
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "button-focus-320.png",
+      "selector": "#styleNeutralButton button",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 122.125,
+        "y": 100,
+        "width": 90.125,
+        "height": 32
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "input-focus-320.png",
+      "selector": "#formStylePreview sq-input:first-child",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 240,
+        "height": 68
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "dropdown-keyboard-320.png",
+      "selector": "[data-field-size=S]",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 265,
+        "height": 533
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "checkbox-focus-320.png",
+      "selector": "#previewFields sq-checkbox",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100,
+        "width": 239,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "radio-focus-320.png",
+      "selector": "#previewFields sq-radiobutton:nth-of-type(2)",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 100,
+        "width": 239,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-checkbox-focus-320.png",
+      "selector": "#previewCustomChecks sq-checkbox",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 109,
+        "width": 239,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "custom-radio-focus-320.png",
+      "selector": "#previewCustomChecks sq-radiobutton",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 33,
+        "y": 139,
+        "width": 239,
+        "height": 20
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "reference-neutral-m-320.png",
+      "selector": "#styleNeutralButton button",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": true,
+      "bounds": {
+        "x": 122.125,
+        "y": 100,
+        "width": 90.125,
+        "height": 32
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "reference-small-field-error-320.png",
+      "selector": "#formStylePreview sq-input:nth-child(2) .sq-form-field",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      },
+      "cropped": true,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 240,
+        "height": 64
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-small-320.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 273,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-medium-320.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 273,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "modal-large-320.png",
+      "selector": ".modal-window",
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 16,
+        "y": 16,
+        "width": 273,
+        "height": 608
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-breakpoint-861.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 861,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 99.5,
+        "width": 806,
+        "height": 275.5
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    },
+    {
+      "file": "table-breakpoint-860.png",
+      "selector": "[data-table-size=medium]",
+      "viewport": {
+        "width": 860,
+        "height": 1000
+      },
+      "cropped": false,
+      "bounds": {
+        "x": 20,
+        "y": 100,
+        "width": 805,
+        "height": 418
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    {
+      "width": 1440,
+      "sizes": {
+        "buttons": [
+          {
+            "size": "S",
+            "height": 24
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          },
+          {
+            "size": "XL",
+            "height": 48
+          }
+        ],
+        "fields": [
+          {
+            "size": "S",
+            "height": 28
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          }
+        ],
+        "progress": [
+          {
+            "size": "small",
+            "height": 4,
+            "value": "62"
+          },
+          {
+            "size": "medium",
+            "height": 8,
+            "value": "62"
+          },
+          {
+            "size": "large",
+            "height": 12,
+            "value": "62"
+          }
+        ],
+        "rows": [
+          {
+            "size": "small",
+            "height": 36
+          },
+          {
+            "size": "medium",
+            "height": 40
+          },
+          {
+            "size": "large",
+            "height": 44
+          }
+        ],
+        "calendar": 320,
+        "time": 56,
+        "overflow": false,
+        "fonts": [
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free"
+        ]
+      },
+      "pagination": true,
+      "sortCycle": true,
+      "rangeSelection": true,
+      "timeSpinner": true,
+      "messageRecovery": true,
+      "customTemplates": true,
+      "themeOverrides": {
+        "nested": "rgb(55, 89, 199)",
+        "normal": "rgb(0, 196, 116)",
+        "inheritedProgress": "rgb(55, 89, 199)",
+        "inlineProgress": "rgb(55, 89, 199)",
+        "inlineTrack": "rgb(238, 238, 238)",
+        "overflow": false
+      },
+      "referenceLinks": true,
+      "disabledButtonSkipped": true,
+      "fieldLabelAndDisabledTab": true,
+      "dropdownKeyboard": {
+        "left": 45,
+        "right": 426,
+        "screenWidth": 1440,
+        "maxHeight": "200px"
+      },
+      "nativeKeyboardAndFocus": true,
+      "labelAssociations": {
+        "duplicates": [],
+        "missingTargets": [],
+        "checkableNames": [
+          "Selected",
+          "Unselected",
+          "Disabled selected",
+          "Standard",
+          "Express",
+          "Disabled",
+          "Updates: enabled",
+          "daily: selected",
+          "weekly: unselected"
+        ]
+      },
+      "savedReferenceProperties": {
+        "button": {
+          "fontSize": "14px",
+          "lineHeight": "24px",
+          "weight": "500",
+          "radius": "4px",
+          "background": "rgb(250, 250, 250)",
+          "text": "rgb(32, 32, 32)"
+        },
+        "primary": {
+          "background": "rgb(0, 196, 116)",
+          "text": "rgb(255, 255, 255)"
+        },
+        "field": {
+          "radius": "4px",
+          "stroke": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+          "fontSize": "12px",
+          "lineHeight": "20px",
+          "padding": "4px 8px",
+          "groupHeight": 64
+        },
+        "error": {
+          "fontSize": "10px",
+          "lineHeight": "16px",
+          "color": "rgb(255, 56, 21)"
+        },
+        "fonts": [
+          true,
+          true,
+          true
+        ]
+      },
+      "modals": [
+        {
+          "size": "small",
+          "width": 360,
+          "height": 608,
+          "left": 540,
+          "right": 900,
+          "screenWidth": 1440,
+          "scrollable": true
+        },
+        {
+          "size": "medium",
+          "width": 400,
+          "height": 608,
+          "left": 520,
+          "right": 920,
+          "screenWidth": 1440,
+          "scrollable": true
+        },
+        {
+          "size": "large",
+          "width": 440,
+          "height": 608,
+          "left": 500,
+          "right": 940,
+          "screenWidth": 1440,
+          "scrollable": true
+        }
+      ],
+      "dialogAccessibleName": "Example dialog large · scrollable content"
+    },
+    {
+      "width": 390,
+      "sizes": {
+        "buttons": [
+          {
+            "size": "S",
+            "height": 24
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          },
+          {
+            "size": "XL",
+            "height": 48
+          }
+        ],
+        "fields": [
+          {
+            "size": "S",
+            "height": 28
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          }
+        ],
+        "progress": [
+          {
+            "size": "small",
+            "height": 4,
+            "value": "62"
+          },
+          {
+            "size": "medium",
+            "height": 8,
+            "value": "62"
+          },
+          {
+            "size": "large",
+            "height": 12,
+            "value": "62"
+          }
+        ],
+        "rows": [
+          {
+            "size": "small",
+            "height": 101
+          },
+          {
+            "size": "medium",
+            "height": 101
+          },
+          {
+            "size": "large",
+            "height": 101
+          }
+        ],
+        "calendar": 320,
+        "time": 56,
+        "overflow": false,
+        "fonts": [
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free"
+        ]
+      },
+      "pagination": true,
+      "mobileCards": true,
+      "rangeSelection": true,
+      "timeSpinner": true,
+      "messageRecovery": true,
+      "customTemplates": true,
+      "themeOverrides": {
+        "nested": "rgb(55, 89, 199)",
+        "normal": "rgb(0, 196, 116)",
+        "inheritedProgress": "rgb(55, 89, 199)",
+        "inlineProgress": "rgb(55, 89, 199)",
+        "inlineTrack": "rgb(238, 238, 238)",
+        "overflow": false
+      },
+      "referenceLinks": true,
+      "disabledButtonSkipped": true,
+      "fieldLabelAndDisabledTab": true,
+      "dropdownKeyboard": {
+        "left": 41,
+        "right": 314,
+        "screenWidth": 375,
+        "maxHeight": "200px"
+      },
+      "nativeKeyboardAndFocus": true,
+      "labelAssociations": {
+        "duplicates": [],
+        "missingTargets": [],
+        "checkableNames": [
+          "Selected",
+          "Unselected",
+          "Disabled selected",
+          "Standard",
+          "Express",
+          "Disabled",
+          "Updates: enabled",
+          "daily: selected",
+          "weekly: unselected"
+        ]
+      },
+      "savedReferenceProperties": {
+        "button": {
+          "fontSize": "14px",
+          "lineHeight": "24px",
+          "weight": "500",
+          "radius": "4px",
+          "background": "rgb(250, 250, 250)",
+          "text": "rgb(32, 32, 32)"
+        },
+        "primary": {
+          "background": "rgb(0, 196, 116)",
+          "text": "rgb(255, 255, 255)"
+        },
+        "field": {
+          "radius": "4px",
+          "stroke": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+          "fontSize": "12px",
+          "lineHeight": "20px",
+          "padding": "4px 8px",
+          "groupHeight": 64
+        },
+        "error": {
+          "fontSize": "10px",
+          "lineHeight": "16px",
+          "color": "rgb(255, 56, 21)"
+        },
+        "fonts": [
+          true,
+          true,
+          true
+        ]
+      },
+      "modals": [
+        {
+          "size": "small",
+          "width": 343,
+          "height": 608,
+          "left": 16,
+          "right": 359,
+          "screenWidth": 375,
+          "scrollable": true
+        },
+        {
+          "size": "medium",
+          "width": 343,
+          "height": 608,
+          "left": 16,
+          "right": 359,
+          "screenWidth": 375,
+          "scrollable": true
+        },
+        {
+          "size": "large",
+          "width": 343,
+          "height": 608,
+          "left": 16,
+          "right": 359,
+          "screenWidth": 375,
+          "scrollable": true
+        }
+      ],
+      "dialogAccessibleName": "Example dialog large · scrollable content"
+    },
+    {
+      "width": 320,
+      "sizes": {
+        "buttons": [
+          {
+            "size": "S",
+            "height": 24
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          },
+          {
+            "size": "XL",
+            "height": 48
+          }
+        ],
+        "fields": [
+          {
+            "size": "S",
+            "height": 28
+          },
+          {
+            "size": "M",
+            "height": 32
+          },
+          {
+            "size": "L",
+            "height": 40
+          }
+        ],
+        "progress": [
+          {
+            "size": "small",
+            "height": 4,
+            "value": "62"
+          },
+          {
+            "size": "medium",
+            "height": 8,
+            "value": "62"
+          },
+          {
+            "size": "large",
+            "height": 12,
+            "value": "62"
+          }
+        ],
+        "rows": [
+          {
+            "size": "small",
+            "height": 101
+          },
+          {
+            "size": "medium",
+            "height": 101
+          },
+          {
+            "size": "large",
+            "height": 101
+          }
+        ],
+        "calendar": 320,
+        "time": 56,
+        "overflow": false,
+        "fonts": [
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "IBM Plex Sans",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free",
+          "Font Awesome 6 Free"
+        ]
+      },
+      "pagination": true,
+      "mobileCards": true,
+      "rangeSelection": true,
+      "timeSpinner": true,
+      "messageRecovery": true,
+      "customTemplates": true,
+      "themeOverrides": {
+        "nested": "rgb(55, 89, 199)",
+        "normal": "rgb(0, 196, 116)",
+        "inheritedProgress": "rgb(55, 89, 199)",
+        "inlineProgress": "rgb(55, 89, 199)",
+        "inlineTrack": "rgb(238, 238, 238)",
+        "overflow": false
+      },
+      "referenceLinks": true,
+      "disabledButtonSkipped": true,
+      "fieldLabelAndDisabledTab": true,
+      "dropdownKeyboard": {
+        "left": 41,
+        "right": 244,
+        "screenWidth": 305,
+        "maxHeight": "200px"
+      },
+      "nativeKeyboardAndFocus": true,
+      "labelAssociations": {
+        "duplicates": [],
+        "missingTargets": [],
+        "checkableNames": [
+          "Selected",
+          "Unselected",
+          "Disabled selected",
+          "Standard",
+          "Express",
+          "Disabled",
+          "Updates: enabled",
+          "daily: selected",
+          "weekly: unselected"
+        ]
+      },
+      "savedReferenceProperties": {
+        "button": {
+          "fontSize": "14px",
+          "lineHeight": "24px",
+          "weight": "500",
+          "radius": "4px",
+          "background": "rgb(250, 250, 250)",
+          "text": "rgb(32, 32, 32)"
+        },
+        "primary": {
+          "background": "rgb(0, 196, 116)",
+          "text": "rgb(255, 255, 255)"
+        },
+        "field": {
+          "radius": "4px",
+          "stroke": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+          "fontSize": "12px",
+          "lineHeight": "20px",
+          "padding": "4px 8px",
+          "groupHeight": 64
+        },
+        "error": {
+          "fontSize": "10px",
+          "lineHeight": "16px",
+          "color": "rgb(255, 56, 21)"
+        },
+        "fonts": [
+          true,
+          true,
+          true
+        ]
+      },
+      "modals": [
+        {
+          "size": "small",
+          "width": 273,
+          "height": 608,
+          "left": 16,
+          "right": 289,
+          "screenWidth": 305,
+          "scrollable": true
+        },
+        {
+          "size": "medium",
+          "width": 273,
+          "height": 608,
+          "left": 16,
+          "right": 289,
+          "screenWidth": 305,
+          "scrollable": true
+        },
+        {
+          "size": "large",
+          "width": 273,
+          "height": 608,
+          "left": 16,
+          "right": 289,
+          "screenWidth": 305,
+          "scrollable": true
+        }
+      ],
+      "dialogAccessibleName": "Example dialog large · scrollable content"
+    }
+  ],
+  "runtimeErrors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  },
+  "tableBreakpoints": [
+    {
+      "width": 861,
+      "header": "table-header-group",
+      "overflow": false
+    },
+    {
+      "width": 860,
+      "header": "none",
+      "overflow": false
+    }
+  ]
+}

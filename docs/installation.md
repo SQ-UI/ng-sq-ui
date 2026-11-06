@@ -71,17 +71,15 @@ two-way `value` model, `[(value)]`. If you use Angular Signal Forms, bind the sa
 ]
 ```
 
-The theme is composed of small files you can pick from instead of the umbrella:
+Use these public Sass entry points. The theme entry emits the scoped reset, base styles and utilities; the other common entries expose Sass functions, variables or mixins:
 
 | File | Purpose |
 |---|---|
 | `@sq-ui/ng-sq-common/sq-ui-theme.scss` | Everything below (theme entry point) |
-| `@sq-ui/ng-sq-common/styles/reset.scss` | Minimal element reset |
-| `@sq-ui/ng-sq-common/styles/base.scss` | Typography, form field scaffolding |
-| `@sq-ui/ng-sq-common/styles/colors.scss` | Color custom properties (`--sq-*`) |
-| `@sq-ui/ng-sq-common/styles/utilities.scss` | Layout helpers (`.row`, `.sq`, …) |
+| `@sq-ui/ng-sq-common/styles/tokens` | Shared token functions, `$overrides` and optional custom-property mixin |
+| `@sq-ui/ng-sq-common/styles/colors.scss` | Compatible legacy Sass color variables; does not emit CSS custom properties |
+| `@sq-ui/ng-sq-common/styles/typography` | Heading/text/button mixins and scale classes; consumers load their chosen font files |
 | `@sq-ui/ng-form-elements/styles/form-elements.scss` | Styles of the form controls |
-| `@sq-ui/ng-datetime-picker/styles/colors.scss` | Extra colors used by the pickers |
 
 Alternatively `@use` the theme from your own stylesheet:
 
@@ -89,6 +87,8 @@ Alternatively `@use` the theme from your own stylesheet:
 @use '@sq-ui/ng-sq-common/sq-ui-theme.scss';
 @use '@sq-ui/ng-form-elements/styles/form-elements.scss';
 ```
+
+Choose either the `angular.json` entries or these global Sass imports, so the styles are loaded once. See [Styling and migration](styling.md) for font loading, inherited CSS overrides, size options, custom templates and visible migration changes. These examples describe the current repository implementation; check your installed package version before using newly added inputs.
 
 ## Apply styling to the components
 
@@ -123,13 +123,15 @@ To use our styling, add the `class="sq"` on a parent element.
 
 ## Running this repository
 
+The demo's **Preview** navigation item (`/#/preview`) shows sizes, states, custom templates, message recovery and local theme overrides using real components. Build the libraries before serving: the workspace resolves library imports from `dist/`. `npm start` runs the existing `prestart` cleanup, so use the direct serve command below after the build to retain those artifacts.
+
 ```bash
 npm ci              # install
-npm start           # demo app on http://localhost:4200
+npm run build:libs  # build every library into dist/
+npx ng serve        # demo app on http://localhost:4200; open /#/preview
 npm test            # unit tests (Vitest 4)
 npm run typecheck   # TypeScript over the whole workspace
 npm run lint        # ESLint (flat config)
-npm run build:libs  # build every library into dist/
 npm run build       # build the demo application
 ```
 

@@ -6,8 +6,13 @@
   },
   "assets": [
     {
-      "glob": "*.scss",
+      "glob": "form-elements.scss",
       "input": "src/lib/styles",
+      "output": "styles"
+    },
+    {
+      "glob": "tokens.scss",
+      "input": "package-styles",
       "output": "styles"
     }
   ],

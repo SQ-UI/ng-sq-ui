@@ -1,16 +1,14 @@
-<div role="columnheader"
-     class="column">
-  {{name()}}
-
+<div class="column">
   @if (isSortable()) {
-    <button type="button" (click)="sort()">
-      <i class="fas"
-         aria-hidden="true"
-         [class.fa-sort]="sortState() === undefined"
-         [class.fa-sort-up]="sortState() === true"
-         [class.fa-sort-down]="sortState() === false">
-      </i>
+    <button type="button" [attr.aria-label]="'Sort by ' + name()" (click)="sort()">
+      <span>{{name()}}</span>
+      <svg class="datatable-sort-icon" [class.descending]="sortState() === false"
+           viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M6.5 3h3M4 8h8M1.5 13h13"></path>
+      </svg>
     </button>
+  } @else {
+    {{name()}}
   }
 </div>
 

@@ -1,0 +1,11 @@
+export default function TechButtonM({ className }: { className?: string }) {
+  return (
+    <div className={className || "bg-[#fafafa] content-stretch flex items-center justify-center px-[16px] py-[4px] relative rounded-[4px]"} data-node-id="31:33" data-name="_Tech / Button M">
+      <p className="[word-break:break-word] font-['IBM_Plex_Sans:Medium'] font-medium leading-[24px] relative shrink-0 text-[#202020] text-[14px] whitespace-nowrap" data-node-id="29:12" style={{ fontVariationSettings: '"wdth" 100' }}>
+        Button M
+      </p>
+    </div>
+  );
+}
+Node ids have been added to the code as data attributes, e.g. `data-node-id="1:2"`.
+These styles are contained in the design: Main/SQ Black: #202020, Button  — IBM Plex Sans - Medium/Button S 14-24 IBM Plex Sans: Font(family: "IBM Plex Sans", style: Medium, size: 14, weight: 500, lineHeight: 24, letterSpacing: 0), Gray/SQ Gray 1: #FAFAFA.

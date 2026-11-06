@@ -24,8 +24,9 @@
     ],
     // The editor (TypeScript + Angular language service) reads this file, so `@sq-ui/*` maps to the
     // library sources only: a stale or half-built `dist/` can never produce bogus diagnostics.
-    // The app build and `npm run typecheck` check against the built packages via
-    // `tsconfig.dist.json`; each library's `tsconfig.lib.json` keeps its own paths.
+    // The production app build and `npm run typecheck` check against the built packages via
+    // `tsconfig.dist.json`; `ng serve` uses these source paths through `src/tsconfig.app.dev.json`.
+    // Each library's `tsconfig.lib.json` keeps its own paths.
     "paths": {
       "@sq-ui/ng-sq-ui": ["./projects/ng-sq-ui/src"],
       "@sq-ui/ng-sq-ui/*": ["./projects/ng-sq-ui/src/*"],

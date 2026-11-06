@@ -14,9 +14,11 @@
 
   <ng-template #defaultCheckboxTemplate>
     <div class="checkbox">
-      <div class="inner"></div>
+      <svg class="inner" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="m3 8 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
     </div>
-    <div class="label">{{controlLabel()}}</div>
+    <label class="label" [for]="controlId()">{{controlLabel()}}</label>
   </ng-template>
 
   @if (labelTemplate(); as tmpl) {

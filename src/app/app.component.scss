@@ -1,131 +1,46 @@
-//General
-$base-font-color: #4c4c4c;
-$error-message-color: rgba(163, 52, 27, 1);
-$overlay-color: rgba(0, 0, 0, 0.38823529411764707);
-$primary-theme-color: rgba(46, 159, 134, 0.69);
-$secondary-theme-color: rgba(18, 125, 104, 0.21);
-$menu-item: rgba(111, 189, 171, 0.61);
+@use '../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+@use '../../projects/ng-sq-common/src/lib/styles/typography' as type;
 
 .sq-app {
-  font-family: 'Open Sans', sans-serif;
-  position: relative;
+  --demo-brand: #{sq.fallback('color-brand')};
+  --demo-ink: #{sq.fallback('color-text')};
+  --demo-surface: #{sq.fallback('color-surface')};
+  --demo-canvas: #{sq.fallback('color-surface-subtle')};
+  --demo-border: #{sq.fallback('color-border')};
+  --demo-muted: color-mix(in srgb, var(--demo-ink) 62%, white);
+  display: grid; grid-template-columns: 232px minmax(0, 1fr); grid-template-rows: 72px minmax(0, 1fr);
+  height: 100dvh; overflow: hidden; background: var(--demo-canvas); color: var(--demo-ink); font-family: sq.value('font-family');
 
-  .section {
-    padding-bottom: 50px;
-    &.primary > header {
-      border-bottom: 2px solid rgba(46, 159, 134, 0.69);
-      margin-bottom: 20px;
-    }
-  }
-
-  form > section {
-    padding-top: 15px;
-  }
-
-  .sq .datetime-picker {
-    font-family: 'Nunito', sans-serif;
-  }
-
-  .display-flex {
-    display: flex;
-    &.space-between {
-      justify-content: space-between;
-    }
-  }
-
-  p {
-    font-size: 18px;
-    padding-bottom: 10px;
-  }
-
-  .mg-b50 {
-    margin-bottom: 50px;
-  }
-
-  .mg-b20 {
-    margin-bottom: 20px;
-  }
-
-  h2, h3 {
-    word-wrap: break-word;
-  }
-
-  h2 {
-    font-size: 1.9rem;
-    margin-bottom: 5px;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-
-  h4 {
-    margin-bottom: 10px;
-  }
-
-  .logo {
-    width: 110px;
-    margin-right: 20px;
-  }
-
-  .scrollable {
-    overflow-y: auto;
-    padding: 20px;
-    height: calc(100vh - 99px);
-  }
-
-  .emphasis {
-    display: inline-block;
-    background-color: $secondary-theme-color;
-    padding: 5px;
-    font-weight: bold;
-  }
-
-  ul {
-    list-style-type: none;
-    font-size: 18px;
-    li {
-      padding-bottom: 10px;
-    }
-  }
-
-  ul.list {
-    list-style-type: circle;
-    li {
-      padding-bottom: 5px;
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .scrollable {
-      padding-top: 100px;
-    }
-  }
-
-  @media (max-width: 800px) {
-    .app-nav .nav-item {
-      font-size: 16px;
-    }
-    .scrollable {
-      height: auto;
-      padding-top: 100px;
-    }
-  }
-
-  @media (max-width: 450px) {
-    font-size: 16px;
-    ul {
-      font-size:  16px;
-    }
-    h2 {
-      font-size: 1.5rem;
-    }
-    h3 {
-      font-size: 1.3rem;
-    }
-  }
-
+  .scrollable { grid-column: 2; grid-row: 2; min-width: 0; min-height: 0; overflow: auto; padding: 40px clamp(24px, 4vw, 64px) 64px; scroll-padding-top: 32px; }
+  .scrollable > :not(router-outlet) { display: block; max-width: 1280px; margin-inline: auto; }
+  .scrollable:focus { outline: none; }
+  .scrollable :where(h2) { @include type.heading(2, 'm'); margin-bottom: 12px; }
+  .scrollable :where(h3) { @include type.heading(3, 's'); margin-bottom: 12px; }
+  .scrollable :where(h4) { font-size: 16px; line-height: 1.5; font-weight: 500; margin-bottom: 12px; }
+  .scrollable :where(p) { font-size: 14px; line-height: 1.7; padding-bottom: 12px; }
+  .scrollable :where(ul) { font-size: 14px; line-height: 1.7; }
+  .scrollable ul.list { margin: 0 0 24px 18px; padding: 0; list-style: disc; color: var(--demo-muted); }
+  .scrollable ul.list li { padding-bottom: 6px; }
+  .section { padding-bottom: 32px; }
+  .section.primary > header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--demo-border); }
+  form > section { padding-top: 16px; }
+  .display-flex { display: flex; &.space-between { justify-content: space-between; } }
+  .mg-b50 { margin-bottom: 40px; }
+  .mg-b20 { margin-bottom: 20px; }
+  .emphasis { display: inline-block; padding: 4px 8px; background: var(--demo-canvas); font-size: 12px; font-weight: 500; border-radius: 4px; }
+  .demo-eyebrow { display: block; font-size: 10px; line-height: 20px; font-weight: 500; letter-spacing: 1.8px; color: var(--demo-muted); margin-bottom: 12px; }
+  .demo-action { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 42px; padding: 8px 18px; border: 1px solid var(--demo-border); border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; color: var(--demo-ink); background: white; }
+  .demo-action.primary { background: var(--demo-brand); border-color: var(--demo-brand); color: var(--demo-ink); }
+  .demo-action:hover { box-shadow: 0 2px 8px rgb(32 32 32 / 8%); }
+  .scrollable :where(h1, h2, h3, h4, p) { overflow-wrap: anywhere; }
 }
-
-
+@media (max-width: 960px) {
+  .sq-app { grid-template-columns: minmax(0, 1fr); grid-template-rows: 64px minmax(0, 1fr); }
+  .sq-app .scrollable { grid-column: 1; padding: 28px 24px 48px; }
+}
+@media (max-width: 540px) {
+  .sq-app .scrollable { padding: 24px 16px 40px; }
+  .sq-app .scrollable :where(h2) { @include type.heading(2, 's'); }
+  .sq-app .scrollable :where(h3) { @include type.heading(3, 'xs'); }
+}
+@media (prefers-reduced-motion: reduce) { .sq-app { scroll-behavior: auto; } }

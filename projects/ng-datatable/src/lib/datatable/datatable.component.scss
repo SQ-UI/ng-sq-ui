@@ -1,81 +1,30 @@
-.sq {
-  .datatable-wrapper {
-    .paginator {
-      justify-content: center;
-      border-top: 1px solid rgba(46,159,134,.69);
-      padding-top: 10px;
-    }
-  }
-
-  table.datatable {
-    text-align: left;
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-    th, td {
-      word-break: break-word;
-      text-align: left;
-    }
-    th {
-      button {
-        font-weight: bold;
-      }
-      background-color: rgba(18, 125, 104, 0.3);
-      text-transform: uppercase;
-      padding: 10px 20px;
-      &:last-child {
-        border-right: none;
-      }
-    }
-    td {
-      padding: 6px 20px;
-    }
-    tr {
-      &:nth-child(2n) td  {
-        background-color: rgba(18, 125, 104, 0.12);
-      }
-      td:last-child {
-        border-right: none;
-      }
-    }
-    tfoot td  {
-      font-weight: bold;
-    }
-  }
-
-  @media (max-width: 860px) {
-    table.datatable {
-      display: block;
-      tr, td, td, tbody {
-        display: block;
-      }
-      thead {
-        display: none;
-      }
-      tr {
-        td:first-child {
-          padding-top: 15px;
-        }
-        td:last-child {
-          padding-bottom: 15px;
-        }
-      }
-      td {
-        border-right: none;
-        padding-bottom: 5px;
-      }
-      td::before {
-        display: inline-block;
-        font-weight: bold;
-      }
-      td::before {
-        content: attr(data-heading)": ";
-      }
-      tr:nth-child(2n)::after {
-        background-color: rgba(18, 125, 104, 0.12);
-      }
-    }
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
+.sq .datatable-wrapper {
+  --sq-table-row-height: #{sq.value('table-row-medium')};
+  &[data-size='small'] { --sq-table-row-height: #{sq.value('table-row-small')}; }
+  &[data-size='large'] { --sq-table-row-height: #{sq.value('table-row-large')}; }
+  min-width: 0;
+  .paginator { justify-content: center; padding-top: 20px; }
+  .datatable-empty { padding: sq.value('space-4'); text-align: center; background: sq.value('color-surface-subtle'); font-size: 14px; line-height: 24px; }
+}
+.sq table.datatable {
+  width: 100%; table-layout: fixed; border-collapse: collapse;
+  font-size: 14px; line-height: 24px;
+  color: sq.value('color-text');
+  th, td { height: var(--sq-table-row-height); padding: 8px 10px; vertical-align: middle; text-align: left; overflow-wrap: anywhere; border-bottom: 1px solid sq.value('color-table-border'); }
+  th { background: sq.value('color-table-heading'); color: sq.value('color-table-heading-text'); font-weight: sq.value('font-weight-medium'); text-transform: none; }
+  td { background: sq.value('color-surface'); }
+  tbody tr:nth-child(even) td { background: sq.value('color-stripe'); }
+  tbody tr:hover td { background: sq.value('color-selection'); }
+  tfoot td { font-weight: sq.value('font-weight-medium'); }
+}
+@media (max-width: 860px) {
+  .sq table.datatable {
+    display: block;
+    thead { display: none; }
+    tbody, tr, td { display: block; }
+    tr { padding: 8px 0; border-bottom: 1px solid sq.value('color-table-border'); }
+    td { height: auto; border: 0; }
+    td::before { content: attr(data-heading) ': '; font-weight: sq.value('font-weight-medium'); }
   }
 }
-
-

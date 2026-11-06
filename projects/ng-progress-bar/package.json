@@ -10,7 +10,8 @@
   },
   "sideEffects": false,
   "publishConfig": {
-    "directory": "../../dist/ng-progress-bar"
+    "directory": "../../dist/ng-progress-bar",
+    "access": "public"
   },
   "dependencies": {
     "tslib": "^2.0.0"

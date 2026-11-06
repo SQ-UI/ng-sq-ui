@@ -24,6 +24,18 @@ describe('RadiobuttonComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('associates the default label with the input and selects from its label', () => {
+    fixture.componentRef.setInput('controlLabel', 'Express');
+    fixture.componentRef.setInput('radioValue', 'express');
+    fixture.detectChanges();
+    const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+    const label = input.labels?.[0];
+    expect(label?.textContent).toBe('Express');
+    label?.click();
+    fixture.detectChanges();
+    expect(component.value()).toBe('express');
+  });
+
   it('should select the radiobutton correctly when clicked', () => {
     const radio2Fixture = TestBed.createComponent(RadiobuttonComponent);
     const radio2 = radio2Fixture.componentInstance;

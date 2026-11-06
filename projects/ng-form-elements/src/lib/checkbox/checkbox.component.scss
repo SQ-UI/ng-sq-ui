@@ -1,12 +1,11 @@
-@use 'sass:color';
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 // The native input is the control's only interaction path (the template has no click handler), so
 // it must cover the whole control *and* sit above the visual layers. `.checkbox` and `.inner` are
 // `position: relative`: without the `z-index` they are painted over the absolutely positioned input,
 // and a click on the square never reaches it. These rules live here, not only in the optional
 // `form-elements.scss`, so the control works without the global stylesheet.
-.checkable {
+sq-checkbox .checkable {
   position: relative;
 
   > input[type="checkbox"] {
@@ -26,24 +25,71 @@
 
   // The input is invisible, so keyboard focus is shown on the square instead.
   > input[type="checkbox"]:focus-visible ~ .checkbox {
-    outline: 2px solid $base-form-element-color;
-    outline-offset: 2px;
+    outline: sq.value('focus-width') solid sq.value('color-focus');
+    outline-offset: sq.value('focus-offset');
+  }
+
+  // A custom label may omit the default square; keep its invisible input's focus visible.
+  &:has(> input[type="checkbox"]:focus-visible):not(:has(> .checkbox)) {
+    outline: sq.value('focus-width') solid sq.value('color-focus');
+    outline-offset: sq.value('focus-offset');
   }
 }
 
-.sq {
-  .checkbox {
+.sq sq-checkbox .checkable {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 24px;
+  font-family: sq.value('font-family-sans');
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: sq.value('font-weight-regular');
+  color: sq.value('color-text');
+
+  > .checkbox {
     position: relative;
-    border: 1px solid $base-form-element-color;
-    width: 18px;
-    height: 18px;
-    padding: 3px;
-    margin-right: 5px;
-    &:hover {
-      cursor: pointer;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    border: sq.value('border-width') solid sq.value('color-brand');
+    border-radius: sq.value('radius-control');
+    background: sq.value('color-white');
+
+    > .inner {
+      display: block;
+      width: 14px;
+      height: 14px;
+      opacity: 0;
+      background: transparent;
+      color: sq.value('color-white');
     }
   }
-  .disabled .checkbox {
-    border-color: color.adjust($disabled-color, $lightness: -30%);
+
+  > .label { color: var(--sq-checkbox-label-color, #{sq.value('color-text')}); }
+  &.checked > .checkbox {
+    background: sq.value('color-brand');
+    > .inner { opacity: 1; }
+  }
+  @media (hover: hover) {
+    &:not(.disabled):hover > .label { color: sq.value('color-brand'); }
+  }
+  &.disabled {
+    color: sq.value('color-disabled');
+    > .label { color: sq.value('color-disabled'); }
+    > .checkbox {
+      border-color: sq.value('color-disabled-checkbox-border');
+      background: sq.value('color-disabled-surface');
+      > .inner { color: sq.value('color-disabled'); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    > .checkbox > .inner { transition: none; }
   }
 }

@@ -72,6 +72,15 @@ describe('PaginatorComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('names navigation controls and moves the current-page announcement on navigation', () => {
+    setPagination(generateDummyCollection(8), 2);
+    expect(queryPaginator('[data-btn-type="next"]')?.getAttribute('aria-label')).toBe('Next page');
+    expect(queryPaginator('[aria-current="page"]')?.textContent?.trim()).toBe('1');
+    queryPaginator('[data-btn-type="next"]')?.click();
+    fixture.detectChanges();
+    expect(queryPaginator('[aria-current="page"]')?.textContent?.trim()).toBe('2');
+  });
+
   it('should split a finite collection of items into a correct number of pages', () => {
     const recordCount = 238;
     const recordPerPage = 5;
@@ -266,6 +275,18 @@ describe('PaginatorComponent', () => {
     expect(page.number).toEqual(1);
     expect(typeof page.isSelected).toEqual('boolean');
     expect(typeof page.isHidden).toEqual('boolean');
+  });
+
+  it('renders noninteractive ellipses without hidden page buttons in the tab order', () => {
+    setPagination(generateDummyCollection(110), 10);
+    const gaps = queryAllPaginator('.gap');
+    expect(gaps.length).toBe(1);
+    expect(gaps[0].hidden).toBe(false);
+    expect(gaps[0].getAttribute('aria-hidden')).toBe('true');
+    expect(gaps[0].textContent?.trim()).toBe('…');
+    expect(queryAllPaginator('.truncated button').length).toBe(0);
+    expect(Array.from(queryAllPaginator('[data-btn-type="page-num"] button')).map(button => button.textContent?.trim()))
+      .toEqual(['1', '2', '3', '9', '10', '11']);
   });
 });
 

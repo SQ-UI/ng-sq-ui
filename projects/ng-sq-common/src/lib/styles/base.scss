@@ -1,22 +1,63 @@
+@use './tokens' as sq;
+@use './typography' as type;
+
 @mixin sq-base {
-  $heading-size: 2.8rem;
-  $heading-bottom-margin: 40px;
+  h1 { @include type.heading(1); margin-bottom: 24px; }
+  h2 { @include type.heading(2); margin-bottom: 20px; }
+  h3 { @include type.heading(3); margin-bottom: 16px; }
+  // No H4 reference is visible; retain the existing compact H4 dimensions.
+  h4 { font-size: 1.2rem; margin-bottom: 0; }
 
-  @for $i from 1 through 4 {
-    $heading-size: $heading-size - 0.4;
-    $heading-bottom-margin: $heading-bottom-margin - 10;
+  // Keep link metrics inherited so inline links follow the surrounding text.
+  // Low specificity lets navigation/card/button-like links keep their layout.
+  :where(a[href], a.sq-link) {
+    --_sq-link-decoration: underline;
+    color: var(--sq-link-color, #{sq.value('color-brand')});
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.4em;
+    text-decoration-skip-ink: auto;
+  }
+  @media (hover: hover) {
+    :where(a[href]:hover, a.sq-link:hover) { color: sq.value('color-black'); }
+  }
+  :where(a[href]:active, a.sq-link:active, a[aria-current]:not([aria-current='false'])) {
+    --_sq-link-decoration: none;
+    color: sq.value('color-black');
+    text-decoration-line: none;
+  }
+  // A disabled link must also omit href/routerLink to prevent navigation.
+  :where(a[aria-disabled='true']) {
+    --_sq-link-decoration: underline;
+    color: sq.value('color-disabled');
+    text-decoration-line: underline;
+    cursor: not-allowed;
+  }
 
-    h#{$i} {
-      font-size: $heading-size;
-      margin-bottom: $heading-bottom-margin;
-    }
+  :where(a.sq-anchor) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    text-decoration-line: none;
+  }
+  :where(a.sq-anchor > .sq-anchor-icon) {
+    width: 1.5em;
+    height: 1.5em;
+    flex: none;
+    color: inherit;
+  }
+  :where(a.sq-anchor > .sq-anchor-label) {
+    text-decoration-line: var(--_sq-link-decoration, underline);
+    text-decoration-color: currentColor;
+    text-decoration-thickness: inherit;
+    text-underline-offset: inherit;
   }
 
   input, textarea {
     width: 100%;
     -webkit-appearance: none;
     -moz-appearance: none;
-    outline: none;
     &::-ms-clear {
       display: none;
     }
@@ -37,7 +78,6 @@
 
   button, .button {
     cursor: pointer;
-    outline: none;
     border: none;
     background-color: transparent;
   }
@@ -64,5 +104,10 @@
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  :where(a[href], a.sq-link, button, .button, input, textarea, [contenteditable='true'], [role='combobox']):focus-visible {
+    outline: sq.value('focus-width') solid sq.value('color-focus');
+    outline-offset: sq.value('focus-offset');
   }
 }

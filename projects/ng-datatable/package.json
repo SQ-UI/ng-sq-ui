@@ -43,7 +43,8 @@
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues",
   "sideEffects": false,
   "publishConfig": {
-    "directory": "../../dist/ng-datatable"
+    "directory": "../../dist/ng-datatable",
+    "access": "public"
   },
   "peerDependencies": {
     "@angular/core": "^22.0.0",

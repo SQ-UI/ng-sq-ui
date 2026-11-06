@@ -1,0 +1,13 @@
+{
+  // Used by the `development` build configuration (and so by `ng serve`). Unlike `tsconfig.app.json`
+  // it does not extend `tsconfig.dist.json`: `@sq-ui/*` always maps to the library sources, so a stale
+  // `dist/` cannot break the dev server and library edits are picked up without rebuilding.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "types": []
+  },
+  "files": [
+    "main.ts"
+  ]
+}

@@ -1,17 +1,16 @@
-<div class="typeahead-wrapper" sqOutsideClickListener [listenForOutsideClick]="listenForOutsideClick()" (clickOutside)="onClickOutsideComponent()">
+<div class="typeahead-wrapper sq-form-field" [class.typeahead-multiple]="multiple()" [attr.data-typeahead-size]="size()" sqOutsideClickListener [listenForOutsideClick]="listenForOutsideClick()" (clickOutside)="onClickOutsideComponent()">
+  @if (controlLabel()) {
+    <label class="label sq-field-label" for="{{controlId()}}">
+      {{controlLabel()}}
+    </label>
+  }
   @if (isLoading()) {
     <div class="loader"></div>
   }
 
-  <div class="input-field typeahead" [class.disabled]="disabled()">
-    @if (!hideSearchIcon()) {
+  <div class="input-field typeahead" [class.disabled]="disabled()" (click)="onFieldClick($event)">
+    @if (!multiple() && !hideSearchIcon()) {
       <i class="fas fa-search" aria-hidden="true"></i>
-    }
-
-    @if (controlLabel()) {
-      <label class="label" for="{{controlId()}}">
-        {{controlLabel()}}
-      </label>
     }
 
     @if (selectedItems().length > 0) {
@@ -39,24 +38,48 @@
     }
 
     @if (showInput()) {
-      <input [value]="searchText()"
+      <input #searchInput [value]="searchText()"
              (input)="onSearchInput($event)"
              autocomplete="off"
              type="text"
              id="{{controlId()}}"
              name="{{name()}}"
              [disabled]="disabled()"
+             role="combobox" aria-autocomplete="list" aria-haspopup="listbox"
+             [attr.aria-label]="controlLabel() ? null : controlPlaceholder() || null"
+             [attr.aria-controls]="controlId() + '-options'"
+             [attr.aria-expanded]="!hideResults()"
+             [attr.aria-activedescendant]="!hideResults() && activeIndex() >= 0 ? controlId() + '-option-' + activeIndex() : null"
+             [attr.aria-invalid]="errorText() ? 'true' : null"
+             [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
              (focus)="turnClickOutsideListenerOn()"
+             (keydown)="onKeydown($event)"
              (blur)="touch.emit()"
              placeholder="{{controlPlaceholder()}}">
     }
 
-    <div class="options" [class.display-none]="hideResults()">
+    @if (multiple()) {
+      <button type="button" class="multiselect-toggle" [disabled]="disabled()" aria-label="Toggle options"
+              [attr.aria-expanded]="!hideResults()" [attr.aria-controls]="controlId() + '-options'"
+              (click)="toggleResults(); $event.stopPropagation()" tabindex="-1">
+        <i class="fas fa-chevron-down" [class.chevron-open]="!hideResults()" aria-hidden="true"></i>
+      </button>
+    }
+
+    <div #optionsList class="options" [class.display-none]="hideResults()" role="listbox"
+         [attr.id]="controlId() + '-options'" [attr.aria-multiselectable]="multiple() ? 'true' : null">
       @for (result of options(); track result.value) {
-        <div (click)="selectSearchResult(result)">
+        <div role="option" [attr.id]="controlId() + '-option-' + $index" [attr.aria-selected]="isOptionSelected(result)"
+             [attr.aria-disabled]="result.disabled ? 'true' : null" [class.option-selected]="isOptionSelected(result)"
+             [class.option-disabled]="!!result.disabled" [class.active]="$index === activeIndex()"
+             (mousedown)="$event.preventDefault()"
+             (click)="selectSearchResult(result); $event.stopPropagation()">
           <ng-template #defaultOptionTemplate>
             <div class="option">
-              {{ result.label }}
+              @if (multiple()) {
+                <span class="typeahead-check" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="m3 8 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              }
+              <span class="option-label">{{ result.label }}</span>
             </div>
           </ng-template>
 
@@ -67,4 +90,8 @@
       }
     </div>
   </div>
+  @if (errorText() || helpText()) {
+    <div class="sq-field-message" [class.sq-field-error]="!!errorText()"
+         [id]="controlId() + '-message'" [attr.role]="errorText() ? 'alert' : null">{{errorText() || helpText()}}</div>
+  }
 </div>

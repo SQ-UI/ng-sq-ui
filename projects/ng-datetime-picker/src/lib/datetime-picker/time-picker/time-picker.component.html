@@ -10,6 +10,7 @@
     <div class="time display-flex column align-items-center">
       <input type="text"
              name="time"
+             aria-label="Hours"
              [ngModel]="hours()"
              (ngModelChange)="hours.set($event)"
              maxlength="2"
@@ -40,6 +41,7 @@
     <div class="time">
       <input type="text"
              name="minutes"
+             aria-label="Minutes"
              [ngModel]="minutes()"
              (ngModelChange)="minutes.set($event)"
              maxlength="2"

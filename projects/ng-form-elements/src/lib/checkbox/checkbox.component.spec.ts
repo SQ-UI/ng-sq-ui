@@ -59,4 +59,15 @@ describe('CheckboxComponent', () => {
     expect(component.value()).toBe(false);
   });
 
+  it('associates the default label with the input and toggles once from its label', () => {
+    fixture.componentRef.setInput('controlLabel', 'Receive updates');
+    fixture.detectChanges();
+    const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+    const label = input.labels?.[0];
+    expect(label?.textContent).toBe('Receive updates');
+    label?.click();
+    fixture.detectChanges();
+    expect(component.value()).toBe(true);
+  });
+
 });

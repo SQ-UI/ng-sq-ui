@@ -1,0 +1,146 @@
+@use 'sass:map';
+@use 'sass:list';
+
+// Configure before loading the theme: @use '.../tokens' with ($overrides: (...)).
+$overrides: () !default;
+// Palette supplied in the Figma color screenshots on 2026-11-04. HEX labels
+// are authoritative (Gray 6's RGB label disagrees with its AFAFAF HEX label).
+$_palette: map.merge((
+  'color-black': #202020,
+  'color-white': #ffffff,
+  'color-brand': #00c474,
+  'color-brand-light': #e5f9f1,
+  'color-critical': #ff3815,
+  'color-ok': #00d214,
+  'color-warning': #ffb800,
+  'color-unknown': #aaaaaa,
+  'color-gray-1': #fafafa,
+  'color-gray-2': #ebebeb,
+  'color-gray-3': #dcdcdc,
+  'color-gray-4': #cdcdcd,
+  'color-gray-5': #bebebe,
+  'color-gray-6': #afafaf,
+), $overrides);
+
+// Semantic defaults map existing component hooks to the supplied palette.
+// Explicit semantic overrides retain precedence over palette defaults.
+$tokens: map.merge(map.merge($_palette, (
+  'color-text': map.get($_palette, 'color-black'),
+  'color-surface': map.get($_palette, 'color-white'),
+  'color-surface-subtle': map.get($_palette, 'color-gray-1'),
+  'color-border': map.get($_palette, 'color-gray-3'),
+  // Typography reference supplied on 2026-11-04. Institut's regular face is
+  // the display font; consumers supply its licensed webfont separately.
+  'font-family-display': ('Institut', 'Space Grotesk', Arial, sans-serif),
+  'font-family-sans': ('Space Grotesk', Arial, sans-serif),
+  'font-family-mono': ('Space Mono', monospace),
+  // Fonts remain opt-in: the library never loads a font or replaces the host font.
+  'font-family': inherit,
+  'font-size-field-small': 12px,
+  'line-height-field-small': 20px,
+  'font-size-assistive': 10px,
+  'line-height-assistive': 16px,
+  'font-size-button-medium': 14px,
+  'line-height-button-medium': 24px,
+  'font-weight-regular': 400,
+  'font-weight-medium': 500,
+  'font-weight-semibold': 600,
+  'font-weight-bold': 700,
+  'font-weight-display': 400,
+  'letter-spacing': 0,
+  'space-1': 4px,
+  'space-2': 8px,
+  'space-4': 16px,
+  'border-width': 1px,
+  'radius-control': 4px,
+
+  // Small table reference: 44px rows. M/L retain a 4px density increment.
+  'table-row-small': 44px,
+  'table-row-medium': 48px,
+  'table-row-large': 52px,
+  // Remaining dimensions observed in page metadata.
+  'calendar-width': 280px,
+  'calendar-cell': 40px,
+  'modal-width-small': 360px,
+  'modal-width-medium': 400px,
+  'modal-width-large': 440px,
+  'progress-height-small': 4px,
+  'progress-height-medium': 8px,
+  'progress-height-large': 12px,
+
+  // Component-role assignments use the palette; the screenshots do not specify
+  // every component state. In particular, a disabled surface stays distinct
+  // from the status/foreground color so text does not disappear into its fill.
+  'color-secondary': map.get($_palette, 'color-brand-light'),
+  'color-progress-track': map.get($_palette, 'color-gray-3'),
+  'color-label': map.get($_palette, 'color-black'),
+  'color-placeholder': map.get($_palette, 'color-gray-6'),
+  'color-disabled': map.get($_palette, 'color-unknown'),
+  'color-disabled-surface': map.get($_palette, 'color-gray-2'),
+  'color-disabled-border': map.get($_palette, 'color-gray-4'),
+  'color-disabled-checkbox-border': map.get($_palette, 'color-unknown'),
+  'color-disabled-radio-border': map.get($_palette, 'color-unknown'),
+  'color-error-border': map.get($_palette, 'color-critical'),
+  'color-selection': map.get($_palette, 'color-brand-light'),
+  'color-selection-muted': map.get($_palette, 'color-brand-light'),
+  'color-stripe': map.get($_palette, 'color-gray-1'),
+  'color-table-heading': map.get($_palette, 'color-black'),
+  'color-table-heading-text': map.get($_palette, 'color-white'),
+  'color-table-border': map.get($_palette, 'color-gray-2'),
+  'color-calendar-heading-border': map.get($_palette, 'color-gray-3'),
+  'color-calendar-option': map.get($_palette, 'color-brand-light'),
+  'color-calendar-outside': map.get($_palette, 'color-gray-6'),
+  'color-calendar-disabled': map.get($_palette, 'color-unknown'),
+  'color-range-edge': map.get($_palette, 'color-brand'),
+  'color-range-preview': map.get($_palette, 'color-brand-light'),
+  'color-loader-accent': map.get($_palette, 'color-brand'),
+  // Existing effect geometry/opacity is retained; the hue now uses palette ink.
+  'color-overlay': rgba(map.get($_palette, 'color-black'), 0.38823529411764707),
+  'shadow-field': (3px 2px 7px rgba(map.get($_palette, 'color-black'), 0.21)),
+  'shadow-modal': (7px 8px 0 0 rgba(map.get($_palette, 'color-black'), 0.3)),
+  // Accessibility implementation choices; Figma focus specifications are pending.
+  'color-focus': map.get($_palette, 'color-black'),
+  'focus-width': 2px,
+  'focus-offset': 2px,
+)), $overrides);
+
+// Size / line-height pairs visible in the supplied screenshot. The text/button
+// columns are cropped below L, so no smaller reference sizes are inferred.
+$_heading-common: ('xxl': (48px, 64px), 'xl': (40px, 56px), 'l': (32px, 48px), 'm': (24px, 40px), 's': (20px, 32px), 'xs': (16px, 28px), 'xxs': (12px, 20px));
+$_text-common: ('xxl': (32px, 48px), 'xl': (24px, 40px), 'l': (20px, 32px));
+$_type-scales: (
+  'heading-1': ('xxl': (80px, 96px), 'xl': (64px, 80px), 'l': (48px, 64px), 'm': (40px, 56px), 's': (32px, 48px), 'xs': (24px, 40px), 'xxs': (20px, 32px)),
+  'heading-2': $_heading-common,
+  'heading-3': $_heading-common,
+  'text-1': $_text-common,
+  'text-2': $_text-common,
+  'button': $_text-common,
+);
+@each $role, $sizes in $_type-scales {
+  @each $size, $metrics in $sizes {
+    // Merge configured tokens last so an explicit size override always wins.
+    $tokens: map.merge((
+      'font-size-#{$role}-#{$size}': list.nth($metrics, 1),
+      'line-height-#{$role}-#{$size}': list.nth($metrics, 2),
+    ), $tokens);
+  }
+}
+
+@function fallback($name) {
+  @if not map.has-key($tokens, $name) {
+    @error 'Unknown SQ-UI token: #{$name}';
+  }
+  @return map.get($tokens, $name);
+}
+
+// Fallbacks avoid resetting a consumer's inherited overrides on nested .sq nodes.
+@function value($name) {
+  @return var(--sq-#{$name}, #{fallback($name)});
+}
+
+// Optional: expose concrete defaults under a selector chosen by the consumer.
+@mixin custom-properties {
+  @each $name, $value in $tokens {
+    --sq-#{$name}: #{$value};
+  }
+}

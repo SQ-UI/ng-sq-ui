@@ -1,0 +1,29 @@
+<p>Brand links are underlined. Hover keeps the underline and turns black; active links are black without an underline.</p>
+<div class="link-states">
+  <article><h4>Brand</h4><p><a href="#/preview" data-link-state="brand">Link</a></p></article>
+  <article class="hover-example"><h4>Hover</h4><p><a href="#/preview" data-link-state="hover">Link</a></p></article>
+  <article><h4>Active</h4><p><a href="#/preview" aria-current="page" data-link-state="active">Link</a></p></article>
+  <article><h4>Disabled</h4><p><a class="sq-link" role="link" aria-disabled="true" data-link-state="disabled">Link</a></p></article>
+</div>
+<p class="inline-example">Links inherit the surrounding text size, like <a href="#/preview" id="previewInlineLink">this inline link</a>. Try hovering, pressing, or tabbing to a link.</p>
+<h4 class="anchor-title">Anchors with icons</h4>
+<div class="link-states">
+  @for (state of anchorStates; track state.name) {
+    <article [class.hover-example]="state.name === 'hover'">
+      <h4>{{state.label}}</h4>
+      <p>
+        <a class="sq-link sq-anchor" [attr.data-anchor-state]="state.name"
+           [attr.href]="state.name === 'disabled' ? null : '#/preview'"
+           [attr.role]="state.name === 'disabled' ? 'link' : null"
+           [attr.aria-current]="state.name === 'active' ? 'page' : null"
+           [attr.aria-disabled]="state.name === 'disabled' ? 'true' : null">
+          <svg class="sq-anchor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M7 10v11M7 10l4-8c2 0 3 1 3 3v4h6a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3Z" />
+          </svg>
+          <span class="sq-anchor-label">Link</span>
+        </a>
+      </p>
+    </article>
+  }
+</div>

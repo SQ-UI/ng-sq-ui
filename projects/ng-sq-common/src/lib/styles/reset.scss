@@ -1,20 +1,11 @@
-@use './colors' as *;
-
 @mixin sq-reset {
-  * {
+  // Zero specificity keeps icon fonts and consumer styles above the reset.
+  :where(&), :where(&) * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: $base-font-color;
+    color: inherit;
     font-family: inherit;
     font-size: inherit;
-  }
-
-  html {
-    font-size: 100%;
-  }
-
-  body {
-    font-family: sans-serif;
   }
 }

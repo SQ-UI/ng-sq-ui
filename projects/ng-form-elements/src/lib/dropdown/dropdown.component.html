@@ -1,6 +1,13 @@
-<div class="input-field dropdown"
+<div class="sq-form-field" [attr.data-dropdown-size]="size()">
+  @if (controlLabel()) {
+    <div class="label sq-field-label" [id]="controlId() + '-label'"
+         (click)="onLabelClick($event, dropdownControl)">{{controlLabel()}}</div>
+  }
+<div #dropdownControl class="input-field dropdown"
      [class.disabled]="disabled()"
      role="combobox"
+     [attr.aria-invalid]="errorText() ? 'true' : null"
+     [attr.aria-describedby]="(errorText() || helpText()) ? controlId() + '-message' : null"
      aria-haspopup="listbox"
      [attr.id]="controlId()"
      [attr.tabindex]="disabled() ? -1 : 0"
@@ -8,15 +15,15 @@
      [attr.aria-disabled]="disabled()"
      [attr.aria-required]="required()"
      [attr.aria-labelledby]="controlLabel() ? controlId() + '-label' : null"
+     [attr.aria-label]="controlLabel() ? null : controlPlaceholder() || null"
      [attr.aria-controls]="controlId() + '-options'"
+     [attr.aria-activedescendant]="isOpen() && activeIndex() >= 0 ? controlId() + '-option-' + activeIndex() : null"
      sqOutsideClickListener
      [listenForOutsideClick]="listenForOutsideClick()"
      (clickOutside)="onClickOutsideComponent()"
      (keydown)="onKeydown($event)"
      (focusout)="onFocusOut($event)"
      (click)="toggleOptionsDropdown();">
-
-  <div class="label" [attr.id]="controlId() + '-label'">{{controlLabel()}}</div>
 
   <ng-template #defaultSelectedItemTemplate>
     <div class="chosen-item">{{value()?.label}}</div>
@@ -38,6 +45,7 @@
 
   <ng-template #defaultChevronTemplate>
     <i class="fas fa-chevron-down dropdown-icon"
+       [class.dropdown-icon-open]="isOpen()"
        aria-hidden="true">
     </i>
   </ng-template>
@@ -53,11 +61,15 @@
   }
 
   @if (isOpen()) {
-    <div class="options" role="listbox" [attr.id]="controlId() + '-options'">
+    <div #optionsList class="options" role="listbox" [attr.id]="controlId() + '-options'">
       @for (option of options(); track $index) {
         <div role="option"
-             [class.active]="$index === activeIndex()"
-             [attr.aria-selected]="$index === activeIndex()"
+             [attr.id]="controlId() + '-option-' + $index"
+             [class.active]="keyboardNavigation() && $index === activeIndex()"
+             [class.selected]="isOptionSelected(option)"
+             [class.option-disabled]="!!option.disabled"
+             [attr.aria-disabled]="option.disabled ? 'true' : null"
+             [attr.aria-selected]="isOptionSelected(option)"
              (click)="selectOption(option); $event.stopPropagation()">
           <ng-template #defaultOptionTemplate>
             <div class="option">
@@ -77,5 +89,10 @@
         </div>
       }
     </div>
+  }
+</div>
+  @if (errorText() || helpText()) {
+    <div class="sq-field-message" [class.sq-field-error]="!!errorText()"
+         [id]="controlId() + '-message'" [attr.role]="errorText() ? 'alert' : null">{{errorText() || helpText()}}</div>
   }
 </div>

@@ -3,11 +3,40 @@ import { Component, signal } from '@angular/core';
 import { DatatableComponent } from './datatable.component';
 import { DatatableColumnComponent } from '../datatable-column/datatable-column.component';
 import { DatatableRowComponent } from '../datatable-row/datatable-row.component';
+import { DatatableBodyDirective } from '../directives/datatable-body.directive';
 
 interface DummyRecord {
   id: number;
   additionalField: string;
 }
+
+@Component({
+  standalone: true,
+  imports: [DatatableComponent, DatatableBodyDirective],
+  template: `<sq-datatable emptyText="No records"><ng-template sq-datatable-body><tr><td>Custom content</td></tr></ng-template></sq-datatable>`,
+})
+class EmptyCustomBodyHost {}
+
+describe('Datatable empty presentation', () => {
+  it('shows an opt-in message for no records and removes it when data arrives', async () => {
+    const fixture = TestBed.createComponent(DatatableComponent);
+    fixture.componentRef.setInput('emptyText', 'No records');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[role=status]')?.textContent).toBe('No records');
+    fixture.componentRef.setInput('items', [{ name: 'Loaded row' }]);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(fixture.nativeElement.querySelector('[role=status]')).toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('Loaded row');
+  });
+
+  it('leaves custom body templates in control even when the items input is empty', () => {
+    const fixture = TestBed.createComponent(EmptyCustomBodyHost);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[role=status]')).toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('Custom content');
+  });
+});
 
 function generateDummyCollection(numberOfRecords: number, startFrom: number = 1): DummyRecord[] {
   const collection: DummyRecord[] = [];

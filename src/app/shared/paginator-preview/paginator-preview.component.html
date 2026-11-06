@@ -1,0 +1,8 @@
+<p class="paginator-note">Compare S, M and L. The active page is green; page 3 illustrates the hover color. Choose a page to navigate.</p>
+@for (size of sizes; track size.value) {
+  <article [attr.data-paginator-reference]="size.value">
+    <h4>Paginator / {{size.label}}</h4>
+    <sq-paginator [size]="size.value" [items]="items" [itemsPerPage]="10" [maxDisplayedPages]="3"
+                  [label]="'Paginator ' + size.label"></sq-paginator>
+  </article>
+}

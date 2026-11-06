@@ -1,0 +1,12 @@
+<p class="dropdown-note">Compare S, M and L. Open a menu to see selected, disabled and hover states; longer lists scroll after four rows.</p>
+<div class="dropdown-sizes">
+  @for (size of sizes; track size.value) {
+    <article [attr.data-dropdown-reference]="size.value" [style.--preview-row-height]="size.rowHeight + 'px'">
+      <h4>Dropdown / {{size.label}}</h4>
+      <div data-dropdown-example="placeholder"><span class="dropdown-note">Without a title</span><sq-dropdown [size]="size.value" controlPlaceholder="Placeholder" [options]="options"></sq-dropdown></div>
+      <div data-dropdown-example="selected"><span class="dropdown-note">With a title</span><sq-dropdown [size]="size.value" controlLabel="Title" [value]="selected" [options]="options"></sq-dropdown></div>
+      <div data-dropdown-example="options" class="menu-example"><span class="dropdown-note">Three options</span><sq-dropdown [size]="size.value" controlLabel="Title" [value]="selected" [options]="options"></sq-dropdown></div>
+      <div data-dropdown-example="scroll" class="menu-example long-menu"><span class="dropdown-note">More than four options</span><sq-dropdown [size]="size.value" controlLabel="Title" controlPlaceholder="Please select" [options]="longOptions"></sq-dropdown></div>
+    </article>
+  }
+</div>

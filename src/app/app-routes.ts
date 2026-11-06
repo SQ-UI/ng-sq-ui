@@ -2,6 +2,10 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
+    path: 'preview',
+    loadComponent: () => import('./shared/component-preview/component-preview.component').then(m => m.ComponentPreviewComponent)
+  },
+  {
     path: 'about',
     loadComponent: () => import('./home/home/home.component').then(m => m.HomeComponent)
   },

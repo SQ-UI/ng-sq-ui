@@ -1,21 +1,22 @@
-@use '../../../../ng-sq-common/src/lib/styles/colors.scss' as *;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
 
 .sq .progress {
   width: 100%;
   position: relative;
   background: transparent;
   overflow: hidden;
+  border-radius: 0;
 
   &.small {
-    height: 2px;
+    height: sq.value('progress-height-small');
   }
 
   &.medium {
-    height: 4px;
+    height: sq.value('progress-height-medium');
   }
 
   &.large {
-    height: 7px;
+    height: sq.value('progress-height-large');
   }
 
   .background {
@@ -23,14 +24,14 @@
     top: 0;
     bottom: 0;
     width: 100%;
-    background: $progress-backogrund-color;
+    background: var(--sq-progress-track, #{sq.value('color-progress-track')});
   }
 
   .loading-line {
     position: absolute;
     top: 0;
     bottom: 0;
-    background: $progress-line-color;
+    background: var(--sq-progress-fill, #{sq.value('color-brand')});
     transition: 0.2s;
   }
 
@@ -48,6 +49,37 @@
       animation-iteration-count: infinite;
     }
   }
+}
+
+.sq .progress.segmented { display: flex; gap: 4px; }
+.sq .progress .segment { flex: 1 1 0; min-width: 0; position: relative; height: 100%; overflow: hidden; border-radius: 1px; }
+
+.sq .progress-steps {
+  --_sq-progress-height: #{sq.value('progress-height-medium')};
+  &.small { --_sq-progress-height: #{sq.value('progress-height-small')}; }
+  &.large { --_sq-progress-height: #{sq.value('progress-height-large')}; }
+  position: relative;
+  container-type: inline-size;
+  min-width: 0;
+  font-family: sq.value('font-family-sans');
+  font-size: 14px;
+  line-height: 24px;
+  .step-list { display: flex; justify-content: space-between; list-style: none; margin: 0; padding: 0; }
+  .single-step { justify-content: center; }
+  .step { position: relative; flex: 0 0 20px; min-width: 0; padding: 0; }
+  .step-marker { position: relative; display: block; width: 20px; height: 20px; border-radius: 50%; background: var(--sq-progress-track, #{sq.value('color-progress-track')}); }
+  .step-label { position: relative; left: 50%; transform: translateX(-50%); display: block; width: max-content; max-width: max(20px, calc((100cqw - 20px) / max(1, var(--sq-progress-step-count) - 1))); margin-top: 4px; text-align: center; overflow-wrap: anywhere; color: sq.value('color-disabled'); }
+  .step:first-child:not(:only-child) .step-label { left: 0; transform: none; text-align: left; }
+  .step:last-child:not(:only-child) .step-label { left: auto; transform: translateX(calc(20px - 100%)); text-align: right; }
+  .done .step-marker, .current .step-marker { background: var(--sq-progress-fill, #{sq.value('color-brand')}); }
+  .current .step-label { color: var(--sq-progress-fill, #{sq.value('color-brand')}); }
+  .step-track { position: absolute; left: 10px; right: 10px; top: calc(10px - var(--_sq-progress-height) / 2); height: var(--_sq-progress-height); background: var(--sq-progress-track, #{sq.value('color-progress-track')}); }
+  .step-fill { height: 100%; background: var(--sq-progress-fill, #{sq.value('color-brand')}); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sq .progress .loading-line { transition: none; }
+  .sq .progress.infinite .loading-line { animation: none; }
 }
 
 @keyframes infinite-animation-1 {

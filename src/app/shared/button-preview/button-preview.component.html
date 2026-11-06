@@ -1,0 +1,24 @@
+<p class="button-note">Filled primary and outlined secondary buttons, using the Figma colors and compact S size (24px high).</p>
+<p class="button-note"><a href="https://www.figma.com/design/jeP0qbpUUGZbbxaWnvFr6i/SQUI-Design-System?node-id=31-44" target="_blank" rel="noreferrer">Figma: Primary M reference</a></p>
+<div class="variant-table" aria-label="S button variants">
+  <span></span><h4>Primary</h4><h4>Secondary</h4>
+  @for (variant of variants; track variant.label) {
+    <span class="variant-label" [attr.data-variant]="variant.label">{{variant.label}}</span>
+    <sq-button size="s" [tone]="variant.tone" [disabled]="variant.state === 'disabled'"
+               [class.hover-sample]="variant.state === 'hover'" [attr.data-button-variant]="variant.label">
+      <span class="visually-hidden">Primary {{variant.label}}: </span>Button S</sq-button>
+    <sq-button size="s" appearance="secondary" [tone]="variant.tone" [disabled]="variant.state === 'disabled'"
+               [class.hover-sample]="variant.state === 'hover'" [attr.data-button-variant]="variant.label">
+      <span class="visually-hidden">Secondary {{variant.label}}: </span>Button S</sq-button>
+  }
+</div>
+<h4>Sizes</h4>
+@for (size of sizes; track size.name) {
+  <div class="button-size-row" [attr.data-button-size]="size.name">
+    <span class="size-label">{{size.name}} · {{size.height}}px</span>
+    <sq-button [size]="size.value" [attr.id]="size.name === 'M' ? 'stylePrimaryButton' : null">Button {{size.name}}</sq-button>
+    <sq-button [size]="size.value" appearance="secondary">Button {{size.name}}</sq-button>
+    <sq-button [size]="size.value" [attr.id]="size.name === 'M' ? 'styleNeutralButton' : null" appearance="neutral">Neutral {{size.name}}</sq-button>
+    <sq-button [size]="size.value" [disabled]="true">Disabled</sq-button>
+  </div>
+}

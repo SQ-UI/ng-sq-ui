@@ -1,0 +1,3450 @@
+{
+  "capturedAt": "2026-11-03T20:28:07.509Z",
+  "sourceCommit": "0878c0dec010d1a07fbabf5ee16be3b055c5d749",
+  "baseUrl": "http://127.0.0.1:4201",
+  "browser": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "fixtures": "Synthetic todo rows; bundled user/resource fallbacks; no source changes.",
+  "screenshotScope": "Viewport context with the target scrolled into view; component bounds and computed styles are recorded separately.",
+  "captures": [
+    {
+      "name": "forms-page-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": null,
+      "state": "default",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 985.78125
+      },
+      "viewportBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 985.78125
+      },
+      "styles": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(0, 0, 0)",
+        "borderRight": "0px none rgb(0, 0, 0)",
+        "borderBottom": "0px none rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(0, 0, 0) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "1440px",
+        "height": "985.781px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "PREVIEWSQ-UICOMMONDATETIME PICKERDATATABLEMODAL\nStarIssueWatch\nOverview:\nNPM Package Name:\n@sq-ui/ng-sq-ui\nExported As:\nng-sq-ui (barrel re-exports)\nInternally Declared Packages:\nng-form-elements,ng-progress-bar\nDepends On:\nng-sq-common,ng-datetime-picker,ng-datatable,ng-modal\nExports:\nng-form-elements,ng-progress-bar,ng-sq-common,ng-datetime-picker,ng-datatable,ng-modal\nDocumentation:\nng-form-elements ,ng-progress-bar \nCode Examples:\nng-sq-ui-form-elements ,ng-sq-ui-progress-bar \nExported Packa",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "input-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-input .input-field",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 520.78125,
+        "width": 1355,
+        "height": 28
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 520.78125,
+        "width": 1355,
+        "height": 28
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "static",
+        "width": "1355px",
+        "height": "28px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "textarea-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-textarea .input-field",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 480.78125,
+        "width": 1355,
+        "height": 108
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 480.78125,
+        "width": 1355,
+        "height": 108
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "1355px",
+        "height": "108px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "radio-group-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-form-group .select-group",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 502.78125,
+        "width": 1355,
+        "height": 65
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 502.78125,
+        "width": 1355,
+        "height": 65
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 20px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "1355px",
+        "height": "65px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Radiobuttons Form Group example\nvalue1\nCustom Radio Label",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "dropdown-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-dropdown .input-field",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 520.78125,
+        "width": 1355,
+        "height": 28
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 520.78125,
+        "width": 1355,
+        "height": 28
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 28px 4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "1355px",
+        "height": "28px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Select an option",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "tags-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-tags-input .tags-input-wrapper",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 502.78125,
+        "width": 1355,
+        "height": 64
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 502.78125,
+        "width": 1355,
+        "height": 64
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 20px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "1355px",
+        "height": "64px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Tags\ntag1 ",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "typeahead-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-typeahead .typeahead-wrapper",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 510.78125,
+        "width": 1355,
+        "height": 48
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 510.78125,
+        "width": 1355,
+        "height": 48
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 20px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "relative",
+        "width": "1355px",
+        "height": "48px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Typeahead With Templates",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "checkbox-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-checkbox .checkable",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 524.78125,
+        "width": 1340,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 524.78125,
+        "width": 1340,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 15px 10px 0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "1340px",
+        "height": "20px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Test checkbox",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-button .action-button",
+      "state": "default",
+      "bounds": {
+        "x": 35,
+        "y": 518.78125,
+        "width": 77.96875,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 35,
+        "y": 518.78125,
+        "width": 77.96875,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 196, 116)",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderRight": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(255, 255, 255) none 3px",
+        "outlineOffset": "0px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "77.9688px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Submit",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "dropdown-open-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-dropdown .input-field",
+      "state": "open",
+      "bounds": {
+        "x": 50,
+        "y": 473.78125,
+        "width": 1355,
+        "height": 123
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 473.78125,
+        "width": 1355,
+        "height": 123
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 28px 4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "1355px",
+        "height": "123px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Select an option\noption1\noption2\noption3",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "checkbox-selected-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-checkbox .checkable",
+      "state": "selected",
+      "bounds": {
+        "x": 50,
+        "y": 524.78125,
+        "width": 1340,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 524.78125,
+        "width": 1340,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 15px 10px 0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "1340px",
+        "height": "20px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Test checkbox",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-primary-reference-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#stylePrimaryButton button",
+      "state": "default",
+      "bounds": {
+        "x": 112,
+        "y": 518.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 112,
+        "y": 518.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 196, 116)",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderRight": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(255, 255, 255) none 3px",
+        "outlineOffset": "0px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "90.125px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Button M",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-neutral-reference-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#styleNeutralButton button",
+      "state": "default",
+      "bounds": {
+        "x": 214.125,
+        "y": 518.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 214.125,
+        "y": 518.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(250, 250, 250)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "90.125px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Button M",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "field-reference-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#styleDefaultField",
+      "state": "default",
+      "bounds": {
+        "x": 28,
+        "y": 524.78125,
+        "width": 224,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 28,
+        "y": 524.78125,
+        "width": 224,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "224px",
+        "height": "20px",
+        "overflow": "clip",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "field-error-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#styleErrorField",
+      "state": "default",
+      "bounds": {
+        "x": 284,
+        "y": 524.78125,
+        "width": 224,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 284,
+        "y": 524.78125,
+        "width": 224,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "224px",
+        "height": "20px",
+        "overflow": "clip",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "field-disabled-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#styleDisabledField",
+      "state": "default",
+      "bounds": {
+        "x": 540,
+        "y": 524.78125,
+        "width": 224,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 540,
+        "y": 524.78125,
+        "width": 224,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgba(76, 76, 76, 0.62)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgba(76, 76, 76, 0.62)",
+        "borderRight": "0px none rgba(76, 76, 76, 0.62)",
+        "borderBottom": "0px none rgba(76, 76, 76, 0.62)",
+        "borderLeft": "0px none rgba(76, 76, 76, 0.62)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgba(76, 76, 76, 0.62) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "224px",
+        "height": "20px",
+        "overflow": "clip",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "form-preview-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#formStylePreview",
+      "state": "default",
+      "bounds": {
+        "x": 20,
+        "y": 492.78125,
+        "width": 1385,
+        "height": 84
+      },
+      "viewportBounds": {
+        "x": 20,
+        "y": 492.78125,
+        "width": 1385,
+        "height": 84
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "grid",
+        "position": "static",
+        "width": "1385px",
+        "height": "84px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Title\nTitle\nError\nTitle",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "input-focus-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "sq-input .input-field",
+      "state": "focus-visible",
+      "bounds": {
+        "x": 50,
+        "y": 520.78125,
+        "width": 1355,
+        "height": 28
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 520.78125,
+        "width": 1355,
+        "height": 28
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) solid 2px",
+        "outlineOffset": "2px",
+        "display": "flex",
+        "position": "static",
+        "width": "1355px",
+        "height": "28px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-focus-desktop",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "selector": "#stylePrimaryButton button",
+      "state": "focus-visible",
+      "bounds": {
+        "x": 112,
+        "y": 518.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 112,
+        "y": 518.78125,
+        "width": 90.125,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 196, 116)",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderRight": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) solid 2px",
+        "outlineOffset": "2px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "90.125px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Button M",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "forms-page-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": null,
+      "state": "default",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 14690
+      },
+      "viewportBounds": {
+        "x": 0,
+        "y": -1161,
+        "width": 375,
+        "height": 14690
+      },
+      "styles": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(0, 0, 0)",
+        "borderRight": "0px none rgb(0, 0, 0)",
+        "borderBottom": "0px none rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(0, 0, 0) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "375px",
+        "height": "14690px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "PREVIEW\nSQ-UI\nCOMMON\nDATETIME PICKER\nDATATABLE\nMODAL\nOverview:\nNPM Package Name:\n@sq-ui/ng-sq-ui\nExported As:\nng-sq-ui (barrel re-exports)\nInternally Declared Packages:\nng-form-elements,ng-progress-bar\nDepends On:\nng-sq-common,ng-datetime-picker,ng-datatable,ng-modal\nExports:\nng-form-elements,ng-progress-bar,ng-sq-common,ng-datetime-picker,ng-datatable,ng-modal\nDocumentation:\nng-form-elements ,ng-progress-bar \nCode Examples:\nng-sq-ui-form-elements ,ng-sq-ui-progress-bar \nExported Packages Previe",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "input-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-input .input-field",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 1647,
+        "width": 305,
+        "height": 28
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 486,
+        "width": 305,
+        "height": 28
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "static",
+        "width": "305px",
+        "height": "28px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "textarea-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-textarea .input-field",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 1995,
+        "width": 305,
+        "height": 108
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 446,
+        "width": 305,
+        "height": 108
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "305px",
+        "height": "108px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "radio-group-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-form-group .select-group",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 2548,
+        "width": 305,
+        "height": 65
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 467,
+        "width": 305,
+        "height": 65
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 20px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "305px",
+        "height": "65px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Radiobuttons Form Group example\nvalue1\nCustom Radio Label",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "dropdown-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-dropdown .input-field",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 2993,
+        "width": 305,
+        "height": 28
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 486,
+        "width": 305,
+        "height": 28
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 28px 4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "305px",
+        "height": "28px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Select an option",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "tags-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-tags-input .tags-input-wrapper",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 3484,
+        "width": 305,
+        "height": 64
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 468,
+        "width": 305,
+        "height": 64
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 20px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "305px",
+        "height": "64px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Tags\ntag1 ",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "typeahead-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-typeahead .typeahead-wrapper",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 4364,
+        "width": 305,
+        "height": 48
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 476,
+        "width": 305,
+        "height": 48
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 20px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "relative",
+        "width": "305px",
+        "height": "48px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Typeahead With Templates",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "checkbox-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-checkbox .checkable",
+      "state": "default",
+      "bounds": {
+        "x": 50,
+        "y": 4755,
+        "width": 290,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 490,
+        "width": 290,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 15px 10px 0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "290px",
+        "height": "20px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Test checkbox",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-button .action-button",
+      "state": "default",
+      "bounds": {
+        "x": 35,
+        "y": 4980,
+        "width": 77.96875,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 35,
+        "y": 484,
+        "width": 77.96875,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 196, 116)",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderRight": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(255, 255, 255) none 3px",
+        "outlineOffset": "0px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "77.9688px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Submit",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "dropdown-open-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-dropdown .input-field",
+      "state": "open",
+      "bounds": {
+        "x": 50,
+        "y": 2993,
+        "width": 305,
+        "height": 123
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 438,
+        "width": 305,
+        "height": 123
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 28px 4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "305px",
+        "height": "123px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Select an option\noption1\noption2\noption3",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "checkbox-selected-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-checkbox .checkable",
+      "state": "selected",
+      "bounds": {
+        "x": 50,
+        "y": 4755,
+        "width": 290,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 490,
+        "width": 290,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 15px 10px 0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "flex",
+        "position": "relative",
+        "width": "290px",
+        "height": "20px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Test checkbox",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-primary-reference-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#stylePrimaryButton button",
+      "state": "default",
+      "bounds": {
+        "x": 20,
+        "y": 5888,
+        "width": 90.125,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 20,
+        "y": 484,
+        "width": 90.125,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 196, 116)",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderRight": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(255, 255, 255) none 3px",
+        "outlineOffset": "0px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "90.125px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Button M",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-neutral-reference-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#styleNeutralButton button",
+      "state": "default",
+      "bounds": {
+        "x": 122.125,
+        "y": 5888,
+        "width": 90.125,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 122.125,
+        "y": 484,
+        "width": 90.125,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(250, 250, 250)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "90.125px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Button M",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "field-reference-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#styleDefaultField",
+      "state": "default",
+      "bounds": {
+        "x": 28,
+        "y": 6237,
+        "width": 224,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 28,
+        "y": 490,
+        "width": 224,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "224px",
+        "height": "20px",
+        "overflow": "clip",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "field-error-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#styleErrorField",
+      "state": "default",
+      "bounds": {
+        "x": 28,
+        "y": 6321,
+        "width": 224,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 28,
+        "y": 490,
+        "width": 224,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "224px",
+        "height": "20px",
+        "overflow": "clip",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "field-disabled-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#styleDisabledField",
+      "state": "default",
+      "bounds": {
+        "x": 28,
+        "y": 6421,
+        "width": 224,
+        "height": 20
+      },
+      "viewportBounds": {
+        "x": 28,
+        "y": 490,
+        "width": 224,
+        "height": 20
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgba(76, 76, 76, 0.62)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgba(76, 76, 76, 0.62)",
+        "borderRight": "0px none rgba(76, 76, 76, 0.62)",
+        "borderBottom": "0px none rgba(76, 76, 76, 0.62)",
+        "borderLeft": "0px none rgba(76, 76, 76, 0.62)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgba(76, 76, 76, 0.62) none 3px",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "width": "224px",
+        "height": "20px",
+        "overflow": "clip",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "form-preview-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#formStylePreview",
+      "state": "default",
+      "bounds": {
+        "x": 20,
+        "y": 6213,
+        "width": 335,
+        "height": 252
+      },
+      "viewportBounds": {
+        "x": 20,
+        "y": 374,
+        "width": 335,
+        "height": 252
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) none 3px",
+        "outlineOffset": "0px",
+        "display": "grid",
+        "position": "static",
+        "width": "335px",
+        "height": "252px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Title\nTitle\nError\nTitle",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "input-focus-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "sq-input .input-field",
+      "state": "focus-visible",
+      "bounds": {
+        "x": 50,
+        "y": 1647,
+        "width": 305,
+        "height": 28
+      },
+      "viewportBounds": {
+        "x": 50,
+        "y": 486,
+        "width": 305,
+        "height": 28
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "color": "rgb(32, 32, 32)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTop": "0px none rgb(32, 32, 32)",
+        "borderRight": "0px none rgb(32, 32, 32)",
+        "borderBottom": "0px none rgb(32, 32, 32)",
+        "borderLeft": "0px none rgb(32, 32, 32)",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "margin": "0px",
+        "boxShadow": "rgb(220, 220, 220) 0px 0px 0px 1px inset",
+        "outline": "rgb(32, 32, 32) solid 2px",
+        "outlineOffset": "2px",
+        "display": "flex",
+        "position": "static",
+        "width": "305px",
+        "height": "28px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    },
+    {
+      "name": "button-focus-mobile",
+      "route": "sq-ui",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "selector": "#stylePrimaryButton button",
+      "state": "focus-visible",
+      "bounds": {
+        "x": 20,
+        "y": 5888,
+        "width": 90.125,
+        "height": 32
+      },
+      "viewportBounds": {
+        "x": 20,
+        "y": 484,
+        "width": 90.125,
+        "height": 32
+      },
+      "styles": {
+        "fontFamily": "\"IBM Plex Sans\", Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(0, 196, 116)",
+        "borderTop": "0px none rgb(255, 255, 255)",
+        "borderRight": "0px none rgb(255, 255, 255)",
+        "borderBottom": "0px none rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "borderRadius": "4px",
+        "padding": "4px 16px",
+        "margin": "0px",
+        "boxShadow": "none",
+        "outline": "rgb(32, 32, 32) solid 2px",
+        "outlineOffset": "2px",
+        "display": "inline-flex",
+        "position": "static",
+        "width": "90.125px",
+        "height": "32px",
+        "overflow": "visible",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "textTransform": "none"
+      },
+      "text": "Button M",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "700",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "900",
+          "status": "loaded"
+        },
+        {
+          "family": "Font Awesome 6 Free",
+          "weight": "400",
+          "status": "loaded"
+        }
+      ],
+      "documentOverflow": false
+    }
+  ],
+  "runtimeErrors": [],
+  "browserVersion": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.80",
+    "revision": "@fb096c0011f9d50f0a264a9376420cdea9c421e3",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75.27"
+  },
+  "foundationChecks": [
+    {
+      "viewport": 1440,
+      "override": {
+        "field": "rgb(18, 52, 86) 0px 0px 0px 1px inset",
+        "button": "rgb(18, 52, 86)",
+        "text": "rgb(35, 36, 37)"
+      },
+      "outside": {
+        "border": "0px",
+        "pointerEvents": "auto",
+        "display": "block"
+      },
+      "resetMargin": "16px",
+      "focus": {
+        "width": "2px",
+        "style": "solid",
+        "active": true,
+        "visible": true
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "iconFont": "\"Font Awesome 6 Free\""
+    },
+    {
+      "viewport": 390,
+      "override": {
+        "field": "rgb(18, 52, 86) 0px 0px 0px 1px inset",
+        "button": "rgb(18, 52, 86)",
+        "text": "rgb(35, 36, 37)"
+      },
+      "outside": {
+        "border": "0px",
+        "pointerEvents": "auto",
+        "display": "block"
+      },
+      "resetMargin": "16px",
+      "focus": {
+        "width": "2px",
+        "style": "solid",
+        "active": true,
+        "visible": true
+      },
+      "font": "\"IBM Plex Sans\", Arial, sans-serif",
+      "iconFont": "\"Font Awesome 6 Free\""
+    }
+  ],
+  "formChecks": [
+    {
+      "primary": {
+        "width": 90.125,
+        "height": 32,
+        "fontSize": "14px",
+        "lineHeight": "24px",
+        "fontWeight": "500",
+        "radius": "4px",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 196, 116)"
+      },
+      "neutral": {
+        "background": "rgb(250, 250, 250)",
+        "color": "rgb(32, 32, 32)"
+      },
+      "field": {
+        "width": 240,
+        "height": 28,
+        "fontSize": "12px",
+        "lineHeight": "20px",
+        "radius": "4px"
+      },
+      "error": {
+        "height": 64,
+        "labelHeight": 20,
+        "messageHeight": 16,
+        "color": "rgb(255, 56, 21)",
+        "invalid": "true",
+        "describedBy": "styleErrorField-message"
+      },
+      "disabled": true,
+      "keyboard": {
+        "closed": true,
+        "choice": "option1"
+      },
+      "customDropdown": true,
+      "customTags": true,
+      "customTypeahead": true
+    },
+    {
+      "primary": {
+        "width": 90.125,
+        "height": 32,
+        "fontSize": "14px",
+        "lineHeight": "24px",
+        "fontWeight": "500",
+        "radius": "4px",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 196, 116)"
+      },
+      "neutral": {
+        "background": "rgb(250, 250, 250)",
+        "color": "rgb(32, 32, 32)"
+      },
+      "field": {
+        "width": 240,
+        "height": 28,
+        "fontSize": "12px",
+        "lineHeight": "20px",
+        "radius": "4px"
+      },
+      "error": {
+        "height": 64,
+        "labelHeight": 20,
+        "messageHeight": 16,
+        "color": "rgb(255, 56, 21)",
+        "invalid": "true",
+        "describedBy": "styleErrorField-message"
+      },
+      "disabled": true,
+      "keyboard": {
+        "closed": true,
+        "choice": "option1"
+      },
+      "customDropdown": true,
+      "customTags": true,
+      "customTypeahead": true
+    }
+  ]
+}

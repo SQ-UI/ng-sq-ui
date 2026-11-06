@@ -1,2 +1,50 @@
 @use '../projects/ng-sq-common/src/lib/sq-ui-theme';
 @use '../projects/ng-form-elements/src/lib/styles/form-elements';
+@use '../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('assets/fonts/space-grotesk/SpaceGrotesk-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('assets/fonts/space-mono/SpaceMono-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('assets/fonts/space-mono/SpaceMono-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+// Application layout only; the library reset deliberately does not touch body.
+body {
+  margin: 0;
+}
+
+// The demo opts into the Figma font. Libraries continue to inherit consumer fonts.
+.sq-app {
+  --sq-font-family: #{sq.fallback('font-family-sans')};
+}
+
+// Demo-only palette lookup stays global to keep the scoped preview style bundle small.
+// The paginator reference shows page 3's hover color without forcing a pointer state.
+.sq-app sq-paginator-preview .paginator li:not(.current) button[aria-label='Page 3'] { color: sq.value('color-brand'); }
+
+// Static hover examples are confined to the table reference in the showcase.
+.sq-app sq-table-preview {
+  table.datatable th[sq-datatable-column]:nth-child(2) button { color: sq.value('color-brand'); }
+  table.datatable tbody tr:nth-child(4) td { background: sq.value('color-selection'); }
+  .paginator li:not(.current) button[aria-label='Page 3'] { color: sq.value('color-brand'); }
+}
+
+@each $color in ('black', 'white', 'brand', 'brand-light', 'critical', 'ok', 'warning', 'unknown', 'gray-1', 'gray-2', 'gray-3', 'gray-4', 'gray-5', 'gray-6') {
+  .sq-app .palette-swatch[data-color='#{$color}'] { background: sq.value('color-#{$color}'); }
+}

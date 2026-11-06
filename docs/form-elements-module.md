@@ -1,5 +1,7 @@
 # FormElementsModule
 
+For global stylesheet imports, font setup, size customization and migration effects, see [Styling and migration](styling.md). The repository gallery at `/#/preview` includes default and custom-template controls, helper/error recovery and inherited theme examples.
+
 > Applies to **3.x** (Angular 22).
 
 Every control in this page is standalone, has no `ControlValueAccessor`, and is bound with a two-way
@@ -35,6 +37,16 @@ touched. Only the control-specific properties are repeated in each section.
 | `pattern` | `readonly RegExp[]` | `[]` | serialised into the native `pattern` attribute |
 | `disabled` | `boolean` | `false` | disables the native control |
 | `touch` | `output<void>` | — | fires when the user leaves the control |
+
+## Field presentation
+
+`sq-input`, `sq-textarea`, `sq-dropdown`, `sq-tags-input` and `sq-typeahead` also accept
+optional `helpText` and `errorText` strings (default `''`). A nonempty error replaces the helper,
+sets `aria-invalid`, and is linked through `aria-describedby`. Clearing it restores the helper.
+Messages are supplied by the caller; they are not inferred automatically from validation state.
+
+See the [form style migration guide](style-migration/phase-3-form-controls.md) for supported
+appearances, examples, compatibility notes and remaining design variants.
 
 ## sq-input
 
@@ -90,6 +102,21 @@ A thin wrapper over the native `button` element.
 - **`type`** (`input<ButtonTypes | string>`): `'button'` (default), `'submit'` or `'reset'`. Anything
   else falls back to `'button'`.
 - **`disabled`** (`input<boolean>`): disables the button. Defaults to `false`.
+- **`appearance`** (`input<ButtonAppearance>`): `'primary'` (default), `'secondary'` (outlined) or
+  legacy `'neutral'` (subtle fill). `ButtonAppearance` is exported as a TypeScript type; `type` above still
+  controls native button/submit/reset behavior.
+- **`tone`** (`input<ButtonTone>`): `'brand'` (default), `'ok'`, `'warning'` or `'critical'`.
+- **`size`** (`input<ButtonSize>`): `'s'`, `'m'` (default), `'l'` or `'xl'`; heights 24/32/40/56px.
+  XL uses Space Grotesk semibold 24/40. `ButtonTone` and `ButtonSize` are exported types.
+
+```html
+<sq-button size="xl" tone="ok">Confirm</sq-button>
+<sq-button size="xl" appearance="secondary" tone="critical">Reject</sq-button>
+```
+
+Enabled buttons use the black hover state. Disabled primary has gray fill and white text;
+disabled secondary has gray text/outline on a subtle surface. See [Styling](styling.md)
+for tokens, custom padding and the compatibility appearance.
 
 `ButtonTypes` is exported for use in code:
 
@@ -103,7 +130,7 @@ enum ButtonTypes {
 
 ## sq-form-group
 
-Draws a labelled border around a group of controls — handy for radio groups.
+A labelled container for related controls, such as a radio group. Its label sits above the projected controls.
 
 ```html
 <sq-form-group groupLabel="Shipping method">
@@ -212,8 +239,8 @@ With templates:
 
 ```html
 <sq-dropdown [options]="countries" [(value)]="country">
-  <ng-template sq-dropdown-selected-option let-option>{{ option?.label }}</ng-template>
-  <ng-template sq-dropdown-option let-option>{{ option.label }}</ng-template>
+  <ng-template sq-dropdown-selected-option let-option="value">{{ option?.label }}</ng-template>
+  <ng-template sq-dropdown-option let-option="option">{{ option.label }}</ng-template>
   <ng-template sq-dropdown-chevron>
     <span class="caret">▾</span>
   </ng-template>
@@ -222,7 +249,10 @@ With templates:
 
 ### Control-specific properties
 
-- **`options`** (`input<LabelValuePair[]>`): the options. Defaults to `[]`.
+- **`options`** (`input<DropdownOption[]>`): the options. Defaults to `[]`. `DropdownOption<TValue>`
+  extends `LabelValuePair<TValue>` with optional `disabled`; existing pair arrays remain compatible.
+- **`size`** (`input<DropdownSize>`): `'s'` (default), `'m'` or `'l'`; trigger heights 32/40/48px,
+  text sizes 14/16/24px. `DropdownSize` and `DropdownOption` are exported types.
 - **`value`** (`model<LabelValuePair | null>`): the selected pair. Defaults to `null`.
 
 ### Control-specific outputs
@@ -231,7 +261,9 @@ With templates:
 
 ### Control-specific methods
 
-- **`selectOption(option)`**: selects the given option and closes the list.
+- **`selectOption(option)`**: copies the enabled option into the model, emits the original option and
+  closes the list. Disabled controls/options ignore selection. Keyboard navigation skips disabled items
+  and scrolls the active row into view. See [Dropdown styling](styling.md#dropdowns) for menu states.
 
 ## sq-tags-input
 
@@ -254,7 +286,7 @@ With a custom tag template:
 
 ```html
 <sq-tags-input [(value)]="tags">
-  <ng-template sq-tag let-tag>
+  <ng-template sq-tag let-tag="tag">
     <strong>#{{ tag }}</strong>
   </ng-template>
 </sq-tags-input>
@@ -263,6 +295,8 @@ With a custom tag template:
 ### Control-specific properties
 
 - **`value`** (`model<string[]>`): the tags. Defaults to `[]`.
+- **`size`** (`input<TagsInputSize>`): `'s'` (default), `'m'` or `'l'`; minimum field heights
+  32/40/48px and pill heights 24/32/40px. `TagsInputSize` is exported as a type.
 - **`newTagName`** (`string`): the text of the tag being typed (plain property, bound with
   `[(ngModel)]` internally).
 
@@ -302,8 +336,8 @@ With templates:
 
 ```html
 <sq-typeahead [searchResults]="results()" [(value)]="selected">
-  <ng-template sq-typeahead-option let-option>{{ option.label }}</ng-template>
-  <ng-template sq-typeahead-selected-option let-option>{{ option.label }}</ng-template>
+  <ng-template sq-typeahead-option let-option="option">{{ option.label }}</ng-template>
+  <ng-template sq-typeahead-selected-option let-option="item">{{ option.label }}</ng-template>
 </sq-typeahead>
 ```
 
@@ -312,6 +346,10 @@ With templates:
 - **`searchResults`** (`input<readonly unknown[]>`): the raw results for the current query. Defaults to
   `[]`.
 - **`multiple`** (`input<boolean>`): allows more than one selected item. Defaults to `false`.
+- **`size`** (`input<TypeaheadSize>`): multiselect presentation `'s'` (default), `'m'` or `'l'`;
+  minimum heights 32/40/48px, text 14/16/24px and pills 24/32/40px. Single search keeps its legacy sizing.
+- **`TypeaheadOption<TValue>`**: exported pair type with optional `disabled`; menu choices can be
+  toggled by checkbox, except disabled rows. Selected values retain the `LabelValuePair[]` model.
 - **`delay`** (`input<number>`): debounce in milliseconds before `onUserInputEnd` fires. Defaults to
   `500`.
 - **`displayProp`** (`input<string>`): object key used as the label. Empty means "the objects are
@@ -325,7 +363,8 @@ With templates:
 
 ### Control-specific methods
 
-- **`selectSearchResult(result)`**: selects an option.
+- **`selectSearchResult(result)`**: selects an enabled option; multiple mode toggles an already
+  selected option by its value. Arrow keys skip disabled rows and Enter selects/toggles.
 - **`removeSearchResult(choice)`**: removes a selected chip.
 - **`onSearchInput($event)`**: input handler (updates the query signal and schedules the debounce).
 - **`onClickOutsideComponent()`** / **`turnClickOutsideListenerOn()`**: close the popup / arm the

@@ -1,26 +1,18 @@
-@use "../../../../ng-sq-common/src/lib/styles/colors.scss" as *;
-.sq {
-  .input-field.textarea {
-    display: block;
-    label {
-      padding-bottom: 10px;
-      display: block;
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
+.sq sq-textarea .input-field.textarea {
+  display: block;
+  [contenteditable] {
+    position: relative;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    &:focus-visible { outline: none; }
+    &::before {
+      position: absolute;
+      color: sq.value('color-placeholder');
+      content: attr(data-placeholder);
+      pointer-events: none;
     }
-    [contenteditable] {
-      position: relative;
-      outline: none;
-      padding: 10px 0 5px 0;
-      &::before {
-        position: absolute;
-        color: $input-placeholder-color;
-        content: attr(data-placeholder);
-      }
-      &.hide-placeholder::before {
-        display: none;
-      }
-    }
-    .placeholder {
-      color: $input-placeholder-color;
-    }
+    &.hide-placeholder::before { display: none; }
   }
 }

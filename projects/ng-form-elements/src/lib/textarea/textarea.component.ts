@@ -41,6 +41,8 @@ export class TextareaComponent implements SqFormFieldSignals, SqFormValueControl
 
   // Component-specific inputs
   readonly minHeight = input<number>(100);
+  readonly helpText = input<string>('');
+  readonly errorText = input<string>('');
 
   // Two-way value binding via model()
   readonly value = model<string>('');
