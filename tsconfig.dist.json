@@ -3,8 +3,9 @@
   // falling back to the sources when a package has not been built.
   //
   // Only the configs that should check the app against the built packages extend this file:
-  // `src/tsconfig.app.json` (ng build / ng serve) and `tsconfig.spec.json` (npm run typecheck).
-  // `tsconfig.json` itself maps to the sources, so the editor never reads a stale `dist/`.
+  // `src/tsconfig.app.json` (production ng build) and `tsconfig.spec.json` (npm run typecheck).
+  // `tsconfig.json` itself maps to the sources, so the editor never reads a stale `dist/`; neither
+  // does `ng serve`, whose development configuration uses `src/tsconfig.app.dev.json`.
   "compilerOptions": {
     "paths": {
       "@sq-ui/ng-sq-ui": [

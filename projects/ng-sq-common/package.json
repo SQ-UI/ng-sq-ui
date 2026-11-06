@@ -18,7 +18,8 @@
     "./styles/typography": { "sass": "./styles/typography.scss" }
   },
   "publishConfig": {
-    "directory": "../../dist/ng-sq-common"
+    "directory": "../../dist/ng-sq-common",
+    "access": "public"
   },
   "dependencies": {
     "tslib": "^2.0.0"
@@ -26,7 +27,8 @@
   "peerDependencies": {
     "@angular/core": "^22.0.0",
     "@angular/common": "^22.0.0",
-    "@angular/forms": "^22.0.0"
+    "@angular/forms": "^22.0.0",
+    "rxjs": "^7.4.0"
   },
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues"
 }

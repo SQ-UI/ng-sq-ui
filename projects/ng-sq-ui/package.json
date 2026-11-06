@@ -68,7 +68,8 @@
   "bugs": "https://github.com/SQ-UI/ng-sq-ui/issues",
   "sideEffects": false,
   "publishConfig": {
-    "directory": "../../dist/ng-sq-ui"
+    "directory": "../../dist/ng-sq-ui",
+    "access": "public"
   },
   "peerDependenciesMeta": {
     "@fortawesome/fontawesome-free": {
