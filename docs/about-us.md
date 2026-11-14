@@ -1,12 +1,9 @@
 ## Contacts
 
-> Join us on <a href="https://spectrum.chat/sq-ui">spectrum.chat</a>.
-
-> Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 
 > Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 
-> Or simply send an email to contact[at]sq-ui.xyz.
+> Or simply send an email to contact[at]sq-ui.dev.
 
 ## Contributers
 
@@ -14,6 +11,6 @@
 
 ## Contribution
 
-Want to file a [bug](http://bit.ly/ng-sq-ui-bug-report) / [request feature](http://bit.ly/ng-sq-ui-request-feature), contribute some code, or improve documentation? Read up on our [Contributing Guide](CONTRIBUTING.md) before making a pull request.
+Want to file a [bug](https://github.com/SQ-UI/ng-sq-ui/issues/new?assignees=&labels=&template=bug_report.md&title=) / [request feature](https://github.com/SQ-UI/ng-sq-ui/issues/new?assignees=&labels=&template=feature_request.md&title=), contribute some code, or improve documentation? Read up on our [Contributing Guide](CONTRIBUTING.md) before making a pull request.
 
-!> [Feature requests](http://bit.ly/ng-sq-ui-request-feature) wanted!
+!> [Feature requests](https://github.com/SQ-UI/ng-sq-ui/issues/new?assignees=&labels=&template=feature_request.md&title=) wanted!

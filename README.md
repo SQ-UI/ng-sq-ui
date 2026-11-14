@@ -256,7 +256,7 @@ The libraries are watched automatically when you run `npm start`:
 - Use NG-SQ-UI in your daily work.
 - **Star** ⭐ it if you like.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
-- Or simply send an email to contact[at]sq-ui.xyz.
+- Or simply send an email to contact[at]sq-ui.dev.
 
 ## Contribution
 

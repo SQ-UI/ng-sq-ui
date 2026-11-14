@@ -92,9 +92,8 @@ To use our styling just add the `class="sq"` on a parent element.
 
 - Use NG-SQ-UI in your daily work.
 - **Star** ⭐ it if you like.
-- Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
-- Or simply send an email to contact[at]sq-ui.xyz.
+- Or simply send an email to contact[at]sq-ui.dev.
 
 ## Contribution
 
