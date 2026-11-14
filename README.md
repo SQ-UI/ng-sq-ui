@@ -5,12 +5,10 @@
 > built by developers for developers!
 
 ![angular](https://badge.fury.io/js/angular.svg)
-![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
-[![Stake to support us](https://badge.devprotocol.xyz/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8/descriptive)](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f9cb1185-dc56-4886-99b9-57627d0e892d/deploy-status)](https://app.netlify.com/sites/sq-ui-preview-develop/deploys)
  [![](https://data.jsdelivr.com/v1/package/npm/@sq-ui/ng-sq-ui/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@sq-ui/ng-sq-ui)
 

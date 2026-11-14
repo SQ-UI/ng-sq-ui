@@ -7,6 +7,8 @@ export { DropdownComponent } from './lib/dropdown/dropdown.component';
 export type { DropdownSize, DropdownOption } from './lib/dropdown/dropdown.types';
 export { TagsInputComponent } from './lib/tags-input/tags-input.component';
 export type { TagsInputSize } from './lib/tags-input/tags-input.component';
+export { ChipComponent } from './lib/chip/chip.component';
+export type { ChipSize } from './lib/chip/chip.component';
 export { RadiobuttonComponent } from './lib/radiobutton/radiobutton.component';
 export { FormGroupComponent } from './lib/form-group/form-group.component';
 export { TypeaheadComponent } from './lib/typeahead/typeahead.component';

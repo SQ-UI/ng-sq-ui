@@ -2,6 +2,11 @@
 @use '../../../../projects/ng-sq-common/src/lib/styles/typography' as type;
 
 :host { display: block; min-width: 0; }
+.chip-sizes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 32px; margin-block: 32px; }
+.chip-examples { display: flex; flex-direction: column; align-items: flex-start; gap: 32px; min-width: 0; }
+.chip-examples h4 { font-size: 14px; color: var(--demo-muted); margin: 0; }
+.chip-hover-preview { --sq-chip-background: #{sq.value('color-black')}; }
+.chip-removal-example { min-height: 24px; }
 .component-preview { max-width: 1440px; margin: 0 auto; }
 .preview-section { margin-top: 32px; min-width: 0; }
 .preview-note { max-width: 80ch; font-size: 12px; line-height: 20px; }
