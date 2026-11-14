@@ -3,7 +3,7 @@
     <span class="demo-eyebrow">THE COMPONENT LIBRARY</span>
     <h2>Component playground<span class="preview-live-badge"><span aria-hidden="true"></span>Live examples</span></h2>
     <p class="preview-intro">Small details. A consistent experience. Explore the building blocks, compare sizes and make them your own.</p>
-    <div class="preview-summary"><span>17 components</span><span>7 packages</span><span>Angular 22</span></div>
+    <div class="preview-summary"><span>18 components</span><span>7 packages</span><span>Angular 22</span></div>
     <details class="preview-reference-note"><summary>Design reference coverage</summary><p class="preview-note">Button colors, appearances and XL typography follow the supplied screenshots. Larger fields and Phase 4 components use shared styles; their final Figma comparison is pending.</p></details>
   </header>
 
@@ -92,6 +92,29 @@
   <section id="previewDropdowns" class="preview-section">
     <h3>Dropdowns</h3>
     <sq-dropdown-preview></sq-dropdown-preview>
+  </section>
+
+  <section id="previewChips" class="preview-section">
+    <h3>Chips</h3>
+    <p class="preview-note">Standalone chips in S, M and L. Hover a chip to see its hover style; the X is optional.</p>
+    <div class="chip-sizes">
+      @for (size of chipSizes; track size) {
+        <article class="chip-examples">
+          <h4>Chips / {{size.toUpperCase()}}</h4>
+          <sq-chip [size]="size" [removable]="true">Chips Default {{size.toUpperCase()}}</sq-chip>
+          <sq-chip class="chip-hover-preview" [size]="size" [removable]="true">Chips Hover {{size.toUpperCase()}}</sq-chip>
+          <sq-chip [size]="size" [removable]="true" [disabled]="true">Chips Disabled {{size.toUpperCase()}}</sq-chip>
+          <sq-chip [size]="size">Without X {{size.toUpperCase()}}</sq-chip>
+        </article>
+      }
+    </div>
+    <div class="chip-removal-example">
+      @if (removableChipVisible()) {
+        <sq-chip [removable]="true" removeLabel="Remove example chip" (removed)="removableChipVisible.set(false)">Remove me</sq-chip>
+      } @else {
+        <sq-button size="s" (click)="removableChipVisible.set(true)">Restore chip</sq-button>
+      }
+    </div>
   </section>
 
   <section id="previewTags" class="preview-section">

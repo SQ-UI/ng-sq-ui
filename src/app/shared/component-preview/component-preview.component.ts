@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { PaginatorComponent, type LabelValuePair, type Size } from '@sq-ui/ng-sq-common';
-import { ButtonComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
+import { ButtonComponent, ChipComponent, type ChipSize, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
   TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent,
   SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective,
   SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
@@ -23,7 +23,7 @@ import { TablePreviewComponent } from '../table-preview/table-preview.component'
 @Component({
   selector: 'sq-component-preview',
   standalone: true,
-  imports: [ButtonComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
+  imports: [ButtonComponent, ChipComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
     TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent, PaginatorComponent,
     DatatableComponent, DatetimePickerComponent, TimePickerComponent, ModalComponent, ProgressBarComponent,
     SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective,
@@ -36,6 +36,8 @@ import { TablePreviewComponent } from '../table-preview/table-preview.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentPreviewComponent {
+  readonly chipSizes: ChipSize[] = ['s', 'm', 'l'];
+  readonly removableChipVisible = signal(true);
   readonly paletteGroups = [
     { name: 'Main & brand', colors: [
       { name: 'Black', token: 'black', hex: '#202020' },
