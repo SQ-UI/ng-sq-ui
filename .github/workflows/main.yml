@@ -1,4 +1,4 @@
-# Continuous integration: lint, build the libraries, build the demo app, run the unit tests.
+# Verify changes and deploy the tested demo to Cloudflare Pages on master pushes.
 name: CI
 
 on:
@@ -54,3 +54,43 @@ jobs:
 
       - name: Run the unit tests
         run: npm test
+
+      - name: Save verified demo build
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-site
+          path: dist/sq-ui/browser
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Download verified demo build
+        uses: actions/download-artifact@v4
+        with:
+          name: demo-site
+          path: demo-site
+
+      - name: Deploy verified demo
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy demo-site --project-name=sq-ui-demo --branch=master

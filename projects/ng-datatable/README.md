@@ -10,7 +10,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)
 ![Package download](https://img.shields.io/npm/dm/@sq-ui/ng-sq-ui.svg?logo=ng-sq-ui)
-[![Stake to support us](https://badge.devprotocol.xyz/0xFDF5E73AF86683F61Ef23dB90D6225e8d661Cc54/descriptive)](https://stakes.social/0xFDF5E73AF86683F61Ef23dB90D6225e8d661Cc54)
 
 ## Docs
 
@@ -19,17 +18,17 @@ The components are grouped by modules. Any properties you can see through code i
 
 Any types of public interfaces and services are also included.
 
-- [Home Page](http://bit.ly/ng-sq-ui-docs-home)
-- [Installation](http://bit.ly/ng-sq-ui-docs-installation)
-- [FormElementsModule](http://bit.ly/ng-sq-ui-docs-form-elements)
-- [ModalModule](http://bit.ly/ng-sq-ui-docs-modal)
-- [ProgressBarModule](http://bit.ly/ng-sq-ui-docs-progressbar)
-- [DatetimePickerModule](http://bit.ly/ng-sq-ui-docs-datetime-picker)
-- [DatatableModule](http://bit.ly/ng-sq-ui-docs-datatable)
-- [CommonModule](http://bit.ly/ng-sq-ui-docs-common)
-- [About us](http://bit.ly/ng-sq-ui-docs-about-us)
-- [Live examples](http://bit.ly/ng-sq-ui-docs-live-examples)
-- [Troubleshooting](http://bit.ly/ng-sq-ui-docs-troubleshooting)
+- [Home Page](https://sq-ui.github.io/ng-sq-ui/#/)
+- [Installation](https://sq-ui.github.io/ng-sq-ui/#/installation)
+- [FormElementsModule](https://sq-ui.github.io/ng-sq-ui/#/form-elements-module)
+- [ModalModule](https://sq-ui.github.io/ng-sq-ui/#/modal-module)
+- [ProgressBarModule](https://sq-ui.github.io/ng-sq-ui/#/progressbar-module)
+- [DatetimePickerModule](https://sq-ui.github.io/ng-sq-ui/#/datetime-picker-module)
+- [DatatableModule](https://sq-ui.github.io/ng-sq-ui/#/datatable-module)
+- [CommonModule](https://sq-ui.github.io/ng-sq-ui/#/common-module)
+- [About us](https://sq-ui.github.io/ng-sq-ui/#/about-us)
+- [Live examples](https://sq-ui.dev/#/preview)
+- [Troubleshooting](https://sq-ui.github.io/ng-sq-ui/#/troubleshooting)
 
 ## BREAKING CHANGES:
 The 2.0.1 relases of all packages are compatible with Angular 14+. If you need a backwards-compatible version, please refer to 1.x.y packages, as stated below.
@@ -66,7 +65,7 @@ and then include it in the `imports` array of your @NgModule() decorator:
   //...
 ```
 
-ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](http://bit.ly/ng-sq-ui-docs-live-examples).
+ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://sq-ui.dev/#/preview).
 
 ### Add styles to angular.json
 
@@ -96,8 +95,6 @@ To use our styling just add the `class="sq"` on a parent element.
 - Join us on <a href="http://bit.ly/ng-sq-ui-slack">ng slack</a> or our main <a href="http://bit.ly/ng-sq-slack">SQ slack channel</a>.
 - Follow us on [twitter](https://twitter.com/sq_ui_kit) to get latest updates.
 - Or simply send an email to contact[at]sq-ui.xyz.
-- Sponsor with [DevToken](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
-- Tip us with BAT from brave awards or download [brave](https://brave.com/ngs747)
 
 ## Contribution
 

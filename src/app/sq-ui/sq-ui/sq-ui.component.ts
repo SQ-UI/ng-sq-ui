@@ -158,12 +158,8 @@ export class SqUiComponent {
 
   liveExamples: NavItem[] = [
     {
-      name: 'ng-sq-ui-form-elements',
-      routeLink: `https://ng-sq-ui-form-elements.${environment.livePreview}`
-    },
-    {
-      name: 'ng-sq-ui-progress-bar',
-      routeLink: `https://ng-sq-ui-progress-bar.${environment.livePreview}`
+      name: 'Component playground',
+      routeLink: `${environment.livePreview}/#/preview`
     }
   ];
 

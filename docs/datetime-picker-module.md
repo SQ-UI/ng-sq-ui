@@ -11,7 +11,7 @@ ships as a dependency, and everything goes through the secondary entry point
 `@sq-ui/ng-datetime-picker/temporal` — see *Temporal & the polyfill* in the README for removing it from
 your bundle when the platform provides `Temporal` natively.
 
-[sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-datetime-picker?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+[Open the interactive demo](https://sq-ui.dev/#/datetime-picker) · [Standalone code examples](examples.md)
 
 !> Available also as stand alone package [`@sq-ui/ng-datetime-picker`](https://www.npmjs.com/package/@sq-ui/ng-datetime-picker)
 

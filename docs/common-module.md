@@ -7,7 +7,7 @@ directives, the event bus, the service helpers and the types every control imple
 
 !> Available as standalone package [`@sq-ui/ng-sq-common`](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
 
-[sq-datetime-picker-example](https://stackblitz.com/edit/ng-sq-ui-common?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+[Open the interactive demo](https://sq-ui.dev/#/sq-common) · [Standalone code examples](examples.md)
 
 ## Components
 

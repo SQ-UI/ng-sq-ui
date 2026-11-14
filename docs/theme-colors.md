@@ -65,7 +65,7 @@ Disabled fills and foregrounds use separate roles: the Gray 2 surface prevents s
 
 Overlay and shadow hue now uses Black. Their previous geometry and opacity are retained because these screenshots do not supply effect specifications. This removes the old translucent teal defaults without claiming new Figma shadow values. No new status-button inputs or checkbox/radio geometry are inferred from the palette.
 
-The full palette is visible at `/#/preview` under **Colors**, rendered through the shared Sass tokens. Library consumers receive the defaults through the existing theme/Sass entry points; no new package or font dependency is needed.
+The full palette is visible at [component playground](https://sq-ui.dev/#/preview) under **Colors**, rendered through the shared Sass tokens. Library consumers receive the defaults through the existing theme/Sass entry points; no new package or font dependency is needed.
 
 ## Verification
 

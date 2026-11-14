@@ -4,7 +4,7 @@
 
 ## sq-modal
 
-[sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-modal?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+[Open the interactive demo](https://sq-ui.dev/#/modal) · [Standalone code examples](examples.md)
 
 `sq-modal` is a generic modal window driven by content projection: three slots (`sq-modal-title`,
 `sq-modal-body`, `sq-modal-footer`) and a two-way `show` model.

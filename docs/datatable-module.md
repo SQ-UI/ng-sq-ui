@@ -7,7 +7,7 @@ sorts the collection before pagination, and lets you append your own header/body
 
 !> Available as standalone package [`@sq-ui/ng-datatable`](https://www.npmjs.com/package/@sq-ui/ng-datatable) — it depends on `@sq-ui/ng-sq-common`.
 
-[sq-datatable-example](https://stackblitz.com/edit/ng-sq-ui-datatable?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+[Open the interactive demo](https://sq-ui.dev/#/datatable) · [Standalone code examples](examples.md)
 
 ## sq-datatable
 
@@ -95,7 +95,7 @@ Import `DatatableHeaderDirective` and `DatatableBodyDirective` alongside `Datata
 </sq-datatable>
 ```
 
-The caller owns sorting and pagination for these custom rows. `data-heading` supplies each cell's label in the mobile card layout. The optional `emptyText` message is suppressed whenever a custom body is present. See the working custom-body example in `/#/preview`.
+The caller owns sorting and pagination for these custom rows. `data-heading` supplies each cell's label in the mobile card layout. The optional `emptyText` message is suppressed whenever a custom body is present. See the working custom-body example in [component playground](https://sq-ui.dev/#/preview).
 
 ## sq-datatable-row
 

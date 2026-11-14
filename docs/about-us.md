@@ -17,7 +17,3 @@
 Want to file a [bug](http://bit.ly/ng-sq-ui-bug-report) / [request feature](http://bit.ly/ng-sq-ui-request-feature), contribute some code, or improve documentation? Read up on our [Contributing Guide](CONTRIBUTING.md) before making a pull request.
 
 !> [Feature requests](http://bit.ly/ng-sq-ui-request-feature) wanted!
-
-> Sponsor us with [DEV](https://devprotocol.xyz) on the [stakes.social](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8) platform.
-
-> Tip us with BAT from brave awards or download [brave](https://brave.com/ngs747)

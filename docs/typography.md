@@ -81,7 +81,7 @@ H1 dimensions and family selection are implemented, with a declared Space Grotes
 
 ## Preview
 
-Open `/#/preview` and find **Typography**. It renders all 30 visible style variants through the shared theme classes, with their size/line-height labels. The H1 panel states the font-file requirement. Long samples can scroll within their own area on narrow screens without scaling down the reference metrics.
+Open [component playground](https://sq-ui.dev/#/preview) and find **Typography**. It renders all 30 visible style variants through the shared theme classes, with their size/line-height labels. The H1 panel states the font-file requirement. Long samples can scroll within their own area on narrow screens without scaling down the reference metrics.
 
 Demo headings on the overview, package pages and component sections use the shared roles with responsive sizes from the supplied scale. Compact navigation labels, metadata and controls keep their existing dimensions where no new reference is visible.
 

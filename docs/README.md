@@ -1,5 +1,11 @@
 # Introduction
 
+The Angular demo's new home is [sq-ui.dev](https://sq-ui.dev/), with a
+[component playground](https://sq-ui.dev/#/preview) for sizes, states, templates and themes.
+Read the [standalone examples](examples.md) to use the same APIs in your application.
+Documentation remains at [GitHub Pages](https://sq-ui.github.io/ng-sq-ui/#/).
+Until the new demo is deployed, you can [run it locally](installation.md#running-this-repository).
+
 ## Another UI-kit? How is it different?
 
 You've guessed right, folks - ng-sq-ui IS yet another UI-kit.
@@ -13,7 +19,7 @@ Even better! We support **custom templates** for form controls. This is an essen
 
 ## 3.x in one minute
 
-For the component style migration, see [Styling and migration](styling.md): global imports, font setup, runtime overrides, supported sizes and custom templates. The repository demo includes a **Preview** gallery at `/#/preview`; exact Figma comparison for the remaining variants is still pending.
+For the component style migration, see [Styling and migration](styling.md): global imports, font setup, runtime overrides, supported sizes and custom templates. The repository demo includes a **Preview** gallery at [component playground](https://sq-ui.dev/#/preview); exact Figma comparison for the remaining variants is still pending.
 
 - **Standalone only.** There are no NgModules to import; every component goes straight into the
   `imports` array of your own standalone component.
@@ -61,10 +67,6 @@ what they need most for our next release!
 
 > 2026: 3.x — standalone components, signal inputs/outputs, Angular Signal Forms support and a
 > `Temporal`-based datetime picker.
-
-## NEW! Bounty program
-
-Don't hesitate to create a [feature request!](https://github.com/SQ-UI/ng-sq-ui/issues) or submit an MR request and earn [DEV tokens](https://devprotocol.xyz/)! You can check our [Bounty program](bounty-program.md) page for more information.
 
 ## Overview
 

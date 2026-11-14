@@ -1,6 +1,6 @@
 # FormElementsModule
 
-For global stylesheet imports, font setup, size customization and migration effects, see [Styling and migration](styling.md). The repository gallery at `/#/preview` includes default and custom-template controls, helper/error recovery and inherited theme examples.
+For global stylesheet imports, font setup, size customization and migration effects, see [Styling and migration](styling.md). The repository gallery at [component playground](https://sq-ui.dev/#/preview) includes default and custom-template controls, helper/error recovery and inherited theme examples.
 
 > Applies to **3.x** (Angular 22).
 
@@ -17,7 +17,7 @@ or with Angular Signal Forms through the `[formField]` directive:
 <sq-input controlLabel="Name" [formField]="profileForm.name"></sq-input>
 ```
 
-[sq-form-components-example](https://stackblitz.com/edit/ng-sq-ui-form-elements?ctl=1&embed=1&view=preview ':include :type=iframe height=500px width=100%')
+[Open the interactive demo](https://sq-ui.dev/#/sq-ui) · [Standalone code examples](examples.md)
 
 !> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-form-elements](https://www.npmjs.com/package/@sq-ui/ng-form-elements)
 

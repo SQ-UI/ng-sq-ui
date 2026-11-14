@@ -47,7 +47,7 @@ export class ModalDocsComponent {
   liveExamples: NavItem[] = [
     {
       name: 'ng-sq-ui-modal',
-      routeLink: `https://ng-sq-ui-modal.${environment.livePreview}`
+      routeLink: `${environment.livePreview}/#/preview`
     }
   ];
 

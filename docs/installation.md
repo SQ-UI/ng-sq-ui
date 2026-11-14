@@ -123,7 +123,10 @@ To use our styling, add the `class="sq"` on a parent element.
 
 ## Running this repository
 
-The demo's **Preview** navigation item (`/#/preview`) shows sizes, states, custom templates, message recovery and local theme overrides using real components. Build the libraries before serving: the workspace resolves library imports from `dist/`. `npm start` runs the existing `prestart` cleanup, so use the direct serve command below after the build to retain those artifacts.
+The hosted demo is planned for [sq-ui.dev](https://sq-ui.dev/). See
+[Examples](examples.md) for complete components and [Deployment](deployment.md) for the CI/CD setup.
+
+The demo's **Preview** navigation item ([component playground](https://sq-ui.dev/#/preview)) shows sizes, states, custom templates, message recovery and local theme overrides using real components. Build the libraries before serving: the workspace resolves library imports from `dist/`. `npm start` runs the existing `prestart` cleanup, so use the direct serve command below after the build to retain those artifacts.
 
 ```bash
 npm ci              # install

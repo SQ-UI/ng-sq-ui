@@ -61,7 +61,7 @@ export class DatatimePickerDocsComponent {
   liveExamples: NavItem[] = [
     {
       name: 'ng-sq-ui-datetime-picker',
-      routeLink: `https://ng-sq-ui-datetime-picker.${environment.livePreview}`
+      routeLink: `${environment.livePreview}/#/preview`
     }
   ];
 
