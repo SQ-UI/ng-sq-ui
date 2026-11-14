@@ -19,6 +19,11 @@ or with Angular Signal Forms through the `[formField]` directive:
 
 [Open the interactive demo](https://sq-ui.dev/#/sq-ui) · [Standalone code examples](examples.md)
 
+<div class="docs-preview" data-demo-preview="forms">
+  <div class="docs-preview-toolbar"><span>Live preview</span><a href="https://sq-ui.dev/#/embed/forms" target="_blank" rel="noopener">Open example ↗</a></div>
+  <iframe src="https://sq-ui.dev/#/embed/forms" title="Form controls interactive preview" loading="lazy" height="560"></iframe>
+</div>
+
 !> Available in [@sq-ui/ng-sq-ui](https://www.npmjs.com/package/@sq-ui/ng-sq-ui) and [@sq-ui/ng-form-elements](https://www.npmjs.com/package/@sq-ui/ng-form-elements)
 
 ## The shared form field contract

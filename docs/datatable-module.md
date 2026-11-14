@@ -9,6 +9,11 @@ sorts the collection before pagination, and lets you append your own header/body
 
 [Open the interactive demo](https://sq-ui.dev/#/datatable) · [Standalone code examples](examples.md)
 
+<div class="docs-preview" data-demo-preview="tables">
+  <div class="docs-preview-toolbar"><span>Live preview</span><a href="https://sq-ui.dev/#/embed/tables" target="_blank" rel="noopener">Open example ↗</a></div>
+  <iframe src="https://sq-ui.dev/#/embed/tables" title="Sortable table interactive preview" loading="lazy" height="560"></iframe>
+</div>
+
 ## sq-datatable
 
 The component is generic over the row type, so `items`, `paginatedCollection` and `pageChange` keep the

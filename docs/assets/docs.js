@@ -1,5 +1,26 @@
 /* Keep Docsify's existing menu behavior, with keyboard dismissal and state labels. */
 window.$docsify.plugins = (window.$docsify.plugins || []).concat(function (hook) {
+  hook.doneEach(function () {
+    let demoOrigin = 'https://sq-ui.dev';
+    const loopback = ['localhost', '127.0.0.1', '[::1]'];
+    // Local docs can embed a local app without changing the published Markdown.
+    if (loopback.includes(window.location.hostname)) {
+      try {
+        const override = new URL(new URLSearchParams(window.location.search).get('demo'));
+        if (loopback.includes(override.hostname) && ['http:', 'https:'].includes(override.protocol)) {
+          demoOrigin = override.origin;
+        }
+      } catch { /* No valid local override: use the hosted demo. */ }
+    }
+    document.querySelectorAll('[data-demo-preview]').forEach(function (preview) {
+      const url = demoOrigin + '/#/embed/' + encodeURIComponent(preview.dataset.demoPreview);
+      const frame = preview.querySelector('iframe');
+      const link = preview.querySelector('.docs-preview-toolbar a');
+      if (frame && frame.getAttribute('src') !== url) frame.src = url;
+      if (link) link.href = url;
+    });
+  });
+
   hook.mounted(function () {
     const toggle = document.querySelector('.sidebar-toggle');
     const sidebar = document.querySelector('.sidebar');

@@ -9,6 +9,11 @@ directives, the event bus, the service helpers and the types every control imple
 
 [Open the interactive demo](https://sq-ui.dev/#/sq-common) · [Standalone code examples](examples.md)
 
+<div class="docs-preview" data-demo-preview="pagination">
+  <div class="docs-preview-toolbar"><span>Live preview</span><a href="https://sq-ui.dev/#/embed/pagination" target="_blank" rel="noopener">Open example ↗</a></div>
+  <iframe src="https://sq-ui.dev/#/embed/pagination" title="Pagination interactive preview" loading="lazy" height="560"></iframe>
+</div>
+
 ## Components
 
 ### sq-paginator

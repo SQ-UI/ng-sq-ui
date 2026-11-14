@@ -1,0 +1,73 @@
+<section class="embed-preview" aria-label="Interactive component example">
+  @switch (example()) {
+    @case ('forms') {
+      <h2>Try the form controls</h2>
+      <p>Edit the values, add or remove a tag, then save or reset.</p>
+      <div class="example-grid">
+        <sq-input controlLabel="Display name" [(value)]="name" helpText="This name is shown on your profile."></sq-input>
+        <sq-dropdown controlLabel="Team" controlPlaceholder="Choose a team" [options]="teams" [(value)]="team"></sq-dropdown>
+        <sq-tags-input controlLabel="Topics" controlPlaceholder="Type and press Enter" [(value)]="tags"></sq-tags-input>
+        <sq-checkbox controlLabel="Send product updates" [(value)]="updates"></sq-checkbox>
+      </div>
+      <div class="example-actions">
+        <sq-button [disabled]="!name().trim()" (click)="save()">Save profile</sq-button>
+        <sq-button appearance="secondary" (click)="reset()">Reset</sq-button>
+      </div>
+      <p class="example-status" role="status">{{saved()}}</p>
+    }
+    @case ('pagination') {
+      <h2>Pagination</h2>
+      <p>Change the page to see the visible collection update.</p>
+      <ul class="example-list">
+        @for (row of page(); track row.id) { <li>{{row.name}} <span>{{row.status}}</span></li> }
+      </ul>
+      <sq-paginator [items]="rows" [itemsPerPage]="4" [(paginatedCollection)]="page"></sq-paginator>
+      <p role="status">{{page().length}} items on this page</p>
+    }
+    @case ('tables') {
+      <h2>Sortable table</h2>
+      <p>Click a column heading to sort, or use the paginator to change pages.</p>
+      <sq-datatable [items]="rows" [sortByAllColumns]="true" [paginatorConfig]="{ itemsPerPage: 5, maxDisplayedPages: 3 }"></sq-datatable>
+    }
+    @case ('datetime') {
+      <h2>Date and time</h2>
+      <p>Pick a single date, select a range with two clicks, or adjust the time.</p>
+      <div class="example-grid">
+        <sq-datetime-picker controlLabel="Single date" [(value)]="date"></sq-datetime-picker>
+        <sq-datetime-picker controlLabel="Date range" [isMultipleSelect]="true" [(value)]="range"></sq-datetime-picker>
+        <sq-time-picker [hours]="10" [minutes]="30" [isMeridiem]="true"></sq-time-picker>
+      </div>
+    }
+    @case ('modal') {
+      <h2>Dialog</h2>
+      <p>Open a real dialog with projected title, body and action buttons.</p>
+      <sq-button (click)="modal.set(true)">Open dialog</sq-button>
+      <sq-modal [(show)]="modal">
+        <div sq-modal-title>Save your changes?</div>
+        <div sq-modal-body>You can interact with this dialog directly in the documentation.</div>
+        <div sq-modal-footer class="example-actions">
+          <sq-button appearance="secondary" (click)="modal.set(false)">Cancel</sq-button>
+          <sq-button (click)="modal.set(false)">Confirm</sq-button>
+        </div>
+      </sq-modal>
+    }
+    @case ('progress') {
+      <h2>Progress indicators</h2>
+      <p>Use the buttons to update the continuous and segmented indicators.</p>
+      <div class="example-progress">
+        <sq-progress-bar [loaded]="progress()" label="Continuous progress"></sq-progress-bar>
+        <sq-progress-bar variant="segmented" [loaded]="progress()" label="Segmented progress"></sq-progress-bar>
+        <sq-progress-bar variant="steps" [steps]="['Start', 'Review', 'Done']" [currentStep]="progress() < 50 ? 0 : progress() < 100 ? 1 : 2" label="Setup steps"></sq-progress-bar>
+      </div>
+      <div class="example-actions">
+        <sq-button [disabled]="progress() >= 100" (click)="progress.set(progress() + 25)">Advance progress</sq-button>
+        <sq-button appearance="secondary" (click)="progress.set(0)">Reset</sq-button>
+      </div>
+      <p role="status">{{progress()}}% complete</p>
+    }
+    @default {
+      <h2>Example not found</h2>
+      <p><a href="#/preview" target="_blank" rel="noopener">Open the component playground</a> to explore the available examples.</p>
+    }
+  }
+</section>

@@ -149,6 +149,10 @@ a { color: inherit; }
 .markdown-section .anchor:hover span { text-decoration: underline; text-decoration-color: var(--sq-color-brand); text-underline-offset: 6px; }
 .markdown-section img { max-width: 100%; height: auto; }
 .markdown-section iframe { max-width: 100%; border: 1px solid var(--sq-color-border); }
+.docs-preview { margin: 28px 0; overflow: hidden; border: 1px solid var(--sq-color-border); border-radius: 8px; }
+.docs-preview-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 16px; background: var(--sq-color-surface-subtle); border-bottom: 1px solid var(--sq-color-border); font-size: 12px; }
+.docs-preview-toolbar > span { font-weight: 600; }
+.markdown-section .docs-preview iframe { display: block; width: 100%; height: 560px; border: 0; background: white; }
 .markdown-section hr { margin: 32px 0; border: 0; border-top: 1px solid var(--sq-color-border); }
 .markdown-section blockquote, .markdown-section p.tip, .markdown-section p.warn {
   margin: 24px 0;

@@ -13,6 +13,11 @@ your bundle when the platform provides `Temporal` natively.
 
 [Open the interactive demo](https://sq-ui.dev/#/datetime-picker) · [Standalone code examples](examples.md)
 
+<div class="docs-preview" data-demo-preview="datetime">
+  <div class="docs-preview-toolbar"><span>Live preview</span><a href="https://sq-ui.dev/#/embed/datetime" target="_blank" rel="noopener">Open example ↗</a></div>
+  <iframe src="https://sq-ui.dev/#/embed/datetime" title="Date and time interactive preview" loading="lazy" height="560"></iframe>
+</div>
+
 !> Available also as stand alone package [`@sq-ui/ng-datetime-picker`](https://www.npmjs.com/package/@sq-ui/ng-datetime-picker)
 
 ## sq-datetime-picker

@@ -6,6 +6,11 @@
 
 [Open the interactive demo](https://sq-ui.dev/#/modal) · [Standalone code examples](examples.md)
 
+<div class="docs-preview" data-demo-preview="modal">
+  <div class="docs-preview-toolbar"><span>Live preview</span><a href="https://sq-ui.dev/#/embed/modal" target="_blank" rel="noopener">Open example ↗</a></div>
+  <iframe src="https://sq-ui.dev/#/embed/modal" title="Dialog interactive preview" loading="lazy" height="560"></iframe>
+</div>
+
 `sq-modal` is a generic modal window driven by content projection: three slots (`sq-modal-title`,
 `sq-modal-body`, `sq-modal-footer`) and a two-way `show` model.
 

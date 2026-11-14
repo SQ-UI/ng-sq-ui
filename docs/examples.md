@@ -10,6 +10,23 @@ The demo's new home is [sq-ui.dev](https://sq-ui.dev/). The
 disabled states, custom templates, helper/error messages and local theme overrides.
 Until deployment is configured, [run the same demo locally](installation.md#running-this-repository).
 
+## Live previews in the documentation
+
+The form, common, table, date/time, modal and progress API pages contain embedded
+Angular examples. You can edit fields, change pages, sort rows, open dialogs and
+update progress without leaving the documentation. **Open example** opens the
+same preview in a separate tab. Code remains available in this documentation and
+the source repository; the preview is a running app rather than an in-browser editor.
+
+The previews use the demo's `/#/embed/:example` routes, without its navigation shell.
+Deploy the updated demo before publishing docs that use these routes.
+
+To test both sites locally, serve Docsify on port 3000 and run `npm start` for the
+demo on port 4200. Open
+`http://localhost:3000/?demo=http://localhost:4200#/form-elements-module`.
+The `demo` override is accepted only when both the docs and demo hosts are loopback
+addresses. Published docs always use `https://sq-ui.dev`.
+
 | Example family | Demo | Source |
 |---|---|---|
 | Inputs, buttons, dropdowns, tags and selection | [Form elements](https://sq-ui.dev/#/sq-ui) | [Form examples](https://github.com/SQ-UI/ng-sq-ui/tree/master/src/app/sq-ui/sq-ui) |

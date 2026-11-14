@@ -12,3 +12,5 @@ It is plain CSS so Docsify still needs no build step.
 
 `docs.js` adds menu state labels, Escape dismissal, a backdrop and keyboard
 isolation for the collapsed mobile sidebar, while retaining Docsify's routing.
+It also points embedded examples at a local demo when the documented loopback
+`?demo=` override is supplied; published previews use `sq-ui.dev`.

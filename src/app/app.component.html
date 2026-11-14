@@ -1,5 +1,7 @@
-<section class="sq-app sq">
-  <sq-app-nav [navItems]="navItems"></sq-app-nav>
+<section class="sq-app sq" [class.sq-embed]="embedded()">
+  @if (!embedded()) {
+    <sq-app-nav [navItems]="navItems"></sq-app-nav>
+  }
 
   <main class="scrollable" id="demo-main" tabindex="-1" aria-label="Component showcase">
     <router-outlet></router-outlet>
