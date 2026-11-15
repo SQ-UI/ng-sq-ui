@@ -1,0 +1,9 @@
+<span class="chip-label"><ng-content></ng-content></span>
+@if (removable()) {
+  <button class="chip-remove" type="button" [disabled]="disabled()"
+          [attr.aria-label]="removeLabel()" (click)="remove()">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 10">
+      <path d="M2 2 8 8 M8 2 2 8" />
+    </svg>
+  </button>
+}
