@@ -4,6 +4,8 @@ For global stylesheet imports, font setup, size customization and migration effe
 
 > Applies to **3.x** (Angular 22).
 
+For standalone display pills with optional removal, see [Chips](chips.md).
+
 Every control in this page is standalone, has no `ControlValueAccessor`, and is bound with a two-way
 `value` model:
 

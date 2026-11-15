@@ -5,7 +5,6 @@
 > built by developers for developers!
 
 ![angular](https://badge.fury.io/js/angular.svg)
-![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Mentioned in Awesome Angular](https://awesome.re/mentioned-badge.svg)](https://github.com/gdi2290/awesome-angular)

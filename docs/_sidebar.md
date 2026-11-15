@@ -5,6 +5,7 @@
 - [Default color palette](theme-colors.md)
 - [Typography](typography.md)
 - [FormElementsModule](form-elements-module.md)
+- [Chips](chips.md)
 - [ModalModule](modal-module.md)
 - [ProgressBarModule](progressbar-module.md)
 - [DatetimePickerModule](datetime-picker-module.md)

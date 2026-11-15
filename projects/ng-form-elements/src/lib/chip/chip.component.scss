@@ -1,0 +1,54 @@
+@use '../../../../ng-sq-common/src/lib/styles/tokens' as sq;
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--sq-chip-background, #{sq.value('color-brand')});
+  color: sq.value('color-white');
+  font-family: sq.value('font-family-sans');
+  font-size: 14px;
+  font-weight: sq.value('font-weight-regular');
+  line-height: 24px;
+  vertical-align: middle;
+}
+
+:host([data-size='s']) { font-size: 12px; line-height: 20px; }
+:host([data-size='l']) { padding-inline: 12px; font-size: 20px; line-height: 32px; }
+
+.chip-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-remove {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.chip-remove svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 2; }
+.chip-remove:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+@media (hover: hover) {
+  :host(:hover:not([aria-disabled='true'])) { background: sq.value('color-black'); }
+}
+:host(:focus-within:not([aria-disabled='true'])) { background: sq.value('color-black'); }
+:host([aria-disabled='true']) { background: sq.value('color-disabled'); }
+.chip-remove:disabled { cursor: not-allowed; }
