@@ -30,7 +30,7 @@ let nextNavbarId = 0;
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '(document:keydown.escape)': 'closeFromKeyboard()',
+    '(document:keydown.escape)': 'closeFromKeyboard($event)',
     '(document:click)': 'onDocumentClick($event)',
   },
 })
@@ -76,8 +76,8 @@ export class NavbarComponent {
     if (restoreFocus) this.toggleButton()?.nativeElement.focus();
   }
 
-  closeFromKeyboard(): void {
-    if (this.mobile() && this.expanded()) this.closeMenu();
+  closeFromKeyboard(event?: Event): void {
+    if (!event?.defaultPrevented && this.mobile() && this.expanded()) this.closeMenu();
   }
 
   onDocumentClick(event: Event): void {

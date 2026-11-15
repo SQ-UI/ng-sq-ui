@@ -2,20 +2,23 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { NavbarComponent, type NavbarItem } from '@sq-ui/ng-sq-common';
-import { ButtonComponent } from '@sq-ui/ng-form-elements';
+import { NavbarComponent, type NavbarItem, type LabelValuePair } from '@sq-ui/ng-sq-common';
+import { ButtonComponent, DropdownComponent } from '@sq-ui/ng-form-elements';
 
 @Component({
   selector: 'sq-navbar-preview',
   standalone: true,
-  imports: [NavbarComponent, ButtonComponent],
+  imports: [NavbarComponent, ButtonComponent, DropdownComponent],
   template: `
     <p>Choose a menu item, or change the menu from the controls below. On a narrow screen, open the animated mobile menu.</p>
     <sq-navbar [items]="items()" (itemSelected)="select($event)">
       <a sq-navbar-brand class="example-brand" href="https://sq-ui.dev" target="_blank" rel="noopener">
         <img src="assets/logo.svg" width="42" height="27" alt=""> <span>SQ UI</span>
       </a>
-      <span sq-navbar-actions><sq-button size="s" (click)="status.set('Sign in selected')">Sign in</sq-button></span>
+      <div sq-navbar-actions class="example-actions">
+        <sq-dropdown controlLabel="Workspace" [options]="workspaces" [(value)]="workspace"></sq-dropdown>
+        <sq-button size="s" (click)="status.set('Sign in selected')">Sign in</sq-button>
+      </div>
     </sq-navbar>
     <div class="example-controls">
       <sq-button size="s" appearance="secondary" (click)="switchMenu()">Change menu items</sq-button>
@@ -39,6 +42,8 @@ import { ButtonComponent } from '@sq-ui/ng-form-elements';
     .example-brand img { display: block; }
     .example-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px; }
     .example-controls p { margin: 0; }
+    .example-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .example-actions sq-dropdown { display: block; width: 160px; }
     h3 { margin: 40px 0 12px; font-size: 18px; }
     .route-content { margin-top: 16px; padding: 20px; border: 1px solid var(--sq-color-border, #dcdcdc); border-radius: 8px; background: var(--sq-color-surface-subtle, #fafafa); }
     .route-content h4 { margin: 0 0 8px; }
@@ -47,6 +52,12 @@ import { ButtonComponent } from '@sq-ui/ng-form-elements';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarPreviewComponent {
+  readonly workspaces: LabelValuePair<string>[] = [
+    { label: 'Design', value: 'design' },
+    { label: 'Engineering', value: 'engineering' },
+    { label: 'Documentation', value: 'documentation' },
+  ];
+  readonly workspace = signal<LabelValuePair<string> | null>(this.workspaces[0]);
   readonly view = toSignal(inject(ActivatedRoute).queryParamMap.pipe(
     map(params => params.get('view') || 'overview'),
   ));

@@ -25,7 +25,7 @@
                 <a class="navbar-item" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
                    [fragment]="item.fragment" routerLinkActive="is-active"
                    [routerLinkActiveOptions]="{exact: item.exact ?? true}" ariaCurrentWhenActive="page"
-                   [attr.target]="item.target || null" [attr.rel]="item.target === '_blank' ? 'noopener noreferrer' : null"
+                   [target]="item.target || '_self'" [attr.rel]="item.target === '_blank' ? 'noopener noreferrer' : null"
                    (click)="select(item)">
                   @if (item.icon) { <i [class]="item.icon" aria-hidden="true"></i> }
                   {{item.label}}

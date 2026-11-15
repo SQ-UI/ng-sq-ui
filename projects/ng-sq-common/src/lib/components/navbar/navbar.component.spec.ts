@@ -10,6 +10,7 @@ import { NavbarComponent, type NavbarItem } from './navbar.component';
     <sq-navbar [items]="items()" [(expanded)]="expanded" (itemSelected)="selected = $event">
       <a sq-navbar-brand href="#brand">My workspace</a>
       <button sq-navbar-actions type="button">Sign in</button>
+      <input sq-navbar-actions aria-label="Nested control" (keydown.escape)="handleEscape($event)">
     </sq-navbar>
   </form><button id="outside" type="button">Outside</button>`,
 })
@@ -23,6 +24,14 @@ class NavbarHost {
   expanded = signal(false);
   selected?: NavbarItem;
   submitted = false;
+  private consumeEscape = true;
+
+  handleEscape(event: Event): void {
+    if (this.consumeEscape) {
+      event.preventDefault();
+      this.consumeEscape = false;
+    }
+  }
 }
 
 @Component({ template: '<p>Route content</p>' })
@@ -39,6 +48,7 @@ class RoutedNavbarHost {
     { id: 'settings', label: 'Settings', routerLink: ['/workspace', 'settings'] },
     { id: 'tab', label: 'Components', routerLink: '/workspace', queryParams: { view: 'components' } },
     { id: 'disabled', label: 'Unavailable', routerLink: '/unavailable', disabled: true },
+    { id: 'new-tab', label: 'Settings in a new tab', routerLink: '/workspace/settings', target: '_blank' },
   ];
 }
 
@@ -120,6 +130,23 @@ describe('NavbarComponent', () => {
     expect(document.activeElement).toBe(outside);
   });
 
+  it('lets a nested control consume Escape before closing the navigation', async () => {
+    const fixture = await createHost();
+    fixture.componentInstance.expanded.set(true);
+    await fixture.whenStable();
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    input.focus();
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+    await fixture.whenStable();
+    expect(fixture.componentInstance.expanded()).toBe(true);
+    expect(document.activeElement).toBe(input);
+
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+    await fixture.whenStable();
+    expect(fixture.componentInstance.expanded()).toBe(false);
+    expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.navbar-toggle'));
+  });
+
   it('keeps desktop items accessible after a viewport change and removes the listener on destroy', async () => {
     const fixture = await createHost();
     const syncViewport = viewport.addEventListener.mock.calls[0][1];
@@ -182,5 +209,20 @@ describe('NavbarComponent', () => {
     await fixture.whenStable();
     expect(TestBed.inject(Router).url).toBe('/workspace?view=components');
     expect(tab.getAttribute('aria-current')).toBe('page');
+  });
+
+  it('preserves native new-tab navigation for a router link', async () => {
+    const fixture = await createRoutedHost('/workspace');
+    const router = TestBed.inject(Router);
+    const navigate = vi.spyOn(router, 'navigateByUrl');
+    const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a.navbar-item[target="_blank"]');
+    expect(link).not.toBeNull();
+    expect(link.getAttribute('rel')).toContain('noopener');
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 });
+    expect(link.dispatchEvent(click)).toBe(true);
+    await fixture.whenStable();
+    expect(click.defaultPrevented).toBe(false);
+    expect(navigate).not.toHaveBeenCalled();
+    expect(router.url).toBe('/workspace');
   });
 });

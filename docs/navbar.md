@@ -154,6 +154,16 @@ Escape and item selection close the menu and return focus to its toggle. Clickin
 outside closes it while preserving focus on the outside control. On desktop the
 menu remains visible, independently of the mobile `expanded` model.
 
+Projected popovers can extend beyond the expanded menu after its animation.
+The live example includes a Workspace dropdown: Escape closes that dropdown first,
+then a second Escape closes the navbar. Router items with `target: '_blank'` keep
+native new-tab behavior.
+
+For the mobile popup/animation browser regression check, serve the built demo
+with `node scripts/serve-built-preview.mjs`, then run
+`STYLE_BASELINE_BROWSER=/path/to/chrome node scripts/check-navbar-preview.mjs`.
+`STYLE_BASELINE_URL` overrides the default `http://127.0.0.1:4201`.
+
 Colors and fonts inherit the shared `--sq-color-*` and `--sq-font-family-sans`
 tokens. The desktop layout wraps when space is constrained. Mobile expansion is
 based on viewport width, including the iframe viewport in this live example.

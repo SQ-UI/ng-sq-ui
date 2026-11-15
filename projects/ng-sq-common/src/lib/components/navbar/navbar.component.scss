@@ -2,6 +2,7 @@
 
 :host { display: block; min-width: 0; }
 .navbar {
+  --_sq-navbar-expand-duration: 220ms;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -72,15 +73,25 @@
     grid-template-rows: 0fr;
     opacity: 0;
     visibility: hidden;
-    transition: grid-template-rows 220ms ease, opacity 180ms ease, visibility 0s 220ms;
+    transition: grid-template-rows var(--_sq-navbar-expand-duration) ease, opacity 180ms ease, visibility 0s var(--_sq-navbar-expand-duration);
   }
   .navbar-panel-inner { min-height: 0; overflow: hidden; }
+  .is-open .navbar-panel-inner {
+    overflow: visible;
+    // Clip only while expanding; projected popovers can extend outside the open menu.
+    animation: navbar-reveal-overflow var(--_sq-navbar-expand-duration) step-end;
+  }
   .navbar-panel-content { flex-direction: column; align-items: stretch; gap: 16px; padding-top: 12px; }
   .navbar-items { flex-direction: column; align-items: stretch; }
   .navbar-item { width: 100%; }
   .navbar-actions { margin: 0; }
   .is-open .navbar-panel { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition-delay: 0s; }
 }
+@keyframes navbar-reveal-overflow {
+  from { overflow: hidden; }
+  to { overflow: visible; }
+}
 @media (prefers-reduced-motion: reduce) {
   .navbar-panel, .navbar-toggle > span > span { transition: none; }
+  .is-open .navbar-panel-inner { animation: none; }
 }
