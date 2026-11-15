@@ -51,9 +51,10 @@ when there is no top-level `404.html`.
 
 ## One-time configuration
 
-1. Create a Cloudflare Pages **Direct Upload** project named `sq-ui-demo`, with
-   production branch `master`. Use that project name below, or replace it consistently.
-   Choose Direct Upload when creating the project; Cloudflare documents the
+1. The deploy job creates the Cloudflare Pages **Direct Upload** project `sq-ui-demo`
+   (production branch `master`) on its first run if it does not exist yet; the names
+   come from `PAGES_PROJECT` / `PAGES_PRODUCTION_BRANCH` in the workflow. If you create
+   it manually instead, choose Direct Upload; Cloudflare documents the
    [limitations on changing integration type](https://developers.cloudflare.com/pages/get-started/direct-upload/).
 2. Under the Pages project's **Custom domains**, add `sq-ui.dev`. The apex zone
    must be active in the same Cloudflare account. Follow the domain association
@@ -103,6 +104,9 @@ from the same workflow run, so deployment publishes the exact files that passed 
         with:
           name: demo-site
           path: demo-site
+      - name: Ensure the Cloudflare Pages project exists
+        # runs `wrangler pages project list` and, if `sq-ui-demo` is missing,
+        # `wrangler pages project create sq-ui-demo --production-branch=master`
       - name: Deploy verified demo
         uses: cloudflare/wrangler-action@v4
         with:
@@ -111,6 +115,10 @@ from the same workflow run, so deployment publishes the exact files that passed 
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           command: pages deploy demo-site --project-name=sq-ui-demo --branch=master
 ```
+
+`wrangler pages deploy` fails with `The Pages project "sq-ui-demo" does not exist`
+when the project is missing from the account in `CLOUDFLARE_ACCOUNT_ID`. The
+"ensure" step prevents that.
 
 The existing workflow already triggers on pushes to `master`, `main` and
 `morph-main`, and on pull requests. Only pushes to `master` deploy.
