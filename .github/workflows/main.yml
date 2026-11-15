@@ -56,7 +56,7 @@ jobs:
         run: npm test
 
       - name: Save verified demo build
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: demo-site
@@ -66,7 +66,7 @@ jobs:
 
   deploy:
     needs: verify
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
