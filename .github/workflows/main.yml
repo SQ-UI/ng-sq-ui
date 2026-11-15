@@ -72,6 +72,9 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    env:
+      PAGES_PROJECT: sq-ui-demo
+      PAGES_PRODUCTION_BRANCH: master
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -87,10 +90,26 @@ jobs:
           name: demo-site
           path: demo-site
 
+      # `wrangler pages deploy` does not create the Pages project, so create the Direct Upload
+      # project on first run. The token needs "Cloudflare Pages: Edit" on this account.
+      - name: Ensure the Cloudflare Pages project exists
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          projects="$(npx --yes wrangler@4 pages project list)"
+          if grep -qw -- "$PAGES_PROJECT" <<< "$projects"; then
+            echo "Pages project '$PAGES_PROJECT' already exists."
+          else
+            echo "Creating Pages project '$PAGES_PROJECT'..."
+            npx --yes wrangler@4 pages project create "$PAGES_PROJECT" \
+              --production-branch="$PAGES_PRODUCTION_BRANCH"
+          fi
+
       - name: Deploy verified demo
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          command: pages deploy demo-site --project-name=sq-ui-demo --branch=master
+          command: pages deploy demo-site --project-name=${{ env.PAGES_PROJECT }} --branch=${{ env.PAGES_PRODUCTION_BRANCH }}
