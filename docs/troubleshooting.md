@@ -4,8 +4,9 @@
 
 ## Documentation
 
-?> If you have blocked 3rd party cookies, the live examples will not work.
-[Reason](https://github.com/stackblitz/core/issues/162)
+Open the [component playground](https://sq-ui.dev/#/preview) directly. Examples run in the demo application and do not require third-party cookies or an embedded editor.
+
+If the domain is not available yet, use the [local setup](installation.md#running-this-repository). The [deployment guide](deployment.md) describes how to publish the demo.
 
 ## Styles
 

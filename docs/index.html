@@ -3,20 +3,34 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>NG-SQ-UI Simple quality UI kit</title>
+  <title>SQ UI — Documentation</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <meta name="description" content="SQ UI documentation: standalone Angular components, signal forms, examples and styling guides.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#00c474">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="assets/docs.css">
   <meta name="google-site-verification" content="zCfpBWahzbsNSfva9dkRjbT6RmpJIT7IQlEGnlKtym8" />
 </head>
 
 <body>
+  <header class="docs-topbar">
+    <a class="docs-brand" href="#/" aria-label="SQ UI documentation home">
+      <img src="assets/logo.svg" alt="" width="56" height="36">
+      <span><strong>SQ UI</strong><small>Component documentation</small></span>
+    </a>
+    <span class="docs-caption">Simple quality. <span>Built for Angular.</span></span>
+    <nav class="docs-actions" aria-label="Project links">
+      <a href="https://github.com/SQ-UI/ng-sq-ui">GitHub</a>
+      <a class="docs-demo-link" href="https://sq-ui.dev/#/preview">Live demo <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <button class="docs-nav-backdrop" type="button" aria-label="Close navigation" tabindex="-1"></button>
   <div id="app"></div>
   <script>
     window.$docsify = {
       name: 'ng-sq-ui',
-      repo: 'https://github.com/SQ-UI/ng-sq-ui/',
+      themeColor: '#00c474',
       coverpage: true,
       ga: 'UA-123737621-1',
       loadSidebar: true,
@@ -29,16 +43,12 @@
       }
     }
   </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="assets/docs.js"></script>
+  <script src="https://unpkg.com/docsify@4/lib/docsify.min.js"></script>
   <script src="https://unpkg.com/docsify-copy-code@2"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-typescript.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
-  <style>
-    .markdown-section {
-      max-width: 1200px;
-    }
-  </style>
+  <script src="https://unpkg.com/docsify@4/lib/plugins/ga.min.js"></script>
+  <script src="https://unpkg.com/prismjs/components/prism-typescript.min.js"></script>
+  <script src="https://unpkg.com/docsify@4/lib/plugins/search.min.js"></script>
 </body>
 
 </html>

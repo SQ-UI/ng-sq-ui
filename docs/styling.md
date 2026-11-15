@@ -313,7 +313,7 @@ Table templates are inserted once, without per-row context, after automatic head
 
 ## Review the examples
 
-Build libraries with `npm run build:libs`, then run `npx ng serve` and open **Preview** (`/#/preview`). Avoid `npm start` after that build: its existing `prestart` cleanup removes `dist/`. The gallery is also embedded at the end of `/#/sq-ui`, where the earlier custom-template examples remain available.
+Build libraries with `npm run build:libs`, then run `npx ng serve` and open **Preview** ([component playground](https://sq-ui.dev/#/preview)). Avoid `npm start` after that build: its existing `prestart` cleanup removes `dist/`. The gallery is also embedded at the end of `/#/sq-ui`, where the earlier custom-template examples remain available.
 
 The [reference checklist](style-migration/preview-reference-checklist.md) maps each example family and table subcomponent to exact known Figma nodes, with evidence levels and gaps. The [Phase 5 report](style-migration/phase-5-examples-and-docs.md) records the examples and validation. Final screenshot-to-Figma comparison belongs to Phase 6 after the remaining source references become available.
 

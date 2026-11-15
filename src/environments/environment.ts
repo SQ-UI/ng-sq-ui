@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   docs: 'https://sq-ui.github.io/ng-sq-ui/#',
-  livePreview: 'stackblitz.io'
+  livePreview: 'https://sq-ui.dev'
 };
 
 /*

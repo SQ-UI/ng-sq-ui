@@ -44,3 +44,10 @@
   .sq-app .scrollable :where(h3) { @include type.heading(3, 'xs'); }
 }
 @media (prefers-reduced-motion: reduce) { .sq-app { scroll-behavior: auto; } }
+
+.sq-app.sq-embed {
+  display: block;
+  background: white;
+  .scrollable { height: 100%; padding: 24px; }
+}
+@media (max-width: 540px) { .sq-app.sq-embed .scrollable { padding: 16px; } }

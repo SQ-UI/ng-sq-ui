@@ -4,7 +4,12 @@
 
 ## sq-progress-bar
 
-[sq-progress-bar-example](https://stackblitz.com/edit/ng-sq-ui-progress-bar?ctl=1&embed=1&view=preview ':include :type=iframe')
+[Open the interactive demo](https://sq-ui.dev/#/preview) · [Standalone code examples](examples.md)
+
+<div class="docs-preview" data-demo-preview="progress">
+  <div class="docs-preview-toolbar"><span>Live preview</span><a href="https://sq-ui.dev/#/embed/progress" target="_blank" rel="noopener">Open example ↗</a></div>
+  <iframe src="https://sq-ui.dev/#/embed/progress" title="Progress indicators interactive preview" loading="lazy" height="560"></iframe>
+</div>
 
 `sq-progress-bar` is a small, styleable loader.
 

@@ -1,0 +1,9 @@
+:host { display: block; }
+.embed-preview { max-width: 1000px; margin: 0 auto; }
+.example-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 24px; margin: 24px 0; }
+.example-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 24px 0 0; }
+.example-status { min-height: 24px; margin-top: 16px; }
+.example-list { padding: 0; margin: 24px 0; list-style: none; }
+.example-list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 12px; border-bottom: 1px solid var(--sq-color-border, #dcdcdc); }
+.example-list span { color: var(--demo-muted); }
+.example-progress { display: grid; gap: 24px; margin: 32px 0; }

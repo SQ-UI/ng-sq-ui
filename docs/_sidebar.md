@@ -1,4 +1,6 @@
 - [Installation](installation.md)
+- [Examples](examples.md)
+- [Demo playground](https://sq-ui.dev/#/preview)
 - [Styling and migration](styling.md)
 - [Default color palette](theme-colors.md)
 - [Typography](typography.md)
@@ -10,5 +12,5 @@
 - [DatatableModule](datatable-module.md)
 - [CommonModule](common-module.md)
 - [About us](about-us.md)
-- [Bounty program](bounty-program.md)
 - [Troubleshooting](troubleshooting.md)
+- [Demo deployment](deployment.md)

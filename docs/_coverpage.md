@@ -1,10 +1,12 @@
-![logo](_media/sq-ui-logo.png)
+![SQ UI logo](assets/logo.svg)
 
-# NG-SQ-UI <small>1.3</small>
+<p class="cover-eyebrow">THE ANGULAR COMPONENT LIBRARY</p>
 
-> Simple Quality UI kit for Angular
+# NG-SQ-UI <small>3.x</small>
 
-Funded on [stakes.social](https://stakes.social/0x014f98F05c0BeD44B4Cf0532a93312a2135afaB8)
+> Simple quality.<br>Built for your next idea.
 
-[GitHub](https://github.com/SQ-UI/ng-sq-ui) [Get Started](#Introduction)
+Standalone components. Signal forms. A consistent design language.
+
+[GitHub](https://github.com/SQ-UI/ng-sq-ui) [Demo](https://sq-ui.dev/#/preview) [Get Started](#/installation)
 

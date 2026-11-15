@@ -55,7 +55,7 @@ export class SqCommonComponent {
   liveExamples: NavItem[] = [
     {
       name: 'ng-sq-ui-common',
-      routeLink: `https://ng-sq-ui-common.${environment.livePreview}`
+      routeLink: `${environment.livePreview}/#/preview`
     }
   ];
 }

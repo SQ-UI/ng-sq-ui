@@ -153,7 +153,7 @@ export class DatatableDocsComponent {
   liveExamples: NavItem[] = [
     {
       name: 'ng-sq-datatable',
-      routeLink: `https://ng-sq-datatable.${environment.livePreview}`
+      routeLink: `${environment.livePreview}/#/preview`
     }
   ];
 

@@ -1,5 +1,7 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs';
 import { NavItem } from './shared/nav-item';
 import { AppNavComponent } from './app-nav/app-nav.component';
 
@@ -13,6 +15,12 @@ import { AppNavComponent } from './app-nav/app-nav.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  private readonly router = inject(Router);
+  readonly embedded = toSignal(this.router.events.pipe(
+    filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+    map(event => event.urlAfterRedirects.startsWith('/embed/')),
+  ), { initialValue: this.router.url.startsWith('/embed/') });
+
   navItems: NavItem[] = [
     { name: 'Overview', routeLink: 'about', icon: 'fa-house' },
     { name: 'All components', routeLink: 'preview', icon: 'fa-grip' },
