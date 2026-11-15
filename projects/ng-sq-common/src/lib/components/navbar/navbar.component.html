@@ -1,0 +1,54 @@
+<nav class="navbar" [class.is-open]="expanded()" [attr.aria-label]="ariaLabel()">
+  <div class="navbar-brand">
+    <ng-content select="[sq-navbar-brand]">
+      <a class="navbar-brand-link" [href]="brandHref()" (click)="closeMenu()">{{brand()}}</a>
+    </ng-content>
+  </div>
+  <button #toggleButton class="navbar-toggle" type="button"
+          [attr.aria-controls]="menuId" [attr.aria-expanded]="expanded()"
+          [attr.aria-label]="expanded() ? 'Close navigation' : 'Open navigation'"
+          (click)="expanded.set(!expanded())">
+    <span aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+  <div class="navbar-panel" [id]="menuId" [attr.inert]="mobile() && !expanded() ? '' : null">
+    <div class="navbar-panel-inner">
+      <div class="navbar-panel-content">
+        <ul class="navbar-items">
+          @for (item of items(); track item.id) {
+            <li>
+              @if (item.disabled) {
+                <span class="navbar-item is-disabled" aria-disabled="true">
+                  @if (item.icon) { <i [class]="item.icon" aria-hidden="true"></i> }
+                  {{item.label}}
+                </span>
+              } @else if (item.routerLink !== undefined) {
+                <a class="navbar-item" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
+                   [fragment]="item.fragment" routerLinkActive="is-active"
+                   [routerLinkActiveOptions]="{exact: item.exact ?? true}" ariaCurrentWhenActive="page"
+                   [attr.target]="item.target || null" [attr.rel]="item.target === '_blank' ? 'noopener noreferrer' : null"
+                   (click)="select(item)">
+                  @if (item.icon) { <i [class]="item.icon" aria-hidden="true"></i> }
+                  {{item.label}}
+                </a>
+              } @else if (item.href) {
+                <a class="navbar-item" [class.is-active]="item.active" [href]="item.href"
+                   [attr.target]="item.target || null" [attr.rel]="item.target === '_blank' ? 'noopener noreferrer' : null"
+                   [attr.aria-current]="item.active ? 'page' : null" (click)="select(item)">
+                  @if (item.icon) { <i [class]="item.icon" aria-hidden="true"></i> }
+                  {{item.label}}
+                </a>
+              } @else {
+                <button class="navbar-item" type="button" [class.is-active]="item.active"
+                        [attr.aria-current]="item.active ? 'page' : null" (click)="select(item)">
+                  @if (item.icon) { <i [class]="item.icon" aria-hidden="true"></i> }
+                  {{item.label}}
+                </button>
+              }
+            </li>
+          }
+        </ul>
+        <div class="navbar-actions"><ng-content select="[sq-navbar-actions]"></ng-content></div>
+      </div>
+    </div>
+  </div>
+</nav>
