@@ -2,12 +2,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavItem } from '../../shared/nav-item';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { TooltipPreviewComponent } from '../../shared/tooltip-preview/tooltip-preview.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sq-common',
   standalone: true,
-  imports: [RouterLink, ModuleOverviewComponent],
+  imports: [RouterLink, ModuleOverviewComponent, TooltipPreviewComponent],
   templateUrl: './sq-common.component.html',
   styleUrls: ['./sq-common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -17,6 +18,8 @@ export class SqCommonComponent {
   moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
+    { name: 'sqTooltip' },
+    { name: 'TooltipPosition (type)' },
     {
       name: 'sqOutsideClickListener',
       routeLink: '/modal'

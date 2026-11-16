@@ -19,6 +19,7 @@ import { TagsPreviewComponent } from '../tags-preview/tags-preview.component';
 import { MultiselectPreviewComponent } from '../multiselect-preview/multiselect-preview.component';
 import { PaginatorPreviewComponent } from '../paginator-preview/paginator-preview.component';
 import { TablePreviewComponent } from '../table-preview/table-preview.component';
+import { TooltipPreviewComponent } from '../tooltip-preview/tooltip-preview.component';
 
 @Component({
   selector: 'sq-component-preview',
@@ -30,7 +31,7 @@ import { TablePreviewComponent } from '../table-preview/table-preview.component'
     SqDropdownChevronTemplateDirective, SqTagTemplateDirective,
     SqTypeaheadOptionTemplateDirective, SqTypeaheadSelectedOptionTemplateDirective,
     SqCheckboxLabelTemplateDirective, SqRadiobuttonLabelTemplateDirective,
-    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent, ButtonPreviewComponent, LinkPreviewComponent, DropdownPreviewComponent, TagsPreviewComponent, MultiselectPreviewComponent, PaginatorPreviewComponent, TablePreviewComponent],
+    DatatableHeaderDirective, DatatableBodyDirective, TypographyPreviewComponent, ButtonPreviewComponent, LinkPreviewComponent, DropdownPreviewComponent, TagsPreviewComponent, MultiselectPreviewComponent, PaginatorPreviewComponent, TablePreviewComponent, TooltipPreviewComponent],
   templateUrl: './component-preview.component.html',
   styleUrls: ['./component-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
