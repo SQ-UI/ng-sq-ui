@@ -36,6 +36,25 @@ globalThis.fetch = vi.fn(async (input: RequestInfo | URL) => {
   } as unknown as Response;
 }) as unknown as typeof fetch;
 
+// jsdom does not implement `matchMedia`, which `sq-navbar` uses to detect the mobile layout (and
+// every demo page that renders it). Default to a non-matching (desktop) query; specs that need a
+// specific viewport can still override it with `vi.stubGlobal('matchMedia', ...)`.
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  configurable: true,
+  value: (query: string): MediaQueryList =>
+    ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => false,
+    }) as MediaQueryList,
+});
+
 Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => {
