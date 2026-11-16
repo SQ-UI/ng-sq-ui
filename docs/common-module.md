@@ -93,6 +93,51 @@ The [browser manifest](paginator/screenshots/manifest.json) records measured val
 
 ## Directives
 
+### TooltipDirective
+
+Import `TooltipDirective` from `@sq-ui/ng-sq-common` (or `@sq-ui/ng-sq-ui`) and add it to
+your component's `imports` array:
+
+```typescript
+import { TooltipDirective } from '@sq-ui/ng-sq-common';
+
+@Component({
+  imports: [TooltipDirective],
+  template: `<button sqTooltip="Save your changes" sqTooltipPosition="bottom">Save</button>`,
+})
+export class ExampleComponent {}
+```
+
+| Input | Type | Default | Purpose |
+|---|---|---|---|
+| `sqTooltip` | `string \| null \| undefined` | `''` | Plain text description; blank content hides the tooltip. |
+| `sqTooltipPosition` | `TooltipPosition` | `'top'` | Preferred side: `'top'`, `'bottom'`, `'left'` or `'right'`. |
+| `sqTooltipDisabled` | `boolean` | `false` | Suppresses the tooltip. |
+
+Tooltips open on mouse hover or keyboard focus, remain visible while the trigger is focused or the
+pointer is over the trigger or tooltip, and close on Escape. Apply the directive to a focusable
+element, such as a button or link, or a component containing one (such as `sq-button`). The tooltip
+has `role="tooltip"` and adds its ID to the focused control's `aria-describedby`, preserving existing
+descriptions. When focus moves between descendants, the description follows it. The first Escape
+dismisses the tooltip; a subsequent Escape can close a surrounding modal.
+
+The preferred side flips if necessary; the tooltip is clamped to an 8px viewport margin. Long text
+wraps at 320px or the available width, and excessive height scrolls within the viewport. Positioning
+updates on window resize, nested scrolling, trigger/content size changes and visual viewport changes
+(including zoom and the on-screen keyboard). Tooltips render under `body` to avoid clipping by
+containers with `overflow: hidden`. A trigger scrolled outside the viewport or fully clipped by a
+scroll container dismisses its tooltip. Partially visible triggers retain their tooltip.
+
+The directive includes its own styles. It synchronizes inherited `--sq-*` properties from the trigger
+when opened and when ancestor attributes or styles change, so local theme changes also apply to an
+open tooltip. Override `--sq-tooltip-background`, `--sq-tooltip-color` and `--sq-tooltip-z-index` as
+needed. Typography and spacing use the shared `--sq-font-size-tooltip`, `--sq-line-height-tooltip`,
+`--sq-tooltip-padding-block` and `--sq-tooltip-padding-inline` tokens. Content and position bindings
+update an open tooltip immediately.
+
+Run `node scripts/check-tooltip-preview.mjs` against the demo served on port 4201 for browser checks.
+Set `TOOLTIP_BASE_URL` to use another server or `TOOLTIP_BROWSER` to select a Chromium executable.
+
 ### OutsideClickListenerDirective
 
 Tracks clicks outside of an element. The listener stays inert until `listenForOutsideClick` is `true`,

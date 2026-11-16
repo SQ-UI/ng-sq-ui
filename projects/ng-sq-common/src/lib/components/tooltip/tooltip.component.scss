@@ -1,0 +1,25 @@
+@use '../../styles/tokens' as sq;
+
+:host {
+  position: fixed;
+  z-index: var(--sq-tooltip-z-index, 1100);
+  display: block;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 0;
+  max-width: min(320px, calc(100vw - 16px));
+  max-height: calc(100dvh - 16px);
+  overflow: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+  padding: sq.value('tooltip-padding-block') sq.value('tooltip-padding-inline');
+  border-radius: sq.value('radius-control');
+  background: var(--sq-tooltip-background, #{sq.value('color-black')});
+  color: var(--sq-tooltip-color, #{sq.value('color-white')});
+  font-family: sq.value('font-family-sans');
+  font-size: sq.value('font-size-tooltip');
+  font-weight: sq.value('font-weight-regular');
+  line-height: sq.value('line-height-tooltip');
+  text-align: start;
+  visibility: hidden;
+}

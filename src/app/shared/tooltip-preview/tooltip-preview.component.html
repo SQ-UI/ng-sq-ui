@@ -1,0 +1,13 @@
+<p>Hover or focus a button. Press Escape to dismiss its tooltip. The preferred side changes automatically when space is limited.</p>
+<div class="tooltip-examples">
+  @for (position of positions; track position) {
+    <button type="button" [sqTooltip]="'Preferred position: ' + position" [sqTooltipPosition]="position"
+      [attr.data-tooltip-position]="position">{{ position }}</button>
+  }
+  <button type="button" [sqTooltip]="longText" data-tooltip-long>Long description</button>
+  <button type="button" sqTooltip="This tooltip is disabled" [sqTooltipDisabled]="true">Tooltip disabled</button>
+</div>
+<div class="tooltip-clipped-example">
+  <button type="button" sqTooltip="This tooltip stays visible outside an overflow: hidden container."
+    data-tooltip-clipped>Inside a clipped container</button>
+</div>
