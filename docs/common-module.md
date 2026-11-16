@@ -16,6 +16,12 @@ directives, the event bus, the service helpers and the types every control imple
 
 ## Components
 
+### sq-navbar
+
+A responsive navbar with an array-driven menu, projected branding/actions and
+animated mobile expansion. Import `NavbarComponent` and `NavbarItem` from this
+package. See the [navbar API and live example](navbar.md).
+
 ### sq-paginator
 
 A standalone component that produces a mutable view of a slice of the original collection. The source

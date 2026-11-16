@@ -8,6 +8,8 @@ export { OutsideClickListenerDirective } from './lib/directives/outside-click-li
 export { TooltipDirective } from './lib/directives/tooltip.directive';
 export type { TooltipPosition } from './lib/interfaces/tooltip-position';
 export { PaginatorComponent } from './lib/components/paginator/paginator.component';
+export { NavbarComponent } from './lib/components/navbar/navbar.component';
+export type { NavbarItem } from './lib/components/navbar/navbar.component';
 export { Size, ProgressBarSize } from './lib/interfaces/sizes';
 export { CustomEventDetails } from './lib/interfaces/custom-event-details';
 export { LabelValuePair } from './lib/interfaces/label-value-pair';

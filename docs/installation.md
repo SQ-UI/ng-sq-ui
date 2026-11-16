@@ -28,6 +28,7 @@ npm i @sq-ui/ng-progress-bar@latest --save
 | Package | Peer dependencies |
 |---|---|
 | all of the above | `@angular/core`, `@angular/common` (22.x) |
+| `@sq-ui/ng-sq-common` | `@angular/router` (22.x); configure `provideRouter` when using navbar router links |
 | `@sq-ui/ng-sq-ui`, `@sq-ui/ng-form-elements` | `@angular/forms` (22.x) |
 | any package using icons | `@fortawesome/fontawesome-free` (optional) |
 

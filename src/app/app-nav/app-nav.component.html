@@ -23,7 +23,7 @@
     @for (navItem of navItems(); track navItem.routeLink) {
       <a class="nav-item" routerLinkActive="active" ariaCurrentWhenActive="page" [routerLink]="'/' + navItem.routeLink" (click)="onClickOutsideComponent()">
         <i class="fas {{navItem.icon}}" aria-hidden="true"></i><span>{{navItem.name}}</span>
-        @if (navItem.routeLink === 'preview') { <span class="demo-nav-count">17</span> }
+        @if (navItem.routeLink === 'preview') { <span class="demo-nav-count">19</span> }
       </a>
     }
   </nav>
