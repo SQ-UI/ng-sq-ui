@@ -8,6 +8,7 @@ import { DatatableComponent } from '@sq-ui/ng-datatable';
 import { DatetimePickerComponent, TimePickerComponent, type DatetimePickerValue } from '@sq-ui/ng-datetime-picker';
 import { ModalComponent } from '@sq-ui/ng-modal';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
+import { NavbarPreviewComponent } from '../navbar-preview/navbar-preview.component';
 
 /** Focused, interactive examples shared by the hosted demo and Docsify iframes. */
 @Component({
@@ -15,7 +16,7 @@ import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
   standalone: true,
   imports: [InputComponent, DropdownComponent, TagsInputComponent, CheckboxComponent,
     ButtonComponent, PaginatorComponent, DatatableComponent, DatetimePickerComponent,
-    TimePickerComponent, ModalComponent, ProgressBarComponent],
+    TimePickerComponent, ModalComponent, ProgressBarComponent, NavbarPreviewComponent],
   templateUrl: './embed-preview.component.html',
   styleUrls: ['./embed-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

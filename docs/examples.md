@@ -12,7 +12,7 @@ Until deployment is configured, [run the same demo locally](installation.md#runn
 
 ## Live previews in the documentation
 
-The form, common, table, date/time, modal and progress API pages contain embedded
+The form, common, table, date/time, modal, progress and [navbar](navbar.md) API pages contain embedded
 Angular examples. You can edit fields, change pages, sort rows, open dialogs and
 update progress without leaving the documentation. **Open example** opens the
 same preview in a separate tab. Code remains available in this documentation and

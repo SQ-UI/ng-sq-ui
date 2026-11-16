@@ -144,7 +144,7 @@ keep production credentials out of fork PR runs.
 ## Embedded documentation examples
 
 The docs embed the demo at `/#/embed/forms`, `pagination`, `tables`, `datetime`,
-`modal` and `progress`. Publish this demo version before publishing the updated
+`modal`, `progress` and `navbar`. Publish this demo version before publishing the updated
 Docsify pages. Verify an actual iframe on the GitHub Pages docs after deployment.
 If you configure response headers in Cloudflare, allow the docs origin to frame
 the demo: `X-Frame-Options: DENY` or `SAMEORIGIN` would block these cross-origin previews.
