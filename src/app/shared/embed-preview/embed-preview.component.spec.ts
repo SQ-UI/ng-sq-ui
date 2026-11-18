@@ -51,4 +51,28 @@ describe('Embedded documentation examples', () => {
     expect(fixture.nativeElement.textContent).toContain('Example not found');
     expect(fixture.nativeElement.querySelector('a[href="#/preview"]')).not.toBeNull();
   });
+
+  it('shows live slider examples with budget filtering, form binding and release-only commits', async () => {
+    const fixture = await open('/embed/sliders');
+    const root: HTMLElement = fixture.nativeElement;
+    expect(root.querySelectorAll('[data-slider-example]')).toHaveLength(8);
+    const setValue = (selector: string, value: number) => {
+      const input = root.querySelector<HTMLInputElement>(selector)!;
+      input.value = String(value);
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return input;
+    };
+    setValue('[data-slider-example="budget"] input[data-thumb="0"]', 200);
+    setValue('[data-slider-example="forms"] input', 85);
+    const playback = setValue('[data-slider-example="commit"] input', 75);
+    await fixture.whenStable();
+    expect(root.querySelector('.stay-list')?.textContent).toContain('Seaside suite');
+    expect(root.querySelector('.stay-list')?.textContent).not.toContain('Garden apartment');
+    expect(root.querySelector('[data-slider-example="forms"] .example-result')?.textContent).toContain('85%');
+    const result = root.querySelector('[data-slider-example="commit"] .example-result');
+    expect(result?.textContent).toContain('Preview: 75% · Applied: 35%');
+    playback.dispatchEvent(new Event('change'));
+    await fixture.whenStable();
+    expect(result?.textContent).toContain('Preview: 75% · Applied: 75%');
+  });
 });

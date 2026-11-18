@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { NavItem } from '../../shared/nav-item';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
 import { environment } from '../../../environments/environment';
+import { SliderPreviewComponent } from '../../shared/slider-preview/slider-preview.component';
 
 @Component({
   selector: 'sq-common',
   standalone: true,
-  imports: [RouterLink, ModuleOverviewComponent],
+  imports: [RouterLink, ModuleOverviewComponent, SliderPreviewComponent],
   templateUrl: './sq-common.component.html',
   styleUrls: ['./sq-common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -17,6 +18,9 @@ export class SqCommonComponent {
   moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
+    { name: 'sq-slider', fragment: 'commonSliders' },
+    { name: 'sq-range-slider', fragment: 'commonSliders' },
+    { name: 'SliderRange (type)' },
     { name: 'sq-navbar', routeLink: '/preview' },
     { name: 'NavbarItem (interface)' },
     {
@@ -48,6 +52,7 @@ export class SqCommonComponent {
   ];
 
   docs: NavItem[] = [
+    { name: 'Sliders', routeLink: `${environment.docs}/sliders` },
     {
       name: 'ng-sq-common',
       routeLink: `${environment.docs}/common-module`

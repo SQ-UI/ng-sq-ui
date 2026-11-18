@@ -1,0 +1,62 @@
+<p class="slider-intro">Choose a value, narrow a range or move in steps. Drag a handle, click the track or use the arrow keys. Home and End jump to the limits.</p>
+<div class="slider-examples">
+  <article class="slider-example" data-slider-example="volume">
+    <span class="example-type">SINGLE VALUE</span><h4>Make some noise</h4>
+    <p>Adjust volume with instant feedback.</p>
+    <div class="volume-meter" aria-hidden="true">
+      @for (bar of [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; track bar) {
+        <span [class.is-active]="bar <= volume()" [style.height.px]="12 + bar * 0.35"></span>
+      }
+    </div>
+    <sq-slider controlLabel="Volume" [(value)]="volume" [formatValue]="percent" helpText="0% is muted, 100% is maximum volume."></sq-slider>
+    <details><summary>Usage</summary><pre><code>{{examples.volume}}</code></pre></details>
+  </article>
+  <article class="slider-example" data-slider-example="budget">
+    <span class="example-type">RANGE · TWO HANDLES</span><h4>Find your next stay</h4>
+    <p>Filter nightly prices with a lower and upper budget.</p>
+    <sq-range-slider controlLabel="Nightly budget" [maxValue]="500" [step]="10" [(value)]="budget" [formatValue]="currency"></sq-range-slider>
+    <ul class="stay-list" aria-label="Matching stays">
+      @for (stay of matchingStays(); track stay.name) { <li><span>{{stay.name}}</span><strong>€{{stay.price}}</strong></li> }
+      @empty { <li>No stays in this range.</li> }
+    </ul>
+    <details><summary>Usage</summary><pre><code>{{examples.budget}}</code></pre></details>
+  </article>
+  <article class="slider-example" data-slider-example="rating">
+    <span class="example-type">DISCRETE · TICK MARKS</span><h4>How was your experience?</h4>
+    <p>A five-point scale with a fixed step.</p>
+    <div class="rating-stars" aria-hidden="true">@for (star of stars; track star) { <span [class.is-active]="star <= rating()">★</span> }</div>
+    <sq-slider controlLabel="Rating" [minValue]="1" [maxValue]="5" [showTicks]="true" [(value)]="rating"></sq-slider>
+    <details><summary>Usage</summary><pre><code>{{examples.rating}}</code></pre></details>
+  </article>
+  <article class="slider-example" data-slider-example="opacity">
+    <span class="example-type">DECIMAL STEPS · CUSTOM COLOR</span><h4>A lighter touch</h4>
+    <p>Fine adjustments in increments of 0.05.</p>
+    <div class="opacity-preview" aria-hidden="true"><span [style.opacity]="opacity()">Aa</span></div>
+    <sq-slider class="violet-slider" controlLabel="Opacity" [maxValue]="1" [step]="0.05" [(value)]="opacity" [formatValue]="decimalPercent"></sq-slider>
+    <details><summary>Usage</summary><pre><code>{{examples.opacity}}</code></pre></details>
+  </article>
+  <article class="slider-example" data-slider-example="forms">
+    <span class="example-type">ANGULAR SIGNAL FORMS</span><h4>Set the mood</h4>
+    <p>The slider writes directly to the form model.</p>
+    <sq-slider controlLabel="Brightness" [formField]="settingsForm.brightness" [formatValue]="percent"></sq-slider>
+    <p class="example-result">Form value: <code>{{settings().brightness}}%</code></p>
+    <details><summary>Usage</summary><pre><code>{{examples.forms}}</code></pre></details>
+  </article>
+  <article class="slider-example" data-slider-example="commit">
+    <span class="example-type">COMMIT ON RELEASE</span><h4>Pick up where you left off</h4>
+    <p>Preview immediately; apply the selection when released.</p>
+    <sq-slider controlLabel="Playback" [(value)]="progress" [formatValue]="percent" (valueCommitted)="committedProgress.set($event)"></sq-slider>
+    <p class="example-result">Preview: {{progress()}}% · Applied: {{committedProgress()}}%</p>
+    <details><summary>Usage</summary><pre><code>{{examples.commit}}</code></pre></details>
+  </article>
+  <article class="slider-example" data-slider-example="sizes">
+    <span class="example-type">THREE SIZES</span><h4>A fit for every layout</h4>
+    @for (size of sizes; track size) { <sq-slider [controlLabel]="size" [size]="size" [value]="50" [showBounds]="false"></sq-slider> }
+  </article>
+  <article class="slider-example" data-slider-example="states">
+    <span class="example-type">DISABLED · VALIDATION</span><h4>Clear in every state</h4>
+    <sq-slider controlLabel="Unavailable" [value]="40" [disabled]="true" [showBounds]="false"></sq-slider>
+    <sq-range-slider controlLabel="Locked range" [value]="[20, 80]" [disabled]="true" [showBounds]="false"></sq-range-slider>
+    <sq-slider controlLabel="Storage allocation" [value]="90" errorText="Your plan supports up to 80 GB." [showBounds]="false" [formatValue]="storageFormat"></sq-slider>
+  </article>
+</div>
