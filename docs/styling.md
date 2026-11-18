@@ -96,6 +96,7 @@ The public legacy `styles/colors` entry still exposes Sass variables, including 
 | Modal | `size="small\|medium\|large"` | Medium; widths 360/400/440px, viewport-clamped |
 | Progress | `size="small\|medium\|large"`, `variant="linear\|segmented\|steps"`, accessible `label` | Medium; tracks 4/8/12px; gray background with brand fill |
 | Paginator | `size="small\|medium\|large"`, accessible `label` | Small; items 24/30/36px with text 14/16/20px |
+| Card | `appearance="outlined\|elevated\|filled"`, `title`, `subtitle`, `actionsAlign="start\|end"` | Outlined; 16px section padding, 8px radius; [all CSS variables](card.md#css-variables) |
 
 Each `size` value is one string, for example `size="small"`; the table lists alternatives. Table and modal use the exported `Size` union. Wrapped table content, multiline fields and selected chips may grow vertically. Mobile table cards have content-driven height.
 

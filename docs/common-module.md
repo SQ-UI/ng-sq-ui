@@ -2,7 +2,7 @@
 
 > Applies to **3.x** (Angular 22).
 
-This package exports the shared pieces the other libraries build on: the paginator, the standalone
+This package exports the shared pieces the other libraries build on: cards, navigation, the paginator, the standalone
 directives, the event bus, the service helpers and the types every control implements.
 
 !> Available as standalone package [`@sq-ui/ng-sq-common`](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
@@ -15,6 +15,13 @@ directives, the event bus, the service helpers and the types every control imple
 </div>
 
 ## Components
+
+### sq-card
+
+A standalone content container with outlined, elevated and filled appearances, title/subtitle
+inputs and projected header, media, actions and footer slots. Import `CardComponent` from this
+package. Colors, padding, borders, shadows and typography have runtime CSS variables; see the
+[card API, complete variable reference and live example](card.md).
 
 ### sq-navbar
 

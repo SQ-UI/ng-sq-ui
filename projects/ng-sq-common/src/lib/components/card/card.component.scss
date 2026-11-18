@@ -1,0 +1,112 @@
+@use '../../styles/tokens' as sq;
+
+:host {
+  // Private appearance defaults leave inherited public overrides intact.
+  --_sq-card-background: #{sq.value('color-surface')};
+  --_sq-card-border-width: #{sq.value('border-width')};
+  --_sq-card-shadow: none;
+  --_sq-card-actions-justify: flex-start;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  width: var(--sq-card-width, auto);
+  max-width: var(--sq-card-max-width, none);
+  gap: var(--sq-card-gap, 0);
+  border: var(--sq-card-border-width, var(--_sq-card-border-width)) var(--sq-card-border-style, solid) var(--sq-card-border-color, #{sq.value('color-border')});
+  border-radius: var(--sq-card-border-radius, 8px);
+  background: var(--sq-card-background, var(--_sq-card-background));
+  color: var(--sq-card-color, #{sq.value('color-text')});
+  box-shadow: var(--sq-card-box-shadow, var(--_sq-card-shadow));
+  // Projected dropdowns and focus outlines may extend outside the card.
+  overflow: var(--sq-card-overflow, visible);
+  overflow-wrap: anywhere;
+  font-family: var(--sq-card-font-family, #{sq.value('font-family-sans')});
+  font-size: var(--sq-card-font-size, 14px);
+  font-weight: var(--sq-card-font-weight, #{sq.value('font-weight-regular')});
+  line-height: var(--sq-card-line-height, 24px);
+  letter-spacing: var(--sq-card-letter-spacing, #{sq.value('letter-spacing')});
+}
+
+:host([data-appearance='elevated']) {
+  --_sq-card-border-width: 0;
+  --_sq-card-shadow: #{sq.value('shadow-field')};
+}
+
+:host([data-appearance='filled']) {
+  --_sq-card-border-width: 0;
+  --_sq-card-background: #{sq.value('color-surface-subtle')};
+}
+
+:host([data-actions-align='end']) { --_sq-card-actions-justify: flex-end; }
+
+.card-header, .card-media, .card-content, .card-actions, .card-footer {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+// Angular projection comments do not prevent :empty from matching.
+.card-header:empty, .card-media:empty, .card-content:empty, .card-actions:empty, .card-footer:empty { display: none; }
+
+.card-header {
+  padding: var(--sq-card-header-padding, var(--sq-card-padding, #{sq.value('space-4')}));
+  background: var(--sq-card-header-background, transparent);
+  color: var(--sq-card-header-color, inherit);
+}
+
+.card-title {
+  margin: 0;
+  color: var(--sq-card-title-color, inherit);
+  font-family: inherit;
+  font-size: var(--sq-card-title-font-size, 20px);
+  font-weight: var(--sq-card-title-font-weight, #{sq.value('font-weight-semibold')});
+  line-height: var(--sq-card-title-line-height, 32px);
+  letter-spacing: var(--sq-card-title-letter-spacing, inherit);
+}
+
+.card-subtitle {
+  margin: 0;
+  color: var(--sq-card-subtitle-color, inherit);
+  font-family: inherit;
+  font-size: var(--sq-card-subtitle-font-size, 12px);
+  font-weight: var(--sq-card-subtitle-font-weight, #{sq.value('font-weight-regular')});
+  line-height: var(--sq-card-subtitle-line-height, 20px);
+  letter-spacing: var(--sq-card-subtitle-letter-spacing, inherit);
+}
+
+.card-title + .card-subtitle { margin-top: var(--sq-card-title-gap, #{sq.value('space-1')}); }
+
+.card-media {
+  display: grid;
+  padding: var(--sq-card-media-padding, 0);
+  background: var(--sq-card-media-background, transparent);
+  color: var(--sq-card-media-color, inherit);
+  border-radius: var(--sq-card-media-border-radius, 0);
+  overflow: var(--sq-card-media-overflow, hidden);
+}
+
+.card-content {
+  flex: 1 1 auto;
+  padding: var(--sq-card-content-padding, var(--sq-card-padding, #{sq.value('space-4')}));
+  background: var(--sq-card-content-background, transparent);
+  color: var(--sq-card-content-color, inherit);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: var(--sq-card-actions-justify, var(--_sq-card-actions-justify));
+  gap: var(--sq-card-actions-gap, #{sq.value('space-2')});
+  padding: var(--sq-card-actions-padding, var(--sq-card-padding, #{sq.value('space-4')}));
+  background: var(--sq-card-actions-background, transparent);
+  color: var(--sq-card-actions-color, inherit);
+}
+
+.card-footer {
+  padding: var(--sq-card-footer-padding, var(--sq-card-padding, #{sq.value('space-4')}));
+  border-top: var(--sq-card-footer-border-width, 0) var(--sq-card-footer-border-style, solid) var(--sq-card-footer-border-color, #{sq.value('color-border')});
+  background: var(--sq-card-footer-background, transparent);
+  color: var(--sq-card-footer-color, inherit);
+}

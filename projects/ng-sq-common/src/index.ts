@@ -6,6 +6,8 @@ export { DeviceOS } from './lib/enums/device-os.enum';
 export { InputCoreComponent } from './lib/entities/input-core-component';
 export { OutsideClickListenerDirective } from './lib/directives/outside-click-listener.directive';
 export { PaginatorComponent } from './lib/components/paginator/paginator.component';
+export { CardComponent } from './lib/components/card/card.component';
+export type { CardAppearance, CardActionsAlign } from './lib/components/card/card.component';
 export { NavbarComponent } from './lib/components/navbar/navbar.component';
 export type { NavbarItem } from './lib/components/navbar/navbar.component';
 export { Size, ProgressBarSize } from './lib/interfaces/sizes';

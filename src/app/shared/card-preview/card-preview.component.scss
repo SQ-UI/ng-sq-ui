@@ -1,0 +1,24 @@
+@use '../../../../projects/ng-sq-common/src/lib/styles/tokens' as sq;
+
+:host { display: block; min-width: 0; }
+.intro { font-size: 12px; line-height: 20px; color: var(--demo-muted); }
+.example-controls { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-block: 20px; }
+.card-examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 24px; align-items: stretch; }
+.compact { --sq-card-padding: 8px; --sq-card-title-font-size: 16px; --sq-card-title-line-height: 24px; }
+.custom-theme {
+  --sq-card-background: #202b45;
+  --sq-card-color: #ffffff;
+  --sq-card-border-color: #8b9bd9;
+  --sq-card-subtitle-color: #ccd6f0;
+  --sq-card-footer-color: #ccd6f0;
+  --sq-card-border-radius: 16px;
+  --sq-card-box-shadow: 0 4px 12px #20202026;
+}
+.card-examples p { margin: 0; padding: 0; }
+.custom-header { display: flex; align-items: center; gap: 12px; }
+.custom-header h4 { margin: 0; font-size: 16px; line-height: 24px; }
+.avatar { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: sq.value('color-brand-light'); color: sq.value('color-black'); font-weight: 600; }
+.media-example { --sq-card-media-padding: 24px; --sq-card-media-background: #{sq.value('color-brand-light')}; --sq-card-footer-border-width: 1px; }
+.card-image { display: block; width: 100%; height: 80px; object-fit: contain; }
+.content-only { align-self: start; }
+.example-status { margin-top: 20px; font-size: 12px; line-height: 20px; }
