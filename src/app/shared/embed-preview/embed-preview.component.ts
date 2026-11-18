@@ -9,6 +9,7 @@ import { DatetimePickerComponent, TimePickerComponent, type DatetimePickerValue 
 import { ModalComponent } from '@sq-ui/ng-modal';
 import { ProgressBarComponent } from '@sq-ui/ng-progress-bar';
 import { NavbarPreviewComponent } from '../navbar-preview/navbar-preview.component';
+import { SliderPreviewComponent } from '../slider-preview/slider-preview.component';
 
 /** Focused, interactive examples shared by the hosted demo and Docsify iframes. */
 @Component({
@@ -16,7 +17,7 @@ import { NavbarPreviewComponent } from '../navbar-preview/navbar-preview.compone
   standalone: true,
   imports: [InputComponent, DropdownComponent, TagsInputComponent, CheckboxComponent,
     ButtonComponent, PaginatorComponent, DatatableComponent, DatetimePickerComponent,
-    TimePickerComponent, ModalComponent, ProgressBarComponent, NavbarPreviewComponent],
+    TimePickerComponent, ModalComponent, ProgressBarComponent, NavbarPreviewComponent, SliderPreviewComponent],
   templateUrl: './embed-preview.component.html',
   styleUrls: ['./embed-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

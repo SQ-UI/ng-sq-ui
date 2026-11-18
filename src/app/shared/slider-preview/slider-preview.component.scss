@@ -1,0 +1,23 @@
+:host { display: block; min-width: 0; }
+.slider-intro { max-width: 760px; margin: 0 0 24px; font-size: 14px; line-height: 1.7; }
+.slider-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.slider-example { min-width: 0; padding: 24px; border: 1px solid var(--sq-color-border, #dcdcdc); border-radius: 12px; background: var(--sq-color-surface, #fff); }
+.example-type { color: var(--demo-muted, #616161); font-size: 10px; font-weight: 600; letter-spacing: 1px; }
+h4 { margin: 8px 0; font-size: 18px; line-height: 26px; }
+p { margin: 0 0 20px; font-size: 13px; line-height: 1.7; }
+sq-slider, sq-range-slider { margin-top: 16px; }
+.volume-meter { display: flex; align-items: flex-end; justify-content: center; gap: 6px; height: 60px; margin-bottom: 24px; }
+.volume-meter span { width: 12px; border-radius: 4px; background: var(--sq-color-border, #dcdcdc); }
+.volume-meter .is-active { background: var(--sq-color-brand, #00c474); }
+.stay-list { list-style: none; padding: 0; margin: 16px 0 0; font-size: 12px; }
+.stay-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--sq-color-border, #dcdcdc); }
+.rating-stars { display: flex; justify-content: center; gap: 8px; font-size: 32px; color: var(--sq-color-border, #dcdcdc); margin-bottom: 24px; }
+.rating-stars .is-active { color: var(--sq-color-brand, #00c474); }
+.violet-slider { --sq-slider-color: #7956c8; }
+.opacity-preview { display: grid; place-items: center; height: 76px; border-radius: 8px; background: #f1edf9; }
+.opacity-preview span { font-size: 48px; line-height: 1; font-weight: 600; color: #7956c8; }
+.example-result { margin: 16px 0 0; font-size: 12px; }
+details { margin-top: 20px; font-size: 12px; }
+summary { cursor: pointer; padding: 4px 0; }
+pre { overflow: auto; max-width: 100%; margin: 12px 0 0; padding: 12px; border-radius: 6px; background: var(--sq-color-surface-subtle, #fafafa); font-size: 11px; line-height: 1.7; }
+@media (max-width: 700px) { .slider-examples { grid-template-columns: minmax(0, 1fr); } .slider-example { padding: 20px; } }

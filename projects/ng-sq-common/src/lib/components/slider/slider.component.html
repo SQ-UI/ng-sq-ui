@@ -1,0 +1,37 @@
+<div class="slider" [class.is-range]="isRange" [class.is-disabled]="isDisabled()"
+     [class.has-error]="!!errorText()" [attr.data-size]="size()">
+  <div class="slider-heading">
+    @if (controlLabel()) {
+      <label [for]="controlId() + '-0'">{{controlLabel()}}@if (required()) { <span aria-hidden="true"> *</span> }</label>
+    }
+    @if (showValue()) {
+      <span class="slider-value" aria-hidden="true">
+        @if (isRange) { {{formatValue()(selection()[0])}} – }
+        {{formatValue()(selection()[1])}}
+      </span>
+    }
+  </div>
+  <div class="slider-control" (pointerdown)="startDrag($event, rail)" (pointermove)="moveDrag($event)"
+       (pointerup)="endDrag($event)" (pointercancel)="endDrag($event)" (lostpointercapture)="endDrag($event)">
+    <div #rail class="slider-rail" aria-hidden="true">
+      <span class="slider-fill" [style.left.%]="percent(selection()[0])" [style.right.%]="100 - percent(selection()[1])"></span>
+      @for (tick of ticks(); track $index) { <span class="slider-tick" [style.left.%]="tick"></span> }
+    </div>
+    @for (thumb of thumbs(); track thumb) {
+      <input type="range" [id]="controlId() + '-' + thumb" [name]="isRange ? name() + '-' + thumb : name()"
+             [attr.data-thumb]="thumb" [min]="minimum()" [max]="maximum()" [step]="increment()"
+             [value]="thumbValue(thumb)" [disabled]="isDisabled()" [attr.aria-label]="thumbLabel(thumb)"
+             [attr.aria-valuetext]="formatValue()(thumbValue(thumb))" [attr.aria-required]="required()"
+             [attr.aria-valuemin]="isRange && thumb === 1 ? selection()[0] : minimum()"
+             [attr.aria-valuemax]="isRange && thumb === 0 ? selection()[1] : maximum()"
+             [attr.aria-invalid]="errorText() ? true : null" [attr.aria-describedby]="descriptionId()"
+             (input)="onInput($event, thumb)" (change)="commit()">
+    }
+  </div>
+  @if (showBounds()) {
+    <div class="slider-bounds" aria-hidden="true"><span>{{formatValue()(minimum())}}</span><span>{{formatValue()(maximum())}}</span></div>
+  }
+  @if (errorText() || helpText()) {
+    <p class="slider-description" [id]="descriptionId()">{{errorText() || helpText()}}</p>
+  }
+</div>

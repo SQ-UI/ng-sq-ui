@@ -2,8 +2,8 @@
 
 > Applies to **3.x** (Angular 22).
 
-This package exports the shared pieces the other libraries build on: the paginator, the standalone
-directives, the event bus, the service helpers and the types every control implements.
+This package exports the shared pieces the other libraries build on: sliders, navbar, paginator,
+standalone directives, the event bus, service helpers and the types every control implements.
 
 !> Available as standalone package [`@sq-ui/ng-sq-common`](https://www.npmjs.com/package/@sq-ui/ng-sq-common)
 
@@ -15,6 +15,13 @@ directives, the event bus, the service helpers and the types every control imple
 </div>
 
 ## Components
+
+### sq-slider / sq-range-slider
+
+Standalone numeric sliders for a single value or a typed lower/upper tuple. Both support
+continuous feedback, steps, tick marks, three sizes, custom value formatting and Signal Forms.
+Import `SliderComponent`, `RangeSliderComponent` and `SliderRange` from this package.
+See the [slider API and usage examples](sliders.md), or try the examples on the Common page.
 
 ### sq-navbar
 
@@ -216,7 +223,8 @@ own `size`. A standalone paginator defaults to small.
 ## The form field contract
 
 Every form control (`sq-input`, `sq-textarea`, `sq-checkbox`, `sq-radiobutton`, `sq-dropdown`,
-`sq-tags-input`, `sq-typeahead`, `sq-datetime-picker`, `sq-time-picker`) declares the same inputs and
+`sq-tags-input`, `sq-typeahead`, `sq-datetime-picker`, `sq-time-picker`, `sq-slider`, `sq-range-slider`)
+declares the same inputs and
 implements the same two interfaces. That is what makes `[formField]` work without adapter code, and it
 is enforced at compile time.
 

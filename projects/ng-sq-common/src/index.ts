@@ -8,6 +8,9 @@ export { OutsideClickListenerDirective } from './lib/directives/outside-click-li
 export { PaginatorComponent } from './lib/components/paginator/paginator.component';
 export { NavbarComponent } from './lib/components/navbar/navbar.component';
 export type { NavbarItem } from './lib/components/navbar/navbar.component';
+export { SliderComponent } from './lib/components/slider/slider.component';
+export { RangeSliderComponent } from './lib/components/slider/range-slider.component';
+export type { SliderRange } from './lib/components/slider/slider-control';
 export { Size, ProgressBarSize } from './lib/interfaces/sizes';
 export { CustomEventDetails } from './lib/interfaces/custom-event-details';
 export { LabelValuePair } from './lib/interfaces/label-value-pair';
