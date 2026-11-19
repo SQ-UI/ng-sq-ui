@@ -194,7 +194,16 @@ fixed; all visual colors, spacing, borders, effects and typography are configura
 | `--sq-card-footer-border-style` | `solid` |
 
 No font is downloaded. Projected controls keep their own styling variables.
-Use `--sq-card-media-border-radius` for rounded media, or set
+The first and last nonempty sections inherit the card's corresponding outer
+corner radii, including when sections are conditionally removed. Section
+backgrounds follow these corners while projected popovers can overflow.
+`--sq-card-media-border-radius` controls the media's interior corners; its outer
+corners follow the card. Set
 `--sq-card-overflow: hidden` to clip the whole card when it contains no popovers.
+
+To run the corner and popover browser regression check, serve the built demo
+with `node scripts/serve-built-preview.mjs`, then run
+`STYLE_BASELINE_BROWSER=/path/to/chrome node scripts/check-card-preview.mjs`.
+`STYLE_BASELINE_URL` overrides the default `http://127.0.0.1:4201`.
 
 See the **Cards** section of `/#/preview` or the focused `/#/embed/card` example.

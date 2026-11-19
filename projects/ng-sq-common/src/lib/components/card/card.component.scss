@@ -110,3 +110,15 @@
   background: var(--sq-card-footer-background, transparent);
   color: var(--sq-card-footer-color, inherit);
 }
+
+// Skip empty projection wrappers so the outer surfaces follow the card's
+// corners. Radius shapes the backgrounds without clipping projected popovers.
+:host > :nth-child(1 of :not(:empty)) {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+:host > :nth-last-child(1 of :not(:empty)) {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
