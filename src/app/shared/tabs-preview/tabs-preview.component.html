@@ -1,0 +1,84 @@
+<p class="intro">Organize a workspace into focused views. Try the appearances, use the arrow keys, or add a document and close it with the × button or Delete.</p>
+
+<div class="tabs-controls" aria-label="Tabs example settings">
+  <div class="control-group"><span>Appearance</span><div class="choices">
+    @for (option of appearances; track option) {
+      <button type="button" [attr.aria-pressed]="appearance() === option" (click)="appearance.set(option)">{{option}}</button>
+    }
+  </div></div>
+  <div class="control-group"><span>Size</span><div class="choices">
+    @for (option of sizes; track option) {
+      <button type="button" [attr.aria-pressed]="size() === option" (click)="size.set(option)">{{option.toUpperCase()}}</button>
+    }
+  </div></div>
+  <div class="toggles">
+    <label><input type="checkbox" [checked]="vertical()" (change)="vertical.set(!vertical())">Vertical</label>
+    <label><input type="checkbox" [checked]="rtl()" (change)="rtl.set(!rtl())">RTL</label>
+    <label><input type="checkbox" [checked]="manual()" (change)="manual.set(!manual())">Manual activation</label>
+    <label><input type="checkbox" [checked]="preserve()" (change)="preserve.set(!preserve())">Preserve content</label>
+    <label><input type="checkbox" [checked]="stretch()" (change)="stretch.set(!stretch())">Stretch</label>
+    <label><input type="checkbox" [checked]="disabled()" (change)="disabled.set(!disabled())">Disabled</label>
+  </div>
+</div>
+
+<article class="workspace" data-tabs-example="workspace">
+  <header class="workspace-header"><div><span class="eyebrow">YOUR WORKSPACE</span><h4>Project studio</h4></div>
+    <button class="add-tab" type="button" (click)="addTab()"><span aria-hidden="true">+</span> Add tab</button>
+  </header>
+  <sq-tabs ariaLabel="Project studio" [(activeTab)]="active" [appearance]="appearance()" [size]="size()"
+           [orientation]="vertical() ? 'vertical' : 'horizontal'" [direction]="rtl() ? 'rtl' : 'ltr'"
+           [activation]="manual() ? 'manual' : 'automatic'" [preserveContent]="preserve()"
+           [disabled]="disabled()" [stretch]="stretch()" (tabClose)="closeTab($event)">
+    @for (tab of tabs(); track tab.id) {
+      <sq-tab [id]="tab.id" [label]="tab.label" [icon]="tab.icon" [badge]="tab.badge"
+              [disabled]="tab.disabled" [closable]="tab.closable">
+        <ng-template sq-tab-content>
+          @switch (tab.id) {
+            @case ('overview') {
+              <div class="panel-heading"><span class="panel-icon" aria-hidden="true">↗</span><div><h5>A little more clarity.</h5><p>Everything your team needs, one view at a time.</p></div></div>
+              <div class="metrics"><div><span>Components</span><strong>24</strong></div><div><span>In review</span><strong>8</strong></div><div><span>Completion</span><strong>86<span>%</span></strong></div></div>
+            }
+            @case ('activity') {
+              <h5>Recent activity</h5>
+              <ul class="activity-list"><li><span class="activity-dot"></span><div><strong>Design tokens updated</strong><p>The shared palette is ready for review.</p></div></li><li><span class="activity-dot"></span><div><strong>Tabs added to the library</strong><p>Keyboard navigation, flexible layouts and lazy panels.</p></div></li></ul>
+            }
+            @case ('settings') {
+              <h5>Make it yours.</h5><p>Type a draft, switch tabs, and return. “Preserve content” keeps this input's value and panel instance alive.</p>
+              <label class="draft-field">Project name<input type="text" value="Untitled project" aria-label="Project name"></label>
+            }
+            @default {
+              <h5>{{tab.label}}</h5><p>A fresh space for your next idea. Close this tab using its × button, or focus its header and press Delete.</p>
+              <label class="draft-field">Your draft<textarea rows="3" placeholder="Start writing…"></textarea></label>
+            }
+          }
+        </ng-template>
+      </sq-tab>
+    }
+  </sq-tabs>
+  <footer class="workspace-footer"><span>Active: <code>{{active()}}</code></span><span role="status">{{status()}}</span></footer>
+</article>
+
+<div class="example-grid">
+  <article class="small-example" data-tabs-example="manual">
+    <span class="eyebrow">TAKE YOUR TIME</span><h4>Manual activation</h4>
+    <p>Arrow keys move focus. Enter or Space opens the focused panel.</p>
+    <sq-tabs ariaLabel="Manual activation example" [activation]="manualActivation" appearance="pills" size="s">
+      <sq-tab id="details" label="Details">A focused header can be explored before selecting it.</sq-tab>
+      <sq-tab id="history" label="History">This panel opens after you activate the History tab.</sq-tab>
+    </sq-tabs>
+  </article>
+  <article class="small-example" data-tabs-example="nested">
+    <span class="eyebrow">A PERSONAL TOUCH</span><h4>Custom labels &amp; nested tabs</h4>
+    <p>Custom header templates and independent groups inside a panel.</p>
+    <sq-tabs ariaLabel="Custom labels example" size="s">
+      <sq-tab id="team" label="Team">
+        <ng-template sq-tab-label><span class="team-dot" aria-hidden="true"></span>Team <span class="custom-badge">Pro</span></ng-template>
+        <sq-tabs ariaLabel="Team views" appearance="pills" size="s">
+          <sq-tab id="members" label="Members">Ada, Lin and Sam are working on this project.</sq-tab>
+          <sq-tab id="roles" label="Roles">Manage your team's access and permissions here.</sq-tab>
+        </sq-tabs>
+      </sq-tab>
+      <sq-tab id="personal" label="Personal">Your own space, with the same familiar controls.</sq-tab>
+    </sq-tabs>
+  </article>
+</div>

@@ -47,6 +47,11 @@ yarn add @sq-ui/ng-sq-common
 
 ## Usage
 
+For accessible tabs, import `TabsComponent` and `TabComponent`. Optional
+`TabLabelDirective` and `TabContentDirective` support custom headers and lazy panels.
+See the [tabs API](https://sq-ui.github.io/ng-sq-ui/#/tabs) and
+[live example](https://sq-ui.dev/#/embed/tabs).
+
 Import standalone components in your component:
 
 ```

@@ -16,6 +16,14 @@ directives, the event bus, the service helpers and the types every control imple
 
 ## Components
 
+### sq-tabs / sq-tab
+
+Accessible tab groups with stable-ID selection, keyboard navigation, lazy content,
+optional state preservation, dynamic and closable tabs, custom labels, horizontal
+and vertical layouts, RTL, and three appearances and sizes. Import `TabsComponent`
+and `TabComponent`; add `TabLabelDirective` or `TabContentDirective` for templates.
+See the [tabs API and live example](tabs.md).
+
 ### sq-navbar
 
 A responsive navbar with an array-driven menu, projected branding/actions and

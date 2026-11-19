@@ -8,6 +8,10 @@ export { OutsideClickListenerDirective } from './lib/directives/outside-click-li
 export { PaginatorComponent } from './lib/components/paginator/paginator.component';
 export { NavbarComponent } from './lib/components/navbar/navbar.component';
 export type { NavbarItem } from './lib/components/navbar/navbar.component';
+export { TabsComponent } from './lib/components/tabs/tabs.component';
+export type { TabsAppearance, TabsSize, TabsOrientation, TabsActivation, TabChangeEvent, TabCloseEvent } from './lib/components/tabs/tabs.component';
+export { TabComponent } from './lib/components/tabs/tab.component';
+export { TabLabelDirective, TabContentDirective } from './lib/components/tabs/tab-template.directive';
 export { Size, ProgressBarSize } from './lib/interfaces/sizes';
 export { CustomEventDetails } from './lib/interfaces/custom-event-details';
 export { LabelValuePair } from './lib/interfaces/label-value-pair';

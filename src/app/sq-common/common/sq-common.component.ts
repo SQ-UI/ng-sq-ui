@@ -17,6 +17,9 @@ export class SqCommonComponent {
   moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
+    { name: 'sq-tabs / sq-tab', routeLink: '/preview', fragment: 'previewTabs' },
+    { name: 'TabLabelDirective / TabContentDirective' },
+    { name: 'TabChangeEvent / TabCloseEvent (interfaces)' },
     { name: 'sq-navbar', routeLink: '/preview' },
     { name: 'NavbarItem (interface)' },
     {

@@ -1,0 +1,43 @@
+<div class="tabs" [class.tabs-vertical]="orientation() === 'vertical'"
+     [class.tabs-stretch]="stretch()" [attr.data-appearance]="appearance()"
+     [attr.data-size]="size()" [attr.dir]="direction()" tabindex="-1">
+  <div class="tab-list" role="tablist" [attr.aria-label]="ariaLabelledby() ? null : ariaLabel()"
+       [attr.aria-labelledby]="ariaLabelledby()" [attr.aria-orientation]="orientation()"
+       [attr.aria-disabled]="disabled() || null" (focusout)="onListFocusOut($event)">
+    @for (tab of visibleTabs(); track tab) {
+      <div class="tab-header" role="presentation" [class.is-active]="selectedTab() === tab"
+           [class.is-disabled]="disabled() || tab.disabled()">
+        <button #tabButton class="tab-button" role="tab" type="button"
+                [id]="headerId(tab)" [attr.aria-controls]="panelId(tab)"
+                [attr.aria-selected]="selectedTab() === tab" [attr.aria-label]="tab.ariaLabel()"
+                [attr.aria-disabled]="disabled() || tab.disabled() || null"
+                [disabled]="disabled() || tab.disabled()" [tabIndex]="tabStop() === tab ? 0 : -1"
+                (click)="select(tab)" (focus)="onFocus(tab, $event)" (keydown)="onKeydown($event, tab)">
+          @if (tab.labelTemplate(); as label) {
+            <ng-container [ngTemplateOutlet]="label.template"></ng-container>
+          } @else {
+            @if (tab.icon()) { <i [class]="tab.icon()" aria-hidden="true"></i> }
+            <span class="tab-label">{{tab.label()}}</span>
+            @if (tab.badge() !== null) { <span class="tab-badge">{{tab.badge()}}</span> }
+          }
+        </button>
+        @if (tab.closable()) {
+          <button class="tab-close" type="button" [disabled]="disabled() || tab.disabled()"
+                  tabindex="-1" (focus)="onCloseFocus(tab, $event)"
+                  [attr.aria-label]="tab.closeLabel() || 'Close ' + (tab.ariaLabel() || tab.label())"
+                  (click)="requestClose(tab)"><span aria-hidden="true">×</span></button>
+        }
+      </div>
+    }
+  </div>
+  <div class="tab-panels">
+    @for (tab of visibleTabs(); track tab) {
+      <div class="tab-panel" role="tabpanel" [id]="panelId(tab)" [attr.aria-labelledby]="headerId(tab)"
+           [hidden]="selectedTab() !== tab" [tabIndex]="selectedTab() === tab ? 0 : -1">
+        @if (selectedTab() === tab || (preserveContent() && visited().has(tab))) {
+          <ng-container [ngTemplateOutlet]="tab.lazyContent()?.template || tab.body()"></ng-container>
+        }
+      </div>
+    }
+  </div>
+</div>

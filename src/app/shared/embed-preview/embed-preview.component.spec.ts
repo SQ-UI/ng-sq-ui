@@ -51,4 +51,20 @@ describe('Embedded documentation examples', () => {
     expect(fixture.nativeElement.textContent).toContain('Example not found');
     expect(fixture.nativeElement.querySelector('a[href="#/preview"]')).not.toBeNull();
   });
+
+  it('renders interactive tabs and lets consumers add and close a tab', async () => {
+    const fixture = await open('/embed/tabs');
+    expect(fixture.nativeElement.querySelector('sq-app-nav')).toBeNull();
+    const workspace: HTMLElement = fixture.nativeElement.querySelector('[data-tabs-example="workspace"]');
+    expect(workspace.querySelectorAll('[role="tab"]')).toHaveLength(4);
+    workspace.querySelector<HTMLButtonElement>('.add-tab')!.click();
+    await fixture.whenStable();
+    expect(workspace.querySelectorAll('[role="tab"]')).toHaveLength(5);
+    expect(workspace.querySelector('[role="tab"][aria-selected="true"]')?.textContent).toContain('Document 1');
+    const closes = workspace.querySelectorAll<HTMLButtonElement>('.tab-close');
+    closes[closes.length - 1].click();
+    await fixture.whenStable();
+    expect(workspace.querySelectorAll('[role="tab"]')).toHaveLength(4);
+    expect(workspace.querySelector('[role="status"]')?.textContent).toContain('Document 1 closed');
+  });
 });
