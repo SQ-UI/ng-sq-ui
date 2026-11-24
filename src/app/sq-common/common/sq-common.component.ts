@@ -2,13 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavItem } from '../../shared/nav-item';
 import { ModuleOverviewComponent } from '../../shared/module-overview/module-overview.component';
+import { TooltipPreviewComponent } from '../../shared/tooltip-preview/tooltip-preview.component';
 import { environment } from '../../../environments/environment';
 import { SliderPreviewComponent } from '../../shared/slider-preview/slider-preview.component';
 
 @Component({
   selector: 'sq-common',
   standalone: true,
-  imports: [RouterLink, ModuleOverviewComponent, SliderPreviewComponent],
+  imports: [RouterLink, ModuleOverviewComponent, TooltipPreviewComponent, SliderPreviewComponent],
   templateUrl: './sq-common.component.html',
   styleUrls: ['./sq-common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -18,11 +19,15 @@ export class SqCommonComponent {
   moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
+    { name: 'sq-card', routeLink: '/preview' },
+    { name: 'CardAppearance / CardActionsAlign (types)' },
     { name: 'sq-slider', fragment: 'commonSliders' },
     { name: 'sq-range-slider', fragment: 'commonSliders' },
     { name: 'SliderRange (type)' },
     { name: 'sq-navbar', routeLink: '/preview' },
     { name: 'NavbarItem (interface)' },
+    { name: 'sqTooltip' },
+    { name: 'TooltipPosition (type)' },
     {
       name: 'sqOutsideClickListener',
       routeLink: '/modal'

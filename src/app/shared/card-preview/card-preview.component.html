@@ -1,0 +1,25 @@
+<p class="intro">Group related content with an optional header, media, actions and footer. Try the shared spacing and color overrides.</p>
+<div class="example-controls">
+  <sq-checkbox controlLabel="Compact padding" [(value)]="compact"></sq-checkbox>
+  <sq-checkbox controlLabel="Custom card colors" [(value)]="customTheme"></sq-checkbox>
+</div>
+<div class="card-examples" [class.compact]="compact()" [class.custom-theme]="customTheme()">
+  @for (appearance of appearances; track appearance.value) {
+    <sq-card [appearance]="appearance.value" [title]="appearance.label" subtitle="Default header" actionsAlign="end">
+      <p>Shared theme colors, responsive content and configurable spacing in a standalone container.</p>
+      <sq-button sq-card-actions size="s" (click)="status.set(appearance.label + ' card saved')">Save</sq-button>
+      <sq-button sq-card-actions size="s" appearance="secondary" (click)="status.set(appearance.label + ' card dismissed')">Dismiss</sq-button>
+    </sq-card>
+  }
+  <sq-card class="media-example">
+    <div sq-card-header class="custom-header"><span class="avatar" aria-hidden="true">SQ</span><h4>Custom header and media</h4></div>
+    <img sq-card-media class="card-image" src="assets/logo.svg" alt="SQ UI logo">
+    <p>Project your own markup into each slot. Card actions remain regular buttons and links.</p>
+    <sq-button sq-card-actions size="s" (click)="status.set('Custom card opened')">Open</sq-button>
+    <small sq-card-footer>Projected footer</small>
+  </sq-card>
+  <sq-card aria-label="Content only" class="content-only">
+    <p>A simple card needs only its content. Empty sections take up no space.</p>
+  </sq-card>
+</div>
+<p class="example-status" role="status">{{status()}}</p>

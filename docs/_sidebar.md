@@ -11,6 +11,7 @@
 - [DatetimePickerModule](datetime-picker-module.md)
 - [DatatableModule](datatable-module.md)
 - [CommonModule](common-module.md)
+- [Cards](card.md)
 - [Responsive navbar](navbar.md)
 - [Sliders](sliders.md)
 - [About us](about-us.md)

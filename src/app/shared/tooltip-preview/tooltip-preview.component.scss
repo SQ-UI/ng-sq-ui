@@ -1,0 +1,21 @@
+:host { display: block; min-width: 0; }
+p { margin-bottom: 16px; font-size: 12px; line-height: 20px; color: var(--demo-muted); }
+.tooltip-examples { display: flex; flex-wrap: wrap; gap: 12px; }
+button {
+  padding: 8px 12px;
+  border: 1px solid var(--sq-color-border, #dcdcdc);
+  border-radius: var(--sq-radius-control, 4px);
+  background: var(--sq-color-surface, #fff);
+  color: var(--sq-color-text, #202020);
+  font: inherit;
+  cursor: pointer;
+}
+.tooltip-clipped-example {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 64px;
+  margin-top: 24px;
+  border: 1px dashed var(--sq-color-border, #dcdcdc);
+}

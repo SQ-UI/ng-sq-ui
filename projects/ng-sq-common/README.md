@@ -72,6 +72,34 @@ and then include them in the `imports` array of your standalone component:
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://sq-ui.dev/#/preview).
 
+### Cards
+
+Import `CardComponent` for `<sq-card title="Project" subtitle="Workspace">…</sq-card>`.
+It supports outlined, elevated and filled appearances, projected header/media/actions/footer
+slots, and CSS variables for colors, padding, borders, shadows and typography.
+See the [card API and CSS variable reference](https://sq-ui.github.io/ng-sq-ui/#/card)
+and the [card examples](https://sq-ui.dev/#/embed/card).
+
+### Tooltip
+
+Add `TooltipDirective` to your component's `imports`:
+
+```typescript
+import { TooltipDirective } from '@sq-ui/ng-sq-common';
+```
+
+```html
+<button sqTooltip="Save your changes" sqTooltipPosition="bottom">Save</button>
+```
+
+Tooltips open on hover or keyboard focus and close on Escape. Positions (`top`, `bottom`, `left`,
+`right`) flip and clamp to the visible window. Long text wraps; scrolling and resizing update the
+position. Use `[sqTooltipDisabled]="true"` to suppress a tooltip. Blank content stays hidden.
+Component hosts such as `<sq-button sqTooltip="Save changes">` associate the description with their
+focused native control. Escape dismisses the tooltip before a surrounding modal handles the key.
+Fully clipped triggers dismiss their tooltip, and open tooltips follow runtime theme changes.
+See the [tooltip API](https://sq-ui.github.io/ng-sq-ui/#/common-module?id=tooltipdirective).
+
 ### Add styles to angular.json
 
 ```json

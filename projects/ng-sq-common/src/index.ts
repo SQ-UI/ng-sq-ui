@@ -5,7 +5,11 @@
 export { DeviceOS } from './lib/enums/device-os.enum';
 export { InputCoreComponent } from './lib/entities/input-core-component';
 export { OutsideClickListenerDirective } from './lib/directives/outside-click-listener.directive';
+export { TooltipDirective } from './lib/directives/tooltip.directive';
+export type { TooltipPosition } from './lib/interfaces/tooltip-position';
 export { PaginatorComponent } from './lib/components/paginator/paginator.component';
+export { CardComponent } from './lib/components/card/card.component';
+export type { CardAppearance, CardActionsAlign } from './lib/components/card/card.component';
 export { NavbarComponent } from './lib/components/navbar/navbar.component';
 export type { NavbarItem } from './lib/components/navbar/navbar.component';
 export { SliderComponent } from './lib/components/slider/slider.component';
