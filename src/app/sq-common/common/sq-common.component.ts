@@ -18,6 +18,8 @@ export class SqCommonComponent {
   moduleName: string = 'ng-sq-common';
 
   exports: NavItem[] = [
+    { name: 'sq-card', routeLink: '/preview' },
+    { name: 'CardAppearance / CardActionsAlign (types)' },
     { name: 'sq-navbar', routeLink: '/preview' },
     { name: 'NavbarItem (interface)' },
     { name: 'sqTooltip' },
