@@ -4,6 +4,11 @@
 
 > built by developers for developers!
 
+Standalone sliders are available as `SliderComponent` (`sq-slider`, numeric value) and
+`RangeSliderComponent` (`sq-range-slider`, `SliderRange` tuple). Both support two-way `value`
+bindings, Angular Signal Forms, keyboard control, steps and three sizes.
+See the [API and examples](https://sq-ui.github.io/ng-sq-ui/#/sliders).
+
 ![angular](https://badge.fury.io/js/angular.svg)
 ![travis](https://travis-ci.com/SQ-UI/ng-sq-ui.svg?branch=master)
 [![contributions welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=flat)](https://github.com/SQ-UI/ng-sq-ui/issues)

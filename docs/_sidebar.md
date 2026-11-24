@@ -13,6 +13,7 @@
 - [CommonModule](common-module.md)
 - [Cards](card.md)
 - [Responsive navbar](navbar.md)
+- [Sliders](sliders.md)
 - [About us](about-us.md)
 - [Troubleshooting](troubleshooting.md)
 - [Demo deployment](deployment.md)
