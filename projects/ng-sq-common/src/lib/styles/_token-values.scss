@@ -40,6 +40,8 @@ $tokens: map.merge(map.merge($_palette, (
   'line-height-field-small': 20px,
   'font-size-assistive': 10px,
   'line-height-assistive': 16px,
+  'font-size-tooltip': 12px,
+  'line-height-tooltip': 20px,
   'font-size-button-medium': 14px,
   'line-height-button-medium': 24px,
   'font-weight-regular': 400,
@@ -51,6 +53,8 @@ $tokens: map.merge(map.merge($_palette, (
   'space-1': 4px,
   'space-2': 8px,
   'space-4': 16px,
+  'tooltip-padding-block': 8px,
+  'tooltip-padding-inline': 12px,
   'border-width': 1px,
   'radius-control': 4px,
 
