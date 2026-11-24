@@ -1,0 +1,10 @@
+<div class="card-header">
+  <ng-content select="[sq-card-header]">
+    @if (title()) { <h3 class="card-title">{{title()}}</h3> }
+    @if (subtitle()) { <p class="card-subtitle">{{subtitle()}}</p> }
+  </ng-content>
+</div>
+<div class="card-media"><ng-content select="[sq-card-media]"></ng-content></div>
+<div class="card-content"><ng-content></ng-content></div>
+<div class="card-actions"><ng-content select="[sq-card-actions]"></ng-content></div>
+<div class="card-footer"><ng-content select="[sq-card-footer]"></ng-content></div>

@@ -20,11 +20,12 @@ import { MultiselectPreviewComponent } from '../multiselect-preview/multiselect-
 import { PaginatorPreviewComponent } from '../paginator-preview/paginator-preview.component';
 import { TablePreviewComponent } from '../table-preview/table-preview.component';
 import { NavbarPreviewComponent } from '../navbar-preview/navbar-preview.component';
+import { CardPreviewComponent } from '../card-preview/card-preview.component';
 
 @Component({
   selector: 'sq-component-preview',
   standalone: true,
-  imports: [NavbarPreviewComponent, ButtonComponent, ChipComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
+  imports: [CardPreviewComponent, NavbarPreviewComponent, ButtonComponent, ChipComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
     TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent, PaginatorComponent,
     DatatableComponent, DatetimePickerComponent, TimePickerComponent, ModalComponent, ProgressBarComponent,
     SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective,

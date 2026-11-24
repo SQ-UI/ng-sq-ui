@@ -67,6 +67,14 @@ and then include them in the `imports` array of your standalone component:
 
 ng-sq-ui does not come with a specific font. Including the default theme is also optional. Refer to our [Live examples page](https://sq-ui.dev/#/preview).
 
+### Cards
+
+Import `CardComponent` for `<sq-card title="Project" subtitle="Workspace">…</sq-card>`.
+It supports outlined, elevated and filled appearances, projected header/media/actions/footer
+slots, and CSS variables for colors, padding, borders, shadows and typography.
+See the [card API and CSS variable reference](https://sq-ui.github.io/ng-sq-ui/#/card)
+and the [card examples](https://sq-ui.dev/#/embed/card).
+
 ### Add styles to angular.json
 
 ```json
