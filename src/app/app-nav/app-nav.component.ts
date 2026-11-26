@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { OutsideClickListenerDirective } from '@sq-ui/ng-sq-common';
 import { NavItem } from '../shared/nav-item';
+import { componentDemos } from '../catalog/component-catalog';
 
 @Component({
   selector: 'sq-app-nav',
@@ -15,6 +16,7 @@ import { NavItem } from '../shared/nav-item';
   host: { '(document:keydown.escape)': 'closeFromKeyboard()' },
 })
 export class AppNavComponent {
+  readonly demoCount = componentDemos.length;
   private readonly document = inject(DOCUMENT);
   private readonly menuButton = viewChild<ElementRef<HTMLButtonElement>>('menuButton');
   readonly navItems = input<NavItem[]>([]);

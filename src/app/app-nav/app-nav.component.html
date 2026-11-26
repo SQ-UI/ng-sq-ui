@@ -18,12 +18,12 @@
 @if (isNavOpen()) { <button type="button" class="tint" aria-label="Close navigation" (click)="onClickOutsideComponent()"></button> }
 <aside class="app-nav" id="demo-sidebar" [class.show]="isNavOpen()" aria-label="Showcase navigation"
        sqOutsideClickListener [listenForOutsideClick]="listenForOutsideClick()" (clickOutside)="onClickOutsideComponent()">
-  <div class="demo-sidebar-heading"><span>WORKSPACE</span><button type="button" class="close-btn" aria-label="Close navigation" (click)="closeFromKeyboard()"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>
+  <div class="demo-sidebar-heading"><span>COMPONENT EXPLORER</span><button type="button" class="close-btn" aria-label="Close navigation" (click)="closeFromKeyboard()"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>
   <nav aria-label="Components">
     @for (navItem of navItems(); track navItem.routeLink) {
       <a class="nav-item" routerLinkActive="active" ariaCurrentWhenActive="page" [routerLink]="'/' + navItem.routeLink" (click)="onClickOutsideComponent()">
         <i class="fas {{navItem.icon}}" aria-hidden="true"></i><span>{{navItem.name}}</span>
-        @if (navItem.routeLink === 'preview') { <span class="demo-nav-count">21</span> }
+        @if (navItem.routeLink === 'components') { <span class="demo-nav-count">{{demoCount}}</span> }
       </a>
     }
   </nav>

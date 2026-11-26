@@ -1,0 +1,49 @@
+<div class="component-detail" [attr.data-component]="demo()?.id">
+  <a class="detail-back" routerLink="/components" [queryParams]="backQuery()"><span aria-hidden="true">←</span> All components</a>
+  @if (demo(); as demo) {
+    <header class="detail-hero">
+      <span class="demo-eyebrow">{{demo.category.toUpperCase()}}</span>
+      <h1>{{demo.name}}@if (demo.id === 'tooltip') { <span>Directive</span> }</h1>
+      <p>{{demo.description}}</p>
+      <div class="detail-meta"><code>{{demo.selector}}</code><code>{{demo.package}}</code><span>{{demo.variants.length}} configurations</span></div>
+    </header>
+
+    <div class="detail-layout">
+      <nav class="detail-variants" aria-label="Component configurations">
+        <h2>Configurations</h2>
+        @for (variant of demo.variants; track variant.id) {
+          <a [routerLink]="['/components', demo.id]" [queryParams]="{ variant: variant.id }" queryParamsHandling="merge" [attr.aria-current]="variant.id === config()?.id ? 'true' : null" (click)="copyStatus.set('')">{{variant.name}}<span aria-hidden="true">→</span></a>
+        }
+        <a class="detail-compare" routerLink="/preview" [fragment]="demo.section">View all variants together <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <div class="detail-content">
+        @if (config(); as config) {
+          <section class="detail-example" aria-labelledby="configuration-title">
+            <header><div><span class="demo-eyebrow">LIVE EXAMPLE</span><h2 id="configuration-title">{{config.name}}</h2></div><button type="button" (click)="resetCount.set(resetCount() + 1)" class="detail-reset">Reset example <i class="fas fa-rotate-left" aria-hidden="true"></i></button></header>
+            <p>{{config.description}}</p>
+            <div class="detail-canvas" [class.detail-canvas-wide]="demo.id === 'datatable' || demo.id === 'navbar'">
+              @for (example of examples(); track example.key) { <sq-demo-example [demo]="demo" [config]="config"></sq-demo-example> }
+            </div>
+          </section>
+
+          <section class="detail-code" aria-label="Code example">
+            <header><h2>Use this configuration</h2><button type="button" (click)="copyCode()">Copy example <i class="far fa-copy" aria-hidden="true"></i></button></header>
+            <p class="detail-code-hint">Import the standalone component, add it to your component's imports, then use the setup and template below.</p>
+            <p class="detail-copy-status" role="status">{{copyStatus()}}</p>
+            <h3>Component setup · TypeScript</h3><pre tabindex="0" aria-label="TypeScript setup"><code>{{code().setup}}</code></pre>
+            <h3>Template · HTML</h3><pre tabindex="0" aria-label="HTML template"><code>{{code().template}}</code></pre>
+          </section>
+
+          <details class="detail-settings"><summary>Inputs used in this example <span>{{settings().length}}</span></summary><dl>@for (setting of settings(); track setting.name) { <div><dt><code>{{setting.name}}</code></dt><dd><code>{{setting.value}}</code></dd></div> }</dl></details>
+        }
+      </div>
+    </div>
+
+    @if (related().length) {
+      <section class="detail-related"><h2>Also in {{demo.category.toLowerCase()}}</h2><div>@for (item of related(); track item.id) { <a [routerLink]="['/components', item.id]" [queryParams]="backQuery()">{{item.name}} <span aria-hidden="true">↗</span></a> }</div></section>
+    }
+  } @else {
+    <section class="detail-missing"><h1>Component not found</h1><p>Browse the catalog to find an available component and its configurations.</p><a class="demo-action" routerLink="/components">Browse components</a></section>
+  }
+</div>
