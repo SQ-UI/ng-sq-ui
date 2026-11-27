@@ -2,6 +2,14 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
+    path: 'components',
+    loadComponent: () => import('./catalog/catalog.component').then(m => m.CatalogComponent)
+  },
+  {
+    path: 'components/:component',
+    loadComponent: () => import('./catalog/component-detail.component').then(m => m.ComponentDetailComponent)
+  },
+  {
     path: 'embed/:example',
     loadComponent: () => import('./shared/embed-preview/embed-preview.component').then(m => m.EmbedPreviewComponent)
   },

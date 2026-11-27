@@ -1,0 +1,37 @@
+<div class="catalog-page">
+  <header class="catalog-hero">
+    <span class="demo-eyebrow">EXPLORE SQ UI</span>
+    <h1>A component for every detail.</h1>
+    <p>Find the building block you need. Explore its configurations, try a live example and take the code into your project.</p>
+    <div class="catalog-stats"><span><strong>{{demos.length - 1}}</strong> components</span><span><strong>1</strong> tooltip directive</span><span><strong>{{variantCount}}</strong> configurations</span></div>
+    <a class="catalog-playground-link" routerLink="/preview">Compare everything in the playground <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <div class="catalog-tools">
+    <label class="catalog-search"><i class="fas fa-magnifying-glass" aria-hidden="true"></i><span class="catalog-sr-only">Search components and configurations</span><input type="search" [value]="query()" (input)="search($event)" placeholder="Search components, sizes, states…" autocomplete="off"></label>
+    <div class="catalog-filters" role="group" aria-label="Filter by category">
+      <button type="button" [attr.aria-pressed]="!category()" (click)="selectCategory('')">All <span>{{demos.length}}</span></button>
+      @for (name of categories; track name) { <button type="button" [attr.aria-pressed]="category() === name" (click)="selectCategory(name)">{{name}}</button> }
+    </div>
+    <div class="catalog-results"><span role="status">{{filtered().length}} of {{demos.length}} examples{{query() ? ' matching “' + query() + '”' : ''}}</span>@if (query() || category()) { <button type="button" (click)="clear()">Clear filters</button> }</div>
+  </div>
+
+  @for (group of groups(); track group.name) {
+    <section class="catalog-group" [attr.aria-label]="group.name">
+      <header><h2>{{group.name}}</h2><span>{{group.demos.length}} examples</span></header>
+      <div class="catalog-grid">
+        @for (demo of group.demos; track demo.id) {
+          <a class="catalog-card" [routerLink]="['/components', demo.id]" [queryParams]="{ q: query() || null, category: category() || null }">
+            <div class="catalog-card-top"><span class="catalog-icon"><i class="fas {{demo.icon}}" aria-hidden="true"></i></span><span class="catalog-card-count">{{demo.variants.length}} configurations</span></div>
+            <h3>{{demo.name}}</h3><code>{{demo.selector}}</code>
+            <p>{{demo.description}}</p>
+            <div class="catalog-variant-tags">@for (config of demo.variants.slice(0, 3); track config.id) { <span>{{config.name}}</span> }@if (demo.variants.length > 3) { <span>+{{demo.variants.length - 3}}</span> }</div>
+            <footer><span>{{demo.package}}</span><i class="fas fa-arrow-right" aria-hidden="true"></i></footer>
+          </a>
+        }
+      </div>
+    </section>
+  } @empty {
+    <section class="catalog-empty"><i class="fas fa-magnifying-glass" aria-hidden="true"></i><h2>No matching components</h2><p>Try a component name, a selector such as sq-input, or a configuration such as disabled.</p><button type="button" class="demo-action" (click)="clear()">Show all components</button></section>
+  }
+</div>

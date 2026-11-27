@@ -4,8 +4,8 @@
       <span class="demo-eyebrow">SIMPLE QUALITY UI / ANGULAR</span>
       <h1>Simple components.<br><span>Thoughtful interfaces.</span></h1>
       <p>A small, considered UI kit for your next Angular project. Flexible components, consistent details and room to make it yours.</p>
-      <div class="home-actions"><a class="demo-action primary" routerLink="/preview">Explore components <span aria-hidden="true">↗</span></a><a class="demo-action" href="https://github.com/sq-ui/ng-sq-ui" target="_blank" rel="noreferrer">View on GitHub</a></div>
-      <div class="home-meta"><span><i class="fas fa-check" aria-hidden="true"></i>Standalone components</span><span><i class="fas fa-check" aria-hidden="true"></i>Signal Forms ready</span></div>
+      <div class="home-actions"><a class="demo-action primary" routerLink="/components">Explore components <span aria-hidden="true">↗</span></a><a class="demo-action" routerLink="/preview">Open playground</a></div>
+      <div class="home-meta"><span>{{componentCount}} components + tooltip directive</span><span>{{configurationCount}} live configurations</span><span>Signal Forms ready</span></div>
     </div>
     <article class="hero-playground">
       <div class="hero-playground-top"><span><span aria-hidden="true"></span>Built with SQ UI</span><span>01 / PREVIEW</span></div>
@@ -19,11 +19,12 @@
   </section>
 
   <section class="home-library">
-    <header><div><span class="demo-eyebrow">BUILDING BLOCKS</span><h2>Less setup. More building.</h2></div><a routerLink="/preview">Browse all components <span aria-hidden="true">→</span></a></header>
+    <header><div><span class="demo-eyebrow">BUILDING BLOCKS</span><h2>Find your next building block.</h2></div><a routerLink="/components">Browse all components <span aria-hidden="true">→</span></a></header>
     <div class="home-feature-grid">
-      <a class="home-feature" routerLink="/sq-ui"><span class="home-feature-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span><h3>Form controls</h3><p>Inputs, buttons, selections and search. The everyday essentials, working together.</p><span class="home-feature-link">Explore forms <span aria-hidden="true">↗</span></span></a>
-      <a class="home-feature" routerLink="/datatable"><span class="home-feature-icon"><i class="fas fa-table" aria-hidden="true"></i></span><h3>Data & navigation</h3><p>Readable tables, flexible templates and pagination that keeps things moving.</p><span class="home-feature-link">Explore tables <span aria-hidden="true">↗</span></span></a>
-      <a class="home-feature" routerLink="/datetime-picker"><span class="home-feature-icon"><i class="fas fa-calendar-days" aria-hidden="true"></i></span><h3>Date & time</h3><p>Single dates, ranges and time controls for the moments your application needs.</p><span class="home-feature-link">Explore pickers <span aria-hidden="true">↗</span></span></a>
+      @for (category of categories; track category.name) {
+        <a class="home-feature" routerLink="/components" [queryParams]="{ category: category.name }"><span class="home-feature-icon"><i class="fas {{category.icon}}" aria-hidden="true"></i></span><h3>{{category.name}}</h3><p>{{category.description}}</p><span class="home-feature-link">{{category.count}} examples <span aria-hidden="true">↗</span></span></a>
+      }
+      <a class="home-feature" routerLink="/components"><span class="home-feature-icon"><i class="fas fa-grip" aria-hidden="true"></i></span><h3>The complete catalog</h3><p>Search by component, selector or configuration. Try each variant and copy its setup.</p><span class="home-feature-link">{{configurationCount}} configurations <span aria-hidden="true">↗</span></span></a>
     </div>
   </section>
 

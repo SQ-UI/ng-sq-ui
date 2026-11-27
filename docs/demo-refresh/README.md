@@ -1,5 +1,21 @@
 # Demo showcase refresh
 
+## Component explorer · 2026-11-25
+
+The demo now has a searchable catalog at `/#/components`, covering 20 UI components and the tooltip directive in five categories. Each entry links to a focused page with selectable live configurations, a reset action, current model values, setup/template code, a copy action and the inputs used by the example. Counts are derived from the shared demo registry.
+
+Search matches names, selectors, packages and configuration descriptions. Search and category filters live in the URL and survive opening an example and returning to the catalog. Configuration links such as `/#/components/dropdown?variant=disabled-option` support refresh and direct sharing. The complete playground and existing documentation/embed routes remain available; comparison links scroll the playground to the relevant section.
+
+The overview and sidebar now lead to the catalog. Library source code and public APIs are unchanged. Examples use local data, including typeahead suggestions.
+
+To check a built demo, start `node scripts/serve-built-preview.mjs`, set `STYLE_BASELINE_BROWSER` to a Chromium executable and run `node scripts/check-catalog-preview.mjs`. Captures and the check manifest are written to the ignored `tmp/catalog-preview` directory. `CATALOG_PREVIEW_OUTPUT` overrides the destination; `STYLE_BASELINE_URL` overrides the server address. Environments without a configured browser sandbox can explicitly set `STYLE_BASELINE_NO_SANDBOX=1`.
+
+The runner exercises every configuration on desktop, every component at 320px, layouts at 1440/960/390/320px, search and return navigation, edited values and reset, dialogs, playground anchors, horizontal overflow and browser errors. Unit tests cover URL state, fallback routes, reset behavior, live mounting of every preset and generated Angular template syntax.
+
+Validated: production library/demo builds, TypeScript and ESLint checks, all 48 test files / 387 tests, and strict Angular template/type compilation of all 98 generated standalone examples. Browser checks passed with no runtime errors or page overflow. Desktop and mobile catalog/example captures were visually inspected.
+
+## Previous showcase refresh
+
 Updated 2026-11-03. This change modernizes the Angular demo application. Published library sources under `projects/` are unchanged, and the Figma file remains read-only.
 
 ## Design

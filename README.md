@@ -14,7 +14,9 @@
 ## Docs
 
 The demo's new home is [sq-ui.dev](https://sq-ui.dev/), with the
-[component playground](https://sq-ui.dev/#/preview). See the
+[searchable component catalog](https://sq-ui.dev/#/components) and
+[component playground](https://sq-ui.dev/#/preview). The catalog groups components by purpose and provides live configurations, resettable examples, input values and copyable standalone setup/template code.
+Link directly to a configuration with `/#/components/button?variant=secondary`. See the
 [standalone examples](docs/examples.md) and [Cloudflare CI/CD setup](docs/deployment.md).
 Documentation stays on [GitHub Pages](https://sq-ui.github.io/ng-sq-ui/#/).
 

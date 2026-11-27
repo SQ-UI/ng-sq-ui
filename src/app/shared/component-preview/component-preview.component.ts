@@ -1,4 +1,7 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, afterNextRender, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { componentDemos, demoVariantCount } from '../../catalog/component-catalog';
 import { PaginatorComponent, type LabelValuePair, type Size } from '@sq-ui/ng-sq-common';
 import { ButtonComponent, ChipComponent, type ChipSize, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
   TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent,
@@ -27,7 +30,7 @@ import { SliderPreviewComponent } from '../slider-preview/slider-preview.compone
 @Component({
   selector: 'sq-component-preview',
   standalone: true,
-  imports: [CardPreviewComponent, SliderPreviewComponent, NavbarPreviewComponent, ButtonComponent, ChipComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
+  imports: [RouterLink, CardPreviewComponent, SliderPreviewComponent, NavbarPreviewComponent, ButtonComponent, ChipComponent, InputComponent, TextareaComponent, DropdownComponent, TagsInputComponent,
     TypeaheadComponent, CheckboxComponent, RadiobuttonComponent, FormGroupComponent, PaginatorComponent,
     DatatableComponent, DatetimePickerComponent, TimePickerComponent, ModalComponent, ProgressBarComponent,
     SqDropdownOptionTemplateDirective, SqDropdownSelectedOptionTemplateDirective,
@@ -40,6 +43,17 @@ import { SliderPreviewComponent } from '../slider-preview/slider-preview.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentPreviewComponent {
+  readonly demoCount = componentDemos.length - 1;
+  readonly variantCount = demoVariantCount;
+
+  constructor() {
+    const route = inject(ActivatedRoute);
+    const document = inject(DOCUMENT);
+    afterNextRender(() => {
+      const fragment = route.snapshot.fragment;
+      if (fragment) document.getElementById(fragment)?.scrollIntoView({ block: 'start' });
+    });
+  }
   readonly chipSizes: ChipSize[] = ['s', 'm', 'l'];
   readonly removableChipVisible = signal(true);
   readonly paletteGroups = [
