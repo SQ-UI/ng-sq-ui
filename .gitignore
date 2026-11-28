@@ -7,6 +7,13 @@
 
 # dependencies
 /node_modules
+/tools/mcp-server/node_modules/
+/tools/mcp-server/build/
+/tools/mcp-server/content/
+/tools/mcp-server/skills/
+/tools/mcp-server/*.tgz
+/.sq-ui-mcp/
+/examples/generated/
 
 # IDEs and editors
 .idea

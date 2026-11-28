@@ -27,7 +27,7 @@
     border-radius: sq.value('radius-control');
     background: transparent;
     color: sq.value('color-text');
-    &.current { background: sq.value('color-brand'); color: sq.value('color-white'); }
+    &.current { background: sq.value('color-brand'); color: sq.value('color-on-brand'); }
     &.truncated { display: none; }
     &.gap { display: flex; align-items: center; justify-content: center; }
     button {

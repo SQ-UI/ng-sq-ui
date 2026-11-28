@@ -27,6 +27,12 @@ $_palette: map.merge((
 $tokens: map.merge(map.merge($_palette, (
   'color-text': map.get($_palette, 'color-black'),
   'color-surface': map.get($_palette, 'color-white'),
+  // Semantic action roles can change with a theme without redefining palette white/black.
+  'color-on-brand': map.get($_palette, 'color-white'),
+  'color-action-hover': map.get($_palette, 'color-black'),
+  'color-on-action-hover': map.get($_palette, 'color-white'),
+  'color-action-surface': map.get($_palette, 'color-white'),
+  'color-action-disabled-text': map.get($_palette, 'color-white'),
   'color-surface-subtle': map.get($_palette, 'color-gray-1'),
   'color-border': map.get($_palette, 'color-gray-3'),
   // Typography reference supplied on 2026-11-04. Institut's regular face is

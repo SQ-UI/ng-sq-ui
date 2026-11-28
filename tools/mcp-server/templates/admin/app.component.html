@@ -1,0 +1,24 @@
+<div class="sq app-shell">
+  <a class="skip-link" href="#main">{{text.skip}}</a>
+  <header class="app-header">
+    <a class="app-brand" [routerLink]="config.basePath + '/' + config.pages[0].id">{{config.title}}</a>
+      <div class="header-actions">
+        <label for="theme-mode">{{text.theme}}</label>
+        <select id="theme-mode" [value]="theme.mode()" (change)="theme.set($any($event.target).value)">
+          @for (mode of config.themeModes; track mode) { <option [value]="mode">{{text[mode]}}</option> }
+        </select>
+      </div>
+    <button #menuButton type="button" class="mobile-menu" aria-controls="app-navigation" [attr.aria-expanded]="expanded()" (click)="expanded.set(!expanded())">{{text.menu}}</button>
+  </header>
+  <div class="app-layout">
+    <aside id="app-navigation" [class.is-open]="expanded()">
+      <nav [attr.aria-label]="text.navigation">
+        @for (page of config.pages; track page.id) {
+          <a [routerLink]="config.basePath + '/' + page.id" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" (click)="closeMenu()">{{page.label}}</a>
+        }
+      </nav>
+      <p class="sidebar-note">ng-sq-ui · {{text.demo}}</p>
+    </aside>
+    <main id="main" tabindex="-1"><router-outlet /></main>
+  </div>
+</div>

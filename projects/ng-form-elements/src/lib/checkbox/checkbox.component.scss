@@ -60,7 +60,7 @@ sq-checkbox .checkable {
     margin: 0;
     border: sq.value('border-width') solid sq.value('color-brand');
     border-radius: sq.value('radius-control');
-    background: sq.value('color-white');
+    background: sq.value('color-surface');
 
     > .inner {
       display: block;
@@ -68,7 +68,7 @@ sq-checkbox .checkable {
       height: 14px;
       opacity: 0;
       background: transparent;
-      color: sq.value('color-white');
+      color: sq.value('color-on-brand');
     }
   }
 

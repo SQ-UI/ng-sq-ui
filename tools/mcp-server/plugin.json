@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "sq-ui",
+  "version": "1.0.0",
+  "description": "Build themes, examples and admin interfaces using versioned ng-sq-ui APIs.",
+  "license": "MIT"
+}

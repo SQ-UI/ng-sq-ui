@@ -20,11 +20,11 @@
     text-decoration-skip-ink: auto;
   }
   @media (hover: hover) {
-    :where(a[href]:hover, a.sq-link:hover) { color: sq.value('color-black'); }
+    :where(a[href]:hover, a.sq-link:hover) { color: sq.value('color-text'); }
   }
   :where(a[href]:active, a.sq-link:active, a[aria-current]:not([aria-current='false'])) {
     --_sq-link-decoration: none;
-    color: sq.value('color-black');
+    color: sq.value('color-text');
     text-decoration-line: none;
   }
   // A disabled link must also omit href/routerLink to prevent navigation.

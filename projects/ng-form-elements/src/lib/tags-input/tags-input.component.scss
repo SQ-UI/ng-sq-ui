@@ -48,7 +48,7 @@
       padding: 0 var(--_sq-tags-chip-padding);
       border-radius: 999px;
       background: sq.value('color-brand');
-      color: sq.value('color-white');
+      color: sq.value('color-on-brand');
       line-height: var(--_sq-tags-line-height);
     }
     .tag-label {

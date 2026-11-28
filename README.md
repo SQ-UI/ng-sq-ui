@@ -13,6 +13,8 @@
 
 ## Docs
 
+For AI agents, the repository includes a [local MCP server and skills](docs/mcp/README.md) for versioned APIs, runnable examples, complete themes and admin applications. Build it with `npm ci --prefix tools/mcp-server` and `npm run mcp:build`.
+
 The demo's new home is [sq-ui.dev](https://sq-ui.dev/), with the
 [searchable component catalog](https://sq-ui.dev/#/components) and
 [component playground](https://sq-ui.dev/#/preview). The catalog groups components by purpose and provides live configurations, resettable examples, input values and copyable standalone setup/template code.

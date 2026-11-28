@@ -10,7 +10,7 @@
   padding: 0 8px;
   border-radius: 999px;
   background: var(--sq-chip-background, #{sq.value('color-brand')});
-  color: sq.value('color-white');
+  color: sq.value('color-on-brand');
   font-family: sq.value('font-family-sans');
   font-size: 14px;
   font-weight: sq.value('font-weight-regular');
@@ -47,8 +47,8 @@
 .chip-remove:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 @media (hover: hover) {
-  :host(:hover:not([aria-disabled='true'])) { background: sq.value('color-black'); }
+  :host(:hover:not([aria-disabled='true'])) { background: sq.value('color-action-hover'); color: sq.value('color-on-action-hover'); }
 }
-:host(:focus-within:not([aria-disabled='true'])) { background: sq.value('color-black'); }
+:host(:focus-within:not([aria-disabled='true'])) { background: sq.value('color-action-hover'); color: sq.value('color-on-action-hover'); }
 :host([aria-disabled='true']) { background: sq.value('color-disabled'); }
 .chip-remove:disabled { cursor: not-allowed; }

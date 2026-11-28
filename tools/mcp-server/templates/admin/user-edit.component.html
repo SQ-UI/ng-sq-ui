@@ -1,0 +1,9 @@
+@if (found) {
+  <div class="page-heading"><div><h1>{{text.editUser}}</h1><p>{{text.userHelp}}</p></div></div>
+  <sq-card><form (submit)="save($event)" class="editor" novalidate>
+    <sq-input [controlLabel]="text.name" [formField]="fields.name" [errorText]="submitted() && fields.name().invalid() ? text.required : ''" />
+    <sq-input [controlLabel]="text.email" type="email" [formField]="fields.email" [errorText]="submitted() && fields.email().invalid() ? text.validEmail : ''" />
+    <sq-checkbox [controlLabel]="text.active" [formField]="fields.active" />
+    <div class="row-actions"><sq-button type="submit">{{text.save}}</sq-button><a [routerLink]="usersPath">{{text.cancel}}</a></div>
+  </form></sq-card>
+} @else { <h1>404</h1><p>{{text.notFound}}</p><a [routerLink]="usersPath">{{text.back}}</a> }

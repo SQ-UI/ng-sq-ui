@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "sq-ui": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/build/cli.js", "--profile", "docs"],
+      "cwd": "${PLUGIN_ROOT}"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "@sq-ui/mcp",
+  "version": "1.0.0",
+  "description": "Versioned ng-sq-ui documentation, themes and Angular UI generation for MCP agents",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "bin": {
+    "sq-ui-mcp": "build/cli.js"
+  },
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "files": [
+    "build",
+    "content",
+    "skills",
+    "plugin.json",
+    "mcp.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "node test/browser.mjs",
+    "test:cross-browser": "node test/cross-browser.mjs",
+    "check:examples": "node test/compile-examples.mjs",
+    "start": "node build/cli.js",
+    "prepack": "npm run typecheck && npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "axe-core": "4.14.1",
+    "playwright": "1.65.1",
+    "smol-toml": "1.9.1",
+    "typescript": "6.0.3",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0",
+    "@types/node": "24.19.4",
+    "esbuild": "0.28.2"
+  }
+}

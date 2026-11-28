@@ -1,0 +1,33 @@
+@switch (route.snapshot.data['recipe']) {
+  @case ('dashboard-summary') {
+    <div class="page-heading"><div><p class="eyebrow">{{text.overview}}</p><h1>{{text.dashboard}}</h1><p>{{text.welcome}}</p></div><span>{{date | date:'mediumDate':undefined:config.locale}}</span></div>
+    <section class="summary-grid" [attr.aria-label]="text.summary">
+      <sq-card [title]="text.users"><p class="metric">{{store.users().length}}</p><p>{{text.totalUsers}}</p></sq-card>
+      <sq-card [title]="text.active"><p class="metric">{{activeUsers()}}</p><p>{{text.activeUsers}}</p></sq-card>
+      <sq-card [title]="text.workspace"><p class="metric">{{store.preferences().name}}</p><p>{{text.demo}}</p></sq-card>
+    </section>
+    <sq-card [title]="text.activity"><ul class="activity-list">@for (user of store.users().slice(0, 5); track user.id) { <li><span>{{user.name}}</span><span>{{user.active ? text.active : text.inactive}}</span></li> }</ul></sq-card>
+  }
+  @case ('crud-list') { <app-users [features]="route.snapshot.data['features']" /> }
+  @case ('settings-form') {
+    <div class="page-heading"><div><p class="eyebrow">{{text.workspace}}</p><h1>{{text.settings}}</h1><p>{{text.settingsHelp}}</p></div></div>
+    <sq-card><form (submit)="save($event)" class="editor" novalidate>
+      <sq-input [controlLabel]="text.name" [(value)]="name" [required]="true" [errorText]="submitted() && !name().trim() ? text.required : ''" />
+      <sq-input [controlLabel]="text.email" type="email" [(value)]="email" [required]="true" [errorText]="submitted() && !valid() ? text.validEmail : ''" />
+      <sq-checkbox [controlLabel]="text.notifications" [(value)]="notifications" />
+      <sq-button type="submit">{{text.save}}</sq-button>
+      @if (saved()) { <p role="status">{{text.saved}}</p> }
+    </form></sq-card>
+  }
+  @case ('login') {
+    <div class="page-heading"><div><h1>{{text.login}}</h1><p>{{text.demoAccess}}</p></div></div>
+    <sq-card><form (submit)="save($event)" class="editor" novalidate>
+      <sq-input [controlLabel]="text.name" [(value)]="name" [required]="true" />
+      <sq-input [controlLabel]="text.email" type="email" [(value)]="email" [required]="true" />
+      <sq-button type="submit">{{text.continue}}</sq-button>
+      @if (submitted() && !valid()) { <p role="alert">{{text.validEmail}}</p> }
+      @if (saved()) { <p role="status">{{text.demoAccess}}</p><a [routerLink]="config.basePath + '/' + config.pages[0].id">{{text.dashboard}}</a> }
+    </form></sq-card>
+  }
+  @default { <h1>404</h1><p>{{text.notFound}}</p><a [routerLink]="config.basePath + '/' + config.pages[0].id">{{text.back}}</a> }
+}

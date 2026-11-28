@@ -43,6 +43,44 @@ describe('ModalComponent', () => {
 
     expect(component.show()).toBe(false);
   });
+
+  it('moves focus inside, contains Tab and restores focus and scrolling on close', async () => {
+    // The shared test setup reports display:none for every element; this scenario needs visible controls.
+    vi.spyOn(window, 'getComputedStyle').mockReturnValue({ display: 'inline-block' } as CSSStyleDeclaration);
+    const opener = document.createElement('button');
+    document.body.append(opener);
+    opener.focus();
+    const previousOverflow = document.body.style.overflow;
+    component.show.set(true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const close = fixture.nativeElement.querySelector('.close') as HTMLButtonElement;
+    expect(document.activeElement).toBe(close);
+    expect(document.body.style.overflow).toBe('hidden');
+    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    close.dispatchEvent(tab);
+    expect(tab.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+    component.close();
+    fixture.detectChanges();
+    expect(document.activeElement).toBe(opener);
+    expect(document.body.style.overflow).toBe(previousOverflow);
+    opener.remove();
+  });
+
+  it('closes only the top modal and retains the scroll lock for an underlying modal', async () => {
+    component.show.set(true); fixture.detectChanges();
+    const second = TestBed.createComponent(ModalComponent);
+    second.componentInstance.show.set(true); second.detectChanges();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    second.detectChanges(); fixture.detectChanges();
+    expect(second.componentInstance.show()).toBe(false);
+    expect(component.show()).toBe(true);
+    expect(document.body.style.overflow).toBe('hidden');
+    second.destroy();
+    component.close(); fixture.detectChanges();
+    expect(document.body.style.overflow).not.toBe('hidden');
+  });
 });
 
 describe('ModalComponent initially shown', () => {

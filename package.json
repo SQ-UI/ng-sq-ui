@@ -13,6 +13,13 @@
     "lint": "ng lint",
     "check:exports": "node scripts/check-package-exports.mjs",
     "check:styles": "node scripts/check-style-packages.mjs",
+    "mcp:build": "npm --prefix tools/mcp-server run build",
+    "mcp:typecheck": "npm --prefix tools/mcp-server run typecheck",
+    "mcp:lint": "eslint tools/mcp-server/src tools/ui-registry",
+    "mcp:test": "npm --prefix tools/mcp-server test",
+    "mcp:check:examples": "npm --prefix tools/mcp-server run check:examples",
+    "mcp:test:browser": "npm --prefix tools/mcp-server run test:browser",
+    "mcp:test:cross-browser": "npm --prefix tools/mcp-server run test:cross-browser",
     "build:libs": "ng build --configuration production ng-sq-common && ng build --configuration production ng-form-elements && ng build --configuration production ng-progress-bar && ng build --configuration production ng-modal && ng build --configuration production ng-datetime-picker && ng build --configuration production ng-datatable && ng build --configuration production ng-sq-ui",
     "build:app:prod": "npm run build:libs && ng build"
   },

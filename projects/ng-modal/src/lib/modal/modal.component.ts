@@ -1,11 +1,14 @@
 import {
   Component, ViewEncapsulation,
   ChangeDetectionStrategy,
-  model, input, effect, signal, computed
+  model, input, effect, signal, computed, inject, ElementRef, afterRenderEffect
 } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
 import { OutsideClickListenerDirective, generateFormFieldId } from '@sq-ui/ng-sq-common';
 import type { Size } from '@sq-ui/ng-sq-common';
+
+const openModals: ModalComponent[] = [];
+const scrollLocks = new WeakMap<Document, { count: number; previous: string }>();
 
 @Component({
   selector: 'sq-modal',
@@ -16,10 +19,13 @@ import type { Size } from '@sq-ui/ng-sq-common';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '(document:keydown.escape)': 'onEscape()',
+    '(document:keydown.escape)': 'onEscape($event)',
+    '(document:keydown)': 'onDocumentKeydown($event)',
   },
 })
 export class ModalComponent {
+  private readonly document = inject(DOCUMENT);
+  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
   readonly titleId = generateFormFieldId();
   show = model<boolean>(false);
   size = input<Size>('medium');
@@ -88,6 +94,34 @@ export class ModalComponent {
 
       onCleanup(() => clearTimeout(timerId));
     });
+
+    effect(onCleanup => {
+      if (!this.show()) return;
+      const opener = this.document.activeElement as HTMLElement | null;
+      openModals.push(this);
+      const lock = scrollLocks.get(this.document) ?? { count: 0, previous: this.document.body.style.overflow };
+      lock.count += 1;
+      scrollLocks.set(this.document, lock);
+      this.document.body.style.overflow = 'hidden';
+      onCleanup(() => {
+        const wasTop = openModals.at(-1) === this;
+        const index = openModals.indexOf(this);
+        if (index >= 0) openModals.splice(index, 1);
+        lock.count -= 1;
+        if (lock.count === 0) {
+          this.document.body.style.overflow = lock.previous;
+          scrollLocks.delete(this.document);
+        }
+        if (wasTop && opener?.isConnected) opener.focus();
+      });
+    });
+
+    afterRenderEffect(() => {
+      if (!this.show() || openModals.at(-1) !== this) return;
+      const dialog = this.element.nativeElement.querySelector<HTMLElement>('[role="dialog"]');
+      const target = dialog?.querySelector<HTMLElement>('[autofocus]') ?? this.focusable()[0] ?? dialog;
+      target?.focus();
+    });
   }
 
   close() {
@@ -98,14 +132,31 @@ export class ModalComponent {
     this.show.set(true);
   }
 
-  onEscape() {
-    if (this.show()) {
+  onEscape(event?: Event) {
+    if (!event?.defaultPrevented && this.show() && openModals.at(-1) === this) {
       this.close();
     }
   }
 
   onClickOutsideComponent() {
+    if (openModals.at(-1) !== this) return;
     this.listenForOutsideClick.set(false);
     this.close();
+  }
+
+  private focusable(): HTMLElement[] {
+    return Array.from(this.element.nativeElement.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'))
+      .filter(element => !element.closest('[hidden], [inert]') && this.document.defaultView?.getComputedStyle(element).display !== 'none');
+  }
+
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'Tab' || !this.show() || openModals.at(-1) !== this) return;
+    const elements = this.focusable();
+    const first = elements[0], last = elements.at(-1);
+    if (!first || !last) { event.preventDefault(); this.element.nativeElement.querySelector<HTMLElement>('[role="dialog"]')?.focus(); return; }
+    const active = this.document.activeElement;
+    if (!this.element.nativeElement.contains(active) || (event.shiftKey && active === first) || (!event.shiftKey && active === last)) {
+      event.preventDefault(); (event.shiftKey ? last : first).focus();
+    }
   }
 }

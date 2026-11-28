@@ -55,6 +55,45 @@ jobs:
       - name: Run the unit tests
         run: npm test
 
+      - name: Install MCP server dependencies
+        run: npm ci --prefix tools/mcp-server
+
+      - name: Build the source-backed MCP registry and server
+        run: npm run mcp:build
+
+      - name: Check the MCP server types and code
+        run: |
+          npm run mcp:typecheck
+          npm run mcp:lint
+
+      - name: Verify MCP clients and generated Angular examples
+        run: |
+          npm run mcp:test
+          npm run mcp:check:examples
+
+      - name: Install the browser for generated UI checks
+        run: npm exec --prefix tools/mcp-server -- playwright install --with-deps chromium firefox webkit
+
+      - name: Verify generated admin behavior and accessibility
+        run: |
+          npm run mcp:test:browser
+          npm run mcp:test:cross-browser
+
+      - name: Verify the MCP npm package in a clean consumer
+        run: node tools/mcp-server/test/package.mjs
+
+      - name: Save MCP UI validation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-ui-validation
+          path: |
+            .sq-ui-mcp/reports
+            .sq-ui-mcp/screenshots
+          if-no-files-found: ignore
+          include-hidden-files: true
+          retention-days: 7
+
       - name: Save verified demo build
         if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4

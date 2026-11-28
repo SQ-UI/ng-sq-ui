@@ -5,7 +5,7 @@ const angular = require("angular-eslint");
 module.exports = tseslint.config(
   {
     // Generated output (coverage reports, built packages) is never linted.
-    ignores: ["**/coverage/**", "dist/**", "out-tsc/**"],
+    ignores: ["**/coverage/**", "dist/**", "out-tsc/**", "tools/mcp-server/build/**", "tools/mcp-server/content/**", "examples/generated/**"],
   },
   {
     files: ["**/*.ts"],

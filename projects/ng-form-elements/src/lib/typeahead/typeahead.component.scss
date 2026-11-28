@@ -110,7 +110,7 @@
     padding: 0 var(--_sq-multi-chip-padding);
     border-radius: 999px;
     background: sq.value('color-brand');
-    color: sq.value('color-white');
+    color: sq.value('color-on-brand');
     .content { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .remove { display: inline-flex; align-items: center; justify-content: center; flex: none; padding: 0; min-height: var(--_sq-multi-line); width: var(--_sq-multi-cross); }
     .fa-times { font-size: var(--_sq-multi-cross); }
@@ -141,7 +141,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     border-radius: sq.value('radius-control');
-    background: sq.value('color-white');
+    background: sq.value('color-surface');
     color: sq.value('color-text');
     box-shadow: 0 2px 4px rgba(32, 32, 32, 0.2);
     scrollbar-width: thin;
@@ -151,7 +151,7 @@
     [role='option'].active { background: sq.value('color-brand-light'); }
     .option { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; padding: 0; background: transparent; }
     .option-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .typeahead-check { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 20px; height: 20px; border: 1px solid sq.value('color-brand'); border-radius: sq.value('radius-control'); background: sq.value('color-white'); color: sq.value('color-white'); }
+    .typeahead-check { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 20px; height: 20px; border: 1px solid sq.value('color-brand'); border-radius: sq.value('radius-control'); background: sq.value('color-surface'); color: sq.value('color-on-brand'); }
     .typeahead-check svg { width: 14px; height: 14px; opacity: 0; }
     .option-selected .typeahead-check { background: sq.value('color-brand'); }
     .option-selected .typeahead-check svg { opacity: 1; }

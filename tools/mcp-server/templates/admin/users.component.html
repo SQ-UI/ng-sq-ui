@@ -1,0 +1,39 @@
+<div class="page-heading"><div><p class="eyebrow">{{text.workspace}}</p><h1>{{text.users}}</h1><p>{{text.usersHelp}}</p></div>
+  @if (features().includes('edit')) { <a class="action-link" [routerLink]="usersPath + '/new'">{{text.addUser}}</a> }
+</div>
+<sq-card>
+  <div class="toolbar">
+    @if (features().includes('search')) { <sq-input [controlLabel]="text.search" [(value)]="query" (valueChange)="resetPage()" /> }
+    @if (features().includes('filter')) { <div class="filter-control"><label for="user-status">{{text.status}}</label><select id="user-status" [value]="filter()" (change)="filter.set($any($event.target).value); resetPage()"><option value="all">{{text.all}}</option><option value="active">{{text.active}}</option><option value="inactive">{{text.inactive}}</option></select></div> }
+    @if (features().includes('sort')) { <div class="filter-control"><label for="user-sort">{{text.sort}}</label><select id="user-sort" [value]="sort()" (change)="sort.set($any($event.target).value); resetPage()"><option value="name-asc">{{text.ascending}}</option><option value="name-desc">{{text.descending}}</option></select></div> }
+    <button type="button" (click)="store.reload()">{{text.reload}}</button>
+    <button type="button" (click)="store.status.set('error')">{{text.simulateError}}</button>
+  </div>
+  @if (store.notice()) { <p role="status">{{store.notice()}}</p> }
+  @switch (store.status()) {
+    @case ('loading') { <sq-progress-bar [infinite]="true" [label]="text.loading" /><p role="status">{{text.loading}}</p> }
+    @case ('error') { <p role="alert">{{text.loadError}}</p><sq-button (click)="store.reload()">{{text.retry}}</sq-button> }
+    @default {
+      <p role="status" class="result-count">{{filtered().length}} {{text.results}}</p>
+      @if (filtered().length) {
+        <sq-datatable [items]="[]">
+          <ng-template sq-datatable-header><tr><th scope="col">{{text.name}}</th><th scope="col">{{text.email}}</th><th scope="col">{{text.status}}</th><th scope="col">{{text.actions}}</th></tr></ng-template>
+          <ng-template sq-datatable-body>
+            @for (user of rows(); track user.id) {
+              <tr [attr.data-user-id]="user.id"><td [attr.data-heading]="text.name">{{user.name}}</td><td [attr.data-heading]="text.email">{{user.email}}</td><td [attr.data-heading]="text.status"><span class="status-badge">{{user.active ? text.active : text.inactive}}</span></td><td [attr.data-heading]="text.actions" class="row-actions">
+                @if (features().includes('edit')) { <a [routerLink]="usersPath + '/' + user.id" [attr.aria-label]="text.edit + ' ' + user.name">{{text.edit}}</a> }
+                @if (features().includes('delete')) { <button type="button" (click)="requestDelete(user)" [attr.aria-label]="text.delete + ' ' + user.name">{{text.delete}}</button> }
+              </td></tr>
+            }
+          </ng-template>
+        </sq-datatable>
+        @if (features().includes('paginate')) { <sq-paginator [items]="filtered()" [itemsPerPage]="pageSize()" [currentPage]="safePage()" (pageChange)="currentPage.set($event.page)" [label]="text.pagination" /> }
+      } @else { <div class="empty-state"><h2>{{text.empty}}</h2><p>{{text.emptyHelp}}</p></div> }
+    }
+  }
+</sq-card>
+<sq-modal [(show)]="dialog">
+  <h2 sq-modal-title>{{text.deleteConfirm}}</h2>
+  <p sq-modal-body>{{text.deleteHelp}} {{target()?.name}}</p>
+  <div sq-modal-footer class="row-actions"><sq-button appearance="secondary" (click)="dialog.set(false)">{{text.cancel}}</sq-button><sq-button tone="critical" (click)="confirmDelete()">{{text.confirm}}</sq-button></div>
+</sq-modal>

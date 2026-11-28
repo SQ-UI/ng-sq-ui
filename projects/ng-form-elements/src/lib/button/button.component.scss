@@ -10,7 +10,7 @@
   border: 0;
   border-radius: sq.value('radius-control');
   background: var(--sq-button-color, var(--sq-button-tone, #{sq.value('color-brand')}));
-  color: sq.value('color-white');
+  color: sq.value('color-on-brand');
   text-transform: none;
   vertical-align: middle;
   cursor: pointer;
@@ -26,7 +26,7 @@
     padding: var(--sq-button-padding-block, 8px) var(--sq-button-padding-inline, 32px);
   }
   &.sq-button-secondary {
-    background: sq.value('color-white');
+    background: sq.value('color-action-surface');
     color: var(--sq-button-color, var(--sq-button-tone, #{sq.value('color-brand')}));
     // An inset outline preserves identical dimensions across appearances/sizes.
     box-shadow: inset 0 0 0 #{sq.value('border-width')} currentColor;
@@ -37,17 +37,17 @@
   }
   @media (hover: hover) {
     &:hover:not(:disabled) {
-      background: sq.value('color-black');
-      color: sq.value('color-white');
+      background: sq.value('color-action-hover');
+      color: sq.value('color-on-action-hover');
     }
     &.sq-button-secondary:hover:not(:disabled) {
-      background: sq.value('color-white');
-      color: sq.value('color-black');
+      background: sq.value('color-action-surface');
+      color: sq.value('color-action-hover');
     }
   }
   &:disabled {
     background: sq.value('color-disabled');
-    color: sq.value('color-white');
+    color: sq.value('color-action-disabled-text');
     cursor: not-allowed;
     &.sq-button-secondary {
       background: sq.value('color-surface-subtle');
